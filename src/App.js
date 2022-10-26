@@ -2,9 +2,10 @@ import logo from './logo.svg';
 import './App.css';
 import './fonts/Vazir.ttf';
 
-function App() {
+function App() { // functional base component
   return (
-    <div className="App">
+    <div className="App"> 
+    {/* className instead of class in JSX */}
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -18,6 +19,9 @@ function App() {
         >
           Learn React
         </a>
+        <>
+          <h1>سلام</h1>
+        </>
       </header>
     </div>
   );
