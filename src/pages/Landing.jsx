@@ -19,7 +19,7 @@ const Landing = () => {
             </Grid>
           ))}
         </Grid> */}
-        {/* <RecipeReviewCard /> */}
+        <RecipeReviewCard />
       </div>
     </div>
   );
