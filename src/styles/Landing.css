@@ -1,6 +1,9 @@
-.centered {
-    height: 100vh; /* Magic here */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.cards {
+  margin-top: 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  row-gap: 50px;
+  justify-items: center;
+  /* justify-content: center;
+  align-items: center; */
+}
