@@ -1,0 +1,29 @@
+.top-section {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  height: 500px;
+}
+
+.top-el {
+  /* width: 100px; */
+  flex: 1 1 auto;
+}
+
+.top-el-1 {
+  background-color: white;
+}
+
+.top-el-2 {
+  background: #076585; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #076585, #fff);
+  background: linear-gradient(to right, #076585, #fff);
+}
+
+.sign-up-btn {
+  margin-top: 20px;
+}
+
+#exampleInputEmail1 {
+  width: 50%;
+}

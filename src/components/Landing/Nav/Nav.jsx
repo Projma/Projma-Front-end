@@ -7,3 +7,4 @@ const Nav = () => {
 };
 
 export default Nav;
+//Todo: nav should be positioned absolute
