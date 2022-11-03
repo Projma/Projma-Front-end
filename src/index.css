@@ -19,3 +19,8 @@ code {
     monospace; */
   font-family: "Vazir";
 }
+
+* {
+  margin: 0%;
+  padding: 0%;
+}

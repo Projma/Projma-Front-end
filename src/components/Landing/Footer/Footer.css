@@ -1,0 +1,12 @@
+.test {
+    color: red;
+}
+
+.margin--5 {
+    margin-top: 5px;
+}
+
+.margin--top--bottom {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
