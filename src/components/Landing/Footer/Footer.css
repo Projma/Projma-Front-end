@@ -1,12 +1,12 @@
-.test {
-    color: red;
-}
-
 .margin--5 {
-    margin-top: 5px;
+  margin-top: 5px;
 }
 
 .margin--top--bottom {
-    margin-top: 10px;
-    margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.responsive--font--size--1 {
+  font-size: 1vw;
 }

@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   background-color: white;
-  height: 500px;
+  height: auto;
 }
 
 .top-el {
@@ -26,10 +26,15 @@
   object-fit: cover;
 }
 
-.sign-up-btn {
-  margin-top: 20px;
+.top-el-img img {
+  width: 100%;
+  height: 100%;
 }
 
 #exampleInputEmail1 {
   width: 50%;
+}
+
+.responsive--font--size--2 {
+  font-size: 2vw;
 }
