@@ -4,14 +4,14 @@ import "./Header.css";
 import TextField from "@mui/material/TextField";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
-
+import x from "../../../static/images/landing1.jpg";
 const Header = () => {
   return (
     <header>
       <Nav />
       <div className="top-section">
-        <div className="top-el top-el-1">
-          <img src="../../../static/images/abc.jpg" />
+        <div className="top-el top-el-1 top-el-img">
+          <img src={x} />
         </div>
         <div className="top-el top-el-2">
           <Box
