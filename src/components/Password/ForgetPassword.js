@@ -75,6 +75,7 @@ const ForgetPassword = () => {
                 label="آدرس ایمیل"
                 placeholder="آدرس ایمیل خود را وارد کنید"
                 name="email"
+                type="email"
                 autoComplete="email"
                 autoFocus
                 sx={{

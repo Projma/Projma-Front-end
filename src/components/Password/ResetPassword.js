@@ -75,6 +75,7 @@ const ForgetPassword = () => {
                 label="رمز عبور جدید"
                 placeholder="رمز عبور خود را وارد کنید"
                 name="password"
+                type="password"
                 autoFocus
                 sx={{
                   input: {
@@ -89,8 +90,8 @@ const ForgetPassword = () => {
                 id="confirm-password"
                 label="تکرار رمز عبور جدید"
                 placeholder="رمز عبور خود را دوباره وارد کنید"
-                name="email"
-                autoComplete="email"
+                name="password"
+                type="password"
                 autoFocus
                 sx={{
                   input: {
