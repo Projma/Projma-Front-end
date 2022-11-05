@@ -4,7 +4,7 @@ import "./Header.css";
 import TextField from "@mui/material/TextField";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
-import x from "../../../static/images/landing1.jpg";
+import x from "../../../static/images/landing/landing1.jpg";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
@@ -31,11 +31,6 @@ const Header = () => {
           // spacing={{ xs: 1, md: 10, sm: 5 }}
           columns={{ xs: 2, sm: 4, md: 5 }}
         >
-          <Grid item xs={2} sm={4} md={3}>
-            {/* <div className="top-el top-el-1 top-el-img"> */}
-            <img src={x} className="responsive--height top-img" />
-            {/* </div> */}
-          </Grid>
           <Grid
             item
             xs={2}
@@ -87,6 +82,12 @@ const Header = () => {
             </Box>
             {/* </div> */}
           </Grid>
+          <Grid item xs={2} sm={4} md={3}>
+            {/* <div className="top-el top-el-1 top-el-img"> */}
+            <img src={x} className="responsive--height top-img" />
+            {/* </div> */}
+          </Grid>
+
         </Grid>
       </div>
     </header>
