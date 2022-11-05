@@ -4,6 +4,7 @@ import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
 import "./Footer.css";
 import Divider from "@mui/material/Divider";
+
 const Footer = () => {
   return (
     <>
@@ -23,7 +24,7 @@ const Footer = () => {
             // marginLeft: "35%",
             backgroundColor: "#91B9E3",
             display: "flex",
-            alignItems: "center",
+            alignItems: "flex-start",
             justifyContent: "center",
             gap: "5%",
             flexBasis: "58%",
