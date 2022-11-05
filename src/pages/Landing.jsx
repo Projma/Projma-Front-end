@@ -5,6 +5,7 @@ import "../styles/Landing.css";
 import Grid from "@mui/material/Grid"; // Grid version 1
 import Container from "@mui/material/Container";
 import Footer from "../components/Landing/Footer/Footer";
+import x from "../static/images/cards/paella.jpg";
 
 const Landing = () => {
   return (
@@ -35,7 +36,12 @@ const Landing = () => {
             <RecipeReviewCard />
           </Grid>
           <Grid item xs={2} sm={4} md={4}>
-            <RecipeReviewCard />
+            <RecipeReviewCard
+              image={x}
+              text={text3}
+              detail={detail3}
+              title={title3}
+            />
           </Grid>
         </Grid>
       </Container>
@@ -45,3 +51,11 @@ const Landing = () => {
 };
 
 export default Landing;
+const text3 = `تسکولو به کمک امکانات گسترده خود، چون گزارش روزانه، دسته‌بندی کارها،
+          تعیین ددلاین، ارتباطات درون تیمی مستمر و موثر به محیط کاری شما نظم
+          بخشیده به تکمیل کارها و کنترل پروژه سرعت می‌بخشد. همچنین تسکولو
+          می‌تواند یک ابزار دورکاری بسیار مناسب برای مدیریت دورکاری تیم شما
+          باشد.`;
+
+const detail3 = `جزئیات`;
+const title3 = `پروژما`;
