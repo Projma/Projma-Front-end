@@ -38,8 +38,8 @@ const Header = () => {
             md={2}
             sx={{
               background: "#076585" /* fallback for old browsers */,
-              background: "-webkit-linear-gradient(to right, #076585, #fff)",
-              background: "linear-gradient(to right, #076585, #fff)",
+              background: "-webkit-linear-gradient(to left, #076585, #fff)",
+              background: "linear-gradient(to left, #076585, #fff)",
             }}
           >
             {/* <div className="top-el top-el-2"> */}
@@ -53,7 +53,7 @@ const Header = () => {
               </h1>
               <CacheProvider value={cacheRtl}>
                 <ThemeProvider theme={theme}>
-                  <StyledTextField 
+                  <StyledTextField
                     margin="normal"
                     required
                     fullWidth
@@ -64,8 +64,8 @@ const Header = () => {
                     autoComplete="email"
                     autoFocus
                     sx={{ width: "60%", display: "block" }}
-                    InputLabelProps={{style: {fontFamily: "Vazir"}}}
-                    InputProps={{style: {fontFamily: "Vazir"}}}
+                    InputLabelProps={{ style: { fontFamily: "Vazir" } }}
+                    InputProps={{ style: { fontFamily: "Vazir" } }}
                   />
                 </ThemeProvider>
               </CacheProvider>
@@ -90,7 +90,6 @@ const Header = () => {
             <img src={x} className="responsive--height top-img" />
             {/* </div> */}
           </Grid>
-
         </Grid>
       </div>
     </header>
