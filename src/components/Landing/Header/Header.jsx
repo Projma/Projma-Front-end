@@ -11,6 +11,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import StyledTextField from "../StyledTextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Grid from "@mui/material/Grid"; // Grid version 1
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -25,49 +26,68 @@ const Header = () => {
     <header>
       <Nav />
       <div className="top-section">
-        <div className="top-el top-el-1 top-el-img">
-          <img src={x} className="responsive--height" />
-        </div>
-        <div className="top-el top-el-2">
-          <Box
+        <Grid
+          container
+          // spacing={{ xs: 1, md: 10, sm: 5 }}
+          columns={{ xs: 2, sm: 4, md: 5 }}
+        >
+          <Grid item xs={2} sm={4} md={3}>
+            {/* <div className="top-el top-el-1 top-el-img"> */}
+            <img src={x} className="responsive--height top-img" />
+            {/* </div> */}
+          </Grid>
+          <Grid
+            item
+            xs={2}
+            sm={4}
+            md={2}
             sx={{
-              marginRight: "5%",
-              marginTop: "15%",
+              background: "#076585" /* fallback for old browsers */,
+              background: "-webkit-linear-gradient(to right, #076585, #fff)",
+              background: "linear-gradient(to right, #076585, #fff)",
             }}
           >
-            <h1 className="responsive--font--size--2">
-              با پروجما کیفیت کار تیمی خود را ارتقا دهید
-            </h1>
-            <CacheProvider value={cacheRtl}>
-              <ThemeProvider theme={theme}>
-                <StyledTextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="ایمیل"
-                  placeholder="آدرس ایمیل خود را وارد کنید"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                  sx={{ width: "60%", display: "block" }}
-                />
-              </ThemeProvider>
-            </CacheProvider>
-            <Button
-              variant="contained"
+            {/* <div className="top-el top-el-2"> */}
+            <Box
               sx={{
-                height: 54,
-                width: 150,
-                fontSize: "90%",
-                width: "30%",
-                height: "100%",
+                padding: "10%",
               }}
             >
-              رایگان ثبت نام کنید
-            </Button>
-          </Box>
-        </div>
+              <h1 className="responsive--font--size--2">
+                با پروجما کیفیت کار تیمی خود را ارتقا دهید
+              </h1>
+              <CacheProvider value={cacheRtl}>
+                <ThemeProvider theme={theme}>
+                  <StyledTextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="ایمیل"
+                    placeholder="آدرس ایمیل خود را وارد کنید"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                    sx={{ width: "60%", display: "block" }}
+                  />
+                </ThemeProvider>
+              </CacheProvider>
+              <Button
+                variant="contained"
+                sx={{
+                  // height: 54,
+                  // width: 150,
+                  fontSize: "90%",
+                  width: "30%",
+                  height: "100%",
+                }}
+              >
+                ثبت نام کنید
+              </Button>
+            </Box>
+            {/* </div> */}
+          </Grid>
+        </Grid>
       </div>
     </header>
   );
