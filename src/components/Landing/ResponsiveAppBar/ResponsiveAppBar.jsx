@@ -74,7 +74,7 @@ function ResponsiveAppBar() {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Menu
+                        <Menu style={{ fontFamily: 'Vazir' }}
                             id="menu-appbar"
                             anchorEl={anchorElNav}
                             anchorOrigin={{
@@ -90,11 +90,12 @@ function ResponsiveAppBar() {
                             onClose={handleCloseNavMenu}
                             sx={{
                                 display: { xs: 'block', md: 'none' },
+                                fontFamily: 'Vazir',
                             }}
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                                    <Typography textAlign="center" style={{fontFamily: 'Vazir'}}>{page}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -123,7 +124,7 @@ function ResponsiveAppBar() {
                             <Button
                                 key={page}
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                sx={{ my: 2, color: 'white', display: 'block', fontFamily: 'Vazir' }}
                             >
                                 {page}
                             </Button>
@@ -154,7 +155,7 @@ function ResponsiveAppBar() {
                         >
                             {settings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                                    <Typography textAlign="center" style={{fontFamily: 'Vazir'}}>{setting}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>

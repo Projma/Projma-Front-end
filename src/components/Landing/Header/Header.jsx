@@ -53,7 +53,7 @@ const Header = () => {
               </h1>
               <CacheProvider value={cacheRtl}>
                 <ThemeProvider theme={theme}>
-                  <StyledTextField
+                  <StyledTextField 
                     margin="normal"
                     required
                     fullWidth
@@ -64,6 +64,8 @@ const Header = () => {
                     autoComplete="email"
                     autoFocus
                     sx={{ width: "60%", display: "block" }}
+                    InputLabelProps={{style: {fontFamily: "Vazir"}}}
+                    InputProps={{style: {fontFamily: "Vazir"}}}
                   />
                 </ThemeProvider>
               </CacheProvider>
@@ -75,6 +77,7 @@ const Header = () => {
                   fontSize: "90%",
                   width: "30%",
                   height: "100%",
+                  fontFamily: "Vazir",
                 }}
               >
                 ثبت نام کنید
