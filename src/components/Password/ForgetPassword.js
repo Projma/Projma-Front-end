@@ -45,14 +45,14 @@ const ForgetPassword = () => {
       document.getElementById("em").innerHTML =
         "*آدرس ایمیل وارد شده معتبر نمی باشد";
     }
-    // const login_form_data = new FormData();
-    // login_form_data.append("email", email);
-    // axios
-    //   .post(
-    //     "http://mohammadosoolian.pythonanywhere.com/accounts/login/token/",
-    //     login_form_data
-    //   )
-    //   .then((res) => console.log(res));
+    const login_form_data = new FormData();
+    login_form_data.append("email", email);
+    axios
+      .post(
+        "http://mohammadosoolian.pythonanywhere.com/accounts/forgot-password",
+        login_form_data
+      )
+      .then((res) => console.log(res));
   };
   document.body.style.backgroundColor = "#0A1929";
   return (

@@ -69,12 +69,11 @@ const ForgetPassword = () => {
       document.getElementById("em").innerHTML = errorMessage;
     }
 
-    // ad3$B323
     const login_form_data = new FormData();
     login_form_data.append("password", password);
     axios
       .post(
-        "http://mohammadosoolian.pythonanywhere.com/accounts/login/token/",
+        "http://mohammadosoolian.pythonanywhere.com/accounts/reset-password",
         login_form_data
       )
       .then((res) => console.log(res));
