@@ -1,0 +1,30 @@
+.cards {
+  margin-top: 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  row-gap: 50px;
+  justify-items: center;
+  /* justify-content: center;
+  align-items: center; */
+}
+
+.div-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+.white-text {
+  color: white;
+}
+
+.img-box {
+  width: 500px;
+  height: 500px;
+}
+
+image {
+  width: 100%;
+  height: 100%;
+}
