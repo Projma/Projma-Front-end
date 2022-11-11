@@ -38,7 +38,7 @@ export default function RecipeReviewCard(props) {
       <CardHeader
         sx={{
           fontFamily: "Vazir",
-          color: "red",
+          color: "#173A5E",
         }}
         // avatar={
         //   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -51,6 +51,9 @@ export default function RecipeReviewCard(props) {
         //   </IconButton>
         // }
         title={props.title}
+        titleTypographyProps={{
+          fontFamily: "Vazir",
+        }}
         // subheader="September 14, 2016"
       />
       <CardMedia
@@ -58,8 +61,14 @@ export default function RecipeReviewCard(props) {
         height="194"
         image={props.image}
         alt="Paella dish"
+        sx={{ objectFit: "contain" }}
       />
-      <CardContent>
+      <CardContent
+        sx={{
+          // height: "300px",
+          height: "28vh",
+        }}
+      >
         <Typography
           variant="body2"
           color="black"
