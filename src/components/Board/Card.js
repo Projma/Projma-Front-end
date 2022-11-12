@@ -1,6 +1,9 @@
+import React from "react";
+import "./Styles/Card.css"
+
 const Card = () => {
   return (
-    <div></div>
+    <div className="card"></div>
   );
 }
 

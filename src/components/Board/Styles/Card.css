@@ -1,0 +1,16 @@
+.card {
+  margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+  max-width: 100%;
+  min-height: 10rem;
+  /* background-image: linear-gradient(to right bottom, #91B9E3 0%, #0059b2 130%); */
+  background: linear-gradient(
+    to right bottom,
+    RGB(0, 127, 255),
+    RGB(0, 89, 178) 120%
+  );
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px;
+  border-radius: 1rem;
+}
