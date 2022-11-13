@@ -1,4 +1,4 @@
-import Axios from 'axios';
+// import Axios from 'axios';
 import axios from 'axios';
 import { baseUrl } from "./constants"
 
@@ -11,7 +11,7 @@ apiInstance.interceptors.request.use(
     config => {
         const access_token = localStorage.getItem('access_token');
         if (access_token) {
-            config.headers['Authorization'] = 'JWT ' + access_token;
+            config.headers['Authorization'] = 'JWT ' + access_token; // Bearer
         }
         return config;
     },
