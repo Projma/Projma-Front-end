@@ -4,10 +4,14 @@ import "./Styles/Board.css";
 
 const Board = () => {
   return (
-    <div className="main">
-      <div className="c">
+    <div className="list-container">
         <List />
-      </div>
+        <List />
+        <List />
+        <List />
+        <List />
+        <List />
+        <List />
     </div>
   );
 };

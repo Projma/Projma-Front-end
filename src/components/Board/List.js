@@ -22,6 +22,7 @@ const List = (probs) => {
         <Card/>
         <Card/>
         <Card/>
+        {/* <Card/>
         <Card/>
         <Card/>
         <Card/>
@@ -29,10 +30,12 @@ const List = (probs) => {
         <Card/>
         <Card/>
         <Card/>
-        <Card/>
-        <Card/>
+        <Card/> */}
       </div>
       {/* <div className="space"></div> */}
+      <div className="add-card">
+        <button className="add-card-button">+ افزودن کارت</button>
+      </div>
     </div>
   );
 }

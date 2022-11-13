@@ -2,9 +2,21 @@ body {
   background-color: #001e3c;
 }
 
-/* .main {
+.list-container {
+  margin-top: 0.6rem;
+  max-width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: stretch;
+  flex: 0 1 100%;
 }
- */
+
+.list-container:first-child {
+  margin-right: 0.6rem;
+}
+
+@media screen and (max-width: 60rem) {
+  .list-container{
+    flex-direction: column;
+    flex: 0 1 50%;
+    margin-left: 0.6rem;
+  }
+}

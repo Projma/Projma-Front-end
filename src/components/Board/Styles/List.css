@@ -3,11 +3,14 @@ p {
 }
 
 .list {
-  max-width: 30rem;
+  /* max-width: 30rem; */
+  /* width: 30rem; */
+  min-width: 30rem;
   max-height: 100vh;
   background-color: #0A1929;
   border-radius: 1rem;
   margin: 0.4rem;
+  margin-right: 0.6rem;
   overflow: hidden;
   /* border: 0.1rem solid #163658; */
   padding: 1rem;
@@ -42,6 +45,7 @@ p {
   /* background-color: rgba(0,89,178,0.4); */
   background-color: rgba(80,144,211,0.8);
   /* border: 0.2rem solid #5090D3; */
+  cursor: pointer;
 }
 
 .button-title {
@@ -49,12 +53,34 @@ p {
 }
 
 .card-list {
-  max-height: 68rem;
+  max-height: 60rem;
   overflow-y: scroll;
   margin-bottom: 0.4rem;
+  padding: 0.6rem;
 }
 
 .space {
   max-width: auto;
   height: 1rem;
+}
+
+.add-card {
+  margin-top: 0.8rem;
+  border-top: 0.1rem solid #163658;
+  display: flex;
+  justify-content: center;
+}
+
+.add-card-button {
+  background-color: #0A1929;
+  color: white;
+  border: none;
+  border-radius: 1rem;
+  width: 100%;
+  margin-top: 0.6rem;
+}
+
+.add-card-button:hover {
+  background-color: rgba(80,144,211,0.8);
+  cursor: pointer;
 }
