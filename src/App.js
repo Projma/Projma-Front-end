@@ -13,6 +13,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import "./fonts/Vazir.ttf";
 import Board from "./components/Board/UI/Board";
+import Workspace_management from "./pages/Workspace_management";
 
 function App() {
   // functional base component

@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.10.4",
+
+    "@emotion/cache": "^11.10.5",
+    "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.4",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.11",
@@ -19,6 +21,7 @@
     "react-multi-date-picker": "^3.3.4",
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.2",
+    "redux": "^4.2.0",
     "react-scripts": "5.0.1",
     "sass": "^1.55.0",
     "stylis-plugin-rtl": "^2.1.1",

@@ -71,17 +71,18 @@ function ResponsiveDrawer(props) {
       />
     </div>
   );
-  const sidebarButton = [{nameFa:"بورد‌ها",nameEn:"Boards"},
-  {nameFa:"اعضا",nameEn:"members"},
-  {nameFa:"تنظیمات",nameEn:"setting"}
-]
+  const sidebarButton = [
+    { nameFa: "بورد‌ها", nameEn: "Boards" },
+    { nameFa: "اعضا", nameEn: "members" },
+    { nameFa: "تنظیمات", nameEn: "setting" },
+  ];
   const drawer = (
     <div className="drawer">
       {/* <Toolbar /> */}
       {matches ? "" : right_arrow}
       <Divider />
       <List>
-        {sidebarButton.map((obj,index) => (
+        {sidebarButton.map((obj, index) => (
           <ListItem
             button
             href="#"
