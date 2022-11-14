@@ -48,7 +48,6 @@ const useStyles = makeStyles({
     borderRadius: "50%",
   },
 });
-
 function ResponsiveDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
@@ -57,9 +56,6 @@ function ResponsiveDrawer(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
-    // if (!mobileOpen)
-    //   document.getElementById("right-arrow-div").style.display = "none";
-    // else document.getElementById("right-arrow-div").style.display = "block";
     setMobileOpen(!mobileOpen);
   };
   const right_arrow = (
@@ -254,15 +250,6 @@ function ResponsiveDrawer(props) {
               {drawer}
             </Drawer>
           </Box>
-          {/* <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-        }}
-      >
-      </Box> */}
         </Box>
       </div>
     </div>
