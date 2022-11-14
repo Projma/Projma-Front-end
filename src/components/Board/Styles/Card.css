@@ -3,7 +3,7 @@
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
   max-width: 100%;
-  min-height: 10rem;
+  height: auto;
   /* background-image: linear-gradient(to right bottom, #91B9E3 0%, #0059b2 130%); */
   background: linear-gradient(
     to right bottom,
@@ -14,19 +14,24 @@
     rgba(0, 0, 0, 0.04) 0px 10px 10px;
   border-radius: 1rem;
   padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 auto;
 }
 
 .title {
   color: white;
   font-size: 1.5rem;
+  align-self: flex-start;
 }
 
 .card-avatar {
   margin-top: 1rem;
+  align-self: flex-end;
 }
 
 .avatar {
-  width: 15%;
-  height: 15%;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 50%;
 }

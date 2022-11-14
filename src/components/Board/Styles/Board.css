@@ -3,19 +3,32 @@ body {
 }
 
 .list-container {
+  height: 98vh;
   margin-top: 0.6rem;
-  max-width: 100%;
-  display: flex;
-  flex: 0 1 100%;
+  overflow: auto;
+  /* align-items: center; */
 }
 
-.list-container:first-child {
+.list-container-minor {
+  display: inline-flex;
+  align-items: flex-start;
+  flex: 0 1 100%;
+  overflow-x: scroll;
+}
+
+.list-container-minor:first-child {
   margin-right: 0.6rem;
 }
 
-@media screen and (max-width: 60rem) {
-  .list-container{
+.list-container-minor:last-child {
+  align-self: flex-start;
+}
+
+@media screen and (max-width: 40rem) {
+  .list-container-minor{
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     flex: 0 1 50%;
     margin-left: 0.6rem;
   }

@@ -4,10 +4,10 @@ p {
 
 .list {
   /* max-width: 30rem; */
-  /* width: 30rem; */
-  min-width: 30rem;
+  width: 30rem;
+  /* max-width: 30rem; */
   max-height: 100vh;
-  background-color: #0A1929;
+  background-color: #0a1929;
   border-radius: 1rem;
   margin: 0.4rem;
   margin-right: 0.6rem;
@@ -34,22 +34,28 @@ p {
   height: 2rem;
   width: 2rem;
   border-radius: 1rem;
-  background-color: #0A1929;
+  background-color: #0a1929;
   border: none;
   display: flex;
   align-items: center;
 }
 
 .header-button:hover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   /* 001E3C */
   /* background-color: rgba(0,89,178,0.4); */
-  background-color: rgba(80,144,211,0.8);
+  border-radius: 0;
+  /* border-top: 0.2rem solid rgba(80,144,211,0.8); */
   /* border: 0.2rem solid #5090D3; */
   cursor: pointer;
+  text-align: center;
 }
 
 .button-title {
   margin: 0.2rem;
+  color: white;
 }
 
 .card-list {
@@ -72,7 +78,7 @@ p {
 }
 
 .add-card-button {
-  background-color: #0A1929;
+  background-color: #0a1929;
   color: white;
   border: none;
   border-radius: 1rem;
@@ -80,7 +86,8 @@ p {
   margin-top: 0.6rem;
 }
 
-.add-card-button:hover {
-  background-color: rgba(80,144,211,0.8);
+.add-card-button:hover,
+.add-card-button:active {
+  background-color: rgba(80, 144, 211, 0.8);
   cursor: pointer;
 }
