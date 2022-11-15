@@ -17,7 +17,7 @@ const Board = () => {
   };
 
   return (
-    <div className="list-container">
+      <div className="list-container">
       <div className="list-container-minor">
         {lists.map(() => (
           <List />
