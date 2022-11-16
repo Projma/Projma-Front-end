@@ -91,3 +91,15 @@ p {
   background-color: rgba(80, 144, 211, 0.8);
   cursor: pointer;
 }
+
+@media screen and (max-width: 30rem) {
+  .list {
+    max-height: 40rem;
+    margin: 0;
+    margin-bottom: 0.6rem;
+    overflow: visible;
+  }
+  .card-list {
+    max-height: 75%;
+  }
+}
