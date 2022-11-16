@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import "./ResponsiveAppBar.scss";
+import avatar_photo from "../../../static/images/dashboard/scrum_board.svg";
 
 // https://mui.com/#app-bar-with-responsive-menu
 
@@ -95,7 +96,7 @@ function ResponsiveAppBar() {
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center" style={{fontFamily: 'Vazir'}}>{page}</Typography>
+                                    <Typography textAlign="center" style={{ fontFamily: 'Vazir' }}>{page}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -131,10 +132,13 @@ function ResponsiveAppBar() {
                         ))}
                     </Box>
 
-                    <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="باز کردن تنظیمات">
+                    <Box sx={{ flexGrow: 0 ,fontFamily: 'Vazir'}}>
+                        <Tooltip 
+                        // title="باز کردن تنظیمات" 
+                        title={<h3 style={{ fontFamily: 'Vazir' }}>باز کردن تنظیمات</h3>}
+                        >
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                <Avatar alt="عکس پروفایل" src={avatar_photo} />
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -155,7 +159,7 @@ function ResponsiveAppBar() {
                         >
                             {settings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center" style={{fontFamily: 'Vazir'}}>{setting}</Typography>
+                                    <Typography textAlign="center" style={{ color: 'black', fontFamily: 'Vazir' }}>{setting}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>

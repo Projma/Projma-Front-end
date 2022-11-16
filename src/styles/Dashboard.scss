@@ -3,11 +3,36 @@ p {
     font-family: 'Vazir';
     margin-top: 5%;
     margin-right: 3%;
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+}
+
+ul {
+    color: white;
+    font-family: 'Vazir';
+    margin-top: 5%;
+    margin-right: 3%;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    // z-index: 1;
+}
+
+li {
+    color: white;
+    font-family: 'Vazir';
+    margin-top: 5%;
+    margin-right: 3%;
+    display: flex;
+    align-items: center;
+    // justify-content: center;
 }
 
 #create-workspace {
     color: #00bfff;
 }
+
 #create-workspace:hover {
     color: #E2EDF8;
     background-color: #007fff;
@@ -34,13 +59,16 @@ p {
 }
 
 .option {
-    margin-top: 15%;
+    margin-top: 8%;
     padding: 5%;
     color: white;
     font-family: 'Vazir';
     text-decoration: none;
     display: block;
     transition: 0.3s;
+    display: flex;
+    align-items: center;
+    // justify-content: center;
 }
 
 .option:hover {
