@@ -1,8 +1,19 @@
+.main-container {
+  height: 100vh;
+}
+
 #right-arrow-div {
   display: flex;
   justify-content: flex-end;
 }
 
 .drawer {
-  /* background-color: #1c334e; */
+  background-color: #0a1929;
+  height: 100vh;
+}
+
+@media screen and (max-width: 600px) {
+  .main-container {
+    display: none;
+  }
 }
