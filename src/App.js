@@ -10,7 +10,7 @@ import "./fonts/Vazir.ttf";
 function App() {
   // functional base component
   return (
-    // <Provider store={store}>
+    // <Provider store={store}> // https://www.freecodecamp.org/news/how-to-build-a-redux-powered-react-app/
       <Router>
         <Routes>
           <Route exact path="/" element={<Landing />} />
