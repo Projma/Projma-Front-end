@@ -1,19 +1,21 @@
 import React from "react";
 import "../Styles/Card.css";
 
-const Card = () => {
+const Card = (props) => {
   return (
     <div className="card">
       <div className="card-title">
-        <p className="title">
-          اسم
-        </p>
+        <p className="title">{props.name}</p>
       </div>
       <div className="card-avatar">
-        <img className="avatar" src={require('../../../static/simurgh.jpg')} alt="avatar picture"/>
+        <img
+          className="avatar"
+          src={require("../../../static/simurgh.jpg")}
+          alt="avatar picture"
+        />
       </div>
     </div>
   );
-}
+};
 
 export default Card;

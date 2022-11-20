@@ -23,6 +23,23 @@ body {
   margin-right: 0.6rem;
 }
 
+.add-list-button {
+  width: 30rem;
+  max-height: 3.5rem;
+  padding: 0.3rem;
+  /* border: 0.2rem solid #163658; */
+  border: none;
+  color: white;
+  background-color: #0a1929;
+  border-radius: 1rem;
+  margin: 0.4rem;
+}
+
+.add-list-button:hover {
+  background-color: rgba(80, 144, 211, 0.8);
+  cursor: pointer;
+}
+
 @media screen and (max-width: 30rem) {
   .list-container {
     height: 99vh;
@@ -33,9 +50,8 @@ body {
     align-items: center;
     flex: 0 1 auto;
   }
-  .list-container-minor{
+  .list-container-minor {
     overflow: auto;
-    /* overflow-y: scroll; */
     display: flex;
     flex-direction: column;
     margin: 0;
