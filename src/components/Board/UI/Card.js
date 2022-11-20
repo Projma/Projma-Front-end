@@ -10,7 +10,7 @@ const Card = (props) => {
       <div className="card-avatar">
         <img
           className="avatar"
-          src={require("../../../static/simurgh.jpg")}
+          src={require("../../../static/images/temp project picture/simurgh.jpg")}
           alt="avatar picture"
         />
       </div>
