@@ -96,7 +96,7 @@ function ResponsiveAppBar() {
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center" style={{ fontFamily: 'Vazir' }}>{page}</Typography>
+                                    <Typography textAlign="center" style={{ fontFamily: 'Vazir', color:'black' }}>{page}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
