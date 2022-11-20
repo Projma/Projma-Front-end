@@ -17,17 +17,9 @@ import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import StyledTextField from "./StyledTextField";
-import axios from "axios";
 import Footer from "./Footer";
-
-const theme = createTheme({
-  direction: "rtl", // Both here and <body dir="rtl">
-});
-// Create rtl cache
-const cacheRtl = createCache({
-  key: "muirtl",
-  stylisPlugins: [prefixer, rtlPlugin],
-});
+import apiInstance from "../../utilities/axiosConfig";
+import PerTextField from "../Board/UI/PerTextField";
 
 const ForgetPassword = () => {
   const [email, setEmail] = React.useState("");
@@ -44,15 +36,13 @@ const ForgetPassword = () => {
       setErrorEmail(true);
       document.getElementById("em").innerHTML =
         "*آدرس ایمیل وارد شده معتبر نمی باشد";
+      const data = new FormData();
+      data.append("email", email);
+      apiInstance.post(
+        "http://mohammadosoolian.pythonanywhere.com/accounts/forgot-password/",
+        data
+      );
     }
-    const login_form_data = new FormData();
-    login_form_data.append("email", email);
-    axios
-      .post(
-        "http://mohammadosoolian.pythonanywhere.com/accounts/forgot-password",
-        login_form_data
-      )
-      .then((res) => console.log(res));
   };
   document.body.style.backgroundColor = "#0A1929";
   return (
@@ -94,29 +84,27 @@ const ForgetPassword = () => {
             <Typography component="h1" variant="h5" color="#fff" sx={{ mb: 1 }}>
               فراموشی رمز عبور
             </Typography>
-            <CacheProvider value={cacheRtl}>
-              <ThemeProvider theme={theme}>
-                <StyledTextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="آدرس ایمیل"
-                  placeholder="آدرس ایمیل خود را وارد کنید"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  error={errorEmail}
-                  autoFocus
-                  sx={{
-                    input: {
-                      color: "#fff",
-                    },
-                  }}
-                />
-              </ThemeProvider>
-            </CacheProvider>
+            <PerTextField>
+              <StyledTextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="آدرس ایمیل"
+                placeholder="آدرس ایمیل خود را وارد کنید"
+                name="email"
+                type="email"
+                autoComplete="email"
+                onChange={(e) => setEmail(e.target.value)}
+                error={errorEmail}
+                autoFocus
+                sx={{
+                  input: {
+                    color: "#fff",
+                  },
+                }}
+              />
+            </PerTextField>
 
             <Button
               type="submit"
