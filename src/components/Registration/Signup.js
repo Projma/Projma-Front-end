@@ -9,10 +9,10 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import isEmail from "validator/lib/isEmail";
+// import isEmail from "validator/lib/isEmail";
 import GoogleIcon from "@mui/icons-material/Google";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import "../App.css";
+import "./Registration.css";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
@@ -55,9 +55,9 @@ export default function SignUp() {
   });
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!isEmail(email)) {
-      setErrorEmail(true);
-    }
+    // if (!isEmail(email)) {
+    //   setErrorEmail(true);
+    // }
 
     if (password.length < 8) {
       setErrorPassword(true);

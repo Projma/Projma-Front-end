@@ -9,10 +9,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import isEmail from "validator/lib/isEmail";
 import GoogleIcon from "@mui/icons-material/Google";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import "../App.css";
+import "./Registration.css";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
@@ -57,8 +56,13 @@ export default function SignIn() {
         "http://mohammadosoolian.pythonanywhere.com/accounts/login/token/",
         login_form_data
       )
-      .then((res) => console.log(res));
+      .then((response) => {
+        if (response.data.accessToken) {
+          localStorage.setItem("user", JSON.stringify(response.data));
+        }
 
+        return response.data;
+      });
   };
 
   const theme = createTheme({
@@ -95,7 +99,7 @@ export default function SignIn() {
               component="h1"
               variant="h5"
               style={{
-                fontFamily: "Nazanin",
+                fontFamily: "Vazir",
                 fontSize: "150%",
                 color: "white",
                 fontWeight: "bold",
@@ -145,7 +149,7 @@ export default function SignIn() {
                 onChange={(e) => setPassword(e.target.value)}
                 error={errorPassword}
                 autoComplete="current-password"
-                style={{ fontFamily: "Nazanin" }}
+                style={{ fontFamily: "Vazir" }}
               />
               <Button
                 type="submit"
@@ -153,7 +157,7 @@ export default function SignIn() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
                 style={{
-                  fontFamily: "Nazanin",
+                  fontFamily: "Vazir",
                   fontSize: "120%",
                   fontWeight: "bold",
                 }}
@@ -166,7 +170,7 @@ export default function SignIn() {
                     href="#"
                     variant="body2"
                     style={{
-                      fontFamily: "Nazanin",
+                      fontFamily: "Vazir",
                       fontSize: "110%",
                     }}
                   >
@@ -177,7 +181,7 @@ export default function SignIn() {
                   <Link
                     href="/signup"
                     variant="body2"
-                    style={{ fontFamily: "Nazanin", fontSize: "110%" }}
+                    style={{ fontFamily: "Vazir", fontSize: "110%" }}
                   >
                     {"اکانت ندارید؟ ثبت‌نام کنید"}
                   </Link>
@@ -237,5 +241,5 @@ const icon_style = {
 
 const input_text = {
   color: "#fff",
-  fontFamily: "Nazanin",
+  fontFamily: "Vazir",
 };
