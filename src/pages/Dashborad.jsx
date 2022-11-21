@@ -303,6 +303,8 @@ export const Dashborad = () => {
                                     fontFamily: 'Vazir',
                                 }
                             }}
+                            InputLabelProps={{ style: { fontFamily: "Vazir" } }}
+                            InputProps={{ style: { fontFamily: "Vazir" } }}
                         />
                         <BottomNavigationAction
                             label="خانه"

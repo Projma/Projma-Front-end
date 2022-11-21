@@ -123,12 +123,54 @@ export default function BasicModal() {
                                             margin="normal"
                                             required
                                             fullWidth
-                                            id="email"
+                                            id="workspace_name"
                                             label="نام فضای‌کار"
                                             placeholder="نام فضای‌کار خود را وارد کنید."
                                             helperText="این نام شرکت، تیم یا سازمان شما است."
-                                            name="email"
-                                            autoComplete="email"
+                                            name="workspace_name"
+                                            autoComplete="workspace_name"
+                                            autoFocus
+                                            sx={{ width: "60%", display: "block" }}
+                                            InputLabelProps={{ style: { fontFamily: "Vazir" } }}
+                                            InputProps={{ style: { fontFamily: "Vazir" } }}
+                                            FormHelperTextProps={{ style: { fontFamily: "Vazir", color: "black" } }}
+                                        />
+                                    </ThemeProvider>
+                                </CacheProvider>
+                                <CacheProvider value={cacheRtl}>
+                                    <ThemeProvider theme={theme}>
+                                        <StyledTextField
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            id="workspace_type"
+                                            label="نوع فضای کاری"
+                                            // select // https://mui.com/material-ui/react-text-field/#basic-textfield
+                                            placeholder="نوع فضای‌کاری خود را وارد کنید."
+                                            // helperText="انتخاب کنید."
+                                            name="workspace_type"
+                                            autoComplete="workspace_type"
+                                            autoFocus
+                                            sx={{ width: "60%", display: "block" }}
+                                            InputLabelProps={{ style: { fontFamily: "Vazir" } }}
+                                            InputProps={{ style: { fontFamily: "Vazir" } }}
+                                            FormHelperTextProps={{ style: { fontFamily: "Vazir", color: "black" } }}
+                                        />
+                                    </ThemeProvider>
+                                </CacheProvider>
+                                <CacheProvider value={cacheRtl}>
+                                    <ThemeProvider theme={theme}>
+                                        <StyledTextField
+                                            margin="normal"
+                                            fullWidth
+                                            multiline
+                                            maxRows={4}
+                                            id="workspace_description"
+                                            label="شرح فضای کاری(اختیاری)  "
+                                            placeholder="شرح فضای‌کاری خود را وارد کنید."
+                                            helperText="اعضای خود را با چند کلمه در مورد فضای کاری خود همراه کنید."
+                                            name="workspace_description"
+                                            autoComplete="workspace_description"
                                             autoFocus
                                             sx={{ width: "60%", display: "block" }}
                                             InputLabelProps={{ style: { fontFamily: "Vazir" } }}
@@ -155,7 +197,6 @@ export default function BasicModal() {
                                     ادامه
                                 </Button>
                             </Box>
-                            {/* نوع فضای کاری خود را انتخاب کنید */}
                             {/* توصیف فضای کاری خود را وارد کنید (دلخواه) */}
                         </Grid>
                         <Grid item xs={3} sm={3} md={3} sx={{
