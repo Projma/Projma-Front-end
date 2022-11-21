@@ -39,7 +39,7 @@ const Members = () => {
       </div>
       <Divider
         sx={{
-          backgroundColor: "#9b9b9b",
+          backgroundColor: "#007fff",
           marginTop: "2rem",
           margin: "5rem 1rem 5rem 5rem",
         }}
