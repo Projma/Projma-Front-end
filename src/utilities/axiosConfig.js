@@ -11,11 +11,12 @@ apiInstance.interceptors.request.use(
     config => {
         const access_token = localStorage.getItem('access_token');
         if (access_token) {
-            config.headers['Authorization'] = 'JWT ' + access_token; // Bearer
+            // config.headers['Authorization'] = 'JWT ' + access_token; // Bearer
+            config.headers['Authorization'] = 'Bearer ' + access_token;
+            config.headers['Content-Type'] = 'application/json';
         }
         return config;
     },
-    // config.headers['Content-Type'] = 'application/json';
     error => Promise.reject(error)
 );
 
@@ -31,7 +32,8 @@ apiInstance.interceptors.response.use(
                 // axios
                 // .post(`${baseUrl}/accounts/jwt/refresh`, {
                 apiInstance
-                    .post(`accounts/jwt/refresh`, {
+                    // .post(`accounts/jwt/refresh`, {
+                    .post(`accounts/login/token/refresh`, {
                         refresh: localStorage.getItem('refresh_token'),
                     })
                     .then(res => {
