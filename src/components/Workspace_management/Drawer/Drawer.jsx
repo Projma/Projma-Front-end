@@ -91,7 +91,7 @@ function ResponsiveDrawer(props) {
             }
           >
             <Link
-              to="members"
+              to="boards"
               className={classes.list_item}
               style={{
                 textDecoration: "none",
@@ -100,7 +100,7 @@ function ResponsiveDrawer(props) {
                 width: "100%",
               }}
             >
-              <ListItemButton href="/members" sx={{}}>
+              <ListItemButton  sx={{}}>
                 <ListItemIcon>
                   {index === 0 ? (
                     <BoardIcon className={classes.list_item_icon} />

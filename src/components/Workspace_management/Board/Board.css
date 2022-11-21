@@ -1,0 +1,22 @@
+.board {
+  width: 90%;
+  margin-right: 5%;
+  margin-left: 5%;
+  margin-top: 5%;
+}
+
+.board-header {
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap:0.5rem;
+  margin-bottom: 20px;
+}
+
+.board-body-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 1rem;
+  flex: 1 1 auto;
+}

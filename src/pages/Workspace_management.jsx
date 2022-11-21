@@ -3,6 +3,7 @@ import ResponsiveDrawerRight from "../components/Workspace_management/Drawer/Dra
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Members from "../components/Workspace_management/Members/Members";
 import "../styles/Workspace_management.css";
+import Board from "../components/Workspace_management/Board/Board";
 
 const Workspace_management = () => {
   return (
@@ -14,6 +15,7 @@ const Workspace_management = () => {
       {/* <h1 style={{ color: "white", backgroundColor: "white" }}>Members</h1> */}
       <Routes>
         <Route path="members" element={<Members />} />
+        <Route path="boards" element={<Board />} />
       </Routes>
     </div>
   );

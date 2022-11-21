@@ -1,0 +1,11 @@
+.view {
+  height: 8rem;
+  width: 20rem;
+  border-radius: 0.5rem;
+  background-color: darkolivegreen;
+  padding: 1% 1%;
+}
+
+.board-title {
+  font-size: 1.4rem;
+}
