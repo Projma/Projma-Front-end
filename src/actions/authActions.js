@@ -8,6 +8,8 @@ import {
     LOGOUT
 } from "../actionTypes/actionTypes.js";
 import { redirect } from 'react-router-dom';
+import { Redirect, Route } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 export const login = () => async (dispatch) => {
     // const response = await apiInstance.get(`${baseUrl}/accounts/users/me`, {
@@ -26,6 +28,9 @@ export const login = () => async (dispatch) => {
 export const remove_token = () => {
     localStorage.removeItem('access_token');
     // history.push("/login");
+    // redirect("/login");
+    // return <Redirect to="/login" />
+    
     return {
         type: LOGOUT,
     };
