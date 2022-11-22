@@ -1,3 +1,4 @@
+import * as React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Workspace_management from "./pages/Workspace_management";
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Landing />} />
         <Route exact path="/password" element={<ResetPassword />} />
+        <Route exact path="/reset-password" element={<ResetPassword />} />
         <Route path="workspace/:id/*" element={<Workspace_management />} />
         {/* <Route path="workspace/:id/members" element={<Members />} /> */}
       </Routes>

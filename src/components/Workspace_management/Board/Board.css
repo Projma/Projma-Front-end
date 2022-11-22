@@ -1,8 +1,7 @@
 .board {
   width: 90%;
-  margin-right: 5%;
-  margin-left: 5%;
-  margin-top: 5%;
+  height: 100%;
+  margin: 5%;
 }
 
 .board-header {
@@ -13,10 +12,47 @@
   margin-bottom: 20px;
 }
 
+.board-body {
+  border: 0.2rem solid #5090D3;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
 .board-body-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  overflow: auto;
+  max-height: 26rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 20rem) ;
+  justify-content: space-evenly;
   gap: 1rem 1rem;
-  flex: 1 1 auto;
+  justify-items: start;
+}
+
+.add-button {
+  height: 8rem;
+  width: 20rem;
+  border-radius: 0.5rem;
+  background-color: #173A5E;
+  padding: 3% 3%;
+  border: 0.1rem solid #5090D3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-button:hover {
+  cursor: pointer;
+  opacity: 80%;
+}
+
+.add-button:hover .add-button-title{
+  color: #007fff;
+}
+
+.starred-board {
+  margin-bottom: 5%;
+}
+
+.recent-board {
+  margin-bottom: 5%;
 }
