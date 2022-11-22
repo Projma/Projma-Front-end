@@ -125,6 +125,7 @@ export default function SignIn() {
                 backgroundImage:
                   "linear-gradient(to right bottom, #001E3C 0%, #0059B2 130%)",
                 borderRadius: 3,
+                backgroundColor: "red",
               }}
             >
               <StyledTextField
@@ -136,6 +137,14 @@ export default function SignIn() {
                 name="username"
                 InputLabelProps={{
                   style: input_text,
+                }}
+                inputProps={{
+                  style: {
+                    height: "50px",
+                    padding: "0 14px",
+                    fontFamily: "Vazir",
+                    fontSize: "1.7rem",
+                  },
                 }}
                 onChange={(e) => setUsername(e.target.value)}
                 autoComplete="username"
@@ -152,6 +161,14 @@ export default function SignIn() {
                 id="password"
                 InputLabelProps={{
                   style: input_text,
+                }}
+                inputProps={{
+                  style: {
+                    height: "50px",
+                    padding: "0 14px",
+                    fontFamily: "Vazir",
+                    fontSize: "1.7rem",
+                  },
                 }}
                 onChange={(e) => setPassword(e.target.value)}
                 error={errorPassword}
@@ -201,7 +218,7 @@ export default function SignIn() {
                       style={{ display: "flex", marginRight: "4%" }}
                     ></GoogleIcon>
                     <Typography
-                      style={{ fontSize: "85%", fontFamily: "Vazir" }}
+                      style={{ fontSize: "120%", fontFamily: "Vazir" }}
                     >
                       ورود با حساب گوگل
                     </Typography>
@@ -214,7 +231,7 @@ export default function SignIn() {
                   <div style={icon_style}>
                     <GitHubIcon style={{ marginRight: "4%" }}></GitHubIcon>
                     <Typography
-                      style={{ fontSize: "80%", fontFamily: "Vazir" }}
+                      style={{ fontSize: "120%", fontFamily: "Vazir" }}
                     >
                       ورود با حساب گیت‌هاب
                     </Typography>
@@ -249,4 +266,5 @@ const icon_style = {
 const input_text = {
   color: "#fff",
   fontFamily: "Vazir",
+  fontSize: "1.3rem",
 };
