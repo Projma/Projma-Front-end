@@ -18,6 +18,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import StyledTextField from "./StyledTextField";
 import axios from "axios";
+import apiInstance from "../../utilities/axiosConfig";
 
 function Copyright(props) {
   return (
@@ -51,17 +52,23 @@ export default function SignIn() {
     const login_form_data = new FormData();
     login_form_data.append("username", username);
     login_form_data.append("password", password);
-    axios
-      .post(
-        "http://mohammadosoolian.pythonanywhere.com/accounts/login/token/",
-        login_form_data
-      )
+    // axios
+    //   .post(
+    //     "http://mohammadosoolian.pythonanywhere.com/accounts/login/token/",
+    //     login_form_data
+    //   )
+    apiInstance
+      .post("accounts/login/token/", login_form_data)
       .then((response) => {
         if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
+          console.log(response);
+          localStorage.setItem("access_token", response.access);
+          localStorage.setItem("refresh_token", response.refresh);
         }
-
-        return response.data;
+        // return response.data;
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
