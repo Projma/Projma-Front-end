@@ -2,28 +2,58 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Divider from "@mui/material/Divider";
 import apiInstance from "../../../utilities/axiosConfig";
+import { useNavigate } from "react-router-dom";
+import { baseUrl } from "../../../utilities/constants";
 import "./Members.scss";
 import x from "../../../static/images/workspace_management/members/mohammadi.jpg";
+const members = [
+  { id: 2, firstName: "1", lastName: "1", email: "email@email.ir", image: x },
+  { id: 2, firstName: "2", lastName: "2", email: "email@email.ir", image: x },
+  { id: 2, firstName: "3", lastName: "3", email: "email@email.ir", image: x },
+  { id: 2, firstName: "4", lastName: "4", email: "email@email.ir", image: x },
+  { id: 2, firstName: "5", lastName: "5", email: "email@email.ir", image: x },
+  { id: 2, firstName: "6", lastName: "6", email: "email@email.ir", image: x },
+  { id: 2, firstName: "7", lastName: "7", email: "email@email.ir", image: x },
+  { id: 2, firstName: "8", lastName: "8", email: "email@email.ir", image: x },
+];
 
-const Members = () => {
+const Members = ({ params }) => {
   const [members, setMembers] = React.useState([]);
   useEffect(() => {
-    apiInstance.get("/api/v1/members/").then((res) => {
-      const members = res.data.map((obj) => ({
-        firstName: obj.firstName,
-        lastName: obj.lastName,
-        email: obj.email,
-        image: obj.image,
-      }));
-      setMembers(members);
-      console.log(res.data);
-    });
+    apiInstance
+      .get(`workspaces/workspaceowner/${params.id}/workspace-members/`)
+      .then((res) => {
+        // console.log(res.data);
+        // const members = res.data.members.map((obj) => ({
+        //   id: obj,
+        // }));
+        // console.log(members);
+        const members = res.data.map((obj) => ({
+          firstName: obj.user.first_name,
+          lastName: obj.user.last_name,
+          email: obj.user.email,
+          image: obj.profile_pic,
+        }));
+        setMembers(members);
+        console.log(members);
+      });
   }, []);
+  const navigate = useNavigate();
   const copyLink = (e) => {
-    apiInstance.get("/workspaces/workspaces/{id}/invite_link").then((res) => {
-      console.log(res.data);
-      navigator.clipboard.writeText("http://localhost:3000/invite/123456789");
-    });
+    console.log(`${baseUrl}workspaces/workspaceowner/${params.id}/invite_link`);
+    apiInstance
+      .get(`workspaces/workspaceowner/${params.id}/invite_link/`)
+      .then((res) => {
+        console.log(res.data);
+        navigator.clipboard.writeText(
+          `localhost:3000/invite_page/${res.data}/`
+        );
+      });
+  };
+  const go_to_profile = (e) => {
+    console.log(e.currentTarget.id);
+    navigate(`/profile/${e.currentTarget.id}`);
+    // navigate(`profileview/${e.currentTarget.id}/`);
   };
   return (
     <div className="main-div">
@@ -44,7 +74,13 @@ const Members = () => {
         </div>
       </div> */}
       <div className="copy-link">
-        <button onClick={copyLink} style={{ color: "black" }}>
+        <div className="copy-link-text">
+          <h2>
+            لینک دعوت به کارگاه را کپی کنید و به افراد دیگر ارسال کنید تا به
+            کارگاه شما بپیوندند
+          </h2>
+        </div>
+        <button onClick={copyLink} class="button-9">
           کپی لینک دعوت
         </button>
       </div>
@@ -77,24 +113,32 @@ const Members = () => {
             </tr>
           </thead>
           <tbody>
-            {/* {members.map((member, idx) => (
+            {members.map((member, idx) => (
               <tr>
-                <td className="hide-when-small">{idx + 1}</td>
+                <td className="list-item-prop hide-when-small">{idx + 1}</td>
                 <td className="list-item-prop hide-when-small">
                   <img src={member.image} className="member-image" />
                 </td>
                 <td className="list-item-prop">
                   {member.firstName} {member.lastName}
                 </td>
-                <td className="list-item-prop hide-when-small">{member.email}</td>
-                <td className="list-item-prop">
-                  <button className="more-details" role="button">
+                <td className="list-item-prop hide-when-small">
+                  {member.email}
+                </td>
+                <td className="list-item-prop for-button">
+                  <button
+                    id={member.id}
+                    key={member.id}
+                    className="more-details"
+                    role="button"
+                    onClick={go_to_profile}
+                  >
                     <span class="text">اطلاعات بیشتر</span>
                   </button>
                 </td>
               </tr>
-            ))} */}
-            <tr>
+            ))}
+            {/* <tr>
               <td className="list-item-prop hide-when-small">1</td>
               <td className="list-item-prop hide-when-small">
                 <img className="member-image" src={x} />
@@ -106,7 +150,7 @@ const Members = () => {
                   <span class="text">اطلاعات بیشتر</span>
                 </button>
               </td>
-            </tr>
+            </tr> */}
             {/* <tr class="active-row">
               <td className="list-item-prop">2</td>
               <td className="list-item-prop">رضا</td>
