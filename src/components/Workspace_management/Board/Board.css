@@ -28,7 +28,7 @@
   justify-items: start;
 }
 
-.add-button {
+.add_button {
   height: 8rem;
   width: 20rem;
   border-radius: 0.5rem;
@@ -40,7 +40,7 @@
   justify-content: center;
 }
 
-.add-button:hover {
+.add_button:hover {
   cursor: pointer;
   opacity: 80%;
 }

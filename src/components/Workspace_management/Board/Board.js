@@ -114,7 +114,7 @@ const Board = () => {
               />
             ))}
             <div className="add-button-container">
-              <button className="add-button">
+              <button className="add_button">
                 <p className="add-button-title">+ افزودن بورد</p>
               </button>
             </div>
