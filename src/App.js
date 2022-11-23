@@ -12,6 +12,7 @@ import ChangePassword from "./components/Profile/ChangePassword";
 import logo from "./logo.svg";
 import "./App.css";
 import "./fonts/Vazir.ttf";
+import Board from "./components/Board/UI/Board";
 
 function App() {
   // functional base component

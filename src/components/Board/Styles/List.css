@@ -6,7 +6,7 @@ p {
   /* max-width: 30rem; */
   width: 30rem;
   /* max-width: 30rem; */
-  max-height: 100vh;
+  max-height: fit-content;
   background-color: #0a1929;
   border-radius: 1rem;
   margin: 0.4rem;
@@ -59,7 +59,7 @@ p {
 }
 
 .card-list {
-  max-height: 60rem;
+  max-height: 70vh;
   overflow-y: scroll;
   margin-bottom: 0.4rem;
   padding: 0.6rem;
@@ -77,29 +77,27 @@ p {
   justify-content: center;
 }
 
-.add-card-button {
+.add-card_button {
+  width: 28rem;
   background-color: #0a1929;
   color: white;
   border: none;
   border-radius: 1rem;
-  width: 100%;
   margin-top: 0.6rem;
 }
 
-.add-card-button:hover,
-.add-card-button:active {
+.add-card_button:hover,
+.add-card_button:active {
   background-color: rgba(80, 144, 211, 0.8);
   cursor: pointer;
 }
 
 @media screen and (max-width: 30rem) {
   .list {
-    max-height: 40rem;
-    margin: 0;
-    margin-bottom: 0.6rem;
-    overflow: visible;
+    max-height: fit-content;
   }
   .card-list {
-    max-height: 75%;
+    overflow-x: auto;
+    max-height: 30rem;
   }
 }

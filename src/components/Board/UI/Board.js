@@ -8,7 +8,7 @@ import StyledTextField from "../../Password/StyledTextField";
 const Board = () => {
   const [lists, setLists] = useState([]);
   const [isclicked, setIsclicked] = useState(false);
-  const [inputName,setInputName] = useState("");
+  const [inputName, setInputName] = useState("");
 
   const clickHandler = () => {
     setIsclicked(true);
@@ -33,7 +33,7 @@ const Board = () => {
       <div className="add-container">
         {!isclicked ? (
           <div className="add-button">
-            <button className="add-list-button" onClick={clickHandler}>
+            <button className="add-list_button" onClick={clickHandler}>
               <p className="add-list-button-title">+ ایجاد لیست</p>
             </button>
           </div>
@@ -49,7 +49,7 @@ const Board = () => {
                   fullWidth
                   onChange={(e) => setInputName(e.target.value)}
                   placeholder="اسم لیست را در این بخش بنویسید"
-                  sx={{mt:1}}
+                  sx={{ mt: 1 }}
                 />
               </PerTextField>
               <button type="submit" className="form-button">
