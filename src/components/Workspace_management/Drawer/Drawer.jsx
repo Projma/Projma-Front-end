@@ -71,17 +71,21 @@ function ResponsiveDrawer(props) {
       />
     </div>
   );
+  const sidebarButton = [{nameFa:"بورد‌ها",nameEn:"Boards"},
+  {nameFa:"اعضا",nameEn:"members"},
+  {nameFa:"تنظیمات",nameEn:"setting"}
+]
   const drawer = (
     <div className="drawer">
       {/* <Toolbar /> */}
       {matches ? "" : right_arrow}
       <Divider />
       <List>
-        {["بورد‌ها", "اعضا", "تنظیمات"].map((text, index) => (
+        {sidebarButton.map((obj,index) => (
           <ListItem
             button
             href="#"
-            key={text}
+            key={obj.nameFa}
             disablePadding
             className={classes.list_item}
             sx={
@@ -91,7 +95,7 @@ function ResponsiveDrawer(props) {
             }
           >
             <Link
-              to="boards"
+              to={obj.nameEn}
               className={classes.list_item}
               style={{
                 textDecoration: "none",
@@ -100,7 +104,7 @@ function ResponsiveDrawer(props) {
                 width: "100%",
               }}
             >
-              <ListItemButton  sx={{}}>
+              <ListItemButton sx={{}}>
                 <ListItemIcon>
                   {index === 0 ? (
                     <BoardIcon className={classes.list_item_icon} />
@@ -117,7 +121,7 @@ function ResponsiveDrawer(props) {
                       type="body2"
                       style={{ color: "#fff", fontFamily: "Vazir" }}
                     >
-                      {text}
+                      {obj.nameFa}
                     </Typography>
                   }
                   sx={{
