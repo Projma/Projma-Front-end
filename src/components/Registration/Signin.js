@@ -52,23 +52,26 @@ export default function SignIn() {
     const login_form_data = new FormData();
     login_form_data.append("username", username);
     login_form_data.append("password", password);
+    // const reactData = [{username:'username', password:'password'}];
     // axios
     //   .post(
     //     "http://mohammadosoolian.pythonanywhere.com/accounts/login/token/",
     //     login_form_data
     //   )
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.log(err));
+    // console.log("username");
+    // console.log(reactData);
     apiInstance
       .post("accounts/login/token/", login_form_data)
       .then((response) => {
-        if (response.data.accessToken) {
-          console.log(response);
-          localStorage.setItem("access_token", response.access);
-          localStorage.setItem("refresh_token", response.refresh);
+        if (response.data.access) {
+          localStorage.setItem("access_token", response.data.access);
+          localStorage.setItem("refresh_token", response.data.refresh);
         }
-        // return response.data;
       })
       .catch((error) => {
-        console.log(error);
+        console.log("error");
       });
   };
 

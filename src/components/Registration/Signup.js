@@ -18,6 +18,7 @@ import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import StyledTextField from "./StyledTextField";
+import apiInstance from "../../utilities/axiosConfig";
 import axios from "axios";
 
 function Copyright(props) {
@@ -69,13 +70,50 @@ export default function SignUp() {
     signup_form_data.append("username", username);
     signup_form_data.append("email", email);
     signup_form_data.append("password", password);
+    // const reactData = [
+    //   {
+    //     first_name: "first_name",
+    //     last_name: "last_name",
+    //     username: "username",
+    //     email: "email",
+    //     password: "password",
+    //   },
+    // ];
     axios
       .post(
         "http://mohammadosoolian.pythonanywhere.com/accounts/users/signup/",
         signup_form_data
       )
-      .then((res) => console.log(res));
-    // .catch((error) => setErrorEmail(true));
+      .then((res) => console.log(res))
+      .catch((error) => setErrorEmail(true));
+    // apiInstance
+    //   .post("accounts/users/signup/", reactData)
+    //   .then((response) => {
+    //     console.log(response);
+    //     // return response.data;
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // let state = {
+    //   first_name: firstName,
+    //   last_name: lastName,
+    //   username: username,
+    //   password: password,
+    //   email: email,
+    // };
+    // console.log(state);
+    // fetch("http://mohammadosoolian.pythonanywhere.com/accounts/users/signup/", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(state),
+    // })
+    //   .then((response) => response.json())
+    //   .then((result) => {
+    //     console.log(result);
+    //   });
   };
 
   return (
@@ -176,8 +214,8 @@ export default function SignUp() {
                         fontSize: "1.7rem",
                       },
                     }}
-                    onChange={(e) => setEmail(e.target.value)}
-                    error={errorEmail}
+                    onChange={(e) => setUsername(e.target.value)}
+                    error={errorUsername}
                   />
                 </Grid>
                 <Grid item xs={12}>
