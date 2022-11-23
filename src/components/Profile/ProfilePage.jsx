@@ -83,16 +83,13 @@ export default function Profile() {
     if (firstName === "") {
       setErrorFirstName(true);
       return;
-    }
-    else if (lastName === "") {
+    } else if (lastName === "") {
       setErrorLastName(true);
       return;
-    }
-    else if (username === "") {
+    } else if (username === "") {
       setErrorUsername(true);
       return;
-    }
-    else if (email === "") {
+    } else if (email === "") {
       setErrorEmail(true);
       return;
     }
@@ -163,16 +160,13 @@ export default function Profile() {
                   @Navidium
                 </h4>
               </div>
-              {/* <div
-                style={{ marginTop: "20%", direction: "rtl", color: "white" }}
-              >
-                <h5>درباره</h5>
-                <p>متن بیو</p>
-              </div> */}
               <div style={{ marginTop: "20%", width: "100%" }}>
                 <button className="btn">
                   <a href="/profile">
-                    <div className="flex-row" style={{ alignItems: "center" }}>
+                    <div
+                      className="flex-row-information"
+                      style={{ alignItems: "center" }}
+                    >
                       <PersonIcon
                         style={{
                           color: "white",
@@ -186,7 +180,7 @@ export default function Profile() {
                           fontSize: "90%",
                           color: "white",
                         }}
-                        className="neonText"
+                        className="neonText text-information-media"
                       >
                         اطلاعات حساب
                       </h4>
@@ -197,7 +191,7 @@ export default function Profile() {
                   <button className="btn">
                     <a href="/changepassword">
                       <div
-                        className="flex-row"
+                        className="flex-row-information"
                         style={{ alignItems: "center" }}
                       >
                         <PasswordIcon
@@ -213,7 +207,7 @@ export default function Profile() {
                             fontSize: "90%",
                             color: "white",
                           }}
-                          className="neonText"
+                          className="neonText text-information-media"
                         >
                           تغییر رمز عبور
                         </h4>
@@ -271,6 +265,7 @@ export default function Profile() {
                   <div className="flex">
                     <div className="flex-row" style={{ width: "120%" }}>
                       <StyledTextField
+                        className="StyledTextField-media"
                         margin="normal"
                         required="required"
                         id="firstName"
@@ -293,6 +288,7 @@ export default function Profile() {
                         }}
                       />
                       <StyledTextField
+                        className="StyledTextField-media"
                         margin="normal"
                         required="required"
                         id="lastname"
@@ -319,6 +315,7 @@ export default function Profile() {
                   <div className="flex">
                     <div className="flex-row" style={{ width: "120%" }}>
                       <StyledTextField
+                        className="StyledTextField-media"
                         margin="normal"
                         required="required"
                         id="email"
@@ -341,6 +338,7 @@ export default function Profile() {
                         }}
                       />
                       <StyledTextField
+                        className="StyledTextField-media"
                         margin="normal"
                         required="required"
                         id="username"
@@ -365,6 +363,7 @@ export default function Profile() {
                     </div>
                   </div>
                   <div
+                    className="birthday-border-media"
                     style={{
                       direction: "rtl",
                       marginTop: "4%",
@@ -377,56 +376,52 @@ export default function Profile() {
                       width: "50%",
                     }}
                   >
-                    <label
-                      className=""
-                      style={{
-                        marginLeft: "2%",
-                        color: "#fff",
-                        fontSize: "14px",
-                      }}
-                    >
-                      تاریخ تولد
-                    </label>
+                    <div className="birthday-media">
+                      <label
+                        style={{
+                          marginLeft: "2%",
+                          color: "#fff",
+                          fontSize: "14px",
+                        }}
+                      >
+                        تاریخ تولد
+                      </label>
+                    </div>
                     <DatePicker
+                      className="rmdp-input-media"
                       calendar={persian}
                       locale={persian_fa}
                       value={birthDate}
                       onChange={(val) => setBirthDate(val)}
                       calendarPosition="bottom-right"
                       backgroundColor="#000"
-                      style={{
-                        backgroundColor: "#001e3c",
-                        color: "white",
-                        textAlign: "center",
-                        borderColor: "#ffffff00",
-                        width: "150%",
-                        height: "150%",
+                    />
+                  </div>
+                  <div className="StyledTextField-media">
+                    <StyledTextField
+                      className="StyledTextField-media"
+                      margin="normal"
+                      required="required"
+                      id="bio"
+                      sx={{ width: "50%" }}
+                      label="درباره"
+                      name="bio"
+                      multiline
+                      rows={2}
+                      InputLabelProps={{
+                        style: input_text,
+                      }}
+                      autoComplete="bio"
+                      autoFocus
+                      // style={{ height: "500%" }}
+                      inputProps={{
+                        style: {
+                          height: "100px",
+                          fontFamily: "Vazir",
+                        },
                       }}
                     />
                   </div>
-                  <StyledTextField
-                    margin="normal"
-                    required="required"
-                    id="bio"
-                    sx={{ width: "50%" }}
-                    label="درباره"
-                    name="bio"
-                    multiline
-                    rows={2}
-                    InputLabelProps={{
-                      style: input_text,
-                    }}
-                    autoComplete="bio"
-                    autoFocus
-                    // style={{ height: "500%" }}
-                    inputProps={{
-                      style: {
-                        height: "100px",
-                        fontFamily: "Vazir",
-                      },
-                    }}
-                  />
-
                   <div>
                     <Button
                       type="submit"

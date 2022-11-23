@@ -90,15 +90,7 @@ export default function ProfileView() {
                 <div className="flex" style={{ marginTop: "5%" }}>
                   <div className="flex-row" style={{ width: "120%" }}>
                     <div
-                      className="flex-col"
-                      style={{
-                        rowGap: 7,
-                        width: "50%",
-                        border: "1px solid #66B2FF",
-                        borderRadius: "5px",
-                        paddingTop: "0.5%",
-                        paddingBottom: "0.5%",
-                      }}
+                      className="flex-col show-box show-box-media"
                     >
                       <label for="first_name" className="title-css">
                         نام
@@ -111,15 +103,7 @@ export default function ProfileView() {
                       </h3>
                     </div>
                     <div
-                      className="flex-col"
-                      style={{
-                        rowGap: 7,
-                        width: "50%",
-                        border: "1px solid #66B2FF",
-                        borderRadius: "5px",
-                        paddingTop: "0.5%",
-                        paddingBottom: "0.5%",
-                      }}
+                      className="flex-col show-box show-box-media"
                     >
                       <label for="last_name" className="title-css">
                         نام خانوادگی
@@ -136,36 +120,20 @@ export default function ProfileView() {
                 <div className="flex" style={{ marginTop: "5%" }}>
                   <div className="flex-row" style={{ width: "120%" }}>
                     <div
-                      className="flex-col"
-                      style={{
-                        rowGap: 7,
-                        width: "50%",
-                        border: "1px solid #66B2FF",
-                        borderRadius: "5px",
-                        paddingTop: "0.5%",
-                        paddingBottom: "0.5%",
-                      }}
+                      className="flex-col show-box show-box-media"
                     >
                       <label for="email" className="title-css">
                         ایمیل
                       </label>
                       <h3
-                        className="detail-css"
+                        className="detail-css email-font-size"
                         style={{ color: "white", fontWeight: "normal" }}
                       >
                         Navid@gmail.com
                       </h3>
                     </div>
                     <div
-                      className="flex-col"
-                      style={{
-                        rowGap: 7,
-                        width: "50%",
-                        border: "1px solid #66B2FF",
-                        borderRadius: "5px",
-                        paddingTop: "0.5%",
-                        paddingBottom: "0.5%",
-                      }}
+                      className="flex-col show-box show-box-media"
                     >
                       <label for="username" className="title-css">
                         نام کاربری
@@ -181,15 +149,7 @@ export default function ProfileView() {
                 </div>
                 <div style={{ marginTop: "5%" }}>
                   <div
-                    className="flex-col"
-                    style={{
-                      rowGap: 7,
-                      width: "50%",
-                      border: "1px solid #66B2FF",
-                      borderRadius: "5px",
-                      paddingTop: "0.5%",
-                      paddingBottom: "0.5%",
-                    }}
+                    className="flex-col show-box show-box-media"
                   >
                     <label for="birthday" className="title-css">
                       تاریخ تولد
@@ -204,15 +164,7 @@ export default function ProfileView() {
                 </div>
                 <div style={{ marginTop: "5%" }}>
                   <div
-                    className="flex-col"
-                    style={{
-                      rowGap: 7,
-                      width: "50%",
-                      border: "1px solid #66B2FF",
-                      borderRadius: "5px",
-                      paddingTop: "0.5%",
-                      paddingBottom: "0.5%",
-                    }}
+                    className="flex-col show-box show-box-media bio-media"
                   >
                     <label for="bio" className="title-css">
                       درباره
