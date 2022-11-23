@@ -16,6 +16,7 @@ import { redirect } from "react-router-dom";
 import { AddBox } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import conversation from "../../../static/images/landing/conversation.svg";
+import apiInstance from '../../../utilities/axiosConfig';
 
 const style = {
     position: 'absolute',
@@ -66,6 +67,7 @@ export default function BasicModal() {
     //     };
     // const matches = useMediaQuery("(max-width:900px)");
 
+    
 
     return (
         <div style={{
@@ -182,7 +184,6 @@ export default function BasicModal() {
                                 <Button
                                     variant="contained"
                                     // button-key="buttonAttribute"
-                                    // onClick={this.isClicked}
                                     sx={{
                                         // height: 54,
                                         // width: 150,
@@ -191,6 +192,26 @@ export default function BasicModal() {
                                         height: "100%",
                                         fontFamily: "Vazir",
                                         backgroundColor: "#0A1929", // #132F4C
+                                    }}
+                                    // onClick={this.isClicked}
+                                    onClick={() => {
+                                        let create_workspace_formdata = new FormData();
+                                        console.log(document.getElementById("workspace_name"))
+                                        create_workspace_formdata.append("name", document.getElementById("workspace_name").value);
+                                        create_workspace_formdata.append("type", document.getElementById("workspace_type").value);
+                                        create_workspace_formdata.append("description", document.getElementById("workspace_description").value);
+                                        // owner_username = localStorage.getItem("username");
+                                        let owner_username = "FR23572357fr";
+                                        create_workspace_formdata.append("owner", owner_username );
+                                        console.log(create_workspace_formdata);
+                                        console.log("clicked");
+                                        apiInstance.post('workspaces/workspaces/', create_workspace_formdata).then((response) => {
+                                            console.log(response);
+                                            // console.log(response.data);
+                                        })
+                                        .catch((error) => {
+                                            console.log(error);
+                                        });
                                     }}
                                 >
                                     {" "}

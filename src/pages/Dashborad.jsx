@@ -32,12 +32,26 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Paper from '@mui/material/Paper';
 import { useSelector, useDispatch } from "react-redux";
+import apiInstance from "../utilities/axiosConfig";
 
 // useMediaQuery
 // import Typography from "@mui/material";
 // rafce
 
 export const Dashborad = () => {
+    const access_token = localStorage.getItem('access_token');
+    // apiInstance.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+    // apiInstance.defaults.headers.headers = {
+    //     'Content-Type': 'application/json',
+    // };
+
+    apiInstance.get("workspaces/workspaces/").then((response) => {
+        console.log(response.data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
     const computer_tabs = {
         "boards": {
             title: "بورد ها",
@@ -64,25 +78,25 @@ export const Dashborad = () => {
                 </>
             )
         },
-        "templates": {
-            title: "تمپلیت ها",
-            icon: <ContentPasteTwoToneIcon sx={{ ml: 1.5 }} />,
-            content: (
-                // <a className="option" href="#"><ContentPasteTwoToneIcon /> </a>
-                <>
-                    <p><ViewDayTwoToneIcon sx={{ ml: 1.5 }} />تمپلیت های گوناگون </p>
-                    <ul>
-                        <li>مدیریت</li>
-                        <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                        <li>تیمی</li>
-                        <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                        <li>صنعتی</li>
-                        <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                        <li>مالی</li>
-                    </ul>
-                </>
-            )
-        },
+        // "templates": {
+        //     title: "تمپلیت ها",
+        //     icon: <ContentPasteTwoToneIcon sx={{ ml: 1.5 }} />,
+        //     content: (
+        //         // <a className="option" href="#"><ContentPasteTwoToneIcon /> </a>
+        //         <>
+        //             <p><ViewDayTwoToneIcon sx={{ ml: 1.5 }} />تمپلیت های گوناگون </p>
+        //             <ul>
+        //                 <li>مدیریت</li>
+        //                 <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+        //                 <li>تیمی</li>
+        //                 <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+        //                 <li>صنعتی</li>
+        //                 <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+        //                 <li>مالی</li>
+        //             </ul>
+        //         </>
+        //     )
+        // },
         "home": {
             title: "خانه",
             icon: <HomeTwoToneIcon sx={{ ml: 1.5 }} />,
@@ -133,25 +147,25 @@ export const Dashborad = () => {
                 </>
             )
         },
-        "templates": {
-            title: "تمپلیت ها",
-            icon: <ContentPasteTwoToneIcon sx={{ ml: 1.5 }} />,
-            content: (
-                // <a className="option" href="#"><ContentPasteTwoToneIcon /> </a>
-                <>
-                    <p><ViewDayTwoToneIcon sx={{ ml: 1.5 }} />تمپلیت های گوناگون </p>
-                    <ul>
-                        <li>مدیریت</li>
-                        <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                        <li>تیمی</li>
-                        <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                        <li>صنعتی</li>
-                        <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                        <li>مالی</li>
-                    </ul>
-                </>
-            )
-        },
+        // "templates": {
+        //     title: "تمپلیت ها",
+        //     icon: <ContentPasteTwoToneIcon sx={{ ml: 1.5 }} />,
+        //     content: (
+        //         // <a className="option" href="#"><ContentPasteTwoToneIcon /> </a>
+        //         <>
+        //             <p><ViewDayTwoToneIcon sx={{ ml: 1.5 }} />تمپلیت های گوناگون </p>
+        //             <ul>
+        //                 <li>مدیریت</li>
+        //                 <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+        //                 <li>تیمی</li>
+        //                 <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+        //                 <li>صنعتی</li>
+        //                 <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+        //                 <li>مالی</li>
+        //             </ul>
+        //         </>
+        //     )
+        // },
         "home": {
             title: "خانه",
             icon: <HomeTwoToneIcon sx={{ ml: 1.5 }} />,
@@ -217,10 +231,8 @@ export const Dashborad = () => {
         return (
             <div>
                 <Header />
-                {/* { <ResponsiveDrawer /> ? matches : null } */}
                 <Grid container spacing={{ xs: 0, md: 0 }} columns={{ xs: 3, sm: 8, md: 12 }}>
                     <Grid item xs={1} sm={2} md={2}>
-                        {/* <ResponsiveDrawer /> */}
                         <div className="text sidebar" >
 
                             {/* https://www.pluralsight.com/guides/handling-tabs-using-page-urls-and-react-router-doms */}
@@ -237,33 +249,14 @@ export const Dashborad = () => {
                             {/* https://www.npmjs.com/package/react-device-detect */}
 
                             <Divider sx={{ bgcolor: "white", marginTop: "5%" }} />
-                            {/* <a className="option" href="#">فضای کار ها</a> */}
                             <p className="text" > <WorkspacesTwoToneIcon sx={{ ml: 1.5 }} /> فضای کار ها </p>
-
-                            {/* <a id="create-workspace" className="option" href="#"> + </a> */}
-                            {/* <a id="create-workspace" className="option" href="#"> <BasicModal /> </a> */}
                             <BasicModal />
-                            {/* <p> <BasicModal /></p> */}
-
-                            <a className="option" href="#">فضای کار 1</a>
+                            <a className="option" href="#">فضای کار 1</a> {/* onClick navigate to workspace page */}
                             <a className="option" href="#">فضای کار 2</a>
                         </div>
 
                     </Grid>
                     <Grid item xs={2} sm={6} md={10}>
-                        {/* <p variant="h1" component="h2" className="text">
-                            <AvTimerTwoToneIcon /> اخیرا دیده شده
-                        </p> */}
-                        {/* <Grid></Grid> */}
-                        {/* <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                        <p variant="h1" component="h2" className="text">
-                            <Diversity2TwoToneIcon /> فضا های کاری شما
-                        </p> */}
-                        {/* Grid */}
-                        {/* <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                        <p variant="h1" component="h2" className="text">
-                            <HomeRepairServiceTwoToneIcon /> فضا های مهمان
-                        </p> */}
 
                         {
                             Object.entries(computer_tabs).map((tab) => (
@@ -309,11 +302,11 @@ export const Dashborad = () => {
                             value="home"
                             icon={<HomeTwoToneIcon />}
                         />
-                        <BottomNavigationAction
+                        {/* <BottomNavigationAction
                             label="تمپلیت ها"
                             value="templates"
                             icon={<ContentPasteTwoToneIcon />}
-                        />
+                        /> */}
                         <BottomNavigationAction
                             label="فضای کار ها"
                             value="workspaces"
