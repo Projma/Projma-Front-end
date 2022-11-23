@@ -1,0 +1,19 @@
+.main-container {
+  height: 95%;
+}
+
+#right-arrow-div {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.drawer {
+  background-color: #0a1929;
+  height: 100vh;
+}
+
+@media screen and (max-width: 600px) {
+  .main-container {
+    display: none;
+  }
+}

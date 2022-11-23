@@ -1,0 +1,46 @@
+.board-view {
+  position: relative;
+  height: 8rem;
+  width: 20rem;
+  border-radius: 0.5rem;
+  background-color: #265D97;
+  padding: 3% 3%;
+}
+
+.view {
+  width: 100%;
+  height: 100%;
+  background-color: inherit;
+  border: none;
+  display: flex;
+}
+
+.board-view:hover {
+  opacity: 80%;
+}
+
+.view:hover {
+  cursor: pointer;
+}
+
+.board-title {
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: 1.4rem;
+}
+
+.icon-button {
+  background-color: inherit;
+  border: none;
+  position: absolute;
+  bottom: 0%;
+  left: 3%;
+}
+
+.icon-button:hover {
+  cursor: pointer;
+}
+
+.IconButton:hover .Iconclass {
+  background-color: yellow;
+}

@@ -23,12 +23,11 @@ const cacheRtl = createCache({
   stylisPlugins: [prefixer, rtlPlugin],
 });
 
-const ForgetPassword = () => {
+const ResetPassword = () => {
   const [password, setPassword] = React.useState("");
   const [errorPassword, setErrorPassword] = React.useState(false);
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [errorConfirmPassword, setErrorconfirmPassword] = React.useState(false);
-  
 
   let errorMessage = "";
 
@@ -172,7 +171,12 @@ const ForgetPassword = () => {
             </Button>
             <Typography
               id="em"
-              sx={{ mt: 1, textAlign: "right", color: "red", fontWeight: "bold" }}
+              sx={{
+                mt: 1,
+                textAlign: "right",
+                color: "red",
+                fontWeight: "bold",
+              }}
             ></Typography>
           </Box>
         </Box>
@@ -182,4 +186,4 @@ const ForgetPassword = () => {
   );
 };
 
-export default ForgetPassword;
+export default ResetPassword;
