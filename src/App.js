@@ -12,6 +12,7 @@ import ChangePassword from "./components/Profile/ChangePassword";
 import logo from "./logo.svg";
 import "./App.css";
 import "./fonts/Vazir.ttf";
+import Board from "./components/Board/UI/Board";
 
 function App() {
   // functional base component
@@ -28,6 +29,7 @@ function App() {
         <Route path="workspace/:id/*" element={<Workspace_management />} />
         <Route exact path="/profileview/" element={<ProfileView />} />
         <Route exact path="/changepassword" element={<ChangePassword />} />
+        <Route exact path="/board" element={<Board />} />
       </Routes>
     </Router>
   );

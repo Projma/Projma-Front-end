@@ -23,7 +23,7 @@ body {
   margin-right: 0.6rem;
 }
 
-.add-list-button {
+.add-list_button {
   width: 30rem;
   max-height: 3.5rem;
   padding: 0.3rem;
@@ -35,7 +35,7 @@ body {
   margin: 0.4rem;
 }
 
-.add-list-button:hover {
+.add-list_button:hover {
   background-color: rgba(80, 144, 211, 0.8);
   cursor: pointer;
 }
@@ -43,26 +43,15 @@ body {
 @media screen and (max-width: 30rem) {
   .list-container {
     height: 99vh;
-    width: 100vw;
     display: flex;
-    flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
-    flex: 0 1 auto;
+    align-items: flex-start;
+    flex: 1 1 auto;
+    scroll-snap-type: x mandatory;
   }
   .list-container-minor {
     overflow: auto;
+    margin-right: 0.6rem;
     display: flex;
-    flex-direction: column;
-    margin: 0;
-  }
-  .list-container-minor:first-child {
-    margin-right: 0;
-    margin-bottom: 0;
-  }
-  .button-container {
-    align-self: center;
-    margin: 0;
-    margin-bottom: 0.6rem;
   }
 }
