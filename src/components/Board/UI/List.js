@@ -42,7 +42,7 @@ const List = (props) => {
       <div className="add-card">
         {!isclicked ? (
           <div className="add-button">
-            <button className="add-card-button" onClick={clickHandler}>
+            <button className="add-card_button" onClick={clickHandler}>
               + افزودن کارت
             </button>
           </div>
