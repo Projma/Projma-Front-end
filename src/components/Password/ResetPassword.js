@@ -116,7 +116,7 @@ const ForgetPassword = () => {
               alignItems: "center",
             }}
           >
-            <Typography component="h1" variant="h5" color="#fff" sx={{ mb: 1 }}>
+            <Typography component="h1" variant="h5" color="#fff" sx={{ mb: 1, fontSize: "2rem"}}>
               تغییر رمز عبور
             </Typography>
             <CacheProvider value={cacheRtl}>
@@ -136,6 +136,7 @@ const ForgetPassword = () => {
                   sx={{
                     input: {
                       color: "#fff",
+                      fontSize: "1.6rem"
                     },
                   }}
                 />
@@ -154,6 +155,7 @@ const ForgetPassword = () => {
                   sx={{
                     input: {
                       color: "#fff",
+                      fontSize: "1.6rem"
                     },
                   }}
                 />
@@ -164,7 +166,7 @@ const ForgetPassword = () => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, backgroundColor: "#66B2FF" }}
+              sx={{ mt: 3, mb: 2, backgroundColor: "#265D97",fontSize: "1.6rem" }}
             >
               تغییر رمز عبور
             </Button>
