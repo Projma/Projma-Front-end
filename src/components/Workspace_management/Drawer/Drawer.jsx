@@ -62,7 +62,7 @@ function ResponsiveDrawer(props) {
     <div id="right-arrow-div">
       <KeyboardArrowRightIcon
         className={classes.close_drawer}
-        sx={{ fontSize: "30px", backgroundColor: "white" }}
+        sx={{ fontSize: "30px" }}
         onClick={handleDrawerToggle}
       />
     </div>
