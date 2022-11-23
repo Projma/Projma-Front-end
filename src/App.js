@@ -10,6 +10,8 @@ import ForgetPassword from "./components/Password/ForgetPassword";
 import logo from "./logo.svg";
 import "./App.css";
 import "./fonts/Vazir.ttf";
+import ForgetPassword from "./components/Password/ForgetPassword";
+import ResetPassword from "./components/Password/ResetPassword";
 
 function App() {
   // functional base component
