@@ -9,6 +9,7 @@ import ResetPassword from "./components/Password/ResetPassword";
 import ForgetPassword from "./components/Password/ForgetPassword";
 import ProfileView from "./components/Profile/ProfilePageView";
 import ChangePassword from "./components/Profile/ChangePassword";
+import InvitePage from "./pages/InvitePage";
 import logo from "./logo.svg";
 import "./App.css";
 import "./fonts/Vazir.ttf";
@@ -30,6 +31,8 @@ function App() {
         <Route exact path="/profileview/" element={<ProfileView />} />
         <Route exact path="/changepassword" element={<ChangePassword />} />
         <Route exact path="/board" element={<Board />} />
+        <Route exact path="/password" element={<ResetPassword />} />
+        <Route exact path="/invite_page/:token" element={<InvitePage />} />
       </Routes>
     </Router>
   );

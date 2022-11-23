@@ -18,10 +18,10 @@ const Workspace_management = () => {
       {/* <h1 style={{ color: "white", backgroundColor: "white" }}>Members</h1> */}
       <Routes>
         <Route path="members" element={<Members params={params} />} />
-        <Route path="create_board" element={<BasicModal />} />
+        <Route path="create_board" element={<BasicModal params={params} />} />
         {/* <Route path="boards" element={<Boards />} /> */}
       </Routes>
-      {/* <Link to="create_board">Create Board</Link> */}
+      <Link to="create_board">Create Board</Link>
     </div>
   );
 };
