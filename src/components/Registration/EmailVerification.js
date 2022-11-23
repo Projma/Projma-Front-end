@@ -5,7 +5,7 @@ import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import "../App.css";
+import "./Registration.css";
 import axios from "axios";
 
 function Email_verification_2() {
