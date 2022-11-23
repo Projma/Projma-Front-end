@@ -45,12 +45,15 @@ export const Dashborad = () => {
     //     'Content-Type': 'application/json',
     // };
 
-    apiInstance.get("workspaces/workspaces/").then((response) => {
-        console.log(response.data);
+    let [workspaces, setWorkspaces] = useState([])
+    apiInstance.get("workspaces/dashboard/myowning_workspaces/").then((response) => {
+        // console.log(response.data);
+        // console.log(response);
+        setWorkspaces(response.data);
     })
-    .catch((error) => {
-        console.log(error);
-    });
+        .catch((error) => {
+            console.log(error);
+        });
 
     const computer_tabs = {
         "boards": {
@@ -195,12 +198,15 @@ export const Dashborad = () => {
                 // <a className="option" href="#"><WorkspacesTwoToneIcon /> </a>
                 <>
                     <p className="text" > <WorkspacesTwoToneIcon sx={{ ml: 1.5 }} /> فضای کار ها </p>
-                    {/* <a id="create-workspace" className="option" href="#"> + </a> */}
-                    {/* <a id="create-workspace" className="option" href="#"> <BasicModal /> </a> */}
                     <BasicModal />
                     {/* <p> <BasicModal /></p> */}
-                    <a className="option" href="#">فضای کار 1</a>
-                    <a className="option" href="#">فضای کار 2</a>
+                    {
+                        workspaces.map((workspace) => (
+                            <a className="option" href="#" key={workspace.id}>{workspace.name}</a>
+
+                        ))
+                    }
+                    {/* <a className="option" href="#">فضای کار 1</a> */}
                 </>
             )
         }
@@ -251,8 +257,13 @@ export const Dashborad = () => {
                             <Divider sx={{ bgcolor: "white", marginTop: "5%" }} />
                             <p className="text" > <WorkspacesTwoToneIcon sx={{ ml: 1.5 }} /> فضای کار ها </p>
                             <BasicModal />
-                            <a className="option" href="#">فضای کار 1</a> {/* onClick navigate to workspace page */}
-                            <a className="option" href="#">فضای کار 2</a>
+                            {/* <a className="option" href="#">فضای کار 1</a> onClick navigate to workspace page */}
+                            {
+                                workspaces.map((workspace) => (
+                                    <a className="option" href="#" key={workspace.id}>{workspace.name}</a>
+
+                                ))
+                            }
                         </div>
 
                     </Grid>

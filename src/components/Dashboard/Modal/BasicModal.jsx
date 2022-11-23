@@ -200,12 +200,9 @@ export default function BasicModal() {
                                         create_workspace_formdata.append("name", document.getElementById("workspace_name").value);
                                         create_workspace_formdata.append("type", document.getElementById("workspace_type").value);
                                         create_workspace_formdata.append("description", document.getElementById("workspace_description").value);
-                                        // owner_username = localStorage.getItem("username");
-                                        let owner_username = "FR23572357fr";
-                                        create_workspace_formdata.append("owner", owner_username );
                                         console.log(create_workspace_formdata);
                                         console.log("clicked");
-                                        apiInstance.post('workspaces/workspaces/', create_workspace_formdata).then((response) => {
+                                        apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
                                             console.log(response);
                                             // console.log(response.data);
                                         })
