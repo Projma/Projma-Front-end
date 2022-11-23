@@ -9,15 +9,16 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import isEmail from "validator/lib/isEmail";
+// import isEmail from "validator/lib/isEmail";
 import GoogleIcon from "@mui/icons-material/Google";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import "../App.css";
+import "./Registration.css";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import StyledTextField from "./StyledTextField";
+import apiInstance from "../../utilities/axiosConfig";
 import axios from "axios";
 
 function Copyright(props) {
@@ -55,14 +56,13 @@ export default function SignUp() {
   });
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!isEmail(email)) {
-      setErrorEmail(true);
-    }
+    // if (!isEmail(email)) {
+    //   setErrorEmail(true);
+    // }
 
     if (password.length < 8) {
       setErrorPassword(true);
     }
-
 
     const signup_form_data = new FormData();
     signup_form_data.append("first_name", firstName);
@@ -70,13 +70,50 @@ export default function SignUp() {
     signup_form_data.append("username", username);
     signup_form_data.append("email", email);
     signup_form_data.append("password", password);
+    // const reactData = [
+    //   {
+    //     first_name: "first_name",
+    //     last_name: "last_name",
+    //     username: "username",
+    //     email: "email",
+    //     password: "password",
+    //   },
+    // ];
     axios
       .post(
         "http://mohammadosoolian.pythonanywhere.com/accounts/users/signup/",
         signup_form_data
       )
       .then((res) => console.log(res))
-      // .catch((error) => setErrorEmail(true));
+      .catch((error) => setErrorEmail(true));
+    // apiInstance
+    //   .post("accounts/users/signup/", reactData)
+    //   .then((response) => {
+    //     console.log(response);
+    //     // return response.data;
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // let state = {
+    //   first_name: firstName,
+    //   last_name: lastName,
+    //   username: username,
+    //   password: password,
+    //   email: email,
+    // };
+    // console.log(state);
+    // fetch("http://mohammadosoolian.pythonanywhere.com/accounts/users/signup/", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(state),
+    // })
+    //   .then((response) => response.json())
+    //   .then((result) => {
+    //     console.log(result);
+    //   });
   };
 
   return (
@@ -115,6 +152,28 @@ export default function SignUp() {
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <StyledTextField
+                    fullWidth
+                    id="firstName"
+                    label="نام"
+                    name="firstName"
+                    autoComplete="family-name"
+                    inputProps={{
+                      style: {
+                        height: "50px",
+                        padding: "0 14px",
+                        fontFamily: "Vazir",
+                        fontSize: "1.7rem",
+                      },
+                    }}
+                    InputLabelProps={{
+                      style: input_text,
+                    }}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    error={errorFirstName}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <StyledTextField
                     autoComplete="given-name"
                     name="lastName"
                     fullWidth
@@ -123,7 +182,10 @@ export default function SignUp() {
                     autoFocus
                     inputProps={{
                       style: {
-                        style_of_fields,
+                        height: "50px",
+                        padding: "0 14px",
+                        fontFamily: "Vazir",
+                        fontSize: "1.7rem",
                       },
                     }}
                     InputLabelProps={{
@@ -131,25 +193,6 @@ export default function SignUp() {
                     }}
                     onChange={(e) => setLastName(e.target.value)}
                     error={errorLastName}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <StyledTextField
-                    fullWidth
-                    id="firstName"
-                    label="نام"
-                    name="firstName"
-                    autoComplete="family-name"
-                    inputProps={{
-                      style: {
-                        style_of_fields,
-                      },
-                    }}
-                    InputLabelProps={{
-                      style: input_text,
-                    }}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    error={errorFirstName}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -163,8 +206,16 @@ export default function SignUp() {
                     InputLabelProps={{
                       style: input_text,
                     }}
-                    onChange={(e) => setEmail(e.target.value)}
-                    error={errorEmail}
+                    inputProps={{
+                      style: {
+                        height: "50px",
+                        padding: "0 14px",
+                        fontFamily: "Vazir",
+                        fontSize: "1.7rem",
+                      },
+                    }}
+                    onChange={(e) => setUsername(e.target.value)}
+                    error={errorUsername}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -177,6 +228,14 @@ export default function SignUp() {
                     autoComplete="email"
                     InputLabelProps={{
                       style: input_text,
+                    }}
+                    inputProps={{
+                      style: {
+                        height: "50px",
+                        padding: "0 14px",
+                        fontFamily: "Vazir",
+                        fontSize: "1.7rem",
+                      },
                     }}
                     onChange={(e) => setEmail(e.target.value)}
                     error={errorEmail}
@@ -193,6 +252,14 @@ export default function SignUp() {
                     autoComplete="new-password"
                     InputLabelProps={{
                       style: input_text,
+                    }}
+                    inputProps={{
+                      style: {
+                        height: "50px",
+                        padding: "0 14px",
+                        fontFamily: "Vazir",
+                        fontSize: "1.7rem",
+                      },
                     }}
                     onChange={(e) => setPassword(e.target.value)}
                     error={errorPassword}
@@ -212,7 +279,7 @@ export default function SignUp() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                style={style_of_fields}
+                style={input_text}
               >
                 ثبت‌نام
               </Button>
@@ -223,7 +290,7 @@ export default function SignUp() {
                     variant="body2"
                     style={{
                       width: "100%",
-                      fontFamily: "Nazanin",
+                      fontFamily: "Vazir",
                       fontSize: "100%",
                       fontWeight: "bold",
                       display: "flex",
@@ -242,7 +309,7 @@ export default function SignUp() {
                       style={{ display: "flex", marginRight: "4%" }}
                     ></GoogleIcon>
                     <Typography
-                      style={{ fontSize: "85%", fontFamily: "Vazir" }}
+                      style={{ fontSize: "120%", fontFamily: "Vazir" }}
                     >
                       ثبت‌نام با حساب گوگل
                     </Typography>
@@ -255,7 +322,7 @@ export default function SignUp() {
                   <div style={icon_style}>
                     <GitHubIcon style={{ marginRight: "4%" }}></GitHubIcon>
                     <Typography
-                      style={{ fontSize: "80%", fontFamily: "Vazir" }}
+                      style={{ fontSize: "120%", fontFamily: "Vazir" }}
                     >
                       ثبت‌نام با حساب گیت‌هاب
                     </Typography>
@@ -286,12 +353,13 @@ const icon_style = {
 
 const input_text = {
   color: "#fff",
-  fontFamily: "Nazanin",
+  fontFamily: "Vazir",
+  fontSize: "1.3rem",
 };
 
 const style_of_fields = {
   textAlign: "right",
   color: "white",
-  fontFamily: "Nazanin",
-  fontSize: "100%",
+  fontFamily: "Vazir",
+  fontSize: "1.7rem",
 };
