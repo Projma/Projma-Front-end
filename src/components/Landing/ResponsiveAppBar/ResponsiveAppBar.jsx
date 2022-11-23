@@ -95,7 +95,7 @@ function ResponsiveAppBar() {
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center" style={{fontFamily: 'Vazir'}}>{page}</Typography>
+                                    <Typography textAlign="center" style={{fontFamily: 'Vazir', color:'black'}}>{page}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -155,7 +155,7 @@ function ResponsiveAppBar() {
                         >
                             {settings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center" style={{fontFamily: 'Vazir'}}>{setting}</Typography>
+                                    <Typography textAlign="center" style={{fontFamily: 'Vazir', color:'black'}}>{setting}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
