@@ -12,7 +12,6 @@
   place-items: center;
 }
 
-
 .profile-box {
   width: 50%;
   height: 80%;
@@ -176,4 +175,80 @@
   color: white;
   width: 100%;
   border-radius: 50px;
+}
+
+.flex-row-information {
+  display: flex;
+  flex-direction: row;
+}
+
+.text-information-media {
+}
+
+.birthday-media {
+}
+
+.show-box {
+  row-gap: 7;
+  width: 50%;
+  border: 1px solid #66b2ff;
+  border-radius: 5px;
+  padding-top: 0.5%;
+  padding-bottom: 0.5%;
+}
+
+.rmdp-input {
+  background-color: #001e3c;
+  color: white;
+  width: 120%;
+  height: 150%;
+  text-align: center;
+  border-color: #ffffff00 !important;
+}
+
+@media screen and (max-width: 600px) {
+  .flex-row {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+  }
+  .avatar-container {
+    margin-top: 1% !important;
+  }
+  .profile-container {
+    height: 130vh;
+    margin-top: -50px;
+  }
+  .flex-row-information {
+    width: 100px;
+    font-size: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+    margin-right: -50px;
+  }
+  .profile-information {
+    width: 100px !important;
+  }
+  .StyledTextField-media {
+    width: 196.5px;
+  }
+  .birthday-border-media {
+    padding-left: 113px;
+  }
+  .rmdp-input {
+    width: 100px;
+  }
+  .birthday-media {
+    width: 100px;
+  }
+  .show-box-media {
+    margin-top: 10px;
+    width: 120px;
+    height: 55px;
+  }
+  .email-font-size {
+    font-size: 12px;
+  }
+  .bio-media {
+    height: 300px;
+  }
 }
