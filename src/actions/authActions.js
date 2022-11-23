@@ -17,7 +17,7 @@ export const login = () => async (dispatch) => {
     //         'Content-Type': 'application/json',
     //     },
     // })
-    const response = await apiInstance.get(`accounts/users/me`)
+    const response = await apiInstance.get(`accounts/profile/myprofile`)
     const userData = response.data
     return dispatch({
         type: LOGIN,

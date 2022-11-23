@@ -13,7 +13,7 @@ apiInstance.interceptors.request.use(
         if (access_token) {
             // config.headers['Authorization'] = 'JWT ' + access_token; // Bearer
             config.headers['Authorization'] = 'Bearer ' + access_token;
-            config.headers['Content-Type'] = 'application/json';
+            // config.headers['Content-Type'] = 'application/json';
         }
         return config;
     },

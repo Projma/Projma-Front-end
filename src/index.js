@@ -29,7 +29,7 @@ if (token) {
     })
     .catch(error => {
       console.log(error);
-      store.dispatch(remove_token());
+      // store.dispatch(remove_token());
       // ReactDOM.render(<App />, document.getElementById('root'));
       root.render(
         <React.StrictMode>
