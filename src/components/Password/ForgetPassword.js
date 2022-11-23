@@ -20,10 +20,12 @@ import StyledTextField from "./StyledTextField";
 import Footer from "./Footer";
 import apiInstance from "../../utilities/axiosConfig";
 import PerTextField from "../Board/UI/PerTextField";
+import axios, { AxiosResponse, AxiosError } from "axios";
 
 const ForgetPassword = () => {
   const [email, setEmail] = React.useState("");
   const [errorEmail, setErrorEmail] = React.useState(false);
+  // const [valid,setValid] = (false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -38,17 +40,44 @@ const ForgetPassword = () => {
       document.getElementById("em").innerHTML =
         "*آدرس ایمیل وارد شده معتبر نمی باشد";
     }
-    const data = new FormData();
-    data.append("email", email);
-    apiInstance.post(
-      "http://mohammadosoolian.pythonanywhere.com/accounts/forgot-password/",
-      data
-    );
+    if (!errorEmail) {
+      const data = new FormData();
+      data.append("email", email);
+      apiInstance
+        .post(
+          "http://mohammadosoolian.pythonanywhere.com/accounts/forgot-password/",
+          data
+        )
+        .catch((error) => {
+          if (error.status === 404) {
+            setErrorEmail(true);
+            console.log(error.status);
+          } else if (error.status === 200) {
+            console.log("ok");
+          }
+        });
+    }
+    // axios.get("/foo").catch(function (error) {
+    //   if (error.status === 404) {
+    //     setErrorEmail(true);
+    //     console.log(error.status);
+    //   }
+    // });
   };
+
+  const getRequest = async () => {
+    await axios.get("/foo").catch(function (error) {
+      if (error.status === 404) {
+        setErrorEmail(true);
+        console.log(error.status);
+      }
+    });
+  };
+
   document.body.style.backgroundColor = "#0A1929";
   return (
     <>
-      <Container component="main" maxWidth="xs" >
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -82,7 +111,12 @@ const ForgetPassword = () => {
               alignItems: "center",
             }}
           >
-            <Typography component="h1" variant="h5" color="#fff" sx={{ mb: 1, fontSize: "2rem"}}>
+            <Typography
+              component="h1"
+              variant="h5"
+              color="#fff"
+              sx={{ mb: 1, fontSize: "2rem" }}
+            >
               فراموشی رمز عبور
             </Typography>
             <PerTextField>
@@ -102,7 +136,7 @@ const ForgetPassword = () => {
                 sx={{
                   input: {
                     color: "#fff",
-                    fontSize: "1.6rem"
+                    fontSize: "1.6rem",
                   },
                 }}
               />
@@ -112,7 +146,12 @@ const ForgetPassword = () => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, backgroundColor: "#265D97",fontSize: "1.6rem" }}
+              sx={{
+                mt: 3,
+                mb: 2,
+                backgroundColor: "#265D97",
+                fontSize: "1.6rem",
+              }}
             >
               تغییر رمز عبور
             </Button>
@@ -123,7 +162,7 @@ const ForgetPassword = () => {
                 textAlign: "right",
                 color: "red",
                 fontWeight: "bold",
-                fontSize: "1.6rem"
+                fontSize: "1.6rem",
               }}
             ></Typography>
           </Box>
