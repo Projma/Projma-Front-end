@@ -11,6 +11,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import StyledTextField from "./StyledTextField";
 import Footer from "./Footer";
+import apiInstance from "../../utilities/axiosConfig";
 
 import axios from "axios";
 
@@ -68,14 +69,16 @@ const ResetPassword = () => {
       document.getElementById("em").innerHTML = errorMessage;
     }
 
-    const login_form_data = new FormData();
-    login_form_data.append("password", password);
-    axios
-      .post(
-        "http://mohammadosoolian.pythonanywhere.com/accounts/reset-password",
-        login_form_data
-      )
-      .then((res) => console.log(res));
+    if (!(errorPassword || errorConfirmPassword)) {
+      const data = new FormData();
+      data.append("password", password);
+      apiInstance
+        .post(
+          "http://mohammadosoolian.pythonanywhere.com/accounts/reset-password/",
+          data
+        )
+        .then((res) => console.log(res));
+    }
   };
 
   document.body.style.backgroundColor = "#0A1929";
@@ -115,7 +118,12 @@ const ResetPassword = () => {
               alignItems: "center",
             }}
           >
-            <Typography component="h1" variant="h5" color="#fff" sx={{ mb: 1, fontSize: "2rem"}}>
+            <Typography
+              component="h1"
+              variant="h5"
+              color="#fff"
+              sx={{ mb: 1, fontSize: "2rem" }}
+            >
               تغییر رمز عبور
             </Typography>
             <CacheProvider value={cacheRtl}>
@@ -135,7 +143,7 @@ const ResetPassword = () => {
                   sx={{
                     input: {
                       color: "#fff",
-                      fontSize: "1.6rem"
+                      fontSize: "1.6rem",
                     },
                   }}
                 />
@@ -154,7 +162,7 @@ const ResetPassword = () => {
                   sx={{
                     input: {
                       color: "#fff",
-                      fontSize: "1.6rem"
+                      fontSize: "1.6rem",
                     },
                   }}
                 />
@@ -165,7 +173,12 @@ const ResetPassword = () => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, backgroundColor: "#265D97",fontSize: "1.6rem" }}
+              sx={{
+                mt: 3,
+                mb: 2,
+                backgroundColor: "#265D97",
+                fontSize: "1.6rem",
+              }}
             >
               تغییر رمز عبور
             </Button>

@@ -73,7 +73,7 @@ h2 {
 
 form {
   display: inline-block;
-  background: #f3f3f3;
+  /* background: #f3f3f3; */
   border: 1px solid none;
   border-radius: 2px;
   padding: 2rem;
