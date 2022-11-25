@@ -11,7 +11,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import GoogleIcon from "@mui/icons-material/Google";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import "./Registration.css";
+import "../../styles/Registration.css";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
@@ -221,7 +221,11 @@ export default function SignIn() {
                       style={{ display: "flex", marginRight: "4%" }}
                     ></GoogleIcon>
                     <Typography
-                      style={{ fontSize: "120%", fontFamily: "Vazir" }}
+                      style={{
+                        fontSize: "120%",
+                        fontFamily: "Vazir",
+                        color: "black",
+                      }}
                     >
                       ورود با حساب گوگل
                     </Typography>
@@ -234,7 +238,11 @@ export default function SignIn() {
                   <div style={icon_style}>
                     <GitHubIcon style={{ marginRight: "4%" }}></GitHubIcon>
                     <Typography
-                      style={{ fontSize: "120%", fontFamily: "Vazir" }}
+                      style={{
+                        fontSize: "120%",
+                        fontFamily: "Vazir",
+                        color: "black",
+                      }}
                     >
                       ورود با حساب گیت‌هاب
                     </Typography>
