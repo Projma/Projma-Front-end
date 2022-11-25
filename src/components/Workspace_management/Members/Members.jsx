@@ -31,6 +31,7 @@ const Members = ({ params }) => {
         const members = res.data.map((obj) => ({
           firstName: obj.user.first_name,
           lastName: obj.user.last_name,
+          userName: obj.user.username,
           email: obj.user.email,
           image: obj.profile_pic,
         }));
@@ -40,23 +41,36 @@ const Members = ({ params }) => {
   }, []);
   const navigate = useNavigate();
   const copyLink = (e) => {
-    console.log(`${baseUrl}workspaces/workspaceowner/${params.id}/invite_link`);
+    console.log(`${baseUrl}workspaces/workspaceowner/${params.id}/invite-link`);
     apiInstance
       .get(`workspaces/workspaceowner/${params.id}/invite_link/`)
       .then((res) => {
         console.log(res.data);
         navigator.clipboard.writeText(
-          `localhost:3000/invite_page/${res.data}/`
+          `localhost:3001/invite_page/${res.data}/`
         );
       });
   };
   const go_to_profile = (e) => {
     console.log(e.currentTarget.id);
-    navigate(`/profile/${e.currentTarget.id}`);
+    navigate(`/profile-view/${e.currentTarget.id}/`);
     // navigate(`profileview/${e.currentTarget.id}/`);
+  };
+  const test = (e) => {
+    console.log("here");
+    const form_data = new FormData();
+    form_data.append("name", "title");
+    form_data.append("description", "description");
+    form_data.append("type", "education");
+    apiInstance
+      .post(`/workspaces/workspaceowner/${params.id}/create-board/`, form_data)
+      .then((res) => {
+        console.log(res.data);
+      });
   };
   return (
     <div className="main-div">
+      {/* <button onClick={test}>here</button> */}
       {/* <div className="invite-person">
         <div className="invite-person-text">
           شما می توانید افراد را به این کارگاه دعوت کنید. ایمیل دعوت به آن‌ها
@@ -127,13 +141,13 @@ const Members = ({ params }) => {
                 </td>
                 <td className="list-item-prop for-button">
                   <button
-                    id={member.id}
+                    id={member.userName}
                     key={member.id}
                     className="more-details"
                     role="button"
                     onClick={go_to_profile}
                   >
-                    <span class="text">اطلاعات بیشتر</span>
+                    <span class="text">پروفایل</span>
                   </button>
                 </td>
               </tr>
