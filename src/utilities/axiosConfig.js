@@ -31,7 +31,7 @@ apiInstance.interceptors.response.use(
         // axios
         // .post(`${baseUrl}/accounts/jwt/refresh`, {
         apiInstance
-          .post(`accounts/jwt/refresh`, {
+          .post(`accounts/login/token/refresh`, {
             refresh: localStorage.getItem("refresh_token"),
           })
           .then((res) => {
