@@ -12,10 +12,7 @@ import ChangePassword from "./components/Profile/ChangePassword";
 import logo from "./logo.svg";
 import "./App.css";
 import "./fonts/Vazir.ttf";
-<<<<<<< HEAD
 import Board from "./components/Board/UI/Board";
-=======
->>>>>>> 418b861 ([fix]: solve merge conflict)
 
 function App() {
   // functional base component
@@ -32,10 +29,7 @@ function App() {
         <Route path="workspace/:id/*" element={<Workspace_management />} />
         <Route exact path="/profileview/" element={<ProfileView />} />
         <Route exact path="/changepassword" element={<ChangePassword />} />
-<<<<<<< HEAD
         <Route exact path="/board" element={<Board />} />
-=======
->>>>>>> 418b861 ([fix]: solve merge conflict)
       </Routes>
     </Router>
   );
