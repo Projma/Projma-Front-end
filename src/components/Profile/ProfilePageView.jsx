@@ -21,6 +21,7 @@ import { Button } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import TextField from "@mui/material/TextField";
 import apiInstance from "../../utilities/axiosConfig";
+import { useParams } from "react-router-dom";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -31,30 +32,47 @@ const cacheRtl = createCache({
   stylisPlugins: [prefixer, rtlPlugin],
 });
 export default function ProfileView() {
-  const [file, setFile] = useState(profile_preview);
-  const [userDetail, setUserDetail] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-    username: "",
-  });
-  apiInstance.get("/accounts/users/").then((res) => {
-    setUserDetail(res.data);
-    console.log(res.data);
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [username, setUsername] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [binaryFile, setBinaryFile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [bio, setBio] = React.useState("");
+  const temp = useParams();
+  // console.log(temp.username);
+  React.useEffect(() => {
+    axios
+      .get(
+        `http://mohammadosoolian.pythonanywhere.com/accounts/profile/public-profile/${temp.username}/`
+      )
+      .then((res) => {
+        setFirstName(res.data.user.first_name);
+        setLastName(res.data.user.last_name);
+        setUsername(res.data.user.username);
+        setEmail(res.data.user.email);
+        setPassword(res.data.user.password);
+        setBio(res.data.bio);
+        setLoading(false);
+        console.log(res.data.user.firstName);
+      });
   });
   return (
     <div>
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
           <div className="profile-container profile-page">
-            <div className="profile-box">
-              <div className="profile-box-header flex justify-between">
-                <h3 style={{ color: "white" }} className="neonText">
-                  اطلاعات فردی
-                </h3>
-              </div>
-              <div className="profile-box-body" style={{ textAlign: "center" }}>
+            <div className="profile-box-profile-view">
+              <div
+                className="box-profile-view"
+                style={{ alignItems: "center" }}
+              >
+                <div className="profile-box-header flex justify-between">
+                  <h3 style={{ color: "white" }} className="neonText">
+                    اطلاعات فردی
+                  </h3>
+                </div>
                 <div
                   className="flex margin-top col-gap-8"
                   style={{ justifyContent: "center", marginBottom: "1%" }}
@@ -65,7 +83,7 @@ export default function ProfileView() {
                   >
                     <Avatar
                       className="Avatar"
-                      src={file}
+                      // src={file}
                       alt="profile"
                       sx={{
                         mt: 1,
@@ -88,92 +106,132 @@ export default function ProfileView() {
                   </div>
                 </div>
                 <div className="flex" style={{ marginTop: "5%" }}>
-                  <div className="flex-row" style={{ width: "120%" }}>
-                    <div
-                      className="flex-col show-box show-box-media"
-                    >
-                      <label for="first_name" className="title-css">
+                  <div
+                    className="flex-row"
+                    style={{ width: "120%", marginTop: "5%" }}
+                  >
+                    <div className="flex-col show-box show-box-media">
+                      <label
+                        for="first_name"
+                        className="title-css"
+                        style={{ marginRight: "2%" }}
+                      >
                         نام
                       </label>
                       <h3
                         className="detail-css"
-                        style={{ color: "white", fontWeight: "normal" }}
+                        style={{
+                          color: "white",
+                          fontWeight: "normal",
+                          textAlign: "center",
+                        }}
                       >
-                        نوید
+                        {firstName}
                       </h3>
                     </div>
-                    <div
-                      className="flex-col show-box show-box-media"
-                    >
-                      <label for="last_name" className="title-css">
+                    <div className="flex-col show-box show-box-media">
+                      <label
+                        for="last_name"
+                        className="title-css"
+                        style={{ marginRight: "2%" }}
+                      >
                         نام خانوادگی
                       </label>
                       <h3
                         className="detail-css"
-                        style={{ color: "white", fontWeight: "normal" }}
+                        style={{
+                          color: "white",
+                          fontWeight: "normal",
+                          textAlign: "center",
+                        }}
                       >
-                        ابراهیمی
+                        {lastName}
                       </h3>
                     </div>
                   </div>
                 </div>
                 <div className="flex" style={{ marginTop: "5%" }}>
                   <div className="flex-row" style={{ width: "120%" }}>
-                    <div
-                      className="flex-col show-box show-box-media"
-                    >
-                      <label for="email" className="title-css">
+                    <div className="flex-col show-box show-box-media">
+                      <label
+                        for="email"
+                        className="title-css"
+                        style={{ marginRight: "2%" }}
+                      >
                         ایمیل
                       </label>
                       <h3
                         className="detail-css email-font-size"
-                        style={{ color: "white", fontWeight: "normal" }}
+                        style={{
+                          color: "white",
+                          fontWeight: "normal",
+                          textAlign: "center",
+                        }}
                       >
-                        Navid@gmail.com
+                        {email}
                       </h3>
                     </div>
-                    <div
-                      className="flex-col show-box show-box-media"
-                    >
-                      <label for="username" className="title-css">
+                    <div className="flex-col show-box show-box-media">
+                      <label
+                        for="username"
+                        className="title-css"
+                        style={{ marginRight: "2%" }}
+                      >
                         نام کاربری
                       </label>
                       <h3
                         className="detail-css"
-                        style={{ color: "white", fontWeight: "normal" }}
+                        style={{
+                          color: "white",
+                          fontWeight: "normal",
+                          textAlign: "center",
+                        }}
                       >
-                        Navidium
+                        {username}
                       </h3>
                     </div>
                   </div>
                 </div>
                 <div style={{ marginTop: "5%" }}>
-                  <div
-                    className="flex-col show-box show-box-media"
-                  >
-                    <label for="birthday" className="title-css">
+                  <div className="flex-col show-box show-box-media">
+                    <label
+                      for="birthday"
+                      className="title-css"
+                      style={{ marginRight: "2%" }}
+                    >
                       تاریخ تولد
                     </label>
                     <h3
                       className="detail-css"
-                      style={{ color: "white", fontWeight: "normal" }}
+                      style={{
+                        color: "white",
+                        fontWeight: "normal",
+                        textAlign: "center",
+                      }}
                     >
                       1380/10/24
                     </h3>
                   </div>
                 </div>
                 <div style={{ marginTop: "5%" }}>
-                  <div
-                    className="flex-col show-box show-box-media bio-media"
-                  >
-                    <label for="bio" className="title-css">
+                  <div className="flex-col show-box show-box-media bio-media">
+                    <label
+                      for="bio"
+                      className="title-css"
+                      style={{ marginRight: "2%" }}
+                    >
                       درباره
                     </label>
                     <h3
                       className="detail-css"
-                      style={{ color: "white", fontWeight: "normal" }}
+                      style={{
+                        color: "white",
+                        fontWeight: "normal",
+                        textAlign: "center",
+                        wordBreak: "break-word",
+                      }}
                     >
-                      نوید ابراهیمی هستم
+                      {bio}
                     </h3>
                   </div>
                 </div>

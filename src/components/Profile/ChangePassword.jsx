@@ -41,14 +41,16 @@ export default function ChangePassword() {
   const [errorPassword2, setErrorPassword2] = React.useState(false);
   const [password3, setPassword3] = React.useState("");
   const [errorPassword3, setErrorPassword3] = React.useState(false);
-
-  const [userDetail, setUserDetail] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-    username: "",
-  });
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [username, setUsername] = React.useState("");
+  React.useEffect(() => {
+    apiInstance.get("/accounts/profile/myprofile/").then((res) => {
+      setFirstName(res.data.user.first_name);
+      setLastName(res.data.user.last_name);
+      setUsername(res.data.user.username);
+    });
+  }, []);
   const theme = createTheme({
     direction: "rtl",
   });
@@ -67,77 +69,52 @@ export default function ChangePassword() {
       setErrorPassword(true);
       errorMessage += `*رمز عبور باید بالای 8 کاراکتر باشد<br>`;
       document.getElementById("em").innerHTML = errorMessage;
-    } 
-    else if (password2.length < 8) {
+    } else if (password2.length < 8) {
       setErrorPassword2(true);
       errorMessage += `*رمز عبور جدید باید بالای 8 کاراکتر باشد<br>`;
       document.getElementById("em").innerHTML = errorMessage;
-    }
-    else if (password3.length < 8) {
+    } else if (password3.length < 8) {
       setErrorPassword3(true);
       errorMessage += `*تکرار رمز عبور جدید باید بالای 8 کاراکتر باشد<br>`;
       document.getElementById("em").innerHTML = errorMessage;
-    }
-    else if (password.search(/[a-z]/i) + password.search(/[\d]/) < 0) {
-      setErrorPassword(true);
-      errorMessage += `*رمز عبور باید شامل کاراکتر و عدد باشد<br>`;
-      document.getElementById("em").innerHTML = errorMessage;
-    } 
-    else if (password2.search(/[a-z]/i) + password2.search(/[\d]/) < 0) {
+    } else if (password2.search(/[a-z]/i) + password2.search(/[\d]/) < 0) {
       setErrorPassword2(true);
       errorMessage += `*رمز عبور جدید باید شامل کاراکتر و عدد باشد<br>`;
       document.getElementById("em").innerHTML = errorMessage;
-    }
-    else if (password3.search(/[a-z]/i) + password3.search(/[\d]/) < 0) {
+    } else if (password3.search(/[a-z]/i) + password3.search(/[\d]/) < 0) {
       setErrorPassword3(true);
       errorMessage += `*تکرار رمز عبور جدید باید شامل کاراکتر و عدد باشد<br>`;
       document.getElementById("em").innerHTML = errorMessage;
-    }
-    else if (password.search(/[A-Z]/i) < 0) {
-      setErrorPassword(true);
-      errorMessage += `*رمز عبور باید حداقل شامل یک حرف بزرگ باشد<br>`;
-      document.getElementById("em").innerHTML = errorMessage;
-    } 
-    else if (password2.search(/[A-Z]/i) < 0) {
+    } else if (password2.search(/[A-Z]/i) < 0) {
       setErrorPassword2(true);
       errorMessage += `*رمز عبور جدید باید حداقل شامل یک حرف بزرگ باشد<br>`;
       document.getElementById("em").innerHTML = errorMessage;
-    }
-    else if (password3.search(/[A-Z]/i) < 0) {
+    } else if (password3.search(/[A-Z]/i) < 0) {
       setErrorPassword3(true);
       errorMessage += `*تکرار رمز عبور جدید باید حداقل شامل یک حرف بزرگ باشد<br>`;
       document.getElementById("em").innerHTML = errorMessage;
-    }
-    else if (password.search(/[!|@|#|$|%|^|&|*]/) < 0) {
-      setErrorPassword(true);
-      errorMessage += `*رمز عبور باید شامل حداقل یکی از کاراکتر های !@#$%^&* باشد<br>`;
-      document.getElementById("em").innerHTML = errorMessage;
-    } 
-    else if (password2.search(/[!|@|#|$|%|^|&|*]/) < 0) {
+    } else if (password2.search(/[!|@|#|$|%|^|&|*]/) < 0) {
       setErrorPassword2(true);
       errorMessage += `*رمز عبور جدید باید شامل حداقل یکی از کاراکتر های !@#$%^&* باشد<br>`;
       document.getElementById("em").innerHTML = errorMessage;
-    }
-    else if (password3.search(/[!|@|#|$|%|^|&|*]/) < 0) {
+    } else if (password3.search(/[!|@|#|$|%|^|&|*]/) < 0) {
       setErrorPassword3(true);
       errorMessage += `*تکرار رمز عبور جدید باید شامل حداقل یکی از کاراکتر های !@#$%^&* باشد<br>`;
       document.getElementById("em").innerHTML = errorMessage;
-    }
-    else if (password2 !== password3) {
+    } else if (password2 !== password3) {
       setErrorPassword2(true);
       setErrorPassword3(true);
       errorMessage += `*رمز عبور های وارد شده یکسان نیست<br>`;
       document.getElementById("em").innerHTML = errorMessage;
     } else {
-      const signup_form_data = new FormData();
-      signup_form_data.append("password", password);
-      axios
-        .post(
-          "http://mohammadosoolian.pythonanywhere.com/accounts/users/signup/",
-          signup_form_data
-        )
-        .then((res) => console.log(res));
-      // .catch((error) => setErrorEmail(true));
+      const change_password_form_data = new FormData();
+      change_password_form_data.append("old_password", password);
+      change_password_form_data.append("new_password", password2);
+      apiInstance
+        .post("/accounts/profile/change-password/", change_password_form_data)
+        .then((res) => {
+          console.log(res);
+        });
     }
   };
   // apiInstance.get("/accounts/users/").then((res) => {
@@ -148,29 +125,40 @@ export default function ChangePassword() {
     <div>
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
-          <div className="profile-container-password-page profile-page">
-            <div className="profile-information row-gap-8">
-              <div className="profile-box-body-profile-container align-center">
+          <div className="profile-container profile-page">
+            <div className="profile-information row-gap-8 profile-information-media">
+              <div className="profile-box-body-profile-container">
                 <img src={profile_preview} />
               </div>
               <div className="flex-col row-gap-8 align-center">
                 <h3
-                  style={{ fontWeight: "400", fontSize: "90%", color: "white" }}
-                  className="neonText"
+                  style={{
+                    fontWeight: "400",
+                    fontSize: "90%",
+                    color: "white",
+                  }}
+                  className="neonText vazir"
                 >
-                  نوید ابراهیمی
+                  {firstName} {lastName}
                 </h3>
                 <h4
-                  style={{ fontWeight: "400", fontSize: "90%", color: "white" }}
+                  style={{
+                    fontWeight: "400",
+                    fontSize: "90%",
+                    color: "white",
+                  }}
                   className="neonText"
                 >
-                  @Navidium
+                  {`${username}@`}
                 </h4>
               </div>
               <div style={{ marginTop: "20%", width: "100%" }}>
                 <button className="btn">
                   <a href="/profile">
-                    <div className="flex-row" style={{ alignItems: "center" }}>
+                    <div
+                      className="flex-row-information"
+                      style={{ alignItems: "center" }}
+                    >
                       <PersonIcon
                         style={{
                           color: "white",
@@ -184,7 +172,7 @@ export default function ChangePassword() {
                           fontSize: "90%",
                           color: "white",
                         }}
-                        className="neonText"
+                        className="neonText text-information-media vazir"
                       >
                         اطلاعات حساب
                       </h4>
@@ -195,7 +183,7 @@ export default function ChangePassword() {
                   <button className="btn">
                     <a href="/changepassword">
                       <div
-                        className="flex-row"
+                        className="flex-row-information"
                         style={{ alignItems: "center" }}
                       >
                         <PasswordIcon
@@ -211,7 +199,7 @@ export default function ChangePassword() {
                             fontSize: "90%",
                             color: "white",
                           }}
-                          className="neonText"
+                          className="neonText text-information-media vazir"
                         >
                           تغییر رمز عبور
                         </h4>
@@ -221,122 +209,128 @@ export default function ChangePassword() {
                 </div>
               </div>
             </div>
-            <div className="profile-box">
+
+            <Box
+              className="profile-box"
+              component="form"
+              onSubmit={handleSubmit}
+            >
               <div className="profile-box-header flex justify-between">
                 <h3 style={{ color: "white" }} className="neonText">
                   تغییر رمز عبور
                 </h3>
               </div>
-              <Box component="form" onSubmit={handleSubmit}>
-                <div className="profile-box-body">
+              <div className="profile-box-body">
+                <div
+                  className="flex margin-top col-gap-8"
+                  style={{ justifyContent: "center", marginBottom: "1%" }}
+                ></div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
                   <div
-                    className="flex margin-top col-gap-8"
-                    style={{ justifyContent: "center", marginBottom: "1%" }}
-                  ></div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                    }}
+                    className="flex"
+                    style={{ marginBottom: "10%", marginTop: "20%" }}
                   >
-                    <div className="flex">
-                      <StyledTextField
-                        margin="normal"
-                        required="required"
-                        id="password1"
-                        label="رمز عبور فعلی"
-                        name="password1"
-                        type="password"
-                        InputLabelProps={{
-                          style: input_text,
-                        }}
-                        onChange={(e) => setPassword(e.target.value)}
-                        autoComplete="password"
-                        error={errorPassword}
-                        autoFocus
-                        inputProps={{
-                          style: {
-                            height: "60px",
-                            padding: "0 14px",
-                            fontFamily: "Vazir",
-                          },
-                        }}
-                      />
-                    </div>
-                    <div className="flex">
-                      <StyledTextField
-                        margin="normal"
-                        required="required"
-                        id="password2"
-                        label="رمز عبور جدید"
-                        name="password2"
-                        type="password"
-                        InputLabelProps={{
-                          style: input_text,
-                        }}
-                        onChange={(e) => setPassword2(e.target.value)}
-                        autoComplete="password"
-                        error={errorPassword2}
-                        autoFocus
-                        inputProps={{
-                          style: {
-                            height: "60px",
-                            padding: "0 14px",
-                            fontFamily: "Vazir",
-                          },
-                        }}
-                      />
-                    </div>
-                    <div className="flex">
-                      <StyledTextField
-                        margin="normal"
-                        required="required"
-                        id="password3"
-                        label="تکرار مجدد رمز عبور جدید"
-                        name="password3"
-                        type="password"
-                        InputLabelProps={{
-                          style: input_text,
-                        }}
-                        onChange={(e) => setPassword3(e.target.value)}
-                        autoComplete="password"
-                        error={errorPassword3}
-                        autoFocus
-                        inputProps={{
-                          style: {
-                            height: "60px",
-                            padding: "0 14px",
-                            fontFamily: "Vazir",
-                          },
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                        style={style_of_fields}
-                      >
-                        اعمال تغییرات
-                      </Button>
-                      <Typography
-                        id="em"
-                        sx={{
-                          mt: 1,
-                          textAlign: "right",
-                          color: "red",
-                          fontWeight: "bold",
+                    <StyledTextField
+                      margin="normal"
+                      required="required"
+                      id="password1"
+                      label="رمز عبور فعلی"
+                      name="password1"
+                      type="password"
+                      InputLabelProps={{
+                        style: input_text,
+                      }}
+                      onChange={(e) => setPassword(e.target.value)}
+                      autoComplete="password"
+                      error={errorPassword}
+                      autoFocus
+                      inputProps={{
+                        style: {
+                          height: "60px",
+                          padding: "0 14px",
                           fontFamily: "Vazir",
-                        }}
-                      ></Typography>
-                    </div>
+                        },
+                      }}
+                    />
+                  </div>
+                  <div className="flex" style={{ marginBottom: "10%" }}>
+                    <StyledTextField
+                      margin="normal"
+                      required="required"
+                      id="password2"
+                      label="رمز عبور جدید"
+                      name="password2"
+                      type="password"
+                      InputLabelProps={{
+                        style: input_text,
+                      }}
+                      onChange={(e) => setPassword2(e.target.value)}
+                      autoComplete="password"
+                      error={errorPassword2}
+                      autoFocus
+                      inputProps={{
+                        style: {
+                          height: "60px",
+                          padding: "0 14px",
+                          fontFamily: "Vazir",
+                        },
+                      }}
+                    />
+                  </div>
+                  <div className="flex" style={{ marginBottom: "60%" }}>
+                    <StyledTextField
+                      margin="normal"
+                      required="required"
+                      id="password3"
+                      label="تکرار رمز عبور جدید"
+                      name="password3"
+                      type="password"
+                      InputLabelProps={{
+                        style: input_text,
+                      }}
+                      onChange={(e) => setPassword3(e.target.value)}
+                      autoComplete="password"
+                      error={errorPassword3}
+                      autoFocus
+                      inputProps={{
+                        style: {
+                          height: "60px",
+                          padding: "0 14px",
+                          fontFamily: "Vazir",
+                        },
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 }}
+                      style={style_of_fields}
+                    >
+                      اعمال تغییرات
+                    </Button>
+                    <Typography
+                      id="em"
+                      sx={{
+                        mt: 1,
+                        textAlign: "right",
+                        color: "red",
+                        fontWeight: "bold",
+                        fontFamily: "Vazir",
+                      }}
+                    ></Typography>
                   </div>
                 </div>
-              </Box>
-            </div>
+              </div>
+            </Box>
           </div>
         </ThemeProvider>
       </CacheProvider>

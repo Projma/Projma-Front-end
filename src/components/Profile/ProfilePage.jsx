@@ -52,6 +52,7 @@ export default function Profile() {
   const [loading, setLoading] = useState(true);
   const [bio, setBio] = React.useState("");
   const [errorBio, setErrorBio] = React.useState(false);
+  const [name, setName] = useState("");
 
   React.useEffect(() => {
     apiInstance.get("/accounts/profile/myprofile/").then((res) => {
@@ -59,6 +60,7 @@ export default function Profile() {
       setLastName(res.data.user.last_name);
       setUsername(res.data.user.username);
       setEmail(res.data.user.email);
+      setBio(res.data.bio);
       setPassword(res.data.user.password);
       setChangeImage(res.data.user.image);
       setLoading(false);
@@ -105,9 +107,11 @@ export default function Profile() {
     const profile_with_name_form_data = new FormData();
     profile_with_name_form_data.append("first_name", firstName);
     profile_with_name_form_data.append("last_name", lastName);
-    // apiInstance
-    //   .patch("/accounts/users/myaccount/", profile_with_name_form_data)
-    //   .then((res) => {console.log(res)});
+    apiInstance
+      .patch("/accounts/users/myaccount/", profile_with_name_form_data)
+      .then((res) => {
+        console.log(res);
+      });
     // axios
     //   .patch("/accounts/users/myaccount/", profile_with_name_form_data)
     //   .then((res) => {
@@ -118,12 +122,10 @@ export default function Profile() {
     //   });
 
     const birthd = "";
-    profile_without_name_form_data.append("username", username);
-    profile_without_name_form_data.append("email", email);
     profile_without_name_form_data.append("password", password);
     profile_without_name_form_data.append("bio", bio);
     profile_without_name_form_data.append("birth_date", "2022-04-04");
-    profile_without_name_form_data.append("profile_pic", binaryFile);
+    // profile_without_name_form_data.append("profile_pic", binaryFile);
     // birthd += `${birthDate.getFullYear()}-${birthDate.getMonth()}-${birthDate.getDay()}`;
     // console.log(birthd);
     // console.log(bio);
@@ -149,8 +151,8 @@ export default function Profile() {
         <CacheProvider value={cacheRtl}>
           <ThemeProvider theme={theme}>
             <div className="profile-container profile-page">
-              <div className="profile-information row-gap-8">
-                <div className="profile-box-body-profile-container align-center">
+              <div className="profile-information row-gap-8 profile-information-media">
+                <div className="profile-box-body-profile-container">
                   <img src={profile_preview} />
                 </div>
                 <div className="flex-col row-gap-8 align-center">
@@ -160,9 +162,9 @@ export default function Profile() {
                       fontSize: "90%",
                       color: "white",
                     }}
-                    className="neonText"
+                    className="neonText vazir"
                   >
-                    نوید ابراهیمی
+                    {firstName} {lastName}
                   </h3>
                   <h4
                     style={{
@@ -172,7 +174,7 @@ export default function Profile() {
                     }}
                     className="neonText"
                   >
-                    @Navidium
+                    {`${username}@`}
                   </h4>
                 </div>
                 <div style={{ marginTop: "20%", width: "100%" }}>
@@ -195,7 +197,7 @@ export default function Profile() {
                             fontSize: "90%",
                             color: "white",
                           }}
-                          className="neonText text-information-media"
+                          className="neonText text-information-media vazir"
                         >
                           اطلاعات حساب
                         </h4>
@@ -222,7 +224,7 @@ export default function Profile() {
                               fontSize: "90%",
                               color: "white",
                             }}
-                            className="neonText text-information-media"
+                            className="neonText text-information-media vazir"
                           >
                             تغییر رمز عبور
                           </h4>
@@ -232,231 +234,210 @@ export default function Profile() {
                   </div>
                 </div>
               </div>
-              <div className="profile-box">
+              <Box
+                className="profile-box"
+                component="form"
+                onSubmit={handleSubmit}
+              >
                 <div className="profile-box-header flex justify-between">
-                  <h3 style={{ color: "white" }} className="neonText">
+                  <h3 style={{ color: "white" }} className="neonText vazir">
                     اطلاعات فردی
                   </h3>
                 </div>
-                <Box component="form" onSubmit={handleSubmit}>
-                  <div className="profile-box-body">
+                <div className="profile-box-body">
+                  <div
+                    className="flex margin-top col-gap-8"
+                    style={{ justifyContent: "center", marginBottom: "1%" }}
+                  >
                     <div
-                      className="flex margin-top col-gap-8"
-                      style={{ justifyContent: "center", marginBottom: "1%" }}
+                      className="avatar-container"
+                      style={{ marginTop: "-50px" }}
                     >
-                      <div
-                        className="avatar-container"
-                        style={{ marginTop: "-50px" }}
-                      >
-                        <Avatar
-                          className="Avatar"
-                          src={binaryFile}
-                          alt="profile"
-                          sx={{
-                            mt: 1,
-                            width: "15vmin",
-                            height: "15vmin",
-                            borderRadius: "50%",
-                          }}
-                        />
-                        <div className="button-container">
-                          <Button
-                            variant="contained"
-                            component="label"
-                            color="info"
-                          >
-                            <p style={{ fontSize: "0.8rem" }}>انتخاب عکس</p>
-                            {/* <p>aafaf</p> */}
-                            <input
-                              type="file"
-                              hidden
-                              onChange={(e) => handleChange(e)}
-                              accept=".jpg,.jpeg,.png"
-                            />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex">
-                      <div className="flex-row" style={{ width: "120%" }}>
-                        <StyledTextField
-                          className="StyledTextField-media"
-                          margin="normal"
-                          required="required"
-                          id="firstName"
-                          fullWidth
-                          value={firstName}
-                          label="نام"
-                          name="firstName"
-                          InputLabelProps={{
-                            style: input_text,
-                          }}
-                          onChange={(e) => setFirstName(e.target.value)}
-                          autoComplete="firstname"
-                          error={errorFirstName}
-                          autoFocus
-                          inputProps={{
-                            style: {
-                              height: "60px",
-                              padding: "0 14px",
-                              fontFamily: "Vazir",
-                            },
-                          }}
-                        />
-                        <StyledTextField
-                          className="StyledTextField-media"
-                          margin="normal"
-                          required="required"
-                          id="lastname"
-                          fullWidth
-                          value={lastName}
-                          label="نام خانوادگی"
-                          name="lastname"
-                          InputLabelProps={{
-                            style: input_text,
-                          }}
-                          onChange={(e) => setLastName(e.target.value)}
-                          autoComplete="lastname"
-                          error={errorLastName}
-                          autoFocus
-                          inputProps={{
-                            style: {
-                              height: "60px",
-                              padding: "0 14px",
-                              fontFamily: "Vazir",
-                            },
-                          }}
-                        />
-                      </div>
-                    </div>
-                    <div className="flex">
-                      <div className="flex-row" style={{ width: "120%" }}>
-                        <StyledTextField
-                          className="StyledTextField-media"
-                          margin="normal"
-                          required="required"
-                          id="email"
-                          fullWidth
-                          value={email}
-                          label="ایمیل"
-                          name="email"
-                          InputLabelProps={{
-                            style: input_text,
-                          }}
-                          onChange={(e) => setEmail(e.target.value)}
-                          autoComplete="email"
-                          error={errorEmail}
-                          autoFocus
-                          inputProps={{
-                            style: {
-                              height: "60px",
-                              padding: "0 14px",
-                              fontFamily: "Vazir",
-                            },
-                          }}
-                        />
-                        <StyledTextField
-                          className="StyledTextField-media"
-                          margin="normal"
-                          required="required"
-                          id="username"
-                          fullWidth
-                          value={username}
-                          label="نام کاربری"
-                          name="username"
-                          InputLabelProps={{
-                            style: input_text,
-                          }}
-                          onChange={(e) => setUsername(e.target.value)}
-                          autoComplete="username"
-                          error={errorUsername}
-                          autoFocus
-                          inputProps={{
-                            style: {
-                              height: "60px",
-                              padding: "0 14px",
-                              fontFamily: "Vazir",
-                            },
-                          }}
-                        />
-                      </div>
-                    </div>
-                    <div
-                      className="birthday-border-media"
-                      style={{
-                        direction: "rtl",
-                        marginTop: "4%",
-                        marginBottom: "4%",
-                        border: "1px solid #66B2FF",
-                        borderRadius: "5px",
-                        paddingTop: "1.75%",
-                        paddingBottom: "1.75%",
-                        paddingRight: "1.75%",
-                        width: "50%",
-                      }}
-                    >
-                      <div className="birthday-media">
-                        <label
-                          style={{
-                            marginLeft: "2%",
-                            color: "#fff",
-                            fontSize: "14px",
-                          }}
-                        >
-                          تاریخ تولد
-                        </label>
-                      </div>
-                      <DatePicker
-                        className="rmdp-input-media"
-                        calendar={persian}
-                        locale={persian_fa}
-                        value={birthDate}
-                        onChange={(val) => setBirthDate(val)}
-                        calendarPosition="bottom-right"
-                        backgroundColor="#000"
+                      <Avatar
+                        className="Avatar"
+                        src={binaryFile}
+                        alt="profile"
+                        sx={{
+                          mt: 1,
+                          width: "15vmin",
+                          height: "15vmin",
+                          borderRadius: "50%",
+                        }}
                       />
+                      <div className="button-container">
+                        <Button
+                          variant="contained"
+                          component="label"
+                          color="info"
+                        >
+                          <p
+                            style={{
+                              fontSize: "0.8rem",
+                              fontFamily: "Vazir",
+                            }}
+                          >
+                            انتخاب عکس
+                          </p>
+                          {/* <p>aafaf</p> */}
+                          <input
+                            type="file"
+                            hidden
+                            onChange={(e) => handleChange(e)}
+                            accept=".jpg,.jpeg,.png"
+                          />
+                        </Button>
+                      </div>
                     </div>
-                    <div className="StyledTextField-media">
+                  </div>
+                  <div className="flex">
+                    <div
+                      className="flex-row col-gap-16"
+                      style={{ width: "120%" }}
+                    >
                       <StyledTextField
-                        className="StyledTextField-media"
+                        className="StyledTextField-media otherStyledTextField-media otherStyledTextField"
                         margin="normal"
-                        id="bio"
-                        sx={{ width: "50%" }}
-                        label="درباره"
-                        name="bio"
-                        multiline
-                        onChange={(e) => setBio(e.target.value)}
-                        error={errorBio}
-                        value={bio}
-                        rows={2}
+                        required="required"
+                        id="firstName"
+                        fullWidth
+                        value={firstName}
+                        label="نام"
+                        name="firstName"
                         InputLabelProps={{
                           style: input_text,
                         }}
-                        autoComplete="bio"
+                        InputProps={{ style: { fontFamily: "Vazir" } }}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        autoComplete="firstname"
+                        error={errorFirstName}
                         autoFocus
-                        // style={{ height: "500%" }}
-                        inputProps={{
-                          style: {
-                            height: "100px",
-                            fontFamily: "Vazir",
-                          },
+                      />
+                      <StyledTextField
+                        className="StyledTextField-media otherStyledTextField-media otherStyledTextField"
+                        margin="normal"
+                        required="required"
+                        id="lastname"
+                        fullWidth
+                        value={lastName}
+                        label="نام خانوادگی"
+                        name="lastname"
+                        InputLabelProps={{
+                          style: input_text,
                         }}
+                        InputProps={{ style: { fontFamily: "Vazir" } }}
+                        onChange={(e) => setLastName(e.target.value)}
+                        autoComplete="lastname"
+                        error={errorLastName}
+                        autoFocus
                       />
                     </div>
-                    <div>
-                      <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                        style={style_of_fields}
+                  </div>
+                  <div className="flex-row" style={{ width: "120%" }}>
+                    <div className="flex-col show-box show-box-media, row-gap-8">
+                      <label for="email" className="title-css">
+                        ایمیل
+                      </label>
+                      <h3
+                        className="detail-css email-font-size"
+                        style={{
+                          color: "white",
+                          fontSize: "100%",
+                          fontWeight: "normal",
+                          textAlign: "right",
+                          marginRight: "2%",
+                        }}
                       >
-                        اعمال تغییرات
-                      </Button>
+                        {email}
+                      </h3>
+                    </div>
+                    <div className="flex-col show-box show-box-media row-gap-8">
+                      <label for="username" className="title-css">
+                        نام کاربری
+                      </label>
+                      <h3
+                        className="detail-css"
+                        style={{
+                          color: "white",
+                          fontWeight: "normal",
+                          textAlign: "right",
+                          fontSize: "100%",
+                          marginRight: "2%",
+                        }}
+                      >
+                        {username}
+                      </h3>
                     </div>
                   </div>
-                </Box>
-              </div>
+                  <div
+                    className="birthday-border-media"
+                    style={{
+                      direction: "rtl",
+                      marginTop: "4%",
+                      marginBottom: "4%",
+                      border: "1px solid #66B2FF",
+                      borderRadius: "5px",
+                      paddingTop: "1.75%",
+                      paddingBottom: "1.75%",
+                      paddingRight: "1.75%",
+                      width: "48.2%",
+                    }}
+                  >
+                    <div className="birthday-media flex">
+                      <label
+                        style={{
+                          marginLeft: "2%",
+                          color: "#fff",
+                          fontSize: "14px",
+                          fontFamily: "Vazir",
+                        }}
+                      >
+                        تاریخ تولد
+                      </label>
+                    </div>
+                    <DatePicker
+                      className="rmdp-input-media"
+                      calendar={persian}
+                      locale={persian_fa}
+                      value={birthDate}
+                      onChange={(val) => setBirthDate(val)}
+                      calendarPosition="bottom-right"
+                      // backgroundColor="#000"
+                    />
+                  </div>
+                  <div className="StyledTextField-media">
+                    <StyledTextField
+                      className="StyledTextField-media otherStyledTextField"
+                      margin="normal"
+                      id="bio"
+                      sx={{ width: "48%" }}
+                      label="درباره"
+                      name="bio"
+                      multiline
+                      onChange={(e) => setBio(e.target.value)}
+                      error={errorBio}
+                      value={bio}
+                      rows={2}
+                      InputProps={{ style: { fontFamily: "Vazir" } }}
+                      InputLabelProps={{
+                        style: input_text,
+                      }}
+                      autoComplete="bio"
+                      autoFocus
+                    />
+                  </div>
+                  <div>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 }}
+                      style={style_of_fields}
+                    >
+                      اعمال تغییرات
+                    </Button>
+                  </div>
+                </div>
+              </Box>
             </div>
           </ThemeProvider>
         </CacheProvider>
