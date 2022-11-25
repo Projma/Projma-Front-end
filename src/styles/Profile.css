@@ -1,25 +1,31 @@
-.profile-container {
-  width: 100%;
-  height: 120vh;
-  display: flex;
-  place-items: center;
+* {
+  font-family: Vazir;
 }
 
-.profile-container-password-page {
+.profile-container {
   width: 100%;
   height: 100vh;
   display: flex;
   place-items: center;
 }
 
+.profile-container-password-page {
+  width: 100%;
+  /* width: 15%; */
+  height: 90%;
+  /* height: 100vh; */
+  display: flex;
+  place-items: center;
+}
+
 .profile-box {
-  width: 50%;
-  height: 80%;
-  background-color: #001e3c;
+  /* width: 100%; */
+  /* height: 760px !important; */
+  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
   border-radius: 53px;
-  padding: 28px 39px;
+  padding: 60px 80px;
   font-size: 16.5729px;
-  margin-top: -5%;
+  /* margin-top: -13%; */
 }
 .flex {
   display: flex;
@@ -40,6 +46,9 @@
 }
 .col-gap-8 {
   column-gap: 8px;
+}
+.col-gap-16 {
+  column-gap: 16px;
 }
 .row-gap-8 {
   row-gap: 8px;
@@ -91,12 +100,11 @@
   flex-direction: column;
   align-items: center;
   width: 15%;
-  height: 80%;
-  background-color: #001e3c;
+  height: 90%;
+  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
   border-radius: 53px;
   padding: 28px 39px;
   font-size: 16.5729px;
-  margin-top: -5%;
 }
 
 .margin-top {
@@ -131,6 +139,7 @@
 .avatar-container:hover .Avatar {
   opacity: 0.3;
 }
+
 @font-face {
   font-family: Vazir;
   src: url(../fonts/Vazir.ttf);
@@ -190,15 +199,14 @@
 
 .show-box {
   row-gap: 7;
-  width: 50%;
-  border: 1px solid #66b2ff;
+  width: 45%;
   border-radius: 5px;
   padding-top: 0.5%;
   padding-bottom: 0.5%;
 }
 
 .rmdp-input {
-  background-color: #001e3c;
+  background-color: #ffffff00;
   color: white;
   width: 120%;
   height: 150%;
@@ -206,7 +214,17 @@
   border-color: #ffffff00 !important;
 }
 
+.otherStyledTextField {
+  height: 60px;
+  padding: 0 14px;
+}
+
 @media screen and (max-width: 600px) {
+  .box-profile-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   .flex-row {
     display: grid;
     grid-template-rows: 1fr 1fr;
@@ -214,8 +232,18 @@
   .avatar-container {
     margin-top: 1% !important;
   }
+  .profile-box {
+    width: 40%;
+    height: 880px;
+    margin-bottom: 30px;
+    padding-right: 6%;
+  }
+  .otherStyledTextField-media {
+    width: 100% !important;
+  }
   .profile-container {
     height: 130vh;
+    width: 150%;
     margin-top: -50px;
   }
   .flex-row-information {
@@ -225,14 +253,11 @@
     margin-top: 20px;
     margin-right: -50px;
   }
-  .profile-information {
-    width: 100px !important;
-  }
   .StyledTextField-media {
     width: 196.5px;
   }
   .birthday-border-media {
-    padding-left: 113px;
+    padding-left: 100%;
   }
   .rmdp-input {
     width: 100px;
@@ -250,5 +275,39 @@
   }
   .bio-media {
     height: 300px;
+    width: 100%;
+  }
+  .profile-information {
+    height: 880px;
+    width: 100px !important;
+  }
+  .profile-box-body {
+    width: 130%;
+  }
+  /* .btn {
+    width: 100%;
+  } */
+  .btn:hover {
+    background-color: #d4e3d400;
+    color: rgba(255, 255, 255, 0);
+    width: 0%;
+    border-radius: 0px;
   }
 }
+
+.vazir {
+  font-family: Vazir;
+}
+
+.profile-box-profile-view {
+  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
+  border-radius: 53px;
+  width: 50%;
+  height: 90%;
+  padding: 60px 80px;
+  font-size: 16.5729px;
+}
+
+/* .box-profile-view {
+  display: flex;
+} */
