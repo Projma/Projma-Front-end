@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState, useSelector } from "react";
+import axios from "axios";
 import { Route, Link, Routes } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -10,6 +11,7 @@ import Modal from "@mui/material/Modal";
 import StyledTextField from "../../Password/StyledTextField";
 import PerTextField from "../../Board/UI/PerTextField";
 import apiInstance from "../../../utilities/axiosConfig";
+import { baseUrl } from "../../../utilities/constants";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 // import file from "../../../static/images/workspace_management/create_board/board.jpeg";
 import "./CreateBoard.css";
@@ -29,7 +31,7 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({ params }) {
+export default function BasicModal({ params, on_submit }) {
   const handleChange = (e) => {
     const [file] = e.target.files;
     setBinaryFile(e.target.files[0]);
@@ -38,28 +40,6 @@ export default function BasicModal({ params }) {
     }
   };
   const [result, setResult] = useState("");
-  const submit_form = () => {
-    console.log("here");
-    apiInstance
-      .post(
-        `workspaces/workspace-owner/${params.id}/create-board/`,
-        {
-          name: title,
-          description: description,
-          type: "education",
-          // background_pic: binaryFile,
-        },
-        {
-          headers: {
-            "Content-Type": "Application/json",
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res.data);
-        setResult(res.data);
-      });
-  };
   const [binaryFile, setBinaryFile] = useState(null);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -70,15 +50,21 @@ export default function BasicModal({ params }) {
   const test = () => {
     console.log(result);
   };
+  const create_board = (e) => {
+    e.preventDefault();
+    const form_data = new FormData();
+    form_data.append("name", title);
+    form_data.append("description", description);
+    form_data.append("type", "education");
+    on_submit(form_data);
+  };
   return (
     <div>
-      <button
-        onClick={test}
-        style={{ backgroundColor: "white", color: "black" }}
-      >
-        here
-      </button>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <div className="add-button-container">
+        <button className="add-button" onClick={handleOpen}>
+          <p className="add-button-title">+ افزودن بورد</p>
+        </button>
+      </div>
       <Modal
         open={open}
         onClose={handleClose}
@@ -170,11 +156,12 @@ export default function BasicModal({ params }) {
             {/* <img src={this.state.imgSrc} alt="img" /> */}
             {/* <label id="title">عنوان برد</label>
             <input type="text" id="title" className="title-inp" /> */}
+            {/* <button onClick={create_board}>submit</button> */}
             <input
               type="submit"
               value="بساز"
               className="button-29"
-              onClick={submit_form}
+              onClick={create_board}
             />
           </form>
           {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>

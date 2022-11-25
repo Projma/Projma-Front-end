@@ -117,3 +117,24 @@
   grid-template-columns: 1fr;
   grid-gap: 10px;
 }
+
+.add-button {
+  height: 8rem;
+  width: 20rem;
+  border-radius: 0.5rem;
+  background-color: #173a5e;
+  padding: 3% 3%;
+  border: 0.1rem solid #5090d3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-button:hover {
+  cursor: pointer;
+  opacity: 80%;
+}
+
+.add-button:hover .add-button-title {
+  color: #007fff;
+}
