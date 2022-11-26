@@ -17,6 +17,7 @@ import ProfileView from "./components/Profile/ProfilePageView";
 import ChangePassword from "./components/Profile/ChangePassword";
 import InvitePage from "./pages/InvitePage";
 import Board from "./components/Board/UI/Board";
+import Email_verification_2 from "./components/Registration/EmailVerification";
 // import { login, remove_token } from "../src/actions/authActions";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { faIR } from "@mui/material/locale";
@@ -50,6 +51,11 @@ function App() {
             <Route exact path="/changepassword" element={<ChangePassword />} />
             <Route exact path="/board" element={<Board />} />
             <Route exact path="/invite_page/:token" element={<InvitePage />} />
+            <Route
+              exact
+              path="/email-verification"
+              element={<Email_verification_2 />}
+            />
           </Routes>
         </Router>
       </Provider>
