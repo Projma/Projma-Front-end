@@ -1,0 +1,12 @@
+.mother-div {
+  background-color: #0a1929;
+  height: 100vh;
+  display: flex;
+  overflow: auto;
+}
+
+@media screen and (max-width: 600px) {
+  .mother-div {
+    display: block;
+  }
+}

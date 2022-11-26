@@ -1,0 +1,27 @@
+.main-container {
+  height: 95%;
+}
+
+#right-arrow-div {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.drawer {
+  background-color: #0a1929;
+  height: 100vh;
+}
+
+@media screen and (max-width: 980px) {
+  .main-container {
+    display: none;
+  }
+  /* background-color: #1c334e; */
+}
+
+@media screen and (max-width: 980px) {
+  .main-container {
+    display: none;
+  }
+  /* background-color: #1c334e; */
+}

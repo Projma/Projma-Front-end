@@ -1,0 +1,16 @@
+.margin--5 {
+  margin-top: 5px;
+}
+
+.margin--top--bottom {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* .responsive--font--size--1 { */
+  /* font-size: 1vw; */
+/* } */
+
+h3 , h4 , p , b {
+  font-family: 'Vazir';
+}
