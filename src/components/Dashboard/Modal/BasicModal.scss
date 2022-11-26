@@ -1,0 +1,19 @@
+* {
+    font-family: 'Vazir';
+}
+
+#exampleInputEmail1 {
+    width: 50%;
+}
+
+.responsive--font--size--2 {
+    font-size: 2vw;
+}
+
+@media (max-width: 900px) {
+    .top-el-2 {
+        background: #076585;
+        background: -webkit-linear-gradient(to top, #076585, #fff);
+        background: linear-gradient(to top, #076585, #fff);
+    }
+}
