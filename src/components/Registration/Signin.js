@@ -18,7 +18,16 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import StyledTextField from "./StyledTextField";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import apiInstance from "../../utilities/axiosConfig";
+import { useNavigate } from "react-router-dom";
+import { wait } from "@testing-library/user-event/dist/utils";
+
+// toast.configure();
+function delay(time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
 
 function Copyright(props) {
   return (
@@ -40,7 +49,10 @@ export default function SignIn() {
   const [errorUsername, setErrorUsername] = React.useState(false);
   const [password, setPassword] = React.useState("");
   const [errorPassword, setErrorPassword] = React.useState(false);
-
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  let navigate = useNavigate();
+  const notify = () =>
+    toast("Wow so easy!", { position: toast.POSITION.TOP_LEFT });
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrorUsername(false);
@@ -52,6 +64,7 @@ export default function SignIn() {
     const login_form_data = new FormData();
     login_form_data.append("username", username);
     login_form_data.append("password", password);
+
     // const reactData = [{username:'username', password:'password'}];
     // axios
     //   .post(
@@ -62,6 +75,7 @@ export default function SignIn() {
     //   .catch((err) => console.log(err));
     // console.log("username");
     // console.log(reactData);
+
     apiInstance
       .post("accounts/login/token/", login_form_data)
       .then((response) => {
@@ -69,9 +83,19 @@ export default function SignIn() {
           localStorage.setItem("access_token", response.data.access);
           localStorage.setItem("refresh_token", response.data.refresh);
         }
+        toast.success("با موفقیت وارد شدی.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+        delay(7000).then(() => navigate("/dashboard"));
+        // navigate("/dashboard");
       })
       .catch((error) => {
         console.log("error");
+        toast.error("نام کاربری یا رمز عبور اشتباه است.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
       });
   };
 
@@ -84,178 +108,183 @@ export default function SignIn() {
   });
 
   return (
-    <CacheProvider value={cacheRtl}>
-      <ThemeProvider theme={theme}>
-        <Container
-          component="main"
-          maxWidth="xs"
-          style={{
-            borderRadius: 3,
-          }}
-        >
-          <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 8,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
+    <div>
+      <CacheProvider value={cacheRtl}>
+        <ThemeProvider theme={theme}>
+          <Container
+            component="main"
+            maxWidth="xs"
+            style={{
+              borderRadius: 3,
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "#001E3C" }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography
-              component="h1"
-              variant="h5"
-              style={{
-                fontFamily: "Vazir",
-                fontSize: "150%",
-                color: "white",
-                fontWeight: "bold",
-                marginBottom: "4%",
-              }}
-            >
-              صفحه ورود
-            </Typography>
+            <CssBaseline />
             <Box
-              component="form"
-              onSubmit={handleSubmit}
-              noValidate
-              error
               sx={{
-                mt: 1,
-                backgroundImage:
-                  "linear-gradient(to right bottom, #001E3C 0%, #0059B2 130%)",
-                borderRadius: 3,
-                backgroundColor: "red",
+                marginTop: 8,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
               }}
             >
-              <StyledTextField
-                margin="normal"
-                fullWidth
-                required="required"
-                id="username"
-                label="نام کاربری"
-                name="username"
-                InputLabelProps={{
-                  style: input_text,
-                }}
-                inputProps={{
-                  style: {
-                    height: "50px",
-                    padding: "0 14px",
-                    fontFamily: "Vazir",
-                    fontSize: "1.7rem",
-                  },
-                }}
-                onChange={(e) => setUsername(e.target.value)}
-                autoComplete="username"
-                error={errorUsername}
-                autoFocus
-              />
-              <StyledTextField
-                margin="normal"
-                fullWidth
-                required="required"
-                name="password"
-                label="پسورد"
-                type="password"
-                id="password"
-                InputLabelProps={{
-                  style: input_text,
-                }}
-                inputProps={{
-                  style: {
-                    height: "50px",
-                    padding: "0 14px",
-                    fontFamily: "Vazir",
-                    fontSize: "1.7rem",
-                  },
-                }}
-                onChange={(e) => setPassword(e.target.value)}
-                error={errorPassword}
-                autoComplete="current-password"
-                style={{ fontFamily: "Vazir" }}
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+              <Avatar sx={{ m: 1, bgcolor: "#001E3C" }}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography
+                component="h1"
+                variant="h5"
                 style={{
                   fontFamily: "Vazir",
-                  fontSize: "120%",
+                  fontSize: "150%",
+                  color: "white",
                   fontWeight: "bold",
+                  marginBottom: "4%",
                 }}
               >
-                ورود
-              </Button>
-              <Grid container style={{ marginBottom: "5%" }}>
-                <Grid item xs>
-                  <Link
-                    href="#"
-                    variant="body2"
-                    style={{
+                صفحه ورود
+              </Typography>
+              <Box
+                component="form"
+                onSubmit={handleSubmit}
+                noValidate
+                error
+                sx={{
+                  mt: 1,
+                  backgroundImage:
+                    "linear-gradient(to right bottom, #001E3C 0%, #0059B2 130%)",
+                  borderRadius: 3,
+                  backgroundColor: "red",
+                }}
+              >
+                <StyledTextField
+                  margin="normal"
+                  fullWidth
+                  required="required"
+                  id="username"
+                  label="نام کاربری"
+                  name="username"
+                  InputLabelProps={{
+                    style: input_text,
+                  }}
+                  inputProps={{
+                    style: {
+                      height: "50px",
+                      padding: "0 14px",
                       fontFamily: "Vazir",
-                      fontSize: "110%",
-                    }}
-                  >
-                    فراموشی رمز عبور
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link
-                    href="/signup"
-                    variant="body2"
-                    style={{ fontFamily: "Vazir", fontSize: "110%" }}
-                  >
-                    {"اکانت ندارید؟ ثبت‌نام کنید"}
-                  </Link>
-                </Grid>
-              </Grid>
-              <Grid Container style={{ textAlign: "center" }}>
-                <Grid item xs>
-                  <div style={icon_style}>
-                    <GoogleIcon
-                      style={{ display: "flex", marginRight: "4%" }}
-                    ></GoogleIcon>
-                    <Typography
+                      fontSize: "1.7rem",
+                    },
+                  }}
+                  onChange={(e) => setUsername(e.target.value)}
+                  autoComplete="username"
+                  error={errorUsername}
+                  autoFocus
+                />
+                <StyledTextField
+                  margin="normal"
+                  fullWidth
+                  required="required"
+                  name="password"
+                  label="پسورد"
+                  type="password"
+                  id="password"
+                  InputLabelProps={{
+                    style: input_text,
+                  }}
+                  inputProps={{
+                    style: {
+                      height: "50px",
+                      padding: "0 14px",
+                      fontFamily: "Vazir",
+                      fontSize: "1.7rem",
+                    },
+                  }}
+                  onChange={(e) => setPassword(e.target.value)}
+                  error={errorPassword}
+                  autoComplete="current-password"
+                  style={{ fontFamily: "Vazir" }}
+                />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  // onClick={notify}
+                  sx={{ mt: 3, mb: 2 }}
+                  style={{
+                    fontFamily: "Vazir",
+                    fontSize: "120%",
+                    fontWeight: "bold",
+                  }}
+                >
+                  ورود
+                </Button>
+                {/* <button onClick={notify}>Notify!</button> */}
+                <ToastContainer />
+                <Grid container style={{ marginBottom: "5%" }}>
+                  <Grid item xs>
+                    <Link
+                      href="#"
+                      variant="body2"
                       style={{
-                        fontSize: "120%",
                         fontFamily: "Vazir",
-                        color: "black",
+                        fontSize: "110%",
                       }}
                     >
-                      ورود با حساب گوگل
-                    </Typography>
-                  </div>
-                </Grid>
-                <Grid item></Grid>
-              </Grid>
-              <Grid Container style={{ textAlign: "center" }}>
-                <Grid item xs>
-                  <div style={icon_style}>
-                    <GitHubIcon style={{ marginRight: "4%" }}></GitHubIcon>
-                    <Typography
-                      style={{
-                        fontSize: "120%",
-                        fontFamily: "Vazir",
-                        color: "black",
-                      }}
+                      فراموشی رمز عبور
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <Link
+                      href="/signup"
+                      variant="body2"
+                      style={{ fontFamily: "Vazir", fontSize: "110%" }}
                     >
-                      ورود با حساب گیت‌هاب
-                    </Typography>
-                  </div>
+                      {"اکانت ندارید؟ ثبت‌نام کنید"}
+                    </Link>
+                  </Grid>
                 </Grid>
-                <Grid item></Grid>
-              </Grid>
+                <Grid Container style={{ textAlign: "center" }}>
+                  <Grid item xs>
+                    <div style={icon_style}>
+                      <GoogleIcon
+                        style={{ display: "flex", marginRight: "4%" }}
+                      ></GoogleIcon>
+                      <Typography
+                        style={{
+                          fontSize: "120%",
+                          fontFamily: "Vazir",
+                          color: "black",
+                        }}
+                      >
+                        ورود با حساب گوگل
+                      </Typography>
+                    </div>
+                  </Grid>
+                  <Grid item></Grid>
+                </Grid>
+                <Grid Container style={{ textAlign: "center" }}>
+                  <Grid item xs>
+                    <div style={icon_style}>
+                      <GitHubIcon style={{ marginRight: "4%" }}></GitHubIcon>
+                      <Typography
+                        style={{
+                          fontSize: "120%",
+                          fontFamily: "Vazir",
+                          color: "black",
+                        }}
+                      >
+                        ورود با حساب گیت‌هاب
+                      </Typography>
+                    </div>
+                  </Grid>
+                  <Grid item></Grid>
+                </Grid>
+              </Box>
             </Box>
-          </Box>
-          <Copyright sx={{ mt: 8, mb: 4 }} />
-        </Container>
-      </ThemeProvider>
-    </CacheProvider>
+            <Copyright sx={{ mt: 8, mb: 4 }} />
+          </Container>
+        </ThemeProvider>
+      </CacheProvider>
+    </div>
   );
 }
 
