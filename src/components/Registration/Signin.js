@@ -9,16 +9,16 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import isEmail from "validator/lib/isEmail";
 import GoogleIcon from "@mui/icons-material/Google";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import "../App.css";
+import "../../styles/Registration.css";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import StyledTextField from "./StyledTextField";
 import axios from "axios";
+import apiInstance from "../../utilities/axiosConfig";
 
 function Copyright(props) {
   return (
@@ -52,13 +52,27 @@ export default function SignIn() {
     const login_form_data = new FormData();
     login_form_data.append("username", username);
     login_form_data.append("password", password);
-    axios
-      .post(
-        "http://mohammadosoolian.pythonanywhere.com/accounts/login/token/",
-        login_form_data
-      )
-      .then((res) => console.log(res));
-
+    // const reactData = [{username:'username', password:'password'}];
+    // axios
+    //   .post(
+    //     "http://mohammadosoolian.pythonanywhere.com/accounts/login/token/",
+    //     login_form_data
+    //   )
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.log(err));
+    // console.log("username");
+    // console.log(reactData);
+    apiInstance
+      .post("accounts/login/token/", login_form_data)
+      .then((response) => {
+        if (response.data.access) {
+          localStorage.setItem("access_token", response.data.access);
+          localStorage.setItem("refresh_token", response.data.refresh);
+        }
+      })
+      .catch((error) => {
+        console.log("error");
+      });
   };
 
   const theme = createTheme({
@@ -95,7 +109,7 @@ export default function SignIn() {
               component="h1"
               variant="h5"
               style={{
-                fontFamily: "Nazanin",
+                fontFamily: "Vazir",
                 fontSize: "150%",
                 color: "white",
                 fontWeight: "bold",
@@ -114,6 +128,7 @@ export default function SignIn() {
                 backgroundImage:
                   "linear-gradient(to right bottom, #001E3C 0%, #0059B2 130%)",
                 borderRadius: 3,
+                backgroundColor: "red",
               }}
             >
               <StyledTextField
@@ -125,6 +140,14 @@ export default function SignIn() {
                 name="username"
                 InputLabelProps={{
                   style: input_text,
+                }}
+                inputProps={{
+                  style: {
+                    height: "50px",
+                    padding: "0 14px",
+                    fontFamily: "Vazir",
+                    fontSize: "1.7rem",
+                  },
                 }}
                 onChange={(e) => setUsername(e.target.value)}
                 autoComplete="username"
@@ -142,10 +165,18 @@ export default function SignIn() {
                 InputLabelProps={{
                   style: input_text,
                 }}
+                inputProps={{
+                  style: {
+                    height: "50px",
+                    padding: "0 14px",
+                    fontFamily: "Vazir",
+                    fontSize: "1.7rem",
+                  },
+                }}
                 onChange={(e) => setPassword(e.target.value)}
                 error={errorPassword}
                 autoComplete="current-password"
-                style={{ fontFamily: "Nazanin" }}
+                style={{ fontFamily: "Vazir" }}
               />
               <Button
                 type="submit"
@@ -153,7 +184,7 @@ export default function SignIn() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
                 style={{
-                  fontFamily: "Nazanin",
+                  fontFamily: "Vazir",
                   fontSize: "120%",
                   fontWeight: "bold",
                 }}
@@ -166,7 +197,7 @@ export default function SignIn() {
                     href="#"
                     variant="body2"
                     style={{
-                      fontFamily: "Nazanin",
+                      fontFamily: "Vazir",
                       fontSize: "110%",
                     }}
                   >
@@ -177,7 +208,7 @@ export default function SignIn() {
                   <Link
                     href="/signup"
                     variant="body2"
-                    style={{ fontFamily: "Nazanin", fontSize: "110%" }}
+                    style={{ fontFamily: "Vazir", fontSize: "110%" }}
                   >
                     {"اکانت ندارید؟ ثبت‌نام کنید"}
                   </Link>
@@ -190,7 +221,11 @@ export default function SignIn() {
                       style={{ display: "flex", marginRight: "4%" }}
                     ></GoogleIcon>
                     <Typography
-                      style={{ fontSize: "85%", fontFamily: "Vazir" }}
+                      style={{
+                        fontSize: "120%",
+                        fontFamily: "Vazir",
+                        color: "black",
+                      }}
                     >
                       ورود با حساب گوگل
                     </Typography>
@@ -203,7 +238,11 @@ export default function SignIn() {
                   <div style={icon_style}>
                     <GitHubIcon style={{ marginRight: "4%" }}></GitHubIcon>
                     <Typography
-                      style={{ fontSize: "80%", fontFamily: "Vazir" }}
+                      style={{
+                        fontSize: "120%",
+                        fontFamily: "Vazir",
+                        color: "black",
+                      }}
                     >
                       ورود با حساب گیت‌هاب
                     </Typography>
@@ -237,5 +276,6 @@ const icon_style = {
 
 const input_text = {
   color: "#fff",
-  fontFamily: "Nazanin",
+  fontFamily: "Vazir",
+  fontSize: "1.3rem",
 };

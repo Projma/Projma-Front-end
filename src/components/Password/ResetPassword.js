@@ -11,6 +11,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import StyledTextField from "./StyledTextField";
 import Footer from "./Footer";
+import apiInstance from "../../utilities/axiosConfig";
 
 import axios from "axios";
 
@@ -23,12 +24,11 @@ const cacheRtl = createCache({
   stylisPlugins: [prefixer, rtlPlugin],
 });
 
-const ForgetPassword = () => {
+const ResetPassword = () => {
   const [password, setPassword] = React.useState("");
   const [errorPassword, setErrorPassword] = React.useState(false);
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [errorConfirmPassword, setErrorconfirmPassword] = React.useState(false);
-  
 
   let errorMessage = "";
 
@@ -69,14 +69,16 @@ const ForgetPassword = () => {
       document.getElementById("em").innerHTML = errorMessage;
     }
 
-    const login_form_data = new FormData();
-    login_form_data.append("password", password);
-    axios
-      .post(
-        "http://mohammadosoolian.pythonanywhere.com/accounts/reset-password",
-        login_form_data
-      )
-      .then((res) => console.log(res));
+    if (!(errorPassword || errorConfirmPassword)) {
+      const data = new FormData();
+      data.append("password", password);
+      apiInstance
+        .post(
+          "http://mohammadosoolian.pythonanywhere.com/accounts/reset-password/",
+          data
+        )
+        .then((res) => console.log(res));
+    }
   };
 
   document.body.style.backgroundColor = "#0A1929";
@@ -116,7 +118,12 @@ const ForgetPassword = () => {
               alignItems: "center",
             }}
           >
-            <Typography component="h1" variant="h5" color="#fff" sx={{ mb: 1 }}>
+            <Typography
+              component="h1"
+              variant="h5"
+              color="#fff"
+              sx={{ mb: 1, fontSize: "2rem" }}
+            >
               تغییر رمز عبور
             </Typography>
             <CacheProvider value={cacheRtl}>
@@ -136,6 +143,7 @@ const ForgetPassword = () => {
                   sx={{
                     input: {
                       color: "#fff",
+                      fontSize: "1.6rem",
                     },
                   }}
                 />
@@ -154,6 +162,7 @@ const ForgetPassword = () => {
                   sx={{
                     input: {
                       color: "#fff",
+                      fontSize: "1.6rem",
                     },
                   }}
                 />
@@ -164,13 +173,23 @@ const ForgetPassword = () => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, backgroundColor: "#66B2FF" }}
+              sx={{
+                mt: 3,
+                mb: 2,
+                backgroundColor: "#265D97",
+                fontSize: "1.6rem",
+              }}
             >
               تغییر رمز عبور
             </Button>
             <Typography
               id="em"
-              sx={{ mt: 1, textAlign: "right", color: "red", fontWeight: "bold" }}
+              sx={{
+                mt: 1,
+                textAlign: "right",
+                color: "red",
+                fontWeight: "bold",
+              }}
             ></Typography>
           </Box>
         </Box>
@@ -180,4 +199,4 @@ const ForgetPassword = () => {
   );
 };
 
-export default ForgetPassword;
+export default ResetPassword;

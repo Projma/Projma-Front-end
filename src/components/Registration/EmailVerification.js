@@ -5,22 +5,23 @@ import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import "../App.css";
+import "../../styles/Registration.css";
 import axios from "axios";
 
 function Email_verification_2() {
   const temp = useParams();
+  console.log(temp);
   const login_form_data = new FormData();
   login_form_data.append("userId", temp.userId);
   login_form_data.append("token", temp.token);
-  axios
-    .post(
-      "http://mohammadosoolian.pythonanywhere.com/accounts/login/token/",
-      login_form_data
-    )
-    .then((res) => console.log(res));
+  // axios
+  //   .post(
+  //     "http://mohammadosoolian.pythonanywhere.com/accounts/login/token/",
+  //     login_form_data
+  //   )
+  //   .then((res) => console.log(res));
 
-  console.log(temp);
+  // console.log(temp);
   return temp;
 }
 

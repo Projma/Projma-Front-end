@@ -17,34 +17,35 @@ const root = ReactDOM.createRoot(document.getElementById('root')); // in index.h
 
 let token = localStorage.getItem('access_token');
 if (token) {
-  store
-    .dispatch(login())
-    .then(() => {
-      // ReactDOM.render(<App />, document.getElementById('root'));
-      root.render(
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      );
-    })
-    .catch(error => {
-      console.log(error);
-      // store.dispatch(remove_token());
-      // ReactDOM.render(<App />, document.getElementById('root'));
-      root.render(
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      );
-    });
+    store
+        .dispatch(login())
+        .then(() => {
+            // ReactDOM.render(<App />, document.getElementById('root'));
+            root.render(
+                <React.StrictMode>
+                    <App />
+                </React.StrictMode>
+            );
+        })
+        .catch(error => {
+            console.log(error);
+            // store.dispatch(remove_token());
+            // ReactDOM.render(<App />, document.getElementById('root'));
+            root.render(
+                <React.StrictMode>
+                    <App />
+                </React.StrictMode>
+            );
+        });
 } else {
-  // ReactDOM.render(<App />, document.getElementById('root'));
-  root.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  );
+    // ReactDOM.render(<App />, document.getElementById('root'));
+    root.render(
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>
+    );
 }
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
