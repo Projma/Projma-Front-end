@@ -70,14 +70,20 @@ const ResetPassword = () => {
     }
 
     if (!(errorPassword || errorConfirmPassword)) {
+      const baseLink = window.location.href;
+
+      const getLinkInfo = (baseLink) => {
+        return baseLink.split("reset-password?")[1];
+      };
+      console.log(getLinkInfo(baseLink));
       const data = new FormData();
       data.append("password", password);
-      apiInstance
-        .post(
-          "http://mohammadosoolian.pythonanywhere.com/accounts/reset-password/",
-          data
-        )
-        .then((res) => console.log(res));
+      data.append("link", window.location.href);
+      const url =
+        "http://mohammadosoolian.pythonanywhere.com/accounts/reset-password/?" +
+        getLinkInfo(baseLink);
+      console.log(url);
+      apiInstance.post(url, data).then((res) => console.log(res));
     }
   };
 
