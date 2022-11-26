@@ -8,21 +8,25 @@
   font-size: 1.6rem;
   display: flex;
   align-items: center;
-  gap:0.5rem;
+  gap: 0.5rem;
   margin-bottom: 20px;
 }
 
 .board-body {
-  border: 0.2rem solid #5090D3;
+  border: 0.2rem solid #5090d3;
   padding: 0.5rem;
   border-radius: 0.5rem;
+}
+
+.board-header-title {
+  color: #fff important;
 }
 
 .board-body-list {
   overflow: auto;
   max-height: 26rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 20rem) ;
+  grid-template-columns: repeat(auto-fill, 20rem);
   justify-content: space-evenly;
   gap: 1rem 1rem;
   justify-items: start;
@@ -32,9 +36,9 @@
   height: 8rem;
   width: 20rem;
   border-radius: 0.5rem;
-  background-color: #173A5E;
+  background-color: #173a5e;
   padding: 3% 3%;
-  border: 0.1rem solid #5090D3;
+  border: 0.1rem solid #5090d3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,7 +49,7 @@
   opacity: 80%;
 }
 
-.add-button:hover .add-button-title{
+.add-button:hover .add-button-title {
   color: #007fff;
 }
 

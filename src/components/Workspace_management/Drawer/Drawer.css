@@ -12,8 +12,16 @@
   height: 100vh;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 980px) {
   .main-container {
     display: none;
   }
+  /* background-color: #1c334e; */
+}
+
+@media screen and (max-width: 980px) {
+  .main-container {
+    display: none;
+  }
+  /* background-color: #1c334e; */
 }

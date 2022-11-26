@@ -4,7 +4,7 @@ import { baseUrl } from "./constants"
 
 // const apiInstance = Axios.create({
 const apiInstance = axios.create({
-    baseURL: baseUrl
+  baseURL: baseUrl,
 });
 
 apiInstance.interceptors.request.use(
@@ -49,6 +49,9 @@ apiInstance.interceptors.response.use(
 
         return Promise.reject(error);
     }
+
+    return Promise.reject(error);
+  }
 );
 
 export default apiInstance;

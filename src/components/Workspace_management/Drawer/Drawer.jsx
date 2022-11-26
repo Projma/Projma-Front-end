@@ -48,7 +48,6 @@ const useStyles = makeStyles({
     borderRadius: "50%",
   },
 });
-
 function ResponsiveDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
@@ -57,31 +56,29 @@ function ResponsiveDrawer(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
-    // if (!mobileOpen)
-    //   document.getElementById("right-arrow-div").style.display = "none";
-    // else document.getElementById("right-arrow-div").style.display = "block";
     setMobileOpen(!mobileOpen);
   };
   const right_arrow = (
     <div id="right-arrow-div">
       <KeyboardArrowRightIcon
         className={classes.close_drawer}
-        sx={{ fontSize: "30px", backgroundColor: "white" }}
+        sx={{ fontSize: "30px" }}
         onClick={handleDrawerToggle}
       />
     </div>
   );
-  const sidebarButton = [{nameFa:"بورد‌ها",nameEn:"Boards"},
-  {nameFa:"اعضا",nameEn:"members"},
-  {nameFa:"تنظیمات",nameEn:"setting"}
-]
+  const sidebarButton = [
+    { nameFa: "بورد‌ها", nameEn: "Boards" },
+    { nameFa: "اعضا", nameEn: "members" },
+    { nameFa: "تنظیمات", nameEn: "setting" },
+  ];
   const drawer = (
     <div className="drawer">
       {/* <Toolbar /> */}
       {matches ? "" : right_arrow}
       <Divider />
       <List>
-        {sidebarButton.map((obj,index) => (
+        {sidebarButton.map((obj, index) => (
           <ListItem
             button
             href="#"
@@ -253,15 +250,6 @@ function ResponsiveDrawer(props) {
               {drawer}
             </Drawer>
           </Box>
-          {/* <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-        }}
-      >
-      </Box> */}
         </Box>
       </div>
     </div>

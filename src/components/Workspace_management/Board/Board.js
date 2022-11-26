@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import { useParams } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import apiInstance from "../../../utilities/axiosConfig";
 import "./Board.css";
 import BoardView from "./BoardView";
+import BasicModal from "../BasicModal/CreateBoard";
 
 const boardList = [
   { name: "1", id: "1", isStarred: false, isRecent: false },
@@ -16,8 +19,26 @@ const boardList = [
   { name: "8", id: "8", isStarred: false, isRecent: true },
 ];
 
-const Board = () => {
-  const [list, setList] = useState(boardList);
+const Board = ({ params, on_submit }) => {
+  useEffect(() => {
+    console.log(params);
+    apiInstance
+      .get(`workspaces/workspaceowner/${params.id}/workspace-boards/`)
+      .then((res) => {
+        // console.log(res.data);
+        // const members = res.data.members.map((obj) => ({
+        //   id: obj,
+        // }));
+        // console.log(members);
+        const boards = res.data.map((obj) => ({
+          id: obj.id,
+          name: obj.name,
+        }));
+        setList(boards);
+        console.log(boards);
+      });
+  }, []);
+  const [list, setList] = useState([]);
 
   const addBoardHandler = (obj) => {
     setList((current) => [...current, obj]);
@@ -42,7 +63,7 @@ const Board = () => {
   //     }),
   //   );
   // };
-
+  const [open, setOpen] = useState(false);
   return (
     <div className="board">
       {list.find((e) => e.isStarred === true) && (
@@ -113,11 +134,7 @@ const Board = () => {
                 onStarred={starredHandler}
               />
             ))}
-            <div className="add-button-container">
-              <button className="add_button">
-                <p className="add-button-title">+ افزودن بورد</p>
-              </button>
-            </div>
+            <BasicModal params={params} on_submit={on_submit} />
           </div>
         </div>
       </div>

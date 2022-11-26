@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+
     "@babel/runtime": "^7.20.1",
     "@emotion/cache": "^11.10.5",
     "@emotion/react": "^11.10.5",
@@ -20,7 +21,11 @@
     "react": "^18.2.0",
     "react-date-picker": "^9.1.0",
     "react-dom": "^18.2.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-helmet": "^6.1.0",
+    "react-multi-date-picker": "^3.3.4",
+    "redux": "^4.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
