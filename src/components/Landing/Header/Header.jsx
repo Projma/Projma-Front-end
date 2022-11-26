@@ -71,9 +71,12 @@ const Header = () => {
                 padding: "10%",
               }}
             >
-              <h1 className="responsive--font--size--2">
+              {/* <h1 className="responsive--font--size--2"> */}
+              <h2>
+              <b>
                 با پروجما کیفیت کار تیمی خود را ارتقا دهید
-              </h1>
+              </b>
+              </h2>
               <CacheProvider value={cacheRtl}>
                 <ThemeProvider theme={theme}>
                   <StyledTextField

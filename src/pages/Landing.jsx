@@ -11,7 +11,7 @@ import software_engineer from "../static/images/landing/software_engineer.svg";
 import team_up from "../static/images/landing/team_up.svg";
 import our_solution from "../static/images/landing/our_solution.svg";
 import { Box } from "@mui/system";
-import { Divider } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import co_working from "../static/images/landing/co_working.svg";
 import product_iteration from "../static/images/landing/product_iteration.svg";
 import team_collaboration from "../static/images/landing/team_collaboration.svg";
@@ -43,10 +43,13 @@ const Landing = () => {
                 fontSize: "1.5rem",
               }}
             >
-              از ابزارهای مدیریت موجود استفاده ‌می‌کنید اما زمان زیادی صرف انجام
-              کارها و پروژه‌ها می‌کنید و به موقع به سر رسید کارها نمی‌رسید؟ و یا
-              ابزارهای قدیمی به حدی پیچیدگی دارند که شما و تیمتان را سردرگم
-              می‌کند؟‎
+              <Typography variant="h5" component="div" gutterBottom>
+              {/* <Typography component="div" > */}
+                از ابزارهای مدیریت موجود استفاده ‌می‌کنید اما زمان زیادی صرف انجام
+                کارها و پروژه‌ها می‌کنید و به موقع به سر رسید کارها نمی‌رسید؟ و یا
+                ابزارهای قدیمی به حدی پیچیدگی دارند که شما و تیمتان را سردرگم
+                می‌کند؟‎
+              </Typography>
             </Box>
           </Grid>
           <Grid item xs={2} sm={4} md={3}>
@@ -78,10 +81,12 @@ const Landing = () => {
                 fontSize: "1.5rem",
               }}
             >
-              از ابزارهای مدیریت موجود استفاده ‌می‌کنید اما زمان زیادی صرف انجام
-              کارها و پروژه‌ها می‌کنید و به موقع به سر رسید کارها نمی‌رسید؟ و یا
-              ابزارهای قدیمی به حدی پیچیدگی دارند که شما و تیمتان را سردرگم
-              می‌کند؟‎
+              <Typography variant="h5" component="div" gutterBottom>
+                از ابزارهای مدیریت موجود استفاده ‌می‌کنید اما زمان زیادی صرف انجام
+                کارها و پروژه‌ها می‌کنید و به موقع به سر رسید کارها نمی‌رسید؟ و یا
+                ابزارهای قدیمی به حدی پیچیدگی دارند که شما و تیمتان را سردرگم
+                می‌کند؟‎
+              </Typography>
             </Box>
           </Grid>
         </Grid>
@@ -141,10 +146,12 @@ const Landing = () => {
                 fontSize: "1.5rem",
               }}
             >
-              از ابزارهای مدیریت موجود استفاده ‌می‌کنید اما زمان زیادی صرف انجام
-              کارها و پروژه‌ها می‌کنید و به موقع به سر رسید کارها نمی‌رسید؟ و یا
-              ابزارهای قدیمی به حدی پیچیدگی دارند که شما و تیمتان را سردرگم
-              می‌کند؟‎
+              <Typography variant="h5" component="div" gutterBottom>
+                از ابزارهای مدیریت موجود استفاده ‌می‌کنید اما زمان زیادی صرف انجام
+                کارها و پروژه‌ها می‌کنید و به موقع به سر رسید کارها نمی‌رسید؟ و یا
+                ابزارهای قدیمی به حدی پیچیدگی دارند که شما و تیمتان را سردرگم
+                می‌کند؟‎
+              </Typography>
             </Box>
           </Grid>
           <Grid item xs={2} sm={4} md={3}>
@@ -173,10 +180,12 @@ const Landing = () => {
                 fontSize: "1.5rem",
               }}
             >
-              از ابزارهای مدیریت موجود استفاده ‌می‌کنید اما زمان زیادی صرف انجام
-              کارها و پروژه‌ها می‌کنید و به موقع به سر رسید کارها نمی‌رسید؟ و یا
-              ابزارهای قدیمی به حدی پیچیدگی دارند که شما و تیمتان را سردرگم
-              می‌کند؟‎
+              <Typography variant="h5" component="div" gutterBottom>
+                از ابزارهای مدیریت موجود استفاده ‌می‌کنید اما زمان زیادی صرف انجام
+                کارها و پروژه‌ها می‌کنید و به موقع به سر رسید کارها نمی‌رسید؟ و یا
+                ابزارهای قدیمی به حدی پیچیدگی دارند که شما و تیمتان را سردرگم
+                می‌کند؟‎
+              </Typography>
             </Box>
           </Grid>
         </Grid>

@@ -32,7 +32,12 @@
 }
 
 .responsive--font--size--2 {
-  font-size: 2vw;
+  /* font-size: 2vw; */
+  font-family: 'Vazir';
+}
+
+h1, h2, h3, h4, h5, h6, b {
+  font-family: 'Vazir';
 }
 
 @media (max-width: 900px) {

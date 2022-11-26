@@ -53,7 +53,7 @@ const Footer = () => {
               }}
             >
               <h3 className="margin--5 responsive--font--size--1">
-                <b>اجتماعی</b>
+                اجتماعی
               </h3>
               <h4 className="margin--5 responsive--font--size--1">تلگرام</h4>
               <h4 className="margin--5 responsive--font--size--1">
@@ -103,11 +103,13 @@ const Footer = () => {
               // marginLeft: "5%",
             }}
           >
-            <p className="responsive--font--size--1">
+            <h3 style={{
+              color: "black",
+              }}>
               با پروجما می‌توانید در یک محیط امن و آنلاین پروژه های مختلف خود را
               به صورت تیمی و پویا مدیریت کنید. همکاری تیمی بیشتر و ارتباطات موثر
               با استفاده از پروژما امکان‌پذیر می‌شود.
-            </p>
+            </h3>
           </Box>
         </Grid>
         {/* </Box> */}
