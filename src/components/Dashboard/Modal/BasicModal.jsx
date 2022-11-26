@@ -196,7 +196,6 @@ export default function BasicModal() {
                                     // onClick={this.isClicked}
                                     onClick={() => {
                                         let create_workspace_formdata = new FormData();
-                                        console.log(document.getElementById("workspace_name"))
                                         create_workspace_formdata.append("name", document.getElementById("workspace_name").value);
                                         create_workspace_formdata.append("type", document.getElementById("workspace_type").value);
                                         create_workspace_formdata.append("description", document.getElementById("workspace_description").value);
