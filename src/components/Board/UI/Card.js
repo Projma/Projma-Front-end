@@ -1,6 +1,6 @@
 import React from "react";
 import "../Styles/Card.css";
-import "../../styles/FontFix.css";
+import "../../../styles/FontFix.css";
 
 const Card = (props) => {
   return (

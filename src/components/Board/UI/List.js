@@ -4,7 +4,7 @@ import "../Styles/Add.css";
 import Card from "./Card";
 import PerTextField from "./PerTextField";
 import StyledTextField from "../../Password/StyledTextField";
-import "../../styles/FontFix.css";
+import "../../../styles/FontFix.css";
 
 const cardInfo = [];
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import List from "./List";
 import "../Styles/Board.css";
 import "../Styles/Add.css";
-import "../../styles/FontFix.css";
+import "../../../styles/FontFix.css";
 import PerTextField from "./PerTextField";
 import StyledTextField from "../../Password/StyledTextField";
 
