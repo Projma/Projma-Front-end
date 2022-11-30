@@ -1,7 +1,7 @@
 .card {
-  margin-left: 0.5rem;
-  margin-bottom: 0.5rem;
-  margin-right: 0.5rem;
+  margin-left: 0.5em;
+  margin-bottom: 0.5em;
+  margin-right: 0.5em;
   max-width: 100%;
   height: auto;
   /* background-image: linear-gradient(to right bottom, #91B9E3 0%, #0059b2 130%); */
@@ -12,8 +12,8 @@
   );
   box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px,
     rgba(0, 0, 0, 0.04) 0px 10px 10px;
-  border-radius: 1rem;
-  padding: 0.5rem;
+  border-radius: 1em;
+  padding: 0.5em;
   display: flex;
   flex-direction: column;
   flex: 0 1 auto;
@@ -21,17 +21,17 @@
 
 .title {
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.5em;
   align-self: flex-start;
 }
 
 .card-avatar {
-  margin-top: 1rem;
+  margin-top: 1em;
   align-self: flex-end;
 }
 
 .avatar {
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 3.5em;
+  height: 3.5em;
   border-radius: 50%;
 }

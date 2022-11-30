@@ -4,6 +4,7 @@ import "../Styles/Add.css";
 import Card from "./Card";
 import PerTextField from "./PerTextField";
 import StyledTextField from "../../Password/StyledTextField";
+import "../../styles/FontFix.css";
 
 const cardInfo = [];
 
@@ -26,7 +27,7 @@ const List = (props) => {
   };
 
   return (
-    <div className="list">
+    <div className="list font-fix">
       <div className="header">
         <p className="header-title">{props.name}</p>
         <button className="header-button">

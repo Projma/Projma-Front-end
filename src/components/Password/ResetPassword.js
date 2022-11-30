@@ -128,7 +128,7 @@ const ResetPassword = () => {
               component="h1"
               variant="h5"
               color="#fff"
-              sx={{ mb: 1, fontSize: "2rem" }}
+              sx={{ mb: 1, fontSize: "2rem(10)" }}
             >
               تغییر رمز عبور
             </Typography>
@@ -149,7 +149,7 @@ const ResetPassword = () => {
                   sx={{
                     input: {
                       color: "#fff",
-                      fontSize: "1.6rem",
+                      fontSize: "1.6rem(10)",
                     },
                   }}
                 />
@@ -168,7 +168,7 @@ const ResetPassword = () => {
                   sx={{
                     input: {
                       color: "#fff",
-                      fontSize: "1.6rem",
+                      fontSize: "1.6rem(10)",
                     },
                   }}
                 />
@@ -183,7 +183,7 @@ const ResetPassword = () => {
                 mt: 3,
                 mb: 2,
                 backgroundColor: "#265D97",
-                fontSize: "1.6rem",
+                fontSize: "1.6rem(10)",
               }}
             >
               تغییر رمز عبور

@@ -1,5 +1,5 @@
 .add-list-form {
-  width: 30rem;
+  width: 30em;
   display: flex;
   align-items: flex-start;
 }
@@ -7,9 +7,9 @@
 .add-form {
   width: 100%;
   background-color: #0a1929;
-  border-radius: 1rem;
-  padding: 0.6rem;
-  margin-right: 0.6rem;
+  border-radius: 1em;
+  padding: 0.6em;
+  margin-right: 0.6em;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -20,7 +20,7 @@
   border: none;
   color: white;
   background-color: #0a1929;
-  border-radius: 1rem;
+  border-radius: 1em;
 }
 
 .form-button:hover {

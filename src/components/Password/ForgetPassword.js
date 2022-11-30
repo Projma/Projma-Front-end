@@ -1,26 +1,18 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import rtlPlugin from "stylis-plugin-rtl";
-import { prefixer } from "stylis";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
 import StyledTextField from "./StyledTextField";
 import Footer from "./Footer";
 import apiInstance from "../../utilities/axiosConfig";
 import PerTextField from "../Board/UI/PerTextField";
 import axios, { AxiosResponse, AxiosError } from "axios";
+import toast, { Toaster } from "react-hot-toast";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const fixFont = createTheme({});
 
 const ForgetPassword = () => {
   const [email, setEmail] = React.useState("");
@@ -48,6 +40,19 @@ const ForgetPassword = () => {
           "http://mohammadosoolian.pythonanywhere.com/accounts/forgot-password/",
           data
         )
+        .then(() => {
+          toast.success("Look at my styles.", {
+            style: {
+              border: "1px solid #713200",
+              padding: "16px",
+              color: "#713200",
+            },
+            iconTheme: {
+              primary: "#713200",
+              secondary: "#FFFAEE",
+            },
+          });
+        })
         .catch((error) => {
           if (error.status === 404) {
             setErrorEmail(true);
@@ -57,26 +62,10 @@ const ForgetPassword = () => {
           }
         });
     }
-    // axios.get("/foo").catch(function (error) {
-    //   if (error.status === 404) {
-    //     setErrorEmail(true);
-    //     console.log(error.status);
-    //   }
-    // });
   };
-
-  const getRequest = async () => {
-    await axios.get("/foo").catch(function (error) {
-      if (error.status === 404) {
-        setErrorEmail(true);
-        console.log(error.status);
-      }
-    });
-  };
-
   document.body.style.backgroundColor = "#0A1929";
   return (
-    <>
+    <div className="font-fix">
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -115,11 +104,12 @@ const ForgetPassword = () => {
               component="h1"
               variant="h5"
               color="#fff"
-              sx={{ mb: 1, fontSize: "2rem" }}
+              sx={{ mb: 1, fontSize: "2rem(10)" }}
             >
               فراموشی رمز عبور
             </Typography>
             <PerTextField>
+              {/* <CssBaseline /> */}
               <StyledTextField
                 margin="normal"
                 required
@@ -136,7 +126,7 @@ const ForgetPassword = () => {
                 sx={{
                   input: {
                     color: "#fff",
-                    fontSize: "1.6rem",
+                    fontSize: "1.6rem(10)",
                   },
                 }}
               />
@@ -150,10 +140,10 @@ const ForgetPassword = () => {
                 mt: 3,
                 mb: 2,
                 backgroundColor: "#265D97",
-                fontSize: "1.6rem",
+                fontSize: "1.6rem(10)",
               }}
             >
-              تغییر رمز عبور
+              ارسال ایمیل
             </Button>
             <Typography
               id="em"
@@ -169,7 +159,7 @@ const ForgetPassword = () => {
         </Box>
       </Container>
       <Footer />
-    </>
+    </div>
   );
 };
 

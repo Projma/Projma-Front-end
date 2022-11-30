@@ -1,9 +1,10 @@
 import React from "react";
 import "../Styles/Card.css";
+import "../../styles/FontFix.css";
 
 const Card = (props) => {
   return (
-    <div className="card">
+    <div className="card font-fix">
       <div className="card-title">
         <p className="title">{props.name}</p>
       </div>
