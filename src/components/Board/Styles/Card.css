@@ -1,7 +1,7 @@
-.card {
-  margin-left: 0.5em;
-  margin-bottom: 0.5em;
-  margin-right: 0.5em;
+.board_card {
+  margin-left: 0.5rem(10);
+  margin-bottom: 0.5rem(10);
+  margin-right: 0.5rem(10);
   max-width: 100%;
   height: auto;
   /* background-image: linear-gradient(to right bottom, #91B9E3 0%, #0059b2 130%); */
@@ -12,26 +12,26 @@
   );
   box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px,
     rgba(0, 0, 0, 0.04) 0px 10px 10px;
-  border-radius: 1em;
-  padding: 0.5em;
+  border-radius: 1rem(10);
+  padding: 0.5rem(10);
   display: flex;
   flex-direction: column;
   flex: 0 1 auto;
 }
 
-.title {
+.board_title {
   color: white;
-  font-size: 1.5em;
+  font-size: 1.5rem(10);
   align-self: flex-start;
 }
 
-.card-avatar {
-  margin-top: 1em;
+.board_card-avatar {
+  margin-top: 1rem(10);
   align-self: flex-end;
 }
 
-.avatar {
-  width: 3.5em;
-  height: 3.5em;
+.board_avatar {
+  width: 3.5rem(10);
+  height: 3.5rem(10);
   border-radius: 50%;
 }

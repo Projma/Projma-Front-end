@@ -1,29 +1,29 @@
-.add-list-form {
-  width: 30em;
+.board_add-list-form {
+  width: 30rem(10);
   display: flex;
   align-items: flex-start;
 }
 
-.add-form {
+.board_add-form {
   width: 100%;
   background-color: #0a1929;
-  border-radius: 1em;
-  padding: 0.6em;
-  margin-right: 0.6em;
+  border-radius: 1rem(10);
+  padding: 0.6rem(10);
+  margin-right: 0.6rem(10);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.form-button {
+.board_form-button {
   width: 100%;
   border: none;
   color: white;
   background-color: #0a1929;
-  border-radius: 1em;
+  border-radius: 1rem(10);
 }
 
-.form-button:hover {
+.board_form-button:hover {
   background-color: rgba(80, 144, 211, 0.8);
   cursor: pointer;
 }

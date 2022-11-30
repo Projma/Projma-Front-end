@@ -2,45 +2,45 @@ p {
   color: white;
 }
 
-.list {
-  /* max-width: 30em; */
-  width: 30em;
-  /* max-width: 30em; */
+.board_list {
+  /* max-width: 30rem(10); */
+  width: 30rem(10);
+  /* max-width: 30rem(10); */
   max-height: fit-content;
   background-color: #0a1929;
-  border-radius: 1em;
-  margin: 0.4em;
-  margin-right: 0.6em;
+  border-radius: 1rem(10);
+  margin: 0.4rem(10);
+  margin-right: 0.6rem(10);
   overflow: hidden;
   /* border: 0.1em solid #163658; */
-  padding: 1em;
+  padding: 1rem(10);
 }
 
-.header {
+.board_header {
   display: flex;
-  margin-bottom: 1em;
-  padding: 1em;
+  margin-bottom: 1rem(10);
+  padding: 1rem(10);
   align-items: center;
   justify-content: space-between;
   border-bottom: 0.1em solid #163658;
 }
 
-.header-title {
-  font-size: 1.8em;
+.board_header-title {
+  font-size: 1.8rem(10);
 }
 
-.header-button {
-  font-size: 1.8em;
-  height: 2em;
-  width: 2em;
-  border-radius: 1em;
+.board_header-button {
+  font-size: 1.8rem(10);
+  height: 2rem(10);
+  width: 2rem(10);
+  border-radius: 1rem(10);
   background-color: #0a1929;
   border: none;
   display: flex;
   align-items: center;
 }
 
-.header-button:hover {
+.board_header-button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,51 +53,51 @@ p {
   text-align: center;
 }
 
-.button-title {
-  margin: 0.2em;
+.board_button-title {
+  margin: 0.2rem(10);
   color: white;
 }
 
-.card-list {
+.board_card-list {
   max-height: 70vh;
   overflow-y: scroll;
-  margin-bottom: 0.4em;
-  padding: 0.6em;
+  margin-bottom: 0.4rem(10);
+  padding: 0.6rem(10);
 }
 
-.space {
+.board_space {
   max-width: auto;
-  height: 1em;
+  height: 1rem(10);
 }
 
-.add-card {
-  margin-top: 0.8em;
+.board_add-card {
+  margin-top: 0.8rem(10);
   border-top: 0.1em solid #163658;
   display: flex;
   justify-content: center;
 }
 
-.add-card_button {
-  width: 28em;
+.board_add-card_button {
+  width: 28rem(10);
   background-color: #0a1929;
   color: white;
   border: none;
-  border-radius: 1em;
-  margin-top: 0.6em;
+  border-radius: 1rem(10);
+  margin-top: 0.6rem(10);
 }
 
-.add-card_button:hover,
-.add-card_button:active {
+.board_add-card_button:hover,
+.board_add-card_button:active {
   background-color: rgba(80, 144, 211, 0.8);
   cursor: pointer;
 }
 
 @media screen and (max-width: 30em) {
-  .list {
+  .board_list {
     max-height: fit-content;
   }
-  .card-list {
+  .board_card-list {
     overflow-x: auto;
-    max-height: 30em;
+    max-height: 30rem(10);
   }
 }

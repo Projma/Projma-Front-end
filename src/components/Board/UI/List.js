@@ -27,29 +27,29 @@ const List = (props) => {
   };
 
   return (
-    <div className="list font-fix">
-      <div className="header">
-        <p className="header-title">{props.name}</p>
-        <button className="header-button">
-          <p className="button-title">...</p>
+    <div className="board_list font-fix">
+      <div className="board_header">
+        <p className="board_header-title">{props.name}</p>
+        <button className="board_header-button">
+          <p className="board_button-title">...</p>
         </button>
       </div>
-      <div className="card-list">
+      <div className="board_card-list">
         {cards.map((card) => (
           <Card name={card.name} key={card.key}/>
         ))}
       </div>
-      {/* <div className="space"></div> */}
-      <div className="add-card">
+      {/* <div className="board_space"></div> */}
+      <div className="board_add-card">
         {!isclicked ? (
-          <div className="add-button">
-            <button className="add-card_button" onClick={clickHandler}>
+          <div className="board_add-button">
+            <button className="board_add-card_button" onClick={clickHandler}>
               + افزودن کارت
             </button>
           </div>
         ) : (
-          <div className="add-list-form">
-            <form className="add-form" onSubmit={submitHandler}>
+          <div className="board_add-list-form">
+            <form className="board_add-form" onSubmit={submitHandler}>
               <PerTextField>
                 <StyledTextField
                   margin="normal"
@@ -62,7 +62,7 @@ const List = (props) => {
                   sx={{mt:0}}
                 />
               </PerTextField>
-              <button type="submit" className="form-button">
+              <button type="submit" className="board_form-button">
                 افزودن
               </button>
             </form>

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import List from "./List";
 import "../Styles/Board.css";
 import "../Styles/Add.css";
-import "../../../styles/FontFix.css";
 import PerTextField from "./PerTextField";
 import StyledTextField from "../../Password/StyledTextField";
 
@@ -25,22 +24,22 @@ const Board = () => {
   };
 
   return (
-    <div className="list-container font-fix">
-      <div className="list-container-minor">
+    <div className="board_list-container">
+      <div className="board_list-container-minor">
         {lists.map((list) => (
           <List name={list.name} key={list.key} />
         ))}
       </div>
-      <div className="add-container">
+      <div className="board_add-container">
         {!isclicked ? (
-          <div className="add-button">
-            <button className="add-list_button" onClick={clickHandler}>
-              <p className="add-list-button-title">+ ایجاد لیست</p>
+          <div className="board_add-button">
+            <button className="board_add-list-button" onClick={clickHandler}>
+              <p className="board_add-list-button-title">+ ایجاد لیست</p>
             </button>
           </div>
         ) : (
-          <div className="add-list-form">
-            <form className="add-form" onSubmit={submitHandler}>
+          <div className="board_add-list-form">
+            <form className="board_add-form" onSubmit={submitHandler}>
               <PerTextField>
                 <StyledTextField
                   margin="normal"
@@ -53,7 +52,7 @@ const Board = () => {
                   sx={{ mt: 1 }}
                 />
               </PerTextField>
-              <button type="submit" className="form-button">
+              <button type="submit" className="board_form-button">
                 افزودن
               </button>
             </form>
