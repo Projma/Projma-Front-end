@@ -65,7 +65,7 @@ const ForgetPassword = () => {
   };
   document.body.style.backgroundColor = "#0A1929";
   return (
-    <div className="font-fix">
+    <>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -159,7 +159,7 @@ const ForgetPassword = () => {
         </Box>
       </Container>
       <Footer />
-    </div>
+    </>
   );
 };
 
