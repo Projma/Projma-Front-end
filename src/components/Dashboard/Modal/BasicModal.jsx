@@ -12,11 +12,14 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import StyledTextField from "../StyledTextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { redirect } from "react-router-dom";
-import { AddBox } from "@mui/icons-material";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import conversation from "../../../static/images/landing/conversation.svg";
+// import { json, redirect } from "react-router-dom";
+// import { AddBox } from "@mui/icons-material";
+// import useMediaQuery from "@mui/material/useMediaQuery";
+// import conversation from "../../../static/images/landing/conversation.svg";
 import apiInstance from '../../../utilities/axiosConfig';
+import MenuItem from '@mui/material/MenuItem';
+import { useNavigate } from 'react-router-dom';
+// import {redirect} from 'react-router-dom';
 
 const style = {
     position: 'absolute',
@@ -67,7 +70,129 @@ export default function BasicModal() {
     //     };
     // const matches = useMediaQuery("(max-width:900px)");
 
-    
+    // const [workspaceTypes, setWorkspaceTypes] = React.useState({});
+    // const [types, setTypes] = React.useState([]);
+    // apiInstance.get('/workspaces/workspaces/type/').then((res) => {
+    //     // workspaceTypes = res.data
+    //     // workspaceTypes = await res.data.json()
+    //     // const boards = res.data.map((obj) => (
+    //     // //     {
+    //     // //     // id: obj.id,
+    //     // //     // name: obj.name,
+    //     // // }
+    //     //     types.push(obj)
+    //     // ));
+    //     console.log(res.data)
+    //     // console.log(res.data.keys())
+    //     // res.data.length
+    // }).catch((err) => {
+    //     console.log(err)
+    // })
+    // console.log(workspaceTypes)
+    // let response = await apiInstance.fetch('/workspaces/workspaces/type/')
+    // workspaceTypes = await response.json()
+    // console.log(workspaceTypes)
+    // const [workspaceType, setWorkspaceType] = React.useState(workspaceTypes[0]);
+    // console.log(workspaceTypes["education"])
+    // console.log(workspaceTypes.length)
+    // const map1 = new Map(workspaceTypes);
+    // console.log(map1)
+    // for (const [key, value] of workspaceTypes[0]) {
+    //     types.push(
+    //         {
+    //             'value': key,
+    //             'label': value,
+    //         }
+    //     )
+    //     console.log(key)
+    //     console.log(value)
+    //     console.log("----------------")
+    //     console.log(types)
+    // }
+
+    // setWorkspaceTypes({
+    //     "education": "آموزشی",
+    //     "marketing": "بازاریابی",
+    //     "small business": "سرمایه گذاری کوچک",
+    //     "operations": "عملیاتی",
+    //     "engineering-it": "مهندسی و IT",
+    //     "finance": "مالی",
+    //     "human resources": "منابع انسانی",
+    //     "other": "سایر"
+    // })
+
+    // for (const [key, value] of Object.entries(workspaceTypes)) {
+    //     // types.push(
+    //     //     {
+    //     //         'value': key,
+    //     //         'label': value,
+    //     //     }
+    //     // )
+    //     setTypes([...types, {
+    //         'value': key,
+    //         'label': value,
+    //     }])
+    // }
+    // workspaceTypes.forEach((value, key) => {
+    //     // types.push(
+    //     //     {
+    //     //         'value': key,
+    //     //         'label': value,
+    //     //     }
+    //     // )
+    //     setTypes([...types, {
+    //         'value': key,
+    //         'label': value,
+    //     }])
+    // })
+    const types = [
+        {
+            'value': 'education',
+            'label': 'آموزشی',
+        },
+        {
+            'value': 'marketing',
+            'label': 'بازاریابی',
+        },
+        {
+            'value': 'small business',
+            'label': 'سرمایه گذاری کوچک',
+        },
+        {
+            'value': 'operations',
+            'label': 'عملیاتی',
+        },
+        {
+            'value': 'engineering-it',
+            'label': 'مهندسی و IT',
+        },
+        {
+            'value': 'finance',
+            'label': 'مالی',
+        },
+        {
+            'value': 'human resources',
+            'label': 'منابع انسانی',
+        },
+        {
+            'value': 'other',
+            'label': 'سایر',
+        },
+    ]
+    const [type, setType] = React.useState('');
+
+    const handleChange = (event) => {
+        setType(event.target.value);
+    };
+
+    const [errorWorkspaceName, setErrorWorkspaceName] = React.useState(false);
+    const [errorWorkspaceType, setErrorWorkspaceType] = React.useState(false);
+
+    const navigate = useNavigate();
+
+    const navigateToWorkspace = (workspaceId) => {
+        navigate(`/workspace/${workspaceId}`);
+    }
 
     return (
         <div style={{
@@ -128,7 +253,7 @@ export default function BasicModal() {
                                             id="workspace_name"
                                             label="نام فضای‌کار"
                                             placeholder="نام فضای‌کار خود را وارد کنید."
-                                            helperText="این نام شرکت، تیم یا سازمان شما است."
+                                            // helperText="این نام شرکت، تیم یا سازمان شما است."
                                             name="workspace_name"
                                             autoComplete="workspace_name"
                                             autoFocus
@@ -136,6 +261,8 @@ export default function BasicModal() {
                                             InputLabelProps={{ style: { fontFamily: "Vazir" } }}
                                             InputProps={{ style: { fontFamily: "Vazir" } }}
                                             FormHelperTextProps={{ style: { fontFamily: "Vazir", color: "black" } }}
+                                            error={errorWorkspaceName}
+                                            helperText={errorWorkspaceName ? "نام فضای کار نمی‌تواند خالی باشد." : "این نام شرکت، تیم یا سازمان شما است."}
                                         />
                                     </ThemeProvider>
                                 </CacheProvider>
@@ -147,9 +274,10 @@ export default function BasicModal() {
                                             fullWidth
                                             id="workspace_type"
                                             label="نوع فضای کاری"
-                                            // select // https://mui.com/material-ui/react-text-field/#basic-textfield
+                                            select // https://mui.com/material-ui/react-text-field/#basic-textfield
                                             placeholder="نوع فضای‌کاری خود را وارد کنید."
                                             // helperText="انتخاب کنید."
+                                            onChange={handleChange}
                                             name="workspace_type"
                                             autoComplete="workspace_type"
                                             autoFocus
@@ -157,7 +285,21 @@ export default function BasicModal() {
                                             InputLabelProps={{ style: { fontFamily: "Vazir" } }}
                                             InputProps={{ style: { fontFamily: "Vazir" } }}
                                             FormHelperTextProps={{ style: { fontFamily: "Vazir", color: "black" } }}
-                                        />
+                                            error={errorWorkspaceType}
+                                            helperText={errorWorkspaceType ? "لطفا این فیلد را پر کنید." : ""}
+                                        >
+                                            {types.map((option) => (
+                                                <MenuItem key={option.value} value={option.value} sx={{
+                                                    fontFamily: 'Vazir',
+                                                    color: 'black', // #0A1929
+                                                    backgroundColor: '#265D97',
+                                                    margin: '0%',
+                                                    padding: '3%',
+                                                }}>
+                                                    {option.label}
+                                                </MenuItem>
+                                            ))}
+                                        </StyledTextField>
                                     </ThemeProvider>
                                 </CacheProvider>
                                 <CacheProvider value={cacheRtl}>
@@ -195,19 +337,54 @@ export default function BasicModal() {
                                     }}
                                     // onClick={this.isClicked}
                                     onClick={() => {
+                                        let workspace_name = document.getElementById("workspace_name").value;
+                                        if (workspace_name === "") {
+                                            setErrorWorkspaceName(true);
+                                        }
+                                        else {
+                                            setErrorWorkspaceName(false);
+                                        }
+                                        if (type == "") {
+                                            setErrorWorkspaceType(true);
+                                        }
+                                        else {
+                                            setErrorWorkspaceType(false);
+                                        }
+                                        if (errorWorkspaceName && errorWorkspaceType) {
+                                            return;
+                                        }
+                                        
                                         let create_workspace_formdata = new FormData();
-                                        create_workspace_formdata.append("name", document.getElementById("workspace_name").value);
-                                        create_workspace_formdata.append("type", document.getElementById("workspace_type").value);
+                                        create_workspace_formdata.append("name", workspace_name);
+                                        create_workspace_formdata.append("type", type);
                                         create_workspace_formdata.append("description", document.getElementById("workspace_description").value);
-                                        console.log(create_workspace_formdata);
-                                        console.log("clicked");
+                                        // console.log(create_workspace_formdata);
+                                        // console.log("clicked");
                                         apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
                                             console.log(response);
                                             // console.log(response.data);
+                                            // {
+                                            //     "id": 11,
+                                            //     "name": "تست 11",
+                                            //     "description": "",
+                                            //     "type": "other",
+                                            //     "created_at": "2022-12-01T11:36:41.755515Z",
+                                            //     "updated_at": "2022-12-01",
+                                            //     "owner": 11,
+                                            //     "members": [],
+                                            //     "boards": []
+                                            // }
+                                            // console.log(response.data.id);
+                                            // navigate to the new workspace
+                                            // navigate(`/workspace/${response.data.id}`); // workspace/:id/*
+                                            // useNavigate(`/workspace/${response.data.id}`);
+                                            // return <Redirect to={`/workspace/${response.data.id}`} />;
+                                            navigateToWorkspace(response.data.id);
+
                                         })
-                                        .catch((error) => {
-                                            console.log(error);
-                                        });
+                                            .catch((error) => {
+                                                console.log(error);
+                                            });
                                     }}
                                 >
                                     {" "}
@@ -219,7 +396,7 @@ export default function BasicModal() {
                         <Grid item xs={3} sm={3} md={3} sx={{
                             display: 'flex',
                             justifyContent: 'center',
-                            justifyItems : 'center',
+                            justifyItems: 'center',
                             alignItems: 'center',
                             alignContent: 'center',
                             // paddingTop: isMatch ? '11%' : '0%',
