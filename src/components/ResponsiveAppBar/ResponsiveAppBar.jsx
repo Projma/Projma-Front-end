@@ -14,16 +14,26 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import "./ResponsiveAppBar.scss";
 import avatar_photo from "../../static/images/dashboard/scrum_board.svg";
+import { useNavigate } from 'react-router-dom';
+import BasicMenu from './BasicMenu/BasicMenu';
 
 // https://mui.com/#app-bar-with-responsive-menu
 
-const pages = ['ستاره دارها', 'فضای کارها', 'اخیرا دیده شده‌ها', 'ایجاد'];
-const settings = ['پروفایل', 'حساب کاربری', 'داشبورد', 'خروج'];
 
 function ResponsiveAppBar() {
+    const pages = ['ستاره دارها', 'فضای کارها', 'اخیرا دیده شده‌ها', 'ایجاد'];
+    let settings = ['ورود', 'پروفایل', 'داشبورد', 'تغییر رمز عبور', 'خروج']; // حساب کاربری
+    let settings_map_to_functions = {
+        "ورود": '/signin/',
+        "پروفایل": '/profile/',
+        "داشبورد": '/dashboard/',
+        "تغییر رمز عبور": '/changepassword/',
+        "خروج": '/logout/',
+    }
+
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+    
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -38,6 +48,17 @@ function ResponsiveAppBar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const navigate = useNavigate();
+
+    const navigateToPage = (page) => {
+        if (page === '/logout/') {
+            console.log('remove token');
+        }
+        navigate(page);
+        // navigate(`/workspace/${workspaceId}`);
+        handleCloseUserMenu();
+    }
 
     return (
         <AppBar position="static" sx={{
@@ -95,10 +116,11 @@ function ResponsiveAppBar() {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center" style={{ fontFamily: 'Vazir', color:'black' }}>{page}</Typography>
-                                </MenuItem>
+                                    <BasicMenu name={page} items={["1","2","3"]} />
                             ))}
+                            {/* <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center" style={{ fontFamily: 'Vazir', color: 'black' }}>{page}</Typography>
+                            </MenuItem> */}
                         </Menu>
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -106,7 +128,7 @@ function ResponsiveAppBar() {
                         variant="h5"
                         noWrap
                         component="a"
-                        href=""
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -118,24 +140,27 @@ function ResponsiveAppBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        LOGO
+                        PROJMA
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
-                            <Button
+                            <>
+                                <BasicMenu name={page} items={["1","2","3"]} />
+                            </>
+                        ))}
+                            {/* <Button
                                 key={page}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block', fontFamily: 'Vazir' }}
                             >
                                 {page}
-                            </Button>
-                        ))}
+                            </Button> */}
                     </Box>
 
-                    <Box sx={{ flexGrow: 0 ,fontFamily: 'Vazir'}}>
-                        <Tooltip 
-                        // title="باز کردن تنظیمات" 
-                        title={<h3 style={{ fontFamily: 'Vazir' }}>باز کردن تنظیمات</h3>}
+                    <Box sx={{ flexGrow: 0, fontFamily: 'Vazir' }}>
+                        <Tooltip
+                            // title="باز کردن تنظیمات" 
+                            title={<h3 style={{ fontFamily: 'Vazir' }}>باز کردن تنظیمات</h3>}
                         >
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Avatar alt="عکس پروفایل" src={avatar_photo} />
@@ -158,7 +183,7 @@ function ResponsiveAppBar() {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                <MenuItem key={setting} onClick={() => navigateToPage(settings_map_to_functions[setting])}>
                                     <Typography textAlign="center" style={{ color: 'black', fontFamily: 'Vazir' }}>{setting}</Typography>
                                 </MenuItem>
                             ))}
