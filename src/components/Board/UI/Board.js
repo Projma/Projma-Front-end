@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import List from "./List";
 import "../Styles/Board.css";
 import "../Styles/Add.css";
-import PerTextField from "./PerTextField";
-import StyledTextField from "../../Password/StyledTextField";
+import PerTextField from "../../Shared/PerTextField";
+import StyledTextField from "../../Shared/StyledTextField";
 
 const Board = () => {
   const [lists, setLists] = useState([]);

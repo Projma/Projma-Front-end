@@ -1,36 +1,81 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import rtlPlugin from "stylis-plugin-rtl";
-import { prefixer } from "stylis";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
-import StyledTextField from "./StyledTextField";
+import StyledTextField from "../Shared/StyledTextField";
 import Footer from "./Footer";
 import apiInstance from "../../utilities/axiosConfig";
-import PerTextField from "../Board/UI/PerTextField";
+import PerTextField from "../Shared/PerTextField";
 import axios, { AxiosResponse, AxiosError } from "axios";
+import Loading from "../Shared/Loading";
+import { toast, ToastContainer } from "react-toastify";
+import "../../styles/ReactToastify.css";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const ForgetPassword = () => {
-  const [email, setEmail] = React.useState("");
-  const [errorEmail, setErrorEmail] = React.useState(false);
+  const [email, setEmail] = useState("");
+  const [errorEmail, setErrorEmail] = useState(false);
+  const [isPost, setIsPost] = useState(null);
+  const [isFail, setIsFail] = useState(false);
+
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  let navigate = useNavigate();
   // const [valid,setValid] = (false);
+
+  useEffect(() => {
+    setErrorEmail(false);
+  }, [email]);
+
+  const postreq = () => {
+    const data = new FormData();
+    data.append("email", email);
+    axios
+      .post(
+        "http://mohammadosoolian.pythonanywhere.com/accounts/forgot-password/",
+        data
+      )
+      .then(() => {
+        setIsFail(true);
+        toast.success("ایمیل تغییر رمز عبور با موفقیت ارسال شد", {
+          position: toast.POSITION.TOP_CENTER,
+          rtl: true,
+        });
+        const getLinkInfo = () => {
+          return email.split("@")[1];
+        };
+        const emailURL = getLinkInfo();
+        console.log(emailURL);
+        if (
+          emailURL === "gmail.com" ||
+          emailURL === "yahoo.com" ||
+          emailURL === "outlook.com"
+        )
+          delay(7000).then(() =>
+            window.location.replace("https://" + emailURL)
+          );
+        else delay(7000).then(() => navigate("/"));
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          setIsFail(true);
+          setErrorEmail(true);
+          toast.error("ایمیل وارد شده در سایت پروجما ثبت نشده است", {
+            position: toast.POSITION.TOP_CENTER,
+            rtl: true,
+          });
+        }
+      })
+      .finally(() => {
+        setIsPost(null);
+        // setIsFail(false);
+      });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     document.getElementById("em").innerHTML = "";
-    setErrorEmail(false);
     const errtest =
       /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
         email
@@ -41,42 +86,17 @@ const ForgetPassword = () => {
         "*آدرس ایمیل وارد شده معتبر نمی باشد";
     }
     if (!errorEmail) {
-      const data = new FormData();
-      data.append("email", email);
-      apiInstance
-        .post(
-          "http://mohammadosoolian.pythonanywhere.com/accounts/forgot-password/",
-          data
-        )
-        .catch((error) => {
-          if (error.status === 404) {
-            setErrorEmail(true);
-            console.log(error.status);
-          } else if (error.status === 200) {
-            console.log("ok");
-          }
-        });
+      setIsPost(true);
+      postreq();
     }
-    // axios.get("/foo").catch(function (error) {
-    //   if (error.status === 404) {
-    //     setErrorEmail(true);
-    //     console.log(error.status);
-    //   }
-    // });
-  };
-
-  const getRequest = async () => {
-    await axios.get("/foo").catch(function (error) {
-      if (error.status === 404) {
-        setErrorEmail(true);
-        console.log(error.status);
-      }
-    });
   };
 
   document.body.style.backgroundColor = "#0A1929";
+
   return (
     <>
+      {isPost ? <Loading /> : null}
+      {isFail ? <ToastContainer autoClose={5000} /> : null}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
