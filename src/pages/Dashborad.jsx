@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid"; // Grid version 1
 import Container from "@mui/material/Container";
 import { Box } from "@mui/system";
 import { Divider } from "@mui/material";
-import Header from "../components/Dashboard/Header/Header";
+import Header from "../components/Header/Header";
 // import Footer from "../components/Landing/Footer/Footer";
 // import ResponsiveDrawer from "../components/Dashboard/ResponsiveDrawer/ResponsiveDrawer";
 import BasicModal from "../components/Dashboard/Modal/BasicModal";
@@ -68,7 +68,7 @@ export const Dashborad = () => {
         apiInstance.get("/workspaces/dashboard/myworkspaces/").then((response) => {
             // console.log(response.data);
             // console.log(response);
-            setWorkspaces(response.data);
+            // setWorkspaces(response.data);
             // console.log(workspaces);
         }).catch((error) => {
             // console.log(error);
@@ -77,7 +77,7 @@ export const Dashborad = () => {
         apiInstance.get("/workspaces/dashboard/myowning-workspaces/").then((response) => {
             // console.log(response.data);
             setOwningWorkspaces(response.data);
-            // setWorkspaces(response.data);
+            setWorkspaces(response.data);
             // console.log(owningWorkspaces);
         }).catch((error) => {
             // console.log(error);
