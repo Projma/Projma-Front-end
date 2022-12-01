@@ -26,6 +26,7 @@ const theme = createTheme(
   {
     typography: {
       fontFamily: "Vazir",
+      htmlFontSize: 9, // 10 (1rem = 9px) 
     },
   },
   faIR
