@@ -35,7 +35,7 @@ const cacheRtl = createCache({
   stylisPlugins: [prefixer, rtlPlugin],
 });
 export default function TaskModal() {
-  const cars = ["ن‌ا", "وم", "س‌ع", "ن‌ا", "وم", "س‌ع"];
+  const cars = ["ن‌ا", "وم", "س‌ع"];
 
   // const userData = replaceUndefinied(useSelector(state => state.auth));
   const InitialIconcircle = ({ initials }) => {
@@ -130,7 +130,7 @@ export default function TaskModal() {
                 className="flex-row"
                 style={{ height: "80%", marginRight: "2%" }}
               >
-                <div className="flex taskmodal-body-larger">
+                <div className="taskmodal-body-larger">
                   <div className="flex-row taskmodal-body-options flex-gap">
                     <div className="taskmodal-body-members">
                       <div className="taskmodel-body-members-title">اعضا</div>
@@ -164,6 +164,20 @@ export default function TaskModal() {
                             <InitialIcon initials={car}></InitialIcon>
                           ))}
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="flex-row taskmodal-body-larger-description"
+                    style={{ gap: "3%" }}
+                  >
+                    <div className="flex">
+                      <PasswordIcon></PasswordIcon>
+                    </div>
+                    <div className="flex-column">
+                      <div>توضیحات</div>
+                      <div className="taskmodal-body-larger-description-textbox">
+                        <StyledTextField fullWidth></StyledTextField>
                       </div>
                     </div>
                   </div>
