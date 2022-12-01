@@ -35,6 +35,7 @@ import Paper from '@mui/material/Paper';
 import { useSelector, useDispatch } from "react-redux";
 import apiInstance from "../utilities/axiosConfig";
 import { useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
 // useMediaQuery
 // import Typography from "@mui/material";
@@ -239,8 +240,7 @@ export const Dashborad = () => {
                     {/* <p> <BasicModal /></p> */}
                     {
                         workspaces.map((workspace) => (
-                            <a className="option" href="#" key={workspace.id}>{workspace.name}</a>
-
+                            <a className="option" href="#" key={workspace.id} onClick={() => navigateToWorkspace(workspace.id)} >{workspace.name}</a>
                         ))
                     }
                     {/* <a className="option" href="#">فضای کار 1</a> */}
@@ -270,6 +270,12 @@ export const Dashborad = () => {
     // dispatch(deleteItem());
     //   }}
 
+    const navigate = useNavigate();
+
+    const navigateToWorkspace = (workspaceId) => {
+        navigate(`/workspace/${workspaceId}`);
+    }
+
     if (matches) {
         return (
             <div>
@@ -297,7 +303,7 @@ export const Dashborad = () => {
                             {/* <a className="option" href="#">فضای کار 1</a> onClick navigate to workspace page */}
                             {
                                 workspaces.map((workspace) => (
-                                    <a className="option " href="#" key={workspace.id}>{workspace.name}</a>
+                                    <a className="option " href="#" key={workspace.id} onClick={() => navigateToWorkspace(workspace.id)} >{workspace.name} </a>
 
                                 ))
                             }
