@@ -222,7 +222,11 @@ export default function BasicModal() {
                 transition: '0.3s',
                 display: 'flex',
                 alignItems: 'center',
-            }}>+</Button>
+            }}>
+                <h2>
+                    +
+                </h2>
+            </Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -252,7 +256,7 @@ export default function BasicModal() {
                             >
                                 <CacheProvider value={cacheRtl}>
                                     <ThemeProvider>
-                                    {/* <ThemeProvider theme={theme}> */}
+                                        {/* <ThemeProvider theme={theme}> */}
                                         <StyledTextField
                                             margin="normal"
                                             required
@@ -275,7 +279,7 @@ export default function BasicModal() {
                                 </CacheProvider>
                                 <CacheProvider value={cacheRtl}>
                                     <ThemeProvider >
-                                    {/* <ThemeProvider theme={theme}> */}
+                                        {/* <ThemeProvider theme={theme}> */}
                                         <StyledTextField
                                             margin="normal"
                                             required
@@ -312,7 +316,7 @@ export default function BasicModal() {
                                 </CacheProvider>
                                 <CacheProvider value={cacheRtl}>
                                     <ThemeProvider >
-                                    {/* <ThemeProvider theme={theme}> */}
+                                        {/* <ThemeProvider theme={theme}> */}
                                         <StyledTextField
                                             margin="normal"
                                             fullWidth
@@ -362,7 +366,7 @@ export default function BasicModal() {
                                         if (errorWorkspaceName && errorWorkspaceType) {
                                             return;
                                         }
-                                        
+
                                         let create_workspace_formdata = new FormData();
                                         create_workspace_formdata.append("name", workspace_name);
                                         create_workspace_formdata.append("type", type);
