@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -16,21 +16,40 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import StyledTextField from "./StyledTextField";
+import StyledTextField from "../Shared/StyledTextField";
 import Footer from "./Footer";
 import apiInstance from "../../utilities/axiosConfig";
-import PerTextField from "../Board/UI/PerTextField";
+import PerTextField from "../Shared/PerTextField";
 import axios, { AxiosResponse, AxiosError } from "axios";
+import Loading from "../Shared/Loading";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import { wait } from "@testing-library/user-event/dist/utils";
+import { waitFor } from "@testing-library/react";
 
 const ForgetPassword = () => {
-  const [email, setEmail] = React.useState("");
-  const [errorEmail, setErrorEmail] = React.useState(false);
+  const [email, setEmail] = useState("");
+  const [errorEmail, setErrorEmail] = useState(false);
+  const [isPost, setIsPost] = useState(null);
   // const [valid,setValid] = (false);
+
+  useEffect(() => {
+  }, [email]);
+
+  const postreq = () => {
+    const data = new FormData();
+    data.append("email", email);
+    axios
+      .post(
+        "http://mohammadosoolian.pythonanywhere.com/accounts/forgot-password/",
+        data
+      ).finally(() => setIsPost(null));
+
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     document.getElementById("em").innerHTML = "";
-    setErrorEmail(false);
     const errtest =
       /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
         email
@@ -41,22 +60,10 @@ const ForgetPassword = () => {
         "*آدرس ایمیل وارد شده معتبر نمی باشد";
     }
     if (!errorEmail) {
-      const data = new FormData();
-      data.append("email", email);
-      apiInstance
-        .post(
-          "http://mohammadosoolian.pythonanywhere.com/accounts/forgot-password/",
-          data
-        )
-        .catch((error) => {
-          if (error.status === 404) {
-            setErrorEmail(true);
-            console.log(error.status);
-          } else if (error.status === 200) {
-            console.log("ok");
-          }
-        });
+      setIsPost(true);
+      postreq();
     }
+
     // axios.get("/foo").catch(function (error) {
     //   if (error.status === 404) {
     //     setErrorEmail(true);
@@ -75,8 +82,10 @@ const ForgetPassword = () => {
   };
 
   document.body.style.backgroundColor = "#0A1929";
+
   return (
     <>
+      {isPost? <Loading/> : null}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
