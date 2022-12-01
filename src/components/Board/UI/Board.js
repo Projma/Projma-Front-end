@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import List from "./List";
 import "../Styles/Board.css";
-import "../Styles/Add.css";
 import PerTextField from "./PerTextField";
 import StyledTextField from "../../Password/StyledTextField";
 
@@ -24,7 +23,7 @@ const Board = () => {
   };
 
   return (
-    <div className="board_list-container">
+    <div className="board_list-container font-fix">
       <div className="board_list-container-minor">
         {lists.map((list) => (
           <List name={list.name} key={list.key} />

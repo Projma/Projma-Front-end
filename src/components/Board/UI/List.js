@@ -1,10 +1,8 @@
 import React, { useState, useRef } from "react";
 import "../Styles/List.css";
-import "../Styles/Add.css";
 import Card from "./Card";
 import PerTextField from "./PerTextField";
 import StyledTextField from "../../Password/StyledTextField";
-import "../../../styles/FontFix.css";
 
 const cardInfo = [];
 
@@ -27,7 +25,7 @@ const List = (props) => {
   };
 
   return (
-    <div className="board_list font-fix">
+    <div className="board_list">
       <div className="board_header">
         <p className="board_header-title">{props.name}</p>
         <button className="board_header-button">

@@ -5,7 +5,7 @@ body {
 .board_list-container {
   height: 98vh;
   width: fit-content;
-  margin-top: 0.6rem(10);
+  margin-top: 0.6rem;
   overflow: auto;
   display: flex;
   flex: 0 1 auto;
@@ -20,22 +20,61 @@ body {
 }
 
 .board_list-container-minor:first-child {
-  margin-right: 0.6rem(10);
+  margin-right: 0.6rem;
+}
+
+.board_add-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .board_add-list-button {
-  width: 30rem(10);
-  max-height: 3.5rem(10);
-  padding: 0.3rem(10);
-  /* border: 0.2em solid #163658; */
+  width: 30rem;
+  max-height: 3.5rem;
+  padding: 0.3rem;
   border: none;
   color: white;
   background-color: #0a1929;
-  border-radius: 1rem(10);
-  margin: 0.4rem(10);
+  border-radius: 1rem;
+  margin: 0.4rem;
+
 }
 
-.board_add-list_button:hover {
+.board_add-list-button-title {
+}
+
+.board_add-list-button:hover {
+  background-color: rgba(80, 144, 211, 0.8);
+  cursor: pointer;
+}
+
+.board_add-list-form {
+  width: 30rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.board_add-form {
+  width: 100%;
+  background-color: #0a1929;
+  border-radius: 1rem;
+  padding: 0.6rem;
+  margin-right: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.board_form-button {
+  width: 100%;
+  border: none;
+  color: white;
+  background-color: #0a1929;
+  border-radius: 1rem;
+}
+
+.board_form-button:hover {
   background-color: rgba(80, 144, 211, 0.8);
   cursor: pointer;
 }
@@ -51,7 +90,7 @@ body {
   }
   .board_list-container-minor {
     overflow: auto;
-    margin-right: 0.6rem(10);
+    margin-right: 0.6rem;
     display: flex;
   }
 }

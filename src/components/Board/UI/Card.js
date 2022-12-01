@@ -1,10 +1,9 @@
 import React from "react";
 import "../Styles/Card.css";
-import "../../../styles/FontFix.css";
 
 const Card = (props) => {
   return (
-    <div className="board_card font-fix">
+    <div className="board_card">
       <div className="board_card-title">
         <p className="board_title">{props.name}</p>
       </div>
@@ -12,7 +11,7 @@ const Card = (props) => {
         <img
           className="board_avatar"
           src={require("../../../static/images/temp project picture/simurgh.jpg")}
-          alt="avatar picture"
+          alt="avatar"
         />
       </div>
     </div>

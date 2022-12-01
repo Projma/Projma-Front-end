@@ -3,37 +3,37 @@ p {
 }
 
 .board_list {
-  /* max-width: 30rem(10); */
-  width: 30rem(10);
-  /* max-width: 30rem(10); */
+  /* max-width: 30rem; */
+  width: 30rem;
+  /* max-width: 30rem; */
   max-height: fit-content;
   background-color: #0a1929;
-  border-radius: 1rem(10);
-  margin: 0.4rem(10);
-  margin-right: 0.6rem(10);
+  border-radius: 1rem;
+  margin: 0.4rem;
+  margin-right: 0.6rem;
   overflow: hidden;
   /* border: 0.1em solid #163658; */
-  padding: 1rem(10);
+  padding: 1rem;
 }
 
 .board_header {
   display: flex;
-  margin-bottom: 1rem(10);
-  padding: 1rem(10);
+  margin-bottom: 1rem;
+  padding: 1rem;
   align-items: center;
   justify-content: space-between;
   border-bottom: 0.1em solid #163658;
 }
 
 .board_header-title {
-  font-size: 1.8rem(10);
+  font-size: 1.8rem;
 }
 
 .board_header-button {
-  font-size: 1.8rem(10);
-  height: 2rem(10);
-  width: 2rem(10);
-  border-radius: 1rem(10);
+  font-size: 1.8rem;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 1rem;
   background-color: #0a1929;
   border: none;
   display: flex;
@@ -54,36 +54,36 @@ p {
 }
 
 .board_button-title {
-  margin: 0.2rem(10);
+  margin: 0.2rem;
   color: white;
 }
 
 .board_card-list {
   max-height: 70vh;
   overflow-y: scroll;
-  margin-bottom: 0.4rem(10);
-  padding: 0.6rem(10);
+  margin-bottom: 0.4rem;
+  padding: 0.6rem;
 }
 
 .board_space {
   max-width: auto;
-  height: 1rem(10);
+  height: 1rem;
 }
 
 .board_add-card {
-  margin-top: 0.8rem(10);
+  margin-top: 0.8rem;
   border-top: 0.1em solid #163658;
   display: flex;
   justify-content: center;
 }
 
 .board_add-card_button {
-  width: 28rem(10);
+  width: 28rem;
   background-color: #0a1929;
   color: white;
   border: none;
-  border-radius: 1rem(10);
-  margin-top: 0.6rem(10);
+  border-radius: 1rem;
+  margin-top: 0.6rem;
 }
 
 .board_add-card_button:hover,
@@ -98,6 +98,6 @@ p {
   }
   .board_card-list {
     overflow-x: auto;
-    max-height: 30rem(10);
+    max-height: 30rem;
   }
 }
