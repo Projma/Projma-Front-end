@@ -40,9 +40,13 @@ const style = {
     overflow: 'auto',
 };
 
-const theme = createTheme({
-    direction: "rtl", // Both here and <body dir="rtl">
-});
+// const theme = createTheme({
+//     direction: "rtl", // Both here and <body dir="rtl">
+//     typography: {
+//         fontFamily: "Vazir",
+//         fontSize: '10px',
+//     },
+// });
 // Create rtl cache
 const cacheRtl = createCache({
     key: "muirtl",
@@ -218,7 +222,11 @@ export default function BasicModal() {
                 transition: '0.3s',
                 display: 'flex',
                 alignItems: 'center',
-            }}>+</Button>
+            }}>
+                <h2>
+                    +
+                </h2>
+            </Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -242,10 +250,13 @@ export default function BasicModal() {
                             <Box
                                 sx={{
                                     // padding: "10%",
+                                    fontFamily: 'Vazir',
+                                    fontSize: '1.5rem',
                                 }}
                             >
                                 <CacheProvider value={cacheRtl}>
-                                    <ThemeProvider theme={theme}>
+                                    <ThemeProvider>
+                                        {/* <ThemeProvider theme={theme}> */}
                                         <StyledTextField
                                             margin="normal"
                                             required
@@ -267,7 +278,8 @@ export default function BasicModal() {
                                     </ThemeProvider>
                                 </CacheProvider>
                                 <CacheProvider value={cacheRtl}>
-                                    <ThemeProvider theme={theme}>
+                                    <ThemeProvider >
+                                        {/* <ThemeProvider theme={theme}> */}
                                         <StyledTextField
                                             margin="normal"
                                             required
@@ -303,7 +315,8 @@ export default function BasicModal() {
                                     </ThemeProvider>
                                 </CacheProvider>
                                 <CacheProvider value={cacheRtl}>
-                                    <ThemeProvider theme={theme}>
+                                    <ThemeProvider >
+                                        {/* <ThemeProvider theme={theme}> */}
                                         <StyledTextField
                                             margin="normal"
                                             fullWidth
@@ -329,7 +342,7 @@ export default function BasicModal() {
                                     sx={{
                                         // height: 54,
                                         // width: 150,
-                                        fontSize: "90%",
+                                        // fontSize: "90%",
                                         width: "30%",
                                         height: "100%",
                                         fontFamily: "Vazir",
@@ -353,7 +366,7 @@ export default function BasicModal() {
                                         if (errorWorkspaceName && errorWorkspaceType) {
                                             return;
                                         }
-                                        
+
                                         let create_workspace_formdata = new FormData();
                                         create_workspace_formdata.append("name", workspace_name);
                                         create_workspace_formdata.append("type", type);

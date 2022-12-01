@@ -42,6 +42,7 @@ const Footer = () => {
               justifyContent: "center",
               gap: "5%",
               flexBasis: "58%",
+              fontSize: "1.5rem",
             }}
           >
             <Box
@@ -101,6 +102,7 @@ const Footer = () => {
               flexGrow: 1,
               padding: "5%",
               // marginLeft: "5%",
+              fontSize: "1.5rem",
             }}
           >
             <h3 style={{
@@ -122,6 +124,8 @@ const Footer = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          fontSize: "1.5rem",
+          // marginBottom: "2%",
         }}
       >
         <p className="margin--top--bottom">All Rights Reserved © Projma.ir</p>
