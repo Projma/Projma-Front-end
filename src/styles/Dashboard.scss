@@ -1,14 +1,15 @@
-p {
+.paragraph {
     color: white;
     font-family: 'Vazir';
     margin-top: 5%;
     margin-right: 3%;
     display: flex;
     align-items: center;
+    font-size: 16px;
     // justify-content: center;
 }
 
-ul {
+.unOrderList {
     color: white;
     font-family: 'Vazir';
     margin-top: 5%;
@@ -19,7 +20,7 @@ ul {
     // z-index: 1;
 }
 
-li {
+.list {
     color: white;
     font-family: 'Vazir';
     margin-top: 5%;
@@ -48,6 +49,7 @@ li {
     font-family: 'Vazir';
     margin-top: 5%;
     margin-right: 3%;
+    font-size: 16px;
 }
 
 .sidebar {
