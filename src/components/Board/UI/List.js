@@ -2,8 +2,8 @@ import React, { useState, useRef } from "react";
 import "../Styles/List.css";
 import "../Styles/Add.css";
 import Card from "./Card";
-import PerTextField from "./PerTextField";
-import StyledTextField from "../../Password/StyledTextField";
+import PerTextField from "../../Shared/PerTextField";
+import StyledTextField from "../../Shared/StyledTextField";
 
 const cardInfo = [];
 

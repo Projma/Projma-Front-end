@@ -7,11 +7,11 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
-import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import StyledTextField from "./StyledTextField";
+import StyledTextField from "../Shared/StyledTextField";
 import Footer from "./Footer";
 import apiInstance from "../../utilities/axiosConfig";
+import PerTextField from "../Shared/PerTextField";
 
 import axios from "axios";
 
@@ -132,48 +132,46 @@ const ResetPassword = () => {
             >
               تغییر رمز عبور
             </Typography>
-            <CacheProvider value={cacheRtl}>
-              <ThemeProvider theme={theme}>
-                <StyledTextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="password"
-                  label="رمز عبور جدید"
-                  placeholder="رمز عبور خود را وارد کنید"
-                  name="password"
-                  type="password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  error={errorPassword}
-                  autoFocus
-                  sx={{
-                    input: {
-                      color: "#fff",
-                      fontSize: "1.6rem",
-                    },
-                  }}
-                />
-                <StyledTextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="confirm-password"
-                  label="تکرار رمز عبور جدید"
-                  placeholder="رمز عبور خود را دوباره وارد کنید"
-                  name="password"
-                  type="password"
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  error={errorConfirmPassword}
-                  autoFocus
-                  sx={{
-                    input: {
-                      color: "#fff",
-                      fontSize: "1.6rem",
-                    },
-                  }}
-                />
-              </ThemeProvider>
-            </CacheProvider>
+            <PerTextField>
+              <StyledTextField
+                margin="normal"
+                required
+                fullWidth
+                id="password"
+                label="رمز عبور جدید"
+                placeholder="رمز عبور خود را وارد کنید"
+                name="password"
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+                error={errorPassword}
+                autoFocus
+                sx={{
+                  input: {
+                    color: "#fff",
+                    fontSize: "1.6rem",
+                  },
+                }}
+              />
+              <StyledTextField
+                margin="normal"
+                required
+                fullWidth
+                id="confirm-password"
+                label="تکرار رمز عبور جدید"
+                placeholder="رمز عبور خود را دوباره وارد کنید"
+                name="password"
+                type="password"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                error={errorConfirmPassword}
+                autoFocus
+                sx={{
+                  input: {
+                    color: "#fff",
+                    fontSize: "1.6rem",
+                  },
+                }}
+              />
+            </PerTextField>
 
             <Button
               type="submit"
