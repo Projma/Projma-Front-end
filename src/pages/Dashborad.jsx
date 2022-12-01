@@ -7,13 +7,14 @@ import { Box } from "@mui/system";
 import { Divider } from "@mui/material";
 import Header from "../components/Dashboard/Header/Header";
 // import Footer from "../components/Landing/Footer/Footer";
-import ResponsiveDrawer from "../components/Dashboard/ResponsiveDrawer/ResponsiveDrawer";
+// import ResponsiveDrawer from "../components/Dashboard/ResponsiveDrawer/ResponsiveDrawer";
 import BasicModal from "../components/Dashboard/Modal/BasicModal";
-import Link from "@mui/material";
+// import Link from "@mui/material";
 import DashboardTwoToneIcon from '@mui/icons-material/DashboardTwoTone';
 import ContentPasteTwoToneIcon from '@mui/icons-material/ContentPasteTwoTone';
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 import AvTimerTwoToneIcon from '@mui/icons-material/AvTimerTwoTone';
+// star icon
 import WorkspacesTwoToneIcon from '@mui/icons-material/WorkspacesTwoTone';
 import HomeRepairServiceTwoToneIcon from '@mui/icons-material/HomeRepairServiceTwoTone';
 import Diversity2TwoToneIcon from '@mui/icons-material/Diversity2TwoTone';
@@ -46,14 +47,20 @@ export const Dashborad = () => {
     // };
 
     let [workspaces, setWorkspaces] = useState([])
-    apiInstance.get("workspaces/dashboard/myowning_workspaces/").then((response) => {
+    apiInstance.get("/workspaces/dashboard/myworkspaces/").then((response) => {
         // console.log(response.data);
         // console.log(response);
         setWorkspaces(response.data);
-    })
-        .catch((error) => {
-            console.log(error);
-        });
+    }).catch((error) => {
+        // console.log(error);
+    });
+    let [owningWorkspaces, setOwningWorkspaces] = useState([])
+    apiInstance.get("/workspaces/dashboard/myowning-workspaces/").then((response) => {
+        // console.log(response.data);
+        setOwningWorkspaces(response.data);
+    }).catch((error) => {
+        // console.log(error);
+    });
 
     const computer_tabs = {
         "boards": {
@@ -61,6 +68,10 @@ export const Dashborad = () => {
             icon: <DashboardTwoToneIcon sx={{ ml: 1.5 }} />,
             content: (
                 <>
+                    <p variant="h1" component="h2" className="text">
+                        <StarPurple500TwoToneIcon sx={{ ml: 1.5 }} /> بورد های ستاره‌دار
+                    </p>
+                    <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
                     <p variant="h1" component="h2" className="text">
                         <AvTimerTwoToneIcon sx={{ ml: 1.5 }} /> اخیرا دیده شده
                     </p>
@@ -130,6 +141,10 @@ export const Dashborad = () => {
             icon: <DashboardTwoToneIcon sx={{ ml: 1.5 }} />,
             content: (
                 <>
+                    <p variant="h1" component="h2" className="text">
+                        <StarPurple500TwoToneIcon sx={{ ml: 1.5 }} /> بورد های ستاره‌دار
+                    </p>
+                    <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
                     <p variant="h1" component="h2" className="text">
                         <AvTimerTwoToneIcon sx={{ ml: 1.5 }} /> اخیرا دیده شده
                     </p>
