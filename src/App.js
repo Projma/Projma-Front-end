@@ -21,11 +21,13 @@ import Email_verification_2 from "./components/Registration/EmailVerification";
 // import { login, remove_token } from "../src/actions/authActions";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { faIR } from "@mui/material/locale";
+import TaskModal from "./components/TaskModal/TaskModal";
 
 const theme = createTheme(
   {
     typography: {
       fontFamily: "Vazir",
+      htmlFontSize: 9, // 10 (1rem = 9px) 
     },
   },
   faIR
@@ -56,6 +58,7 @@ function App() {
               path="/email-verification"
               element={<Email_verification_2 />}
             />
+            <Route exact path="/taskmodal" element={<TaskModal />} />
           </Routes>
         </Router>
       </Provider>

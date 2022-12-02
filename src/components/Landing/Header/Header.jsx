@@ -69,6 +69,7 @@ const Header = () => {
             <Box
               sx={{
                 padding: "10%",
+                fontSize: "1.5rem",
               }}
             >
               {/* <h1 className="responsive--font--size--2"> */}

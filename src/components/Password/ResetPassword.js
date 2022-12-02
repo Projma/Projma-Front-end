@@ -1,34 +1,79 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import rtlPlugin from "stylis-plugin-rtl";
-import { prefixer } from "stylis";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
-import StyledTextField from "./StyledTextField";
+import StyledTextField from "../Shared/StyledTextField";
 import Footer from "./Footer";
-import apiInstance from "../../utilities/axiosConfig";
-
+import PerTextField from "../Shared/PerTextField";
+import Loading from "../Shared/Loading";
+import { toast, ToastContainer } from "react-toastify";
+import "../../styles/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const theme = createTheme({
-  direction: "rtl", // Both here and <body dir="rtl">
-});
-// Create rtl cache
-const cacheRtl = createCache({
-  key: "muirtl",
-  stylisPlugins: [prefixer, rtlPlugin],
-});
-
 const ResetPassword = () => {
-  const [password, setPassword] = React.useState("");
-  const [errorPassword, setErrorPassword] = React.useState(false);
-  const [confirmPassword, setConfirmPassword] = React.useState("");
-  const [errorConfirmPassword, setErrorconfirmPassword] = React.useState(false);
+  const [password, setPassword] = useState("");
+  const [errorPassword, setErrorPassword] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorConfirmPassword, setErrorconfirmPassword] = useState(false);
+  const [isPost, setIsPost] = useState(null);
+  const [isFail, setIsFail] = useState(false);
+
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    setErrorPassword(false);
+    setErrorconfirmPassword(false);
+  }, [password]);
+
+  const postreq = () => {
+    const baseLink = window.location.href;
+    const getLinkInfo = (baseLink) => {
+      return baseLink.split("reset-password?")[1];
+    };
+    console.log(getLinkInfo(baseLink));
+    const data = new FormData();
+    data.append("password", password);
+    const url =
+      "http://mohammadosoolian.pythonanywhere.com/accounts/reset-password/?" +
+      getLinkInfo(baseLink);
+    axios
+      .post(url, data)
+      .then(() => {
+        setIsFail(true);
+        toast.success("رمز عبور با موفقیت تغییر کرد", {
+          position: toast.POSITION.TOP_CENTER,
+          rtl: true,
+        });
+        delay(7000).then(() => navigate("/singin"));
+        setIsFail(true);
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          setIsFail(true);
+          toast.error("عملیات با خطا مواجه شد ", {
+            position: toast.POSITION.TOP_CENTER,
+            rtl: true,
+          });
+          delay(7000).then(() => navigate("/forget-password"));
+        } else if (error.response.status === 400) {
+          setIsFail(true);
+          setErrorconfirmPassword(true);
+          setErrorPassword(true);
+          toast.error("رمز وارد شده تکراری است", {
+            position: toast.POSITION.TOP_CENTER,
+            rtl: true,
+          });
+        }
+      })
+      .finally(() => {
+        setIsPost(null);
+        // setIsFail(false);
+      });
+  };
 
   let errorMessage = "";
 
@@ -36,8 +81,6 @@ const ResetPassword = () => {
     event.preventDefault();
     document.getElementById("em").innerHTML = "";
     errorMessage = "";
-    setErrorPassword(false);
-    setErrorconfirmPassword(false);
 
     if (password.length < 8) {
       setErrorPassword(true);
@@ -70,26 +113,17 @@ const ResetPassword = () => {
     }
 
     if (!(errorPassword || errorConfirmPassword)) {
-      const baseLink = window.location.href;
-
-      const getLinkInfo = (baseLink) => {
-        return baseLink.split("reset-password?")[1];
-      };
-      console.log(getLinkInfo(baseLink));
-      const data = new FormData();
-      data.append("password", password);
-      data.append("link", window.location.href);
-      const url =
-        "http://mohammadosoolian.pythonanywhere.com/accounts/reset-password/?" +
-        getLinkInfo(baseLink);
-      console.log(url);
-      apiInstance.post(url, data).then((res) => console.log(res));
+      setIsPost(true);
+      postreq();
     }
   };
 
   document.body.style.backgroundColor = "#0A1929";
+
   return (
     <>
+      {isPost ? <Loading /> : null}
+      {isFail ? <ToastContainer autoClose={5000} /> : null}
       <Container maxWidth="xs">
         <CssBaseline />
         <Box
@@ -132,48 +166,46 @@ const ResetPassword = () => {
             >
               تغییر رمز عبور
             </Typography>
-            <CacheProvider value={cacheRtl}>
-              <ThemeProvider theme={theme}>
-                <StyledTextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="password"
-                  label="رمز عبور جدید"
-                  placeholder="رمز عبور خود را وارد کنید"
-                  name="password"
-                  type="password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  error={errorPassword}
-                  autoFocus
-                  sx={{
-                    input: {
-                      color: "#fff",
-                      fontSize: "1.6rem(10)",
-                    },
-                  }}
-                />
-                <StyledTextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="confirm-password"
-                  label="تکرار رمز عبور جدید"
-                  placeholder="رمز عبور خود را دوباره وارد کنید"
-                  name="password"
-                  type="password"
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  error={errorConfirmPassword}
-                  autoFocus
-                  sx={{
-                    input: {
-                      color: "#fff",
-                      fontSize: "1.6rem(10)",
-                    },
-                  }}
-                />
-              </ThemeProvider>
-            </CacheProvider>
+            <PerTextField>
+              <StyledTextField
+                margin="normal"
+                required
+                fullWidth
+                id="password"
+                label="رمز عبور جدید"
+                placeholder="رمز عبور خود را وارد کنید"
+                name="password"
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+                error={errorPassword}
+                autoFocus
+                sx={{
+                  input: {
+                    color: "#fff",
+                    fontSize: "1.6rem",
+                  },
+                }}
+              />
+              <StyledTextField
+                margin="normal"
+                required
+                fullWidth
+                id="confirm-password"
+                label="تکرار رمز عبور جدید"
+                placeholder="رمز عبور خود را دوباره وارد کنید"
+                name="password"
+                type="password"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                error={errorConfirmPassword}
+                autoFocus
+                sx={{
+                  input: {
+                    color: "#fff",
+                    fontSize: "1.6rem",
+                  },
+                }}
+              />
+            </PerTextField>
 
             <Button
               type="submit"
