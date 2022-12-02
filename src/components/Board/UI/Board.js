@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import List from "./List";
 import "../Styles/Board.css";
-import "../Styles/Add.css";
 import PerTextField from "../../Shared/PerTextField";
 import StyledTextField from "../../Shared/StyledTextField";
 
