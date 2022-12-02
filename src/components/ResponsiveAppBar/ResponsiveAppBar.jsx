@@ -14,13 +14,73 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import "./ResponsiveAppBar.scss";
 import avatar_photo from "../../static/images/dashboard/scrum_board.svg";
-
+import { useNavigate } from 'react-router-dom';
+import BasicMenu from './BasicMenu/BasicMenu';
+import { useState } from "react";
+import apiInstance from "../../utilities/axiosConfig";
+import { useEffect } from "react";
 // https://mui.com/#app-bar-with-responsive-menu
 
-const pages = ['ستاره دارها', 'فضای کارها', 'اخیرا دیده شده‌ها', 'ایجاد'];
-const settings = ['پروفایل', 'حساب کاربری', 'داشبورد', 'خروج'];
 
 function ResponsiveAppBar() {
+    let [workspaces, setWorkspaces] = useState([])
+    // let [owningWorkspaces, setOwningWorkspaces] = useState([])
+    useEffect(() => {
+        apiInstance.get("/workspaces/dashboard/myworkspaces/").then((response) => {
+            // setWorkspaces(response.data);
+        }).catch((error) => {
+            // console.log(error);
+        });
+        apiInstance.get("/workspaces/dashboard/myowning-workspaces/").then((response) => {
+            // setOwningWorkspaces(response.data);
+            setWorkspaces(response.data);
+        }).catch((error) => {
+            // console.log(error);
+        });
+    }, [])
+
+    const pages = ['ستاره دارها', 'فضای کارها', 'ایجاد']; // 'اخیرا دیده شده‌ها',
+    let workspaces_id_to_name = workspaces.reduce((acc, workspace) => {
+        acc[workspace.id] = workspace.name;
+        return acc;
+    }, {}); // {1: "workspace1", 2: "workspace2", ...} 
+
+    const pages_map_to_links = {
+        'فضای کار ها': workspaces_id_to_name,
+        'ایجاد': {
+            'فضای کار': '/workspaces/create-workspace', // basic modal
+            'بورد': '/boards/create-board', // basic modal
+        },
+        'ستاره دارها': {
+            'فضای کار': '/workspaces/starred-workspaces',
+            'بورد': '/boards/starred-boards',
+        },
+    }
+    // console.log(pages_map_to_links);
+
+    // map((item) => (
+    //     <MenuItem onClick={handleClose} key={item}>{item}</MenuItem>
+    // ))
+    let pages_map_to_items = []
+    for (const id in workspaces_id_to_name) {
+        if (Object.hasOwnProperty.call(workspaces_id_to_name, id)) {
+            const name = workspaces_id_to_name[id];
+            pages_map_to_items.push(
+                // onclick={handlecolse}
+                <MenuItem href={`/workspace/${id}`} key={id}>{name}</MenuItem>
+            )
+        }
+    }
+
+    let settings = ['ورود', 'پروفایل', 'داشبورد', 'تغییر رمز عبور', 'خروج']; // حساب کاربری
+    let settings_map_to_functions = {
+        "ورود": '/signin/',
+        "پروفایل": '/profile/',
+        "داشبورد": '/dashboard/',
+        "تغییر رمز عبور": '/changepassword/',
+        "خروج": '/logout/',
+    }
+
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -38,6 +98,17 @@ function ResponsiveAppBar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const navigate = useNavigate();
+
+    const navigateToPage = (page) => {
+        if (page === '/logout/') {
+            // console.log('remove token');
+        }
+        navigate(page);
+        // navigate(`/workspace/${workspaceId}`);
+        handleCloseUserMenu();
+    }
 
     return (
         <AppBar position="static" sx={{
@@ -94,11 +165,17 @@ function ResponsiveAppBar() {
                                 fontFamily: 'Vazir',
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center" style={{ fontFamily: 'Vazir', color:'black' }}>{page}</Typography>
-                                </MenuItem>
-                            ))}
+                            {/* <BasicMenu name={page} items={pages_map_to_items} /> */}
+                            
+                            {
+                                pages.map((page) => (
+                                <BasicMenu name={page} workspaces={workspaces_id_to_name}/>
+                            ))
+                            }
+
+                            {/* <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center" style={{ fontFamily: 'Vazir', color: 'black' }}>{page}</Typography>
+                            </MenuItem> */}
                         </Menu>
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -106,7 +183,7 @@ function ResponsiveAppBar() {
                         variant="h5"
                         noWrap
                         component="a"
-                        href=""
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -118,24 +195,31 @@ function ResponsiveAppBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        LOGO
+                        PROJMA
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                            <Button
+                        {
+                            pages.map((page) => (
+                            <BasicMenu name={page} workspaces={workspaces_id_to_name} />
+                        ))}
+                        {/* {pages.map((page) => (
+                            <>
+                                <BasicMenu name={page} items={["1", "2", "3"]} />
+                            </>
+                        ))} */}
+                        {/* <Button
                                 key={page}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block', fontFamily: 'Vazir' }}
                             >
                                 {page}
-                            </Button>
-                        ))}
+                            </Button> */}
                     </Box>
 
-                    <Box sx={{ flexGrow: 0 ,fontFamily: 'Vazir'}}>
-                        <Tooltip 
-                        // title="باز کردن تنظیمات" 
-                        title={<h3 style={{ fontFamily: 'Vazir' }}>باز کردن تنظیمات</h3>}
+                    <Box sx={{ flexGrow: 0, fontFamily: 'Vazir' }}>
+                        <Tooltip
+                            // title="باز کردن تنظیمات" 
+                            title={<h3 style={{ fontFamily: 'Vazir' }}>باز کردن تنظیمات</h3>}
                         >
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Avatar alt="عکس پروفایل" src={avatar_photo} />
@@ -158,7 +242,7 @@ function ResponsiveAppBar() {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                <MenuItem key={setting} onClick={() => navigateToPage(settings_map_to_functions[setting])}>
                                     <Typography textAlign="center" style={{ color: 'black', fontFamily: 'Vazir' }}>{setting}</Typography>
                                 </MenuItem>
                             ))}

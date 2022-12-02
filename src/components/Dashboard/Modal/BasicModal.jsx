@@ -54,7 +54,7 @@ const cacheRtl = createCache({
 });
 
 
-export default function BasicModal() {
+export default function BasicModal(props) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -184,6 +184,7 @@ export default function BasicModal() {
         },
     ]
     const [type, setType] = React.useState('');
+    const [disableButton, setDisableButton] = React.useState(false);
 
     const handleChange = (event) => {
         setType(event.target.value);
@@ -223,9 +224,21 @@ export default function BasicModal() {
                 display: 'flex',
                 alignItems: 'center',
             }}>
-                <h2>
-                    +
-                </h2>
+                {
+                    (props.text === "+") && 
+                    <h2>
+                        +
+                    </h2>
+                }
+
+                {
+                    (props.text === "ایجاد فضای کاری جدید") && 
+                    <p style={{
+                        color: 'black',
+                    }} className="text-in-button">
+                        {props.text}
+                    </p>
+                }
             </Button>
             <Modal
                 open={open}
@@ -348,6 +361,7 @@ export default function BasicModal() {
                                         fontFamily: "Vazir",
                                         backgroundColor: "#0A1929", // #132F4C
                                     }}
+                                    disabled={disableButton}
                                     // onClick={this.isClicked}
                                     onClick={() => {
                                         let workspace_name = document.getElementById("workspace_name").value;
@@ -373,6 +387,7 @@ export default function BasicModal() {
                                         create_workspace_formdata.append("description", document.getElementById("workspace_description").value);
                                         // console.log(create_workspace_formdata);
                                         // console.log("clicked");
+                                        setDisableButton(true); // make text spinning and disable button
                                         apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
                                             console.log(response);
                                             // console.log(response.data);
