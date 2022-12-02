@@ -16,12 +16,62 @@ import "./ResponsiveAppBar.scss";
 import avatar_photo from "../../static/images/dashboard/scrum_board.svg";
 import { useNavigate } from 'react-router-dom';
 import BasicMenu from './BasicMenu/BasicMenu';
-
+import { useState } from "react";
+import apiInstance from "../../utilities/axiosConfig";
+import { useEffect } from "react";
 // https://mui.com/#app-bar-with-responsive-menu
 
 
 function ResponsiveAppBar() {
-    const pages = ['ستاره دارها', 'فضای کارها', 'اخیرا دیده شده‌ها', 'ایجاد'];
+    let [workspaces, setWorkspaces] = useState([])
+    // let [owningWorkspaces, setOwningWorkspaces] = useState([])
+    useEffect(() => {
+        apiInstance.get("/workspaces/dashboard/myworkspaces/").then((response) => {
+            // setWorkspaces(response.data);
+        }).catch((error) => {
+            // console.log(error);
+        });
+        apiInstance.get("/workspaces/dashboard/myowning-workspaces/").then((response) => {
+            // setOwningWorkspaces(response.data);
+            setWorkspaces(response.data);
+        }).catch((error) => {
+            // console.log(error);
+        });
+    }, [])
+
+    const pages = ['ستاره دارها', 'فضای کارها', 'ایجاد']; // 'اخیرا دیده شده‌ها',
+    let workspaces_id_to_name = workspaces.reduce((acc, workspace) => {
+        acc[workspace.id] = workspace.name;
+        return acc;
+    }, {}); // {1: "workspace1", 2: "workspace2", ...} 
+
+    const pages_map_to_links = {
+        'فضای کار ها': workspaces_id_to_name,
+        'ایجاد': {
+            'فضای کار': '/workspaces/create-workspace', // basic modal
+            'بورد': '/boards/create-board', // basic modal
+        },
+        'ستاره دارها': {
+            'فضای کار': '/workspaces/starred-workspaces',
+            'بورد': '/boards/starred-boards',
+        },
+    }
+    // console.log(pages_map_to_links);
+
+    // map((item) => (
+    //     <MenuItem onClick={handleClose} key={item}>{item}</MenuItem>
+    // ))
+    let pages_map_to_items = []
+    for (const id in workspaces_id_to_name) {
+        if (Object.hasOwnProperty.call(workspaces_id_to_name, id)) {
+            const name = workspaces_id_to_name[id];
+            pages_map_to_items.push(
+                // onclick={handlecolse}
+                <MenuItem href={`/workspace/${id}`} key={id}>{name}</MenuItem>
+            )
+        }
+    }
+
     let settings = ['ورود', 'پروفایل', 'داشبورد', 'تغییر رمز عبور', 'خروج']; // حساب کاربری
     let settings_map_to_functions = {
         "ورود": '/signin/',
@@ -33,7 +83,7 @@ function ResponsiveAppBar() {
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    
+
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -53,7 +103,7 @@ function ResponsiveAppBar() {
 
     const navigateToPage = (page) => {
         if (page === '/logout/') {
-            console.log('remove token');
+            // console.log('remove token');
         }
         navigate(page);
         // navigate(`/workspace/${workspaceId}`);
@@ -115,9 +165,14 @@ function ResponsiveAppBar() {
                                 fontFamily: 'Vazir',
                             }}
                         >
-                            {pages.map((page) => (
-                                    <BasicMenu name={page} items={["1","2","3"]} />
-                            ))}
+                            {/* <BasicMenu name={page} items={pages_map_to_items} /> */}
+                            
+                            {
+                                pages.map((page) => (
+                                <BasicMenu name={page} workspaces={workspaces_id_to_name}/>
+                            ))
+                            }
+
                             {/* <MenuItem key={page} onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center" style={{ fontFamily: 'Vazir', color: 'black' }}>{page}</Typography>
                             </MenuItem> */}
@@ -143,12 +198,16 @@ function ResponsiveAppBar() {
                         PROJMA
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                            <>
-                                <BasicMenu name={page} items={["1","2","3"]} />
-                            </>
+                        {
+                            pages.map((page) => (
+                            <BasicMenu name={page} workspaces={workspaces_id_to_name} />
                         ))}
-                            {/* <Button
+                        {/* {pages.map((page) => (
+                            <>
+                                <BasicMenu name={page} items={["1", "2", "3"]} />
+                            </>
+                        ))} */}
+                        {/* <Button
                                 key={page}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block', fontFamily: 'Vazir' }}
