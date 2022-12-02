@@ -236,8 +236,8 @@ export const Dashborad = () => {
                 // <a className="option" href="#"><WorkspacesTwoToneIcon /> </a>
                 <>
                     <p className="text paragraph" > <WorkspacesTwoToneIcon sx={{ ml: 1.5 }} /> فضای کار ها </p>
-                    <BasicModal />
-                    {/* <p> <BasicModal /></p> */}
+                    <BasicModal text="+"/>
+                    {/* <p> <BasicModal  text="+"/></p> */}
                     {
                         workspaces.map((workspace) => (
                             <a className="option" href="#" key={workspace.id} onClick={() => navigateToWorkspace(workspace.id)} >{workspace.name}</a>
@@ -299,7 +299,7 @@ export const Dashborad = () => {
 
                             <Divider sx={{ bgcolor: "white", marginTop: "5%" }} />
                             <p className="text paragraph" > <WorkspacesTwoToneIcon sx={{ ml: 1.5 }} /> فضای کار ها </p>
-                            <BasicModal />
+                            <BasicModal text="+"/>
                             {/* <a className="option" href="#">فضای کار 1</a> onClick navigate to workspace page */}
                             {
                                 workspaces.map((workspace) => (
