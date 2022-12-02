@@ -54,7 +54,7 @@ const cacheRtl = createCache({
 });
 
 
-export default function BasicModal() {
+export default function BasicModal(props) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -224,9 +224,21 @@ export default function BasicModal() {
                 display: 'flex',
                 alignItems: 'center',
             }}>
-                <h2>
-                    +
-                </h2>
+                {
+                    (props.text === "+") && 
+                    <h2>
+                        +
+                    </h2>
+                }
+
+                {
+                    (props.text === "ایجاد فضای کاری جدید") && 
+                    <p style={{
+                        color: 'black',
+                    }} className="text-in-button">
+                        {props.text}
+                    </p>
+                }
             </Button>
             <Modal
                 open={open}
