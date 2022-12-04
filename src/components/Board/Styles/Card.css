@@ -1,27 +1,37 @@
 .board_card {
+  color: #212121;
   margin-left: 0.5rem;
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
   max-width: 100%;
-  height: auto;
-  /* background-image: linear-gradient(to right bottom, #91B9E3 0%, #0059b2 130%); */
-  background: linear-gradient(
+  /* background-image: linear-gradient(to right bottom, #5090D3 0%, #0059b2 130%); */
+  /* background: linear-gradient(
     to right bottom,
-    RGB(0, 127, 255),
-    RGB(0, 89, 178) 120%
-  );
+    rgb(0, 127, 255),
+    rgb(0, 89, 178) 120%
+  ); */
+  background-color: #132F4C;
+  border: 0.2rem solid #5090D3;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px,
     rgba(0, 0, 0, 0.04) 0px 10px 10px;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
   flex: 0 1 auto;
+  overflow: visible;
+  position: relative;
+} 
+
+.board_card:hover {
+  /* border-color: white; */
+  background-color: #0A1929;
+  cursor: pointer;
 }
 
 .board_title {
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   align-self: flex-start;
 }
 
@@ -30,8 +40,68 @@
   align-self: flex-end;
 }
 
-.board_avatar {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
+
+.board_card-label {
+  margin-top: 0.2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 4rem);
+  /* flex-wrap: wrap; */
+  /* justify-content: space-between; */
+  gap: 0.4rem 0.2rem ;
+}
+
+.MuiAvatarGroup-root 	.MuiAvatarGroup-avatar{
+  background-color: #5090D3;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.4rem;
+  border: none !important;
+}
+
+.board_icon_container {
+  position: absolute;
+  display: none;
+  left: 1%;
+  top: 1%;
+}
+
+.board_card:hover .board_icon_container {
+  display: flex;
+  width: auto;
+  /* justify-content: space-between; */
+  gap: 0.1rem;
+}
+
+.board_default-icon {
+  color: #5090D3;
+  font-size: 1.7rem !important;
+  text-align: center;
+}
+
+.board_icon-box {
+  width: auto;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2rem;
+}
+
+.board_card:hover .board_icon-box:hover {
+  border: 0.1rem solid #5090D3;
+  padding: 0.1rem;
+  border-radius: 0.5rem;
+  background-color: #132F4C;
+}
+
+.board_card:hover .board_icon-box:hover .board_default-icon {
+  color:#5090D3;
+}
+
+.board_icon-box .board_edit-icon {
+  left: 20%;
+}
+
+.board_icon-box .board_close-icon {
+  left: 10%;
 }
