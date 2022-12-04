@@ -114,3 +114,21 @@
 .taskmodal-body-larger-description-textbox {
   margin-top: 6%;
 }
+
+.taskmodal-body-checklist {
+  margin-top: 7%;
+}
+
+.taskmodal-body-checklist-header {
+  column-gap: 3%;
+}
+
+.taskmodal-body-checklist-header-main {
+  width: 100%;
+  flex-direction: space-around;
+}
+
+.taskmodal-body-checklist-header-main-icons {
+  width: 100%;
+  direction: ltr;
+}
