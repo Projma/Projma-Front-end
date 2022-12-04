@@ -4,7 +4,7 @@ import Card from "./Card";
 import PerTextField from "../../Shared/PerTextField";
 import StyledTextField from "../../Shared/StyledTextField";
 
-const cardInfo = [];
+const cardInfo = [{name: "test"}];
 
 const List = (props) => {
   const [cards, setCards] = useState(cardInfo);
@@ -18,7 +18,7 @@ const List = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
     setCards((pervList) => {
-      return [...pervList, { name: inputName, ket: Math.random().toString() }];
+      return [...pervList, { name: inputName, key: Math.random().toString() }];
     });
     setIsclicked(false);
     setInputName("");
