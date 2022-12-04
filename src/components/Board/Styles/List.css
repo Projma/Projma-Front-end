@@ -1,7 +1,3 @@
-p {
-  color: white;
-}
-
 .board_list {
   /* max-width: 30rem; */
   width: 30rem;
@@ -26,7 +22,7 @@ p {
 }
 
 .board_header-title {
-  font-size: 1.8rem;
+  font-size: 2rem;
 }
 
 .board_header-button {
