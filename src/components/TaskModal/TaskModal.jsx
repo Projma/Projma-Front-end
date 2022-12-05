@@ -9,7 +9,7 @@ import userEvent from "@testing-library/user-event";
 import { fontWeight } from "@mui/system";
 import { useState, useCallback } from "react";
 import axios from "axios";
-import StyledTextField from "../Password/StyledTextField";
+import StyledTextField from "../Shared/StyledTextField";
 import { CacheProvider } from "@emotion/react";
 import { red } from "@mui/material/colors";
 import { useDispatch, useSelector } from "react-redux";

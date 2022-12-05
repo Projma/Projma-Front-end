@@ -8,17 +8,6 @@ import "./Board.css";
 import BoardView from "./BoardView";
 import BasicModal from "../BasicModal/CreateBoard";
 
-const boardList = [
-  { name: "1", id: "1", isStarred: false, isRecent: false },
-  { name: "2", id: "2", isStarred: false, isRecent: false },
-  { name: "3", id: "3", isStarred: false, isRecent: false },
-  { name: "4", id: "4", isStarred: false, isRecent: true },
-  { name: "5", id: "5", isStarred: false, isRecent: false },
-  { name: "6", id: "6", isStarred: false, isRecent: false },
-  { name: "7", id: "7", isStarred: false, isRecent: true },
-  { name: "8", id: "8", isStarred: false, isRecent: true },
-];
-
 const Board = ({ params, on_submit }) => {
   useEffect(() => {
     console.log(params);
@@ -65,16 +54,16 @@ const Board = ({ params, on_submit }) => {
   // };
   const [open, setOpen] = useState(false);
   return (
-    <div className="board">
+    <div className="workspace--board">
       {list.find((e) => e.isStarred === true) && (
         <div>
-          <div className="starred-board">
-            <div className="board-header">
+          <div className="workspace--starred-board">
+            <div className="workspace--board-header">
               <StarIcon />
-              <p className="board-header-title">بورد های مهم</p>
+              <p className="workspace--board-header-title">بورد های مهم</p>
             </div>
-            <div className="board-body">
-              <div className="board-body-list">
+            <div className="workspace--board-body">
+              <div className="workspace--board-body-list">
                 {list.map(
                   (x) =>
                     x.isStarred && (
@@ -94,13 +83,13 @@ const Board = ({ params, on_submit }) => {
       )}
       {list.find((e) => e.isRecent === true) && (
         <div>
-          <div className="recent-board">
-            <div className="board-header">
+          <div className="workspace--recent-board">
+            <div className="workspace--board-header">
               <AccessTimeIcon />
-              <p className="board-header-title">آخرین بورد ها</p>
+              <p className="workspace--board-header-title">آخرین بورد ها</p>
             </div>
-            <div className="board-body">
-              <div className="board-body-list">
+            <div className="workspace--board-body">
+              <div className="workspace--board-body-list">
                 {list.map(
                   (x) =>
                     x.isRecent && (
@@ -118,13 +107,13 @@ const Board = ({ params, on_submit }) => {
           </div>
         </div>
       )}
-      <div className="my-board">
-        <div className="board-header">
+      <div className="workspace--my-board">
+        <div className="workspace--board-header">
           <DashboardIcon />
-          <p className="board-header-title">بورد ها</p>
+          <p className="workspace--board-header-title">بورد ها</p>
         </div>
-        <div className="board-body">
-          <div className="board-body-list">
+        <div className="workspace--board-body">
+          <div className="workspace--board-body-list">
             {list.map((x) => (
               <BoardView
                 name={x.name}

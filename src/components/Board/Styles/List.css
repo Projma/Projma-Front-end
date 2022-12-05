@@ -1,8 +1,4 @@
-p {
-  color: white;
-}
-
-.list {
+.board_list {
   /* max-width: 30rem; */
   width: 30rem;
   /* max-width: 30rem; */
@@ -12,24 +8,24 @@ p {
   margin: 0.4rem;
   margin-right: 0.6rem;
   overflow: hidden;
-  /* border: 0.1rem solid #163658; */
+  /* border: 0.1em solid #163658; */
   padding: 1rem;
 }
 
-.header {
+.board_header {
   display: flex;
   margin-bottom: 1rem;
   padding: 1rem;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 0.1rem solid #163658;
+  border-bottom: 0.1em solid #163658;
 }
 
-.header-title {
-  font-size: 1.8rem;
+.board_header-title {
+  font-size: 2rem;
 }
 
-.header-button {
+.board_header-button {
   font-size: 1.8rem;
   height: 2rem;
   width: 2rem;
@@ -40,44 +36,44 @@ p {
   align-items: center;
 }
 
-.header-button:hover {
+.board_header-button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
   /* 001E3C */
   /* background-color: rgba(0,89,178,0.4); */
   border-radius: 0;
-  /* border-top: 0.2rem solid rgba(80,144,211,0.8); */
-  /* border: 0.2rem solid #5090D3; */
+  /* border-top: 0.2em solid rgba(80,144,211,0.8); */
+  /* border: 0.2em solid #5090D3; */
   cursor: pointer;
   text-align: center;
 }
 
-.button-title {
+.board_button-title {
   margin: 0.2rem;
   color: white;
 }
 
-.card-list {
+.board_card-list {
   max-height: 70vh;
   overflow-y: scroll;
   margin-bottom: 0.4rem;
   padding: 0.6rem;
 }
 
-.space {
+.board_space {
   max-width: auto;
   height: 1rem;
 }
 
-.add-card {
+.board_add-card {
   margin-top: 0.8rem;
-  border-top: 0.1rem solid #163658;
+  border-top: 0.1em solid #163658;
   display: flex;
   justify-content: center;
 }
 
-.add-card_button {
+.board_add-card_button {
   width: 28rem;
   background-color: #0a1929;
   color: white;
@@ -86,17 +82,17 @@ p {
   margin-top: 0.6rem;
 }
 
-.add-card_button:hover,
-.add-card_button:active {
+.board_add-card_button:hover,
+.board_add-card_button:active {
   background-color: rgba(80, 144, 211, 0.8);
   cursor: pointer;
 }
 
-@media screen and (max-width: 30rem) {
-  .list {
+@media screen and (max-width: 30em) {
+  .board_list {
     max-height: fit-content;
   }
-  .card-list {
+  .board_card-list {
     overflow-x: auto;
     max-height: 30rem;
   }

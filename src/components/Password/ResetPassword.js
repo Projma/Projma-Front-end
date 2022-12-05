@@ -48,7 +48,7 @@ const ResetPassword = () => {
           position: toast.POSITION.TOP_CENTER,
           rtl: true,
         });
-        delay(7000).then(() => navigate("/singin"));
+        delay(7000).then(() => navigate("/signin"));
         setIsFail(true);
       })
       .catch((error) => {
@@ -123,7 +123,7 @@ const ResetPassword = () => {
   return (
     <>
       {isPost ? <Loading /> : null}
-      {isFail ? <ToastContainer autoClose={5000} /> : null}
+      {isFail ? <ToastContainer autoClose={5000} style={{fontSize:"1.2rem"}}/> : null}
       <Container maxWidth="xs">
         <CssBaseline />
         <Box
@@ -162,7 +162,7 @@ const ResetPassword = () => {
               component="h1"
               variant="h5"
               color="#fff"
-              sx={{ mb: 1, fontSize: "2rem" }}
+              sx={{ mb: 1, fontSize: "2rem(10)" }}
             >
               تغییر رمز عبور
             </Typography>
@@ -215,7 +215,7 @@ const ResetPassword = () => {
                 mt: 3,
                 mb: 2,
                 backgroundColor: "#265D97",
-                fontSize: "1.6rem",
+                fontSize: "1.6rem(10)",
               }}
             >
               تغییر رمز عبور

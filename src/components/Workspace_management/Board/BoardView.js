@@ -15,21 +15,21 @@ const BoardView = (props) => {
   };
 
   return (
-    <div className="board-view">
+    <div className="workspace--board-view">
       <button
-        className="view"
+        className="workspace--view"
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
-        <p className="board-title">{props.name}</p>
+        <p className="workspace--board-title">{props.name}</p>
       </button>
       {isStarred ? (
         <button
-              className="icon-button"
+              className="workspace--icon-button"
               onClick={clickHandler}
             >
               <StarIcon
-                className="board-icon"
+                className="workspace--board-icon"
                 sx={{ "& :hover": { fill: "#fff" } }}
                 style={{ fontSize: "1.6rem",
                 fill: "yellow"  }}
@@ -39,13 +39,13 @@ const BoardView = (props) => {
         <div>
           {hover && (
             <button
-              className="icon-button"
+              className="workspace--icon-button"
               onClick={clickHandler}
               onMouseEnter={() => setHover(true)}
               onMouseLeave={() => setHover(false)}
             >
               <StarIcon
-                className="board-icon"
+                className="workspace--board-icon"
                 sx={{ "& :hover": { color: "yellow" } }}
                 style={{ fontSize: "1.6rem" }}
               />

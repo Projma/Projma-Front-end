@@ -1,0 +1,7 @@
+.card_item_label-main {
+  min-width: 4rem;
+  height: 0.8rem;
+  /* background-color: aqua; */
+  display: inline-block;
+  border-radius: 1rem;
+}

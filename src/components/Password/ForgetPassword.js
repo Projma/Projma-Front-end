@@ -96,7 +96,7 @@ const ForgetPassword = () => {
   return (
     <>
       {isPost ? <Loading /> : null}
-      {isFail ? <ToastContainer autoClose={5000} /> : null}
+      {isFail ? <ToastContainer autoClose={5000} style={{fontSize:"1.2rem"}}/> : null}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -135,11 +135,12 @@ const ForgetPassword = () => {
               component="h1"
               variant="h5"
               color="#fff"
-              sx={{ mb: 1, fontSize: "2rem" }}
+              sx={{ mb: 1, fontSize: "2rem(10)" }}
             >
               فراموشی رمز عبور
             </Typography>
             <PerTextField>
+              {/* <CssBaseline /> */}
               <StyledTextField
                 margin="normal"
                 required
@@ -156,7 +157,7 @@ const ForgetPassword = () => {
                 sx={{
                   input: {
                     color: "#fff",
-                    fontSize: "1.6rem",
+                    fontSize: "1.6rem(10)",
                   },
                 }}
               />
@@ -170,10 +171,10 @@ const ForgetPassword = () => {
                 mt: 3,
                 mb: 2,
                 backgroundColor: "#265D97",
-                fontSize: "1.6rem",
+                fontSize: "1.6rem(10)",
               }}
             >
-              تغییر رمز عبور
+              ارسال ایمیل
             </Button>
             <Typography
               id="em"

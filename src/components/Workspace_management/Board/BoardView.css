@@ -1,4 +1,4 @@
-.board-view {
+.workspace--board-view {
   position: relative;
   height: 8rem;
   width: 20rem;
@@ -7,7 +7,7 @@
   padding: 3% 3%;
 }
 
-.view {
+.workspace--view {
   width: 100%;
   height: 100%;
   background-color: inherit;
@@ -15,21 +15,21 @@
   display: flex;
 }
 
-.board-view:hover {
+.workspace--board-view:hover {
   opacity: 80%;
 }
 
-.view:hover {
+.workspace--view:hover {
   cursor: pointer;
 }
 
-.board-title {
+.workspace--board-title {
   align-items: flex-start;
   justify-content: flex-start;
   font-size: 1.4rem;
 }
 
-.icon-button {
+.workspace--icon-button {
   background-color: inherit;
   border: none;
   position: absolute;
@@ -37,10 +37,10 @@
   left: 3%;
 }
 
-.icon-button:hover {
+.workspace--icon-button:hover {
   cursor: pointer;
 }
 
-.IconButton:hover .Iconclass {
+.workspace--IconButton:hover .Iconclass {
   background-color: yellow;
 }
