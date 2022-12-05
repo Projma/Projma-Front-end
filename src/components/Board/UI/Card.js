@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Styles/Card.css";
 import CardLabel from "../Cards Item/CardLabel";
 import Avatar from "@mui/material/Avatar";
@@ -29,22 +29,58 @@ const avatarStyle = {
 
 const Card = (props) => {
   let navigate = useNavigate();
+  let outSideButton = false;
+  // const [close, setClose] = useState(false);
 
   const cardClickHandker = () => {
+    console.log("board");
+    console.log("outside: ",outSideButton);
+    // console.log("close: ",close);
+    if(outSideButton)
+    return;
     navigate("/");
   };
-
-  const cardDeleteHandler = () => {};
-
-  const cardEditHandler = () => {};
+  
+  const cardDeleteHandler = () => {
+    outSideButton = true;
+    console.log("edit");
+    console.log("outside: ",outSideButton);
+    // console.log("close: ",close);
+    navigate("/signup");
+    // setOutSideButton(false);
+  };
+  
+  const cardEditHandler = () => {
+    outSideButton = true;
+    console.log("close");
+    console.log("outside: ",outSideButton);
+    // console.log("close: ",close);
+    navigate("/signin");
+    // setOutSideButton(false);
+  };
 
   return (
-    <div className="board_card" onClick={cardClickHandker}>
+    <div 
+      className="board_card"
+      onClick={(event) => {
+        cardClickHandker();
+      }}
+    >
       <div className="board_icon_container">
-        <div className="board_icon-box" onClick={cardDeleteHandler}>
+        <div
+          className="board_icon-box"
+          onClick={() => {
+            cardEditHandler();
+          }}
+        >
           <EditIcon className="board_edit-icon board_default-icon" />
         </div>
-        <div className="board_icon-box" onClick={cardDeleteHandler}>
+        <div
+          className="board_icon-box"
+          onClick={() => {
+            cardDeleteHandler();
+          }}
+        >
           <CloseIcon className="board_close-icon board_default-icon" />
         </div>
       </div>
@@ -96,7 +132,7 @@ const Card = (props) => {
             <AttachFileIcon className="board_default-footer-icon" />
             <p className="board_icon-info">{iconshow.attach}</p>
           </div>
-          <div >
+          <div>
             {iconshow.checkdone === iconshow.checktotal ? (
               <div className="board_icon-container">
                 <CheckBoxOutlinedIcon className="board_default-footer-icon board_checklist-finish" />
