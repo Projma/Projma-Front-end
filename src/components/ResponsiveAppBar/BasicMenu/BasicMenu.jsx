@@ -5,6 +5,11 @@ import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
 // import Typography from '@mui/material/Typography';
 import BasicModal from '../../Dashboard/Modal/BasicModal';
+import { color } from '@mui/system';
+// import BasicModal from "../components/Workspace_management/BasicModal/CreateBoard"; create board modal
+// import { BasicModal as CreateBoard } from '../../Workspace_management/BasicModal/CreateBoard';
+import apiInstance from '../../../utilities/axiosConfig';
+import { useParams } from "react-router-dom";
 
 export default function BasicMenu(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -21,6 +26,16 @@ export default function BasicMenu(props) {
         handleClose();
         navigate(`/workspace/${workspaceId}`);
     }
+
+    const params = useParams();
+    const submit_form = (form_data) => {
+        console.log("here");
+        apiInstance
+            .post(`/workspaces/workspaceowner/${params.id}/create-board/`, form_data)
+            .then((res) => {
+                console.log(res.data);
+            });
+    };
 
     return (
         <div>
@@ -78,15 +93,28 @@ export default function BasicMenu(props) {
                     }))
                 }
                 {
-                    (props.name == 'ایجاد') && (<MenuItem sx={{
-                                ":hover": {
-                                    color: '#E2EDF8',
-                                    backgroundColor: '#007fff',
-                                    borderRadius: '5px',
-                                }
-                            }}>
+                    (props.name == 'ایجاد') && (<><MenuItem sx={{
+                        ":hover": {
+                            color: '#E2EDF8',
+                            backgroundColor: '#007fff',
+                            borderRadius: '5px',
+                        }
+                    }}>
                         <BasicModal text="ایجاد فضای کاری جدید" />
-                    </MenuItem>)
+                    </MenuItem>
+                        <MenuItem sx={{
+                            ":hover": {
+                                color: '#E2EDF8',
+                                backgroundColor: '#007fff',
+                                borderRadius: '5px',
+                            },
+                            color: 'black',
+                        }}>
+                            <BasicModal text="ایجاد بورد جدید" /> 
+                            {/* create board modal (correct text) */}
+                            {/* <CreateBoard params={params} on_submit={submit_form} /> */}
+                        </MenuItem> </>
+                    )
                 }
                 {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
