@@ -1,5 +1,5 @@
 .board_card {
-  color: #212121;
+  color: #fff;
   margin-left: 0.5rem;
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
@@ -29,6 +29,10 @@
   cursor: pointer;
 }
 
+.board_card-title {
+  margin-top: 0.5rem;
+}
+
 .board_title {
   color: white;
   font-size: 1.8rem;
@@ -36,8 +40,9 @@
 }
 
 .board_card-avatar {
-  margin-top: 1rem;
-  align-self: flex-end;
+  /* margin-top: 1rem; */
+  align-self: center;
+  /* justify-self: flex-start; */
 }
 
 
@@ -54,7 +59,9 @@
   background-color: #5090D3;
   width: 3rem;
   height: 3rem;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
+  text-align: center;
+
   border: none !important;
 }
 
@@ -78,24 +85,29 @@
   text-align: center;
 }
 
+.board_default-footer-icon {
+  color: #5090D3;
+  font-size: 1.7rem !important;
+  text-align: center;
+}
+
 .board_icon-box {
   width: auto;
   height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2rem;
 }
 
 .board_card:hover .board_icon-box:hover {
-  border: 0.1rem solid #5090D3;
+  /* border: 0.1rem solid #5090D3;
   padding: 0.1rem;
   border-radius: 0.5rem;
-  background-color: #132F4C;
+  background-color: #132F4C; */
 }
 
 .board_card:hover .board_icon-box:hover .board_default-icon {
-  color:#5090D3;
+  color:#fff;
 }
 
 .board_icon-box .board_edit-icon {
@@ -104,4 +116,30 @@
 
 .board_icon-box .board_close-icon {
   left: 10%;
+}
+
+.board_footer {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  /* gap: 0.1rem; */
+  justify-content: space-between;
+}
+
+.board_footer-icon {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.board_icon-container {
+  width: auto;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.board_checklist-finish {
+  color: #66bb6a !important;
 }

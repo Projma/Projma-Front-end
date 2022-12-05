@@ -5,7 +5,7 @@ import PerTextField from "../../Shared/PerTextField";
 import StyledTextField from "../../Shared/StyledTextField";
 
 const Board = () => {
-  const [lists, setLists] = useState([]);
+  const [lists, setLists] = useState([{name:"test"}]);
   const [isclicked, setIsclicked] = useState(false);
   const [inputName, setInputName] = useState("");
 
