@@ -54,6 +54,10 @@
   color: white;
 }
 
+.board_button-title:hover {
+  color:#5090D3;
+}
+
 .board_card-list {
   max-height: 70vh;
   overflow-y: scroll;
@@ -94,7 +98,7 @@
   width: 20rem;
   border: 0.2rem solid #5090D3;
   color: #fff !important;
-  background-color: #132f4c;
+  background-color: #0a1929;
   padding: 0.5rem;
 }
 
@@ -114,7 +118,7 @@
   padding-right: 0.4rem;
 }
 .board_option-button:hover {
-  background-color: #0a1929;
+  background-color: #163658;
   cursor: pointer;
   border-radius: 0.5rem;
 }
