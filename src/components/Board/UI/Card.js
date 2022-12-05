@@ -3,66 +3,100 @@ import "../Styles/Card.css";
 import CardLabel from "../Cards Item/CardLabel";
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import { Navigate, useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import CloseIcon from "@mui/icons-material/Close";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
+import { styled } from "@mui/material/styles";
 
 const label = [
-  { name: "red", color: "#d32f2f", id: 1 },
-  { name: "blue", color: "#42a5f5", id: 2 },
-  { name: "pink", color: "#ab47bc", id: 3 },
+  { name: "قرمز", color: "#d32f2f", id: 1 },
+  { name: "آبی", color: "#42a5f5", id: 2 },
+  { name: "صورتی", color: "#ab47bc", id: 3 },
   // { name: "org", color: "#f57c00", id: 4 },
-  { name: "green", color: "#388e3c", id: 5 },
+  { name: "سبز", color: "#388e3c", id: 5 },
   // { name: "golden", color: "#ea80fc", id: 6 },
-  { name: "gray", color: "#ffff52", id: 7 },
+  { name: "زرد", color: "#ffff52", id: 7 },
 ];
 
-const iconshow = { comment: 3, attach: 1, checkdone: 5, checktotal: 5 };
+const members = [
+  {
+    name: "vahid mohammadi",
+    id: 1,
+    avatar: "https://s6.uupload.ir/files/vm_k4cy.jpg",
+  },
+  {
+    name: "mohammad osoolian",
+    id: 2,
+    avatar: null,
+  },
+  {
+    name: "projma team",
+    id: 3,
+    avatar: "https://s6.uupload.ir/files/pm_e8i1.jpg",
+  },
+  {
+    name: "temp person",
+    id: 4,
+    avatar: "https://s6.uupload.ir/files/ahm_osvs.jpg",
+  },
+  { name: "x x", id: 5, avatar: null },
+  { name: "y y", id: 6, avatar: null },
+  { name: "z z", id: 7, avatar: null },
+];
 
-const avatarStyle = {
-  fontSize: "1.8rem",
-  border: "none",
-};
+const iconshow = { comment: 3, attach: 1, checkdone: 3, checktotal: 5 };
+
+// const StyleTooltip = styled(({ className, ...props }) => (
+//   <Tooltip {...props} classes={{ popper: className }} />
+// ))(({ theme }) => ({
+//   [`& .${tooltipClasses.tooltip}`]: {
+//     backgroundColor: "#132F4C",
+//     color: '#fff',
+//     // boxShadow: theme.shadows[1],
+//     border: "0.2rem solid #5090D3",
+//   },
+// }));
 
 const Card = (props) => {
+  const [showLabelName, setShowLabelName] = useState(false);
   let navigate = useNavigate();
   let outSideButton = false;
   // const [close, setClose] = useState(false);
 
   const cardClickHandker = () => {
     console.log("board");
-    console.log("outside: ",outSideButton);
+    console.log("outside: ", outSideButton);
     // console.log("close: ",close);
-    if(outSideButton)
-    return;
-    navigate("/");
+    if (outSideButton) return;
+    // navigate("/");
   };
-  
+
   const cardDeleteHandler = () => {
     outSideButton = true;
     console.log("edit");
-    console.log("outside: ",outSideButton);
+    console.log("outside: ", outSideButton);
     // console.log("close: ",close);
     navigate("/signup");
     // setOutSideButton(false);
   };
-  
+
   const cardEditHandler = () => {
     outSideButton = true;
     console.log("close");
-    console.log("outside: ",outSideButton);
+    console.log("outside: ", outSideButton);
     // console.log("close: ",close);
     navigate("/signin");
     // setOutSideButton(false);
   };
 
   return (
-    <div 
+    <div
       className="board_card"
-      onClick={(event) => {
+      onClick={() => {
         cardClickHandker();
       }}
     >
@@ -86,7 +120,16 @@ const Card = (props) => {
       </div>
       <div className="board_card-label">
         {label.map((x) => (
-          <CardLabel key={x.id} color={x.color} />
+          <CardLabel
+            key={x.id}
+            color={x.color}
+            name={x.name}
+            onClick={() => {
+              outSideButton = true;
+              setShowLabelName(!showLabelName);
+            }}
+            show={showLabelName}
+          />
         ))}
       </div>
       <div className="board_card-title">
@@ -96,35 +139,22 @@ const Card = (props) => {
       <div className="board_footer">
         <div className="board_card-avatar">
           <AvatarGroup
-            max={4}
-            spacing="0"
+            max={5}
+            spacing="medium"
             sx={{ direction: "ltr", border: "none" }}
+            className="board_avatar-container"
           >
-            <Avatar
-              alt="vahid mohammadi"
-              src={require("../../../static/images/profile/vm.jpg")}
-              sx={avatarStyle}
-            />
-            <Avatar
-              alt="mmd osoolian"
-              {...stringAvatar("mmd osoolian")}
-              sx={avatarStyle}
-            />
-            <Avatar
-              alt="vahid mohammadi"
-              src={require("../../../static/images/profile/ahm.jpg")}
-              sx={avatarStyle}
-            />
-            <Avatar
-              alt="vahid mohammadi"
-              src={require("../../../static/images/profile/pm.jpg")}
-              sx={avatarStyle}
-            />
-            <Avatar
-              alt="vahid mohammadi"
-              src={require("../../../static/images/profile/pm.jpg")}
-              sx={avatarStyle}
-            />
+            {members.map((x) => (
+              <Tooltip title={x.name}>
+                <Avatar
+                  key={x.id}
+                  alt={x.name}
+                  src={x.avatar !== null ? x.avatar : "none"}
+                  {...stringAvatar(x.name)}
+                  className="board_avatar-profile-picture"
+                />
+              </Tooltip>
+            ))}
           </AvatarGroup>
         </div>
         <div className="board_footer-icon">
