@@ -1,12 +1,17 @@
 import * as React from "react";
 import "../Styles/CardLabel.css";
+import CardLabelWithName from "./CardLabelWithName";
+import CardLabelWithoutName from "./CardLabelWithoutName";
 
 const CardLabel = (props) => {
   return (
-    <div
-      className="card_item_label-main"
-      style={{ backgroundColor: props.color }}
-    ></div>
+    <>
+      {props.show ? (
+        <CardLabelWithName onClick={() => props.onClick()} color={props.color} name={props.name}/>
+      ) : (
+        <CardLabelWithoutName onClick={() => props.onClick()} color={props.color}/>
+      )}
+    </>
   );
 };
 

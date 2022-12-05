@@ -48,19 +48,21 @@
 
 .board_card-label {
   margin-top: 0.2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 4rem);
-  /* flex-wrap: wrap; */
+  display: flex;
+  /* grid-auto-flow: column; */
+  width: 21.5rem;
+  /* grid-template-columns: repeat(auto-fill, 4rem); */
+  flex-wrap: wrap;
   /* justify-content: space-between; */
-  gap: 0.4rem 0.2rem ;
+  gap: 0.2rem;
 }
 
 .MuiAvatarGroup-root 	.MuiAvatarGroup-avatar{
-  background-color: #5090D3;
-  width: 3rem;
-  height: 3rem;
-  font-size: 1.6rem;
-  text-align: center;
+  background-color: #5090D3 !important;
+  width: 3rem !important;
+  height: 3rem !important;
+  font-size: 1.6rem !important;
+  text-align: center !important;
 
   border: none !important;
 }
@@ -142,4 +144,14 @@
 
 .board_checklist-finish {
   color: #66bb6a !important;
+}
+
+.board_avatar-profile-picture:hover , .board_avatar-profile-picture:last-child:hover {
+  opacity: 60%;
+}
+
+.MuiTooltip-tooltip {
+  background-color: #132F4C !important;
+  border: 0.2rem solid #5090D3;
+  color: #fff;
 }
