@@ -1,5 +1,5 @@
 @font-face {
-  font-family: Vazir;
+  font-family: vazir;
   src: url(../fonts/Vazir.ttf);
 }
 
@@ -20,7 +20,10 @@
   /* display: flex; */
   /* place-items: center; */
   /* justify-content: flex-start; */
-  background-color: rgb(234, 234, 234);
+  /* background-color: rgb(234, 234, 234); */
+  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
+  border-radius: 30px;
+  padding: 4%;
 }
 
 .taskmodal-box {
@@ -112,5 +115,70 @@
 }
 
 .taskmodal-body-larger-description-textbox {
-  margin-top: 6%;
+  /* margin-top: 6%; */
+  margin-top: 1%;
+  margin-right: 0%;
+  width: 100%;
+  padding-right: 0%;
+}
+
+.taskmodal-body-checklist {
+  margin-top: 7%;
+}
+
+.taskmodal-body-checklist-header {
+  column-gap: 3%;
+}
+
+.taskmodal-body-checklist-title {
+  width: 100%;
+  /* background-color: red; */
+  justify-content: space-between;
+}
+
+.taskmodal-iconhide {
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.taskmodal-body-checklist-body {
+  margin-top: 2%;
+}
+
+.taskmodal-checklist-showList {
+  margin-right: 2%;
+}
+
+.taskmodal-body-activity-box {
+  padding: 0%;
+  margin: 0%;
+}
+
+.neonText {
+  color: #fff;
+  text-shadow: 0 0 7px rgb(193, 180, 180), 0 0 10px rgb(193, 180, 180),
+    0 0 21px rgb(193, 180, 180), 0 0 42px #5271ff, 0 0 82px #5271ff,
+    0 0 92px #5271ff, 0 0 102px #5271ff, 0 0 151px #5271ff;
+}
+
+.taskmodal-description-title {
+  font-size: 14px;
+  /* font-weight: 600; */
+  color: #fff;
+}
+
+.taskmodal-button-setting {
+  color: white;
+  font-family: vazir;
+  font-size: 10px;
+}
+
+.taskmodal-closeButton {
+  width: 100%;
+  color: white;
+  font-family: vazir;
+}
+
+.taskmodal-body-activity-header {
+  column-gap: 3%;
 }
