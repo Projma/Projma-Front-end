@@ -174,10 +174,28 @@ export default function TaskModal() {
                     <div className="flex">
                       <PasswordIcon></PasswordIcon>
                     </div>
-                    <div className="flex-column">
-                      <div>توضیحات</div>
+                    <div className="flex-column" style={{ width: "90%" }}>
+                      <div style={{ marginBottom: "-2%" }}>توضیحات</div>
                       <div className="taskmodal-body-larger-description-textbox">
                         <StyledTextField fullWidth></StyledTextField>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="taskmodal-body-checklist">
+                    <div className="flex-row taskmodal-body-checklist-header">
+                      <div className="taskmodal-body-checklist-header-icon">
+                        <PersonIcon></PersonIcon>
+                      </div>
+                      <div className="flex-row taskmodal-body-checklist-header-main">
+                        <div>چک لیست</div>
+                        <div className="flex-row taskmodal-body-checklist-header-main-icons">
+                          <div className="taskmodal-body-checklist-header-main-icons-hide">
+                            hide checked items
+                          </div>
+                          <div className="taskmodal-body-checklist-header-main-icons-delete">
+                            delete icon
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
