@@ -25,6 +25,10 @@ import PersonIcon from "@mui/icons-material/Person";
 import PasswordIcon from "@mui/icons-material/Password";
 import Box from "@mui/material/box";
 import Typography from "@mui/material/Typography";
+import { FormControl } from "@mui/material";
+import CommentIcon from "@mui/icons-material/Comment";
+import ContentPasteIcon from "@mui/icons-material/ContentPaste";
+import DehazeIcon from "@mui/icons-material/Dehaze";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -34,15 +38,31 @@ const cacheRtl = createCache({
   key: "muirtl",
   stylisPlugins: [prefixer, rtlPlugin],
 });
+
 export default function TaskModal() {
   const cars = ["ن‌ا", "وم", "س‌ع"];
-
+  function handleRemove(index) {
+    setListOfCheckboxes(
+      listOfCheckboxes.filter((item, i) => {
+        return i !== index;
+      })
+    );
+  }
+  const randColor = () => {
+    return (
+      "#" +
+      Math.floor(Math.random() * 16777215)
+        .toString(16)
+        .padStart(6, "0")
+        .toUpperCase()
+    );
+  };
   // const userData = replaceUndefinied(useSelector(state => state.auth));
   const InitialIconcircle = ({ initials }) => {
     return (
       <div
         style={{
-          backgroundColor: "red",
+          backgroundColor: randColor(),
           alignItems: "center",
           justifyContent: "center",
           borderRadius: 30,
@@ -106,6 +126,25 @@ export default function TaskModal() {
       </div>
     );
   };
+
+  const [show, setShow] = useState(false);
+  const [showComment, setShowComment] = useState(false);
+  const [checklistTitle, setChecklistTitle] = useState("");
+  const [listOfCheckboxes, setListOfCheckboxes] = useState([]);
+  const [showdescription, setShowDescription] = useState(false);
+  const [description, setDescription] = useState("");
+  const [showChecklist, setShowChecklist] = useState(false);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("hello");
+  };
+  const sendData = (event) => {
+    event.preventDefault();
+    setListOfCheckboxes((prevState) => [...prevState, checklistTitle]);
+    setChecklistTitle("");
+    setShow(false);
+    console.log(show);
+  };
   return (
     <div>
       <CacheProvider value={cacheRtl}>
@@ -113,17 +152,20 @@ export default function TaskModal() {
           <div className="taskmodal-page">
             <div className="taskmodal-container">
               <div className="taskmodal-header flex-row flex-column-gap-2">
-                <div className="flex" style={{ marginTop: "1px" }}>
-                  <span>
-                    <PersonIcon></PersonIcon>
-                  </span>
+                <div className="flex" style={{ marginTop: "3px" }}>
+                  <PersonIcon
+                    fontSize="large"
+                    sx={{ color: "white" }}
+                  ></PersonIcon>
                 </div>
                 <div
                   className="flex-column"
                   style={{ gap: "9%", width: "100%" }}
                 >
-                  <div className="taskmodal-title">موضوع این کارت</div>
-                  <div className="taskmodal-subtitle">زیر موضوع این کارت</div>
+                  <div className="neonText taskmodal-title">موضوع این کارت</div>
+                  <div className="neonText taskmodal-subtitle">
+                    زیر موضوع این کارت
+                  </div>
                 </div>
               </div>
               <div
@@ -172,31 +214,201 @@ export default function TaskModal() {
                     style={{ gap: "3%" }}
                   >
                     <div className="flex">
-                      <PasswordIcon></PasswordIcon>
+                      <DehazeIcon
+                        fontSize="large"
+                        sx={{ color: "white" }}
+                      ></DehazeIcon>
                     </div>
                     <div className="flex-column" style={{ width: "90%" }}>
-                      <div style={{ marginBottom: "-2%" }}>توضیحات</div>
-                      <div className="taskmodal-body-larger-description-textbox">
-                        <StyledTextField fullWidth></StyledTextField>
+                      <div
+                        className="neonText taskmodal-description-title"
+                        style={{ marginBottom: "-2%" }}
+                      >
+                        توضیحات
                       </div>
+                      <Box
+                        component="form"
+                        onSubmit={handleSubmit}
+                        className="taskmodal-body-larger-description-textbox"
+                      >
+                        {showdescription ? (
+                          <div>
+                            <StyledTextField
+                              fullWidth
+                              autoFocus
+                              onChange={(e) => setDescription(e.target.value)}
+                            ></StyledTextField>
+                            <div dir="ltr" style={{ marginTop: "3%" }}>
+                              <Button
+                                variant="contained"
+                                className="taskmodal-button-setting"
+                                style={{ fontFamily: "Vazir" }}
+                              >
+                                ذخیره
+                              </Button>
+                              <Button
+                                variant="outlined"
+                                className="taskmodal-button-setting"
+                                onClick={() => setShowDescription(false)}
+                                style={{
+                                  fontFamily: "Vazir",
+                                  marginLeft: "2%",
+                                }}
+                              >
+                                لغو
+                              </Button>
+                            </div>
+                          </div>
+                        ) : (
+                          <Button
+                            className="taskmodal-closeButton"
+                            onClick={() => setShowDescription(true)}
+                            sx={{
+                              fontFamily: "Vazir",
+                              color: "white",
+                              fontSize: "100%",
+                              bgcolor: "#91B9E3",
+                            }}
+                          >
+                            اضافه کردن جزئیات بیشتر
+                          </Button>
+                        )}
+                      </Box>
                     </div>
                   </div>
-                  <div className="taskmodal-body-checklist">
+                  <div className="flex-column taskmodal-body-checklist">
+                    <div className="flex taskmodal-body-checklist-icon">
+                      <ContentPasteIcon
+                        fontSize="large"
+                        sx={{ color: "white" }}
+                      ></ContentPasteIcon>
+                    </div>
                     <div className="flex-row taskmodal-body-checklist-header">
-                      <div className="taskmodal-body-checklist-header-icon">
-                        <PersonIcon></PersonIcon>
-                      </div>
-                      <div className="flex-row taskmodal-body-checklist-header-main">
-                        <div>چک لیست</div>
-                        <div className="flex-row taskmodal-body-checklist-header-main-icons">
-                          <div className="taskmodal-body-checklist-header-main-icons-hide">
-                            hide checked items
-                          </div>
-                          <div className="taskmodal-body-checklist-header-main-icons-delete">
-                            delete icon
-                          </div>
+                      <div className="flex taskmodal-body-checklist-title">
+                        <div className="neonText taskmodal-description-title">
+                          لیست کنترل
+                        </div>
+                        <div className="taskmodal-body-checklist-title-icons">
+                          <Button
+                            sx={{
+                              bgcolor: "grey",
+                              color: "black",
+                            }}
+                          >
+                            پنهان کردن آیتم‌های چک شده
+                          </Button>
+                          <Button
+                            sx={{
+                              bgcolor: "grey",
+                              color: "black",
+                              // marginRight: "2%",
+                            }}
+                          >
+                            حذف
+                          </Button>
                         </div>
                       </div>
+                    </div>
+                    <div className="taskmodal-body-checklist-body">
+                      {listOfCheckboxes.map((item, index) => (
+                        <div
+                          className="flex-row"
+                          style={{ justifyContent: "space-between" }}
+                        >
+                          <div className="taskmodal-checklist-showList">
+                            {item}
+                          </div>
+                          <div>
+                            <Button onClick={() => handleRemove(index)}>
+                              حذف
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                      {showChecklist ? (
+                        <Box
+                          component="form"
+                          style={{ width: "100%" }}
+                          onSubmit={handleSubmit}
+                          className="taskmodal-body-larger-description-textbox"
+                        >
+                          <StyledTextField
+                            sx={{ width: "100%" }}
+                            onChange={(e) => setChecklistTitle(e.target.value)}
+                          ></StyledTextField>
+                          <div dir="ltr" style={{ marginTop: "3%" }}>
+                            <Button
+                              variant="contained"
+                              className="taskmodal-button-setting"
+                              style={{ fontFamily: "Vazir" }}
+                            >
+                              ذخیره
+                            </Button>
+                            <Button
+                              variant="outlined"
+                              className="taskmodal-button-setting"
+                              onClick={() => setShowChecklist(false)}
+                              style={{
+                                fontFamily: "Vazir",
+                                marginLeft: "2%",
+                              }}
+                            >
+                              لغو
+                            </Button>
+                          </div>
+                        </Box>
+                      ) : (
+                        <Button
+                          className="taskmodal-closeButton"
+                          onClick={() => setShowChecklist(true)}
+                          sx={{
+                            fontFamily: "Vazir",
+                            color: "white",
+                            fontSize: "100%",
+                            bgcolor: "#91B9E3",
+                          }}
+                        >
+                          اضافه کردن آیتم جدید
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                  <div className="taskmodal-body-activity">
+                    <div className="flex-row taskmodal-body-activity-header">
+                      <div className="flex taskmodal-body-activity-icon">
+                        <CommentIcon
+                          fontSize="large"
+                          sx={{ color: "white" }}
+                        ></CommentIcon>
+                      </div>
+                      <div className="flex neonText taskmodal-description-title">
+                        فعالیت
+                      </div>
+                    </div>
+                    <div className="flex-row taskmodal-body-activity-body">
+                      <div className="flex taskmodal-body-activity-body-icon">
+                        <InitialIconcircle initials={"ن‌ا"}></InitialIconcircle>
+                      </div>
+                      <Box
+                        component="form"
+                        onSubmit={handleSubmit}
+                        className="flex-column taskmodal-body-activity-box"
+                      >
+                        {showComment ? (
+                          <div>
+                            <TextField className="flex"></TextField>
+                            <div className="flex taskmodal-iconhide">
+                              <Button type="submit" className="flex">
+                                ارسال
+                              </Button>
+                            </div>
+                          </div>
+                        ) : (
+                          <Button onClick={() => setShowComment(true)}>
+                            hamid
+                          </Button>
+                        )}
+                      </Box>
                     </div>
                   </div>
                 </div>
