@@ -17,8 +17,27 @@ export const login = () => async (dispatch) => {
     //         'Content-Type': 'application/json',
     //     },
     // })
-    const response = await apiInstance.get(`accounts/profile/myprofile`)
+    // console.log("login action");
+    const response = await apiInstance.get(`/accounts/profile/myprofile/`).catch((err) => {
+        console.log("Error: ", err);
+    });
     const userData = response.data
+    //     {
+    //     "user": {
+    //         "id": 1,
+    //         "first_name": "farzan",
+    //         "last_name": "rahmani",
+    //         "username": "farzan_rahmani",
+    //         "password": "pbkdf2_sha256$390000$vm7qW45S3Cu7MwFURNKYGq$h96Mkwb+GmO15WkzLZn9Znft/Pw1gyXXG3FiVhl8Fv4=",
+    //         "email": "superuser@gmail.com"
+    //     },
+    //     "birth_date": null,
+    //     "bio": null,
+    //     "phone": null,
+    //     "profile_pic": null,
+    //     "telegram_id": null
+    // }
+    console.log("userData: ", userData);
     return dispatch({
         type: LOGIN,
         payload: userData
@@ -27,6 +46,7 @@ export const login = () => async (dispatch) => {
 
 export const remove_token = () => {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
     // history.push("/login");
     // redirect("/login");
     // return <Redirect to="/login" />
@@ -38,6 +58,7 @@ export const remove_token = () => {
 
 export const logout = () => {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
     return {
         type: LOGOUT,
     };
