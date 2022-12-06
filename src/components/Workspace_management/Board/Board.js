@@ -7,7 +7,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import apiInstance from "../../../utilities/axiosConfig";
 import "./Board.css";
 import BoardView from "./BoardView";
-import BasicModal from "../BasicModal/CreateBoard";
+import CreateBoardModal from "../CreateBoardModal/CreateBoard";
 
 const Board = ({ params, on_submit }) => {
   console.log(params.id);
@@ -133,7 +133,7 @@ const Board = ({ params, on_submit }) => {
                 onStarred={starredHandler}
               />
             ))}
-            <BasicModal params={params} on_submit={on_submit} />
+            <CreateBoardModal params={params} on_submit={on_submit} />
           </div>
         </div>
       </div>

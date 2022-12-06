@@ -27,7 +27,7 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({ params, on_submit }) {
+export default function CreateBoardModal({ params, on_submit }) {
   const handleChange = (e) => {
     const [file] = e.target.files;
     setBinaryFile(e.target.files[0]);
@@ -75,6 +75,7 @@ export default function BasicModal({ params, on_submit }) {
             sx={{
               textAlign: "center",
               fontFamily: "Vazir",
+              color: "#fff",
             }}
           >
             ساخت برد جدید
@@ -168,37 +169,3 @@ export default function BasicModal({ params, on_submit }) {
     </div>
   );
 }
-
-// import React from "react";
-// import { useRef } from "react";
-// import "./CreateBoard.css";
-// const CreateBoard = () => {
-//   const myModalRef = useRef(null);
-//   const myBtnRef = useRef(null);
-//   const closeModalRef = useRef(null);
-//   const openModal = (event) => {
-//     myModalRef.current.display = "block";
-//   };
-//   return (
-//     <>
-//       <button id="myBtn" ref={myBtnRef} onClick={openModal}>
-//         Open Modal
-//       </button>
-//       <div class="modal-content" ref={myModalRef}>
-//         <div class="modal-header">
-//           <span class="close">&times;</span>
-//           <h2>Modal Header</h2>
-//         </div>
-//         <div class="modal-body">
-//           <p>Some text in the Modal Body</p>
-//           <p>Some other text...</p>
-//         </div>
-//         <div class="modal-footer">
-//           <h3>Modal Footer</h3>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default CreateBoard;

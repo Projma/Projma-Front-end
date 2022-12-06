@@ -4,7 +4,7 @@ import ResponsiveDrawerRight from "../components/Workspace_management/Drawer/Dra
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import apiInstance from "../utilities/axiosConfig";
 import Members from "../components/Workspace_management/Members/Members";
-import BasicModal from "../components/Workspace_management/BasicModal/CreateBoard";
+import BasicModal from "../components/Workspace_management/CreateBoardModal/CreateBoard";
 import Navbar from "../components/Workspace_management/Navbar/Navbar";
 import "../styles/Workspace_management.css";
 import Board from "../components/Workspace_management/Board/Board";
