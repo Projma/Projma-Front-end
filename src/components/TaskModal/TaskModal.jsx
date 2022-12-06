@@ -29,6 +29,9 @@ import { FormControl } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import DehazeIcon from "@mui/icons-material/Dehaze";
+import LabelIcon from "@mui/icons-material/Label";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import Checkbox from "@mui/material/Checkbox";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -45,6 +48,25 @@ export default function TaskModal() {
     setListOfCheckboxes(
       listOfCheckboxes.filter((item, i) => {
         return i !== index;
+      })
+    );
+  }
+  function handleRemoveOfComment(index) {
+    setListOfComments(
+      ListOfComments.filter((item, i) => {
+        return i !== index;
+      })
+    );
+  }
+
+  function handleEditCommentSubmit(index, comment) {
+    console.log("comment", comment, "index", index);
+    setListOfComments(
+      ListOfComments.map((item, i) => {
+        if (i === index) {
+          ListOfComments[i] = comment;
+          return ListOfComments[i];
+        }
       })
     );
   }
@@ -87,20 +109,22 @@ export default function TaskModal() {
     );
   };
   const InitialIcon = ({ initials }) => {
+    const color = randColor();
     return (
       <div
         className="flex-row"
         style={{
-          backgroundColor: "#D3F6E4",
+          backgroundColor: color + "55",
           alignItems: "center",
           justifyContent: "center",
           width: 70,
-          height: 30,
+          height: 25,
+          borderRadius: 30,
         }}
       >
         <div
           style={{
-            backgroundColor: "#6DECA9",
+            backgroundColor: color,
             alignItems: "center",
             justifyContent: "center",
             borderRadius: 30,
@@ -131,9 +155,13 @@ export default function TaskModal() {
   const [showComment, setShowComment] = useState(false);
   const [checklistTitle, setChecklistTitle] = useState("");
   const [listOfCheckboxes, setListOfCheckboxes] = useState([]);
+  const [listOfCheckboxesStatus, setListOfCheckboxesStatus] = useState([]);
+  const [ListOfComments, setListOfComments] = useState([]);
   const [showdescription, setShowDescription] = useState(false);
   const [description, setDescription] = useState("");
   const [showChecklist, setShowChecklist] = useState(false);
+  const [Comment, setComment] = useState("");
+  const [editcomment, setEditComment] = useState(false);
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("hello");
@@ -141,9 +169,19 @@ export default function TaskModal() {
   const sendData = (event) => {
     event.preventDefault();
     setListOfCheckboxes((prevState) => [...prevState, checklistTitle]);
+    setListOfCheckboxesStatus((prevState) => [...prevState, false]);
     setChecklistTitle("");
-    setShow(false);
+    setShowChecklist(false);
     console.log(show);
+  };
+  const handleCommentSubmit = (event) => {
+    event.preventDefault();
+    setListOfComments((prevState) => [...prevState, Comment]);
+    console.log(Comment);
+    setComment("");
+    console.log(ListOfComments);
+
+    setShowComment(false);
   };
   return (
     <div>
@@ -267,7 +305,7 @@ export default function TaskModal() {
                               fontFamily: "Vazir",
                               color: "white",
                               fontSize: "100%",
-                              bgcolor: "#91B9E3",
+                              bgcolor: "#1d4b7a",
                             }}
                           >
                             اضافه کردن جزئیات بیشتر
@@ -276,101 +314,116 @@ export default function TaskModal() {
                       </Box>
                     </div>
                   </div>
-                  <div className="flex-column taskmodal-body-checklist">
+                  <div className="flex-row taskmodal-body-checklist">
                     <div className="flex taskmodal-body-checklist-icon">
                       <ContentPasteIcon
                         fontSize="large"
                         sx={{ color: "white" }}
                       ></ContentPasteIcon>
                     </div>
-                    <div className="flex-row taskmodal-body-checklist-header">
+                    <div
+                      className="taskmodal-body-checklist-body"
+                      style={{ width: "90%" }}
+                    >
                       <div className="flex taskmodal-body-checklist-title">
                         <div className="neonText taskmodal-description-title">
                           لیست کنترل
                         </div>
-                        <div className="taskmodal-body-checklist-title-icons">
-                          <Button
-                            sx={{
-                              bgcolor: "grey",
-                              color: "black",
-                            }}
-                          >
-                            پنهان کردن آیتم‌های چک شده
-                          </Button>
-                          <Button
-                            sx={{
-                              bgcolor: "grey",
-                              color: "black",
-                              // marginRight: "2%",
-                            }}
-                          >
-                            حذف
-                          </Button>
-                        </div>
+                        <div className="taskmodal-body-checklist-title-icons"></div>
                       </div>
-                    </div>
-                    <div className="taskmodal-body-checklist-body">
+
                       {listOfCheckboxes.map((item, index) => (
                         <div
                           className="flex-row"
-                          style={{ justifyContent: "space-between" }}
+                          style={{
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
                         >
-                          <div className="taskmodal-checklist-showList">
-                            {item}
-                          </div>
+                          <Checkbox
+                            onClick={() => {
+                              listOfCheckboxesStatus[index] =
+                                !listOfCheckboxesStatus[index];
+                              // console.log(listOfCheckboxesStatus[index]);
+                              // console.log(index);
+                            }}
+                            sx={{
+                              color: "white",
+                              "& .MuiSvgIcon-root": { fontSize: 18 },
+                            }}
+                          />
+                          {listOfCheckboxesStatus[index] ? (
+                            <div
+                              className="taskmodal-checklist-showList"
+                              style={{ textDecoration: "underline" }}
+                            >
+                              {item}
+                            </div>
+                          ) : (
+                            <div className="taskmodal-checklist-showList">
+                              {item}
+                            </div>
+                          )}
                           <div>
-                            <Button onClick={() => handleRemove(index)}>
+                            <Button
+                              onClick={() => handleRemove(index)}
+                              sx={{ fontFamily: "Vazir", fontSize: "10px" }}
+                            >
                               حذف
                             </Button>
                           </div>
                         </div>
                       ))}
-                      {showChecklist ? (
-                        <Box
-                          component="form"
-                          style={{ width: "100%" }}
-                          onSubmit={handleSubmit}
-                          className="taskmodal-body-larger-description-textbox"
-                        >
-                          <StyledTextField
-                            sx={{ width: "100%" }}
-                            onChange={(e) => setChecklistTitle(e.target.value)}
-                          ></StyledTextField>
-                          <div dir="ltr" style={{ marginTop: "3%" }}>
-                            <Button
-                              variant="contained"
-                              className="taskmodal-button-setting"
-                              style={{ fontFamily: "Vazir" }}
-                            >
-                              ذخیره
-                            </Button>
-                            <Button
-                              variant="outlined"
-                              className="taskmodal-button-setting"
-                              onClick={() => setShowChecklist(false)}
-                              style={{
-                                fontFamily: "Vazir",
-                                marginLeft: "2%",
-                              }}
-                            >
-                              لغو
-                            </Button>
+                      <Box
+                        component="form"
+                        onSubmit={sendData}
+                        className="taskmodal-body-larger-description-textbox"
+                      >
+                        {showChecklist ? (
+                          <div>
+                            <StyledTextField
+                              sx={{ width: "100%" }}
+                              onChange={(e) =>
+                                setChecklistTitle(e.target.value)
+                              }
+                            ></StyledTextField>
+                            <div dir="ltr" style={{ marginTop: "3%" }}>
+                              <Button
+                                type="submit"
+                                variant="contained"
+                                className="taskmodal-button-setting"
+                                style={{ fontFamily: "Vazir" }}
+                              >
+                                ذخیره
+                              </Button>
+                              <Button
+                                variant="outlined"
+                                className="taskmodal-button-setting"
+                                onClick={() => setShowChecklist(false)}
+                                style={{
+                                  fontFamily: "Vazir",
+                                  marginLeft: "2%",
+                                }}
+                              >
+                                لغو
+                              </Button>
+                            </div>
                           </div>
-                        </Box>
-                      ) : (
-                        <Button
-                          className="taskmodal-closeButton"
-                          onClick={() => setShowChecklist(true)}
-                          sx={{
-                            fontFamily: "Vazir",
-                            color: "white",
-                            fontSize: "100%",
-                            bgcolor: "#91B9E3",
-                          }}
-                        >
-                          اضافه کردن آیتم جدید
-                        </Button>
-                      )}
+                        ) : (
+                          <Button
+                            className="taskmodal-closeButton"
+                            onClick={() => setShowChecklist(true)}
+                            sx={{
+                              fontFamily: "Vazir",
+                              color: "white",
+                              fontSize: "100%",
+                              bgcolor: "#1d4b7a",
+                            }}
+                          >
+                            اضافه کردن آیتم جدید
+                          </Button>
+                        )}
+                      </Box>
                     </div>
                   </div>
                   <div className="taskmodal-body-activity">
@@ -391,28 +444,187 @@ export default function TaskModal() {
                       </div>
                       <Box
                         component="form"
-                        onSubmit={handleSubmit}
+                        onSubmit={handleCommentSubmit}
                         className="flex-column taskmodal-body-activity-box"
                       >
                         {showComment ? (
                           <div>
-                            <TextField className="flex"></TextField>
-                            <div className="flex taskmodal-iconhide">
-                              <Button type="submit" className="flex">
-                                ارسال
+                            <StyledTextField
+                              fullWidth
+                              autoFocus
+                              onChange={(e) => setComment(e.target.value)}
+                            ></StyledTextField>
+                            <div dir="ltr" style={{ marginTop: "3%" }}>
+                              <Button
+                                type="submit"
+                                variant="contained"
+                                className="taskmodal-button-setting"
+                                style={{ fontFamily: "Vazir" }}
+                              >
+                                ذخیره
+                              </Button>
+                              <Button
+                                variant="outlined"
+                                className="taskmodal-button-setting"
+                                onClick={() => setShowComment(false)}
+                                style={{
+                                  fontFamily: "Vazir",
+                                  marginLeft: "2%",
+                                }}
+                              >
+                                لغو
                               </Button>
                             </div>
                           </div>
                         ) : (
-                          <Button onClick={() => setShowComment(true)}>
-                            hamid
+                          <Button
+                            className="taskmodal-closeButton"
+                            onClick={() => setShowComment(true)}
+                            sx={{
+                              fontFamily: "Vazir",
+                              color: "white",
+                              fontSize: "100%",
+                              bgcolor: "#1d4b7a",
+                            }}
+                          >
+                            نوشتن کامنت
                           </Button>
                         )}
                       </Box>
                     </div>
+                    <div className="taskmodal-body-listofcomments">
+                      {ListOfComments.map((item, index) => (
+                        <div
+                          className="flex-row taskmodal-listofcomments-item"
+                          style={{ justifyContent: "space-between" }}
+                        >
+                          <div className="flex taskmodal-body-activity-body-icon">
+                            <InitialIconcircle
+                              initials={"ن‌ا"}
+                            ></InitialIconcircle>
+                          </div>
+                          <div className="taskmodal-comment-showList">
+                            <div className="taskmodal-comment-showList-auther">
+                              نوید
+                            </div>
+                            {editcomment ? (
+                              <div>
+                                <StyledTextField
+                                  fullWidth
+                                  autoFocus
+                                  onChange={(e) => {
+                                    setComment(e.target.value);
+                                    console.log("navid");
+                                  }}
+                                  value={Comment}
+                                ></StyledTextField>
+                                <div dir="ltr" style={{ marginTop: "3%" }}>
+                                  <Button
+                                    onClick={() => {
+                                      ListOfComments[index] = Comment;
+                                      setEditComment(false);
+                                      setComment("");
+                                    }}
+                                    variant="contained"
+                                    className="taskmodal-button-setting"
+                                    style={{ fontFamily: "Vazir" }}
+                                  >
+                                    ذخیره
+                                  </Button>
+                                  <Button
+                                    variant="outlined"
+                                    className="taskmodal-button-setting"
+                                    onClick={() => setEditComment(false)}
+                                    style={{
+                                      fontFamily: "Vazir",
+                                      marginLeft: "2%",
+                                    }}
+                                  >
+                                    لغو
+                                  </Button>
+                                </div>
+                              </div>
+                            ) : (
+                              <div>
+                                <div className="taskmodal-comment-showList-comment">
+                                  {item}
+                                </div>
+                                <div className="taskmodal-comment-button">
+                                  <Button
+                                    onClick={() => handleRemoveOfComment(index)}
+                                    sx={{
+                                      fontFamily: "Vazir",
+                                      color: "white",
+                                      fontSize: "10px",
+                                      paddingRight: "0px",
+                                      textDecoration: "underline",
+                                    }}
+                                  >
+                                    حذف
+                                  </Button>
+                                  <Button
+                                    sx={{
+                                      fontFamily: "Vazir",
+                                      color: "white",
+                                      fontSize: "10px",
+                                      paddingLeft: "0px",
+                                      textDecoration: "underline",
+                                    }}
+                                    onClick={() => {
+                                      setEditComment(true);
+                                      setComment(ListOfComments[index]);
+                                    }}
+                                  >
+                                    ویرایش
+                                  </Button>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-                <div className="flex taskmodal-body-smaller">hamid</div>
+                <div className="flex-column taskmodal-body-smaller">
+                  <Button
+                    className="taskmodal-smaller-button-inner"
+                    sx={{ bgcolor: "#173b5e" }}
+                  >
+                    <PersonIcon fontSize="large"></PersonIcon>{" "}
+                    <div className="taskmodal-smaller-button">اعضا</div>
+                  </Button>
+                  <Button
+                    className="taskmodal-smaller-button-inner"
+                    sx={{
+                      bgcolor: "#173b5e",
+                      marginTop: "5%",
+                    }}
+                  >
+                    <LabelIcon rotate="90" fontSize="large"></LabelIcon>{" "}
+                    <div className="taskmodal-smaller-button">لیبل</div>
+                  </Button>
+                  <Button
+                    className="taskmodal-smaller-button-inner"
+                    sx={{
+                      bgcolor: "#173b5e",
+                      marginTop: "5%",
+                    }}
+                  >
+                    <ContentPasteIcon fontSize="large"></ContentPasteIcon>{" "}
+                    <div className="taskmodal-smaller-button">لیست کنترل</div>
+                  </Button>
+                  <Button
+                    className="taskmodal-smaller-button-inner"
+                    sx={{
+                      bgcolor: "#173b5e",
+                      marginTop: "5%",
+                    }}
+                  >
+                    <AttachFileIcon fontSize="large"></AttachFileIcon>{" "}
+                    <div className="taskmodal-smaller-button">پیوست</div>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
