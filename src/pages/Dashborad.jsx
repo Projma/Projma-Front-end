@@ -56,6 +56,7 @@ export const Dashborad = () => {
     // }).catch((error) => {
     //     // console.log(error);
     // });
+
     let [owningWorkspaces, setOwningWorkspaces] = useState([])
     // apiInstance.get("/workspaces/dashboard/myowning-workspaces/").then((response) => {
     //     // console.log(response.data);
@@ -64,9 +65,33 @@ export const Dashborad = () => {
     //     // console.log(error);
     // });
 
+    let [boards, setBoards] = useState([])
+
     useEffect(() => {
         apiInstance.get("/workspaces/dashboard/myworkspaces/").then((response) => {
             // console.log(response.data);
+
+            // array of 
+            // {
+            //     "id": 2,
+            //     "name": "تست 1",
+            //     "description": "تست",
+            //     "type": "education",
+            //     "created_at": "2022-12-01T09:07:35.527499Z",
+            //     "updated_at": "2022-12-01",
+            //     "owner": 11,
+            //     "members": [
+            //         5,
+            //         10,
+            //         11
+            //     ],
+            //     "boards": [
+            //         9,
+            //         10,
+            //         11
+            //     ]
+            // }
+
             // console.log(response);
             // setWorkspaces(response.data);
             // console.log(workspaces);
@@ -78,12 +103,87 @@ export const Dashborad = () => {
             // console.log(response.data);
             setOwningWorkspaces(response.data);
             setWorkspaces(response.data);
+            // console.log("----------------");
+            // console.log(workspaces);
             // console.log(owningWorkspaces);
         }).catch((error) => {
             // console.log(error);
         });
+
+        // apiInstance.get("/workspaces/dashboard/myboards/").then((response) => {
+        //     console.log(response.data);
+
+        //     // array of
+        //     // {
+        //     //     "id": 5,
+        //     //     "name": "فرزان رحمانی",
+        //     //     "description": "تست",
+        //     //     "background_pic": null,
+        //     //     "workspace": 4,
+        //     //     "admins": [
+        //     //         11
+        //     //     ],
+        //     //     "created_at": "2022-12-01T09:10:30.165930Z",
+        //     //     "updated_at": "2022-12-01",
+        //     //     "members": [
+        //     //         5,
+        //     //         11
+        //     //     ],
+        //     //     "tasklists": []
+        //     // }
+
+        //     // setOwningWorkspaces(response.data);
+        //     // setWorkspaces(response.data);
+        //     // console.log(owningWorkspaces);
+        // }).catch((error) => {
+        //     // console.log(error);
+        // });
+
+
     }, [])
-    
+
+    const navigate = useNavigate();
+
+    const navigateToWorkspace = (workspaceId) => {
+        navigate(`/workspace/${workspaceId}`);
+    }
+
+    const navigateToBoard = (boardId) => {
+        navigate(`/board/`);
+        // navigate(`/board/${boardId}`);
+    }
+
+    const getBoard = (board_id) => {
+        let result = (<></>); 
+        apiInstance.get(`/workspaces/boardsmemberapi/${board_id}/get-board/`).then((response) => {
+            // console.log(response.data);
+            // setWorkspaces(response.data);
+            // console.log(workspaces);
+            // return (
+            result = 
+                <>
+                    <p variant="h1" component="h2" className="text paragraph" style={{
+                        color: "black",
+                    }}>
+                        {response.data.name}
+                    </p>
+                    <p variant="h1" component="h2" className="text paragraph">
+                        {response.data.description}
+                    </p>
+                    {/* {response.data.background_pic ? (
+                        <img src={response.data.background_pic} alt="board" />
+                    ) : (
+                        <img src={null} alt="board" />
+                    )} */}
+                </>
+            
+            console.log(result);
+            // )
+        }).catch((error) => {
+            // console.log(error);
+        })
+        return result;
+    }
 
     const computer_tabs = {
         "boards": {
@@ -107,6 +207,115 @@ export const Dashborad = () => {
                             ml: 1.5
                         }} /> فضا های کاری شما
                     </p>
+                    {/* {
+                        workspaces.map((workspace) => {
+                            return (
+                                <>
+                                    <div>
+                                        <p variant="h1" component="h2" className="text paragraph">
+                                            {workspace.name}
+                                        </p>
+                                    </div>
+                                </>
+                            )
+                        })
+                    } */}
+                    {
+                        workspaces.map((workspace) => {
+                            return (
+                                <>
+                                    <div>
+                                        <p variant="h1" component="h2" className="text paragraph">
+                                            {workspace.name}
+                                        </p>
+                                    </div>
+                                    <Grid
+                                        container
+                                        columns={{ xs: 2, sm: 4, md: 8 }}
+                                        // spacing={{ xs: 1, sm: 2, md: 3 }}
+                                        sx={{
+                                            // paddingTop: "5%",
+                                            // marginTop: "10%",
+                                            marginBottom: "7%",
+                                            // backgroundColor: "#f5f5f5",
+                                        }}
+                                    >
+                                        {/* workspace_boards.map((board) => { */}
+                                        {workspace.boards.map((board_id) => {
+                                            return (
+                                                <Grid item xs={2} sm={2} md={2} key={board_id} sx={{
+                                                }}>
+                                                    <Paper
+                                                        sx={{
+                                                            // padding: "2%",
+                                                            textAlign: "center",
+                                                            // color: "#007fff",
+                                                            backgroundColor: "#007fff", // 5090D3
+                                                            borderRadius: "10px",
+                                                            // width: "100%",
+                                                            // height: "100%",
+                                                            // minWidth: "200px",
+                                                            // maxWidth: "300px",
+                                                            minHeight: "150px",
+                                                            // maxHeight: "300px",
+                                                            margin: "10%",
+                                                            // padding: "10px",
+                                                            // display: "flex",
+                                                            // justifyContent: "center",
+                                                            // alignItems: "center",
+                                                            // flexDirection: "column",
+                                                            ":hover": {
+                                                                backgroundColor: "#5090D3",
+                                                                cursor: "pointer",
+                                                            },
+                                                        }}
+                                                        // hover 
+                                                        onClick={() => {
+                                                            // history.push(`/board/${board_id}`);
+                                                            navigateToBoard(board_id);
+                                                        }}
+                                                    >
+                                                        {/* {
+                                                        apiInstance.get(`/workspaces/boardsmemberapi/${board_id}/get-board/`).then((response) => {
+                                                            // console.log(response.data);
+                                                            // setWorkspaces(response.data);
+                                                            // console.log(workspaces);
+                                                            return (
+                                                                <>
+                                                                    <p variant="h1" component="h2" className="text paragraph">
+                                                                        {response.data.name}
+                                                                    </p>
+                                                                    <p variant="h1" component="h2" className="text paragraph">
+                                                                        {response.data.description}
+                                                                    </p>
+                                                                    {response.data.background_pic ? (
+                                                                        <img src={response.data.background_pic} alt="board" />
+                                                                    ) : (
+                                                                        <img src={board} alt="board" />
+                                                                    )}
+                                                                </>
+                                                            )
+                                                        }).catch((error) => {
+                                                            // console.log(error);
+                                                        })
+                                                        
+                                                    } */}
+                                                        {/* {getBoard(board_id)} */}
+                                                        <p variant="h1" component="h2" className="text paragraph">
+                                                            {/* {workspace.name}  */}
+                                                            {board_id}
+                                                        </p>
+                                                    </Paper>
+                                                </Grid>
+                                            )
+                                        })
+                                        }
+                                        {/*  */}
+                                    </Grid>
+                                </>
+                            )
+                        })
+                    }
                     {/* Grid */}
                     <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
                     <p variant="h1" component="h2" className="text paragraph">
@@ -181,6 +390,105 @@ export const Dashborad = () => {
                         }} /> فضا های کاری شما
                     </p>
                     {/* Grid */}
+                    {
+                        workspaces.map((workspace) => {
+                            return (
+                                <>
+                                    <div>
+                                        <p variant="h1" component="h2" className="text paragraph">
+                                            {workspace.name}
+                                        </p>
+                                    </div>
+                                    <Grid
+                                        container
+                                        columns={{ xs: 2, sm: 4, md: 8 }}
+                                        // spacing={{ xs: 1, sm: 2, md: 3 }}
+                                        sx={{
+                                            // paddingTop: "5%",
+                                            // marginTop: "10%",
+                                            marginBottom: "10%",
+                                            // backgroundColor: "#f5f5f5",
+                                        }}
+                                    >
+                                        {/* workspace_boards.map((board) => { */}
+                                        {workspace.boards.map((board_id) => {
+                                            return (
+                                                <Grid item xs={2} sm={2} md={2} key={board_id} sx={{
+                                                }}>
+                                                <div >
+                                                {/* // style={{}}> */}
+                                                    <Paper
+                                                        sx={{
+                                                            // padding: "2%",
+                                                            textAlign: "center",
+                                                            // color: "#007fff",
+                                                            backgroundColor: "#007fff", // 5090D3
+                                                            borderRadius: "10px",
+                                                            // width: "100%",
+                                                            // height: "100%",
+                                                            // minWidth: "200px",
+                                                            // maxWidth: "300px",
+                                                            minHeight: "150px",
+                                                            // maxHeight: "300px",
+                                                            margin: "10%",
+                                                            // padding: "100px",
+                                                            // display: "flex",
+                                                            // justifyContent: "center",
+                                                            // alignItems: "center",
+                                                            // flexDirection: "column",
+                                                            ":hover": {
+                                                                backgroundColor: "#5090D3",
+                                                                cursor: "pointer",
+                                                            },
+                                                        }}
+                                                        // hover 
+                                                        onClick={() => {
+                                                            // history.push(`/board/${board_id}`);
+                                                            navigateToBoard(board_id);
+                                                        }}
+                                                    >
+                                                        {/* {
+                                                        apiInstance.get(`/workspaces/boardsmemberapi/${board_id}/get-board/`).then((response) => {
+                                                            // console.log(response.data);
+                                                            // setWorkspaces(response.data);
+                                                            // console.log(workspaces);
+                                                            return (
+                                                                <>
+                                                                    <p variant="h1" component="h2" className="text paragraph">
+                                                                        {response.data.name}
+                                                                    </p>
+                                                                    <p variant="h1" component="h2" className="text paragraph">
+                                                                        {response.data.description}
+                                                                    </p>
+                                                                    {response.data.background_pic ? (
+                                                                        <img src={response.data.background_pic} alt="board" />
+                                                                    ) : (
+                                                                        <img src={board} alt="board" />
+                                                                    )}
+                                                                </>
+                                                            )
+                                                        }).catch((error) => {
+                                                            // console.log(error);
+                                                        })
+                                                        
+                                                    } */}
+                                                        {getBoard(board_id)}
+                                                        <p variant="h1" component="h2" className="text paragraph">
+                                                            {/* {workspace.name}  */}
+                                                            {board_id}
+                                                        </p>
+                                                    </Paper>
+                                                </div>
+                                                </Grid>
+                                            )
+                                        })
+                                        }
+                                        {/*  */}
+                                    </Grid>
+                                </>
+                            )
+                        })
+                    }
                     <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
                     <p variant="h1" component="h2" className="text paragraph">
                         <HomeRepairServiceTwoToneIcon sx={{ ml: 1.5 }} /> فضا های مهمان
@@ -236,7 +544,7 @@ export const Dashborad = () => {
                 // <a className="option" href="#"><WorkspacesTwoToneIcon /> </a>
                 <>
                     <p className="text paragraph" > <WorkspacesTwoToneIcon sx={{ ml: 1.5 }} /> فضای کار ها </p>
-                    <BasicModal text="+"/>
+                    <BasicModal text="+" />
                     {/* <p> <BasicModal  text="+"/></p> */}
                     {
                         workspaces.map((workspace) => (
@@ -270,11 +578,7 @@ export const Dashborad = () => {
     // dispatch(deleteItem());
     //   }}
 
-    const navigate = useNavigate();
 
-    const navigateToWorkspace = (workspaceId) => {
-        navigate(`/workspace/${workspaceId}`);
-    }
 
     if (matches) {
         return (
@@ -299,7 +603,7 @@ export const Dashborad = () => {
 
                             <Divider sx={{ bgcolor: "white", marginTop: "5%" }} />
                             <p className="text paragraph" > <WorkspacesTwoToneIcon sx={{ ml: 1.5 }} /> فضای کار ها </p>
-                            <BasicModal text="+"/>
+                            <BasicModal text="+" />
                             {/* <a className="option" href="#">فضای کار 1</a> onClick navigate to workspace page */}
                             {
                                 workspaces.map((workspace) => (
