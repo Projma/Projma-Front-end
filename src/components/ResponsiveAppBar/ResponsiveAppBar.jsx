@@ -20,7 +20,9 @@ import { useState } from "react";
 import apiInstance from "../../utilities/axiosConfig";
 import { useEffect } from "react";
 // https://mui.com/#app-bar-with-responsive-menu
-
+import { useSelector, useDispatch } from "react-redux";
+// import { login } from "../../actions/authActions";
+import { logout } from "../../actions/authActions";
 
 function ResponsiveAppBar() {
     let [workspaces, setWorkspaces] = useState([])
@@ -71,8 +73,17 @@ function ResponsiveAppBar() {
             )
         }
     }
-
+    const state = useSelector((state) => state);
+    console.log(state);
+    const dispatch = useDispatch();
     let settings = ['ورود', 'پروفایل', 'داشبورد', 'تغییر رمز عبور', 'خروج']; // حساب کاربری
+    if (state.isAuthenticated === false) {
+        // dispatch(setToken(localStorage.getItem("token")));
+        settings = ['ورود'];
+    }
+    else {
+        settings = ['پروفایل', 'داشبورد', 'تغییر رمز عبور', 'خروج'];
+    }
     let settings_map_to_functions = {
         "ورود": '/signin/',
         "پروفایل": '/profile/',
@@ -104,8 +115,13 @@ function ResponsiveAppBar() {
     const navigateToPage = (page) => {
         if (page === '/logout/') {
             // console.log('remove token');
+            dispatch(logout());
+            console.log(state);
+            navigate('/'); // 
         }
-        navigate(page);
+        else {
+            navigate(page);
+        }
         // navigate(`/workspace/${workspaceId}`);
         handleCloseUserMenu();
     }
@@ -166,11 +182,11 @@ function ResponsiveAppBar() {
                             }}
                         >
                             {/* <BasicMenu name={page} items={pages_map_to_items} /> */}
-                            
+
                             {
                                 pages.map((page) => (
-                                <BasicMenu name={page} workspaces={workspaces_id_to_name}/>
-                            ))
+                                    <BasicMenu name={page} workspaces={workspaces_id_to_name} />
+                                ))
                             }
 
                             {/* <MenuItem key={page} onClick={handleCloseNavMenu}>
@@ -200,8 +216,8 @@ function ResponsiveAppBar() {
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {
                             pages.map((page) => (
-                            <BasicMenu name={page} workspaces={workspaces_id_to_name} />
-                        ))}
+                                <BasicMenu name={page} workspaces={workspaces_id_to_name} />
+                            ))}
                         {/* {pages.map((page) => (
                             <>
                                 <BasicMenu name={page} items={["1", "2", "3"]} />
@@ -241,11 +257,13 @@ function ResponsiveAppBar() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={() => navigateToPage(settings_map_to_functions[setting])}>
-                                    <Typography textAlign="center" style={{ color: 'black', fontFamily: 'Vazir' }}>{setting}</Typography>
-                                </MenuItem>
-                            ))}
+                            {settings.map((setting) => {
+                                return (
+                                        <MenuItem key={setting} onClick={() => navigateToPage(settings_map_to_functions[setting])}>
+                                            <Typography textAlign="center" style={{ color: 'black', fontFamily: 'Vazir' }}>{setting}</Typography>
+                                        </MenuItem>
+                                    )
+                            })}
                         </Menu>
                     </Box>
                 </Toolbar>

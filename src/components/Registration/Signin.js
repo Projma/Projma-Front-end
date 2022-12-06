@@ -23,6 +23,8 @@ import "react-toastify/dist/ReactToastify.css";
 import apiInstance from "../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { wait } from "@testing-library/user-event/dist/utils";
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../../actions/authActions";
 
 // toast.configure();
 function delay(time) {
@@ -51,6 +53,8 @@ export default function SignIn() {
   const [errorPassword, setErrorPassword] = React.useState(false);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   let navigate = useNavigate();
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
   const notify = () =>
     toast("Wow so easy!", { position: toast.POSITION.TOP_LEFT });
   const handleSubmit = (event) => {
@@ -87,6 +91,12 @@ export default function SignIn() {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
+        // dispatch({ type: "LOGIN" });
+        // dispatch({ type: "SET_USER", payload: response.data.user });
+        // dispatch({type: LOGIN,payload: userData})
+        dispatch(login()); // here give user data
+        console.log("state");
+        console.log(state);
         delay(7000).then(() => navigate("/dashboard"));
         // navigate("/dashboard");
       })

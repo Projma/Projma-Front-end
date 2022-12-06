@@ -8,6 +8,7 @@ import {
 
 const initialAuthState = {
     isAuthenticated: false,
+    user: {},
 };
 
 const authReducer = (state = initialAuthState, action) => {
@@ -15,11 +16,16 @@ const authReducer = (state = initialAuthState, action) => {
         case LOGIN:
             return {
                 isAuthenticated: true,
-                    ...action.payload,
+                    // ...action.payload,
+                user: action.payload,
             };
 
         case LOGOUT:
-            return initialAuthState;
+            return {
+                isAuthenticated: false,
+                user: {},
+                    ...action.payload,
+            };
 
         default:
             return state;
