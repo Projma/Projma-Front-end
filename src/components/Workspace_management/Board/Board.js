@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import Navbar from "../Navbar/Navbar";
 import { useParams } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -9,22 +10,30 @@ import BoardView from "./BoardView";
 import BasicModal from "../BasicModal/CreateBoard";
 
 const Board = ({ params, on_submit }) => {
+  console.log(params.id);
+  const [workspace, setWorkspace] = useState({});
   useEffect(() => {
     console.log(params);
     apiInstance
       .get(`workspaces/workspaceowner/${params.id}/workspace-boards/`)
       .then((res) => {
-        // console.log(res.data);
-        // const members = res.data.members.map((obj) => ({
-        //   id: obj,
-        // }));
-        // console.log(members);
         const boards = res.data.map((obj) => ({
           id: obj.id,
           name: obj.name,
         }));
         setList(boards);
         console.log(boards);
+      });
+    apiInstance
+      .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
+      .then((res) => {
+        // console.log(res.data);
+        console.log("*********************************");
+        console.log(res.data);
+        setWorkspace(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
   const [list, setList] = useState([]);
@@ -54,7 +63,8 @@ const Board = ({ params, on_submit }) => {
   // };
   const [open, setOpen] = useState(false);
   return (
-    <div className="workspace--board">
+    <div className="board">
+      <Navbar params={params} />
       {list.find((e) => e.isStarred === true) && (
         <div>
           <div className="workspace--starred-board">
