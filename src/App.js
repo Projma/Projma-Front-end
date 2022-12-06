@@ -22,6 +22,8 @@ import Email_verification_2 from "./components/Registration/EmailVerification";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { faIR } from "@mui/material/locale";
 import TaskModal from "./components/TaskModal/TaskModal";
+import { useSelector } from "react-redux";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 const theme = createTheme(
   {
@@ -35,6 +37,7 @@ const theme = createTheme(
 
 function App() {
   // functional base component
+  // const state = useSelector((state) => state);
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
@@ -43,6 +46,8 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Landing />} />
             <Route exact path="/dashboard" element={<Dashborad />} />
+            {/* <Route exact path="/dashboard" element={<PrivateRoute children={<Dashborad />}/> } /> */}
+            {/* <Route exact path="/dashboard" element={<PrivateRoute> <Dashborad /> </PrivateRoute> } /> */}
             <Route exact path="/signin" element={<SignIn />} />
             <Route exact path="/signup" element={<SignUp />} />
             <Route exact path="/profile" element={<Profile />} />
