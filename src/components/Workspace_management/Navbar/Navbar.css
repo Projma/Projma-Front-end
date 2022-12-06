@@ -1,0 +1,43 @@
+.ws_navbar-main-div {
+  background-color: #0059b2;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 10rem;
+}
+
+.ws_navbar-symbol {
+  /* font-size: 2rem; */
+  background-color: pink;
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* line-height: 100%; */
+}
+
+.ws_navbar-edit-button {
+  background-color: transparent;
+  width: 4rem;
+  height: 4rem;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ws_navbar-edit-button:hover {
+  background-color: #173a5e;
+  border-radius: 20%;
+  cursor: pointer;
+  opacity: 0.8;
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+.ws_navbar-edit-button:hover .ws_navbar-edit-icon {
+  font-size: 3rem;
+}
