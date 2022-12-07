@@ -110,37 +110,65 @@ export const Dashborad = () => {
             // console.log(error);
         });
 
+        apiInstance.get("/workspaces/dashboard/myboards/").then((response) => {
+            console.log(response.data);
+
+            // array of
+            // {
+            //     "id": 5,
+            //     "name": "فرزان رحمانی",
+            //     "description": "تست",
+            //     "background_pic": null,
+            //     "workspace": 4,
+            //     "admins": [
+            //         11
+            //     ],
+            //     "created_at": "2022-12-01T09:10:30.165930Z",
+            //     "updated_at": "2022-12-01",
+            //     "members": [
+            //         5,
+            //         11
+            //     ],
+            //     "tasklists": [
+            //         2
+            //     ],
+            //     "labels": []
+            // }
+            setBoards(response.data);
+            // setOwningWorkspaces(response.data);
+            // setWorkspaces(response.data);
+            // console.log(owningWorkspaces);
+        }).catch((error) => {
+            // console.log(error);
+        });
+
+    }, [])
+
+    const [boardsInfo, setBoardsInfo] = useState([]);
+    useEffect(() => {
         // apiInstance.get("/workspaces/dashboard/myboards/").then((response) => {
-        //     console.log(response.data);
-
-        //     // array of
-        //     // {
-        //     //     "id": 5,
-        //     //     "name": "فرزان رحمانی",
-        //     //     "description": "تست",
-        //     //     "background_pic": null,
-        //     //     "workspace": 4,
-        //     //     "admins": [
-        //     //         11
-        //     //     ],
-        //     //     "created_at": "2022-12-01T09:10:30.165930Z",
-        //     //     "updated_at": "2022-12-01",
-        //     //     "members": [
-        //     //         5,
-        //     //         11
-        //     //     ],
-        //     //     "tasklists": []
-        //     // }
-
-        //     // setOwningWorkspaces(response.data);
-        //     // setWorkspaces(response.data);
-        //     // console.log(owningWorkspaces);
+        //     // console.log(response.data);
         // }).catch((error) => {
         //     // console.log(error);
         // });
+        // let res = boards.map((board) => {
+        //     // return (
+        //     //     <div>
+        //     //         <p>{board.name}</p>
+        //     //         <p>{board.description}</p>
+        //     //         <p>{board.workspace}</p>
+        //     //     </div>
+        //     // )
 
-
-    }, [])
+        // })
+        let res = {};
+        for (let i = 0; i < boards.length; i++) {
+            res[boards[i].id] = boards[i];
+        }
+        console.log("---------------------");
+        console.log(res);
+        setBoardsInfo(res);
+    }, [boards])
 
     const navigate = useNavigate();
 
@@ -154,13 +182,13 @@ export const Dashborad = () => {
     }
 
     const getBoard = (board_id) => {
-        let result = (<></>); 
+        let result = (<></>);
         apiInstance.get(`/workspaces/boardsmemberapi/${board_id}/get-board/`).then((response) => {
             // console.log(response.data);
             // setWorkspaces(response.data);
             // console.log(workspaces);
             // return (
-            result = 
+            result =
                 <>
                     <p variant="h1" component="h2" className="text paragraph" style={{
                         color: "black",
@@ -176,7 +204,7 @@ export const Dashborad = () => {
                         <img src={null} alt="board" />
                     )} */}
                 </>
-            
+
             console.log(result);
             // )
         }).catch((error) => {
@@ -247,7 +275,7 @@ export const Dashborad = () => {
                                                 }}>
                                                     <Paper
                                                         sx={{
-                                                            // padding: "2%",
+                                                            padding: "3%",
                                                             textAlign: "center",
                                                             // color: "#007fff",
                                                             backgroundColor: "#007fff", // 5090D3
@@ -275,36 +303,18 @@ export const Dashborad = () => {
                                                             navigateToBoard(board_id);
                                                         }}
                                                     >
-                                                        {/* {
-                                                        apiInstance.get(`/workspaces/boardsmemberapi/${board_id}/get-board/`).then((response) => {
-                                                            // console.log(response.data);
-                                                            // setWorkspaces(response.data);
-                                                            // console.log(workspaces);
-                                                            return (
-                                                                <>
-                                                                    <p variant="h1" component="h2" className="text paragraph">
-                                                                        {response.data.name}
-                                                                    </p>
-                                                                    <p variant="h1" component="h2" className="text paragraph">
-                                                                        {response.data.description}
-                                                                    </p>
-                                                                    {response.data.background_pic ? (
-                                                                        <img src={response.data.background_pic} alt="board" />
-                                                                    ) : (
-                                                                        <img src={board} alt="board" />
-                                                                    )}
-                                                                </>
-                                                            )
-                                                        }).catch((error) => {
-                                                            // console.log(error);
-                                                        })
-                                                        
-                                                    } */}
-                                                        {/* {getBoard(board_id)} */}
-                                                        <p variant="h1" component="h2" className="text paragraph">
-                                                            {/* {workspace.name}  */}
-                                                            {board_id}
-                                                        </p>
+                                                        {/* `/workspaces/boardsmemberapi/${board_id}/get-board/` */}
+                                                            <p variant="h1" component="h2" className="text paragraph">
+                                                                {/* {boardsInfo[board_id].name} */}
+                                                                {/* check that is null or not */}
+                                                                {boardsInfo[board_id] ? boardsInfo[board_id].name : "بی‌نام"}
+                                                                {/* {console.log("name:", boardsInfo[board_id].name)} */}
+                                                                {/* نیزنسدزیندسسسسسسسسسسسسسسسسسسی */}
+                                                            </p>
+                                                            <p variant="h1" component="h2" className="text paragraph">
+                                                                {boardsInfo[board_id] ? boardsInfo[board_id].description : "بدون توضیحات"}
+                                                            </p>
+                                                        {/* </> */}
                                                     </Paper>
                                                 </Grid>
                                             )
@@ -415,39 +425,39 @@ export const Dashborad = () => {
                                             return (
                                                 <Grid item xs={2} sm={2} md={2} key={board_id} sx={{
                                                 }}>
-                                                <div >
-                                                {/* // style={{}}> */}
-                                                    <Paper
-                                                        sx={{
-                                                            // padding: "2%",
-                                                            textAlign: "center",
-                                                            // color: "#007fff",
-                                                            backgroundColor: "#007fff", // 5090D3
-                                                            borderRadius: "10px",
-                                                            // width: "100%",
-                                                            // height: "100%",
-                                                            // minWidth: "200px",
-                                                            // maxWidth: "300px",
-                                                            minHeight: "150px",
-                                                            // maxHeight: "300px",
-                                                            margin: "10%",
-                                                            // padding: "100px",
-                                                            // display: "flex",
-                                                            // justifyContent: "center",
-                                                            // alignItems: "center",
-                                                            // flexDirection: "column",
-                                                            ":hover": {
-                                                                backgroundColor: "#5090D3",
-                                                                cursor: "pointer",
-                                                            },
-                                                        }}
-                                                        // hover 
-                                                        onClick={() => {
-                                                            // history.push(`/board/${board_id}`);
-                                                            navigateToBoard(board_id);
-                                                        }}
-                                                    >
-                                                        {/* {
+                                                    <div >
+                                                        {/* // style={{}}> */}
+                                                        <Paper
+                                                            sx={{
+                                                                // padding: "2%",
+                                                                textAlign: "center",
+                                                                // color: "#007fff",
+                                                                backgroundColor: "#007fff", // 5090D3
+                                                                borderRadius: "10px",
+                                                                // width: "100%",
+                                                                // height: "100%",
+                                                                // minWidth: "200px",
+                                                                // maxWidth: "300px",
+                                                                minHeight: "150px",
+                                                                // maxHeight: "300px",
+                                                                margin: "10%",
+                                                                // padding: "100px",
+                                                                // display: "flex",
+                                                                // justifyContent: "center",
+                                                                // alignItems: "center",
+                                                                // flexDirection: "column",
+                                                                ":hover": {
+                                                                    backgroundColor: "#5090D3",
+                                                                    cursor: "pointer",
+                                                                },
+                                                            }}
+                                                            // hover 
+                                                            onClick={() => {
+                                                                // history.push(`/board/${board_id}`);
+                                                                navigateToBoard(board_id);
+                                                            }}
+                                                        >
+                                                            {/* {
                                                         apiInstance.get(`/workspaces/boardsmemberapi/${board_id}/get-board/`).then((response) => {
                                                             // console.log(response.data);
                                                             // setWorkspaces(response.data);
@@ -472,13 +482,13 @@ export const Dashborad = () => {
                                                         })
                                                         
                                                     } */}
-                                                        {getBoard(board_id)}
-                                                        <p variant="h1" component="h2" className="text paragraph">
-                                                            {/* {workspace.name}  */}
-                                                            {board_id}
-                                                        </p>
-                                                    </Paper>
-                                                </div>
+                                                            {getBoard(board_id)}
+                                                            <p variant="h1" component="h2" className="text paragraph">
+                                                                {/* {workspace.name}  */}
+                                                                {board_id}
+                                                            </p>
+                                                        </Paper>
+                                                    </div>
                                                 </Grid>
                                             )
                                         })
