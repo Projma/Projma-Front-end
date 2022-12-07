@@ -12,20 +12,21 @@ import "../../../styles/ReactToastify.css";
 
 const Board = () => {
   const [lists, setLists] = useState([]);
-  const [tasklist, setTaslist] = useState([]);
   const [isclicked, setIsclicked] = useState(false);
   const [inputName, setInputName] = useState("");
-  const [isPost, setIsPost] = useState(null);
+  const [isPost, setIsPost] = useState(true);
   const [isFail, setIsFail] = useState(false);
 
   useEffect(() => {
     const getBoard = async () =>
       await axios
-        .get("http://127.0.0.1:8000/workspaces/boardsadminapi/1/get-board/")
+        .get("http://127.0.0.1:8000/workspaces/board/1/get_board_overview/")
         .then((response) => {
           // console.log(response.data);
           console.log(response.data.tasklists);
-          setTaslist(response.data.tasklists);
+          setLists(response.data.tasklists);
+        }).finally(() => {
+          setIsPost(null);
         });
     getBoard();
     console.log(lists);
@@ -69,11 +70,15 @@ const Board = () => {
     const data = new FormData();
     data.append("title", inputName);
     setIsPost(true);
-    postCreateList(data, 2);
+    postCreateList(data, 1);
     setIsclicked(false);
     setInputName("");
     // console.log(lists);
   };
+
+  const onPostHandler = (isa) => {
+    setIsPost(isa);
+  }
 
   return (
     <div className="board_list-container font-fix">
@@ -81,13 +86,11 @@ const Board = () => {
       {isFail ? (
         <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
       ) : null}
-      <DragDropContext>
         <div className="board_list-container-minor">
           {lists.map((list) => (
-            <List name={list.name} key={uuid()} id={uuid()} />
+            <List name={list.title} key={uuid()} id={list.id} card={list.tasks} onPost={onPostHandler}/>
           ))}
         </div>
-      </DragDropContext>
       <div className="board_add-container">
         {!isclicked ? (
           <div className="board_add-button">

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "../Styles/List.css";
 import Card from "./Card";
 import PerTextField from "../../Shared/PerTextField";
@@ -6,16 +6,21 @@ import StyledTextField from "../../Shared/StyledTextField";
 import Popover from "@mui/material/Popover";
 import { Droppable } from "react-beautiful-dnd";
 import { v4 as uuid } from "uuid";
-
-// const cardInfo = [{ name: "test", id: uuid().toString() }];
-let keycard = 0;
+import axios from "axios";
+import Loading from "../../Shared/Loading";
+import { toast, ToastContainer } from "react-toastify";
+import "../../../styles/ReactToastify.css";
 
 const List = (props) => {
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState(props.card);
   const [isclicked, setIsclicked] = useState(false);
   const [inputName, setInputName] = useState("");
-
+  const [isFail, setIsFail] = useState(false);
+  const [isPost, setIsPost] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+
+  useEffect(() => {
+  }, [isPost]);
 
   const optionClickHandler = (event) => {
     setAnchorEl(event.currentTarget);
@@ -32,18 +37,50 @@ const List = (props) => {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
+  const postCreateCard = async (data, id) =>
+    await axios
+      .post(`http://127.0.0.1:8000/workspaces/board/${id}/create_task/`, data)
+      .then(() => {
+        setIsFail(true);
+        toast.success("کارت با موفقیت ساخته شد", {
+          position: toast.POSITION.TOP_CENTER,
+          rtl: true,
+        });
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          setIsFail(true);
+          toast.error("عملیات با خطا مواجه شد", {
+            position: toast.POSITION.TOP_CENTER,
+            rtl: true,
+          });
+        }
+      })
+      .finally(() => {
+        setIsPost(null);
+        props.onPost(true);
+      });
+
   const submitHandler = (event) => {
     event.preventDefault();
-    setCards((pervList) => {
-      return [...pervList, { name: inputName, id: keycard.toString() }];
-    });
+    // setCards((pervList) => {
+    //   return [...pervList, { name: inputName, id: keycard.toString() }];
+    // });
+    const data = new FormData();
+    data.append("title", inputName);
+    setIsPost(true);
+    postCreateCard(data, props.id);
     setIsclicked(false);
     setInputName("");
-    keycard++;
+    // keycard++;
   };
 
   return (
     <div className="board_list">
+      {isPost ? <Loading /> : null}
+      {isFail ? (
+        <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
+      ) : null}
       <div className="board_header">
         <p className="board_header-title">{props.name}</p>
         <button className="board_header-button" onClick={optionClickHandler}>
@@ -74,21 +111,11 @@ const List = (props) => {
           </div>
         </Popover>
       </div>
-      <Droppable droppableId={props.id}>
-        {(provided, snapshot) => (
-          <div
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            style={{backgroundColor: snapshot.isDraggingOver ? '#163658' : '#0a1929', borderRadius: "0.5rem"}}
-            className="board_card-list"
-          >
-            {cards.map((card, index) => (
-              <Card name={card.name} key={card.id} id={card.id} index={index} />
-            ))}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
+      <div className="board_card-list">
+        {cards.map((card, index) => (
+          <Card name={card.title} key={uuid()} id={card.id} index={index} />
+        ))}
+      </div>
       {/* <div className="board_space"></div> */}
       <div className="board_add-card">
         {!isclicked ? (
@@ -109,7 +136,11 @@ const List = (props) => {
                   fullWidth
                   onChange={(e) => setInputName(e.target.value)}
                   placeholder="اسم کارت را در این بخش بنویسید"
-                  sx={{backgroundColor: "#132F4C",border: "0.2rem solid #5090D3",borderRadius: "0.5rem"}}
+                  sx={{
+                    backgroundColor: "#132F4C",
+                    border: "0.2rem solid #5090D3",
+                    borderRadius: "0.5rem",
+                  }}
                 />
               </PerTextField>
               <button type="submit" className="board_form-button">
