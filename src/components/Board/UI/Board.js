@@ -1,123 +1,90 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import List from "./List";
 import "../Styles/Board.css";
 import PerTextField from "../../Shared/PerTextField";
 import StyledTextField from "../../Shared/StyledTextField";
 import { DragDropContext } from "react-beautiful-dnd";
-import { v4 as uuid } from 'uuid';
-
-
-let keylist = 1000;
-
-// const reorder = (list, startIndex, endIndex)  => {
-//   const result = Array.from(list);
-//   const [removed] = result.splice(startIndex, 1);
-//   result.splice(endIndex, 0, removed);
-//   return result;
-// }
-
-// const sort = (
-//   droppableIdStart,
-//   droppableIdEnd,
-//   droppableIndexStart,
-//   droppableIndexEnd,
-//   droppableId
-// ) => {
-//   return {
-//     type: "DRAG_HAPPEND",
-//     payload: {
-//       droppableIdStart,
-//       droppableIdEnd,
-//       droppableIndexStart,
-//       droppableIndexEnd,
-//       droppableId,
-//     },
-//   };
-// };
-
-const basekey = "list-"
+import { v4 as uuid } from "uuid";
+import axios from "axios";
+import Loading from "../../Shared/Loading";
+import { toast, ToastContainer } from "react-toastify";
+import "../../../styles/ReactToastify.css";
 
 const Board = () => {
-  const [lists, setLists] = useState([
-    { name: "test 1", id: basekey+1, order: 0 },
-    { name: "test 2", id: basekey+2, order: 1 },
-  ]);
+  const [lists, setLists] = useState([]);
+  const [tasklist, setTaslist] = useState([]);
   const [isclicked, setIsclicked] = useState(false);
   const [inputName, setInputName] = useState("");
+  const [isPost, setIsPost] = useState(null);
+  const [isFail, setIsFail] = useState(false);
+
+  useEffect(() => {
+    const getBoard = async () =>
+      await axios
+        .get("http://127.0.0.1:8000/workspaces/boardsadminapi/1/get-board/")
+        .then((response) => {
+          // console.log(response.data);
+          console.log(response.data.tasklists);
+          setTaslist(response.data.tasklists);
+        });
+    getBoard();
+    console.log(lists);
+  }, [isPost]);
+
+  const postCreateList = async (data, id) =>
+    await axios
+      .post(
+        `http://127.0.0.1:8000/workspaces/board/${id}/create_tasklist/`,
+        data
+      )
+      .then(() => {
+        setIsFail(true);
+        toast.success("لیست با موفقیت ساخته شد", {
+          position: toast.POSITION.TOP_CENTER,
+          rtl: true,
+        });
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          setIsFail(true);
+          toast.error("عملیات با خطا مواجه شد", {
+            position: toast.POSITION.TOP_CENTER,
+            rtl: true,
+          });
+        }
+      })
+      .finally(() => {
+        setIsPost(null);
+      });
+
   const clickHandler = () => {
     setIsclicked(true);
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    setLists((pervList) => {
-      return [...pervList, { name: inputName, id: uuid() }];
-    });
+    // setLists((pervList) => {
+    //   return [...pervList, { name: inputName, id: uuid() }];
+    // });
+    const data = new FormData();
+    data.append("title", inputName);
+    setIsPost(true);
+    postCreateList(data, 2);
     setIsclicked(false);
     setInputName("");
-    console.log(lists);
+    // console.log(lists);
   };
-
-  const onDragEnd = (result, columns, setColumns) => {
-    if (!result.destination) return;
-    const { source, destination } = result;
-    if (source.droppableId !== destination.droppableId) {
-      const sourceColumn = columns[source.droppableId];
-      const destColumn = columns[destination.droppableId];
-      const sourceItems = [...sourceColumn.items];
-      const destItems = [...destColumn.items];
-      const [removed] = sourceItems.splice(source.index, 1);
-      destItems.splice(destination.index, 0, removed);
-      setColumns({
-        ...columns,
-        [source.droppableId]: {
-          ...sourceColumn,
-          items: sourceItems,
-        },
-        [destination.droppableId]: {
-          ...destColumn,
-          items: destItems,
-        },
-      });
-    } else {
-      const column = columns[source.droppableId];
-      const copiedItems = [...column.items];
-      const [removed] = copiedItems.splice(source.index, 1);
-      copiedItems.splice(destination.index, 0, removed);
-      setColumns({
-        ...columns,
-        [source.droppableId]: {
-          ...column,
-          items: copiedItems,
-        },
-      });
-    }
-  };
-
-  // const onDragEnd = result => {
-  //   if (!result.destination) {
-  //     return;
-  //   }
-  //   if (result.source.index === result.destination.index) {
-  //     return;
-  //   }
-
-  //   const newItems = reorder(
-  //     lists,
-  //     result.source.index,
-  //     result.destination.index
-  //   );
-  //   setLists(newItems);
-  // }
 
   return (
     <div className="board_list-container font-fix">
-      <DragDropContext
-        onDragEnd={(result) => onDragEnd(result, lists, setLists)}
-      >
+      {isPost ? <Loading /> : null}
+      {isFail ? (
+        <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
+      ) : null}
+      <DragDropContext>
         <div className="board_list-container-minor">
           {lists.map((list) => (
-            <List name={list.name} key={list.id} id={list.id} />
+            <List name={list.name} key={uuid()} id={uuid()} />
           ))}
         </div>
       </DragDropContext>
@@ -140,7 +107,11 @@ const Board = () => {
                   fullWidth
                   onChange={(e) => setInputName(e.target.value)}
                   placeholder="اسم لیست را در این بخش بنویسید"
-                  sx={{backgroundColor: "#132F4C",border: "0.2rem solid #5090D3",borderRadius: "0.5rem"}}
+                  sx={{
+                    backgroundColor: "#132F4C",
+                    border: "0.2rem solid #5090D3",
+                    borderRadius: "0.5rem",
+                  }}
                 />
               </PerTextField>
               <button type="submit" className="board_form-button">

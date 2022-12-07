@@ -11,12 +11,7 @@ import { v4 as uuid } from "uuid";
 let keycard = 0;
 
 const List = (props) => {
-  const [cards, setCards] = useState([
-    { name: "1", id: "1" + props.name, order:0, list: props.id },
-    { name: "2", id: "2" + props.name, order:1, list: props.id  },
-    { name: "3", id: "3" + props.name, order:2, list: props.id  },
-    { name: "4", id: "4" + props.name, order:3, list: props.id  },
-  ]);
+  const [cards, setCards] = useState([]);
   const [isclicked, setIsclicked] = useState(false);
   const [inputName, setInputName] = useState("");
 
