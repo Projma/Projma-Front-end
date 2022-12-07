@@ -139,6 +139,18 @@
   font-size: 1.2rem !important;
 }
 
+.board_add-form-card {
+  width: 100%;
+  background-color: #0a1929;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  /* margin-right: 0.6rem; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 !important;
+}
+
 @media screen and (max-width: 30em) {
   .board_list {
     max-height: fit-content;

@@ -23,11 +23,10 @@
   position: relative;
 } 
 
-.board_card:hover {
-  /* border-color: white; */
+/* .board_card:hover {
   background-color: #0A1929;
   cursor: pointer;
-}
+} */
 
 .board_card-title {
   margin-top: 0.5rem;

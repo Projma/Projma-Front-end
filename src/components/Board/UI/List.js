@@ -4,15 +4,23 @@ import Card from "./Card";
 import PerTextField from "../../Shared/PerTextField";
 import StyledTextField from "../../Shared/StyledTextField";
 import Popover from "@mui/material/Popover";
+import { Droppable } from "react-beautiful-dnd";
+import { v4 as uuid } from "uuid";
 
-const cardInfo = [{ name: "test" }];
+// const cardInfo = [{ name: "test", id: uuid().toString() }];
+let keycard = 0;
 
 const List = (props) => {
-  const [cards, setCards] = useState(cardInfo);
+  const [cards, setCards] = useState([
+    { name: "1", id: "1" + props.name, order:0, list: props.id },
+    { name: "2", id: "2" + props.name, order:1, list: props.id  },
+    { name: "3", id: "3" + props.name, order:2, list: props.id  },
+    { name: "4", id: "4" + props.name, order:3, list: props.id  },
+  ]);
   const [isclicked, setIsclicked] = useState(false);
   const [inputName, setInputName] = useState("");
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const optionClickHandler = (event) => {
     setAnchorEl(event.currentTarget);
@@ -32,10 +40,11 @@ const List = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
     setCards((pervList) => {
-      return [...pervList, { name: inputName, key: Math.random().toString() }];
+      return [...pervList, { name: inputName, id: keycard.toString() }];
     });
     setIsclicked(false);
     setInputName("");
+    keycard++;
   };
 
   return (
@@ -56,7 +65,9 @@ const List = (props) => {
           }}
         >
           <div className="board_option">
-            <p className="board_option-text board_option-title">فهرست اقدامات لیست</p>
+            <p className="board_option-text board_option-title">
+              فهرست اقدامات لیست
+            </p>
             <div className="board_option-button-container">
               <button className="board_option-button" onClick={clickHandler}>
                 <p className="board_option-text">افزودن کارت</p>
@@ -68,11 +79,21 @@ const List = (props) => {
           </div>
         </Popover>
       </div>
-      <div className="board_card-list">
-        {cards.map((card) => (
-          <Card name={card.name} key={card.key} />
-        ))}
-      </div>
+      <Droppable droppableId={props.id}>
+        {(provided, snapshot) => (
+          <div
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            style={{backgroundColor: snapshot.isDraggingOver ? '#163658' : '#0a1929', borderRadius: "0.5rem"}}
+            className="board_card-list"
+          >
+            {cards.map((card, index) => (
+              <Card name={card.name} key={card.id} id={card.id} index={index} />
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
       {/* <div className="board_space"></div> */}
       <div className="board_add-card">
         {!isclicked ? (
@@ -83,17 +104,17 @@ const List = (props) => {
           </div>
         ) : (
           <div className="board_add-list-form">
-            <form className="board_add-form" onSubmit={submitHandler}>
+            <form className="board_add-form-card" onSubmit={submitHandler}>
               <PerTextField>
                 <StyledTextField
                   margin="normal"
                   label="اسم کارت"
-                  variant="outlined"
+                  variant="filled"
                   required
                   fullWidth
                   onChange={(e) => setInputName(e.target.value)}
                   placeholder="اسم کارت را در این بخش بنویسید"
-                  sx={{ mt: 0 }}
+                  sx={{backgroundColor: "#132F4C",border: "0.2rem solid #5090D3",borderRadius: "0.5rem"}}
                 />
               </PerTextField>
               <button type="submit" className="board_form-button">

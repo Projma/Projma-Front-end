@@ -2,6 +2,7 @@ import TextField from "@mui/material/TextField";
 import { outlinedInputClasses } from "@mui/material/OutlinedInput";
 import { inputLabelClasses } from "@mui/material/InputLabel";
 import { styled } from "@mui/material/styles";
+import { filledInputClasses } from "@mui/material";
 
 const StyledTextField = styled(TextField)({
   [`& .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]: {
@@ -27,6 +28,11 @@ const StyledTextField = styled(TextField)({
     },
   [`& .${inputLabelClasses.outlined}`]: {
     color: "#fff",
+    fontSize: "1.4rem"
+  },
+  [`& .${inputLabelClasses.filled}`]: {
+    color: "#fff",
+    fontSize: "1.4rem"
   },
   [`&:hover .${inputLabelClasses.outlined}`]: {
     color: "#fff",
@@ -34,6 +40,15 @@ const StyledTextField = styled(TextField)({
   [`& .${inputLabelClasses.outlined}.${inputLabelClasses.focused}`]: {
     color: "#66B2FF",
   },
+  [`& .${inputLabelClasses.filled}.${inputLabelClasses.focused}`]: {
+    color: "#fff",
+    fontSize: "1.5rem"
+  },
+  [`& .${filledInputClasses.root}.${filledInputClasses.focused} .${filledInputClasses.input}`]:
+    {
+      color: "#fff",
+      fontSize: "1.6rem"
+    },
 });
 
 export default StyledTextField;

@@ -35,3 +35,8 @@
   height: 1.6rem;
   color: #fff;
 }
+
+.Card_item_label-with-name:hover {
+  cursor: pointer;
+  opacity: 60%;
+}
