@@ -74,7 +74,7 @@ function ResponsiveAppBar() {
         }
     }
     const state = useSelector((state) => state);
-    console.log(state);
+    // console.log(state);
     const dispatch = useDispatch();
     let settings = ['ورود', 'پروفایل', 'داشبورد', 'تغییر رمز عبور', 'خروج']; // حساب کاربری
     if (state.isAuthenticated === false) {
@@ -238,7 +238,7 @@ function ResponsiveAppBar() {
                             title={<h3 style={{ fontFamily: 'Vazir' }}>باز کردن تنظیمات</h3>}
                         >
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="عکس پروفایل" src={avatar_photo} />
+                                <Avatar alt="عکس پروفایل" src={state.user.profile_pic ? state.user.profile_pic : avatar_photo} />
                             </IconButton>
                         </Tooltip>
                         <Menu
