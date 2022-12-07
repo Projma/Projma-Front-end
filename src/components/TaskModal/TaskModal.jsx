@@ -4,6 +4,7 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import createCache from "@emotion/cache";
 import Labels from "./Labels";
+import Members from "./Members";
 import "../../styles/TaskModal.css";
 import profile_preview from "../../static/images/profile/profile-preview.png";
 import userEvent from "@testing-library/user-event";
@@ -640,13 +641,14 @@ export default function TaskModal() {
                   </div>
                 </div>
                 <div className="flex-column taskmodal-body-smaller">
-                  <Button
+                  {/* <Button
                     className="taskmodal-smaller-button-inner"
                     sx={{ bgcolor: "#173b5e" }}
                   >
                     <PersonIcon fontSize="large"></PersonIcon>{" "}
                     <div className="taskmodal-smaller-button">اعضا</div>
-                  </Button>
+                  </Button> */}
+                  <Members />
                   {/* <Button
                     className="taskmodal-smaller-button-inner"
                     sx={{
