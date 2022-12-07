@@ -16,6 +16,7 @@ import { redirect } from "react-router-dom";
 import { AddBox } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import conversation from "../../../static/images/landing/conversation.svg";
+import { useNavigate } from 'react-router-dom';
 
 // const loader = async () => {
 //   const attButton = e.target.getAttribute("button-key");
@@ -38,6 +39,7 @@ const cacheRtl = createCache({
 });
 
 const Header = () => {
+  const navigate = useNavigate();
   let width = window.innerWidth;
   let isMatch = width > 900 ? true : false;
   const config = isMatch
@@ -52,9 +54,7 @@ const Header = () => {
         background: "linear-gradient(to top, #076585, #fff)",
       };
   const matches = useMediaQuery("(max-width:900px)");
-  console.log(width);
-  console.log(isMatch);
-  console.log(config);
+
   return (
     <header>
       <Nav />
@@ -74,7 +74,7 @@ const Header = () => {
             >
               {/* <h1 className="responsive--font--size--2"> */}
               <h2>
-              <b>
+              <b className="black--text">
                 با پروجما کیفیت کار تیمی خود را ارتقا دهید
               </b>
               </h2>
@@ -99,7 +99,7 @@ const Header = () => {
               <Button
                 variant="contained"
                 // button-key="buttonAttribute"
-                // onClick={this.isClicked}
+                onClick={() => navigate("/signup/")}
                 sx={{
                   // height: 54,
                   // width: 150,

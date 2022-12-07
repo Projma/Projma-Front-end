@@ -29,16 +29,16 @@ function ResponsiveAppBar() {
     // let [owningWorkspaces, setOwningWorkspaces] = useState([])
     useEffect(() => {
         apiInstance.get("/workspaces/dashboard/myworkspaces/").then((response) => {
-            // setWorkspaces(response.data);
-        }).catch((error) => {
-            // console.log(error);
-        });
-        apiInstance.get("/workspaces/dashboard/myowning-workspaces/").then((response) => {
-            // setOwningWorkspaces(response.data);
             setWorkspaces(response.data);
         }).catch((error) => {
             // console.log(error);
         });
+        // apiInstance.get("/workspaces/dashboard/myowning-workspaces/").then((response) => {
+        //     setOwningWorkspaces(response.data);
+        //     // setWorkspaces(response.data);
+        // }).catch((error) => {
+        //     // console.log(error);
+        // });
     }, [])
 
     const pages = ['ستاره دارها', 'فضای کارها', 'ایجاد']; // 'اخیرا دیده شده‌ها',
@@ -58,11 +58,7 @@ function ResponsiveAppBar() {
             'بورد': '/boards/starred-boards',
         },
     }
-    // console.log(pages_map_to_links);
 
-    // map((item) => (
-    //     <MenuItem onClick={handleClose} key={item}>{item}</MenuItem>
-    // ))
     let pages_map_to_items = []
     for (const id in workspaces_id_to_name) {
         if (Object.hasOwnProperty.call(workspaces_id_to_name, id)) {
@@ -74,7 +70,6 @@ function ResponsiveAppBar() {
         }
     }
     const state = useSelector((state) => state);
-    console.log(state);
     const dispatch = useDispatch();
     let settings = ['ورود', 'پروفایل', 'داشبورد', 'تغییر رمز عبور', 'خروج']; // حساب کاربری
     if (state.isAuthenticated === false) {
@@ -181,17 +176,12 @@ function ResponsiveAppBar() {
                                 fontFamily: 'Vazir',
                             }}
                         >
-                            {/* <BasicMenu name={page} items={pages_map_to_items} /> */}
 
                             {
                                 pages.map((page) => (
                                     <BasicMenu name={page} workspaces={workspaces_id_to_name} />
                                 ))
                             }
-
-                            {/* <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center" style={{ fontFamily: 'Vazir', color: 'black' }}>{page}</Typography>
-                            </MenuItem> */}
                         </Menu>
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -218,18 +208,6 @@ function ResponsiveAppBar() {
                             pages.map((page) => (
                                 <BasicMenu name={page} workspaces={workspaces_id_to_name} />
                             ))}
-                        {/* {pages.map((page) => (
-                            <>
-                                <BasicMenu name={page} items={["1", "2", "3"]} />
-                            </>
-                        ))} */}
-                        {/* <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block', fontFamily: 'Vazir' }}
-                            >
-                                {page}
-                            </Button> */}
                     </Box>
 
                     <Box sx={{ flexGrow: 0, fontFamily: 'Vazir' }}>
@@ -238,7 +216,7 @@ function ResponsiveAppBar() {
                             title={<h3 style={{ fontFamily: 'Vazir' }}>باز کردن تنظیمات</h3>}
                         >
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="عکس پروفایل" src={avatar_photo} />
+                                <Avatar alt="عکس پروفایل" src={state.user.profile_pic ? state.user.profile_pic : avatar_photo} />
                             </IconButton>
                         </Tooltip>
                         <Menu
