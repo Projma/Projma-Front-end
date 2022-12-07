@@ -42,29 +42,8 @@ import { useNavigate } from 'react-router-dom';
 // rafce
 
 export const Dashborad = () => {
-    const access_token = localStorage.getItem('access_token');
-    // apiInstance.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-    // apiInstance.defaults.headers.headers = {
-    //     'Content-Type': 'application/json',
-    // };
-
     let [workspaces, setWorkspaces] = useState([])
-    // apiInstance.get("/workspaces/dashboard/myworkspaces/").then((response) => {
-    //     // console.log(response.data);
-    //     // console.log(response);
-    //     setWorkspaces(response.data);
-    // }).catch((error) => {
-    //     // console.log(error);
-    // });
-
     let [owningWorkspaces, setOwningWorkspaces] = useState([])
-    // apiInstance.get("/workspaces/dashboard/myowning-workspaces/").then((response) => {
-    //     // console.log(response.data);
-    //     setOwningWorkspaces(response.data);
-    // }).catch((error) => {
-    //     // console.log(error);
-    // });
-
     let [boards, setBoards] = useState([])
 
     useEffect(() => {
@@ -93,7 +72,7 @@ export const Dashborad = () => {
             // }
 
             // console.log(response);
-            // setWorkspaces(response.data);
+            setWorkspaces(response.data);
             // console.log(workspaces);
         }).catch((error) => {
             // console.log(error);
@@ -102,10 +81,7 @@ export const Dashborad = () => {
         apiInstance.get("/workspaces/dashboard/myowning-workspaces/").then((response) => {
             // console.log(response.data);
             setOwningWorkspaces(response.data);
-            setWorkspaces(response.data);
-            // console.log("----------------");
-            // console.log(workspaces);
-            // console.log(owningWorkspaces);
+            // setWorkspaces(response.data);
         }).catch((error) => {
             // console.log(error);
         });
@@ -135,9 +111,6 @@ export const Dashborad = () => {
             //     "labels": []
             // }
             setBoards(response.data);
-            // setOwningWorkspaces(response.data);
-            // setWorkspaces(response.data);
-            // console.log(owningWorkspaces);
         }).catch((error) => {
             // console.log(error);
         });
@@ -146,21 +119,6 @@ export const Dashborad = () => {
 
     const [boardsInfo, setBoardsInfo] = useState([]);
     useEffect(() => {
-        // apiInstance.get("/workspaces/dashboard/myboards/").then((response) => {
-        //     // console.log(response.data);
-        // }).catch((error) => {
-        //     // console.log(error);
-        // });
-        // let res = boards.map((board) => {
-        //     // return (
-        //     //     <div>
-        //     //         <p>{board.name}</p>
-        //     //         <p>{board.description}</p>
-        //     //         <p>{board.workspace}</p>
-        //     //     </div>
-        //     // )
-
-        // })
         let res = {};
         for (let i = 0; i < boards.length; i++) {
             res[boards[i].id] = boards[i];
@@ -179,38 +137,6 @@ export const Dashborad = () => {
     const navigateToBoard = (boardId) => {
         navigate(`/board/`);
         // navigate(`/board/${boardId}`);
-    }
-
-    const getBoard = (board_id) => {
-        let result = (<></>);
-        apiInstance.get(`/workspaces/boardsmemberapi/${board_id}/get-board/`).then((response) => {
-            // console.log(response.data);
-            // setWorkspaces(response.data);
-            // console.log(workspaces);
-            // return (
-            result =
-                <>
-                    <p variant="h1" component="h2" className="text paragraph" style={{
-                        color: "black",
-                    }}>
-                        {response.data.name}
-                    </p>
-                    <p variant="h1" component="h2" className="text paragraph">
-                        {response.data.description}
-                    </p>
-                    {/* {response.data.background_pic ? (
-                        <img src={response.data.background_pic} alt="board" />
-                    ) : (
-                        <img src={null} alt="board" />
-                    )} */}
-                </>
-
-            console.log(result);
-            // )
-        }).catch((error) => {
-            // console.log(error);
-        })
-        return result;
     }
 
     const computer_tabs = {
@@ -235,19 +161,6 @@ export const Dashborad = () => {
                             ml: 1.5
                         }} /> فضا های کاری شما
                     </p>
-                    {/* {
-                        workspaces.map((workspace) => {
-                            return (
-                                <>
-                                    <div>
-                                        <p variant="h1" component="h2" className="text paragraph">
-                                            {workspace.name}
-                                        </p>
-                                    </div>
-                                </>
-                            )
-                        })
-                    } */}
                     {
                         workspaces.map((workspace) => {
                             return (
@@ -305,11 +218,8 @@ export const Dashborad = () => {
                                                     >
                                                         {/* `/workspaces/boardsmemberapi/${board_id}/get-board/` */}
                                                             <p variant="h1" component="h2" className="text paragraph">
-                                                                {/* {boardsInfo[board_id].name} */}
                                                                 {/* check that is null or not */}
                                                                 {boardsInfo[board_id] ? boardsInfo[board_id].name : "بی‌نام"}
-                                                                {/* {console.log("name:", boardsInfo[board_id].name)} */}
-                                                                {/* نیزنسدزیندسسسسسسسسسسسسسسسسسسی */}
                                                             </p>
                                                             <p variant="h1" component="h2" className="text paragraph">
                                                                 {boardsInfo[board_id] ? boardsInfo[board_id].description : "بدون توضیحات"}
@@ -420,7 +330,6 @@ export const Dashborad = () => {
                                             // backgroundColor: "#f5f5f5",
                                         }}
                                     >
-                                        {/* workspace_boards.map((board) => { */}
                                         {workspace.boards.map((board_id) => {
                                             return (
                                                 <Grid item xs={2} sm={2} md={2} key={board_id} sx={{
@@ -429,7 +338,7 @@ export const Dashborad = () => {
                                                         {/* // style={{}}> */}
                                                         <Paper
                                                             sx={{
-                                                                // padding: "2%",
+                                                                padding: "2%",
                                                                 textAlign: "center",
                                                                 // color: "#007fff",
                                                                 backgroundColor: "#007fff", // 5090D3
@@ -457,35 +366,12 @@ export const Dashborad = () => {
                                                                 navigateToBoard(board_id);
                                                             }}
                                                         >
-                                                            {/* {
-                                                        apiInstance.get(`/workspaces/boardsmemberapi/${board_id}/get-board/`).then((response) => {
-                                                            // console.log(response.data);
-                                                            // setWorkspaces(response.data);
-                                                            // console.log(workspaces);
-                                                            return (
-                                                                <>
-                                                                    <p variant="h1" component="h2" className="text paragraph">
-                                                                        {response.data.name}
-                                                                    </p>
-                                                                    <p variant="h1" component="h2" className="text paragraph">
-                                                                        {response.data.description}
-                                                                    </p>
-                                                                    {response.data.background_pic ? (
-                                                                        <img src={response.data.background_pic} alt="board" />
-                                                                    ) : (
-                                                                        <img src={board} alt="board" />
-                                                                    )}
-                                                                </>
-                                                            )
-                                                        }).catch((error) => {
-                                                            // console.log(error);
-                                                        })
-                                                        
-                                                    } */}
-                                                            {getBoard(board_id)}
                                                             <p variant="h1" component="h2" className="text paragraph">
-                                                                {/* {workspace.name}  */}
-                                                                {board_id}
+                                                                {/* check that is null or not */}
+                                                                {boardsInfo[board_id] ? boardsInfo[board_id].name : "بی‌نام"}
+                                                            </p>
+                                                            <p variant="h1" component="h2" className="text paragraph">
+                                                                {boardsInfo[board_id] ? boardsInfo[board_id].description : "بدون توضیحات"}
                                                             </p>
                                                         </Paper>
                                                     </div>
@@ -493,7 +379,6 @@ export const Dashborad = () => {
                                             )
                                         })
                                         }
-                                        {/*  */}
                                     </Grid>
                                 </>
                             )
@@ -587,8 +472,6 @@ export const Dashborad = () => {
     // onClick={() => {
     // dispatch(deleteItem());
     //   }}
-
-
 
     if (matches) {
         return (
