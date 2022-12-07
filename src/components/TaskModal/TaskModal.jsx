@@ -7,6 +7,7 @@ import createCache from "@emotion/cache";
 import Labels from "./Labels";
 import Members from "./Members";
 import Attachments from "./Attachments";
+import CheckList from "./Checklist";
 import "../../styles/TaskModal.css";
 import profile_preview from "../../static/images/profile/profile-preview.png";
 import userEvent from "@testing-library/user-event";
@@ -675,6 +676,9 @@ export default function TaskModal() {
                     <div className="taskmodal-smaller-button">لیست کنترل</div>
                   </Button>
                   {/* <Button
+                  </Button> */}
+                  <CheckList />
+                  <Button
                     className="taskmodal-smaller-button-inner"
                     sx={{
                       bgcolor: "#173b5e",
@@ -683,7 +687,8 @@ export default function TaskModal() {
                   >
                     <AttachFileIcon fontSize="large"></AttachFileIcon>{" "}
                     <div className="taskmodal-smaller-button">پیوست</div>
-                  </Button> */}
+                  </Button>{" "}
+                  */}
                   <Attachments params={params} />
                 </div>
               </div>
