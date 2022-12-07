@@ -74,7 +74,7 @@ const Header = () => {
             >
               {/* <h1 className="responsive--font--size--2"> */}
               <h2>
-              <b>
+              <b className="black--text">
                 با پروجما کیفیت کار تیمی خود را ارتقا دهید
               </b>
               </h2>
