@@ -3,6 +3,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import createCache from "@emotion/cache";
+import Labels from "./Labels";
 import "../../styles/TaskModal.css";
 import profile_preview from "../../static/images/profile/profile-preview.png";
 import userEvent from "@testing-library/user-event";
@@ -594,7 +595,7 @@ export default function TaskModal() {
                     <PersonIcon fontSize="large"></PersonIcon>{" "}
                     <div className="taskmodal-smaller-button">اعضا</div>
                   </Button>
-                  <Button
+                  {/* <Button
                     className="taskmodal-smaller-button-inner"
                     sx={{
                       bgcolor: "#173b5e",
@@ -603,7 +604,8 @@ export default function TaskModal() {
                   >
                     <LabelIcon rotate="90" fontSize="large"></LabelIcon>{" "}
                     <div className="taskmodal-smaller-button">لیبل</div>
-                  </Button>
+                  </Button> */}
+                  <Labels />
                   <Button
                     className="taskmodal-smaller-button-inner"
                     sx={{
