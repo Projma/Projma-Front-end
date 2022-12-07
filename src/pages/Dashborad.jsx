@@ -217,19 +217,55 @@ export const Dashborad = () => {
                                                         }}
                                                     >
                                                         {/* `/workspaces/boardsmemberapi/${board_id}/get-board/` */}
-                                                            <p variant="h1" component="h2" className="text paragraph">
-                                                                {/* check that is null or not */}
-                                                                {boardsInfo[board_id] ? boardsInfo[board_id].name : "بی‌نام"}
-                                                            </p>
-                                                            <p variant="h1" component="h2" className="text paragraph">
-                                                                {boardsInfo[board_id] ? boardsInfo[board_id].description : "بدون توضیحات"}
-                                                            </p>
+                                                        <p variant="h1" component="h2" className="text paragraph">
+                                                            {/* check that is null or not */}
+                                                            {boardsInfo[board_id] ? boardsInfo[board_id].name : "بی‌نام"}
+                                                        </p>
+                                                        <p variant="h1" component="h2" className="text paragraph">
+                                                            {boardsInfo[board_id] ? boardsInfo[board_id].description : "بدون توضیحات"}
+                                                        </p>
                                                         {/* </> */}
                                                     </Paper>
                                                 </Grid>
                                             )
-                                        })
-                                        }
+                                        })}
+                                        <Grid item xs={2} sm={2} md={2} sx={{
+                                        }}>
+                                            <Paper
+                                                sx={{
+                                                    // padding: "10%",
+                                                    textAlign: "center",
+                                                    // color: "#007fff",
+                                                    backgroundColor: "#007fff", // 5090D3
+                                                    borderRadius: "10px",
+                                                    // width: "100%",
+                                                    // height: "100%",
+                                                    // minWidth: "200px",
+                                                    // maxWidth: "300px",
+                                                    minHeight: "150px",
+                                                    // maxHeight: "300px",
+                                                    margin: "10%",
+                                                    // padding: "10px",
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                    // flexDirection: "column",
+                                                    ":hover": {
+                                                        backgroundColor: "#5090D3",
+                                                        cursor: "pointer",
+                                                    },
+                                                }}
+                                            // hover 
+                                            // onClick={() => {
+                                            //     navigateToBoard(board_id);
+                                            //     open create modal board
+                                            // }}
+                                            >
+                                                <p variant="h1" component="h2" className="add--text">
+                                                    ساخت بورد جدید
+                                                </p>
+                                            </Paper>
+                                        </Grid>
                                         {/*  */}
                                     </Grid>
                                 </>
@@ -377,8 +413,44 @@ export const Dashborad = () => {
                                                     </div>
                                                 </Grid>
                                             )
-                                        })
-                                        }
+                                        })}
+                                        <Grid item xs={2} sm={2} md={2} sx={{
+                                        }}>
+                                            <Paper
+                                                sx={{
+                                                    // padding: "10%",
+                                                    textAlign: "center",
+                                                    // color: "#007fff",
+                                                    backgroundColor: "#007fff", // 5090D3
+                                                    borderRadius: "10px",
+                                                    // width: "100%",
+                                                    // height: "100%",
+                                                    // minWidth: "200px",
+                                                    // maxWidth: "300px",
+                                                    minHeight: "150px",
+                                                    // maxHeight: "300px",
+                                                    margin: "10%",
+                                                    // padding: "10px",
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                    // flexDirection: "column",
+                                                    ":hover": {
+                                                        backgroundColor: "#5090D3",
+                                                        cursor: "pointer",
+                                                    },
+                                                }}
+                                            // hover 
+                                            // onClick={() => {
+                                            //     navigateToBoard(board_id);
+                                            //     open create modal board
+                                            // }}
+                                            >
+                                                <p variant="h1" component="h2" className="add--text">
+                                                    ساخت بورد جدید
+                                                </p>
+                                            </Paper>
+                                        </Grid>
                                     </Grid>
                                 </>
                             )
