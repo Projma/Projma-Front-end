@@ -6,6 +6,7 @@ import { prefixer } from "stylis";
 import createCache from "@emotion/cache";
 import Labels from "./Labels";
 import Members from "./Members";
+import Attachments from "./Attachments";
 import "../../styles/TaskModal.css";
 import profile_preview from "../../static/images/profile/profile-preview.png";
 import userEvent from "@testing-library/user-event";
@@ -672,7 +673,7 @@ export default function TaskModal() {
                     <ContentPasteIcon fontSize="large"></ContentPasteIcon>{" "}
                     <div className="taskmodal-smaller-button">لیست کنترل</div>
                   </Button>
-                  <Button
+                  {/* <Button
                     className="taskmodal-smaller-button-inner"
                     sx={{
                       bgcolor: "#173b5e",
@@ -681,7 +682,8 @@ export default function TaskModal() {
                   >
                     <AttachFileIcon fontSize="large"></AttachFileIcon>{" "}
                     <div className="taskmodal-smaller-button">پیوست</div>
-                  </Button>
+                  </Button> */}
+                  <Attachments />
                 </div>
               </div>
             </div>
