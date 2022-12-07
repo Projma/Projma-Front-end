@@ -65,6 +65,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin: 0 !important;
+  margin-top: 0.4rem !important;
+  margin-right: 0.6rem !important;
 }
 
 .board_form-button {
@@ -94,4 +97,8 @@ body {
     margin-right: 0.6rem;
     display: flex;
   }
+}
+
+.MuiTextField-root {
+  color: #fff;
 }
