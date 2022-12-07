@@ -6,6 +6,7 @@ import StyledTextField from "../../Shared/StyledTextField";
 import { DragDropContext } from "react-beautiful-dnd";
 import { v4 as uuid } from 'uuid';
 
+
 let keylist = 1000;
 
 // const reorder = (list, startIndex, endIndex)  => {
@@ -134,12 +135,12 @@ const Board = () => {
                 <StyledTextField
                   margin="normal"
                   label="اسم لیست"
-                  variant="outlined"
+                  variant="filled"
                   required
                   fullWidth
                   onChange={(e) => setInputName(e.target.value)}
                   placeholder="اسم لیست را در این بخش بنویسید"
-                  sx={{ mt: 1 }}
+                  sx={{backgroundColor: "#132F4C",border: "0.2rem solid #5090D3",borderRadius: "0.5rem"}}
                 />
               </PerTextField>
               <button type="submit" className="board_form-button">

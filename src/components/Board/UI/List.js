@@ -104,17 +104,17 @@ const List = (props) => {
           </div>
         ) : (
           <div className="board_add-list-form">
-            <form className="board_add-form" onSubmit={submitHandler}>
+            <form className="board_add-form-card" onSubmit={submitHandler}>
               <PerTextField>
                 <StyledTextField
                   margin="normal"
                   label="اسم کارت"
-                  variant="outlined"
+                  variant="filled"
                   required
                   fullWidth
                   onChange={(e) => setInputName(e.target.value)}
                   placeholder="اسم کارت را در این بخش بنویسید"
-                  sx={{ mt: 0 }}
+                  sx={{backgroundColor: "#132F4C",border: "0.2rem solid #5090D3",borderRadius: "0.5rem"}}
                 />
               </PerTextField>
               <button type="submit" className="board_form-button">
