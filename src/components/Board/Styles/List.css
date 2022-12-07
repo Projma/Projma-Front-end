@@ -2,6 +2,7 @@
   /* max-width: 30rem; */
   width: 30rem;
   /* max-width: 30rem; */
+  height: min-content;
   max-height: fit-content;
   background-color: #0a1929;
   border-radius: 1rem;

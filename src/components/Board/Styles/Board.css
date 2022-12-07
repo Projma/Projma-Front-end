@@ -4,7 +4,7 @@ body {
 }
 
 .board_list-container {
-  height: 98vh;
+  height: min-content;
   width: fit-content;
   margin-top: 0.6rem;
   overflow: auto;
