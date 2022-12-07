@@ -19,8 +19,7 @@ const List = (props) => {
   const [isPost, setIsPost] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  useEffect(() => {
-  }, [isPost]);
+  useEffect(() => {}, [isPost]);
 
   const optionClickHandler = (event) => {
     setAnchorEl(event.currentTarget);
@@ -30,19 +29,49 @@ const List = (props) => {
     setAnchorEl(null);
   };
 
-  const clickHandler = (cards) => {
-    setIsclicked(true);
+  const clickHandler = () => {
+    setIsclicked(!isclicked);
+  };
+
+  const deleteListHandler = () => {
+    console.log("teksjasda");
+    setIsPost(true);
+    reqDeleteList(props.id);
   };
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-  const postCreateCard = async (data, id) =>
+  const reqCreateCard = async (data, id) =>
     await axios
       .post(`http://127.0.0.1:8000/workspaces/board/${id}/create_task/`, data)
       .then(() => {
         setIsFail(true);
         toast.success("کارت با موفقیت ساخته شد", {
+          position: toast.POSITION.TOP_CENTER,
+          rtl: true,
+        });
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          setIsFail(true);
+          toast.error("عملیات با خطا مواجه شد", {
+            position: toast.POSITION.TOP_CENTER,
+            rtl: true,
+          });
+        }
+      })
+      .finally(() => {
+        setIsPost(null);
+        props.onPost(true);
+      });
+
+  const reqDeleteList = async (id) =>
+    await axios
+      .delete(`http://127.0.0.1:8000/workspaces/tasklist/${id}/delete_tasklist/`)
+      .then(() => {
+        setIsFail(true);
+        toast.success("لیست با موفقیت حذف شد", {
           position: toast.POSITION.TOP_CENTER,
           rtl: true,
         });
@@ -69,7 +98,7 @@ const List = (props) => {
     const data = new FormData();
     data.append("title", inputName);
     setIsPost(true);
-    postCreateCard(data, props.id);
+    reqCreateCard(data, props.id);
     setIsclicked(false);
     setInputName("");
     // keycard++;
@@ -104,7 +133,10 @@ const List = (props) => {
               <button className="board_option-button" onClick={clickHandler}>
                 <p className="board_option-text">افزودن کارت</p>
               </button>
-              <button className="board_option-button">
+              <button
+                className="board_option-button"
+                onClick={deleteListHandler}
+              >
                 <p className="board_option-text">حذف کردن لیست</p>
               </button>
             </div>
