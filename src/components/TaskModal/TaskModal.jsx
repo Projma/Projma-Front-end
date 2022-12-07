@@ -165,7 +165,7 @@ export default function TaskModal() {
   const [editcomment, setEditComment] = useState(false);
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("hello");
+    setShowDescription(false);
   };
   const sendData = (event) => {
     event.preventDefault();
@@ -276,9 +276,11 @@ export default function TaskModal() {
                               fullWidth
                               autoFocus
                               onChange={(e) => setDescription(e.target.value)}
+                              value={description}
                             ></StyledTextField>
                             <div dir="ltr" style={{ marginTop: "3%" }}>
                               <Button
+                                type="submit"
                                 variant="contained"
                                 className="taskmodal-button-setting"
                                 style={{ fontFamily: "Vazir" }}
@@ -299,18 +301,68 @@ export default function TaskModal() {
                             </div>
                           </div>
                         ) : (
-                          <Button
-                            className="taskmodal-closeButton"
-                            onClick={() => setShowDescription(true)}
-                            sx={{
-                              fontFamily: "Vazir",
-                              color: "white",
-                              fontSize: "100%",
-                              bgcolor: "#1d4b7a",
-                            }}
-                          >
-                            اضافه کردن جزئیات بیشتر
-                          </Button>
+                          <div>
+                            {description == "" ? (
+                              <Button
+                                className="taskmodal-closeButton"
+                                onClick={() => setShowDescription(true)}
+                                sx={{
+                                  fontFamily: "Vazir",
+                                  color: "white",
+                                  fontSize: "100%",
+                                  bgcolor: "#1d4b7a",
+                                }}
+                              >
+                                اضافه کردن جزئیات بیشتر
+                              </Button>
+                            ) : (
+                              <div>
+                                <div
+                                  className="taskmodal-comment-showList-comment"
+                                  style={{
+                                    height: "70px",
+                                    width: "100%",
+                                    padding: "5%",
+                                    borderRadius: "10px",
+                                    marginRight: "0px",
+                                  }}
+                                >
+                                  {description}
+                                </div>
+                                <div className="taskmodal-comment-button">
+                                  <Button
+                                    onClick={() => {
+                                      setDescription("");
+                                      setShowDescription(false);
+                                    }}
+                                    sx={{
+                                      fontFamily: "Vazir",
+                                      color: "white",
+                                      fontSize: "10px",
+                                      paddingRight: "0px",
+                                      textDecoration: "underline",
+                                    }}
+                                  >
+                                    حذف
+                                  </Button>
+                                  <Button
+                                    sx={{
+                                      fontFamily: "Vazir",
+                                      color: "white",
+                                      fontSize: "10px",
+                                      paddingLeft: "0px",
+                                      textDecoration: "underline",
+                                    }}
+                                    onClick={() => {
+                                      setShowDescription(true);
+                                    }}
+                                  >
+                                    ویرایش
+                                  </Button>
+                                </div>
+                              </div>
+                            )}
+                          </div>
                         )}
                       </Box>
                     </div>
