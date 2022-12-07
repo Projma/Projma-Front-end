@@ -59,24 +59,6 @@ export default function BasicMenu(props) {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                {/* {props.items.map((item) => (
-                    {item}
-                ))} */}
-                {/* {props.items.map((item) => (
-                    <MenuItem onClick={handleClose} key={item}>{item}</MenuItem>
-                ))} */}
-                {/* {
-                    "2": "تست 1",
-                    "3": "تست 2",
-                    "4": "تست 3",
-                    "5": "تست 6",
-                    "6": "تست 6",
-                    "7": "تست",
-                    "8": "لی",
-                    "20": "تست 10ddfv"
-                } */}
-                {/* {console.log(props.items)}  */}
-                {/* {console.log("| up |")} */}
                 {
                     (props.name == 'فضای کارها') && (Object.keys(props.workspaces).map((key) => {
                         return (
@@ -124,12 +106,12 @@ export default function BasicMenu(props) {
 
             {/* 
             <DropDownMenu 
-          value={this.state.selection} 
-          onChange={this.handleChange}   
-         >
-          <MenuItem value={1} primaryText="English"  />
-          <MenuItem value={2} primaryText="Spanish" />
-          <MenuItem value={3} primaryText="French" />
+                value={this.state.selection} 
+                onChange={this.handleChange}   
+                >
+                <MenuItem value={1} primaryText="English"  />
+                <MenuItem value={2} primaryText="Spanish" />
+                <MenuItem value={3} primaryText="French" />
 
         </DropDownMenu> */}
         </div>
