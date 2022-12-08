@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import StyledTextField from "../Shared/StyledTextField";
-import Footer from "./Footer";
+import Footer from "../Shared/Footer";
 import apiInstance from "../../utilities/axiosConfig";
 import PerTextField from "../Shared/PerTextField";
 import axios, { AxiosResponse, AxiosError } from "axios";

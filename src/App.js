@@ -16,7 +16,7 @@ import ForgetPassword from "./components/Password/ForgetPassword";
 import ProfileView from "./components/Profile/ProfilePageView";
 import ChangePassword from "./components/Profile/ChangePassword";
 import InvitePage from "./pages/InvitePage";
-import Board from "./components/Board/UI/Board";
+import Kanban from "./components/Kanban/Kanban";
 import Email_verification_2 from "./components/Registration/EmailVerification";
 // import { login, remove_token } from "../src/actions/authActions";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -29,7 +29,7 @@ const theme = createTheme(
   {
     typography: {
       fontFamily: "Vazir",
-      htmlFontSize: 9, // 10 (1rem = 9px) 
+      htmlFontSize: 9, // 10 (1rem = 9px)
     },
   },
   faIR
@@ -56,14 +56,18 @@ function App() {
             <Route path="workspace/:id/*" element={<Workspace_management />} />
             <Route exact path="/profileview/" element={<ProfileView />} />
             <Route exact path="/changepassword" element={<ChangePassword />} />
-            <Route exact path="/board" element={<Board />} />
+            <Route exact path="/kanban/:id" element={<Kanban />} />
             <Route exact path="/invite_page/:token" element={<InvitePage />} />
             <Route
               exact
               path="/email-verification"
               element={<Email_verification_2 />}
             />
-            <Route exact path="/taskmodal" element={<TaskModal />} />
+            <Route
+              exact
+              path=":board_id/taskmodal/:task_id/*"
+              element={<TaskModal />}
+            />
           </Routes>
         </Router>
       </Provider>
