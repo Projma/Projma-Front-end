@@ -32,12 +32,16 @@ export default function Attachments({ params }) {
   const createAttachment = () => {
     console.log("create attachment");
     const formData = new FormData();
-    // formData.append("image", imagefile.files[0]);
-    // apiInstance.post("upload_file", formData, {
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    // });
+    formData.append("file", binaryFile);
+    apiInstance.patch(
+      `workspaces/task/${params.task_id}/add-attachment-to-task/`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
