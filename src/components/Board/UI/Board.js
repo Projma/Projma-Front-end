@@ -83,7 +83,7 @@ const Board = (props) => {
 
   return (
     <>
-    <InvitationHeader/>
+    <InvitationHeader board_id={props.boardId}/>
     <div className="board_list-container font-fix">
       {isPost ? <Loading /> : null}
       {isFail ? (
