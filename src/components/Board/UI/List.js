@@ -241,7 +241,7 @@ const List = (props) => {
       </div>
       <div className="board_card-list">
         {cards.map((card, index) => (
-          <Card name={card.title} key={uuid()} id={card.id} index={index} />
+          <Card name={card.title} key={uuid()} id={card.id} index={index} members={card.doers} checkTotal={card.checklists_num} checkDone={card.checked_checklists_num} attachNum={card.attachments_num} chatNum={card.comments_num} labels={card.labels}/>
         ))}
       </div>
       {/* <div className="board_space"></div> */}
