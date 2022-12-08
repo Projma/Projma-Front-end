@@ -48,14 +48,15 @@ const cacheRtl = createCache({
     stylisPlugins: [prefixer, rtlPlugin],
 });
 
-const ShareButton = () => {
+const ShareButton = (props) => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [members, setMembers] = React.useState([]);
+    const params = useParams();
     useEffect(() => {
-        // apiInstance.get(`/workspaces/board/${params.id}/members/`).then((res) => {
-        apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
+        apiInstance.get(`/workspaces/board/${params.id}/members/`).then((res) => {
+        // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
             // console.log(res.data);
             setMembers(res.data);
             // array of members
