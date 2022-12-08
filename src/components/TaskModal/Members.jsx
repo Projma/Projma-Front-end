@@ -9,8 +9,10 @@ import "./Members.scss";
 import { CheckBox } from "@mui/icons-material";
 import { waitFor } from "@testing-library/react";
 import PersonIcon from "@mui/icons-material/Person";
+import { useEffect } from "react";
+import apiInstance from "../../utilities/axiosConfig";
 
-export default function Members() {
+export default function Members({ params }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -20,7 +22,24 @@ export default function Members() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const ListOfMembers = ["علی ابراهیمی", "محمد امینی", "علی حسینی"];
+  useEffect(() => {
+    apiInstance
+      .get(`/workspaces/board/${params.board_id}/members/`)
+      .then((res) => {
+        const members = res.data.map((obj) => ({
+          id: obj.user.id,
+          firstName: obj.user.first_name,
+          lastName: obj.user.last_name,
+          userName: obj.user.username,
+          email: obj.user.email,
+          image: obj.profile_pic,
+        }));
+        setListOfMembers(members);
+        console.log(members);
+        console.log("navid");
+      });
+  }, []);
+  const [ListOfMembers, setListOfMembers] = React.useState([]);
   const [ListOfAddedMembers, setListOfAddedMembers] = React.useState([]);
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -63,12 +82,20 @@ export default function Members() {
   };
   const [member, setMember] = React.useState("");
   const HandleSubmit = () => {
-    if (ListOfAddedMembers.includes(member)) {
-      setListOfAddedMembers(ListOfAddedMembers.filter((m) => m !== member));
-    } else {
-      setListOfAddedMembers([...ListOfAddedMembers, member]);
-    }
-    console.log(ListOfAddedMembers);
+    // if (ListOfAddedMembers.includes(member)) {
+    //   setListOfAddedMembers(ListOfAddedMembers.filter((m) => m !== member));
+    // } else {
+    //   setListOfAddedMembers([...ListOfAddedMembers, member]);
+    // }
+    console.log(member.id);
+    const formData = new FormData();
+    formData.append("doers", [member.id]);
+    apiInstance
+      .patch(`/workspaces/task/${params.task_id}/add-doers-to-task/`, formData)
+      .then((res) => {
+        console.log(res);
+      });
+    // console.log(ListOfAddedMembers);
   };
   return (
     <div>
@@ -112,7 +139,7 @@ export default function Members() {
               return (
                 <div className="flex-row taskmodal-members-body-row">
                   <div className="flex taskmodal-members-body-row-icon">
-                    <InitialIconcircle initials={member[0]} />
+                    {/* <InitialIconcircle initials={member.username[0]} /> */}
                   </div>
                   <div className="flex taskmodal-members-body-row-text">
                     <Button
@@ -127,7 +154,7 @@ export default function Members() {
                         HandleSubmit();
                       }}
                     >
-                      {member}
+                      {member.userName}
                     </Button>
                   </div>
                 </div>
