@@ -18,12 +18,13 @@ const InputName = (props) => {
           multiline
           id="component-simple"
           value={name}
+          defaultValue={name}
           onChange={handleChange}
-          onFocus={() => setUnderline(false)}
-          onBlur={() => setUnderline(true)}
+          onBlur={() => props.onChangeName(name)}
+          // onBlur={() => setUnderline(true)}
           color={"info"}
-          disableUnderline={underline}
-          sx={{ fontSize: "1.6rem", color:props.color}}
+          disableUnderline={true}
+          // sx={{ fontSize: "1.6rem", color:props.color}}
         />
       </FormControl>
     </PerTextField>

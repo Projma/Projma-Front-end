@@ -15,6 +15,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import InputName from "../../Shared/InputName";
 
 const List = (props) => {
   const [cards, setCards] = useState(props.card);
@@ -31,24 +32,6 @@ const List = (props) => {
     setIsDel(false);
     setIsOpen(false);
   }, [isPost]);
-
-  const optionClickHandler = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const optionsHandler = () => {
-    setAnchorEl(null);
-  };
-
-  const clickHandler = () => {
-    setIsclicked(!isclicked);
-  };
-
-  const deleteListHandler = () => {
-    setIsPost(true);
-    reqDeleteList(props.id);
-    handleClose();
-  };
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -103,6 +86,50 @@ const List = (props) => {
         props.onPost(true);
       });
 
+  const reqEditListName = async (data,id) =>
+    await axios
+      .patch(
+        `http://127.0.0.1:8000/workspaces/tasklist/${id}/update_tasklist/`,data
+      )
+      .then(() => {
+        setIsToast(true);
+        toast.success("اسم لیست با موفقیت عوض شد", {
+          position: toast.POSITION.TOP_CENTER,
+          rtl: true,
+        });
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          setIsToast(true);
+          toast.error("عملیات با خطا مواجه شد", {
+            position: toast.POSITION.TOP_CENTER,
+            rtl: true,
+          });
+        }
+      })
+      .finally(() => {
+        setIsPost(null);
+        props.onPost(true);
+      });
+
+  const optionClickHandler = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const optionsHandler = () => {
+    setAnchorEl(null);
+  };
+
+  const clickHandler = () => {
+    setIsclicked(!isclicked);
+  };
+
+  const deleteListHandler = () => {
+    setIsPost(true);
+    reqDeleteList(props.id);
+    handleClose();
+  };
+
   const submitHandler = (event) => {
     event.preventDefault();
     // setCards((pervList) => {
@@ -121,6 +148,13 @@ const List = (props) => {
     setIsOpen(false);
   };
 
+  const changeNameHandler = (name) => {
+    const data = new FormData();
+    data.append("title",name);
+    setIsPost(true);
+    reqEditListName(data,props.id);
+  };
+
   return (
     <div className="board_list">
       {isPost ? <Loading /> : null}
@@ -128,7 +162,12 @@ const List = (props) => {
         <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
       ) : null}
       <div className="board_header">
-        <p className="board_header-title">{props.name}</p>
+        {/* <p className="board_header-title">{props.name}</p> */}
+        <InputName
+          className="board_header-title"
+          name={props.name}
+          onChangeName={changeNameHandler}
+        />
         <button className="board_header-button" onClick={optionClickHandler}>
           <p className="board_button-title">...</p>
         </button>
@@ -186,7 +225,11 @@ const List = (props) => {
                     >
                       تایید
                     </button>
-                    <button onClick={handleClose} autoFocus className="List_dialog-button">
+                    <button
+                      onClick={handleClose}
+                      autoFocus
+                      className="List_dialog-button"
+                    >
                       انصراف
                     </button>
                   </div>
@@ -219,6 +262,7 @@ const List = (props) => {
                   variant="filled"
                   required
                   fullWidth
+                  autoFocus
                   onChange={(e) => setInputName(e.target.value)}
                   placeholder="اسم کارت را در این بخش بنویسید"
                   sx={{

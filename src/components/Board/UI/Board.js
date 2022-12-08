@@ -106,6 +106,7 @@ const Board = () => {
                   margin="normal"
                   label="اسم لیست"
                   variant="filled"
+                  autoFocus
                   required
                   fullWidth
                   onChange={(e) => setInputName(e.target.value)}
