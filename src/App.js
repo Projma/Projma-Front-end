@@ -65,7 +65,7 @@ function App() {
             />
             <Route
               exact
-              path="/:board_id/taskmodal/:task_id/*"
+              path=":board_id/taskmodal/:task_id/*"
               element={<TaskModal />}
             />
           </Routes>

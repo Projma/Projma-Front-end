@@ -17,6 +17,7 @@ import StyledTextField from "../Shared/StyledTextField";
 import { CacheProvider } from "@emotion/react";
 import { red } from "@mui/material/colors";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { Calendar } from "react-multi-date-picker";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
@@ -683,7 +684,7 @@ export default function TaskModal() {
                     <AttachFileIcon fontSize="large"></AttachFileIcon>{" "}
                     <div className="taskmodal-smaller-button">پیوست</div>
                   </Button> */}
-                  <Attachments />
+                  <Attachments params={params} />
                 </div>
               </div>
             </div>
