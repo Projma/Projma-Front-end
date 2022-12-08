@@ -156,3 +156,17 @@
   border: 0.2rem solid #5090D3;
   color: #fff;
 }
+
+.List_dialog-button {
+  background-color: #163658;
+  border: 0.2rem solid #5090D3;
+  color: #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.List_dialog-button:hover {
+  cursor: pointer;
+  opacity: 60%;
+}

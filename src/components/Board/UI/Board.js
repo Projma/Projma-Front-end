@@ -10,7 +10,7 @@ import Loading from "../../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import "../../../styles/ReactToastify.css";
 
-const Board = () => {
+const Board = (props) => {
   const [lists, setLists] = useState([]);
   const [isclicked, setIsclicked] = useState(false);
   const [inputName, setInputName] = useState("");
@@ -20,7 +20,7 @@ const Board = () => {
   useEffect(() => {
     const getBoard = async () =>
       await axios
-        .get("http://127.0.0.1:8000/workspaces/board/1/get_board_overview/")
+        .get(`http://127.0.0.1:8000/workspaces/board/${props.boardId}/get-board-overview/`)
         .then((response) => {
           // console.log(response.data);
           // console.log(response.data.tasklists);
@@ -35,7 +35,7 @@ const Board = () => {
   const postCreateList = async (data, id) =>
     await axios
       .post(
-        `http://127.0.0.1:8000/workspaces/board/${id}/create_tasklist/`,
+        `http://127.0.0.1:8000/workspaces/board/${id}/create-tasklist/`,
         data
       )
       .then(() => {
@@ -88,7 +88,7 @@ const Board = () => {
       ) : null}
         <div className="board_list-container-minor">
           {lists.map((list) => (
-            <List name={list.title} key={uuid()} id={list.id} card={list.tasks} onPost={onPostHandler}/>
+            <List name={list.title} key={uuid()} id={list.id} card={list.tasks} boardId={props.boardId} onPost={onPostHandler}/>
           ))}
         </div>
       <div className="board_add-container">

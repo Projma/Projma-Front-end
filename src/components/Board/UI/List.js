@@ -38,7 +38,7 @@ const List = (props) => {
 
   const reqCreateCard = async (data, id) =>
     await axios
-      .post(`http://127.0.0.1:8000/workspaces/board/${id}/create_task/`, data)
+      .post(`http://127.0.0.1:8000/workspaces/board/${id}/create-task/`, data)
       .then(() => {
         setIsToast(true);
         toast.success("کارت با موفقیت ساخته شد", {
@@ -63,7 +63,7 @@ const List = (props) => {
   const reqDeleteList = async (id) =>
     await axios
       .delete(
-        `http://127.0.0.1:8000/workspaces/tasklist/${id}/delete_tasklist/`
+        `http://127.0.0.1:8000/workspaces/tasklist/${id}/delete-tasklist/`
       )
       .then(() => {
         setIsToast(true);
@@ -89,7 +89,7 @@ const List = (props) => {
   const reqEditListName = async (data,id) =>
     await axios
       .patch(
-        `http://127.0.0.1:8000/workspaces/tasklist/${id}/update_tasklist/`,data
+        `http://127.0.0.1:8000/workspaces/tasklist/${id}/update-tasklist/`,data
       )
       .then(() => {
         setIsToast(true);
@@ -147,6 +147,10 @@ const List = (props) => {
   const handleClose = () => {
     setIsOpen(false);
   };
+
+  const onPostHandler = (isa) => {
+    props.onPost(isa);
+  }
 
   const changeNameHandler = (name) => {
     const data = new FormData();
@@ -241,7 +245,7 @@ const List = (props) => {
       </div>
       <div className="board_card-list">
         {cards.map((card, index) => (
-          <Card name={card.title} key={uuid()} id={card.id} index={index} />
+          <Card name={card.title} key={uuid()} id={card.id} index={index} members={card.doers} checkTotal={card.checklists_num} checkDone={card.checked_checklists_num} attachNum={card.attachments_num} chatNum={card.comments_num} labels={card.labels} onPost={onPostHandler} boardId={props.boardId}/>
         ))}
       </div>
       {/* <div className="board_space"></div> */}

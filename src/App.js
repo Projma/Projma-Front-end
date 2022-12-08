@@ -56,7 +56,7 @@ function App() {
             <Route path="workspace/:id/*" element={<Workspace_management />} />
             <Route exact path="/profileview/" element={<ProfileView />} />
             <Route exact path="/changepassword" element={<ChangePassword />} />
-            <Route exact path="/kanban" element={<Kanban />} />
+            <Route exact path="/kanban/:id" element={<Kanban />} />
             <Route exact path="/invite_page/:token" element={<InvitePage />} />
             <Route
               exact
