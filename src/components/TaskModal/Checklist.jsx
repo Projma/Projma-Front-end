@@ -2,13 +2,27 @@ import * as React from "react";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import apiInstance from "../../utilities/axiosConfig";
 import LabelIcon from "@mui/icons-material/Label";
 import Divider from "@mui/material/Divider";
 import "../../styles/TaskModal.css";
 import "./Checklist.scss";
 
-export default function CheckList() {
+export default function CheckList({ params }) {
+  const [createdCheckTitle, setCreatedCheckTitle] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const createCheckList = () => {
+    const form_data = new FormData();
+    form_data.append("text", createdCheckTitle);
+    apiInstance
+      .post(`workspaces/task/${params.task_id}/create-checklist/`, form_data)
+      .then((res) => {
+        console.log("here2");
+        console.log(res.data);
+      });
+    console.log("here");
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -34,7 +48,7 @@ export default function CheckList() {
         }}
       >
         <LabelIcon rotate="90" fontSize="large"></LabelIcon>{" "}
-        <div className="taskmodal-smaller-button">لیبل</div>
+        <div className="taskmodal-smaller-button">لیست کنترل</div>
       </Button>
       <Popover
         id={id}
@@ -50,7 +64,28 @@ export default function CheckList() {
           horizontal: "right",
         }}
       >
-        hi
+        <div className="tm_checklists-main-div">
+          <header className="tm_checklists-header">
+            <h2>اضافه کردن لیست کنترل</h2>
+          </header>
+          <Divider />
+          <div className="tm_checklists-body">
+            <input
+              type="text"
+              placeholder="عنوان لیست کنترل"
+              value={createdCheckTitle}
+              onChange={(e) => setCreatedCheckTitle(e.target.value)}
+            />
+            <div className="tm_checklists-body-buttons">
+              <button
+                className="tm_checklists-body-buttons-add"
+                onClick={(e) => createCheckList()}
+              >
+                اضافه کردن
+              </button>
+            </div>
+          </div>
+        </div>
       </Popover>
     </div>
   );
