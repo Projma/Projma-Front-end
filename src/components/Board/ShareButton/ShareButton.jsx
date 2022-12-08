@@ -18,7 +18,11 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import apiInstance from '../../../utilities/axiosConfig';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
-
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Avatar from '@mui/material/Avatar';
+import AvatarGroup from '@mui/material/AvatarGroup';
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 
 const style = {
     position: 'absolute',
@@ -48,6 +52,29 @@ const ShareButton = () => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [members, setMembers] = React.useState([]);
+    useEffect(() => {
+        // apiInstance.get(`/workspaces/board/${params.id}/members/`).then((res) => {
+        apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
+            // console.log(res.data);
+            setMembers(res.data);
+            // array of members
+            // "user": {
+            //     "id": 1,
+            //     "first_name": "",
+            //     "last_name": "",
+            //     "username": "superuser",
+            //     "password": "pbkdf2_sha256$390000$KpLcn5HQQv28LKn5PcbOvQ$si5sOOcWlTO+3U2Gwu1TqldM9TQ/F44Z7VcQiDJwZD0=",
+            //     "email": "superuser@gmail.com"
+            //   },
+            //   "birth_date": null,
+            //   "bio": null,
+            //   "phone": null,
+            //   "profile_pic": null,
+            //   "role": "Member"
+            // }
+        });
+    }, []);
 
     return (
         <>
@@ -71,7 +98,7 @@ const ShareButton = () => {
             </Button>
             <Modal
                 aria-labelledby="spring-modal-title"
-                aria-describedby="spring-modal-description"
+                // aria-describedby="spring-modal-description"
                 open={open}
                 onClose={handleClose}
                 closeAfterTransition
@@ -83,17 +110,65 @@ const ShareButton = () => {
                 <Fade in={open}>
                     <Box sx={style}>
                         <Button onClick={handleClose}> <ClearTwoToneIcon sx={{
-                            color: "black",
+                            color: "tomato",
                             // margin: "1%"
                             marginBottom: "9%",
                             // ":dir": "ltr"
+                            // marginRight: "3800%",
                         }} /> </Button>
-                        <Typography id="spring-modal-title" variant="h6" component="h2">
+                        <Typography id="spring-modal-title" variant="h6" component="h2" sx={{ color: "black" }}>
                             بورد را به اشتراک بگذارید
                         </Typography>
-                        <Typography id="spring-modal-description" sx={{ mt: 2 }}>
+                        {/* <Typography id="spring-modal-description" sx={{ mt: 2,marginBottom:2 }}>
                             اشتراک بورد
-                        </Typography>
+                        </Typography> */}
+                        {
+                            members.map((member) => {
+                                return (
+                                    <MenuItem value={member.user.username} key={member.user.username}>  {/* or menu item  */}
+                                        <Tooltip title={member.user.username} >
+                                            <Box sx={{
+                                                // display: "flex",
+                                                marginLeft: "2%",
+                                            }}>
+                                                <Avatar
+                                                    key={member.id}
+                                                    alt={(member.user.first_name + " " + member.user.last_name).toString()}
+                                                    src={member.profile_pic !== null ? member.profile_pic : "none"}
+                                                    {...stringAvatar((member.user.first_name + " " + member.user.last_name).toString())}
+                                                    className="board_avatar-profile-picture"
+                                                    // sx={{ width: 56, height: 56 }}
+                                                />
+                                            </Box>
+                                        </Tooltip>
+                                        <Typography>
+                                            {member.user.first_name + " " + member.user.last_name}
+                                        </Typography>
+                                        {/* <br /> */}
+                                        {"\n"}
+                                        <Typography>
+                                            نقش:
+                                            {member.role ? "Admin" : "ادمین" ? "Member" : "کاربر" ? "Guest" : "مهمان"}
+                                            {/* {() => {
+                                                if (member.role === "Admin") {
+                                                    return "ادمین";
+                                                } else if (member.role === "Member") {
+                                                    return "کاربر";
+                                                } else if (member.role === "Guest") {
+                                                    return "مهمان";
+                                                }
+                                            }
+                                            } */}
+                                        </Typography>
+                                        {"\n"}
+                                        {"      "}
+                                        <Typography>
+                                            ایمیل: {member.user.email}
+                                        </Typography>
+                                    </MenuItem>
+                                )
+                            })
+                        }
                         {/* <Box
                             sx={{
                                 // padding: "10%",
@@ -233,3 +308,37 @@ const ShareButton = () => {
 }
 
 export default ShareButton
+
+function stringToColor(string) {
+    let hash = 0;
+    let i;
+
+    /* eslint-disable no-bitwise */
+    for (i = 0; i < string.length; i += 1) {
+        hash = string.charCodeAt(i) + ((hash << 5) - hash);
+    }
+
+    let color = '#';
+
+    for (i = 0; i < 3; i += 1) {
+        const value = (hash >> (i * 8)) & 0xff;
+        color += `00${value.toString(16)}`.slice(-2);
+    }
+    /* eslint-enable no-bitwise */
+
+    return color;
+}
+
+function stringAvatar(name) {
+    return {
+        sx: {
+            bgcolor: stringToColor(name),
+        },
+        children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+    };
+    // return {
+    //     children: `${name.split(" ")[0][0].toUpperCase()}${name
+    //         .split(" ")[1][0]
+    //         .toUpperCase()}`,
+    // };
+}
