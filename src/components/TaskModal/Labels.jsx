@@ -21,7 +21,8 @@ const task_labels = [
 
 export default function Labels({ params }) {
   const [current, setCurrent] = useState("");
-  const [createdColor, setCreatedColor] = useState("");
+  const [createdTitle, setCreatedTitle] = useState("your title");
+  const [createdColor, setCreatedColor] = useState("#ffffff");
   const [showEdit, setShowEdit] = useState(false);
   const [editedTitle, setEditedTitle] = useState("");
   const [editedColor, setEditedColor] = useState("");
@@ -29,16 +30,13 @@ export default function Labels({ params }) {
   const [taskLabels, setTaskLabels] = React.useState([]);
   const [boardLabels, setBoardLabels] = React.useState([]);
   useEffect(() => {
-    // apiInstance
-    //   .get(`workspaces/board/${params.task_id}/get_task_labels/`)
-    //   .then((res) => {
-    //     console.log("task labels");
-    //     console.log(res.data);
-    //     setTaskLabels(res.data);
-    //   });
-    setTaskLabels(task_labels);
+    apiInstance.get(`workspaces/task/${params.task_id}/labels/`).then((res) => {
+      console.log("task labels");
+      console.log(res.data);
+      setTaskLabels(res.data);
+    });
     apiInstance
-      .get(`workspaces/board/${params.board_id}/get_board_labels/`)
+      .get(`workspaces/board/${params.board_id}/get-board-labels/`)
       .then((res) => {
         console.log("board labels");
         console.log(res.data);
@@ -46,6 +44,10 @@ export default function Labels({ params }) {
       });
     // setCurrent(mainPage);
   }, []);
+
+  React.useEffect(() => {
+    setCurrent(EditPage);
+  }, [editItem, editedTitle, editedColor]);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -62,21 +64,21 @@ export default function Labels({ params }) {
   const delete_label_from_task = (inputElem, label_id) => {
     console.log("delete label from task");
     console.log(label_id);
-    // const form_data = new FormData();
-    // const labels = [];
-    // labels.push(label_id);
-    // form_data.append("labels", labels);
-    // apiInstance
-    //   .delete(
-    //     `workspaces/task/${params.task_id}/delete_labels_from_task/`,
-    //     form_data
-    //   )
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     setTaskLabels((prevState) =>
-    //       prevState.filter((label) => label.id !== label_id)
-    //     );
-    //   });
+    const form_data = new FormData();
+    const labels = [];
+    labels.push(label_id);
+    form_data.append("labels", labels);
+    apiInstance
+      .patch(
+        `workspaces/task/${params.task_id}/delete-labels-from-task/`,
+        form_data
+      )
+      .then((res) => {
+        console.log(res.data);
+        setTaskLabels((prevState) =>
+          prevState.filter((label) => label.id !== label_id)
+        );
+      });
     setTaskLabels((prevState) =>
       prevState.filter((label) => label.id !== label_id)
     );
@@ -87,14 +89,16 @@ export default function Labels({ params }) {
     const form_data = new FormData();
     const labels = [];
     labels.push(label_id);
+    console.log("adding label");
+    console.log(labels);
     form_data.append("labels", labels);
-    // apiInstance
-    //   .patch(`workspaces/task/${params.task_id}/add_labels_to_task/`, form_data)
-    //   .then((res) => {
-    //     console.log("in add label");
-    //     console.log(res.data);
-    //     setTaskLabels((prevState) => [...prevState, res.data]);
-    //   });
+    apiInstance
+      .patch(`workspaces/task/${params.task_id}/add-labels-to-task/`, form_data)
+      .then((res) => {
+        console.log("in add label");
+        console.log(res.data);
+        setTaskLabels((prevState) => [...prevState, res.data]);
+      });
     boardLabels.forEach((label) => {
       if (label.id === label_id) {
         console.log(label.id);
@@ -122,13 +126,15 @@ export default function Labels({ params }) {
         });
       }
     });
-    setCurrent(EditPage);
+    // setCurrent(EditPage);
   };
   const handleCreatePage = () => {
+    setCreatedTitle("your title");
+    setCreatedColor("#ffffff");
     setCurrent(CreatePage);
   };
   const editThisItem = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     console.log("edit this item");
     console.log(editedTitle);
     console.log(editedColor);
@@ -161,7 +167,24 @@ export default function Labels({ params }) {
           })
         );
       });
-    setShowEdit(false);
+    // setShowEdit(false);
+  };
+  const createThisItem = (e) => {
+    // e.preventDefault();
+    const form_data = new FormData();
+    form_data.append("title", createdTitle);
+    form_data.append("color", createdColor);
+    console.log("create this item");
+    console.log(createdTitle);
+    console.log(createdColor);
+
+    apiInstance
+      .post(`workspaces/board/${params.board_id}/create-label/`, form_data)
+      .then((res) => {
+        console.log(res.data);
+        setBoardLabels((prevState) => [...prevState, res.data]);
+      });
+    // setShowEdit(false);
   };
   const test = () => {
     console.log("test");
@@ -321,7 +344,64 @@ export default function Labels({ params }) {
       <button onClick={(e) => editThisItem(e)}>ویرایش</button>
     </>
   );
-  const CreatePage = <>salam.</>;
+  const CreatePage = (
+    <>
+      <div className="tm_create-labels-main-div">
+        <div
+          style={{
+            backgroundColor: createdColor,
+            width: "12rem",
+            height: "3rem",
+            borderRadius: "5px",
+            margin: 0 + " auto",
+            marginBottom: "2rem",
+          }}
+        ></div>
+        <PerTextField>
+          <label
+            style={{
+              fontFamily: "Vazir",
+              color: "#000",
+              fontSize: "1.5rem",
+              display: "block",
+              marginBottom: "2%",
+            }}
+          >
+            عنوان برچسب
+          </label>
+          <StyledTextField
+            value={createdTitle}
+            onChange={(e) => setCreatedTitle(e.target.value)}
+            sx={{
+              textAlign: "center",
+              fontFamily: "Vazir",
+              backgroundColor: "#265D97",
+              marginRight: "3rem",
+              display: "inline-block",
+            }}
+          />
+        </PerTextField>
+        <label
+          style={{
+            fontFamily: "Vazir",
+            color: "#000",
+            fontSize: "1.5rem",
+            display: "block",
+            marginTop: "5%",
+          }}
+        >
+          رنگ برچسب
+        </label>
+        <input
+          type="color"
+          // id={editItem.id}
+          value={createdColor}
+          onChange={(e) => setCreatedColor(e.target.value)}
+        />
+        <button onClick={(e) => editThisItem(e)}>ویرایش</button>
+      </div>
+    </>
+  );
 
   // if (!showEdit && !showCreate) {
   //   current = mainPage;
