@@ -180,12 +180,11 @@
   opacity: 60%;
 }
 
-.Mui-focused {
+/* .Mui-focused {
   background-color: #163658 !important;
   border: 0.2rem solid #5090D3;
-  color: #fff !important;
   border-radius: 0.5rem;
-}
+} */
 
 .MuiInput-root {
   color: #fff !important;
