@@ -4,11 +4,11 @@ import "./InvitationHeader.scss";
 import GroupAvatars from '../GroupAvatars/GroupAvatars';
 import ShareButton from '../ShareButton/ShareButton';
 
-const InvitationHeader = () => {
+const InvitationHeader = (props) => {
     return (
         <div className='invite-box'>
-            <ShareButton/>
-            <GroupAvatars/>
+            <ShareButton boardId={props.board_id}/>
+            <GroupAvatars boardId={props.board_id}/>
         </div>
     )
 }
