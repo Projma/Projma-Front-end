@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import "./BoardView.css";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const BoardView = (props) => {
+  let navigate = useNavigate();
   const [hover, setHover] = useState(false);
   const [isStarred, setIsStarred] = useState(props.is);
   const clickHandler = () => {
@@ -10,12 +12,15 @@ const BoardView = (props) => {
     const id = props.id;
     setIsStarred(flag);
     console.log(flag);
-    const data = {id:id, is:flag};
+    const data = { id: id, is: flag };
     props.onStarred(data);
   };
 
   return (
-    <div className="workspace--board-view">
+    <div
+      className="workspace--board-view"
+      onClick={(e) => navigate(`/kanban/${props.id}`)}
+    >
       <button
         className="workspace--view"
         onMouseEnter={() => setHover(true)}
@@ -24,16 +29,12 @@ const BoardView = (props) => {
         <p className="workspace--board-title">{props.name}</p>
       </button>
       {isStarred ? (
-        <button
-              className="workspace--icon-button"
-              onClick={clickHandler}
-            >
-              <StarIcon
-                className="workspace--board-icon"
-                sx={{ "& :hover": { fill: "#fff" } }}
-                style={{ fontSize: "1.6rem",
-                fill: "yellow"  }}
-              />
+        <button className="workspace--icon-button" onClick={clickHandler}>
+          <StarIcon
+            className="workspace--board-icon"
+            sx={{ "& :hover": { fill: "#fff" } }}
+            style={{ fontSize: "1.6rem", fill: "yellow" }}
+          />
         </button>
       ) : (
         <div>

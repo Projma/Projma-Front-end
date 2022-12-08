@@ -7,6 +7,7 @@ import Members from "../components/Workspace_management/Members/Members";
 import BasicModal from "../components/Workspace_management/CreateBoardModal/CreateBoard";
 import Navbar from "../components/Workspace_management/Navbar/Navbar";
 import "../styles/Workspace_management.css";
+import Header from "../components/Header/Header";
 import Board from "../components/Workspace_management/Board/Board";
 
 const Workspace_management = () => {
@@ -35,6 +36,7 @@ const Workspace_management = () => {
   return (
     <div className="mother-div">
       {/* <div> */}
+
       <ResponsiveDrawerRight width={"249px"} />
       {/* </div> */}
       {/* <Link to="workspace/members">Members</Link> */}
