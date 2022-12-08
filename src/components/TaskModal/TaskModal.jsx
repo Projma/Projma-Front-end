@@ -7,11 +7,13 @@ import createCache from "@emotion/cache";
 import Labels from "./Labels";
 import Members from "./Members";
 import Attachments from "./Attachments";
+import CheckList from "./Checklist";
 import "../../styles/TaskModal.css";
 import profile_preview from "../../static/images/profile/profile-preview.png";
 import userEvent from "@testing-library/user-event";
 import { fontWeight } from "@mui/system";
 import { useState, useCallback } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import StyledTextField from "../Shared/StyledTextField";
 import { CacheProvider } from "@emotion/react";
@@ -675,6 +677,9 @@ export default function TaskModal() {
                     <div className="taskmodal-smaller-button">لیست کنترل</div>
                   </Button>
                   {/* <Button
+                  </Button> */}
+                  <CheckList params={params} />
+                  <Button
                     className="taskmodal-smaller-button-inner"
                     sx={{
                       bgcolor: "#173b5e",
@@ -683,7 +688,8 @@ export default function TaskModal() {
                   >
                     <AttachFileIcon fontSize="large"></AttachFileIcon>{" "}
                     <div className="taskmodal-smaller-button">پیوست</div>
-                  </Button> */}
+                  </Button>{" "}
+                  */}
                   <Attachments params={params} />
                 </div>
               </div>
