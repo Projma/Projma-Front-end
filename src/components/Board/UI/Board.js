@@ -88,7 +88,7 @@ const Board = (props) => {
       ) : null}
         <div className="board_list-container-minor">
           {lists.map((list) => (
-            <List name={list.title} key={uuid()} id={list.id} card={list.tasks} onPost={onPostHandler}/>
+            <List name={list.title} key={uuid()} id={list.id} card={list.tasks} boardId={props.boardId} onPost={onPostHandler}/>
           ))}
         </div>
       <div className="board_add-container">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../Styles/Card.css";
 import CardLabel from "../Cards Item/CardLabel";
 import Avatar from "@mui/material/Avatar";
@@ -12,37 +12,91 @@ import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import { Draggable } from "react-beautiful-dnd";
 import { v4 as uuid } from "uuid";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Loading from "../../Shared/Loading";
+import { toast, ToastContainer } from "react-toastify";
+import axios from "axios";
 
 const Card = (props) => {
   const [showLabelName, setShowLabelName] = useState(false);
+  const [isPost, setIsPost] = useState(null);
+  const [isToast, setIsToast] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  let isIn = false;
   let navigate = useNavigate();
-  let outSideButton = false;
+  // let outSideButton = false;
   // const [close, setClose] = useState(false);
+
+  // useEffect(() => {
+  //   // setIsIn(false);
+  //   // setIsOpen(false);
+  //   // isOpen = true;
+  // }, [isIn]);
+
+  const reqDeleteCard = async (id) =>
+    await axios
+      .delete(
+        `http://127.0.0.1:8000/workspaces/task/${id}/`
+      )
+      .then(() => {
+        setIsToast(true);
+        toast.success("کارت با موفقیت حذف شد", {
+          position: toast.POSITION.TOP_CENTER,
+          rtl: true,
+        });
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          setIsToast(true);
+          toast.error("عملیات با خطا مواجه شد", {
+            position: toast.POSITION.TOP_CENTER,
+            rtl: true,
+          });
+        }
+      })
+      .finally(() => {
+        setIsPost(null);
+        props.onPost(true);
+      });
+
   const cardClickHandker = () => {
-    console.log("board");
-    console.log("outside: ", outSideButton);
+    // console.log("board");
+    // console.log("outside: ", outSideButton);
     // console.log("close: ",close);
-    if (outSideButton) return;
+    if (isIn) return;
+    navigate(`/${props.boardId}/taskmodal/${props.id}`);
     // navigate("/");
   };
 
   const cardDeleteHandler = () => {
-    outSideButton = true;
-    console.log("edit");
-    console.log("outside: ", outSideButton);
-    // console.log("close: ",close);
-    navigate("/signup");
-    // setOutSideButton(false);
+    setIsOpen(true);
+    reqDeleteCard(props.id);
+    console.log("cardDeleteHandler ",isOpen);
   };
 
+  // const deleteCardHandler = () => {
+  //   Event.stopPropation();
+  //   // setIsPost(true);
+  //   // reqDeleteList(props.id);
+  //   console.log("deleteCardHandler ",isOpen);
+  //   setIsOpen(false);
+  // };
+  
   const cardEditHandler = () => {
-    outSideButton = true;
-    console.log("close");
-    console.log("outside: ", outSideButton);
-    // console.log("close: ",close);
-    navigate("/signin");
-    // setOutSideButton(false);
+    isIn = true;
+    // navigate("/signin");
   };
+  
+  // const handleClose = () => {
+  //   Event.stopPropation();
+  //   setIsOpen(false);
+  //   isIn = false;
+  //   console.log("handleClose ",isOpen);
+  // };
 
   return (
     <div
@@ -51,6 +105,10 @@ const Card = (props) => {
         cardClickHandker();
       }}
     >
+      {isPost ? <Loading /> : null}
+      {isToast ? (
+        <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
+      ) : null}
       <div className="board_icon_container">
         <div
           className="board_icon-box"
@@ -66,7 +124,41 @@ const Card = (props) => {
             cardDeleteHandler();
           }}
         >
-          <CloseIcon className="board_close-icon board_default-icon" />
+          <CloseIcon
+            className="board_close-icon board_default-icon"
+            onClick={() => {
+              cardDeleteHandler();
+            }}
+          />
+          {/* <Dialog
+            open={isOpen}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"آیا از حذف کردن کارت مطمئن هستید؟"}
+            </DialogTitle>
+            <DialogActions>
+              <div className="List_dialog-button-container">
+                <button
+                  onClick={() => {
+                    deleteCardHandler();
+                  }}
+                  className="List_dialog-button"
+                >
+                  تایید
+                </button>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  autoFocus
+                  className="List_dialog-button"
+                >
+                  انصراف
+                </button>
+              </div>
+            </DialogActions>
+          </Dialog> */}
         </div>
       </div>
       {props.labels !== [] && (
@@ -77,7 +169,7 @@ const Card = (props) => {
               color={x.color}
               name={x.title}
               onClick={() => {
-                outSideButton = true;
+                isIn = true;
                 setShowLabelName(!showLabelName);
               }}
               show={showLabelName}

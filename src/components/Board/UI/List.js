@@ -148,6 +148,10 @@ const List = (props) => {
     setIsOpen(false);
   };
 
+  const onPostHandler = (isa) => {
+    props.onPost(isa);
+  }
+
   const changeNameHandler = (name) => {
     const data = new FormData();
     data.append("title",name);
@@ -241,7 +245,7 @@ const List = (props) => {
       </div>
       <div className="board_card-list">
         {cards.map((card, index) => (
-          <Card name={card.title} key={uuid()} id={card.id} index={index} members={card.doers} checkTotal={card.checklists_num} checkDone={card.checked_checklists_num} attachNum={card.attachments_num} chatNum={card.comments_num} labels={card.labels}/>
+          <Card name={card.title} key={uuid()} id={card.id} index={index} members={card.doers} checkTotal={card.checklists_num} checkDone={card.checked_checklists_num} attachNum={card.attachments_num} chatNum={card.comments_num} labels={card.labels} onPost={onPostHandler} boardId={props.boardId}/>
         ))}
       </div>
       {/* <div className="board_space"></div> */}
