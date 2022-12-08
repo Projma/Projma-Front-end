@@ -23,13 +23,13 @@ const Board = () => {
         .get("http://127.0.0.1:8000/workspaces/board/1/get_board_overview/")
         .then((response) => {
           // console.log(response.data);
-          console.log(response.data.tasklists);
+          // console.log(response.data.tasklists);
           setLists(response.data.tasklists);
         }).finally(() => {
           setIsPost(null);
         });
     getBoard();
-    console.log(lists);
+    // console.log(lists);
   }, [isPost]);
 
   const postCreateList = async (data, id) =>

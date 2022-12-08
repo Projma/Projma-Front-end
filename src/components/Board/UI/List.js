@@ -10,16 +10,27 @@ import axios from "axios";
 import Loading from "../../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import "../../../styles/ReactToastify.css";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const List = (props) => {
   const [cards, setCards] = useState(props.card);
   const [isclicked, setIsclicked] = useState(false);
   const [inputName, setInputName] = useState("");
-  const [isFail, setIsFail] = useState(false);
+  const [isToast, setIsToast] = useState(false);
   const [isPost, setIsPost] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDel, setIsDel] = useState(false);
 
-  useEffect(() => {}, [isPost]);
+  useEffect(() => {
+    setIsToast(false);
+    setIsDel(false);
+    setIsOpen(false);
+  }, [isPost]);
 
   const optionClickHandler = (event) => {
     setAnchorEl(event.currentTarget);
@@ -34,9 +45,9 @@ const List = (props) => {
   };
 
   const deleteListHandler = () => {
-    console.log("teksjasda");
     setIsPost(true);
     reqDeleteList(props.id);
+    handleClose();
   };
 
   const open = Boolean(anchorEl);
@@ -46,7 +57,7 @@ const List = (props) => {
     await axios
       .post(`http://127.0.0.1:8000/workspaces/board/${id}/create_task/`, data)
       .then(() => {
-        setIsFail(true);
+        setIsToast(true);
         toast.success("کارت با موفقیت ساخته شد", {
           position: toast.POSITION.TOP_CENTER,
           rtl: true,
@@ -54,7 +65,7 @@ const List = (props) => {
       })
       .catch((error) => {
         if (error.response.status === 404) {
-          setIsFail(true);
+          setIsToast(true);
           toast.error("عملیات با خطا مواجه شد", {
             position: toast.POSITION.TOP_CENTER,
             rtl: true,
@@ -68,9 +79,11 @@ const List = (props) => {
 
   const reqDeleteList = async (id) =>
     await axios
-      .delete(`http://127.0.0.1:8000/workspaces/tasklist/${id}/delete_tasklist/`)
+      .delete(
+        `http://127.0.0.1:8000/workspaces/tasklist/${id}/delete_tasklist/`
+      )
       .then(() => {
-        setIsFail(true);
+        setIsToast(true);
         toast.success("لیست با موفقیت حذف شد", {
           position: toast.POSITION.TOP_CENTER,
           rtl: true,
@@ -78,7 +91,7 @@ const List = (props) => {
       })
       .catch((error) => {
         if (error.response.status === 404) {
-          setIsFail(true);
+          setIsToast(true);
           toast.error("عملیات با خطا مواجه شد", {
             position: toast.POSITION.TOP_CENTER,
             rtl: true,
@@ -104,10 +117,14 @@ const List = (props) => {
     // keycard++;
   };
 
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div className="board_list">
       {isPost ? <Loading /> : null}
-      {isFail ? (
+      {isToast ? (
         <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
       ) : null}
       <div className="board_header">
@@ -135,10 +152,46 @@ const List = (props) => {
               </button>
               <button
                 className="board_option-button"
-                onClick={deleteListHandler}
+                onClick={() => {
+                  setIsOpen(true);
+                }}
               >
                 <p className="board_option-text">حذف کردن لیست</p>
               </button>
+              <Dialog
+                open={isOpen}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {"آیا از حذف کردن لیست مطمئن هستید؟"}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText
+                    id="alert-dialog-description"
+                    sx={{ color: "#fff" }}
+                  >
+                    اخطار: با حذف کردن لیست تمام کارت های داخل آن نیز حذف میشود
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <div className="List_dialog-button-container">
+                    <button
+                      onClick={() => {
+                        setIsDel(true);
+                        deleteListHandler();
+                      }}
+                      className="List_dialog-button"
+                    >
+                      تایید
+                    </button>
+                    <button onClick={handleClose} autoFocus className="List_dialog-button">
+                      انصراف
+                    </button>
+                  </div>
+                </DialogActions>
+              </Dialog>
             </div>
           </div>
         </Popover>
