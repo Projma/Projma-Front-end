@@ -8,12 +8,12 @@ import apiInstance from "../../../utilities/axiosConfig";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-const GroupAvatars = () => {
+const GroupAvatars = (props) => {
     const [members, setMembers] = React.useState([]);
     const params = useParams();
     useEffect(() => {
-        // apiInstance.get(`/workspaces/board/${params.id}/members/`).then((res) => {
-        apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
+        apiInstance.get(`/workspaces/board/${params.id}/members/`).then((res) => {
+        // apiInstance.get(`/workspaces/board/${props.boardId}/members/`).then((res) => {
             // console.log(res.data);
             setMembers(res.data);
             // array of members
