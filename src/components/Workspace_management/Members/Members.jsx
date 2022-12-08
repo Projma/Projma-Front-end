@@ -51,17 +51,17 @@ const Members = ({ params }) => {
         setMembers(members);
         console.log(members);
       });
-    apiInstance
-      .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
-      .then((res) => {
-        // console.log(res.data);
-        console.log(res.data);
-        console.log(
-          "*********************************************************"
-        );
-        setWorkspace(res.data);
-      });
-  }, [buttonClicked]);
+    // apiInstance
+    //   .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
+    //   .then((res) => {
+    //     // console.log(res.data);
+    //     console.log(res.data);
+    //     console.log(
+    //       "*********************************************************"
+    //     );
+    //     setWorkspace(res.data);
+    //   });
+  }, []);
   const navigate = useNavigate();
   const copyLink = (e) => {
     console.log(`${baseUrl}workspaces/workspaceowner/${params.id}/invite-link`);

@@ -18,7 +18,7 @@ const Navbar = ({ params }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, [workspace]);
+  }, []);
   // console.log("in nav bar", workspace);
 
   return (

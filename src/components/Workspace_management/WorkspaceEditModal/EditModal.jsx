@@ -30,13 +30,23 @@ const style = {
 };
 
 export default function EditModal({ params }) {
+  const nameRef = React.useRef();
+  const descriptionRef = React.useRef();
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const [page, setPage] = React.useState("");
+  const handleOpen = () => {
+    setOpen(true);
+    // setPage(body);
+    // nameRef.current.value = workspace.name;
+    // descriptionRef.current.value = workspace.description;
+    console.log(workspace);
+  };
   const handleClose = () => {
     // setNewType(workspace.type);
     // setNewName(workspace.name);
     // setNewDescription(workspace.description);
     setOpen(false);
+    // setPage("");
   };
   // console.log("workspace in edit modal", name, description, type);
   const [newType, setNewType] = React.useState("");
@@ -117,6 +127,7 @@ export default function EditModal({ params }) {
             <PerTextField>
               <label className="ws_editmodal-label">نام فضای کار</label>
               <StyledTextField
+                ref={nameRef}
                 className="board-name"
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
@@ -124,6 +135,7 @@ export default function EditModal({ params }) {
               />
               <label className="ws_editmodal-label">توضیحات</label>
               <StyledTextField
+                ref={descriptionRef}
                 className="board-name"
                 onChange={(e) => setNewDescription(e.target.value)}
                 value={newDescription}
@@ -132,10 +144,10 @@ export default function EditModal({ params }) {
               <label className="ws_editmodal-label">نوع فضای کار</label>
               <BasicSelect type={workspace.type} setNewType={setNewType} />
               {/* <StyledTextField
-                className="board-name"
-                value={workspace.type}
-                sx={{ textAlign: "center", fontFamily: "Vazir" }}
-              /> */}
+            className="board-name"
+            value={workspace.type}
+            sx={{ textAlign: "center", fontFamily: "Vazir" }}
+          /> */}
             </PerTextField>
             <input
               type="submit"
