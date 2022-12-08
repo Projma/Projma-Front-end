@@ -20,7 +20,7 @@ const Board = () => {
   useEffect(() => {
     const getBoard = async () =>
       await axios
-        .get("http://127.0.0.1:8000/workspaces/board/1/get_board_overview/")
+        .get("http://127.0.0.1:8000/workspaces/board/1/get-board-overview/")
         .then((response) => {
           // console.log(response.data);
           // console.log(response.data.tasklists);
@@ -35,7 +35,7 @@ const Board = () => {
   const postCreateList = async (data, id) =>
     await axios
       .post(
-        `http://127.0.0.1:8000/workspaces/board/${id}/create_tasklist/`,
+        `http://127.0.0.1:8000/workspaces/board/${id}/create-tasklist/`,
         data
       )
       .then(() => {

@@ -13,7 +13,6 @@
 
 .card_item-label-name {
   color: #fff;
-  font-size: 1.1rem;
   text-align: center;
 }
 
@@ -25,6 +24,7 @@
 
 .Card_item_label-with-name {
   padding: 0.3rem;
+  font-size: 1.1rem;
   display: flex;
   /* align-items: flex-start;
   justify-content: flex-start; */

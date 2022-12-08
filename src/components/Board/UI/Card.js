@@ -75,7 +75,7 @@ const Card = (props) => {
             <CardLabel
               key={x.id}
               color={x.color}
-              name={x.name}
+              name={x.title}
               onClick={() => {
                 outSideButton = true;
                 setShowLabelName(!showLabelName);

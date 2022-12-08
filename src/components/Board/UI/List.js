@@ -38,7 +38,7 @@ const List = (props) => {
 
   const reqCreateCard = async (data, id) =>
     await axios
-      .post(`http://127.0.0.1:8000/workspaces/board/${id}/create_task/`, data)
+      .post(`http://127.0.0.1:8000/workspaces/board/${id}/create-task/`, data)
       .then(() => {
         setIsToast(true);
         toast.success("کارت با موفقیت ساخته شد", {
@@ -63,7 +63,7 @@ const List = (props) => {
   const reqDeleteList = async (id) =>
     await axios
       .delete(
-        `http://127.0.0.1:8000/workspaces/tasklist/${id}/delete_tasklist/`
+        `http://127.0.0.1:8000/workspaces/tasklist/${id}/delete-tasklist/`
       )
       .then(() => {
         setIsToast(true);
@@ -89,7 +89,7 @@ const List = (props) => {
   const reqEditListName = async (data,id) =>
     await axios
       .patch(
-        `http://127.0.0.1:8000/workspaces/tasklist/${id}/update_tasklist/`,data
+        `http://127.0.0.1:8000/workspaces/tasklist/${id}/update-tasklist/`,data
       )
       .then(() => {
         setIsToast(true);
