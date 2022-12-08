@@ -29,7 +29,7 @@ const theme = createTheme(
   {
     typography: {
       fontFamily: "Vazir",
-      htmlFontSize: 9, // 10 (1rem = 9px) 
+      htmlFontSize: 9, // 10 (1rem = 9px)
     },
   },
   faIR
@@ -63,7 +63,11 @@ function App() {
               path="/email-verification"
               element={<Email_verification_2 />}
             />
-            <Route exact path="/taskmodal" element={<TaskModal />} />
+            <Route
+              exact
+              path="/:board_id/taskmodal/:task_id/*"
+              element={<TaskModal />}
+            />
           </Routes>
         </Router>
       </Provider>
