@@ -39,9 +39,7 @@ const Card = (props) => {
 
   const reqDeleteCard = async (id) =>
     await axios
-      .delete(
-        `http://127.0.0.1:8000/workspaces/task/${id}/`
-      )
+      .delete(`http://127.0.0.1:8000/workspaces/task/${id}/`)
       .then(() => {
         setIsToast(true);
         toast.success("کارت با موفقیت حذف شد", {
@@ -73,9 +71,10 @@ const Card = (props) => {
   };
 
   const cardDeleteHandler = () => {
+    isIn = true;
     setIsOpen(true);
     reqDeleteCard(props.id);
-    console.log("cardDeleteHandler ",isOpen);
+    console.log("cardDeleteHandler ", isOpen);
   };
 
   // const deleteCardHandler = () => {
@@ -85,12 +84,12 @@ const Card = (props) => {
   //   console.log("deleteCardHandler ",isOpen);
   //   setIsOpen(false);
   // };
-  
+
   const cardEditHandler = () => {
     isIn = true;
     // navigate("/signin");
   };
-  
+
   // const handleClose = () => {
   //   Event.stopPropation();
   //   setIsOpen(false);
@@ -124,12 +123,7 @@ const Card = (props) => {
             cardDeleteHandler();
           }}
         >
-          <CloseIcon
-            className="board_close-icon board_default-icon"
-            onClick={() => {
-              cardDeleteHandler();
-            }}
-          />
+          <CloseIcon className="board_close-icon board_default-icon" />
           {/* <Dialog
             open={isOpen}
             onClose={handleClose}
