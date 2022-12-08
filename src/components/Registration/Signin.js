@@ -25,6 +25,8 @@ import { useNavigate } from "react-router-dom";
 import { wait } from "@testing-library/user-event/dist/utils";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../actions/authActions";
+import { useState } from "react";
+import Loading from "../Shared/Loading";
 
 // toast.configure();
 function delay(time) {
@@ -51,12 +53,11 @@ export default function SignIn() {
   const [errorUsername, setErrorUsername] = React.useState(false);
   const [password, setPassword] = React.useState("");
   const [errorPassword, setErrorPassword] = React.useState(false);
+  const [isPost, setIsPost] = useState(false);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   let navigate = useNavigate();
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
-  const notify = () =>
-    toast("Wow so easy!", { position: toast.POSITION.TOP_LEFT });
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrorUsername(false);
@@ -68,18 +69,7 @@ export default function SignIn() {
     const login_form_data = new FormData();
     login_form_data.append("username", username);
     login_form_data.append("password", password);
-
-    // const reactData = [{username:'username', password:'password'}];
-    // axios
-    //   .post(
-    //     "http://mohammadosoolian.pythonanywhere.com/accounts/login/token/",
-    //     login_form_data
-    //   )
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.log(err));
-    // console.log("username");
-    // console.log(reactData);
-
+    setIsPost(true);
     apiInstance
       .post("accounts/login/token/", login_form_data)
       .then((response) => {
@@ -91,14 +81,10 @@ export default function SignIn() {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        // dispatch({ type: "LOGIN" });
-        // dispatch({ type: "SET_USER", payload: response.data.user });
-        // dispatch({type: LOGIN,payload: userData})
         dispatch(login()); // here give user data
         console.log("state");
         console.log(state);
         delay(7000).then(() => navigate("/dashboard"));
-        // navigate("/dashboard");
       })
       .catch((error) => {
         console.log("error");
@@ -106,6 +92,9 @@ export default function SignIn() {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
+      })
+      .finally(() => {
+        setIsPost(null);
       });
   };
 
@@ -119,6 +108,7 @@ export default function SignIn() {
 
   return (
     <div>
+      {isPost ? <Loading /> : null}
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
           <Container
