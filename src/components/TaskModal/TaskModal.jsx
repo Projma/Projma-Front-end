@@ -1,5 +1,6 @@
 import * as React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useParams } from "react-router-dom";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import createCache from "@emotion/cache";
@@ -45,6 +46,7 @@ const cacheRtl = createCache({
 });
 
 export default function TaskModal() {
+  const params = useParams();
   const cars = ["ن‌ا", "وم", "س‌ع"];
   function handleRemove(index) {
     setListOfCheckboxes(
@@ -659,7 +661,7 @@ export default function TaskModal() {
                     <LabelIcon rotate="90" fontSize="large"></LabelIcon>{" "}
                     <div className="taskmodal-smaller-button">لیبل</div>
                   </Button> */}
-                  <Labels />
+                  <Labels params={params} />
                   <Button
                     className="taskmodal-smaller-button-inner"
                     sx={{
