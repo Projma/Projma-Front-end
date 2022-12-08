@@ -4,6 +4,7 @@ import "../Styles/Board.css";
 import PerTextField from "../../Shared/PerTextField";
 import StyledTextField from "../../Shared/StyledTextField";
 import { DragDropContext } from "react-beautiful-dnd";
+import InvitationHeader from "../InvitationHeader/InvitationHeader";
 import { v4 as uuid } from "uuid";
 import axios from "axios";
 import Loading from "../../Shared/Loading";
@@ -81,6 +82,8 @@ const Board = (props) => {
   }
 
   return (
+    <>
+    <InvitationHeader/>
     <div className="board_list-container font-fix">
       {isPost ? <Loading /> : null}
       {isFail ? (
@@ -126,6 +129,7 @@ const Board = (props) => {
         )}
       </div>
     </div>
+    </>
   );
 };
 
