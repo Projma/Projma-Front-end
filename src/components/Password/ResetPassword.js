@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import StyledTextField from "../Shared/StyledTextField";
-import Footer from "./Footer";
+import Footer from "../Shared/Footer";
 import PerTextField from "../Shared/PerTextField";
 import Loading from "../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";

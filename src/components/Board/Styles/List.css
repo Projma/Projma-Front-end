@@ -2,6 +2,7 @@
   /* max-width: 30rem; */
   width: 30rem;
   /* max-width: 30rem; */
+  height: min-content;
   max-height: fit-content;
   background-color: #0a1929;
   border-radius: 1rem;
@@ -19,6 +20,7 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 0.1em solid #163658;
+  gap: 0.5rem;
 }
 
 .board_header-title {
@@ -149,6 +151,44 @@
   flex-direction: column;
   align-items: flex-start;
   margin: 0 !important;
+}
+
+.MuiDialog-paper {
+  background-color: #0a1929 !important;
+  border: 0.2rem solid #5090D3 !important;
+  color: #fff !important;
+}
+
+.List_dialog-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.3rem;
+}
+
+.List_dialog-button {
+  background-color: #163658;
+  border: 0.2rem solid #5090D3;
+  color: #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.List_dialog-button:hover {
+  cursor: pointer;
+  opacity: 60%;
+}
+
+/* .Mui-focused {
+  background-color: #163658 !important;
+  border: 0.2rem solid #5090D3;
+  border-radius: 0.5rem;
+} */
+
+.MuiInput-root {
+  color: #fff !important;
+  font-size: 2rem !important;
 }
 
 @media screen and (max-width: 30em) {

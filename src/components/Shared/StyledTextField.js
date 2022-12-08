@@ -28,11 +28,11 @@ const StyledTextField = styled(TextField)({
     },
   [`& .${inputLabelClasses.outlined}`]: {
     color: "#fff",
-    fontSize: "1.4rem"
+    fontSize: "1.4rem",
   },
   [`& .${inputLabelClasses.filled}`]: {
     color: "#fff",
-    fontSize: "1.4rem"
+    fontSize: "1.4rem",
   },
   [`&:hover .${inputLabelClasses.outlined}`]: {
     color: "#fff",
@@ -42,12 +42,17 @@ const StyledTextField = styled(TextField)({
   },
   [`& .${inputLabelClasses.filled}.${inputLabelClasses.focused}`]: {
     color: "#fff",
-    fontSize: "1.5rem"
+    fontSize: "1.5rem",
   },
   [`& .${filledInputClasses.root}.${filledInputClasses.focused} .${filledInputClasses.input}`]:
     {
       color: "#fff",
-      fontSize: "1.6rem"
+      fontSize: "1.6rem",
+    },
+  [`& .${filledInputClasses.root} .${filledInputClasses.input}`]:
+    {
+      color: "#fff",
+      fontSize: "1.2rem",
     },
 });
 

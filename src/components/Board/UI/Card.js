@@ -94,108 +94,98 @@ const Card = (props) => {
   };
 
   return (
-    <Draggable key={props.id} draggableId={props.id} index={props.index}>
-      {(provided) => (
+    <div
+      className="board_card"
+      onClick={() => {
+        cardClickHandker();
+      }}
+    >
+      <div className="board_icon_container">
         <div
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
+          className="board_icon-box"
+          onClick={() => {
+            cardEditHandler();
+          }}
         >
-          <div
-            className="board_card"
+          <EditIcon className="board_edit-icon board_default-icon" />
+        </div>
+        <div
+          className="board_icon-box"
+          onClick={() => {
+            cardDeleteHandler();
+          }}
+        >
+          <CloseIcon className="board_close-icon board_default-icon" />
+        </div>
+      </div>
+      <div className="board_card-label">
+        {label.map((x) => (
+          <CardLabel
+            key={x.id}
+            color={x.color}
+            name={x.name}
             onClick={() => {
-              cardClickHandker();
+              outSideButton = true;
+              setShowLabelName(!showLabelName);
             }}
+            show={showLabelName}
+          />
+        ))}
+      </div>
+      <div className="board_card-title">
+        {/* <InputName name={props.name} color="#212121"/> */}
+        <p className="board_title">{props.name}</p>
+      </div>
+      <div className="board_footer">
+        <div className="board_card-avatar">
+          <AvatarGroup
+            max={5}
+            spacing="medium"
+            sx={{ direction: "ltr", border: "none" }}
+            className="board_avatar-container"
           >
-            <div className="board_icon_container">
-              <div
-                className="board_icon-box"
-                onClick={() => {
-                  cardEditHandler();
-                }}
-              >
-                <EditIcon className="board_edit-icon board_default-icon" />
-              </div>
-              <div
-                className="board_icon-box"
-                onClick={() => {
-                  cardDeleteHandler();
-                }}
-              >
-                <CloseIcon className="board_close-icon board_default-icon" />
-              </div>
-            </div>
-            <div className="board_card-label">
-              {label.map((x) => (
-                <CardLabel
+            {members.map((x) => (
+              <Tooltip title={x.name}>
+                <Avatar
                   key={x.id}
-                  color={x.color}
-                  name={x.name}
-                  onClick={() => {
-                    outSideButton = true;
-                    setShowLabelName(!showLabelName);
-                  }}
-                  show={showLabelName}
+                  alt={x.name}
+                  src={x.avatar !== null ? x.avatar : "none"}
+                  {...stringAvatar(x.name)}
+                  className="board_avatar-profile-picture"
                 />
-              ))}
-            </div>
-            <div className="board_card-title">
-              {/* <InputName name={props.name} color="#212121"/> */}
-              <p className="board_title">{props.name}</p>
-            </div>
-            <div className="board_footer">
-              <div className="board_card-avatar">
-                <AvatarGroup
-                  max={5}
-                  spacing="medium"
-                  sx={{ direction: "ltr", border: "none" }}
-                  className="board_avatar-container"
-                >
-                  {members.map((x) => (
-                    <Tooltip title={x.name}>
-                      <Avatar
-                        key={x.id}
-                        alt={x.name}
-                        src={x.avatar !== null ? x.avatar : "none"}
-                        {...stringAvatar(x.name)}
-                        className="board_avatar-profile-picture"
-                      />
-                    </Tooltip>
-                  ))}
-                </AvatarGroup>
+              </Tooltip>
+            ))}
+          </AvatarGroup>
+        </div>
+        <div className="board_footer-icon">
+          <div className="board_icon-container">
+            <AttachFileIcon className="board_default-footer-icon" />
+            <p className="board_icon-info">{iconshow.attach}</p>
+          </div>
+          <div>
+            {iconshow.checkdone === iconshow.checktotal ? (
+              <div className="board_icon-container">
+                <CheckBoxOutlinedIcon className="board_default-footer-icon board_checklist-finish" />
+                <p className="board_icon-info ">
+                  {iconshow.checkdone}/{iconshow.checktotal}
+                </p>
               </div>
-              <div className="board_footer-icon">
-                <div className="board_icon-container">
-                  <AttachFileIcon className="board_default-footer-icon" />
-                  <p className="board_icon-info">{iconshow.attach}</p>
-                </div>
-                <div>
-                  {iconshow.checkdone === iconshow.checktotal ? (
-                    <div className="board_icon-container">
-                      <CheckBoxOutlinedIcon className="board_default-footer-icon board_checklist-finish" />
-                      <p className="board_icon-info ">
-                        {iconshow.checkdone}/{iconshow.checktotal}
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="board_icon-container">
-                      <CheckBoxOutlinedIcon className="board_default-footer-icon" />
-                      <p className="board_icon-info">
-                        {iconshow.checkdone}/{iconshow.checktotal}
-                      </p>
-                    </div>
-                  )}
-                </div>
-                <div className="board_icon-container">
-                  <ChatBubbleIcon className="board_default-footer-icon" />
-                  <p className="board_icon-info">{iconshow.comment}</p>
-                </div>
+            ) : (
+              <div className="board_icon-container">
+                <CheckBoxOutlinedIcon className="board_default-footer-icon" />
+                <p className="board_icon-info">
+                  {iconshow.checkdone}/{iconshow.checktotal}
+                </p>
               </div>
-            </div>
+            )}
+          </div>
+          <div className="board_icon-container">
+            <ChatBubbleIcon className="board_default-footer-icon" />
+            <p className="board_icon-info">{iconshow.comment}</p>
           </div>
         </div>
-      )}
-    </Draggable>
+      </div>
+    </div>
   );
 };
 
