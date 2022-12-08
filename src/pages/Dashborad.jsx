@@ -135,8 +135,8 @@ export const Dashborad = () => {
     }
 
     const navigateToBoard = (boardId) => {
-        navigate(`/board/`);
-        // navigate(`/board/${boardId}`);
+        // navigate(`/board/`);
+        navigate(`/kanban/${boardId}`);
     }
 
     const computer_tabs = {

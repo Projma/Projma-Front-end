@@ -1,6 +1,5 @@
 import * as React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useParams } from "react-router-dom";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import createCache from "@emotion/cache";
@@ -19,7 +18,6 @@ import StyledTextField from "../Shared/StyledTextField";
 import { CacheProvider } from "@emotion/react";
 import { red } from "@mui/material/colors";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { Calendar } from "react-multi-date-picker";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
@@ -39,7 +37,6 @@ import DehazeIcon from "@mui/icons-material/Dehaze";
 import LabelIcon from "@mui/icons-material/Label";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Checkbox from "@mui/material/Checkbox";
-import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 
 const theme = createTheme({
@@ -52,7 +49,7 @@ const cacheRtl = createCache({
 });
 
 export default function TaskModal() {
-  const params = useParams();
+  // const params = useParams();
   const cars = ["ن‌ا", "وم", "س‌ع"];
   function handleRemove(index) {
     setListOfCheckboxes(
@@ -728,7 +725,6 @@ export default function TaskModal() {
                     <AttachFileIcon fontSize="large"></AttachFileIcon>{" "}
                     <div className="taskmodal-smaller-button">پیوست</div>
                   </Button>{" "}
-                  */}
                   <Attachments params={params} />
                 </div>
               </div>
