@@ -4,8 +4,35 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import apiInstance from "../../../utilities/axiosConfig";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const GroupAvatars = () => {
+    const [members, setMembers] = React.useState([]);
+    const params = useParams();
+    useEffect(() => {
+        // apiInstance.get(`/workspaces/board/${params.id}/members/`).then((res) => {
+        apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
+            // console.log(res.data);
+            setMembers(res.data);
+            // array of members
+            // "user": {
+            //     "id": 1,
+            //     "first_name": "",
+            //     "last_name": "",
+            //     "username": "superuser",
+            //     "password": "pbkdf2_sha256$390000$KpLcn5HQQv28LKn5PcbOvQ$si5sOOcWlTO+3U2Gwu1TqldM9TQ/F44Z7VcQiDJwZD0=",
+            //     "email": "superuser@gmail.com"
+            //   },
+            //   "birth_date": null,
+            //   "bio": null,
+            //   "phone": null,
+            //   "profile_pic": null,
+            //   "role": "Member"
+            // }
+        });
+    }, []);
     // like Card.js
     return (
         <div className="board_card-avatar">
@@ -19,26 +46,31 @@ const GroupAvatars = () => {
                 }}
             // className="board_avatar-container"
             >
-                {/* {members.map((x) => (
-                <Tooltip title={x.name}>
+                {members.map((x) => (
+                <Tooltip title={x.user.username}>
                     <Avatar
                         key={x.id}
-                        alt={x.name}
-                        src={x.avatar !== null ? x.avatar : "none"}
-                        {...stringAvatar(x.name)}
+                        alt={(x.user.first_name + " " + x.user.last_name).toString()}
+                        src={x.profile_pic !== null ? x.profile_pic : "none"}
+                        {...stringAvatar((x.user.first_name + " " + x.user.last_name).toString())}
                         className="board_avatar-profile-picture"
                     />
                 </Tooltip>
-            } */}
-                <Avatar alt="Remy Sharp" />
+                ))}
+
+                {/* <Avatar alt="Remy Sharp" />
                 <Avatar alt="Travis Howard" />
                 <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
                 <Avatar alt="Agnes Walker" src="/static/images/avatar/4.jpg" />
-                <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
+                <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" /> */}
+
             </AvatarGroup>
         </div>
     )
 }
+
+
+export default GroupAvatars
 
 function stringToColor(string) {
     let hash = 0;
@@ -73,6 +105,3 @@ function stringAvatar(name) {
     //         .toUpperCase()}`,
     // };
 }
-
-
-export default GroupAvatars
