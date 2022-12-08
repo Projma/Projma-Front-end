@@ -251,3 +251,44 @@
   justify-content: left;
   align-items: left;
 }
+.taskmodal-larger_smaller {
+  display: flex;
+  flex-direction: row;
+}
+
+@media screen and (max-width: 600px) {
+  .taskmodal-title {
+    font-size: 13px;
+  }
+
+  .taskmodal-subtitle {
+    font-size: 10px;
+    margin-bottom: 10%;
+  }
+
+  .taskmodal-body-larger-description-textbox {
+    width: 100%;
+    padding-top: 5%;
+    padding-left: 0%;
+  }
+  .taskmodal-closeButton {
+    width: 100%;
+  }
+  .taskmodal-closeButton {
+    font-size: 90% !important;
+  }
+  .taskmodal-body-smaller {
+    flex-direction: row;
+  }
+  .taskmodal-container {
+    width: 90%;
+    justify-content: center;
+    align-items: center;
+  }
+  .taskmodal-larger_smaller {
+    flex-direction: column-reverse;
+  }
+  .taskmodal-body-smaller {
+    width: 100%;
+  }
+}

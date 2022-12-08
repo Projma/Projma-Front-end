@@ -39,6 +39,8 @@ import DehazeIcon from "@mui/icons-material/Dehaze";
 import LabelIcon from "@mui/icons-material/Label";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Checkbox from "@mui/material/Checkbox";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -60,11 +62,20 @@ export default function TaskModal() {
     );
   }
   function handleRemoveOfComment(index) {
-    setListOfComments(
-      ListOfComments.filter((item, i) => {
-        return i !== index;
-      })
-    );
+    apiInstance
+      .delete(`/workspaces/comment/${index}/delete-comment/`)
+      .then((response) => {
+        console.log(response);
+      });
+  }
+  function handleEditComment(index) {
+    const formData = new FormData();
+    formData.append("text", Comment);
+    apiInstance
+      .delete(`/workspaces/comment/${index}/eddit-comment/`, formData)
+      .then((response) => {
+        console.log(response);
+      });
   }
 
   function handleEditCommentSubmit(index, comment) {
@@ -170,9 +181,15 @@ export default function TaskModal() {
   const [showChecklist, setShowChecklist] = useState(false);
   const [Comment, setComment] = useState("");
   const [editcomment, setEditComment] = useState(false);
+  const params = useParams();
   const handleSubmit = (event) => {
     event.preventDefault();
     setShowDescription(false);
+    apiInstance
+      .patch(`/workspaces/task/${params.task_id}/update-task/`, description)
+      .then((res) => {
+        console.log(ListOfComments);
+      });
   };
   const sendData = (event) => {
     event.preventDefault();
@@ -184,13 +201,36 @@ export default function TaskModal() {
   };
   const handleCommentSubmit = (event) => {
     event.preventDefault();
-    setListOfComments((prevState) => [...prevState, Comment]);
-    console.log(Comment);
-    setComment("");
-    console.log(ListOfComments);
-
+    const formData = new FormData();
+    formData.append("text", Comment);
+    // console.log(Comment);
+    // setComment("");
+    // console.log(ListOfComments);
+    console.log(params.task_id);
+    apiInstance
+      .post(`/workspaces/task/${params.task_id}/new-comment/`, formData)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     setShowComment(false);
   };
+  useEffect(() => {
+    apiInstance
+      .get(`/workspaces/task/${params.task_id}/get-task/`)
+      .then((res) => {
+        const comments = res.data.comments.map((obj) => ({
+          text: obj.text,
+          created: obj.created_at,
+          id: obj.id,
+        }));
+        // console.log(res.data.comments[0]);
+        setListOfComments(comments);
+        console.log(ListOfComments);
+      });
+  }, []);
   return (
     <div>
       <CacheProvider value={cacheRtl}>
@@ -215,7 +255,7 @@ export default function TaskModal() {
                 </div>
               </div>
               <div
-                className="flex-row"
+                className="taskmodal-larger_smaller"
                 style={{ height: "80%", marginRight: "2%" }}
               >
                 <div className="taskmodal-body-larger">
@@ -574,16 +614,14 @@ export default function TaskModal() {
                                   autoFocus
                                   onChange={(e) => {
                                     setComment(e.target.value);
-                                    console.log("navid");
                                   }}
-                                  value={Comment}
+                                  value={item.text}
                                 ></StyledTextField>
                                 <div dir="ltr" style={{ marginTop: "3%" }}>
                                   <Button
                                     onClick={() => {
-                                      ListOfComments[index] = Comment;
                                       setEditComment(false);
-                                      setComment("");
+                                      handleEditComment(item.id);
                                     }}
                                     variant="contained"
                                     className="taskmodal-button-setting"
@@ -607,11 +645,13 @@ export default function TaskModal() {
                             ) : (
                               <div>
                                 <div className="taskmodal-comment-showList-comment">
-                                  {item}
+                                  {item.text}
                                 </div>
                                 <div className="taskmodal-comment-button">
                                   <Button
-                                    onClick={() => handleRemoveOfComment(index)}
+                                    onClick={() =>
+                                      handleRemoveOfComment(item.id)
+                                    }
                                     sx={{
                                       fontFamily: "Vazir",
                                       color: "white",
@@ -632,7 +672,6 @@ export default function TaskModal() {
                                     }}
                                     onClick={() => {
                                       setEditComment(true);
-                                      setComment(ListOfComments[index]);
                                     }}
                                   >
                                     ویرایش
@@ -654,7 +693,7 @@ export default function TaskModal() {
                     <PersonIcon fontSize="large"></PersonIcon>{" "}
                     <div className="taskmodal-smaller-button">اعضا</div>
                   </Button> */}
-                  <Members />
+                  <Members params={params} />
                   {/* <Button
                     className="taskmodal-smaller-button-inner"
                     sx={{
