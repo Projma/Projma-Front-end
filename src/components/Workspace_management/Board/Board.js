@@ -63,7 +63,7 @@ const Board = ({ params, on_submit }) => {
   // };
   const [open, setOpen] = useState(false);
   return (
-    <div className="board">
+    <div className="board" style={{ width: "100%" }}>
       <Navbar params={params} />
       {list.find((e) => e.isStarred === true) && (
         <div>
