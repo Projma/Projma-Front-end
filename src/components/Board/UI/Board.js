@@ -5,7 +5,7 @@ import PerTextField from "../../Shared/PerTextField";
 import StyledTextField from "../../Shared/StyledTextField";
 import { DragDropContext } from "react-beautiful-dnd";
 import { v4 as uuid } from 'uuid';
-
+import InvitationHeader from "../InvitationHeader/InvitationHeader";
 
 let keylist = 1000;
 
@@ -111,6 +111,8 @@ const Board = () => {
   // }
 
   return (
+    <>
+    <InvitationHeader/>
     <div className="board_list-container font-fix">
       <DragDropContext
         onDragEnd={(result) => onDragEnd(result, lists, setLists)}
@@ -151,6 +153,7 @@ const Board = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 
