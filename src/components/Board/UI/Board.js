@@ -10,7 +10,7 @@ import Loading from "../../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import "../../../styles/ReactToastify.css";
 
-const Board = () => {
+const Board = (props) => {
   const [lists, setLists] = useState([]);
   const [isclicked, setIsclicked] = useState(false);
   const [inputName, setInputName] = useState("");
@@ -20,7 +20,7 @@ const Board = () => {
   useEffect(() => {
     const getBoard = async () =>
       await axios
-        .get("http://127.0.0.1:8000/workspaces/board/1/get-board-overview/")
+        .get(`http://127.0.0.1:8000/workspaces/board/${props.boardId}/get-board-overview/`)
         .then((response) => {
           // console.log(response.data);
           // console.log(response.data.tasklists);
