@@ -1,23 +1,23 @@
-.modal-header {
+.workspace-modal--modal-header {
   padding: 2px 16px;
   background-color: #5cb85c;
   color: white;
 }
 
 /* Modal Body */
-.modal-body {
+.workspace-modal--modal-body {
   padding: 2px 16px;
 }
 
 /* Modal Footer */
-.modal-footer {
+.workspace-modal--modal-footer {
   padding: 2px 16px;
   background-color: #5cb85c;
   color: white;
 }
 
 /* Modal Content */
-.modal-content {
+.workspace-modal--modal-content {
   position: relative;
   background-color: #fefefe;
   margin: auto;
@@ -29,7 +29,7 @@
   animation-duration: 0.4s;
 }
 
-.board-image {
+.workspace-modal--board-image {
   margin-left: auto;
   margin-right: auto;
   display: block;
@@ -48,17 +48,17 @@
   }
 }
 
-.title-inp {
+.workspace-modal--title-inp {
   color: #000;
   display: block;
 }
 
-.submit-btn {
+.workspace-modal--submit-btn {
   color: #000;
 }
 
 /* CSS */
-.button-29 {
+.workspace-modal--button-29 {
   margin-top: 1.1rem;
   align-items: center;
   appearance: none;
@@ -95,30 +95,30 @@
   font-size: 18px;
 }
 
-.button-29:focus {
+.workspace-modal--button-29:focus {
   box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
     rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
 }
 
-.button-29:hover {
+.workspace-modal--button-29:hover {
   box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
     rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
   transform: translateY(-2px);
 }
 
-.button-29:active {
+.workspace-modal--button-29:active {
   box-shadow: #3c4fe0 0 3px 7px inset;
   transform: translateY(2px);
 }
 
-.board-form {
+.workspace-modal--board-form {
   margin-top: 3rem;
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 10px;
 }
 
-.add-button {
+.workspace-modal--add-button {
   height: 8rem;
   width: 20rem;
   border-radius: 0.5rem;
@@ -130,11 +130,11 @@
   justify-content: center;
 }
 
-.add-button:hover {
+.workspace-modal--add-button:hover {
   cursor: pointer;
   opacity: 80%;
 }
 
-.add-button:hover .add-button-title {
+.workspace-modal--add-button:hover .add-button-title {
   color: #007fff;
 }

@@ -5,15 +5,16 @@ import Grid from "@mui/material/Grid"; // Grid version 1
 import Container from "@mui/material/Container";
 import { Box } from "@mui/system";
 import { Divider } from "@mui/material";
-import Header from "../components/Dashboard/Header/Header";
+import Header from "../components/Header/Header";
 // import Footer from "../components/Landing/Footer/Footer";
-import ResponsiveDrawer from "../components/Dashboard/ResponsiveDrawer/ResponsiveDrawer";
+// import ResponsiveDrawer from "../components/Dashboard/ResponsiveDrawer/ResponsiveDrawer";
 import BasicModal from "../components/Dashboard/Modal/BasicModal";
-import Link from "@mui/material";
+// import Link from "@mui/material";
 import DashboardTwoToneIcon from '@mui/icons-material/DashboardTwoTone';
 import ContentPasteTwoToneIcon from '@mui/icons-material/ContentPasteTwoTone';
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 import AvTimerTwoToneIcon from '@mui/icons-material/AvTimerTwoTone';
+// star icon
 import WorkspacesTwoToneIcon from '@mui/icons-material/WorkspacesTwoTone';
 import HomeRepairServiceTwoToneIcon from '@mui/icons-material/HomeRepairServiceTwoTone';
 import Diversity2TwoToneIcon from '@mui/icons-material/Diversity2TwoTone';
@@ -33,27 +34,110 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Paper from '@mui/material/Paper';
 import { useSelector, useDispatch } from "react-redux";
 import apiInstance from "../utilities/axiosConfig";
+import { useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
 // useMediaQuery
 // import Typography from "@mui/material";
 // rafce
 
 export const Dashborad = () => {
-    const access_token = localStorage.getItem('access_token');
-    // apiInstance.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-    // apiInstance.defaults.headers.headers = {
-    //     'Content-Type': 'application/json',
-    // };
-
     let [workspaces, setWorkspaces] = useState([])
-    apiInstance.get("workspaces/dashboard/myowning_workspaces/").then((response) => {
-        // console.log(response.data);
-        // console.log(response);
-        setWorkspaces(response.data);
-    })
-        .catch((error) => {
-            console.log(error);
+    let [owningWorkspaces, setOwningWorkspaces] = useState([])
+    let [boards, setBoards] = useState([])
+
+    useEffect(() => {
+        apiInstance.get("/workspaces/dashboard/myworkspaces/").then((response) => {
+            // console.log(response.data);
+
+            // array of 
+            // {
+            //     "id": 2,
+            //     "name": "تست 1",
+            //     "description": "تست",
+            //     "type": "education",
+            //     "created_at": "2022-12-01T09:07:35.527499Z",
+            //     "updated_at": "2022-12-01",
+            //     "owner": 11,
+            //     "members": [
+            //         5,
+            //         10,
+            //         11
+            //     ],
+            //     "boards": [
+            //         9,
+            //         10,
+            //         11
+            //     ]
+            // }
+
+            // console.log(response);
+            setWorkspaces(response.data);
+            // console.log(workspaces);
+        }).catch((error) => {
+            // console.log(error);
         });
+
+        apiInstance.get("/workspaces/dashboard/myowning-workspaces/").then((response) => {
+            // console.log(response.data);
+            setOwningWorkspaces(response.data);
+            // setWorkspaces(response.data);
+        }).catch((error) => {
+            // console.log(error);
+        });
+
+        apiInstance.get("/workspaces/dashboard/myboards/").then((response) => {
+            console.log(response.data);
+
+            // array of
+            // {
+            //     "id": 5,
+            //     "name": "فرزان رحمانی",
+            //     "description": "تست",
+            //     "background_pic": null,
+            //     "workspace": 4,
+            //     "admins": [
+            //         11
+            //     ],
+            //     "created_at": "2022-12-01T09:10:30.165930Z",
+            //     "updated_at": "2022-12-01",
+            //     "members": [
+            //         5,
+            //         11
+            //     ],
+            //     "tasklists": [
+            //         2
+            //     ],
+            //     "labels": []
+            // }
+            setBoards(response.data);
+        }).catch((error) => {
+            // console.log(error);
+        });
+
+    }, [])
+
+    const [boardsInfo, setBoardsInfo] = useState([]);
+    useEffect(() => {
+        let res = {};
+        for (let i = 0; i < boards.length; i++) {
+            res[boards[i].id] = boards[i];
+        }
+        console.log("---------------------");
+        console.log(res);
+        setBoardsInfo(res);
+    }, [boards])
+
+    const navigate = useNavigate();
+
+    const navigateToWorkspace = (workspaceId) => {
+        navigate(`/workspace/${workspaceId}`);
+    }
+
+    const navigateToBoard = (boardId) => {
+        // navigate(`/board/`);
+        navigate(`/kanban/${boardId}`);
+    }
 
     const computer_tabs = {
         "boards": {
@@ -61,21 +145,136 @@ export const Dashborad = () => {
             icon: <DashboardTwoToneIcon sx={{ ml: 1.5 }} />,
             content: (
                 <>
-                    <p variant="h1" component="h2" className="text">
+                    <p variant="h1" component="h2" className="text paragraph">
+                        <StarPurple500TwoToneIcon sx={{ ml: 1.5 }} /> بورد های ستاره‌دار
+                    </p>
+                    <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+                    <p variant="h1" component="h2" className="text paragraph">
                         <AvTimerTwoToneIcon sx={{ ml: 1.5 }} /> اخیرا دیده شده
                     </p>
                     {/* <Grid></Grid> */}
                     <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                    <p variant="h1" component="h2" className="text">
+                    <p variant="h1" component="h2" className="text paragraph">
                         <Diversity2TwoToneIcon sx={{
                             // paddingLeft: "1%",
                             // minWidth: "35px",
                             ml: 1.5
                         }} /> فضا های کاری شما
                     </p>
+                    {
+                        workspaces.map((workspace) => {
+                            return (
+                                <>
+                                    <div>
+                                        <p variant="h1" component="h2" className="text paragraph">
+                                            {workspace.name}
+                                        </p>
+                                    </div>
+                                    <Grid
+                                        container
+                                        columns={{ xs: 2, sm: 4, md: 8 }}
+                                        // spacing={{ xs: 1, sm: 2, md: 3 }}
+                                        sx={{
+                                            // paddingTop: "5%",
+                                            // marginTop: "10%",
+                                            marginBottom: "7%",
+                                            // backgroundColor: "#f5f5f5",
+                                        }}
+                                    >
+                                        {/* workspace_boards.map((board) => { */}
+                                        {workspace.boards.map((board_id) => {
+                                            return (
+                                                <Grid item xs={2} sm={2} md={2} key={board_id} sx={{
+                                                }}>
+                                                    <Paper
+                                                        sx={{
+                                                            padding: "3%",
+                                                            textAlign: "center",
+                                                            // color: "#007fff",
+                                                            backgroundColor: "#007fff", // 5090D3
+                                                            borderRadius: "10px",
+                                                            // width: "100%",
+                                                            // height: "100%",
+                                                            // minWidth: "200px",
+                                                            // maxWidth: "300px",
+                                                            minHeight: "150px",
+                                                            // maxHeight: "300px",
+                                                            margin: "10%",
+                                                            // padding: "10px",
+                                                            // display: "flex",
+                                                            // justifyContent: "center",
+                                                            // alignItems: "center",
+                                                            // flexDirection: "column",
+                                                            ":hover": {
+                                                                backgroundColor: "#5090D3",
+                                                                cursor: "pointer",
+                                                            },
+                                                        }}
+                                                        // hover 
+                                                        onClick={() => {
+                                                            // history.push(`/board/${board_id}`);
+                                                            navigateToBoard(board_id);
+                                                        }}
+                                                    >
+                                                        {/* `/workspaces/boardsmemberapi/${board_id}/get-board/` */}
+                                                        <p variant="h1" component="h2" className="text paragraph">
+                                                            {/* check that is null or not */}
+                                                            {boardsInfo[board_id] ? boardsInfo[board_id].name : "بی‌نام"}
+                                                        </p>
+                                                        <p variant="h1" component="h2" className="text paragraph">
+                                                            {boardsInfo[board_id] ? boardsInfo[board_id].description : "بدون توضیحات"}
+                                                        </p>
+                                                        {/* </> */}
+                                                    </Paper>
+                                                </Grid>
+                                            )
+                                        })}
+                                        <Grid item xs={2} sm={2} md={2} sx={{
+                                        }}>
+                                            <Paper
+                                                sx={{
+                                                    // padding: "10%",
+                                                    textAlign: "center",
+                                                    // color: "#007fff",
+                                                    backgroundColor: "#007fff", // 5090D3
+                                                    borderRadius: "10px",
+                                                    // width: "100%",
+                                                    // height: "100%",
+                                                    // minWidth: "200px",
+                                                    // maxWidth: "300px",
+                                                    minHeight: "150px",
+                                                    // maxHeight: "300px",
+                                                    margin: "10%",
+                                                    // padding: "10px",
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                    // flexDirection: "column",
+                                                    ":hover": {
+                                                        backgroundColor: "#5090D3",
+                                                        cursor: "pointer",
+                                                    },
+                                                }}
+                                            // hover 
+                                            // onClick={() => {
+                                            //     navigateToBoard(board_id);
+                                            //     open create modal board
+                                            // }}
+                                            >
+                                                <p variant="h1" component="h2" className="add--text">
+                                                    ساخت بورد جدید
+                                                </p>
+                                            </Paper>
+                                        </Grid>
+                                        {/*  */}
+                                    </Grid>
+                                </>
+                            )
+                        })
+                    }
                     {/* Grid */}
                     <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                    <p variant="h1" component="h2" className="text">
+                    <p variant="h1" component="h2" className="text paragraph">
                         <HomeRepairServiceTwoToneIcon sx={{ ml: 1.5 }} /> فضا های مهمان
                     </p>
                 </>
@@ -88,14 +287,14 @@ export const Dashborad = () => {
         //         // <a className="option" href="#"><ContentPasteTwoToneIcon /> </a>
         //         <>
         //             <p><ViewDayTwoToneIcon sx={{ ml: 1.5 }} />تمپلیت های گوناگون </p>
-        //             <ul>
-        //                 <li>مدیریت</li>
+        //             <ul className="unOrderList">
+        //                 <li className="list">مدیریت</li>
         //                 <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-        //                 <li>تیمی</li>
+        //                 <li className="list">تیمی</li>
         //                 <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-        //                 <li>صنعتی</li>
+        //                 <li className="list">صنعتی</li>
         //                 <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-        //                 <li>مالی</li>
+        //                 <li className="list">مالی</li>
         //             </ul>
         //         </>
         //     )
@@ -106,17 +305,17 @@ export const Dashborad = () => {
             content: (
                 // <a className="option" href="#"><HomeTwoToneIcon /> </a>
                 <>
-                    <p variant="h1" component="h2" className="text">
+                    <p variant="h1" component="h2" className="text paragraph">
                         <StarPurple500TwoToneIcon sx={{ ml: 1.5 }} /> برجسته ها
                     </p>
                     {/* <Grid></Grid> */}
                     <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                    <p variant="h1" component="h2" className="text">
+                    <p variant="h1" component="h2" className="text paragraph">
                         <DeveloperBoardTwoToneIcon sx={{ ml: 1.5 }} /> ساخت بورد جدید
                     </p>
                     {/* Grid */}
                     <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                    <p variant="h1" component="h2" className="text">
+                    <p variant="h1" component="h2" className="text paragraph">
                         <MessageTwoToneIcon sx={{ ml: 1.5 }} /> پیام ها
                     </p>
                 </>
@@ -130,12 +329,16 @@ export const Dashborad = () => {
             icon: <DashboardTwoToneIcon sx={{ ml: 1.5 }} />,
             content: (
                 <>
-                    <p variant="h1" component="h2" className="text">
+                    <p variant="h1" component="h2" className="text paragraph">
+                        <StarPurple500TwoToneIcon sx={{ ml: 1.5 }} /> بورد های ستاره‌دار
+                    </p>
+                    <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+                    <p variant="h1" component="h2" className="text paragraph">
                         <AvTimerTwoToneIcon sx={{ ml: 1.5 }} /> اخیرا دیده شده
                     </p>
                     {/* <Grid></Grid> */}
                     <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                    <p variant="h1" component="h2" className="text">
+                    <p variant="h1" component="h2" className="text paragraph">
                         <Diversity2TwoToneIcon sx={{
                             // paddingLeft: "1%",
                             // minWidth: "35px",
@@ -143,8 +346,118 @@ export const Dashborad = () => {
                         }} /> فضا های کاری شما
                     </p>
                     {/* Grid */}
+                    {
+                        workspaces.map((workspace) => {
+                            return (
+                                <>
+                                    <div>
+                                        <p variant="h1" component="h2" className="text paragraph">
+                                            {workspace.name}
+                                        </p>
+                                    </div>
+                                    <Grid
+                                        container
+                                        columns={{ xs: 2, sm: 4, md: 8 }}
+                                        // spacing={{ xs: 1, sm: 2, md: 3 }}
+                                        sx={{
+                                            // paddingTop: "5%",
+                                            // marginTop: "10%",
+                                            marginBottom: "10%",
+                                            // backgroundColor: "#f5f5f5",
+                                        }}
+                                    >
+                                        {workspace.boards.map((board_id) => {
+                                            return (
+                                                <Grid item xs={2} sm={2} md={2} key={board_id} sx={{
+                                                }}>
+                                                    <div >
+                                                        {/* // style={{}}> */}
+                                                        <Paper
+                                                            sx={{
+                                                                padding: "2%",
+                                                                textAlign: "center",
+                                                                // color: "#007fff",
+                                                                backgroundColor: "#007fff", // 5090D3
+                                                                borderRadius: "10px",
+                                                                // width: "100%",
+                                                                // height: "100%",
+                                                                // minWidth: "200px",
+                                                                // maxWidth: "300px",
+                                                                minHeight: "150px",
+                                                                // maxHeight: "300px",
+                                                                margin: "10%",
+                                                                // padding: "100px",
+                                                                // display: "flex",
+                                                                // justifyContent: "center",
+                                                                // alignItems: "center",
+                                                                // flexDirection: "column",
+                                                                ":hover": {
+                                                                    backgroundColor: "#5090D3",
+                                                                    cursor: "pointer",
+                                                                },
+                                                            }}
+                                                            // hover 
+                                                            onClick={() => {
+                                                                // history.push(`/board/${board_id}`);
+                                                                navigateToBoard(board_id);
+                                                            }}
+                                                        >
+                                                            <p variant="h1" component="h2" className="text paragraph">
+                                                                {/* check that is null or not */}
+                                                                {boardsInfo[board_id] ? boardsInfo[board_id].name : "بی‌نام"}
+                                                            </p>
+                                                            <p variant="h1" component="h2" className="text paragraph">
+                                                                {boardsInfo[board_id] ? boardsInfo[board_id].description : "بدون توضیحات"}
+                                                            </p>
+                                                        </Paper>
+                                                    </div>
+                                                </Grid>
+                                            )
+                                        })}
+                                        <Grid item xs={2} sm={2} md={2} sx={{
+                                        }}>
+                                            <Paper
+                                                sx={{
+                                                    // padding: "10%",
+                                                    textAlign: "center",
+                                                    // color: "#007fff",
+                                                    backgroundColor: "#007fff", // 5090D3
+                                                    borderRadius: "10px",
+                                                    // width: "100%",
+                                                    // height: "100%",
+                                                    // minWidth: "200px",
+                                                    // maxWidth: "300px",
+                                                    minHeight: "150px",
+                                                    // maxHeight: "300px",
+                                                    margin: "10%",
+                                                    // padding: "10px",
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                    // flexDirection: "column",
+                                                    ":hover": {
+                                                        backgroundColor: "#5090D3",
+                                                        cursor: "pointer",
+                                                    },
+                                                }}
+                                            // hover 
+                                            // onClick={() => {
+                                            //     navigateToBoard(board_id);
+                                            //     open create modal board
+                                            // }}
+                                            >
+                                                <p variant="h1" component="h2" className="add--text">
+                                                    ساخت بورد جدید
+                                                </p>
+                                            </Paper>
+                                        </Grid>
+                                    </Grid>
+                                </>
+                            )
+                        })
+                    }
                     <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                    <p variant="h1" component="h2" className="text">
+                    <p variant="h1" component="h2" className="text paragraph">
                         <HomeRepairServiceTwoToneIcon sx={{ ml: 1.5 }} /> فضا های مهمان
                     </p>
                 </>
@@ -157,14 +470,14 @@ export const Dashborad = () => {
         //         // <a className="option" href="#"><ContentPasteTwoToneIcon /> </a>
         //         <>
         //             <p><ViewDayTwoToneIcon sx={{ ml: 1.5 }} />تمپلیت های گوناگون </p>
-        //             <ul>
-        //                 <li>مدیریت</li>
+        //             <ul className="unOrderList">
+        //                 <li className="list">مدیریت</li>
         //                 <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-        //                 <li>تیمی</li>
+        //                 <li className="list">تیمی</li>
         //                 <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-        //                 <li>صنعتی</li>
+        //                 <li className="list">صنعتی</li>
         //                 <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-        //                 <li>مالی</li>
+        //                 <li className="list">مالی</li>
         //             </ul>
         //         </>
         //     )
@@ -175,17 +488,17 @@ export const Dashborad = () => {
             content: (
                 // <a className="option" href="#"><HomeTwoToneIcon /> </a>
                 <>
-                    <p variant="h1" component="h2" className="text">
+                    <p variant="h1" component="h2" className="text paragraph">
                         <StarPurple500TwoToneIcon sx={{ ml: 1.5 }} /> برجسته ها
                     </p>
                     {/* <Grid></Grid> */}
                     <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                    <p variant="h1" component="h2" className="text">
+                    <p variant="h1" component="h2" className="text paragraph">
                         <DeveloperBoardTwoToneIcon sx={{ ml: 1.5 }} /> ساخت بورد جدید
                     </p>
                     {/* Grid */}
                     <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                    <p variant="h1" component="h2" className="text">
+                    <p variant="h1" component="h2" className="text paragraph">
                         <MessageTwoToneIcon sx={{ ml: 1.5 }} /> پیام ها
                     </p>
                 </>
@@ -197,13 +510,12 @@ export const Dashborad = () => {
             content: (
                 // <a className="option" href="#"><WorkspacesTwoToneIcon /> </a>
                 <>
-                    <p className="text" > <WorkspacesTwoToneIcon sx={{ ml: 1.5 }} /> فضای کار ها </p>
-                    <BasicModal />
-                    {/* <p> <BasicModal /></p> */}
+                    <p className="text paragraph" > <WorkspacesTwoToneIcon sx={{ ml: 1.5 }} /> فضای کار ها </p>
+                    <BasicModal text="+" />
+                    {/* <p> <BasicModal  text="+"/></p> */}
                     {
                         workspaces.map((workspace) => (
-                            <a className="option" href="#" key={workspace.id}>{workspace.name}</a>
-
+                            <a className="option" href="#" key={workspace.id} onClick={() => navigateToWorkspace(workspace.id)} >{workspace.name}</a>
                         ))
                     }
                     {/* <a className="option" href="#">فضای کار 1</a> */}
@@ -255,12 +567,12 @@ export const Dashborad = () => {
                             {/* https://www.npmjs.com/package/react-device-detect */}
 
                             <Divider sx={{ bgcolor: "white", marginTop: "5%" }} />
-                            <p className="text" > <WorkspacesTwoToneIcon sx={{ ml: 1.5 }} /> فضای کار ها </p>
-                            <BasicModal />
+                            <p className="text paragraph" > <WorkspacesTwoToneIcon sx={{ ml: 1.5 }} /> فضای کار ها </p>
+                            <BasicModal text="+" />
                             {/* <a className="option" href="#">فضای کار 1</a> onClick navigate to workspace page */}
                             {
                                 workspaces.map((workspace) => (
-                                    <a className="option" href="#" key={workspace.id}>{workspace.name}</a>
+                                    <a className="option " href="#" key={workspace.id} onClick={() => navigateToWorkspace(workspace.id)} >{workspace.name} </a>
 
                                 ))
                             }

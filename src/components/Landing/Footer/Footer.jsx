@@ -42,6 +42,7 @@ const Footer = () => {
               justifyContent: "center",
               gap: "5%",
               flexBasis: "58%",
+              fontSize: "1.5rem",
             }}
           >
             <Box
@@ -52,15 +53,15 @@ const Footer = () => {
                 // color: "rgb(255, 153, 0)",
               }}
             >
-              <h3 className="margin--5 responsive--font--size--1">
+              <h3 className="margin--5 responsive--font--size--1 black--text">
                 اجتماعی
               </h3>
-              <h4 className="margin--5 responsive--font--size--1">تلگرام</h4>
-              <h4 className="margin--5 responsive--font--size--1">
+              <h4 className="margin--5 responsive--font--size--1 black--text">تلگرام</h4>
+              <h4 className="margin--5 responsive--font--size--1 black--text">
                 اینستاگرام
               </h4>
-              <h4 className="margin--5 responsive--font--size--1">توییتر</h4>
-              <h4 className="margin--5 responsive--font--size--1">لینکدین</h4>
+              <h4 className="margin--5 responsive--font--size--1 black--text">توییتر</h4>
+              <h4 className="margin--5 responsive--font--size--1 black--text">لینکدین</h4>
             </Box>
             <Box
               sx={{
@@ -70,12 +71,12 @@ const Footer = () => {
                 // backgroundColor: "rgb(240, 64, 149)",
               }}
             >
-              <h3 className="margin--5 responsive--font--size--1">
+              <h3 className="margin--5 responsive--font--size--1 black--text">
                 تماس با ما
               </h3>
-              <h4 className="margin--5 responsive--font--size--1">تلفن</h4>
-              <h4 className="margin--5 responsive--font--size--1">آدرس</h4>
-              <h4 className="margin--5 responsive--font--size--1">ایمیل</h4>
+              <h4 className="margin--5 responsive--font--size--1 black--text">تلفن</h4>
+              <h4 className="margin--5 responsive--font--size--1 black--text">آدرس</h4>
+              <h4 className="margin--5 responsive--font--size--1 black--text">ایمیل</h4>
             </Box>
             <Box
               sx={{
@@ -84,10 +85,10 @@ const Footer = () => {
                 // backgroundColor: "rgb(0, 210, 210)",
               }}
             >
-              <h3 className="margin--5 responsive--font--size--1">درباره ما</h3>
-              <h4 className="margin--5 responsive--font--size--1">خدمات</h4>
-              <h4 className="margin--5 responsive--font--size--1">پشتیبانی</h4>
-              <h4 className="margin--5 responsive--font--size--1">
+              <h3 className="margin--5 responsive--font--size--1 black--text">درباره ما</h3>
+              <h4 className="margin--5 responsive--font--size--1 black--text">خدمات</h4>
+              <h4 className="margin--5 responsive--font--size--1 black--text">پشتیبانی</h4>
+              <h4 className="margin--5 responsive--font--size--1 black--text">
                 قیمت گذاری
               </h4>
             </Box>
@@ -101,6 +102,7 @@ const Footer = () => {
               flexGrow: 1,
               padding: "5%",
               // marginLeft: "5%",
+              fontSize: "1.5rem",
             }}
           >
             <h3 style={{
@@ -122,6 +124,8 @@ const Footer = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          fontSize: "1.5rem",
+          // marginBottom: "2%",
         }}
       >
         <p className="margin--top--bottom">All Rights Reserved © Projma.ir</p>

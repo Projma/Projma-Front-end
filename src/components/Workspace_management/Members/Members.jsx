@@ -1,8 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import Navbar from "../Navbar/Navbar";
 import Divider from "@mui/material/Divider";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import { baseUrl } from "../../../utilities/constants";
 import "./Members.scss";
 import x from "../../../static/images/workspace_management/members/mohammadi.jpg";
@@ -19,16 +21,27 @@ const members = [
 
 const Members = ({ params }) => {
   const [members, setMembers] = React.useState([]);
+  const [buttonClicked, setButtonClicked] = React.useState(false);
+  const [workspace, setWorkspace] = React.useState({});
+  useEffect(() => {
+    apiInstance
+      .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
+      .then((res) => {
+        // console.log(res.data);
+        console.log(res.data);
+        console.log(
+          "*********************************************************"
+        );
+        setWorkspace(res.data);
+      });
+  }, []);
+
   useEffect(() => {
     apiInstance
       .get(`workspaces/workspaceowner/${params.id}/workspace-members/`)
       .then((res) => {
-        // console.log(res.data);
-        // const members = res.data.members.map((obj) => ({
-        //   id: obj,
-        // }));
-        // console.log(members);
         const members = res.data.map((obj) => ({
+          id: obj.user.id,
           firstName: obj.user.first_name,
           lastName: obj.user.last_name,
           userName: obj.user.username,
@@ -38,6 +51,16 @@ const Members = ({ params }) => {
         setMembers(members);
         console.log(members);
       });
+    // apiInstance
+    //   .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
+    //   .then((res) => {
+    //     // console.log(res.data);
+    //     console.log(res.data);
+    //     console.log(
+    //       "*********************************************************"
+    //     );
+    //     setWorkspace(res.data);
+    //   });
   }, []);
   const navigate = useNavigate();
   const copyLink = (e) => {
@@ -53,9 +76,25 @@ const Members = ({ params }) => {
   };
   const go_to_profile = (e) => {
     console.log(e.currentTarget.id);
-    navigate(`/profile-view/${e.currentTarget.id}/`);
-    // navigate(`profileview/${e.currentTarget.id}/`);
+    navigate(`/profileview/${e.currentTarget.id}/`);
   };
+
+  const removeMember = (e, user_id) => {
+    console.log(user_id);
+    apiInstance
+      .delete(
+        `workspaces/workspaceowner/${params.id}/remove-user-from-workspace/${user_id}/`
+      )
+      .then((res) => {
+        console.log(res.status);
+        console.log("in delete person");
+        setMembers((members) =>
+          members.filter((member) => member.id !== user_id)
+        );
+      });
+    setButtonClicked((prev) => !prev);
+  };
+
   const test = (e) => {
     console.log("here");
     const form_data = new FormData();
@@ -70,26 +109,10 @@ const Members = ({ params }) => {
   };
   return (
     <div className="main-div">
-      {/* <button onClick={test}>here</button> */}
-      {/* <div className="invite-person">
-        <div className="invite-person-text">
-          شما می توانید افراد را به این کارگاه دعوت کنید. ایمیل دعوت به آن‌ها
-          ارسال خواهد شد.
-        </div>
-        <div className="invite-person-input-div">
-          <input
-            type="text"
-            placeholder="ایمیل دعوت شخص"
-            className="invite-person-input"
-          />
-          <label for="name" className="invite-person-label">
-            ایمیل
-          </label>
-        </div>
-      </div> */}
+      <Navbar params={params} />
       <div className="copy-link">
         <div className="copy-link-text">
-          <h2>
+          <h2 className="ws_members-invite-text">
             لینک دعوت به کارگاه را کپی کنید و به افراد دیگر ارسال کنید تا به
             کارگاه شما بپیوندند
           </h2>
@@ -124,6 +147,7 @@ const Members = ({ params }) => {
               <th className="list-item-prop">نام و نام خانوادگی</th>
               <th className="list-item-prop hide-when-small">ایمیل</th>
               <th className="list-item-prop">اطلاعات بیشتر</th>
+              <th className="list-item-prop">حذف</th>
             </tr>
           </thead>
           <tbody>
@@ -150,31 +174,18 @@ const Members = ({ params }) => {
                     <span class="text">پروفایل</span>
                   </button>
                 </td>
+                <td>
+                  <button
+                    key={member.id}
+                    id={member.userName}
+                    className="ws_members-person-remove-button"
+                    onClick={(event) => removeMember(event, member.id)}
+                  >
+                    <PersonRemoveIcon sx={{ color: "#fff" }} />
+                  </button>
+                </td>
               </tr>
             ))}
-            {/* <tr>
-              <td className="list-item-prop hide-when-small">1</td>
-              <td className="list-item-prop hide-when-small">
-                <img className="member-image" src={x} />
-              </td>
-              <td className="list-item-prop">محمدرضا</td>
-              <td className="list-item-prop hide-when-small">mohammadReza</td>
-              <td className="list-item-prop">
-                <button className="more-details" role="button">
-                  <span class="text">اطلاعات بیشتر</span>
-                </button>
-              </td>
-            </tr> */}
-            {/* <tr class="active-row">
-              <td className="list-item-prop">2</td>
-              <td className="list-item-prop">رضا</td>
-              <td className="list-item-prop">reza</td>
-              <td className="list-item-prop">
-                <button className="more-details" role="button">
-                  <span class="text">اطلاعات بیشتر</span>
-                </button>
-              </td>
-            </tr> */}
           </tbody>
         </table>
       </div>

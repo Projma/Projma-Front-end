@@ -1,0 +1,10 @@
+.board_card-avatar {
+    /* margin-top: 1rem; */
+    align-self: center;
+    /* justify-self: flex-start; */
+}
+
+.board_avatar-profile-picture:hover,
+.board_avatar-profile-picture:last-child:hover {
+    opacity: 60%;
+}

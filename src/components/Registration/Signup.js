@@ -20,6 +20,10 @@ import createCache from "@emotion/cache";
 import StyledTextField from "./StyledTextField";
 import apiInstance from "../../utilities/axiosConfig";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loading from "../Shared/Loading";
 
 function Copyright(props) {
   return (
@@ -47,6 +51,10 @@ export default function SignUp() {
   const [errorEmail, setErrorEmail] = React.useState(false);
   const [password, setPassword] = React.useState("");
   const [errorPassword, setErrorPassword] = React.useState(false);
+  const [isPost, setIsPost] = React.useState(false);
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  let navigate = useNavigate();
   const theme = createTheme({
     direction: "rtl",
   });
@@ -70,54 +78,35 @@ export default function SignUp() {
     signup_form_data.append("username", username);
     signup_form_data.append("email", email);
     signup_form_data.append("password", password);
-    // const reactData = [
-    //   {
-    //     first_name: "first_name",
-    //     last_name: "last_name",
-    //     username: "username",
-    //     email: "email",
-    //     password: "password",
-    //   },
-    // ];
+    setIsPost(true);
     axios
       .post(
         "http://mohammadosoolian.pythonanywhere.com/accounts/users/signup/",
         signup_form_data
       )
-      .then((res) => console.log(res))
-      .catch((error) => setErrorEmail(true));
-    // apiInstance
-    //   .post("accounts/users/signup/", reactData)
-    //   .then((response) => {
-    //     console.log(response);
-    //     // return response.data;
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    // let state = {
-    //   first_name: firstName,
-    //   last_name: lastName,
-    //   username: username,
-    //   password: password,
-    //   email: email,
-    // };
-    // console.log(state);
-    // fetch("http://mohammadosoolian.pythonanywhere.com/accounts/users/signup/", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(state),
-    // })
-    //   .then((response) => response.json())
-    //   .then((result) => {
-    //     console.log(result);
-    //   });
+      .then((res) => {
+        console.log(res);
+        toast.success("ثبت‌نام با موفقیت انجام شد.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+        delay(7000).then(() => navigate("/signin"));
+      })
+      .catch((error) => {
+        setErrorEmail(true);
+        toast.error("یکی از فیلدها اشتباه وارد شده است.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      })
+      .finally(() => {
+        setIsPost(null);
+      });
   };
 
   return (
     <CacheProvider value={cacheRtl}>
+      {isPost ? <Loading /> : null}
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />

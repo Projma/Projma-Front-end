@@ -1,4 +1,4 @@
-/***    General     ***/
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -24,7 +24,6 @@
   text-transform: capitalize;
 }
 
-/***    Landing Page     ***/
 .main-title,
 .main-para {
   color: #f1f1f1;
@@ -66,14 +65,12 @@
   right: 0;
 }
 
-/***    Login Page     ***/
 h2 {
   font-weight: 300;
 }
 
 form {
   display: inline-block;
-  /* background: #f3f3f3; */
   border: 1px solid none;
   border-radius: 2px;
   padding: 2rem;
@@ -120,7 +117,6 @@ footer p {
   font-size: 0.9rem;
 }
 
-/***    Register Page     ***/
 #checkbox {
   width: 1rem;
 }
@@ -133,7 +129,6 @@ form span {
   float: left;
 }
 
-/***    Home Page     ***/
 .home-page-title {
   color: #222;
 }
@@ -150,7 +145,6 @@ form span {
   display: "flex";
   align-items: "center";
   justify-content: "center";
-  /* border: "1px solid black"; */
   margin-top: "5px";
   padding-top: "5px";
   padding-bottom: "5px";
@@ -164,7 +158,6 @@ form span {
 }
 
 .button_submit {
-  background-color: #008cba; /* Green */
   border: none;
   color: white;
   padding: 10px 100px;

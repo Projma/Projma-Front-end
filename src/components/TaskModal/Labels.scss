@@ -1,0 +1,118 @@
+.tm_labels-main-div {
+  width: 31rem;
+  height: 40rem;
+}
+
+.tm_labels-header {
+  width: 100%;
+  height: 5rem;
+  background-color: var(--ds-bg, #f4f5f7);
+  border-bottom: 1px solid var(--ds-border, #e1e4e8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 1px;
+  margin-bottom: 2rem;
+}
+
+.tm_labels-header-title {
+  font-family: Vazir;
+}
+
+.tm_labels-div-inner {
+  width: 100%;
+  height: 100%;
+  // overflow-y: scroll;
+  // overflow-x: hidden;
+  padding: 0px 1px;
+}
+
+.tm_labels-li {
+  // background-color: var(--ds-bg, #f4f5f7);
+  margin-bottom: 0.3rem;
+  // width: 100%;
+  // height: 3rem;
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: center;
+  // padding: 0px 1px;
+  // margin-bottom: 1rem;
+  // border-radius: 0.5rem;
+  // cursor: pointer;
+  // transition: all 0.2s ease-in-out;
+}
+
+.tm_labels-ul {
+  margin-top: 0.5rem;
+}
+
+.tm_labels-li-div {
+  height: 5rem;
+  align-items: center;
+}
+.tm_labels-li-div-input {
+  display: inline;
+  width: 10%;
+  height: 30%;
+}
+
+.tm_labels-li-color-box {
+  width: 23rem;
+  height: 85%;
+  border-radius: 0.5rem;
+  margin-right: 1rem;
+  // background-color: var(--background-color, rgb(223, 230, 223));
+  padding: 0.5rem 1rem 0.5rem 0.2rem;
+}
+
+.tm_labels-labels-title {
+  color: rgba(0, 0, 0, 0.9);
+  font-size: 1.5rem;
+  font-family: "Vazir";
+  font-weight: 500;
+  font-style: italic;
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.tm_labels-labels-symbol {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
+.tm_labels-li-div-span {
+  align-items: center;
+  gap: 1rem;
+}
+
+.tm_labels-labels-edit-icon:hover {
+  background-color: black transparent;
+  opacity: 0.5;
+}
+
+.tm_edit-labels-header-title {
+  font-family: Vazir;
+  text-align: center;
+}
+
+.tm_edit-labels-main-div {
+  margin-top: 1rem;
+}
+
+.tm_labels-add-label-button {
+  width: 50%;
+  height: 3rem;
+  background-color: var(--ds-bg, #f4f5f7);
+  border: 0;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  font-family: "Vazir";
+  cursor: pointer;
+}
+
+.tm_labels-add-label-button:hover {
+  background-color: black transparent;
+  opacity: 0.45;
+}

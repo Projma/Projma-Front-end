@@ -1,0 +1,42 @@
+.card_item_label-main {
+  min-width: 4rem;
+  min-height: 0.8rem;
+  /* background-color: aqua; */
+  display: inline-block;
+  border-radius: 1rem;
+}
+
+.card_item_label-main:hover {
+  opacity: 60%;
+  cursor: pointer;
+}
+
+.card_item-label-name {
+  color: #fff;
+  text-align: center;
+}
+
+.card_item_label-color-ball {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+}
+
+.Card_item_label-with-name {
+  padding: 0.3rem;
+  font-size: 1.1rem;
+  display: flex;
+  /* align-items: flex-start;
+  justify-content: flex-start; */
+  gap: 0.3rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  height: 1.6rem;
+  color: #fff;
+}
+
+.Card_item_label-with-name:hover {
+  cursor: pointer;
+  opacity: 60%;
+}

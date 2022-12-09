@@ -16,15 +16,20 @@ import ForgetPassword from "./components/Password/ForgetPassword";
 import ProfileView from "./components/Profile/ProfilePageView";
 import ChangePassword from "./components/Profile/ChangePassword";
 import InvitePage from "./pages/InvitePage";
-import Board from "./components/Board/UI/Board";
+import Kanban from "./components/Kanban/Kanban";
+import Email_verification_2 from "./components/Registration/EmailVerification";
 // import { login, remove_token } from "../src/actions/authActions";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { faIR } from "@mui/material/locale";
+import TaskModal from "./components/TaskModal/TaskModal";
+import { useSelector } from "react-redux";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 const theme = createTheme(
   {
     typography: {
       fontFamily: "Vazir",
+      htmlFontSize: 9, // 10 (1rem = 9px)
     },
   },
   faIR
@@ -32,6 +37,7 @@ const theme = createTheme(
 
 function App() {
   // functional base component
+  // const state = useSelector((state) => state);
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
@@ -40,6 +46,8 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Landing />} />
             <Route exact path="/dashboard" element={<Dashborad />} />
+            {/* <Route exact path="/dashboard" element={<PrivateRoute children={<Dashborad />}/> } /> */}
+            {/* <Route exact path="/dashboard" element={<PrivateRoute> <Dashborad /> </PrivateRoute> } /> */}
             <Route exact path="/signin" element={<SignIn />} />
             <Route exact path="/signup" element={<SignUp />} />
             <Route exact path="/profile" element={<Profile />} />
@@ -48,8 +56,18 @@ function App() {
             <Route path="workspace/:id/*" element={<Workspace_management />} />
             <Route exact path="/profileview/" element={<ProfileView />} />
             <Route exact path="/changepassword" element={<ChangePassword />} />
-            <Route exact path="/board" element={<Board />} />
+            <Route exact path="/kanban/:id" element={<Kanban />} />
             <Route exact path="/invite_page/:token" element={<InvitePage />} />
+            <Route
+              exact
+              path="/email-verification"
+              element={<Email_verification_2 />}
+            />
+            <Route
+              exact
+              path=":board_id/taskmodal/:task_id/*"
+              element={<TaskModal />}
+            />
           </Routes>
         </Router>
       </Provider>

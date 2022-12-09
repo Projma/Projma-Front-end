@@ -1,17 +1,13 @@
 import * as React from "react";
 import { useState, useSelector } from "react";
-import axios from "axios";
-import { Route, Link, Routes } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
 import Modal from "@mui/material/Modal";
-import StyledTextField from "../../Password/StyledTextField";
-import PerTextField from "../../Board/UI/PerTextField";
-import apiInstance from "../../../utilities/axiosConfig";
-import { baseUrl } from "../../../utilities/constants";
+import StyledTextField from "../../Shared/StyledTextField";
+import PerTextField from "../../Shared/PerTextField.js";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 // import file from "../../../static/images/workspace_management/create_board/board.jpeg";
 import "./CreateBoard.css";
@@ -31,7 +27,7 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({ params, on_submit }) {
+export default function CreateBoardModal({ params, on_submit }) {
   const handleChange = (e) => {
     const [file] = e.target.files;
     setBinaryFile(e.target.files[0]);
@@ -60,9 +56,9 @@ export default function BasicModal({ params, on_submit }) {
   };
   return (
     <div>
-      <div className="add-button-container">
-        <button className="add-button" onClick={handleOpen}>
-          <p className="add-button-title">+ افزودن بورد</p>
+      <div className="workspace-modal--add-button-container">
+        <button className="workspace-modal--add-button" onClick={handleOpen}>
+          <p className="workspace-modal--add-button-title">+ افزودن بورد</p>
         </button>
       </div>
       <Modal
@@ -79,6 +75,7 @@ export default function BasicModal({ params, on_submit }) {
             sx={{
               textAlign: "center",
               fontFamily: "Vazir",
+              color: "#fff",
             }}
           >
             ساخت برد جدید
@@ -90,11 +87,11 @@ export default function BasicModal({ params, on_submit }) {
               marginBottom: "0.75rem",
             }}
           />
-          <img src={x} className="board-image" />
-          <form className="board-form">
+          <img src={x} className="workspace-modal--board-image" />
+          <form className="workspace-modal--board-form">
             <PerTextField>
               <StyledTextField
-                className="board-name"
+                className="workspace-modal--board-name"
                 label="نام برد"
                 value={title}
                 onChange={(e) => {
@@ -104,7 +101,7 @@ export default function BasicModal({ params, on_submit }) {
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
               />
               <StyledTextField
-                className="board-name"
+                className="workspace-modal--board-name"
                 label="توضیحات"
                 value={description}
                 onChange={(e) => {
@@ -155,12 +152,12 @@ export default function BasicModal({ params, on_submit }) {
             /> */}
             {/* <img src={this.state.imgSrc} alt="img" /> */}
             {/* <label id="title">عنوان برد</label>
-            <input type="text" id="title" className="title-inp" /> */}
+            <input type="text" id="title" className="workspace-modal--title-inp" /> */}
             {/* <button onClick={create_board}>submit</button> */}
             <input
               type="submit"
               value="بساز"
-              className="button-29"
+              className="workspace-modal--button-29"
               onClick={create_board}
             />
           </form>
@@ -172,37 +169,3 @@ export default function BasicModal({ params, on_submit }) {
     </div>
   );
 }
-
-// import React from "react";
-// import { useRef } from "react";
-// import "./CreateBoard.css";
-// const CreateBoard = () => {
-//   const myModalRef = useRef(null);
-//   const myBtnRef = useRef(null);
-//   const closeModalRef = useRef(null);
-//   const openModal = (event) => {
-//     myModalRef.current.display = "block";
-//   };
-//   return (
-//     <>
-//       <button id="myBtn" ref={myBtnRef} onClick={openModal}>
-//         Open Modal
-//       </button>
-//       <div class="modal-content" ref={myModalRef}>
-//         <div class="modal-header">
-//           <span class="close">&times;</span>
-//           <h2>Modal Header</h2>
-//         </div>
-//         <div class="modal-body">
-//           <p>Some text in the Modal Body</p>
-//           <p>Some other text...</p>
-//         </div>
-//         <div class="modal-footer">
-//           <h3>Modal Footer</h3>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default CreateBoard;
