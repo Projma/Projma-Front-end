@@ -5,21 +5,14 @@ import { prefixer } from "stylis";
 import createCache from "@emotion/cache";
 import "../../styles/Profile.css";
 import profile_preview from "../../static/images/profile/profile-preview.png";
-import userEvent from "@testing-library/user-event";
-import { fontWeight } from "@mui/system";
-import { useState, useCallback } from "react";
-import axios from "axios";
+import { useState } from "react";
 import StyledTextField from "./StyledTextField";
 import { CacheProvider } from "@emotion/react";
-import { red } from "@mui/material/colors";
-import { useDispatch, useSelector } from "react-redux";
-import { Calendar } from "react-multi-date-picker";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { Button } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-import TextField from "@mui/material/TextField";
 import apiInstance from "../../utilities/axiosConfig";
 import PersonIcon from "@mui/icons-material/Person";
 import PasswordIcon from "@mui/icons-material/Password";
@@ -35,23 +28,17 @@ const cacheRtl = createCache({
   stylisPlugins: [prefixer, rtlPlugin],
 });
 export default function Profile() {
-  // const userData = replaceUndefinied(useSelector(state => state.auth));
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [errorFirstName, setErrorFirstName] = React.useState(false);
   const [errorLastName, setErrorLastName] = React.useState(false);
   const [username, setUsername] = React.useState("");
-  const [errorUsername, setErrorUsername] = React.useState(false);
   const [email, setEmail] = React.useState("");
-  const [errorEmail, setErrorEmail] = React.useState(false);
-  const [password, setPassword] = React.useState("");
-  const [errorPassword, setErrorPassword] = React.useState(false);
   const [file, setFile] = useState(profile_preview);
   const [changeImage, setChangeImage] = useState(false);
   const [binaryFile, setBinaryFile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [bio, setBio] = React.useState("");
-  const [errorBio, setErrorBio] = React.useState(false);
   const [name, setName] = useState("");
 
   React.useEffect(() => {
@@ -61,7 +48,6 @@ export default function Profile() {
       setUsername(res.data.user.username);
       setEmail(res.data.user.email);
       setBio(res.data.bio);
-      setPassword(res.data.user.password);
       setChangeImage(res.data.user.image);
       setLoading(false);
     });
@@ -75,34 +61,32 @@ export default function Profile() {
     setBinaryFile(picture);
   };
   const [birthDate, setBirthDate] = useState(new Date());
-  const theme = createTheme({
-    direction: "rtl",
-  });
   const cacheRtl = createCache({
     key: "muirtl",
     stylisPlugins: [prefixer, rtlPlugin],
   });
+  let errormessage = "";
   const handleSubmit = (event) => {
+    let sign = 0;
     setErrorFirstName(false);
     setErrorLastName(false);
-    setErrorUsername(false);
-    setErrorEmail(false);
-    setErrorPassword(false);
     event.preventDefault();
+    errormessage = "";
+    document.getElementById("em").innerHTML = errormessage;
     if (firstName === "") {
       setErrorFirstName(true);
-      return;
-    } else if (lastName === "") {
+      errormessage += "*فیلد نام نمیتواد خالی باشد.";
+      sign += 1;
+    }
+    if (lastName === "") {
+      errormessage += "*فیلد نام خانوادگی نمیتواد خالی باشد.<br>";
       setErrorLastName(true);
-      return;
-    } else if (username === "") {
-      setErrorUsername(true);
-      return;
-    } else if (email === "") {
-      setErrorEmail(true);
+      sign += 1;
+    }
+    if (sign !== 0) {
+      document.getElementById("em").innerHTML = errormessage;
       return;
     }
-
     const profile_without_name_form_data = new FormData();
     const profile_with_name_form_data = new FormData();
     profile_with_name_form_data.append("first_name", firstName);
@@ -112,36 +96,17 @@ export default function Profile() {
       .then((res) => {
         console.log(res);
       });
-    // axios
-    //   .patch("/accounts/users/myaccount/", profile_with_name_form_data)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
 
     const birthd = "";
-    profile_without_name_form_data.append("password", password);
     profile_without_name_form_data.append("bio", bio);
     profile_without_name_form_data.append("birth_date", "2022-04-04");
     // profile_without_name_form_data.append("profile_pic", binaryFile);
     // birthd += `${birthDate.getFullYear()}-${birthDate.getMonth()}-${birthDate.getDay()}`;
-    // console.log(birthd);
-    // console.log(bio);
     apiInstance
       .patch("/accounts/profile/myprofile/", profile_without_name_form_data)
       .then((res) => {
         console.log(res);
       });
-    // axios
-    //   .patch("/accounts/profile/myprofile/", profile_without_name_form_data)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   };
   const [message, setMessage] = useState("");
 
@@ -234,17 +199,20 @@ export default function Profile() {
                   </div>
                 </div>
               </div>
-              <Box
-                className="profile-box"
-                component="form"
-                onSubmit={handleSubmit}
-              >
+              <div className="profile-box">
                 <div className="profile-box-header flex justify-between">
-                  <h3 style={{ color: "white" }} className="neonText vazir">
+                  <h3
+                    style={{ color: "white", marginBottom: "8%" }}
+                    className="neonText vazir"
+                  >
                     اطلاعات فردی
                   </h3>
                 </div>
-                <div className="profile-box-body">
+                <Box
+                  className="profile-box-body"
+                  component="form"
+                  onSubmit={handleSubmit}
+                >
                   <div
                     className="flex margin-top col-gap-8"
                     style={{ justifyContent: "center", marginBottom: "1%" }}
@@ -291,13 +259,12 @@ export default function Profile() {
                   </div>
                   <div className="flex">
                     <div
-                      className="flex-row col-gap-16"
-                      style={{ width: "120%" }}
+                      className="flex-col col-gap-16"
+                      style={{ width: "100%", marginTop: "10%" }}
                     >
                       <StyledTextField
                         className="StyledTextField-media otherStyledTextField-media otherStyledTextField"
                         margin="normal"
-                        required="required"
                         id="firstName"
                         fullWidth
                         value={firstName}
@@ -315,7 +282,6 @@ export default function Profile() {
                       <StyledTextField
                         className="StyledTextField-media otherStyledTextField-media otherStyledTextField"
                         margin="normal"
-                        required="required"
                         id="lastname"
                         fullWidth
                         value={lastName}
@@ -332,56 +298,26 @@ export default function Profile() {
                       />
                     </div>
                   </div>
-                  <div className="flex-row" style={{ width: "120%" }}>
+                  <div className="flex-col" style={{ width: "100%" }}>
                     <div className="flex-col show-box show-box-media, row-gap-8">
                       <label for="email" className="title-css">
                         ایمیل
                       </label>
-                      <h3
-                        className="detail-css email-font-size"
-                        style={{
-                          color: "white",
-                          fontSize: "100%",
-                          fontWeight: "normal",
-                          textAlign: "right",
-                          marginRight: "2%",
-                        }}
-                      >
+                      <h3 className="email-text-box email-font-size">
                         {email}
                       </h3>
                     </div>
-                    <div className="flex-col show-box show-box-media row-gap-8">
+                    <div
+                      className="flex-col show-box show-box-media row-gap-8"
+                      style={{ marginTop: "2%" }}
+                    >
                       <label for="username" className="title-css">
                         نام کاربری
                       </label>
-                      <h3
-                        className="detail-css"
-                        style={{
-                          color: "white",
-                          fontWeight: "normal",
-                          textAlign: "right",
-                          fontSize: "100%",
-                          marginRight: "2%",
-                        }}
-                      >
-                        {username}
-                      </h3>
+                      <h3 className="email-text-box">{username}</h3>
                     </div>
                   </div>
-                  <div
-                    className="birthday-border-media"
-                    style={{
-                      direction: "rtl",
-                      marginTop: "4%",
-                      marginBottom: "4%",
-                      border: "1px solid #66B2FF",
-                      borderRadius: "5px",
-                      paddingTop: "1.75%",
-                      paddingBottom: "1.75%",
-                      paddingRight: "1.75%",
-                      width: "48.2%",
-                    }}
-                  >
+                  <div className="birthday-border-media">
                     <div className="birthday-media flex">
                       <label
                         style={{
@@ -409,12 +345,11 @@ export default function Profile() {
                       className="StyledTextField-media otherStyledTextField"
                       margin="normal"
                       id="bio"
-                      sx={{ width: "48%" }}
                       label="درباره"
+                      fullWidth
                       name="bio"
                       multiline
                       onChange={(e) => setBio(e.target.value)}
-                      error={errorBio}
                       value={bio}
                       rows={2}
                       InputProps={{ style: { fontFamily: "Vazir" } }}
@@ -425,6 +360,17 @@ export default function Profile() {
                       autoFocus
                     />
                   </div>
+                  <Typography
+                    id="em"
+                    sx={{
+                      mt: 1,
+                      textAlign: "right",
+                      color: "rgba(255, 0, 0, 0.837)",
+                      fontWeight: "bold",
+                      fontFamily: "Vazir",
+                      marginTop: "5%",
+                    }}
+                  ></Typography>
                   <div>
                     <Button
                       type="submit"
@@ -436,8 +382,8 @@ export default function Profile() {
                       اعمال تغییرات
                     </Button>
                   </div>
-                </div>
-              </Box>
+                </Box>
+              </div>
             </div>
           </ThemeProvider>
         </CacheProvider>

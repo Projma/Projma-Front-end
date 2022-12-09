@@ -3,8 +3,8 @@
 }
 
 .profile-container {
-  width: 100%;
-  height: 100vh;
+  width: 100% !important;
+  height: 127vh;
   display: flex;
   place-items: center;
 }
@@ -19,7 +19,8 @@
 }
 
 .profile-box {
-  /* width: 100%; */
+  width: 35%;
+  height: fit-content;
   /* height: 760px !important; */
   background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
   border-radius: 53px;
@@ -199,7 +200,7 @@
 
 .show-box {
   row-gap: 7;
-  width: 45%;
+  width: 100%;
   border-radius: 5px;
   padding-top: 0.5%;
   padding-bottom: 0.5%;
@@ -217,6 +218,28 @@
 .otherStyledTextField {
   height: 60px;
   padding: 0 14px;
+  width: 100% !important;
+}
+
+.birthday-border-media {
+  direction: "rtl";
+  margin-top: 4%;
+  margin-bottom: 4%;
+  border: 1px solid #66b2ff;
+  border-radius: 5px;
+  padding-top: 1.75%;
+  padding-bottom: 1.75%;
+  padding-right: 1.75%;
+  width: 100%;
+}
+
+.email-text-box {
+  color: white;
+  font-size: 100%;
+  font-weight: normal;
+  text-align: center;
+  margin-right: 2%;
+  width: 100%;
 }
 
 @media screen and (max-width: 600px) {
@@ -233,10 +256,10 @@
     margin-top: 1% !important;
   }
   .profile-box {
-    width: 40%;
+    width: 65% !important;
     height: 880px;
-    margin-bottom: 30px;
-    padding-right: 6%;
+    padding: 0%;
+    padding-top: 5%;
   }
   .otherStyledTextField-media {
     width: 100% !important;
@@ -282,7 +305,9 @@
     width: 100px !important;
   }
   .profile-box-body {
-    width: 130%;
+    width: 90%;
+    padding-right: 5%;
+    padding-left: 0%;
   }
   /* .btn {
     width: 100%;
@@ -292,6 +317,10 @@
     color: rgba(255, 255, 255, 0);
     width: 0%;
     border-radius: 0px;
+  }
+  .profile-box-header {
+    padding-top: 5%;
+    justify-content: center;
   }
 }
 
