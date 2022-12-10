@@ -45,16 +45,15 @@ function App() {
         <Router>
           <Routes>
             <Route exact path="/" element={<Landing />} />
-            {/* <Route exact path="/dashboard" element={<Dashborad />} /> */}
             <Route exact path="/dashboard" element={<PrivateRoute children={<Dashborad/>}/>} />
             <Route exact path="/signin" element={<SignIn />} />
             <Route exact path="/signup" element={<SignUp />} />
-            <Route exact path="/profile" element={<Profile />} />
+            <Route exact path="/profile" element={<PrivateRoute children={<Profile/>}/>} />
             <Route exact path="/forget-password" element={<ForgetPassword />} />
             <Route exact path="/reset-password" element={<ResetPassword />} />
             <Route path="workspace/:id/*" element={<Workspace_management />} />
             <Route exact path="/profileview/" element={<ProfileView />} />
-            <Route exact path="/changepassword" element={<ChangePassword />} />
+            <Route exact path="/changepassword" element={<PrivateRoute children={<ChangePassword/>}/>} />
             <Route exact path="/kanban/:id" element={<Kanban />} />
             <Route exact path="/invite_page/:token" element={<InvitePage />} />
             <Route
