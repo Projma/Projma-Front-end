@@ -45,7 +45,8 @@ function App() {
         <Router>
           <Routes>
             <Route exact path="/" element={<Landing />} />
-            <Route exact path="/dashboard" element={<Dashborad />} />
+            {/* <Route exact path="/dashboard" element={<Dashborad />} /> */}
+            <Route exact path="/dashboard" element={<PrivateRoute children={<Dashborad/>}/>} />
             <Route exact path="/signin" element={<SignIn />} />
             <Route exact path="/signup" element={<SignUp />} />
             <Route exact path="/profile" element={<Profile />} />
