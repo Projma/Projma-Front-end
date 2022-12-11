@@ -5,6 +5,7 @@ import PerTextField from "../../Shared/PerTextField";
 import StyledTextField from "../../Shared/StyledTextField";
 import { DragDropContext } from "react-beautiful-dnd";
 import { v4 as uuid } from "uuid";
+import apiInstance from "../../utilities/axiosConfig";
 import axios from "axios";
 import Loading from "../../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
@@ -19,8 +20,8 @@ const Board = (props) => {
 
   useEffect(() => {
     const getBoard = async () =>
-      await axios
-        .get(`http://127.0.0.1:8000/workspaces/board/${props.boardId}/get-board-overview/`)
+      await apiInstance
+        .get(`workspaces/board/${props.boardId}/get-board-overview/`)
         .then((response) => {
           // console.log(response.data);
           // console.log(response.data.tasklists);
@@ -33,9 +34,9 @@ const Board = (props) => {
   }, [isPost]);
 
   const postCreateList = async (data, id) =>
-    await axios
+    await apiInstance
       .post(
-        `http://127.0.0.1:8000/workspaces/board/${id}/create-tasklist/`,
+        `workspaces/board/${id}/create-tasklist/`,
         data
       )
       .then(() => {
