@@ -25,6 +25,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import PasswordIcon from "@mui/icons-material/Password";
 import Box from "@mui/material/box";
 import Typography from "@mui/material/Typography";
+import { Helmet } from "react-helmet";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -123,6 +124,9 @@ export default function ChangePassword() {
   // });
   return (
     <div>
+      <Helmet>
+        <title>تغییر رمز عبور</title>
+      </Helmet>
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
           <div className="profile-container profile-page">

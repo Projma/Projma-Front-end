@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import apiInstance from "../utilities/axiosConfig";
+import { Helmet } from "react-helmet";
 
 const InvitePage = () => {
   const params = useParams();
@@ -38,6 +39,9 @@ const InvitePage = () => {
   );
   return (
     <div style={{ backgroundColor: "white", width: "100%", height: "100%" }}>
+      <Helmet>
+        <title>صفحه دعوت</title>
+      </Helmet>
       {result}
     </div>
   );

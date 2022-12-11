@@ -23,6 +23,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../../actions/authActions";
 import { useState } from "react";
 import Loading from "../Shared/Loading";
+import { Helmet } from "react-helmet";
 
 function Copyright(props) {
   return (
@@ -111,6 +112,9 @@ export default function SignIn() {
   if (isLogin) {
     return (
       <div>
+        <Helmet>
+          <title>صفحه ورود</title>
+        </Helmet>
         {isPost ? <Loading /> : null}
         <CacheProvider value={cacheRtl}>
           <ThemeProvider theme={theme}>

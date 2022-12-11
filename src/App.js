@@ -50,7 +50,7 @@ function App() {
             <Route exact path="/signup" element={<SignUp />} />
             <Route exact path="/profile" element={<PrivateRoute children={<Profile/>}/>} />
             <Route exact path="/forget-password" element={<ForgetPassword />} />
-            <Route exact path="/reset-password" element={<PrivateRoute children={<ResetPassword/>}/>} />
+            <Route exact path="/reset-password" element={<ResetPassword/>} />
             <Route path="workspace/:id/*" element={<PrivateRoute children={<PrivateRoute children={<Workspace_management/>}/>}/>} />
             <Route exact path="/profileview/" element={<ProfileView />} />
             <Route exact path="/changepassword" element={<PrivateRoute children={<ChangePassword/>}/>} />

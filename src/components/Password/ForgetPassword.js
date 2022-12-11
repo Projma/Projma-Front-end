@@ -13,6 +13,7 @@ import Loading from "../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import "../../styles/ReactToastify.css";
 import { Navigate, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -98,6 +99,9 @@ const ForgetPassword = () => {
       {isPost ? <Loading /> : null}
       {isFail ? <ToastContainer autoClose={5000} style={{fontSize:"1.2rem"}}/> : null}
       <Container component="main" maxWidth="xs">
+      <Helmet>
+          <title>فراموشی رمز عبور</title>
+        </Helmet>
         <CssBaseline />
         <Box
           sx={{

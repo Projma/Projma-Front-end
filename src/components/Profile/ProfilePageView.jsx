@@ -22,6 +22,7 @@ import Avatar from "@mui/material/Avatar";
 import TextField from "@mui/material/TextField";
 import apiInstance from "../../utilities/axiosConfig";
 import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -60,6 +61,9 @@ export default function ProfileView() {
   });
   return (
     <div>
+      <Helmet>
+        <title>{firstName + " " + lastName}</title>
+      </Helmet>
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
           <div className="profile-container profile-page">
