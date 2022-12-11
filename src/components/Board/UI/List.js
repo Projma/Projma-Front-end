@@ -16,7 +16,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import InputName from "../../Shared/InputName";
-import apiInstance from "../../utilities/axiosConfig";
+import apiInstance from "../../../utilities/axiosConfig";
 
 const List = (props) => {
   const [cards, setCards] = useState(props.card);

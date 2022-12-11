@@ -20,7 +20,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Loading from "../../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
-import apiInstance from "../../utilities/axiosConfig";
+import apiInstance from "../../../utilities/axiosConfig";
 
 const Card = (props) => {
   const [showLabelName, setShowLabelName] = useState(false);
