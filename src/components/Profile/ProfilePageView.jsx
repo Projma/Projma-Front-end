@@ -4,25 +4,13 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import createCache from "@emotion/cache";
 import "../../styles/Profile.css";
-import profile_preview from "../../static/images/profile/profile-preview.png";
-import userEvent from "@testing-library/user-event";
-import { fontWeight } from "@mui/system";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import axios from "axios";
-import StyledTextField from "./StyledTextField";
 import { CacheProvider } from "@emotion/react";
-import { red } from "@mui/material/colors";
-import { useDispatch, useSelector } from "react-redux";
-import { Calendar } from "react-multi-date-picker";
-import DatePicker from "react-multi-date-picker";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
-import { Button } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-import TextField from "@mui/material/TextField";
-import apiInstance from "../../utilities/axiosConfig";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import profile_preview from "../../static/images/profile/profile-preview.png";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -37,9 +25,9 @@ export default function ProfileView() {
   const [lastName, setLastName] = React.useState("");
   const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
   const [binaryFile, setBinaryFile] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [getImage, setGetImage] = useState("");
+
   const [bio, setBio] = React.useState("");
   const temp = useParams();
   // console.log(temp.username);
@@ -49,13 +37,13 @@ export default function ProfileView() {
         `http://mohammadosoolian.pythonanywhere.com/accounts/profile/public-profile/${temp.username}/`
       )
       .then((res) => {
+        console.log(res.data);
         setFirstName(res.data.user.first_name);
         setLastName(res.data.user.last_name);
         setUsername(res.data.user.username);
         setEmail(res.data.user.email);
-        setPassword(res.data.user.password);
+        setGetImage(res.data.profile_pic);
         setBio(res.data.bio);
-        setLoading(false);
         console.log(res.data.user.firstName);
       });
   });
@@ -87,7 +75,11 @@ export default function ProfileView() {
                   >
                     <Avatar
                       className="Avatar"
-                      // src={file}
+                      src={
+                        getImage !== null
+                          ? `https://mohammadosoolian.pythonanywhere.com/${getImage}`
+                          : profile_preview
+                      }
                       alt="profile"
                       sx={{
                         mt: 1,
@@ -96,25 +88,17 @@ export default function ProfileView() {
                         borderRadius: "50%",
                       }}
                     />
-                    <div className="button-container">
-                      <Button
-                        variant="contained"
-                        component="label"
-                        color="info"
-                      >
-                        <p style={{ fontSize: "0.8rem" }}>انتخاب عکس</p>
-                        {/* <p>aafaf</p> */}
-                        <input type="file" hidden accept=".jpg,.jpeg,.png" />
-                      </Button>
-                    </div>
                   </div>
                 </div>
-                <div className="flex" style={{ marginTop: "5%" }}>
+                <div
+                  className="flex"
+                  style={{ marginTop: "10%", width: "100%" }}
+                >
                   <div
-                    className="flex-row"
-                    style={{ width: "120%", marginTop: "5%" }}
+                    className="profile-view-box"
+                    style={{ width: "100%", marginTop: "5%" }}
                   >
-                    <div className="flex-col show-box show-box-media">
+                    <div className="flex-col profile-view-show-box profile-view-show-box-media">
                       <label
                         for="first_name"
                         className="title-css"
@@ -122,18 +106,9 @@ export default function ProfileView() {
                       >
                         نام
                       </label>
-                      <h3
-                        className="detail-css"
-                        style={{
-                          color: "white",
-                          fontWeight: "normal",
-                          textAlign: "center",
-                        }}
-                      >
-                        {firstName}
-                      </h3>
+                      <h3 className="profile-detail-css">{firstName}</h3>
                     </div>
-                    <div className="flex-col show-box show-box-media">
+                    <div className="flex-col profile-view-show-box profile-view-show-box-media">
                       <label
                         for="last_name"
                         className="title-css"
@@ -141,84 +116,39 @@ export default function ProfileView() {
                       >
                         نام خانوادگی
                       </label>
-                      <h3
-                        className="detail-css"
-                        style={{
-                          color: "white",
-                          fontWeight: "normal",
-                          textAlign: "center",
-                        }}
-                      >
-                        {lastName}
-                      </h3>
+                      <h3 className="profile-detail-css">{lastName}</h3>
                     </div>
                   </div>
                 </div>
-                <div className="flex" style={{ marginTop: "5%" }}>
-                  <div className="flex-row" style={{ width: "120%" }}>
-                    <div className="flex-col show-box show-box-media">
+                <div
+                  className="flex"
+                  style={{ marginTop: "10%", width: "100%" }}
+                >
+                  <div className="profile-view-box" style={{ width: "100%" }}>
+                    <div className="flex-col profile-view-show-box profile-view-show-box-media">
                       <label
-                        for="email"
+                        for="first_name"
                         className="title-css"
                         style={{ marginRight: "2%" }}
                       >
                         ایمیل
                       </label>
-                      <h3
-                        className="detail-css email-font-size"
-                        style={{
-                          color: "white",
-                          fontWeight: "normal",
-                          textAlign: "center",
-                        }}
-                      >
-                        {email}
-                      </h3>
+                      <h3 className="profile-detail-css">{email}</h3>
                     </div>
-                    <div className="flex-col show-box show-box-media">
+                    <div className="flex-col profile-view-show-box profile-view-show-box-media">
                       <label
-                        for="username"
+                        for="last_name"
                         className="title-css"
                         style={{ marginRight: "2%" }}
                       >
                         نام کاربری
                       </label>
-                      <h3
-                        className="detail-css"
-                        style={{
-                          color: "white",
-                          fontWeight: "normal",
-                          textAlign: "center",
-                        }}
-                      >
-                        {username}
-                      </h3>
+                      <h3 className="profile-detail-css">{username}</h3>
                     </div>
                   </div>
                 </div>
-                <div style={{ marginTop: "5%" }}>
-                  <div className="flex-col show-box show-box-media">
-                    <label
-                      for="birthday"
-                      className="title-css"
-                      style={{ marginRight: "2%" }}
-                    >
-                      تاریخ تولد
-                    </label>
-                    <h3
-                      className="detail-css"
-                      style={{
-                        color: "white",
-                        fontWeight: "normal",
-                        textAlign: "center",
-                      }}
-                    >
-                      1380/10/24
-                    </h3>
-                  </div>
-                </div>
-                <div style={{ marginTop: "5%" }}>
-                  <div className="flex-col show-box show-box-media bio-media">
+                <div style={{ marginTop: "10%" }}>
+                  <div className="flex-col profile-view-show-box profile-view-show-box-media bio-media">
                     <label
                       for="bio"
                       className="title-css"
@@ -227,12 +157,10 @@ export default function ProfileView() {
                       درباره
                     </label>
                     <h3
-                      className="detail-css"
+                      className="profile-detail-css"
                       style={{
-                        color: "white",
-                        fontWeight: "normal",
-                        textAlign: "center",
                         wordBreak: "break-word",
+                        fontSize: "15px",
                       }}
                     >
                       {bio}
@@ -247,16 +175,3 @@ export default function ProfileView() {
     </div>
   );
 }
-
-const input_text = {
-  color: "#fff",
-  fontFamily: "Vazir",
-  height: "100px",
-};
-
-const style_of_fields = {
-  textAlign: "right",
-  color: "white",
-  fontFamily: "Vazir",
-  fontSize: "100%",
-};

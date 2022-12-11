@@ -45,16 +45,53 @@ function App() {
         <Router>
           <Routes>
             <Route exact path="/" element={<Landing />} />
-            <Route exact path="/dashboard" element={<PrivateRoute children={<Dashborad/>}/>} />
+            <Route
+              exact
+              path="/dashboard"
+              element={<PrivateRoute children={<Dashborad />} />}
+            />
             <Route exact path="/signin" element={<SignIn />} />
             <Route exact path="/signup" element={<SignUp />} />
-            <Route exact path="/profile" element={<PrivateRoute children={<Profile/>}/>} />
+            <Route
+              exact
+              path="/profile"
+              element={<PrivateRoute children={<Profile />} />}
+            />
             <Route exact path="/forget-password" element={<ForgetPassword />} />
-            <Route exact path="/reset-password" element={<ResetPassword/>} />
-            <Route path="workspace/:id/*" element={<PrivateRoute children={<PrivateRoute children={<Workspace_management/>}/>}/>} />
-            <Route exact path="/profileview/" element={<ProfileView />} />
-            <Route exact path="/changepassword" element={<PrivateRoute children={<ChangePassword/>}/>} />
-            <Route exact path="/kanban/:id" element={<PrivateRoute children={<PrivateRoute children={<Kanban/>}/>}/>} />
+            <Route
+              exact
+              path="/reset-password"
+              element={<PrivateRoute children={<ResetPassword />} />}
+            />
+            <Route
+              path="workspace/:id/*"
+              element={
+                <PrivateRoute
+                  children={
+                    <PrivateRoute children={<Workspace_management />} />
+                  }
+                />
+              }
+            />
+            <Route
+              exact
+              path="/profileview/:username"
+              element={<ProfileView />}
+            />
+            <Route
+              exact
+              path="/changepassword"
+              element={<PrivateRoute children={<ChangePassword />} />}
+            />
+            <Route
+              exact
+              path="/kanban/:id"
+              element={
+                <PrivateRoute
+                  children={<PrivateRoute children={<Kanban />} />}
+                />
+              }
+            />
             <Route exact path="/invite_page/:token" element={<InvitePage />} />
             <Route
               exact
@@ -64,7 +101,7 @@ function App() {
             <Route
               exact
               path=":board_id/taskmodal/:task_id/*"
-              element={<PrivateRoute children={<TaskModal/>}/>}
+              element={<PrivateRoute children={<TaskModal />} />}
             />
           </Routes>
         </Router>
