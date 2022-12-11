@@ -18,6 +18,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import PasswordIcon from "@mui/icons-material/Password";
 import Box from "@mui/material/box";
 import Typography from "@mui/material/Typography";
+import { Helmet } from "react-helmet";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -114,6 +115,9 @@ export default function Profile() {
     return (
       <div>
         <CacheProvider value={cacheRtl}>
+          <Helmet>
+            <title>حساب کاربری</title>
+          </Helmet>
           <ThemeProvider theme={theme}>
             <div className="profile-container profile-page">
               <div className="profile-information row-gap-8 profile-information-media">
