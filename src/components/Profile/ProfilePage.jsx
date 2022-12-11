@@ -19,6 +19,9 @@ import PasswordIcon from "@mui/icons-material/Password";
 import Box from "@mui/material/box";
 import Typography from "@mui/material/Typography";
 import { Helmet } from "react-helmet";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loading from "../Shared/Loading";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -36,30 +39,47 @@ export default function Profile() {
   const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [file, setFile] = useState(profile_preview);
-  const [changeImage, setChangeImage] = useState(false);
+  const [getImage, setGetImage] = useState("");
   const [binaryFile, setBinaryFile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [bio, setBio] = React.useState("");
-  const [name, setName] = useState("");
+  const [isPost, setIsPost] = useState(false);
 
   React.useEffect(() => {
     apiInstance.get("/accounts/profile/myprofile/").then((res) => {
+      console.log(res);
       setFirstName(res.data.user.first_name);
       setLastName(res.data.user.last_name);
       setUsername(res.data.user.username);
+      setBirthDate(res.data.birth_date);
       setEmail(res.data.user.email);
       setBio(res.data.bio);
-      setChangeImage(res.data.user.image);
+      setGetImage(res.data.profile_pic);
       setLoading(false);
+      if (res.data.bio !== "null") {
+        setBio(res.data.bio);
+      }
     });
   }, []);
-  const handleChange = (e) => {
-    setFile(URL.createObjectURL(e.target.files[0]));
-    setChangeImage(true);
-
-    let picture = e.target.files[0];
-    console.log("picture", picture);
-    setBinaryFile(picture);
+  const handleDeleteProfileImage = (res) => {
+    setBinaryFile(null);
+    const profile_without_name_form_data = new FormData();
+    profile_without_name_form_data.append("profile_pic", binaryFile);
+    apiInstance
+      .patch("/accounts/profile/myprofile/", profile_without_name_form_data)
+      .then((res) => {
+        setGetImage(null);
+        toast.success("با موفقیت بروز شد.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      })
+      .catch((err) => {
+        toast.error("مشکلی پیش آمده است.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      });
   };
   const [birthDate, setBirthDate] = useState(new Date());
   const cacheRtl = createCache({
@@ -74,6 +94,7 @@ export default function Profile() {
     event.preventDefault();
     errormessage = "";
     document.getElementById("em").innerHTML = errormessage;
+    setIsPost(true);
     if (firstName === "") {
       setErrorFirstName(true);
       errormessage += "*فیلد نام نمیتواد خالی باشد.";
@@ -96,24 +117,63 @@ export default function Profile() {
       .patch("/accounts/users/myaccount/", profile_with_name_form_data)
       .then((res) => {
         console.log(res);
+        toast.success("با موفقیت بروز شد.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("مشکلی پیش آمده است.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      })
+      .finally(() => {
+        setIsPost(null);
       });
+    let birthd = "";
+    if (
+      birthDate !== null ||
+      birthDate !== "" ||
+      birthDate !== undefined ||
+      birthDate !== "null"
+    ) {
+      birthd = `${birthDate.year}-${birthDate.month.number}-${birthDate.day}`;
+      profile_without_name_form_data.append("birth_date", birthd);
+    }
 
-    const birthd = "";
+    console.log(birthDate);
+    console.log(birthd);
     profile_without_name_form_data.append("bio", bio);
-    profile_without_name_form_data.append("birth_date", "2022-04-04");
     // profile_without_name_form_data.append("profile_pic", binaryFile);
-    // birthd += `${birthDate.getFullYear()}-${birthDate.getMonth()}-${birthDate.getDay()}`;
+
     apiInstance
       .patch("/accounts/profile/myprofile/", profile_without_name_form_data)
       .then((res) => {
         console.log(res);
+        toast.success("با موفقیت بروز شد.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("مشکلی پیش آمده است.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      })
+      .finally(() => {
+        setIsPost(null);
       });
+    setIsPost(null);
   };
-  const [message, setMessage] = useState("");
-
   if (!loading) {
     return (
-      <div>
+      <div className="profile-total-page">
+        {isPost ? <Loading /> : null}
+        <ToastContainer />
         <CacheProvider value={cacheRtl}>
           <Helmet>
             <title>حساب کاربری</title>
@@ -122,18 +182,47 @@ export default function Profile() {
             <div className="profile-container profile-page">
               <div className="profile-information row-gap-8 profile-information-media">
                 <div className="profile-box-body-profile-container">
-                  <img src={profile_preview} />
+                  <Avatar
+                    className="Avatar"
+                    src={
+                      getImage !== null
+                        ? `https://mohammadosoolian.pythonanywhere.com/${getImage}`
+                        : file
+                    }
+                    alt="profile"
+                    sx={{
+                      mt: 1,
+                      width: "15vmin",
+                      height: "15vmin",
+                      borderRadius: "50%",
+                    }}
+                  />
                 </div>
-                <div className="flex-col row-gap-8 align-center">
+                <div
+                  className="flex-col row-gap-8 align-center"
+                  style={{ width: "100%", marginTop: "20%" }}
+                >
                   <h3
                     style={{
                       fontWeight: "400",
                       fontSize: "90%",
                       color: "white",
+                      justifyContent: "center",
                     }}
-                    className="neonText vazir"
+                    className="neonText flex profile-information-fname-lname vazir"
                   >
-                    {firstName} {lastName}
+                    {firstName}
+                  </h3>
+                  <h3
+                    style={{
+                      fontWeight: "400",
+                      fontSize: "90%",
+                      color: "white",
+                      justifyContent: "center",
+                    }}
+                    className="neonText flex profile-information-fname-lname vazir"
+                  >
+                    {lastName}
                   </h3>
                   <h4
                     style={{
@@ -166,7 +255,7 @@ export default function Profile() {
                             fontSize: "90%",
                             color: "white",
                           }}
-                          className="neonText text-information-media vazir"
+                          className="neonText vazir"
                         >
                           اطلاعات حساب
                         </h4>
@@ -193,7 +282,7 @@ export default function Profile() {
                               fontSize: "90%",
                               color: "white",
                             }}
-                            className="neonText text-information-media vazir"
+                            className="neonText vazir"
                           >
                             تغییر رمز عبور
                           </h4>
@@ -227,7 +316,11 @@ export default function Profile() {
                     >
                       <Avatar
                         className="Avatar"
-                        src={binaryFile}
+                        src={
+                          getImage !== null
+                            ? `https://mohammadosoolian.pythonanywhere.com/${getImage}`
+                            : file
+                        }
                         alt="profile"
                         sx={{
                           mt: 1,
@@ -250,24 +343,43 @@ export default function Profile() {
                           >
                             انتخاب عکس
                           </p>
-                          {/* <p>aafaf</p> */}
                           <input
                             type="file"
                             hidden
-                            onChange={(e) => handleChange(e)}
+                            onChange={(e) => {
+                              setBinaryFile(e.target.files[0]);
+                              const [filee] = e.target.files;
+                              setFile(URL.createObjectURL(filee));
+                              console.log("-----");
+                            }}
                             accept=".jpg,.jpeg,.png"
                           />
                         </Button>
                       </div>
                     </div>
                   </div>
+                  {getImage !== null ? (
+                    <div className="profile-delete-image">
+                      <Button
+                        style={{ fontFamily: "Vazir" }}
+                        variant="contained"
+                        onClick={handleDeleteProfileImage}
+                      >
+                        {" "}
+                        حذف{" "}
+                      </Button>
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
+
                   <div className="flex">
                     <div
                       className="flex-col col-gap-16"
                       style={{ width: "100%", marginTop: "10%" }}
                     >
                       <StyledTextField
-                        className="StyledTextField-media otherStyledTextField-media otherStyledTextField"
+                        className="otherStyledTextField-media otherStyledTextField"
                         margin="normal"
                         id="firstName"
                         fullWidth
@@ -284,7 +396,7 @@ export default function Profile() {
                         autoFocus
                       />
                       <StyledTextField
-                        className="StyledTextField-media otherStyledTextField-media otherStyledTextField"
+                        className="otherStyledTextField-media otherStyledTextField"
                         margin="normal"
                         id="lastname"
                         fullWidth
@@ -342,11 +454,12 @@ export default function Profile() {
                       onChange={(val) => setBirthDate(val)}
                       calendarPosition="bottom-right"
                       // backgroundColor="#000"
+                      style={{ width: "100%" }}
                     />
                   </div>
-                  <div className="StyledTextField-media">
+                  <div>
                     <StyledTextField
-                      className="StyledTextField-media otherStyledTextField"
+                      className="otherStyledTextField"
                       margin="normal"
                       id="bio"
                       label="درباره"
@@ -394,7 +507,7 @@ export default function Profile() {
       </div>
     );
   } else {
-    return <div>Loading ...</div>;
+    return <div></div>;
   }
 }
 

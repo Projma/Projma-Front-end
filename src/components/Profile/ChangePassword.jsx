@@ -25,7 +25,13 @@ import PersonIcon from "@mui/icons-material/Person";
 import PasswordIcon from "@mui/icons-material/Password";
 import Box from "@mui/material/box";
 import Typography from "@mui/material/Typography";
+<<<<<<< HEAD
 import { Helmet } from "react-helmet";
+=======
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loading from "../Shared/Loading";
+>>>>>>> 37c0c6c ([fix]: solve image upload error)
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -45,11 +51,16 @@ export default function ChangePassword() {
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [username, setUsername] = React.useState("");
+  const [getImage, setGetImage] = useState("");
+  const [isPost, setIsPost] = useState(false);
+  const [file, setFile] = useState(profile_preview);
+
   React.useEffect(() => {
     apiInstance.get("/accounts/profile/myprofile/").then((res) => {
       setFirstName(res.data.user.first_name);
       setLastName(res.data.user.last_name);
       setUsername(res.data.user.username);
+      setGetImage(res.data.profile_pic);
     });
   }, []);
   const theme = createTheme({
@@ -62,6 +73,7 @@ export default function ChangePassword() {
   let errorMessage = "";
   const handleSubmit = (event) => {
     errorMessage = "";
+    document.getElementById("em").innerHTML = errorMessage;
     setErrorPassword(false);
     setErrorPassword2(false);
     setErrorPassword3(false);
@@ -111,10 +123,25 @@ export default function ChangePassword() {
       const change_password_form_data = new FormData();
       change_password_form_data.append("old_password", password);
       change_password_form_data.append("new_password", password2);
+      setIsPost(true);
       apiInstance
         .post("/accounts/profile/change-password/", change_password_form_data)
         .then((res) => {
           console.log(res);
+          toast.success("رمز عبور با موفقیت تغییر کرد", {
+            position: toast.POSITION.BOTTOM_LEFT,
+            rtl: true,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("رمز عبور قبلی اشتباه است", {
+            position: toast.POSITION.BOTTOM_LEFT,
+            rtl: true,
+          });
+        })
+        .finally(() => {
+          setIsPost(null);
         });
     }
   };
@@ -127,21 +154,40 @@ export default function ChangePassword() {
       <Helmet>
         <title>تغییر رمز عبور</title>
       </Helmet>
+      {isPost ? <Loading /> : null}
+      <ToastContainer />
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
-          <div className="profile-container profile-page">
+          <div className="profile-container profile-page" sty>
             <div className="profile-information row-gap-8 profile-information-media">
               <div className="profile-box-body-profile-container">
-                <img src={profile_preview} />
+                <Avatar
+                  className="Avatar"
+                  src={
+                    getImage !== null
+                      ? `https://mohammadosoolian.pythonanywhere.com/${getImage}`
+                      : file
+                  }
+                  alt="profile"
+                  sx={{
+                    mt: 1,
+                    width: "15vmin",
+                    height: "15vmin",
+                    borderRadius: "50%",
+                  }}
+                />
               </div>
-              <div className="flex-col row-gap-8 align-center">
+              <div
+                className="flex-col row-gap-8 align-center"
+                style={{ width: "100%", marginTop: "20%" }}
+              >
                 <h3
                   style={{
                     fontWeight: "400",
                     fontSize: "90%",
                     color: "white",
                   }}
-                  className="neonText vazir"
+                  className="neonText profile-information-fname-lname vazir"
                 >
                   {firstName} {lastName}
                 </h3>
@@ -176,7 +222,7 @@ export default function ChangePassword() {
                           fontSize: "90%",
                           color: "white",
                         }}
-                        className="neonText text-information-media vazir"
+                        className="neonText vazir"
                       >
                         اطلاعات حساب
                       </h4>
@@ -203,7 +249,7 @@ export default function ChangePassword() {
                             fontSize: "90%",
                             color: "white",
                           }}
-                          className="neonText text-information-media vazir"
+                          className="neonText vazir"
                         >
                           تغییر رمز عبور
                         </h4>
@@ -236,10 +282,7 @@ export default function ChangePassword() {
                     alignItems: "center",
                   }}
                 >
-                  <div
-                    className="flex"
-                    style={{ marginBottom: "10%", marginTop: "20%" }}
-                  >
+                  <div className="flex" style={{ marginTop: "20%" }}>
                     <StyledTextField
                       margin="normal"
                       required="required"
@@ -263,7 +306,7 @@ export default function ChangePassword() {
                       }}
                     />
                   </div>
-                  <div className="flex" style={{ marginBottom: "10%" }}>
+                  <div className="flex">
                     <StyledTextField
                       margin="normal"
                       required="required"
@@ -287,7 +330,7 @@ export default function ChangePassword() {
                       }}
                     />
                   </div>
-                  <div className="flex" style={{ marginBottom: "60%" }}>
+                  <div className="flex" style={{ marginBottom: "15%" }}>
                     <StyledTextField
                       margin="normal"
                       required="required"
