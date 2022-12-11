@@ -25,13 +25,10 @@ import PersonIcon from "@mui/icons-material/Person";
 import PasswordIcon from "@mui/icons-material/Password";
 import Box from "@mui/material/box";
 import Typography from "@mui/material/Typography";
-<<<<<<< HEAD
 import { Helmet } from "react-helmet";
-=======
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Shared/Loading";
->>>>>>> 37c0c6c ([fix]: solve image upload error)
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
