@@ -9,6 +9,7 @@ import Navbar from "../components/Workspace_management/Navbar/Navbar";
 import "../styles/Workspace_management.css";
 import Header from "../components/Header/Header";
 import Board from "../components/Workspace_management/Board/Board";
+import { Helmet } from "react-helmet";
 
 const Workspace_management = () => {
   const params = useParams();
@@ -35,6 +36,9 @@ const Workspace_management = () => {
   };
   return (
     <div className="mother-div">
+      <Helmet>
+        <title>فضای کاری</title>
+      </Helmet>
       {/* <div> */}
 
       <ResponsiveDrawerRight width={"249px"} />
