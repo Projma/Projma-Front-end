@@ -81,7 +81,7 @@ const Board = (props) => {
   }
 
   return (
-    <div className="board_list-container font-fix">
+    <div className="board_list-container">
       {isPost ? <Loading /> : null}
       {isFail ? (
         <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
