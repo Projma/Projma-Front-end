@@ -9,6 +9,7 @@ import "../../styles/Registration.css";
 import axios from "axios";
 import { useState } from "react";
 import apiInstance from "../../utilities/axiosConfig";
+import { Helmet } from "react-helmet";
 
 function Copyright(props) {
   return (
@@ -49,6 +50,9 @@ export default function Email_verification() {
           borderRadius: 3,
         }}
       >
+        <Helmet>
+          <title>تایید ایمیل</title>
+        </Helmet>
         <CssBaseline />
         <Box
           sx={{
@@ -93,6 +97,9 @@ export default function Email_verification() {
   } else {
     return (
       <div>
+        <Helmet>
+          <title>تایید ایمیل</title>
+        </Helmet>
         <h1>loading</h1>
       </div>
     );
