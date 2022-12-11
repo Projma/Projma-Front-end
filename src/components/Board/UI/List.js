@@ -16,6 +16,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import InputName from "../../Shared/InputName";
+import apiInstance from "../../utilities/axiosConfig";
 
 const List = (props) => {
   const [cards, setCards] = useState(props.card);
@@ -37,8 +38,8 @@ const List = (props) => {
   const id = open ? "simple-popover" : undefined;
 
   const reqCreateCard = async (data, id) =>
-    await axios
-      .post(`http://127.0.0.1:8000/workspaces/board/${id}/create-task/`, data)
+    await apiInstance
+      .post(`workspaces/board/${id}/create-task/`, data)
       .then(() => {
         setIsToast(true);
         toast.success("کارت با موفقیت ساخته شد", {
@@ -61,9 +62,9 @@ const List = (props) => {
       });
 
   const reqDeleteList = async (id) =>
-    await axios
+    await apiInstance
       .delete(
-        `http://127.0.0.1:8000/workspaces/tasklist/${id}/delete-tasklist/`
+        `workspaces/tasklist/${id}/delete-tasklist/`
       )
       .then(() => {
         setIsToast(true);
@@ -87,9 +88,9 @@ const List = (props) => {
       });
 
   const reqEditListName = async (data,id) =>
-    await axios
+    await apiInstance
       .patch(
-        `http://127.0.0.1:8000/workspaces/tasklist/${id}/update-tasklist/`,data
+        `workspaces/tasklist/${id}/update-tasklist/`,data
       )
       .then(() => {
         setIsToast(true);
