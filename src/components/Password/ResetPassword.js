@@ -12,6 +12,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "../../styles/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
@@ -123,8 +124,13 @@ const ResetPassword = () => {
   return (
     <>
       {isPost ? <Loading /> : null}
-      {isFail ? <ToastContainer autoClose={5000} style={{fontSize:"1.2rem"}}/> : null}
+      {isFail ? (
+        <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
+      ) : null}
       <Container maxWidth="xs">
+        <Helmet>
+          <title>تغییر رمز عبور</title>
+        </Helmet>
         <CssBaseline />
         <Box
           sx={{
