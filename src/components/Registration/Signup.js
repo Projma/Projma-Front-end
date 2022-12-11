@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Shared/Loading";
+import { Helmet } from "react-helmet";
 
 function Copyright(props) {
   return (
@@ -157,6 +158,9 @@ export default function SignUp() {
   if (isLogin) {
     return (
       <CacheProvider value={cacheRtl}>
+        <Helmet>
+          <title>صفحه ثبت‌نام</title>
+        </Helmet>
         <ToastContainer />
         {isPost ? <Loading /> : null}
         <ThemeProvider theme={theme}>
