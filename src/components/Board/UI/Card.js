@@ -20,6 +20,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Loading from "../../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
+import apiInstance from "../../../utilities/axiosConfig";
 
 const Card = (props) => {
   const [showLabelName, setShowLabelName] = useState(false);
@@ -38,8 +39,8 @@ const Card = (props) => {
   // }, [isIn]);
 
   const reqDeleteCard = async (id) =>
-    await axios
-      .delete(`http://127.0.0.1:8000/workspaces/task/${id}/`)
+    await apiInstance
+      .delete(`workspaces/task/${id}/`)
       .then(() => {
         setIsToast(true);
         toast.success("کارت با موفقیت حذف شد", {
