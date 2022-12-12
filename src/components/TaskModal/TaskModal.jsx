@@ -38,6 +38,7 @@ import LabelIcon from "@mui/icons-material/Label";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Checkbox from "@mui/material/Checkbox";
 import { useEffect } from "react";
+import { baseUrl } from "../../utilities/constants";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -179,6 +180,8 @@ export default function TaskModal() {
   const [Comment, setComment] = useState("");
   const [editcomment, setEditComment] = useState(false);
   const [editcommentText, setEditCommentText] = useState("");
+  const [user, setUser] = useState({});
+  const baseURL = baseUrl.substring(0, baseUrl.length - 1);
   const params = useParams();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -201,10 +204,6 @@ export default function TaskModal() {
     event.preventDefault();
     const formData = new FormData();
     formData.append("text", Comment);
-    // console.log(Comment);
-    // setComment("");
-    // console.log(ListOfComments);
-    console.log(params.task_id);
     apiInstance
       .post(`/workspaces/task/${params.task_id}/new-comment/`, formData)
       .then((response) => {
@@ -215,6 +214,16 @@ export default function TaskModal() {
             text: Comment,
             created: response.data.created_at,
             id: response.data.id,
+            updated: response.data.updated_at,
+            task: response.data.task,
+            reply: response.data.reply_to,
+            sender: {
+              id: user.user.id,
+              username: user.user.username,
+              first_name: user.user.first_name,
+              last_name: user.user.last_name,
+              profile_pic: user.profile_pic,
+            },
           },
         ]);
       })
@@ -225,6 +234,10 @@ export default function TaskModal() {
     setShowComment(false);
   };
   useEffect(() => {
+    apiInstance.get(`/accounts/profile/myprofile/`).then((res) => {
+      setUser(res.data);
+      console.log(user);
+    });
     apiInstance
       .get(`/workspaces/task/${params.task_id}/get-task/`)
       .then((res) => {
@@ -232,18 +245,19 @@ export default function TaskModal() {
         const comments = res.data.comments.map((obj) => ({
           text: obj.text,
           created: obj.created_at,
+          sender: obj.sender,
+          updated: obj.updated_at,
+          task: obj.task,
+          reply: obj.reply_to,
           id: obj.id,
         }));
-        // console.log(res.data.comments[0]);
         setListOfComments(comments);
-        console.log(ListOfComments);
-      })
-      .catch((error) => {
-        console.log(error);
       });
   }, []);
+
   return (
     <div>
+      <Button variant="contained" onClick={() => console.log(user)}></Button>
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
           <div className="taskmodal-page">
@@ -551,7 +565,27 @@ export default function TaskModal() {
                     </div>
                     <div className="flex-row taskmodal-body-activity-body">
                       <div className="flex taskmodal-body-activity-body-icon">
-                        <InitialIconcircle initials={"ن‌ا"}></InitialIconcircle>
+                        <div className="flex taskmodal-body-activity-body-icon">
+                          {user.profile_pic !== null ? (
+                            <img
+                              src={`${baseURL}${user.profile_pic}`}
+                              alt="profile"
+                              style={{
+                                borderRadius: 30,
+                                width: 30,
+                                height: 30,
+                              }}
+                            />
+                          ) : (
+                            <InitialIconcircle
+                              initials={
+                                user?.user.first_name[0] +
+                                "‌" +
+                                user?.user.last_name[0]
+                              }
+                            ></InitialIconcircle>
+                          )}
+                        </div>
                       </div>
                       <Box
                         component="form"
@@ -610,13 +644,36 @@ export default function TaskModal() {
                           style={{ justifyContent: "space-between" }}
                         >
                           <div className="flex taskmodal-body-activity-body-icon">
-                            <InitialIconcircle
-                              initials={"ن‌ا"}
-                            ></InitialIconcircle>
+                            {item.sender?.profile_pic !== null ? (
+                              <img
+                                src={item.sender?.profile_pic}
+                                alt="profile"
+                                style={{
+                                  borderRadius: 30,
+                                  width: 30,
+                                  height: 30,
+                                }}
+                              />
+                            ) : (
+                              <InitialIconcircle
+                                initials={
+                                  item.sender?.first_name[0] +
+                                  "‌" +
+                                  item.sender?.last_name[0]
+                                }
+                              ></InitialIconcircle>
+                            )}
                           </div>
                           <div className="taskmodal-comment-showList">
-                            <div className="taskmodal-comment-showList-auther">
-                              نوید
+                            <div className="flex-row taskmodal-comment-showList-auther">
+                              <div className="taskmodal-comment-showList-auther-name">
+                                {item.sender?.first_name +
+                                  " " +
+                                  item.sender?.last_name}
+                              </div>
+                              <div className="taskmodal-comment-showList-auther-time">
+                                {item.updated}
+                              </div>
                             </div>
                             {editcomment ? (
                               <div>
@@ -633,7 +690,10 @@ export default function TaskModal() {
                                   <Button
                                     onClick={() => {
                                       setEditComment(false);
-                                      handleEditComment(item.id, Comment);
+                                      handleEditComment(
+                                        item.id,
+                                        editcommentText
+                                      );
                                     }}
                                     variant="contained"
                                     className="taskmodal-button-setting"
