@@ -72,7 +72,7 @@ const Board = (props) => {
     const data = new FormData();
     data.append("title", inputName);
     setIsPost(true);
-    postCreateList(data, 1);
+    postCreateList(data, props.boardId);
     setIsclicked(false);
     setInputName("");
     // console.log(lists);
