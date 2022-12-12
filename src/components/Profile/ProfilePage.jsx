@@ -22,6 +22,7 @@ import { Helmet } from "react-helmet";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Shared/Loading";
+import { baseUrl } from "../../utilities/constants";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -32,6 +33,7 @@ const cacheRtl = createCache({
   stylisPlugins: [prefixer, rtlPlugin],
 });
 export default function Profile() {
+  const baseURL = baseUrl.substring(0, baseUrl.length - 1);
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [errorFirstName, setErrorFirstName] = React.useState(false);
@@ -44,19 +46,19 @@ export default function Profile() {
   const [loading, setLoading] = useState(true);
   const [bio, setBio] = React.useState("");
   const [isPost, setIsPost] = useState(false);
+  const [changeImage, setChangeImage] = React.useState(false);
 
   React.useEffect(() => {
-    apiInstance.get("/accounts/profile/myprofile/").then((res) => {
+    apiInstance.get("accounts/profile/myprofile/").then((res) => {
       console.log(res);
       setFirstName(res.data.user.first_name);
       setLastName(res.data.user.last_name);
       setUsername(res.data.user.username);
       setBirthDate(res.data.birth_date);
       setEmail(res.data.user.email);
-      setBio(res.data.bio);
       setGetImage(res.data.profile_pic);
       setLoading(false);
-      if (res.data.bio !== "null") {
+      if (res.data.bio != "null") {
         setBio(res.data.bio);
       }
     });
@@ -66,7 +68,7 @@ export default function Profile() {
     const profile_without_name_form_data = new FormData();
     profile_without_name_form_data.append("profile_pic", binaryFile);
     apiInstance
-      .patch("/accounts/profile/myprofile/", profile_without_name_form_data)
+      .patch("accounts/profile/myprofile/", profile_without_name_form_data)
       .then((res) => {
         setGetImage(null);
         toast.success("با موفقیت بروز شد.", {
@@ -133,21 +135,15 @@ export default function Profile() {
         setIsPost(null);
       });
     let birthd = "";
-    if (
-      birthDate !== null ||
-      birthDate !== "" ||
-      birthDate !== undefined ||
-      birthDate !== "null"
-    ) {
+    if (typeof birthDate !== "string" && birthDate !== null) {
       birthd = `${birthDate.year}-${birthDate.month.number}-${birthDate.day}`;
       profile_without_name_form_data.append("birth_date", birthd);
     }
 
-    console.log(birthDate);
-    console.log(birthd);
     profile_without_name_form_data.append("bio", bio);
-    // profile_without_name_form_data.append("profile_pic", binaryFile);
-
+    if (binaryFile !== null) {
+      profile_without_name_form_data.append("profile_pic", binaryFile);
+    }
     apiInstance
       .patch("/accounts/profile/myprofile/", profile_without_name_form_data)
       .then((res) => {
@@ -184,11 +180,7 @@ export default function Profile() {
                 <div className="profile-box-body-profile-container">
                   <Avatar
                     className="Avatar"
-                    src={
-                      getImage !== null
-                        ? `https://mohammadosoolian.pythonanywhere.com/${getImage}`
-                        : file
-                    }
+                    src={getImage !== null ? `${baseURL}${getImage}` : file}
                     alt="profile"
                     sx={{
                       mt: 1,
@@ -317,8 +309,8 @@ export default function Profile() {
                       <Avatar
                         className="Avatar"
                         src={
-                          getImage !== null
-                            ? `https://mohammadosoolian.pythonanywhere.com/${getImage}`
+                          getImage !== null && !changeImage
+                            ? `${baseURL}${getImage}`
                             : file
                         }
                         alt="profile"
@@ -347,10 +339,16 @@ export default function Profile() {
                             type="file"
                             hidden
                             onChange={(e) => {
+                              // console.log("-----");
+                              // console.log(getImage);
+                              // console.log("****");
                               setBinaryFile(e.target.files[0]);
+                              setChangeImage(true);
                               const [filee] = e.target.files;
                               setFile(URL.createObjectURL(filee));
-                              console.log("-----");
+                              // console.log(e.target.files[0]);
+                              // console.log(file);
+                              // console.log("-----");
                             }}
                             accept=".jpg,.jpeg,.png"
                           />
