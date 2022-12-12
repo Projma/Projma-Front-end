@@ -13,10 +13,13 @@ body {
   /* align-items: center; */
 }
 
-.board_list-container-minor {
-  display: inline-flex;
+.board_list-container-box {
+  width: 100%;
+  margin-right: 0.6rem;
+  height: auto;
+  flex-direction: row-reverse;
+  display: flex;
   align-items: flex-start;
-  flex: 0 1 auto;
   overflow-x: scroll;
 }
 
