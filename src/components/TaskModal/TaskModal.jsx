@@ -58,34 +58,34 @@ export default function TaskModal() {
       })
     );
   }
-  function handleRemoveOfComment(index) {
+  function handleRemoveOfComment(id) {
     apiInstance
-      .delete(`/workspaces/comment/${index}/delete-comment/`)
+      .delete(`/workspaces/comment/${id}/delete-comment/`)
       .then((response) => {
         console.log(response);
+        setListOfComments((prevState) => {
+          return prevState.filter((item) => item.id !== id);
+        });
       });
   }
-  function handleEditComment(index) {
+  function handleEditComment(index, comment) {
     const formData = new FormData();
-    formData.append("text", Comment);
+    formData.append("text", comment);
     apiInstance
-      .delete(`/workspaces/comment/${index}/eddit-comment/`, formData)
+      .patch(`/workspaces/comment/${index}/eddit-comment/`, formData)
       .then((response) => {
         console.log(response);
+        setListOfComments((prevState) => {
+          return prevState.map((item) => {
+            if (item.id === index) {
+              item.text = comment;
+            }
+            return item;
+          });
+        });
       });
   }
 
-  function handleEditCommentSubmit(index, comment) {
-    console.log("comment", comment, "index", index);
-    setListOfComments(
-      ListOfComments.map((item, i) => {
-        if (i === index) {
-          ListOfComments[i] = comment;
-          return ListOfComments[i];
-        }
-      })
-    );
-  }
   const randColor = () => {
     return (
       "#" +
@@ -178,6 +178,7 @@ export default function TaskModal() {
   const [showChecklist, setShowChecklist] = useState(false);
   const [Comment, setComment] = useState("");
   const [editcomment, setEditComment] = useState(false);
+  const [editcommentText, setEditCommentText] = useState("");
   const params = useParams();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -196,7 +197,7 @@ export default function TaskModal() {
     setShowChecklist(false);
     console.log(show);
   };
-  const handleCommentSubmit = (event) => {
+  const handleCommentSubmit = (event, user_id) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("text", Comment);
@@ -208,16 +209,26 @@ export default function TaskModal() {
       .post(`/workspaces/task/${params.task_id}/new-comment/`, formData)
       .then((response) => {
         console.log(response.data);
+        setListOfComments((prevState) => [
+          ...prevState,
+          {
+            text: Comment,
+            created: response.data.created_at,
+            id: response.data.id,
+          },
+        ]);
       })
       .catch((error) => {
         console.log(error);
       });
+    setComment("");
     setShowComment(false);
   };
   useEffect(() => {
     apiInstance
       .get(`/workspaces/task/${params.task_id}/get-task/`)
       .then((res) => {
+        console.log(res);
         const comments = res.data.comments.map((obj) => ({
           text: obj.text,
           created: obj.created_at,
@@ -226,6 +237,9 @@ export default function TaskModal() {
         // console.log(res.data.comments[0]);
         setListOfComments(comments);
         console.log(ListOfComments);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }, []);
   return (
@@ -610,15 +624,16 @@ export default function TaskModal() {
                                   fullWidth
                                   autoFocus
                                   onChange={(e) => {
-                                    setComment(e.target.value);
+                                    setEditCommentText(e.target.value);
                                   }}
-                                  value={item.text}
+                                  value={editcommentText}
+                                  // defaultValue={item.text}
                                 ></StyledTextField>
                                 <div dir="ltr" style={{ marginTop: "3%" }}>
                                   <Button
                                     onClick={() => {
                                       setEditComment(false);
-                                      handleEditComment(item.id);
+                                      handleEditComment(item.id, Comment);
                                     }}
                                     variant="contained"
                                     className="taskmodal-button-setting"
@@ -669,6 +684,7 @@ export default function TaskModal() {
                                     }}
                                     onClick={() => {
                                       setEditComment(true);
+                                      setEditCommentText(item.text);
                                     }}
                                   >
                                     ویرایش
@@ -683,48 +699,9 @@ export default function TaskModal() {
                   </div>
                 </div>
                 <div className="flex-column taskmodal-body-smaller">
-                  {/* <Button
-                    className="taskmodal-smaller-button-inner"
-                    sx={{ bgcolor: "#173b5e" }}
-                  >
-                    <PersonIcon fontSize="large"></PersonIcon>{" "}
-                    <div className="taskmodal-smaller-button">اعضا</div>
-                  </Button> */}
                   <Members params={params} />
-                  {/* <Button
-                    className="taskmodal-smaller-button-inner"
-                    sx={{
-                      bgcolor: "#173b5e",
-                      marginTop: "5%",
-                    }}
-                  >
-                    <LabelIcon rotate="90" fontSize="large"></LabelIcon>{" "}
-                    <div className="taskmodal-smaller-button">لیبل</div>
-                  </Button> */}
                   <Labels params={params} />
-                  <Button
-                    className="taskmodal-smaller-button-inner"
-                    sx={{
-                      bgcolor: "#173b5e",
-                      marginTop: "5%",
-                    }}
-                  >
-                    <ContentPasteIcon fontSize="large"></ContentPasteIcon>{" "}
-                    <div className="taskmodal-smaller-button">لیست کنترل</div>
-                  </Button>
-                  {/* <Button
-                  </Button> */}
                   <CheckList params={params} />
-                  <Button
-                    className="taskmodal-smaller-button-inner"
-                    sx={{
-                      bgcolor: "#173b5e",
-                      marginTop: "5%",
-                    }}
-                  >
-                    <AttachFileIcon fontSize="large"></AttachFileIcon>{" "}
-                    <div className="taskmodal-smaller-button">پیوست</div>
-                  </Button>{" "}
                   <Attachments params={params} />
                 </div>
               </div>
