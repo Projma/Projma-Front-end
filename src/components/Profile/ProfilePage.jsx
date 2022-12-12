@@ -96,7 +96,7 @@ export default function Profile() {
     event.preventDefault();
     errormessage = "";
     document.getElementById("em").innerHTML = errormessage;
-    // setIsPost(true);
+    setIsPost(true);
     if (firstName === "") {
       setErrorFirstName(true);
       errormessage += "*فیلد نام نمیتواد خالی باشد.";
@@ -136,18 +136,14 @@ export default function Profile() {
       });
     let birthd = "";
     if (typeof birthDate !== "string" && birthDate !== null) {
-      console.log("navid");
       birthd = `${birthDate.year}-${birthDate.month.number}-${birthDate.day}`;
       profile_without_name_form_data.append("birth_date", birthd);
     }
 
-    // console.log(birthd);
-    console.log(binaryFile);
     profile_without_name_form_data.append("bio", bio);
     if (binaryFile !== null) {
       profile_without_name_form_data.append("profile_pic", binaryFile);
     }
-    // console.log(binaryFile);
     apiInstance
       .patch("/accounts/profile/myprofile/", profile_without_name_form_data)
       .then((res) => {
@@ -163,16 +159,16 @@ export default function Profile() {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
+      })
+      .finally(() => {
+        setIsPost(null);
       });
-    // .finally(() => {
-    //   setIsPost(null);
-    // });
-    // setIsPost(null);
+    setIsPost(null);
   };
   if (!loading) {
     return (
       <div className="profile-total-page">
-        {/* {isPost ? <Loading /> : null} */}
+        {isPost ? <Loading /> : null}
         <ToastContainer />
         <CacheProvider value={cacheRtl}>
           <Helmet>
