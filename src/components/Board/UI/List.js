@@ -4,7 +4,7 @@ import Card from "./Card";
 import PerTextField from "../../Shared/PerTextField";
 import StyledTextField from "../../Shared/StyledTextField";
 import Popover from "@mui/material/Popover";
-import { Droppable } from "react-beautiful-dnd";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import { v4 as uuid } from "uuid";
 import axios from "axios";
 import Loading from "../../Shared/Loading";
@@ -27,6 +27,7 @@ const List = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isDel, setIsDel] = useState(false);
+  const [name, setName] = useState(props.name);
 
   useEffect(() => {
     setIsToast(false);
@@ -58,14 +59,13 @@ const List = (props) => {
       })
       .finally(() => {
         setIsPost(null);
+        console.log("reqCreateCard Done");
         props.onPost(true);
       });
 
   const reqDeleteList = async (id) =>
     await apiInstance
-      .delete(
-        `workspaces/tasklist/${id}/delete-tasklist/`
-      )
+      .delete(`workspaces/tasklist/${id}/delete-tasklist/`)
       .then(() => {
         setIsToast(true);
         toast.success("لیست با موفقیت حذف شد", {
@@ -84,14 +84,13 @@ const List = (props) => {
       })
       .finally(() => {
         setIsPost(null);
+        console.log("reqDeleteList Done");
         props.onPost(true);
       });
 
-  const reqEditListName = async (data,id) =>
+  const reqEditListName = async (data, id) =>
     await apiInstance
-      .patch(
-        `workspaces/tasklist/${id}/update-tasklist/`,data
-      )
+      .patch(`workspaces/tasklist/${id}/update-tasklist/`, data)
       .then(() => {
         setIsToast(true);
         toast.success("اسم لیست با موفقیت عوض شد", {
@@ -150,141 +149,192 @@ const List = (props) => {
   };
 
   const onPostHandler = (isa) => {
+    console.log("List isa ",isa);
     props.onPost(isa);
-  }
+  };
 
   const changeNameHandler = (name) => {
+    setName(name);
     const data = new FormData();
-    data.append("title",name);
+    data.append("title", name);
     setIsPost(true);
-    reqEditListName(data,props.id);
+    reqEditListName(data, props.id);
   };
 
   return (
-    <div className="board_list">
-      {isPost ? <Loading /> : null}
-      {isToast ? (
-        <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
-      ) : null}
-      <div className="board_header">
-        {/* <p className="board_header-title">{props.name}</p> */}
-        <InputName
-          className="board_header-title"
-          name={props.name}
-          onChangeName={changeNameHandler}
-        />
-        <button className="board_header-button" onClick={optionClickHandler}>
-          <p className="board_button-title">...</p>
-        </button>
-        <Popover
-          id={id}
-          open={open}
-          anchorEl={anchorEl}
-          onClose={optionsHandler}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
+    <Draggable draggableId={String(props.id)+props.name} index={props.index}>
+      {(provided) => (
+        <div
+          className="board_list"
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
         >
-          <div className="board_option">
-            <p className="board_option-text board_option-title">
-              فهرست اقدامات لیست
-            </p>
-            <div className="board_option-button-container">
-              <button className="board_option-button" onClick={clickHandler}>
-                <p className="board_option-text">افزودن کارت</p>
-              </button>
-              <button
-                className="board_option-button"
-                onClick={() => {
-                  setIsOpen(true);
-                }}
-              >
-                <p className="board_option-text">حذف کردن لیست</p>
-              </button>
-              <Dialog
-                open={isOpen}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-              >
-                <DialogTitle id="alert-dialog-title">
-                  {"آیا از حذف کردن لیست مطمئن هستید؟"}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText
-                    id="alert-dialog-description"
-                    sx={{ color: "#fff" }}
-                  >
-                    اخطار: با حذف کردن لیست تمام کارت های داخل آن نیز حذف میشود
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <div className="List_dialog-button-container">
-                    <button
-                      onClick={() => {
-                        setIsDel(true);
-                        deleteListHandler();
-                      }}
-                      className="List_dialog-button"
-                    >
-                      تایید
-                    </button>
-                    <button
-                      onClick={handleClose}
-                      autoFocus
-                      className="List_dialog-button"
-                    >
-                      انصراف
-                    </button>
-                  </div>
-                </DialogActions>
-              </Dialog>
-            </div>
-          </div>
-        </Popover>
-      </div>
-      <div className="board_card-list">
-        {cards.map((card, index) => (
-          <Card name={card.title} key={uuid()} id={card.id} index={index} members={card.doers} checkTotal={card.checklists_num} checkDone={card.checked_checklists_num} attachNum={card.attachments_num} chatNum={card.comments_num} labels={card.labels} onPost={onPostHandler} boardId={props.boardId}/>
-        ))}
-      </div>
-      {/* <div className="board_space"></div> */}
-      <div className="board_add-card">
-        {!isclicked ? (
-          <div className="board_add-button">
-            <button className="board_add-card_button" onClick={clickHandler}>
-              + افزودن کارت
+          {isPost ? <Loading /> : null}
+          {isToast ? (
+            <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
+          ) : null}
+          <div className="board_header">
+            {/* <p className="board_header-title">{props.name}</p> */}
+            <InputName
+              className="board_header-title"
+              name={name}
+              onChangeName={changeNameHandler}
+            />
+            <button
+              className="board_header-button"
+              onClick={optionClickHandler}
+            >
+              <p className="board_button-title">...</p>
             </button>
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={optionsHandler}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+            >
+              <div className="board_option">
+                <p className="board_option-text board_option-title">
+                  فهرست اقدامات لیست
+                </p>
+                <div className="board_option-button-container">
+                  <button
+                    className="board_option-button"
+                    onClick={clickHandler}
+                  >
+                    <p className="board_option-text">افزودن کارت</p>
+                  </button>
+                  <button
+                    className="board_option-button"
+                    onClick={() => {
+                      setIsOpen(true);
+                    }}
+                  >
+                    <p className="board_option-text">حذف کردن لیست</p>
+                  </button>
+                  <Dialog
+                    open={isOpen}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <DialogTitle id="alert-dialog-title">
+                      {"آیا از حذف کردن لیست مطمئن هستید؟"}
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText
+                        id="alert-dialog-description"
+                        sx={{ color: "#fff" }}
+                      >
+                        اخطار: با حذف کردن لیست تمام کارت های داخل آن نیز حذف
+                        میشود
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <div className="List_dialog-button-container">
+                        <button
+                          onClick={() => {
+                            setIsDel(true);
+                            deleteListHandler();
+                          }}
+                          className="List_dialog-button"
+                        >
+                          تایید
+                        </button>
+                        <button
+                          onClick={handleClose}
+                          autoFocus
+                          className="List_dialog-button"
+                        >
+                          انصراف
+                        </button>
+                      </div>
+                    </DialogActions>
+                  </Dialog>
+                </div>
+              </div>
+            </Popover>
           </div>
-        ) : (
-          <div className="board_add-list-form">
-            <form className="board_add-form-card" onSubmit={submitHandler}>
-              <PerTextField>
-                <StyledTextField
-                  margin="normal"
-                  label="اسم کارت"
-                  variant="filled"
-                  required
-                  fullWidth
-                  autoFocus
-                  onChange={(e) => setInputName(e.target.value)}
-                  placeholder="اسم کارت را در این بخش بنویسید"
-                  sx={{
-                    backgroundColor: "#132F4C",
-                    border: "0.2rem solid #5090D3",
-                    borderRadius: "0.5rem",
-                  }}
-                />
-              </PerTextField>
-              <button type="submit" className="board_form-button">
-                افزودن
-              </button>
-            </form>
+          <Droppable droppableId={String(props.id)}>
+            {(provided, snapshot) => (
+              <div
+                className="board_card-list"
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                style={
+                  snapshot.draggingOverWith
+                    ? {
+                        backgroundColor: "#163658",
+                        borderRadius: "0.5rem",
+                      }
+                    : null
+                }
+              >
+                {cards.map((card, index) => (
+                  <Card
+                    name={card.title}
+                    key={card.id}
+                    id={card.id}
+                    index={index}
+                    members={card.doers}
+                    checkTotal={card.checklists_num}
+                    checkDone={card.checked_checklists_num}
+                    attachNum={card.attachments_num}
+                    chatNum={card.comments_num}
+                    labels={card.labels}
+                    onPost={onPostHandler}
+                    boardId={props.boardId}
+                  />
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+          {/* <div className="board_space"></div> */}
+          <div className="board_add-card">
+            {!isclicked ? (
+              <div className="board_add-button">
+                <button
+                  className="board_add-card_button"
+                  onClick={clickHandler}
+                >
+                  + افزودن کارت
+                </button>
+              </div>
+            ) : (
+              <div className="board_add-list-form">
+                <form className="board_add-form-card" onSubmit={submitHandler}>
+                  <PerTextField>
+                    <StyledTextField
+                      margin="normal"
+                      label="اسم کارت"
+                      variant="filled"
+                      required
+                      fullWidth
+                      autoFocus
+                      onChange={(e) => setInputName(e.target.value)}
+                      placeholder="اسم کارت را در این بخش بنویسید"
+                      sx={{
+                        backgroundColor: "#132F4C",
+                        border: "0.2rem solid #5090D3",
+                        borderRadius: "0.5rem",
+                      }}
+                    />
+                  </PerTextField>
+                  <button type="submit" className="board_form-button">
+                    افزودن
+                  </button>
+                </form>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-    </div>
+        </div>
+      )}
+    </Draggable>
   );
 };
 
