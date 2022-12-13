@@ -12,7 +12,6 @@ import profile_preview from "../../static/images/profile/profile-preview.png";
 import userEvent from "@testing-library/user-event";
 import { fontWeight } from "@mui/system";
 import { useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 import StyledTextField from "../Shared/StyledTextField";
 import { CacheProvider } from "@emotion/react";
