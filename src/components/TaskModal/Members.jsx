@@ -11,6 +11,18 @@ import { waitFor } from "@testing-library/react";
 import PersonIcon from "@mui/icons-material/Person";
 import { useEffect } from "react";
 import apiInstance from "../../utilities/axiosConfig";
+import { baseUrl } from "../../utilities/constants";
+
+function add_member_to_doers(params, member) {
+  console.log("navid");
+  const formData = new FormData();
+  formData.append("doers", [member.id]);
+  apiInstance
+    .patch(`/workspaces/task/${params.task_id}/add-doers-to-task/`, formData)
+    .then((res) => {
+      console.log(res);
+    });
+}
 
 export default function Members({ params }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -41,6 +53,7 @@ export default function Members({ params }) {
   }, []);
   const [ListOfMembers, setListOfMembers] = React.useState([]);
   const [ListOfAddedMembers, setListOfAddedMembers] = React.useState([]);
+  const baseURL = baseUrl.substring(0, baseUrl.length - 1);
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   const randColor = () => {
@@ -81,7 +94,7 @@ export default function Members({ params }) {
     );
   };
   const [member, setMember] = React.useState("");
-  const HandleSubmit = () => {
+  const HandleSubmit = (member) => {
     // if (ListOfAddedMembers.includes(member)) {
     //   setListOfAddedMembers(ListOfAddedMembers.filter((m) => m !== member));
     // } else {
@@ -110,6 +123,7 @@ export default function Members({ params }) {
         sx={{
           bgcolor: "#173b5e",
           marginTop: "5%",
+          borderRadius: "35px",
         }}
       >
         <PersonIcon rotate="90" fontSize="large"></PersonIcon>{" "}
@@ -129,34 +143,50 @@ export default function Members({ params }) {
           horizontal: "right",
         }}
       >
-        <div className="tm_labels-main-div">
-          <header className="tm_labels-header">
-            <h2 className="tm_labels-header-title">برچسب‌ها</h2>
+        <div className="tm-members-main-div">
+          <header className="tm-members-header">
+            <h2 className="tm_labels-header-title">اعضا</h2>
             <Divider sx={{ backgroundColor: "black" }} />
           </header>
           <div className="taskmodal-members-body">
             {ListOfMembers.map((member) => {
               return (
                 <div className="flex-row taskmodal-members-body-row">
-                  <div className="flex taskmodal-members-body-row-icon">
-                    {/* <InitialIconcircle initials={member.username[0]} /> */}
-                  </div>
-                  <div className="flex taskmodal-members-body-row-text">
-                    <Button
-                      sx={{
-                        fontSize: "12px",
-                        fontFamily: "Vazir",
-                        width: "100%",
-                        justifyContent: "flex-start",
-                      }}
-                      onClick={() => {
-                        setMember(member);
-                        HandleSubmit();
-                      }}
-                    >
-                      {member.userName}
-                    </Button>
-                  </div>
+                  <Button
+                    sx={{
+                      fontSize: "12px",
+                      fontFamily: "Vazir",
+                      width: "100%",
+                      justifyContent: "flex-start",
+                      color: "white",
+                    }}
+                    onClick={() => add_member_to_doers(params, member)}
+                  >
+                    <div className="flex taskmodal-members-body-row-icon">
+                      {member.image != null ? (
+                        <img
+                          src={`${baseURL}${member.image}`}
+                          alt="profile"
+                          style={{
+                            borderRadius: 30,
+                            width: 30,
+                            height: 30,
+                          }}
+                        />
+                      ) : (
+                        <InitialIconcircle initials={member.username[0]} />
+                      )}
+                      {/* <InitialIconcircle initials={member.username[0]} /> */}
+                    </div>
+                    <div className="flex taskmodal-members-body-row-text">
+                      {member.firstName +
+                        " " +
+                        member.lastName +
+                        " ( " +
+                        member.userName +
+                        " )"}
+                    </div>
+                  </Button>
                 </div>
               );
             })}
