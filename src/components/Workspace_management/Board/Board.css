@@ -5,37 +5,37 @@
 }
 
 .workspace--board-header {
-  font-size: 1.6rem(10);
+  font-size: 1.6rem (10);
   display: flex;
   align-items: center;
-  gap: 0.5rem(10);
+  gap: 0.5rem (10);
   margin-bottom: 20px;
 }
 
 .workspace--board-body {
   border: 0.2rem solid #5090d3;
-  padding: 0.5rem(10);
-  border-radius: 0.5rem(10);
+  padding: 0.5rem (10);
+  border-radius: 0.5rem (10);
 }
 
 .workspace--board-header-title {
-  color: #fff important;
+  color: #fff;
 }
 
 .workspace--board-body-list {
   overflow: auto;
-  max-height: 26rem(10);
+  max-height: 26rem (10);
   display: grid;
   grid-template-columns: repeat(auto-fill, 20rem);
   justify-content: space-evenly;
-  gap: 1rem 1rem(10);
+  gap: 1rem 1rem (10);
   justify-items: start;
 }
 
 .workspace--add_button {
-  height: 8rem(10);
-  width: 20rem(10);
-  border-radius: 0.5rem(10);
+  height: 8rem (10);
+  width: 20rem (10);
+  border-radius: 0.5rem (10);
   background-color: #173a5e;
   padding: 3% 3%;
   border: 0.1rem solid #5090d3;

@@ -4,6 +4,7 @@ import "../Styles/Board.css";
 import PerTextField from "../../Shared/PerTextField";
 import StyledTextField from "../../Shared/StyledTextField";
 import { DragDropContext } from "react-beautiful-dnd";
+import apiInstance from "../../../utilities/axiosConfig";
 import InvitationHeader from "../InvitationHeader/InvitationHeader";
 import { v4 as uuid } from "uuid";
 import apiInstance from "../../../utilities/axiosConfig";
@@ -26,8 +27,10 @@ const Board = (props) => {
         .then((response) => {
           // console.log(response.data);
           // console.log(response.data.tasklists);
+          console.log(props.boardId);
           setLists(response.data.tasklists);
-        }).finally(() => {
+        })
+        .finally(() => {
           setIsPost(null);
         });
     getBoard();
@@ -36,10 +39,7 @@ const Board = (props) => {
 
   const postCreateList = async (data, id) =>
     await apiInstance
-      .post(
-        `workspaces/board/${id}/create-tasklist/`,
-        data
-      )
+      .post(`workspaces/board/${id}/create-tasklist/`, data)
       .then(() => {
         setIsFail(true);
         toast.success("لیست با موفقیت ساخته شد", {
@@ -80,56 +80,63 @@ const Board = (props) => {
 
   const onPostHandler = (isa) => {
     setIsPost(isa);
-  }
+  };
 
   return (
     <>
-    <InvitationHeader board_id={props.boardId}/>
-    <div className="board_list-container font-fix">
-      {isPost ? <Loading /> : null}
-      {isFail ? (
-        <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
-      ) : null}
+      <InvitationHeader board_id={props.boardId} />
+      <div className="board_list-container font-fix">
+        {isPost ? <Loading /> : null}
+        {isFail ? (
+          <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
+        ) : null}
         <div className="board_list-container-minor">
           {lists.map((list) => (
-            <List name={list.title} key={uuid()} id={list.id} card={list.tasks} boardId={props.boardId} onPost={onPostHandler}/>
+            <List
+              name={list.title}
+              key={uuid()}
+              id={list.id}
+              card={list.tasks}
+              boardId={props.boardId}
+              onPost={onPostHandler}
+            />
           ))}
         </div>
-      <div className="board_add-container">
-        {!isclicked ? (
-          <div className="board_add-button">
-            <button className="board_add-list-button" onClick={clickHandler}>
-              <p className="board_add-list-button-title">+ ایجاد لیست</p>
-            </button>
-          </div>
-        ) : (
-          <div className="board_add-list-form">
-            <form className="board_add-form" onSubmit={submitHandler}>
-              <PerTextField>
-                <StyledTextField
-                  margin="normal"
-                  label="اسم لیست"
-                  variant="filled"
-                  autoFocus
-                  required
-                  fullWidth
-                  onChange={(e) => setInputName(e.target.value)}
-                  placeholder="اسم لیست را در این بخش بنویسید"
-                  sx={{
-                    backgroundColor: "#132F4C",
-                    border: "0.2rem solid #5090D3",
-                    borderRadius: "0.5rem",
-                  }}
-                />
-              </PerTextField>
-              <button type="submit" className="board_form-button">
-                افزودن
+        <div className="board_add-container">
+          {!isclicked ? (
+            <div className="board_add-button">
+              <button className="board_add-list-button" onClick={clickHandler}>
+                <p className="board_add-list-button-title">+ ایجاد لیست</p>
               </button>
-            </form>
-          </div>
-        )}
+            </div>
+          ) : (
+            <div className="board_add-list-form">
+              <form className="board_add-form" onSubmit={submitHandler}>
+                <PerTextField>
+                  <StyledTextField
+                    margin="normal"
+                    label="اسم لیست"
+                    variant="filled"
+                    autoFocus
+                    required
+                    fullWidth
+                    onChange={(e) => setInputName(e.target.value)}
+                    placeholder="اسم لیست را در این بخش بنویسید"
+                    sx={{
+                      backgroundColor: "#132F4C",
+                      border: "0.2rem solid #5090D3",
+                      borderRadius: "0.5rem",
+                    }}
+                  />
+                </PerTextField>
+                <button type="submit" className="board_form-button">
+                  افزودن
+                </button>
+              </form>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
     </>
   );
 };
