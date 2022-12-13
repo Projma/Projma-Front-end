@@ -181,15 +181,18 @@ export default function TaskModal() {
   const [editcomment, setEditComment] = useState(false);
   const [editcommentText, setEditCommentText] = useState("");
   const [user, setUser] = useState({});
+  const [title, setTitle] = useState("");
   const baseURL = baseUrl.substring(0, baseUrl.length - 1);
   const params = useParams();
   const handleSubmit = (event) => {
     event.preventDefault();
     setShowDescription(false);
+    const formData = new FormData();
+    formData.append("description", description);
     apiInstance
-      .patch(`/workspaces/task/${params.task_id}/update-task/`, description)
+      .patch(`/workspaces/task/${params.task_id}/update-task/`, formData)
       .then((res) => {
-        console.log(ListOfComments);
+        console.log(res);
       });
   };
   const sendData = (event) => {
@@ -233,6 +236,17 @@ export default function TaskModal() {
     setComment("");
     setShowComment(false);
   };
+  const handleDeleteDescription = () => {
+    setDescription("");
+    setShowDescription(false);
+    apiInstance
+      .patch(`/workspaces/task/${params.task_id}/update-task/`, {
+        description: "",
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  };
   useEffect(() => {
     apiInstance.get(`/accounts/profile/myprofile/`).then((res) => {
       setUser(res.data);
@@ -242,6 +256,8 @@ export default function TaskModal() {
       .get(`/workspaces/task/${params.task_id}/get-task/`)
       .then((res) => {
         console.log(res);
+        setDescription(res.data.description);
+        setTitle(res.data.title);
         const comments = res.data.comments.map((obj) => ({
           text: obj.text,
           created: obj.created_at,
@@ -273,7 +289,7 @@ export default function TaskModal() {
                   className="flex-column"
                   style={{ gap: "9%", width: "100%" }}
                 >
-                  <div className="neonText taskmodal-title">موضوع این کارت</div>
+                  <div className="neonText taskmodal-title">{title}</div>
                   <div className="neonText taskmodal-subtitle">
                     زیر موضوع این کارت
                   </div>
@@ -403,10 +419,7 @@ export default function TaskModal() {
                                 </div>
                                 <div className="taskmodal-comment-button">
                                   <Button
-                                    onClick={() => {
-                                      setDescription("");
-                                      setShowDescription(false);
-                                    }}
+                                    onClick={handleDeleteDescription}
                                     sx={{
                                       fontFamily: "Vazir",
                                       color: "white",
@@ -646,7 +659,7 @@ export default function TaskModal() {
                           <div className="flex taskmodal-body-activity-body-icon">
                             {item.sender?.profile_pic !== null ? (
                               <img
-                                src={item.sender?.profile_pic}
+                                src={`${item.sender?.profile_pic}`}
                                 alt="profile"
                                 style={{
                                   borderRadius: 30,
