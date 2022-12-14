@@ -59,6 +59,7 @@ const Card = (props) => {
       })
       .finally(() => {
         setIsPost(null);
+        console.log("reqDeleteCard Done");
         props.onPost(true);
       });
 
@@ -99,33 +100,38 @@ const Card = (props) => {
   // };
 
   return (
-    <div
-      className="board_card"
-      onClick={() => {
-        cardClickHandker();
-      }}
-    >
-      {isPost ? <Loading /> : null}
-      {isToast ? (
-        <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
-      ) : null}
-      <div className="board_icon_container">
+    <Draggable draggableId={String(props.id)} index={props.index}>
+      {(provided) => (
         <div
-          className="board_icon-box"
+          className="board_card"
           onClick={() => {
-            cardEditHandler();
+            cardClickHandker();
           }}
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
         >
-          <EditIcon className="board_edit-icon board_default-icon" />
-        </div>
-        <div
-          className="board_icon-box"
-          onClick={() => {
-            cardDeleteHandler();
-          }}
-        >
-          <CloseIcon className="board_close-icon board_default-icon" />
-          {/* <Dialog
+          {isPost ? <Loading /> : null}
+          {isToast ? (
+            <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
+          ) : null}
+          <div className="board_icon_container">
+            <div
+              className="board_icon-box"
+              onClick={() => {
+                cardEditHandler();
+              }}
+            >
+              <EditIcon className="board_edit-icon board_default-icon" />
+            </div>
+            <div
+              className="board_icon-box"
+              onClick={() => {
+                cardDeleteHandler();
+              }}
+            >
+              <CloseIcon className="board_close-icon board_default-icon" />
+              {/* <Dialog
             open={isOpen}
             onClose={handleClose}
             aria-labelledby="alert-dialog-title"
@@ -154,86 +160,88 @@ const Card = (props) => {
               </div>
             </DialogActions>
           </Dialog> */}
-        </div>
-      </div>
-      {props.labels !== [] && (
-        <div className="board_card-label">
-          {props.labels.map((x) => (
-            <CardLabel
-              key={x.id}
-              color={x.color}
-              name={x.title}
-              onClick={() => {
-                isIn = true;
-                setShowLabelName(!showLabelName);
-              }}
-              show={showLabelName}
-            />
-          ))}
-        </div>
-      )}
-      <div className="board_card-title">
-        {/* <InputName name={props.name} color="#212121"/> */}
-        <p className="board_title">{props.name}</p>
-      </div>
-      <div className="board_footer">
-        <div className="board_card-avatar">
-          {props.members !== [] && (
-            <AvatarGroup
-              max={5}
-              spacing="-1"
-              sx={{ direction: "ltr", border: "none" }}
-              className="board_avatar-container"
-            >
-              {props.members.map((x) => (
-                <Tooltip title={x.first_name + " " + x.last_name}>
-                  <Avatar
-                    key={uuid()}
-                    alt={x.first_name + " " + x.last_name}
-                    src={x.profile_pic !== null ? x.profile_pic : "none"}
-                    {...stringAvatar(x.first_name + " " + x.last_name)}
-                    className="board_avatar-profile-picture"
-                  />
-                </Tooltip>
+            </div>
+          </div>
+          {props.labels !== [] && (
+            <div className="board_card-label">
+              {props.labels.map((x) => (
+                <CardLabel
+                  key={x.id}
+                  color={x.color}
+                  name={x.title}
+                  onClick={() => {
+                    isIn = true;
+                    setShowLabelName(!showLabelName);
+                  }}
+                  show={showLabelName}
+                />
               ))}
-            </AvatarGroup>
-          )}
-        </div>
-        <div className="board_footer-icon">
-          {props.attachNum !== 0 && (
-            <div className="board_icon-container">
-              <AttachFileIcon className="board_default-footer-icon" />
-              <p className="board_icon-info">{props.attachNum}</p>
             </div>
           )}
-          {props.checkTotal !== 0 && (
-            <div>
-              {props.checkDone === props.checkTotal ? (
+          <div className="board_card-title">
+            {/* <InputName name={props.name} color="#212121"/> */}
+            <p className="board_title">{props.name}</p>
+          </div>
+          <div className="board_footer">
+            <div className="board_card-avatar">
+              {props.members !== [] && (
+                <AvatarGroup
+                  max={5}
+                  spacing="-1"
+                  sx={{ direction: "ltr", border: "none" }}
+                  className="board_avatar-container"
+                >
+                  {props.members.map((x) => (
+                    <Tooltip title={x.first_name + " " + x.last_name}>
+                      <Avatar
+                        key={uuid()}
+                        alt={x.first_name + " " + x.last_name}
+                        src={x.profile_pic !== null ? x.profile_pic : "none"}
+                        {...stringAvatar(x.first_name + " " + x.last_name)}
+                        className="board_avatar-profile-picture"
+                      />
+                    </Tooltip>
+                  ))}
+                </AvatarGroup>
+              )}
+            </div>
+            <div className="board_footer-icon">
+              {props.attachNum !== 0 && (
                 <div className="board_icon-container">
-                  <CheckBoxOutlinedIcon className="board_default-footer-icon board_checklist-finish" />
-                  <p className="board_icon-info ">
-                    {props.checkDone}/{props.checkTotal}
-                  </p>
+                  <AttachFileIcon className="board_default-footer-icon" />
+                  <p className="board_icon-info">{props.attachNum}</p>
                 </div>
-              ) : (
+              )}
+              {props.checkTotal !== 0 && (
+                <div>
+                  {props.checkDone === props.checkTotal ? (
+                    <div className="board_icon-container">
+                      <CheckBoxOutlinedIcon className="board_default-footer-icon board_checklist-finish" />
+                      <p className="board_icon-info ">
+                        {props.checkDone}/{props.checkTotal}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="board_icon-container">
+                      <CheckBoxOutlinedIcon className="board_default-footer-icon" />
+                      <p className="board_icon-info">
+                        {props.checkDone}/{props.checkTotal}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+              {props.chatNum !== 0 && (
                 <div className="board_icon-container">
-                  <CheckBoxOutlinedIcon className="board_default-footer-icon" />
-                  <p className="board_icon-info">
-                    {props.checkDone}/{props.checkTotal}
-                  </p>
+                  <ChatBubbleIcon className="board_default-footer-icon" />
+                  <p className="board_icon-info">{props.chatNum}</p>
                 </div>
               )}
             </div>
-          )}
-          {props.chatNum !== 0 && (
-            <div className="board_icon-container">
-              <ChatBubbleIcon className="board_default-footer-icon" />
-              <p className="board_icon-info">{props.chatNum}</p>
-            </div>
-          )}
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </Draggable>
   );
 };
 
