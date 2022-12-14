@@ -4,14 +4,14 @@
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
   max-width: 100%;
-  /* background-image: linear-gradient(to right bottom, #5090D3 0%, #0059b2 130%); */
+  /* background-image: linear-gradient(to right bottom, var(--minor-item-color) 0%, #0059b2 130%); */
   /* background: linear-gradient(
     to right bottom,
     rgb(0, 127, 255),
     rgb(0, 89, 178) 120%
   ); */
-  background-color: #132F4C;
-  border: 0.2rem solid #5090D3;
+  background-color: var(--main-item-color);
+  border: 0.2rem solid var(--minor-item-color);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px,
     rgba(0, 0, 0, 0.04) 0px 10px 10px;
   border-radius: 0.5rem;
@@ -24,7 +24,7 @@
 } 
 
 .board_card:hover {
-  background-color: #0A1929;
+  background-color: var(--minor-background);
   cursor: pointer;
 }
 
@@ -59,7 +59,7 @@
 }
 
 .MuiAvatarGroup-root 	.MuiAvatarGroup-avatar{
-  background-color: #5090D3 !important;
+  background-color: var(--minor-item-color) !important;
   width: 3rem !important;
   height: 3rem !important;
   font-size: 1.6rem !important;
@@ -83,13 +83,13 @@
 }
 
 .board_default-icon {
-  color: #5090D3;
+  color: var(--minor-item-color);
   font-size: 1.7rem !important;
   text-align: center;
 }
 
 .board_default-footer-icon {
-  color: #5090D3;
+  color: var(--minor-item-color);
   font-size: 1.7rem !important;
   text-align: center;
 }
@@ -103,10 +103,10 @@
 }
 
 .board_card:hover .board_icon-box:hover {
-  /* border: 0.1rem solid #5090D3;
+  /* border: 0.1rem solid var(--minor-item-color);
   padding: 0.1rem;
   border-radius: 0.5rem;
-  background-color: #132F4C; */
+  background-color: var(--main-item-color); */
 }
 
 .board_card:hover .board_icon-box:hover .board_default-icon {
@@ -152,14 +152,14 @@
 }
 
 .MuiTooltip-tooltip {
-  background-color: #132F4C !important;
-  border: 0.2rem solid #5090D3;
+  background-color: var(--main-item-color) !important;
+  border: 0.2rem solid var(--minor-item-color);
   color: #fff;
 }
 
 .List_dialog-button {
   background-color: #163658;
-  border: 0.2rem solid #5090D3;
+  border: 0.2rem solid var(--minor-item-color);
   color: #fff;
   border-radius: 0.5rem;
   padding: 0.5rem;

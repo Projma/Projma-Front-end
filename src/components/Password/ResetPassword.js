@@ -119,7 +119,7 @@ const ResetPassword = () => {
     }
   };
 
-  document.body.style.backgroundColor = "#0A1929";
+  document.body.style.backgroundColor = "var(--minor-background)";
 
   return (
     <>
@@ -142,10 +142,10 @@ const ResetPassword = () => {
             justifyContent: "center",
             border: "1px solid none",
             borderRadius: 3,
-            // backgroundColor: "#001E3C",
+            // backgroundColor: "var(--main-background)",
             opacity: 1,
             backgroundImage:
-              "linear-gradient(to right bottom, #001E3C 0%, #0059B2 130%)",
+              "linear-gradient(to right bottom, var(--main-background) 0%, #0059B2 130%)",
           }}
         >
           <Box

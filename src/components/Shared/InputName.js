@@ -12,7 +12,7 @@ const theme = createTheme({
         root: {
           "&.Mui-focused": {
             backgroundColor: "#163658",
-            border: "0.1rem solid #5090D3",
+            border: "0.1rem solid var(--minor-item-color)",
             borderRadius: "0.5rem",
           }
         },

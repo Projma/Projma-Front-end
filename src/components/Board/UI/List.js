@@ -319,8 +319,8 @@ const List = (props) => {
                       onChange={(e) => setInputName(e.target.value)}
                       placeholder="اسم کارت را در این بخش بنویسید"
                       sx={{
-                        backgroundColor: "#132F4C",
-                        border: "0.2rem solid #5090D3",
+                        backgroundColor: "var(--main-item-color)",
+                        border: "0.2rem solid var(--minor-item-color)",
                         borderRadius: "0.5rem",
                       }}
                     />
