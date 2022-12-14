@@ -110,7 +110,7 @@ const Board = (props) => {
                 style={
                   snapshot.isUsingPlaceholder
                     ? {
-                        backgroundColor: "#163658",
+                        backgroundColor: "var(--hover-color)",
                         borderRadius: "0.5rem",
                       }
                     : null

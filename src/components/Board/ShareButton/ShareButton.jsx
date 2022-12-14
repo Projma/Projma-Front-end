@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import SendTwoToneIcon from '@mui/icons-material/SendTwoTone';
 import PropTypes from 'prop-types';
 import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
+import {Box} from "@mui/material";
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import Fade from '@mui/material/Fade';

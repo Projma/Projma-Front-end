@@ -268,7 +268,7 @@ const List = (props) => {
                 style={
                   snapshot.draggingOverWith
                     ? {
-                        backgroundColor: "#163658",
+                        backgroundColor: "var(--hover-color)",
                         borderRadius: "0.5rem",
                       }
                     : null

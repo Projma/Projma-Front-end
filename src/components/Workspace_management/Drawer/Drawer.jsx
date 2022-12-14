@@ -2,7 +2,7 @@ import * as React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
+import {Box} from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
