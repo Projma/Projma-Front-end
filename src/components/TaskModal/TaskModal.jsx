@@ -38,6 +38,8 @@ import LabelIcon from "@mui/icons-material/Label";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Checkbox from "@mui/material/Checkbox";
 import { useEffect } from "react";
+import { baseUrl } from "../../utilities/constants";
+import { Link } from "react-router-dom";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -58,34 +60,34 @@ export default function TaskModal() {
       })
     );
   }
-  function handleRemoveOfComment(index) {
+  function handleRemoveOfComment(id) {
     apiInstance
-      .delete(`/workspaces/comment/${index}/delete-comment/`)
+      .delete(`/workspaces/comment/${id}/delete-comment/`)
       .then((response) => {
         console.log(response);
+        setListOfComments((prevState) => {
+          return prevState.filter((item) => item.id !== id);
+        });
       });
   }
-  function handleEditComment(index) {
+  function handleEditComment(index, comment) {
     const formData = new FormData();
-    formData.append("text", Comment);
+    formData.append("text", comment);
     apiInstance
-      .delete(`/workspaces/comment/${index}/eddit-comment/`, formData)
+      .patch(`/workspaces/comment/${index}/eddit-comment/`, formData)
       .then((response) => {
         console.log(response);
+        setListOfComments((prevState) => {
+          return prevState.map((item) => {
+            if (item.id === index) {
+              item.text = comment;
+            }
+            return item;
+          });
+        });
       });
   }
 
-  function handleEditCommentSubmit(index, comment) {
-    console.log("comment", comment, "index", index);
-    setListOfComments(
-      ListOfComments.map((item, i) => {
-        if (i === index) {
-          ListOfComments[i] = comment;
-          return ListOfComments[i];
-        }
-      })
-    );
-  }
   const randColor = () => {
     return (
       "#" +
@@ -98,30 +100,55 @@ export default function TaskModal() {
   // const userData = replaceUndefinied(useSelector(state => state.auth));
   const InitialIconcircle = ({ initials }) => {
     return (
-      <div
+      <Button
+        component={Link}
+        to={`/profileview/${initials.username}`}
+        sx={{ borderRadius: "50%" }}
         style={{
-          backgroundColor: randColor(),
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 30,
-          width: 30,
-          height: 30,
+          maxWidth: "30px",
+          maxHeight: "30px",
+          minWidth: "30px",
+          minHeight: "30px",
+          padding: "0px",
+          marginLeft: "3px",
         }}
       >
         <div
           style={{
+            backgroundColor: randColor(),
             display: "flex",
-            color: "white",
-            fontSize: 12,
-            width: "100%",
-            height: "100%",
-            justifyContent: "center",
             alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 30,
+            width: 30,
+            height: 30,
           }}
         >
-          {initials}
+          {initials.profile_pic != null ? (
+            <img
+              src={initials.profile_pic}
+              alt={initials.first_name}
+              style={{ width: "100%", height: "100%", borderRadius: "50%" }}
+            />
+          ) : (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "50%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontFamily: "Vazir",
+                color: "white",
+                fontSize: "12px",
+              }}
+            >
+              {initials.first_name[0] + "‌" + initials.last_name[0]}
+            </div>
+          )}
         </div>
-      </div>
+      </Button>
     );
   };
   const InitialIcon = ({ initials }) => {
@@ -176,16 +203,23 @@ export default function TaskModal() {
   const [showdescription, setShowDescription] = useState(false);
   const [description, setDescription] = useState("");
   const [showChecklist, setShowChecklist] = useState(false);
+  const [ListOfDoers, setListOfDoers] = useState([]);
   const [Comment, setComment] = useState("");
   const [editcomment, setEditComment] = useState(false);
+  const [editcommentText, setEditCommentText] = useState("");
+  const [user, setUser] = useState({});
+  const [title, setTitle] = useState("");
+  const baseURL = baseUrl.substring(0, baseUrl.length - 1);
   const params = useParams();
   const handleSubmit = (event) => {
     event.preventDefault();
     setShowDescription(false);
+    const formData = new FormData();
+    formData.append("description", description);
     apiInstance
-      .patch(`/workspaces/task/${params.task_id}/update-task/`, description)
+      .patch(`/workspaces/task/${params.task_id}/update-task/`, formData)
       .then((res) => {
-        console.log(ListOfComments);
+        console.log(res);
       });
   };
   const sendData = (event) => {
@@ -196,40 +230,88 @@ export default function TaskModal() {
     setShowChecklist(false);
     console.log(show);
   };
-  const handleCommentSubmit = (event) => {
+  const handleCommentSubmit = (event, user_id) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("text", Comment);
-    // console.log(Comment);
-    // setComment("");
-    // console.log(ListOfComments);
-    console.log(params.task_id);
     apiInstance
       .post(`/workspaces/task/${params.task_id}/new-comment/`, formData)
       .then((response) => {
         console.log(response.data);
+        setListOfComments((prevState) => [
+          ...prevState,
+          {
+            text: Comment,
+            created: response.data.created_at,
+            id: response.data.id,
+            updated: response.data.updated_at,
+            task: response.data.task,
+            reply: response.data.reply_to,
+            sender: {
+              id: user.user.id,
+              username: user.user.username,
+              first_name: user.user.first_name,
+              last_name: user.user.last_name,
+              profile_pic: user.profile_pic,
+            },
+          },
+        ]);
       })
       .catch((error) => {
         console.log(error);
       });
+    setComment("");
     setShowComment(false);
   };
+  const handleDeleteDescription = () => {
+    setDescription("");
+    setShowDescription(false);
+    apiInstance
+      .patch(`/workspaces/task/${params.task_id}/update-task/`, {
+        description: "",
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  };
   useEffect(() => {
+    apiInstance.get(`/accounts/profile/myprofile/`).then((res) => {
+      setUser(res.data);
+      console.log(user);
+    });
     apiInstance
       .get(`/workspaces/task/${params.task_id}/get-task/`)
       .then((res) => {
+        console.log(res);
+        setDescription(res.data.description);
+        setTitle(res.data.title);
+        const doer = res.data.doers.map((item) => ({
+          email: item.email,
+          username: item.username,
+          first_name: item.first_name,
+          last_name: item.last_name,
+          profile_pic: item.profile_pic,
+        }));
+        setListOfDoers(doer);
         const comments = res.data.comments.map((obj) => ({
           text: obj.text,
           created: obj.created_at,
+          sender: obj.sender,
+          updated: obj.updated_at,
+          task: obj.task,
+          reply: obj.reply_to,
           id: obj.id,
         }));
-        // console.log(res.data.comments[0]);
         setListOfComments(comments);
-        console.log(ListOfComments);
       });
   }, []);
+
   return (
     <div>
+      <Button
+        variant="contained"
+        onClick={() => console.log(ListOfDoers)}
+      ></Button>
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
           <div className="taskmodal-page">
@@ -245,7 +327,7 @@ export default function TaskModal() {
                   className="flex-column"
                   style={{ gap: "9%", width: "100%" }}
                 >
-                  <div className="neonText taskmodal-title">موضوع این کارت</div>
+                  <div className="neonText taskmodal-title">{title}</div>
                   <div className="neonText taskmodal-subtitle">
                     زیر موضوع این کارت
                   </div>
@@ -267,8 +349,10 @@ export default function TaskModal() {
                           gap: "3%",
                         }}
                       >
-                        {cars.map((car) => (
-                          <InitialIconcircle initials={car}></InitialIconcircle>
+                        {ListOfDoers.map((doer) => (
+                          <InitialIconcircle
+                            initials={doer}
+                          ></InitialIconcircle>
                         ))}
                       </div>
                     </div>
@@ -321,6 +405,8 @@ export default function TaskModal() {
                               autoFocus
                               onChange={(e) => setDescription(e.target.value)}
                               value={description}
+                              multiline
+                              rows={2}
                             ></StyledTextField>
                             <div dir="ltr" style={{ marginTop: "3%" }}>
                               <Button
@@ -375,10 +461,7 @@ export default function TaskModal() {
                                 </div>
                                 <div className="taskmodal-comment-button">
                                   <Button
-                                    onClick={() => {
-                                      setDescription("");
-                                      setShowDescription(false);
-                                    }}
+                                    onClick={handleDeleteDescription}
                                     sx={{
                                       fontFamily: "Vazir",
                                       color: "white",
@@ -537,7 +620,27 @@ export default function TaskModal() {
                     </div>
                     <div className="flex-row taskmodal-body-activity-body">
                       <div className="flex taskmodal-body-activity-body-icon">
-                        <InitialIconcircle initials={"ن‌ا"}></InitialIconcircle>
+                        <div className="flex taskmodal-body-activity-body-icon">
+                          {user.profile_pic !== null ? (
+                            <img
+                              src={`${baseURL}${user.profile_pic}`}
+                              alt="profile"
+                              style={{
+                                borderRadius: 30,
+                                width: 30,
+                                height: 30,
+                              }}
+                            />
+                          ) : (
+                            <InitialIconcircle
+                              initials={
+                                user?.user.first_name[0] +
+                                "‌" +
+                                user?.user.last_name[0]
+                              }
+                            ></InitialIconcircle>
+                          )}
+                        </div>
                       </div>
                       <Box
                         component="form"
@@ -596,13 +699,36 @@ export default function TaskModal() {
                           style={{ justifyContent: "space-between" }}
                         >
                           <div className="flex taskmodal-body-activity-body-icon">
-                            <InitialIconcircle
-                              initials={"ن‌ا"}
-                            ></InitialIconcircle>
+                            {item.sender?.profile_pic !== null ? (
+                              <img
+                                src={`${item.sender?.profile_pic}`}
+                                alt="profile"
+                                style={{
+                                  borderRadius: 30,
+                                  width: 30,
+                                  height: 30,
+                                }}
+                              />
+                            ) : (
+                              <InitialIconcircle
+                                initials={
+                                  item.sender?.first_name[0] +
+                                  "‌" +
+                                  item.sender?.last_name[0]
+                                }
+                              ></InitialIconcircle>
+                            )}
                           </div>
                           <div className="taskmodal-comment-showList">
-                            <div className="taskmodal-comment-showList-auther">
-                              نوید
+                            <div className="flex-row taskmodal-comment-showList-auther">
+                              <div className="taskmodal-comment-showList-auther-name">
+                                {item.sender?.first_name +
+                                  " " +
+                                  item.sender?.last_name}
+                              </div>
+                              <div className="taskmodal-comment-showList-auther-time">
+                                {item.updated}
+                              </div>
                             </div>
                             {editcomment ? (
                               <div>
@@ -610,15 +736,19 @@ export default function TaskModal() {
                                   fullWidth
                                   autoFocus
                                   onChange={(e) => {
-                                    setComment(e.target.value);
+                                    setEditCommentText(e.target.value);
                                   }}
-                                  value={item.text}
+                                  value={editcommentText}
+                                  // defaultValue={item.text}
                                 ></StyledTextField>
                                 <div dir="ltr" style={{ marginTop: "3%" }}>
                                   <Button
                                     onClick={() => {
                                       setEditComment(false);
-                                      handleEditComment(item.id);
+                                      handleEditComment(
+                                        item.id,
+                                        editcommentText
+                                      );
                                     }}
                                     variant="contained"
                                     className="taskmodal-button-setting"
@@ -669,6 +799,7 @@ export default function TaskModal() {
                                     }}
                                     onClick={() => {
                                       setEditComment(true);
+                                      setEditCommentText(item.text);
                                     }}
                                   >
                                     ویرایش
@@ -683,48 +814,9 @@ export default function TaskModal() {
                   </div>
                 </div>
                 <div className="flex-column taskmodal-body-smaller">
-                  {/* <Button
-                    className="taskmodal-smaller-button-inner"
-                    sx={{ bgcolor: "#173b5e" }}
-                  >
-                    <PersonIcon fontSize="large"></PersonIcon>{" "}
-                    <div className="taskmodal-smaller-button">اعضا</div>
-                  </Button> */}
                   <Members params={params} />
-                  {/* <Button
-                    className="taskmodal-smaller-button-inner"
-                    sx={{
-                      bgcolor: "#173b5e",
-                      marginTop: "5%",
-                    }}
-                  >
-                    <LabelIcon rotate="90" fontSize="large"></LabelIcon>{" "}
-                    <div className="taskmodal-smaller-button">لیبل</div>
-                  </Button> */}
                   <Labels params={params} />
-                  <Button
-                    className="taskmodal-smaller-button-inner"
-                    sx={{
-                      bgcolor: "#173b5e",
-                      marginTop: "5%",
-                    }}
-                  >
-                    <ContentPasteIcon fontSize="large"></ContentPasteIcon>{" "}
-                    <div className="taskmodal-smaller-button">لیست کنترل</div>
-                  </Button>
-                  {/* <Button
-                  </Button> */}
                   <CheckList params={params} />
-                  <Button
-                    className="taskmodal-smaller-button-inner"
-                    sx={{
-                      bgcolor: "#173b5e",
-                      marginTop: "5%",
-                    }}
-                  >
-                    <AttachFileIcon fontSize="large"></AttachFileIcon>{" "}
-                    <div className="taskmodal-smaller-button">پیوست</div>
-                  </Button>{" "}
                   <Attachments params={params} />
                 </div>
               </div>

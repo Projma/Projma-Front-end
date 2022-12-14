@@ -57,7 +57,7 @@
 }
 
 .board_button-title:hover {
-  color:#5090D3;
+  color: #5090d3;
 }
 
 .board_card-list {
@@ -98,7 +98,7 @@
   display: flex;
   flex-direction: column;
   width: 20rem;
-  border: 0.2rem solid #5090D3;
+  border: 0.2rem solid #5090d3;
   color: #fff !important;
   background-color: #0a1929;
   padding: 0.5rem;
@@ -136,7 +136,7 @@
 }
 
 .board_option-title {
-  border-bottom: 0.2rem solid #5090D3;
+  border-bottom: 0.2rem solid #5090d3;
   padding-bottom: 0.5rem;
   font-size: 1.2rem !important;
 }
@@ -155,7 +155,7 @@
 
 .MuiDialog-paper {
   background-color: #0a1929 !important;
-  border: 0.2rem solid #5090D3 !important;
+  border: 0.2rem solid #5090d3 !important;
   color: #fff !important;
 }
 
@@ -168,7 +168,7 @@
 
 .List_dialog-button {
   background-color: #163658;
-  border: 0.2rem solid #5090D3;
+  border: 0.2rem solid #5090d3;
   color: #fff;
   border-radius: 0.5rem;
   padding: 0.5rem;

@@ -4,9 +4,9 @@ import "../Styles/Board.css";
 import PerTextField from "../../Shared/PerTextField";
 import StyledTextField from "../../Shared/StyledTextField";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import apiInstance from "../../../utilities/axiosConfig";
 import InvitationHeader from "../InvitationHeader/InvitationHeader";
 import { v4 as uuid } from "uuid";
-import apiInstance from "../../../utilities/axiosConfig";
 import axios from "axios";
 import Loading from "../../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
@@ -26,6 +26,7 @@ const Board = (props) => {
         .then((response) => {
           // console.log(response.data);
           // console.log(response.data.tasklists);
+          console.log(props.boardId);
           setLists(response.data.tasklists);
         })
         .finally(() => {

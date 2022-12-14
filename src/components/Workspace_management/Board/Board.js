@@ -119,7 +119,7 @@ const Board = ({ params, on_submit }) => {
       )}
       <div className="workspace--my-board">
         <div className="workspace--board-header">
-          <DashboardIcon />
+          <DashboardIcon sx={{ color: "#fff", marginLeft: "10px" }} />
           <p className="workspace--board-header-title">بورد ها</p>
         </div>
         <div className="workspace--board-body">

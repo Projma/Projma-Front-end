@@ -209,6 +209,7 @@
 
 .taskmodal-comment-showList {
   width: 100%;
+  margin-top: 2%;
 }
 
 .taskmodal-comment-showList-auther {
@@ -254,6 +255,22 @@
 .taskmodal-larger_smaller {
   display: flex;
   flex-direction: row;
+}
+
+.taskmodal-comment-showList-auther {
+  font-family: vazir;
+  font-size: 12px;
+  margin-right: 2%;
+  font-weight: bold;
+}
+
+.taskmodal-comment-showList-auther-time {
+  margin-right: 2%;
+}
+
+.MuiInputBase-input {
+  font-family: vazir !important;
+  font-size: 13px !important;
 }
 
 @media screen and (max-width: 600px) {

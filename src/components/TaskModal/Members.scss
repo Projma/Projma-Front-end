@@ -15,6 +15,25 @@
   margin-bottom: 2rem;
 }
 
+.tm-members-header {
+  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
+  width: 100%;
+  height: 5rem;
+  background-color: var(--ds-bg, #f4f5f7);
+  border-bottom: 1px solid var(--ds-border, #e1e4e8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 1px;
+  margin-bottom: 2rem;
+}
+
+.tm-members-main-div {
+  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
+  width: 31rem;
+  height: fit-content;
+}
+
 .tm_labels-header-title {
   font-family: Vazir;
 }
@@ -29,10 +48,20 @@
 
 .taskmodal-members-body-row-icon {
   margin-left: 4%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .taskmodal-members-body-row-text {
   align-items: center;
   font-size: 13px;
   width: 80%;
+}
+
+.taskmodal-members-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 70%;
 }

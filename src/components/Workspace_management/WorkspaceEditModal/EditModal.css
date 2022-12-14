@@ -2,8 +2,29 @@
   color: #fff;
   font-family: Vazir;
   font-size: 1.5rem;
+  display: block;
+  margin: 1rem 0;
+  font-weight: 600;
+  display: inline;
 }
 
 .ws_editmodal-main-div {
   width: 100%;
 }
+.ws_navbar-edit-icon {
+  font-size: 2.5rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* .ws_editmodal-input {
+  width: 100%;
+  height: 3rem;
+  border-radius: 0.5rem;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  font-family: Vazir;
+  direction: rtl;
+  margin-bottom: 1rem;
+} */
