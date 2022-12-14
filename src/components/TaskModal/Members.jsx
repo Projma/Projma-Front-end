@@ -9,23 +9,47 @@ import "./Members.scss";
 import { CheckBox } from "@mui/icons-material";
 import { waitFor } from "@testing-library/react";
 import PersonIcon from "@mui/icons-material/Person";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { useEffect } from "react";
 import apiInstance from "../../utilities/axiosConfig";
 import { baseUrl } from "../../utilities/constants";
 
-function add_member_to_doers(params, member) {
-  console.log("navid");
-  const formData = new FormData();
-  formData.append("doers", [member.id]);
-  apiInstance
-    .patch(`/workspaces/task/${params.task_id}/add-doers-to-task/`, formData)
-    .then((res) => {
-      console.log(res);
-    });
+function check_username_in_list(username, list) {
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].userName === username) {
+      return true;
+    }
+  }
+  return false;
 }
+
+// function add_member_to_doers(params, member, ListOfDoers) {
+//   const formData = new FormData();
+//   const json = {
+//     doers: [member.id],
+//   };
+//   if (ListOfDoers.includes(member)) {
+//     console.log("if");
+//     formData.append("doers", [member.id]);
+//     apiInstance
+//       .patch(`/workspaces/task/${params.task_id}/add-doers-to-task/`, json)
+//       .then((res) => {
+//         console.log(res);
+//       });
+//   } else {
+//     formData.append("doers", [member.id]);
+//     apiInstance
+//       .patch(`/workspaces/task/${params.task_id}/delete-doers-from-task/`, json)
+//       .then((res) => {
+//         console.log("else");
+//         console.log(res);
+//       });
+//   }
+// }
 
 export default function Members({ params }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [changeMemberStatus, setChangeMemberStatus] = React.useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -36,8 +60,22 @@ export default function Members({ params }) {
   };
   useEffect(() => {
     apiInstance
+      .get(`/workspaces/task/${params.task_id}/get-task/`)
+      .then((res) => {
+        // console.log(res);
+        const doer = res.data.doers.map((item) => ({
+          email: item.email,
+          userName: item.username,
+          firstName: item.first_name,
+          lastName: item.last_name,
+          image: item.profile_pic,
+        }));
+        setListOfDoers(doer);
+      });
+    apiInstance
       .get(`/workspaces/board/${params.board_id}/members/`)
       .then((res) => {
+        // console.log(res);
         const members = res.data.map((obj) => ({
           id: obj.user.id,
           firstName: obj.user.first_name,
@@ -47,12 +85,11 @@ export default function Members({ params }) {
           image: obj.profile_pic,
         }));
         setListOfMembers(members);
-        console.log(members);
-        console.log("navid");
       });
   }, []);
+
   const [ListOfMembers, setListOfMembers] = React.useState([]);
-  const [ListOfAddedMembers, setListOfAddedMembers] = React.useState([]);
+  const [ListOfDoers, setListOfDoers] = React.useState([]);
   const baseURL = baseUrl.substring(0, baseUrl.length - 1);
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -64,6 +101,41 @@ export default function Members({ params }) {
         .padStart(6, "0")
         .toUpperCase()
     );
+  };
+  const add_member_to_doers = (member) => {
+    const formData = new FormData();
+    console.log(ListOfDoers);
+    console.log(member.id);
+    const json = {
+      doers: [member.id],
+    };
+    console.log(json);
+    if (check_username_in_list(member.userName, ListOfDoers)) {
+      setListOfDoers(
+        ListOfDoers.filter((item) => item.userName !== member.userName)
+      );
+      console.log("if");
+      formData.append("doers", [member.id]);
+      apiInstance
+        .patch(
+          `/workspaces/task/${params.task_id}/delete-doers-from-task/`,
+          json
+        )
+        .then((res) => {
+          console.log("else");
+          console.log(res);
+        });
+    } else {
+      setListOfDoers([...ListOfDoers, member]);
+      formData.append("doers", [member.id]);
+
+      apiInstance
+        .patch(`/workspaces/task/${params.task_id}/add-doers-to-task/`, json)
+        .then((res) => {
+          console.log(res);
+        });
+    }
+    setChangeMemberStatus(!changeMemberStatus);
   };
   const InitialIconcircle = ({ initials }) => {
     return (
@@ -100,7 +172,7 @@ export default function Members({ params }) {
     // } else {
     //   setListOfAddedMembers([...ListOfAddedMembers, member]);
     // }
-    console.log(member.id);
+    // console.log(member.id);
     const formData = new FormData();
     formData.append("doers", [member.id]);
     apiInstance
@@ -135,7 +207,7 @@ export default function Members({ params }) {
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "center",
+          vertical: "top",
           horizontal: "left",
         }}
         transformOrigin={{
@@ -156,11 +228,13 @@ export default function Members({ params }) {
                     sx={{
                       fontSize: "12px",
                       fontFamily: "Vazir",
-                      width: "100%",
+                      width: "90%",
                       justifyContent: "flex-start",
                       color: "white",
                     }}
-                    onClick={() => add_member_to_doers(params, member)}
+                    onClick={() => {
+                      add_member_to_doers(member);
+                    }}
                   >
                     <div className="flex taskmodal-members-body-row-icon">
                       {member.image != null ? (
@@ -174,23 +248,41 @@ export default function Members({ params }) {
                           }}
                         />
                       ) : (
-                        <InitialIconcircle initials={member.username[0]} />
+                        <InitialIconcircle
+                          initials={
+                            member.firstName[0] + "‌" + member.lastName[0]
+                          }
+                        />
                       )}
                       {/* <InitialIconcircle initials={member.username[0]} /> */}
                     </div>
                     <div className="flex taskmodal-members-body-row-text">
-                      {member.firstName +
-                        " " +
-                        member.lastName +
-                        " ( " +
-                        member.userName +
-                        " )"}
+                      <div>
+                        {member.firstName +
+                          " " +
+                          member.lastName +
+                          " ( " +
+                          member.userName +
+                          " )"}
+                      </div>
+                      <div>
+                        {check_username_in_list(
+                          member.userName,
+                          ListOfDoers
+                        ) ? (
+                          <CheckBoxIcon
+                            fontSize="large"
+                            className="flex taskmodal-members-checkbox"
+                          ></CheckBoxIcon>
+                        ) : (
+                          <div></div>
+                        )}
+                      </div>
                     </div>
                   </Button>
                 </div>
               );
             })}
-            ;
           </div>
         </div>
         {/* <Typography sx={{ p: 2 }}>The content of the Popover.</Typography> */}
