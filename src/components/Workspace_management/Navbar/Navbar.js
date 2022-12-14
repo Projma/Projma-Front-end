@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import EditModal from "../WorkspaceEditModal/EditModal";
 import apiInstance from "../../../utilities/axiosConfig";
-import "transition-style";
+// import "transition-style";
 import "./Navbar.css";
 const Navbar = ({ params }) => {
   const [workspace, setWorkspace] = React.useState({});
