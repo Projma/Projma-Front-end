@@ -28,7 +28,7 @@ import TextField from "@mui/material/TextField";
 import apiInstance from "../../utilities/axiosConfig";
 import PersonIcon from "@mui/icons-material/Person";
 import PasswordIcon from "@mui/icons-material/Password";
-import Box from "@mui/material/box";
+import {Box} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { FormControl } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";

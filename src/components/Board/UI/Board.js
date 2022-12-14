@@ -110,7 +110,7 @@ const Board = (props) => {
                 style={
                   snapshot.isUsingPlaceholder
                     ? {
-                        backgroundColor: "#163658",
+                        backgroundColor: "var(--hover-color)",
                         borderRadius: "0.5rem",
                       }
                     : null
@@ -153,8 +153,8 @@ const Board = (props) => {
                     onChange={(e) => setInputName(e.target.value)}
                     placeholder="اسم لیست را در این بخش بنویسید"
                     sx={{
-                      backgroundColor: "#132F4C",
-                      border: "0.2rem solid #5090D3",
+                      backgroundColor: "var(--main-item-color)",
+                      border: "0.2rem solid var(--minor-item-color)",
                       borderRadius: "0.5rem",
                     }}
                   />

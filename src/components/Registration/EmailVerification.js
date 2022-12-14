@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Link from "@mui/material/Link";
-import Box from "@mui/material/Box";
+import {Box} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import "../../styles/Registration.css";

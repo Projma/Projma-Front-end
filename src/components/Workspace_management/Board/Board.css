@@ -13,7 +13,7 @@
 }
 
 .workspace--board-body {
-  border: 0.2rem solid #5090d3;
+  border: 0.2rem solid var(--minor-item-color);
   padding: 0.5rem (10);
   border-radius: 0.5rem (10);
 }
@@ -38,7 +38,7 @@
   border-radius: 0.5rem (10);
   background-color: #173a5e;
   padding: 3% 3%;
-  border: 0.1rem solid #5090d3;
+  border: 0.1rem solid var(--minor-item-color);
   display: flex;
   align-items: center;
   justify-content: center;

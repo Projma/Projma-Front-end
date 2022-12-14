@@ -1,5 +1,5 @@
 body {
-  background-color: #001e3c;
+  background-color: var(--main-background);
   color: white;
 }
 
@@ -39,7 +39,7 @@ body {
   padding: 0.3rem;
   border: none;
   color: white;
-  background-color: #0a1929;
+  background-color: var(--minor-background);
   border-radius: 1rem;
   margin: 0.4rem;
 
@@ -49,7 +49,7 @@ body {
 }
 
 .board_add-list-button:hover {
-  background-color: rgba(80, 144, 211, 0.8);
+  background-color: var(--hover-color);
   cursor: pointer;
 }
 
@@ -61,7 +61,7 @@ body {
 
 .board_add-form {
   width: 100%;
-  background-color: #0a1929;
+  background-color: var(--minor-background);
   border-radius: 1rem;
   padding: 0.6rem;
   margin-right: 0.6rem;
@@ -77,12 +77,12 @@ body {
   width: 100%;
   border: none;
   color: white;
-  background-color: #0a1929;
+  background-color: var(--minor-background);
   border-radius: 1rem;
 }
 
 .board_form-button:hover {
-  background-color: rgba(80, 144, 211, 0.8);
+  background-color: var(--hover-color);
   cursor: pointer;
 }
 

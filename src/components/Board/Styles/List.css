@@ -4,7 +4,7 @@
   /* max-width: 30rem; */
   height: min-content;
   max-height: fit-content;
-  background-color: #0a1929;
+  background-color: var(--minor-background);
   border-radius: 1rem;
   margin: 0.4rem;
   margin-right: 0.6rem;
@@ -32,7 +32,7 @@
   height: 2rem;
   width: 2rem;
   border-radius: 1rem;
-  background-color: #0a1929;
+  background-color: var(--minor-background);
   border: none;
   display: flex;
   align-items: center;
@@ -46,7 +46,7 @@
   /* background-color: rgba(0,89,178,0.4); */
   border-radius: 0;
   /* border-top: 0.2em solid rgba(80,144,211,0.8); */
-  /* border: 0.2em solid #5090D3; */
+  /* border: 0.2em solid var(--minor-item-color); */
   cursor: pointer;
   text-align: center;
 }
@@ -57,7 +57,7 @@
 }
 
 .board_button-title:hover {
-  color: #5090d3;
+  color: var(--minor-item-color);
 }
 
 .board_card-list {
@@ -81,7 +81,7 @@
 
 .board_add-card_button {
   width: 28rem;
-  background-color: #0a1929;
+  background-color: var(--minor-background);
   color: white;
   border: none;
   border-radius: 1rem;
@@ -90,7 +90,7 @@
 
 .board_add-card_button:hover,
 .board_add-card_button:active {
-  background-color: rgba(80, 144, 211, 0.8);
+  background-color: var(--hover-color);
   cursor: pointer;
 }
 
@@ -98,9 +98,9 @@
   display: flex;
   flex-direction: column;
   width: 20rem;
-  border: 0.2rem solid #5090d3;
+  border: 0.2rem solid var(--minor-item-color);
   color: #fff !important;
-  background-color: #0a1929;
+  background-color: var(--minor-background);
   padding: 0.5rem;
 }
 
@@ -136,14 +136,14 @@
 }
 
 .board_option-title {
-  border-bottom: 0.2rem solid #5090d3;
+  border-bottom: 0.2rem solid var(--minor-item-color);
   padding-bottom: 0.5rem;
   font-size: 1.2rem !important;
 }
 
 .board_add-form-card {
   width: 100%;
-  background-color: #0a1929;
+  background-color: var(--minor-background);
   border-radius: 1rem;
   padding: 0.5rem;
   /* margin-right: 0.6rem; */
@@ -154,8 +154,8 @@
 }
 
 .MuiDialog-paper {
-  background-color: #0a1929 !important;
-  border: 0.2rem solid #5090d3 !important;
+  background-color: var(--minor-background) !important;
+  border: 0.2rem solid var(--minor-item-color) !important;
   color: #fff !important;
 }
 
@@ -168,7 +168,7 @@
 
 .List_dialog-button {
   background-color: #163658;
-  border: 0.2rem solid #5090d3;
+  border: 0.2rem solid var(--minor-item-color);
   color: #fff;
   border-radius: 0.5rem;
   padding: 0.5rem;
@@ -182,7 +182,7 @@
 
 /* .Mui-focused {
   background-color: #163658 !important;
-  border: 0.2rem solid #5090D3;
+  border: 0.2rem solid var(--minor-item-color);
   border-radius: 0.5rem;
 } */
 
