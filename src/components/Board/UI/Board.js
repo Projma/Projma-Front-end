@@ -7,7 +7,6 @@ import { DragDropContext } from "react-beautiful-dnd";
 import apiInstance from "../../../utilities/axiosConfig";
 import InvitationHeader from "../InvitationHeader/InvitationHeader";
 import { v4 as uuid } from "uuid";
-import apiInstance from "../../../utilities/axiosConfig";
 import axios from "axios";
 import Loading from "../../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";

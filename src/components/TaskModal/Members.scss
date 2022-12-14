@@ -31,7 +31,7 @@
 .tm-members-main-div {
   background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
   width: 31rem;
-  height: 40rem;
+  height: fit-content;
 }
 
 .tm_labels-header-title {
@@ -57,4 +57,11 @@
   align-items: center;
   font-size: 13px;
   width: 80%;
+}
+
+.taskmodal-members-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 70%;
 }

@@ -39,6 +39,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Checkbox from "@mui/material/Checkbox";
 import { useEffect } from "react";
 import { baseUrl } from "../../utilities/constants";
+import { Link } from "react-router-dom";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -99,30 +100,55 @@ export default function TaskModal() {
   // const userData = replaceUndefinied(useSelector(state => state.auth));
   const InitialIconcircle = ({ initials }) => {
     return (
-      <div
+      <Button
+        component={Link}
+        to={`/profileview/${initials.username}`}
+        sx={{ borderRadius: "50%" }}
         style={{
-          backgroundColor: randColor(),
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 30,
-          width: 30,
-          height: 30,
+          maxWidth: "30px",
+          maxHeight: "30px",
+          minWidth: "30px",
+          minHeight: "30px",
+          padding: "0px",
+          marginLeft: "3px",
         }}
       >
         <div
           style={{
+            backgroundColor: randColor(),
             display: "flex",
-            color: "white",
-            fontSize: 12,
-            width: "100%",
-            height: "100%",
-            justifyContent: "center",
             alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 30,
+            width: 30,
+            height: 30,
           }}
         >
-          {initials}
+          {initials.profile_pic != null ? (
+            <img
+              src={initials.profile_pic}
+              alt={initials.first_name}
+              style={{ width: "100%", height: "100%", borderRadius: "50%" }}
+            />
+          ) : (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "50%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontFamily: "Vazir",
+                color: "white",
+                fontSize: "12px",
+              }}
+            >
+              {initials.first_name[0] + "‌" + initials.last_name[0]}
+            </div>
+          )}
         </div>
-      </div>
+      </Button>
     );
   };
   const InitialIcon = ({ initials }) => {
@@ -177,6 +203,7 @@ export default function TaskModal() {
   const [showdescription, setShowDescription] = useState(false);
   const [description, setDescription] = useState("");
   const [showChecklist, setShowChecklist] = useState(false);
+  const [ListOfDoers, setListOfDoers] = useState([]);
   const [Comment, setComment] = useState("");
   const [editcomment, setEditComment] = useState(false);
   const [editcommentText, setEditCommentText] = useState("");
@@ -258,6 +285,14 @@ export default function TaskModal() {
         console.log(res);
         setDescription(res.data.description);
         setTitle(res.data.title);
+        const doer = res.data.doers.map((item) => ({
+          email: item.email,
+          username: item.username,
+          first_name: item.first_name,
+          last_name: item.last_name,
+          profile_pic: item.profile_pic,
+        }));
+        setListOfDoers(doer);
         const comments = res.data.comments.map((obj) => ({
           text: obj.text,
           created: obj.created_at,
@@ -273,7 +308,10 @@ export default function TaskModal() {
 
   return (
     <div>
-      <Button variant="contained" onClick={() => console.log(user)}></Button>
+      <Button
+        variant="contained"
+        onClick={() => console.log(ListOfDoers)}
+      ></Button>
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
           <div className="taskmodal-page">
@@ -311,8 +349,10 @@ export default function TaskModal() {
                           gap: "3%",
                         }}
                       >
-                        {cars.map((car) => (
-                          <InitialIconcircle initials={car}></InitialIconcircle>
+                        {ListOfDoers.map((doer) => (
+                          <InitialIconcircle
+                            initials={doer}
+                          ></InitialIconcircle>
                         ))}
                       </div>
                     </div>
@@ -365,6 +405,8 @@ export default function TaskModal() {
                               autoFocus
                               onChange={(e) => setDescription(e.target.value)}
                               value={description}
+                              multiline
+                              rows={2}
                             ></StyledTextField>
                             <div dir="ltr" style={{ marginTop: "3%" }}>
                               <Button
