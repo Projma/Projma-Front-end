@@ -142,7 +142,7 @@ export default function Labels({ params }) {
     form_data.append("title", editedTitle);
     form_data.append("color", editedColor);
     apiInstance
-      .patch(`workspaces/label/${editItem.id}/update_label/`, form_data)
+      .patch(`workspaces/label/${editItem.id}/update-label/`, form_data)
       .then((res) => {
         console.log(res.data);
         setBoardLabels((prevState) =>

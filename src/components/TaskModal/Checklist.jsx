@@ -2,17 +2,41 @@ import * as React from "react";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { useRef } from "react";
 import apiInstance from "../../utilities/axiosConfig";
 import LabelIcon from "@mui/icons-material/Label";
 import Divider from "@mui/material/Divider";
+import { makeStyles } from "@mui/styles";
+import { Input } from "@mui/material";
 import "../../styles/TaskModal.css";
 import "./Checklist.scss";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const useStyles = makeStyles({
+  title_input: {
+    "&::placeholder": {
+      textOverflow: "ellipsis !important",
+      color: "#fff !important",
+    },
+  },
+});
 
 export default function CheckList({ params }) {
+  const classes = useStyles();
   const [createdCheckTitle, setCreatedCheckTitle] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const createCheckList = () => {
+  const add_section_ref = useRef(null);
+  const add_button_ref = useRef(null);
+  const createCheckList = (e) => {
+    if (createdCheckTitle.length == 0) {
+      e.preventDefault();
+      toast.error("لطفا یک عنوان برای لیست کنترل خود انتخاب کنید", {
+        position: toast.POSITION.BOTTOM_LEFT,
+        rtl: true,
+      });
+      return;
+    }
     const form_data = new FormData();
     form_data.append("text", createdCheckTitle);
     apiInstance
@@ -20,8 +44,12 @@ export default function CheckList({ params }) {
       .then((res) => {
         console.log("here2");
         console.log(res.data);
+        toast.success("مورد لیست کنترل اضافه شد", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
       });
-    console.log("here");
+    handleClose();
   };
 
   const handleClick = (event) => {
@@ -29,6 +57,7 @@ export default function CheckList({ params }) {
   };
 
   const handleClose = () => {
+    setCreatedCheckTitle("");
     setAnchorEl(null);
   };
 
@@ -37,6 +66,7 @@ export default function CheckList({ params }) {
 
   return (
     <div>
+      <ToastContainer />
       <Button
         className="taskmodal-smaller-button-inner"
         aria-describedby={id}
@@ -45,6 +75,7 @@ export default function CheckList({ params }) {
         sx={{
           bgcolor: "#173b5e",
           marginTop: "5%",
+          borderRadius: "35px",
         }}
       >
         <LabelIcon rotate="90" fontSize="large"></LabelIcon>{" "}
@@ -66,24 +97,24 @@ export default function CheckList({ params }) {
       >
         <div className="tm_checklists-main-div">
           <header className="tm_checklists-header">
-            <h2>اضافه کردن لیست کنترل</h2>
+            <h2 style={{ color: "#fff" }}>اضافه کردن لیست کنترل</h2>
           </header>
-          <Divider />
-          <div className="tm_checklists-body">
-            <input
-              type="text"
-              placeholder="عنوان لیست کنترل"
+          <Divider sx={{}} />
+          <div className="tm_checklists-body" ref={add_section_ref}>
+            <Input
+              className={classes.title_input}
               value={createdCheckTitle}
               onChange={(e) => setCreatedCheckTitle(e.target.value)}
+              placeholder="عنوان"
+              sx={{
+                color: "#000 !important",
+                width: "100%",
+                marginBottom: "1rem",
+              }}
             />
-            <div className="tm_checklists-body-buttons">
-              <button
-                className="tm_checklists-body-buttons-add"
-                onClick={(e) => createCheckList()}
-              >
-                اضافه کردن
-              </button>
-            </div>
+            <button class="button-16" role="button" onClick={createCheckList}>
+              افزودن
+            </button>
           </div>
         </div>
       </Popover>
