@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useSelector } from "react";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";

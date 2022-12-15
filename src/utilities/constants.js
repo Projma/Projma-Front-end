@@ -3,6 +3,7 @@
 // export const history = createBrowserHistory();
 // export const swaggerUrl = "http://mohammadosoolian.pythonanywhere.com/swagger/";
 // export const swaggerUrl = "http://127.0.0.1:8000/swagger/";
-export const swaggerUrl = "https://mohammadosoolian.pythonanywhere.com/swagger/";
-// export const baseUrl = "http://127.0.0.1:8000/";
-export const baseUrl = "https://mohammadosoolian.pythonanywhere.com/";
+export const swaggerUrl =
+  "https://mohammadosoolian.pythonanywhere.com/swagger/";
+export const baseUrl = "http://127.0.0.1:8000/";
+// export const baseUrl = "https://mohammadosoolian.pythonanywhere.com/";
