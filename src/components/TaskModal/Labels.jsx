@@ -14,12 +14,7 @@ import Divider from "@mui/material/Divider";
 import "../../styles/TaskModal.css";
 import "./Labels.scss";
 
-const task_labels = [
-  { id: 4, title: "new_new", color: "#FFEAC7", board: 2 },
-  { id: 5, title: "very_new", color: "#DC15FF", board: 2 },
-];
-
-export default function Labels({ params }) {
+export default function Labels({ params, task_labels, set_task_labels }) {
   const [current, setCurrent] = useState("");
   const [createdTitle, setCreatedTitle] = useState("your title");
   const [createdColor, setCreatedColor] = useState("#ffffff");
@@ -27,22 +22,24 @@ export default function Labels({ params }) {
   const [editedTitle, setEditedTitle] = useState("");
   const [editedColor, setEditedColor] = useState("");
   const [editItem, setEditItem] = useState({});
-  const [taskLabels, setTaskLabels] = React.useState([]);
+  // const [taskLabels, setTaskLabels] = React.useState([]);
   const [boardLabels, setBoardLabels] = React.useState([]);
   useEffect(() => {
-    apiInstance.get(`workspaces/task/${params.task_id}/labels/`).then((res) => {
-      console.log("task labels");
-      console.log(res.data);
-      setTaskLabels(res.data);
-    });
     apiInstance
       .get(`workspaces/board/${params.board_id}/get-board-labels/`)
       .then((res) => {
         console.log("board labels");
         console.log(res.data);
-        setBoardLabels(res.data);
+        const board_labels = res.data.map((obj) => ({
+          id: obj.id,
+          title: obj.title,
+          color: obj.color,
+        }));
+        console.log(board_labels);
+        setBoardLabels(board_labels);
       });
     // setCurrent(mainPage);
+    // setTaskLabels(task_labels);
   }, []);
 
   React.useEffect(() => {
@@ -52,63 +49,70 @@ export default function Labels({ params }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
+    // setTaskLabels(task_labels);
     setCurrent(mainPage);
+    console.log("task labels");
+    console.log(task_labels);
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setCurrent(mainPage);
+    console.log("task labels");
+    console.log(task_labels);
     setAnchorEl(null);
   };
 
   const delete_label_from_task = (inputElem, label_id) => {
-    console.log("delete label from task");
-    console.log(label_id);
-    const form_data = new FormData();
-    const labels = [];
-    labels.push(label_id);
-    form_data.append("labels", labels);
     apiInstance
-      .patch(
-        `workspaces/task/${params.task_id}/delete-labels-from-task/`,
-        form_data
-      )
+      .patch(`workspaces/task/${params.task_id}/delete-labels-from-task/`, {
+        labels: [label_id],
+      })
       .then((res) => {
+        console.log("in delete label");
         console.log(res.data);
-        setTaskLabels((prevState) =>
+        set_task_labels((prevState) =>
           prevState.filter((label) => label.id !== label_id)
         );
+        // setBoardLabels((prevState) => [...prevState, res.data])
       });
-    setTaskLabels((prevState) =>
-      prevState.filter((label) => label.id !== label_id)
-    );
-    console.log(taskLabels);
+    console.log("task labels");
+    console.log(task_labels);
+    // setTaskLabels((prevState) =>
+    //   prevState.filter((label) => label.id !== label_id)
+    // );
+    // console.log(taskLabels);
   };
   const add_label_to_task = (inputElem, label_id) => {
     console.log("add label to task");
-    const form_data = new FormData();
-    const labels = [];
-    labels.push(label_id);
-    console.log("adding label");
-    console.log(labels);
-    form_data.append("labels", labels);
     apiInstance
-      .patch(`workspaces/task/${params.task_id}/add-labels-to-task/`, form_data)
+      .patch(`workspaces/task/${params.task_id}/add-labels-to-task/`, {
+        labels: [label_id],
+      })
       .then((res) => {
         console.log("in add label");
         console.log(res.data);
-        setTaskLabels((prevState) => [...prevState, res.data]);
+        // set_task_labels((prevState) => [
+        //   ...prevState,
+        //   res.data[res.data.length - 1],
+        // ]);
+        // setBoardLabels((prevState) =>
+        //   prevState.filter((label) => label.id !== label_id)
+        // );
+        // setTaskLabels((prevState) => [...prevState, res.data]);
       });
-    boardLabels.forEach((label) => {
-      if (label.id === label_id) {
-        console.log(label.id);
-        setTaskLabels((prevState) => [...prevState, label]);
-      }
-    });
+    console.log("task labels");
+    console.log(task_labels);
+    // boardLabels.forEach((label) => {
+    //   if (label.id === label_id) {
+    //     console.log(label.id);
+    //     setTaskLabels((prevState) => [...prevState, label]);
+    //   }
+    // });
     console.log("board labels");
     console.log(boardLabels);
     console.log("task labels");
-    console.log(taskLabels);
+    // console.log(taskLabels);
   };
 
   const open = Boolean(anchorEl);
@@ -136,31 +140,48 @@ export default function Labels({ params }) {
   const editThisItem = (e) => {
     // e.preventDefault();
     console.log("edit this item");
-    console.log(editedTitle);
-    console.log(editedColor);
-    const form_data = new FormData();
-    form_data.append("title", editedTitle);
-    form_data.append("color", editedColor);
+    console.log(editItem);
     apiInstance
-      .patch(`workspaces/label/${editItem.id}/update-label/`, form_data)
+      .patch(`workspaces/label/${editItem.id}/update-label/`, {
+        title: editedTitle,
+        color: editedColor,
+      })
       .then((res) => {
+        console.log("in edit label");
         console.log(res.data);
-        setBoardLabels((prevState) =>
+        let flag = 0;
+        set_task_labels((prevState) =>
           prevState.map((label) => {
-            if (label.id === editItem.id) {
+            if (label.id === res.data.id) {
               console.log("FLAG");
-              console.log(res.data);
-              return res.data;
+              flag = 1;
+              return {
+                id: res.data.id,
+                title: res.data.title,
+                color: res.data.color,
+              };
             } else {
               return label;
             }
           })
         );
-        setTaskLabels((prevState) =>
+        if (flag === 1) {
+          console.log("FLAG 2");
+          setBoardLabels((prevState) =>
+            prevState.filter((label) => label.id !== res.data.id)
+          );
+          return;
+        }
+        setBoardLabels((prevState) =>
           prevState.map((label) => {
             if (label.id === editItem.id) {
-              console.log("FLAG");
-              return res.data;
+              console.log("FLAG 3");
+              console.log(res.data);
+              return {
+                id: res.data.id,
+                title: res.data.title,
+                color: res.data.color,
+              };
             } else {
               return label;
             }
@@ -187,8 +208,8 @@ export default function Labels({ params }) {
     // setShowEdit(false);
   };
   const test = () => {
-    console.log("test");
-    console.log(taskLabels);
+    console.log("test labels");
+    console.log(task_labels);
     console.log(boardLabels);
   };
 
@@ -200,7 +221,7 @@ export default function Labels({ params }) {
       </header>
       <div className="tm_labels-div-inner">
         <ul className="tm_labels-ul">
-          {taskLabels.map((taskLabel, idx) => (
+          {task_labels.map((taskLabel, idx) => (
             <li className="tm_labels-li">
               <div className="tm_labels-li-div flex">
                 <input
@@ -224,7 +245,7 @@ export default function Labels({ params }) {
                   </div>
                   <EditIcon
                     className="tm_labels-labels-edit-icon"
-                    onClick={() => handleEditPage(taskLabels, taskLabel.id)}
+                    onClick={() => handleEditPage(task_labels, taskLabel.id)}
                   />
                 </span>
               </div>
@@ -232,8 +253,9 @@ export default function Labels({ params }) {
           ))}
           {boardLabels.map((boardLabel, idx) => {
             if (
-              taskLabels.filter((taskLabel) => taskLabel.id === boardLabel.id)
-                .length === 0
+              task_labels.filter(
+                (taskLabel) => taskLabel?.id === boardLabel?.id
+              ).length === 0
             ) {
               return (
                 <li className="tm_labels-li">
@@ -248,7 +270,7 @@ export default function Labels({ params }) {
                     <span className="tm_labels-li-div-span flex">
                       <div
                         className="tm_labels-li-color-box"
-                        style={{ backgroundColor: boardLabel.color + "55" }}
+                        style={{ backgroundColor: boardLabel?.color + "55" }}
                       >
                         <div
                           className="tm_labels-labels-symbol"

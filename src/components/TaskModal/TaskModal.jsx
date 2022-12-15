@@ -202,6 +202,7 @@ export default function TaskModal() {
   const [checklistTitle, setChecklistTitle] = useState("");
   const [listOfCheckboxes, setListOfCheckboxes] = useState([]);
   const [ListOfComments, setListOfComments] = useState([]);
+  const [listOfLabels, setListOfLabels] = useState([]);
   const [showdescription, setShowDescription] = useState(false);
   const [description, setDescription] = useState("");
   const [showChecklist, setShowChecklist] = useState(false);
@@ -375,6 +376,12 @@ export default function TaskModal() {
           id: obj.id,
         }));
         setListOfComments(comments);
+        const labels = res.data.labels.map((obj) => ({
+          id: obj.id,
+          title: obj.title,
+          color: obj.color,
+        }));
+        setListOfLabels(labels);
       });
   }, []);
 
@@ -1007,7 +1014,11 @@ export default function TaskModal() {
                 </div>
                 <div className="flex-column taskmodal-body-smaller">
                   <Members params={params} />
-                  <Labels params={params} />
+                  <Labels
+                    params={params}
+                    task_labels={listOfLabels}
+                    set_task_labels={setListOfLabels}
+                  />
                   <CheckList params={params} />
                   <Attachments params={params} />
                 </div>
