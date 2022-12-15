@@ -15,6 +15,7 @@ import { useState, useCallback } from "react";
 import axios from "axios";
 import StyledTextField from "../Shared/StyledTextField";
 import { CacheProvider } from "@emotion/react";
+import { useParams } from "react-router";
 import { red } from "@mui/material/colors";
 import { useDispatch, useSelector } from "react-redux";
 import { Calendar } from "react-multi-date-picker";
@@ -50,7 +51,7 @@ const cacheRtl = createCache({
 });
 
 export default function TaskModal() {
-  // const params = useParams();
+  const params = useParams();
   const cars = ["ن‌ا", "وم", "س‌ع"];
   function handleRemove(index) {
     setListOfCheckboxes(
@@ -209,7 +210,7 @@ export default function TaskModal() {
   const [user, setUser] = useState({});
   const [title, setTitle] = useState("");
   const baseURL = baseUrl.substring(0, baseUrl.length - 1);
-  const params = useParams();
+  // const params = useParams();
   const handleSubmit = (event) => {
     event.preventDefault();
     setShowDescription(false);

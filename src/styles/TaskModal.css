@@ -251,6 +251,7 @@
   padding-top: 3px;
   justify-content: left;
   align-items: left;
+  border-radius: 60px;
 }
 .taskmodal-larger_smaller {
   display: flex;
