@@ -90,16 +90,19 @@
 
 .taskmodal-body-members {
   margin-left: 8px;
-  width: 100%;
-  width: fit-content;
+  width: 100% !important;
   margin-left: 5%;
 }
 
 .taskmodal-body-options {
-  height: 15%;
-  width: 90%;
+  height: fit-content;
+  width: fit-content;
   align-items: center;
   margin-right: 6.5%;
+}
+
+.taskmodal-body-labels {
+  width: 100%;
 }
 
 .taskmodel-body-members-title {
@@ -107,7 +110,7 @@
   display: block;
   font-size: 13px;
   font-weight: 600;
-  margin-bottom: 4%;
+  margin-bottom: 2%;
 }
 
 .flex-gap {
@@ -157,10 +160,15 @@
   width: 100%;
 }
 
+.Vazir {
+  font-family: vazir !important;
+}
+
 .taskmodal-checklist-showList {
   margin-right: 2%;
   width: 100%;
   font-size: 14px;
+  direction: rtl !important;
 }
 
 .taskmodal-body-activity-box {

@@ -28,7 +28,7 @@ import TextField from "@mui/material/TextField";
 import apiInstance from "../../utilities/axiosConfig";
 import PersonIcon from "@mui/icons-material/Person";
 import PasswordIcon from "@mui/icons-material/Password";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { FormControl } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
@@ -50,16 +50,21 @@ const cacheRtl = createCache({
   stylisPlugins: [prefixer, rtlPlugin],
 });
 
+function APIcall() {}
+
 export default function TaskModal() {
   const params = useParams();
-  const cars = ["ن‌ا", "وم", "س‌ع"];
-  function handleRemove(index) {
-    setListOfCheckboxes(
-      listOfCheckboxes.filter((item, i) => {
-        return i !== index;
-      })
-    );
-  }
+  const handleRemoveChecklist = (id) => {
+    setAllChecklists((prevState) => {
+      return prevState.filter((item) => item.id !== id);
+    });
+    apiInstance
+      .delete(`/workspaces/task/delete-checklist/${id}/`)
+      .then((response) => {
+        console.log(response);
+      });
+  };
+
   function handleRemoveOfComment(id) {
     apiInstance
       .delete(`/workspaces/comment/${id}/delete-comment/`)
@@ -97,7 +102,7 @@ export default function TaskModal() {
         .toUpperCase()
     );
   };
-  // const userData = replaceUndefinied(useSelector(state => state.auth));
+
   const InitialIconcircle = ({ initials }) => {
     return (
       <Button
@@ -152,27 +157,26 @@ export default function TaskModal() {
     );
   };
   const InitialIcon = ({ initials }) => {
-    const color = randColor();
     return (
       <div
         className="flex-row"
         style={{
-          backgroundColor: color + "55",
+          backgroundColor: initials.color + "55",
           alignItems: "center",
           justifyContent: "center",
-          width: 70,
+          width: 90,
           height: 25,
           borderRadius: 30,
         }}
       >
         <div
           style={{
-            backgroundColor: color,
+            backgroundColor: initials.color,
             alignItems: "center",
             justifyContent: "center",
             borderRadius: 30,
-            width: 20,
-            height: 20,
+            width: 17,
+            height: 17,
             marginLeft: 7,
           }}
         ></div>
@@ -180,15 +184,14 @@ export default function TaskModal() {
           style={{
             display: "flex",
             color: "white",
-            fontSize: 15,
+            fontSize: 13,
             width: "50",
             height: "100%",
             justifyContent: "center",
             alignItems: "center",
-            color: "black",
           }}
         >
-          {initials}
+          {initials.title}
         </div>
       </div>
     );
@@ -198,7 +201,6 @@ export default function TaskModal() {
   const [showComment, setShowComment] = useState(false);
   const [checklistTitle, setChecklistTitle] = useState("");
   const [listOfCheckboxes, setListOfCheckboxes] = useState([]);
-  const [listOfCheckboxesStatus, setListOfCheckboxesStatus] = useState([]);
   const [ListOfComments, setListOfComments] = useState([]);
   const [showdescription, setShowDescription] = useState(false);
   const [description, setDescription] = useState("");
@@ -208,6 +210,12 @@ export default function TaskModal() {
   const [editcomment, setEditComment] = useState(false);
   const [editcommentText, setEditCommentText] = useState("");
   const [user, setUser] = useState({});
+  const [allChecklists, setAllChecklists] = useState([]);
+  const [ListOfLabels, setListOfLabels] = useState([]);
+  const [EditCheckList, setEditCheckList] = useState(Array(1000).fill(false));
+  const [EditCommentList, setEditCommentList] = useState(
+    Array(1000).fill(false)
+  );
   const [title, setTitle] = useState("");
   const baseURL = baseUrl.substring(0, baseUrl.length - 1);
   // const params = useParams();
@@ -222,13 +230,36 @@ export default function TaskModal() {
         console.log(res);
       });
   };
-  const sendData = (event) => {
-    event.preventDefault();
-    setListOfCheckboxes((prevState) => [...prevState, checklistTitle]);
-    setListOfCheckboxesStatus((prevState) => [...prevState, false]);
-    setChecklistTitle("");
-    setShowChecklist(false);
-    console.log(show);
+  const handleEditChecklist = (id) => {
+    setAllChecklists((prevState) => {
+      return prevState.map((item) => {
+        if (item.id === id) {
+          item.text = checklistTitle;
+        }
+        return item;
+      });
+    });
+    const formData = new FormData();
+    formData.append("text", checklistTitle);
+    apiInstance
+      .patch(`/workspaces/task/update-checklist/${id}/`, formData)
+      .then((res) => {
+        console.log(res);
+      });
+  };
+  const AddCheckList = () => {
+    console.log("navid");
+    const formData = new FormData();
+    formData.append("text", checklistTitle);
+    apiInstance
+      .post(`/workspaces/task/${params.task_id}/create-checklist/`, formData)
+      .then((res) => {
+        console.log(res);
+        setAllChecklists((prevState) => [...prevState, res.data]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const handleCommentSubmit = (event, user_id) => {
     event.preventDefault();
@@ -274,7 +305,42 @@ export default function TaskModal() {
         console.log(res);
       });
   };
+  const handleCheckboxIsDone = (id) => {
+    setAllChecklists((prevState) =>
+      prevState.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            is_done: !item.is_done,
+          };
+        }
+        return item;
+      })
+    );
+    const formData = new FormData();
+    allChecklists.map((item) => {
+      if (item.id === id) {
+        if (item.is_done === false) {
+          formData.append("is_done", true);
+        } else {
+          formData.append("is_done", false);
+        }
+        return formData;
+      }
+    });
+    apiInstance
+      .patch(`/workspaces/task/update-checklist/${id}/`, formData)
+      .then((res) => {
+        console.log(res);
+      });
+  };
   useEffect(() => {
+    apiInstance
+      .get(`/workspaces/task/${params.task_id}/get-all-checklists/`)
+      .then((res) => {
+        console.log(res);
+        setAllChecklists(res.data);
+      });
     apiInstance.get(`/accounts/profile/myprofile/`).then((res) => {
       setUser(res.data);
       console.log(user);
@@ -285,6 +351,12 @@ export default function TaskModal() {
         console.log(res);
         setDescription(res.data.description);
         setTitle(res.data.title);
+        const labels = res.data.labels.map((item) => ({
+          id: item.id,
+          title: item.title,
+          color: item.color,
+        }));
+        setListOfLabels(labels);
         const doer = res.data.doers.map((item) => ({
           email: item.email,
           username: item.username,
@@ -310,7 +382,11 @@ export default function TaskModal() {
     <div>
       <Button
         variant="contained"
-        onClick={() => console.log(ListOfDoers)}
+        onClick={() => {
+          // setEditCheckList.map;
+          EditCheckList[0] = !EditCheckList[0];
+          console.log(EditCheckList);
+        }}
       ></Button>
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
@@ -342,7 +418,9 @@ export default function TaskModal() {
                     <div className="taskmodal-body-members">
                       <div className="taskmodel-body-members-title">اعضا</div>
                       <div
+                        className="flex-gap"
                         style={{
+                          width: "100%",
                           display: "flex",
                           flexDirection: "row",
                           flexGrow: 1,
@@ -357,22 +435,19 @@ export default function TaskModal() {
                       </div>
                     </div>
                     <div className="taskmodal-body-labels">
-                      <div className="taskmodal-body-members">
-                        <div className="taskmodel-body-members-title">
-                          برچسب
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            flexGrow: 1,
-                            gap: "3%",
-                          }}
-                        >
-                          {cars.map((car) => (
-                            <InitialIcon initials={car}></InitialIcon>
-                          ))}
-                        </div>
+                      <div className="taskmodel-body-members-title">برچسب</div>
+                      <div
+                        className="flex-gap"
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          flexGrow: 1,
+                          gap: "3%",
+                        }}
+                      >
+                        {ListOfLabels.map((label) => (
+                          <InitialIcon initials={label}></InitialIcon>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -494,6 +569,7 @@ export default function TaskModal() {
                       </Box>
                     </div>
                   </div>
+
                   <div className="flex-row taskmodal-body-checklist">
                     <div className="flex taskmodal-body-checklist-icon">
                       <ContentPasteIcon
@@ -512,51 +588,148 @@ export default function TaskModal() {
                         <div className="taskmodal-body-checklist-title-icons"></div>
                       </div>
 
-                      {listOfCheckboxes.map((item, index) => (
-                        <div
-                          className="flex-row"
-                          style={{
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Checkbox
-                            onClick={() => {
-                              listOfCheckboxesStatus[index] =
-                                !listOfCheckboxesStatus[index];
-                              // console.log(listOfCheckboxesStatus[index]);
-                              // console.log(index);
-                            }}
-                            sx={{
-                              color: "white",
-                              "& .MuiSvgIcon-root": { fontSize: 18 },
-                            }}
-                          />
-                          {listOfCheckboxesStatus[index] ? (
+                      {allChecklists.map((item) => (
+                        <div>
+                          {EditCheckList[item.id] ? (
                             <div
-                              className="taskmodal-checklist-showList"
-                              style={{ textDecoration: "underline" }}
+                              className="flex-row"
+                              style={{
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                              }}
                             >
-                              {item}
+                              <StyledTextField
+                                fullWidth
+                                autoFocus
+                                onChange={(e) =>
+                                  setChecklistTitle(e.target.value)
+                                }
+                                value={checklistTitle}
+                              ></StyledTextField>
+                              <div dir="ltr" style={{ marginTop: "3%" }}>
+                                <Button
+                                  onClick={() => {
+                                    {
+                                      setEditCheckList((oldState) => {
+                                        const newState = [...oldState];
+                                        newState[item.id] = false;
+                                        return newState;
+                                      });
+                                      handleEditChecklist(item.id);
+                                    }
+                                  }}
+                                  variant="contained"
+                                  className="taskmodal-button-setting"
+                                  style={{ fontFamily: "Vazir" }}
+                                >
+                                  ذخیره
+                                </Button>
+                                <Button
+                                  variant="outlined"
+                                  className="taskmodal-button-setting"
+                                  onClick={() => {
+                                    console.log("navid");
+                                    console.log(item.id);
+                                    setEditCheckList((oldState) => {
+                                      const newState = [...oldState];
+                                      newState[item.id] = false;
+                                      return newState;
+                                    });
+                                  }}
+                                  style={{
+                                    fontFamily: "Vazir",
+                                  }}
+                                >
+                                  لغو
+                                </Button>
+                              </div>
                             </div>
                           ) : (
-                            <div className="taskmodal-checklist-showList">
-                              {item}
+                            <div
+                              className="flex-row"
+                              style={{
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                              }}
+                            >
+                              <Checkbox
+                                onClick={() => {
+                                  handleCheckboxIsDone(item.id);
+                                  console.log(allChecklists);
+                                  // console.log(i);
+                                }}
+                                sx={{
+                                  color: "white",
+                                  "& .MuiSvgIcon-root": { fontSize: 18 },
+                                }}
+                                checked={item.is_done}
+                              />
+                              {item.is_done ? (
+                                <Button
+                                  className="taskmodal-checklist-showList Vazir"
+                                  style={{
+                                    textDecoration: "line-through",
+                                    fontSize: "12px",
+                                    display: "flex",
+                                    justifyContent: "flex-start",
+                                    color: "white",
+                                  }}
+                                  onClick={() => {
+                                    console.log(item.id);
+                                    setEditCheckList((oldState) => {
+                                      const newState = [...oldState];
+                                      newState[item.id] = true;
+                                      return newState;
+                                    });
+                                    setChecklistTitle(item.text);
+                                  }}
+                                >
+                                  {item.text}
+                                </Button>
+                              ) : (
+                                <Button
+                                  className="taskmodal-checklist-showList Vazir"
+                                  style={{
+                                    fontSize: "12px",
+                                    display: "flex",
+                                    justifyContent: "flex-start",
+                                    color: "white",
+                                  }}
+                                  onClick={() => {
+                                    console.log(item.id);
+                                    setEditCheckList((oldState) => {
+                                      const newState = [...oldState];
+                                      newState[item.id] = true;
+                                      return newState;
+                                    });
+                                    setChecklistTitle(item.text);
+                                  }}
+                                >
+                                  {item.text}
+                                </Button>
+                              )}
+                              <div className="flex-row">
+                                <Button
+                                  onClick={() => handleRemoveChecklist(item.id)}
+                                  sx={{
+                                    fontFamily: "Vazir",
+                                    fontSize: "10px",
+                                    paddingLeft: "0px",
+                                    display: "flex",
+                                    justifyContent: "flex-start",
+                                    color: "white",
+                                  }}
+                                >
+                                  حذف
+                                </Button>
+                              </div>
                             </div>
                           )}
-                          <div>
-                            <Button
-                              onClick={() => handleRemove(index)}
-                              sx={{ fontFamily: "Vazir", fontSize: "10px" }}
-                            >
-                              حذف
-                            </Button>
-                          </div>
                         </div>
                       ))}
                       <Box
                         component="form"
-                        onSubmit={sendData}
+                        onSubmit={AddCheckList}
                         className="taskmodal-body-larger-description-textbox"
                       >
                         {showChecklist ? (
@@ -730,7 +903,7 @@ export default function TaskModal() {
                                 {item.updated}
                               </div>
                             </div>
-                            {editcomment ? (
+                            {EditCommentList[item.id] ? (
                               <div>
                                 <StyledTextField
                                   fullWidth
@@ -744,7 +917,11 @@ export default function TaskModal() {
                                 <div dir="ltr" style={{ marginTop: "3%" }}>
                                   <Button
                                     onClick={() => {
-                                      setEditComment(false);
+                                      setEditCommentList((oldState) => {
+                                        const newState = [...oldState];
+                                        newState[item.id] = false;
+                                        return newState;
+                                      });
                                       handleEditComment(
                                         item.id,
                                         editcommentText
@@ -759,7 +936,13 @@ export default function TaskModal() {
                                   <Button
                                     variant="outlined"
                                     className="taskmodal-button-setting"
-                                    onClick={() => setEditComment(false)}
+                                    onClick={() => {
+                                      setEditCommentList((oldState) => {
+                                        const newState = [...oldState];
+                                        newState[item.id] = false;
+                                        return newState;
+                                      });
+                                    }}
                                     style={{
                                       fontFamily: "Vazir",
                                       marginLeft: "2%",
@@ -774,37 +957,46 @@ export default function TaskModal() {
                                 <div className="taskmodal-comment-showList-comment">
                                   {item.text}
                                 </div>
-                                <div className="taskmodal-comment-button">
-                                  <Button
-                                    onClick={() =>
-                                      handleRemoveOfComment(item.id)
-                                    }
-                                    sx={{
-                                      fontFamily: "Vazir",
-                                      color: "white",
-                                      fontSize: "10px",
-                                      paddingRight: "0px",
-                                      textDecoration: "underline",
-                                    }}
-                                  >
-                                    حذف
-                                  </Button>
-                                  <Button
-                                    sx={{
-                                      fontFamily: "Vazir",
-                                      color: "white",
-                                      fontSize: "10px",
-                                      paddingLeft: "0px",
-                                      textDecoration: "underline",
-                                    }}
-                                    onClick={() => {
-                                      setEditComment(true);
-                                      setEditCommentText(item.text);
-                                    }}
-                                  >
-                                    ویرایش
-                                  </Button>
-                                </div>
+                                {item.sender?.username ===
+                                user?.user.username ? (
+                                  <div className="taskmodal-comment-button">
+                                    <Button
+                                      onClick={() =>
+                                        handleRemoveOfComment(item.id)
+                                      }
+                                      sx={{
+                                        fontFamily: "Vazir",
+                                        color: "white",
+                                        fontSize: "10px",
+                                        paddingRight: "0px",
+                                        textDecoration: "underline",
+                                      }}
+                                    >
+                                      حذف
+                                    </Button>
+                                    <Button
+                                      sx={{
+                                        fontFamily: "Vazir",
+                                        color: "white",
+                                        fontSize: "10px",
+                                        paddingLeft: "0px",
+                                        textDecoration: "underline",
+                                      }}
+                                      onClick={() => {
+                                        setEditCommentList((oldState) => {
+                                          const newState = [...oldState];
+                                          newState[item.id] = true;
+                                          return newState;
+                                        });
+                                        setEditCommentText(item.text);
+                                      }}
+                                    >
+                                      ویرایش
+                                    </Button>
+                                  </div>
+                                ) : (
+                                  <div></div>
+                                )}
                               </div>
                             )}
                           </div>
