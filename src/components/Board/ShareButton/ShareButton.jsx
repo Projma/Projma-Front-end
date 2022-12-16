@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import SendTwoToneIcon from '@mui/icons-material/SendTwoTone';
 import PropTypes from 'prop-types';
 import Backdrop from '@mui/material/Backdrop';
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import Fade from '@mui/material/Fade';
@@ -56,7 +56,7 @@ const ShareButton = (props) => {
     const params = useParams();
     useEffect(() => {
         apiInstance.get(`/workspaces/board/${params.id}/members/`).then((res) => {
-        // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
+            // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
             // console.log(res.data);
             setMembers(res.data);
             // array of members
@@ -123,6 +123,72 @@ const ShareButton = (props) => {
                         {/* <Typography id="spring-modal-description" sx={{ mt: 2,marginBottom:2 }}>
                             اشتراک بورد
                         </Typography> */}
+                        <Box sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            // justifyContent: "space-between",
+                            alignItems: "center",
+                            marginBottom: "1%",
+                            // marginTop: "2%",
+                            marginRight: "2%"
+                        }}>
+                            <CacheProvider value={cacheRtl}>
+                                {/* <ThemeProvider theme={theme}> */}
+                                    <StyledTextField
+                                        // margin="normal"
+                                        // required
+                                        fullWidth
+                                        id="search_box"
+                                        label="جستجو"
+                                        type="search"
+                                        placeholder="آدرس ایمیل یا نام را وارد کنید."
+                                        helperText="فرد مورد نظر خود را جستجو کنید."
+                                        name="search_box"
+                                        autoComplete="search_box"
+                                        autoFocus
+                                        sx={{ width: "60%", display: "block", marginRight: "3%" }}
+                                        InputLabelProps={{ style: { fontFamily: "Vazir" } }}
+                                        InputProps={{ style: { fontFamily: "Vazir" } }}
+                                        FormHelperTextProps={{ style: { fontFamily: "Vazir", color: "black" } }}
+                                    // error={errorWorkspaceName}
+                                    />
+                                {/* </ThemeProvider> */}
+                            </CacheProvider>
+                            <Button
+                                variant="contained"
+                                // button-key="buttonAttribute"
+                                sx={{
+                                    // height: 54,
+                                    // width: 150,
+                                    // fontSize: "90%",
+                                    // marginTop: "0%",
+                                    marginBottom: "2.4%",
+                                    padding: "1.35%",
+                                    // paddingTop: "5%",
+                                    width: "20%",
+                                    // height: "100%",
+                                    fontFamily: "Vazir",
+                                    backgroundColor: "#0A1929", // #132F4C
+                                }}
+                            // disabled={disableButton}
+                            // onClick={this.isClicked}
+                            // onClick={() => {
+                            //     // let workspace_name = document.getElementById("workspace_name").value;
+                            //     // let create_workspace_formdata = new FormData();
+                            //     // create_workspace_formdata.append("name", workspace_name);
+                            //     // create_workspace_formdata.append("type", type);
+                            //     apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
+                            //         navigateToWorkspace(response.data.id);
+                            //     })
+                            //         .catch((error) => {
+                            //             console.log(error);
+                            //         });
+                            // }}
+                            >
+                                {/* {" "} */}
+                                اشتراک
+                            </Button>
+                        </Box>
                         {
                             members.map((member) => {
                                 return (
@@ -147,15 +213,15 @@ const ShareButton = (props) => {
                                             flexDirection: "column",
                                             marginLeft: "2%",
                                         }}>
-                                        <Typography>
-                                            {member.user.first_name + " " + member.user.last_name}
-                                        </Typography>
-                                        {/* <br /> */}
-                                        <Typography>
-                                            {console.log(member.role)}
-                                            نقش:
-                                            {member.role ? "Admin" : "ادمین" ? "Member" : "کاربر" ? "Guest" : "مهمان"}
-                                            {/* {() => {
+                                            <Typography>
+                                                {member.user.first_name + " " + member.user.last_name}
+                                            </Typography>
+                                            {/* <br /> */}
+                                            <Typography>
+                                                {console.log(member.role)}
+                                                نقش:
+                                                {member.role ? "Admin" : "ادمین" ? "Member" : "کاربر" ? "Guest" : "مهمان"}
+                                                {/* {() => {
                                                 if (member.role === "Admin") {
                                                     return "ادمین";
                                                 } else if (member.role === "Member") {
@@ -165,31 +231,31 @@ const ShareButton = (props) => {
                                                 }
                                             }
                                             } */}
-                                        </Typography>
+                                            </Typography>
                                         </Box>
                                         <Box sx={{
                                             display: "flex",
                                             flexDirection: "column",
                                             marginLeft: "2%",
                                         }}>
-                                        <Typography>
-                                            ایمیل: 
-                                        </Typography>
-                                        <Typography>
-                                            {member.user.email}
-                                        </Typography>
+                                            <Typography>
+                                                ایمیل:
+                                            </Typography>
+                                            <Typography>
+                                                {member.user.email}
+                                            </Typography>
                                         </Box>
                                         <Box sx={{
                                             display: "flex",
                                             flexDirection: "column",
                                             marginLeft: "2%",
                                         }}>
-                                        <Typography>
-                                            نام کاربری: 
-                                        </Typography>
-                                        <Typography>
-                                            {member.user.username}
-                                        </Typography>
+                                            <Typography>
+                                                نام کاربری:
+                                            </Typography>
+                                            <Typography>
+                                                {member.user.username}
+                                            </Typography>
                                         </Box>
                                     </MenuItem>
                                 )
@@ -359,6 +425,8 @@ function stringAvatar(name) {
     return {
         sx: {
             bgcolor: stringToColor(name),
+            width: 56,
+            height: 56 
         },
         children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
     };
