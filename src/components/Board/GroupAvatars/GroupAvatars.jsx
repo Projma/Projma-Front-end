@@ -7,13 +7,14 @@ import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+// import { Box } from "@mui/material";
 
 const GroupAvatars = (props) => {
     const [members, setMembers] = React.useState([]);
     const params = useParams();
     useEffect(() => {
         apiInstance.get(`/workspaces/board/${params.id}/members/`).then((res) => {
-        // apiInstance.get(`/workspaces/board/${props.boardId}/members/`).then((res) => {
+            // apiInstance.get(`/workspaces/board/${props.boardId}/members/`).then((res) => {
             // console.log(res.data);
             setMembers(res.data);
             // array of members
@@ -47,15 +48,20 @@ const GroupAvatars = (props) => {
             // className="board_avatar-container"
             >
                 {members.map((x) => (
-                <Tooltip title={x.user.username}>
-                    <Avatar
-                        key={x.id}
-                        alt={(x.user.first_name + " " + x.user.last_name).toString()}
-                        src={x.profile_pic !== null ? x.profile_pic : "none"}
-                        {...stringAvatar((x.user.first_name + " " + x.user.last_name).toString())}
-                        className="board_avatar-profile-picture"
-                    />
-                </Tooltip>
+                    <Tooltip title={x.user.username}>
+                        {/* <Box sx={{
+                            // display: "flex",
+                            // marginLeft: "2%",
+                        }}> */}
+                            <Avatar
+                                key={x.id}
+                                alt={(x.user.first_name + " " + x.user.last_name).toString()}
+                                src={x.profile_pic !== null ? x.profile_pic : "none"}
+                                {...stringAvatar((x.user.first_name + " " + x.user.last_name).toString())}
+                            // className="board_avatar-profile-picture"
+                            />
+                        {/* </Box> */}
+                    </Tooltip>
                 ))}
 
                 {/* <Avatar alt="Remy Sharp" />
@@ -96,6 +102,8 @@ function stringAvatar(name) {
     return {
         sx: {
             bgcolor: stringToColor(name),
+            // width: 56,
+            // height: 56 
         },
         children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
     };
