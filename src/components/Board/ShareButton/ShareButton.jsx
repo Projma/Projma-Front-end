@@ -26,6 +26,8 @@ import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import { deepOrange, green } from '@mui/material/colors';
 import LinkSharpIcon from '@mui/icons-material/LinkSharp';
 import { useState} from 'react'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const style = {
     position: 'absolute',
@@ -86,7 +88,11 @@ const ShareButton = (props) => {
         // setinviteLink(`http://localhost:3000/board/${params.id}/`);
         setinviteLink('این یک تست است.');
         await navigator.clipboard.writeText(inviteLink);
-        alert('Text copied');
+        // alert('Text copied');
+        toast.success("لینک کپی شد.", {
+            position: toast.POSITION.TOP_CENTER,
+            rtl: true,
+        });
     }
 
     return (
@@ -266,6 +272,7 @@ const ShareButton = (props) => {
                                     {/* {" "} */}
                                     کپی لینک
                                 </Button>
+                                <ToastContainer />
                             </Box>
                         </MenuItem>
                         {
