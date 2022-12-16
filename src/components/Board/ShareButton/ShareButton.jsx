@@ -142,7 +142,8 @@ const ShareButton = (props) => {
                             alignItems: "center",
                             // marginBottom: "0%",
                             // marginTop: "2%",
-                            marginRight: "2%"
+                            marginRight: "2%",
+                            // marginLeft: "2%",
                         }}>
                             <CacheProvider value={cacheRtl}>
                                 {/* <ThemeProvider theme={theme}> */}
@@ -202,7 +203,9 @@ const ShareButton = (props) => {
                                 اشتراک
                             </Button>
                         </Box>
-                        <MenuItem>
+                        <MenuItem sx={{
+                            // marginLeft: "2%",
+                        }}>
                             <Box sx={{
                                 display: "flex",
                                 marginLeft: "2%",
@@ -237,6 +240,7 @@ const ShareButton = (props) => {
                                         // fontSize: "90%",
                                         // marginTop: "0%",
                                         // marginBottom: "2.4%",
+                                        marginLeft: "2%",
                                         // padding: "10%",
                                         // paddingTop: "5%",
                                         // width: "20%",
