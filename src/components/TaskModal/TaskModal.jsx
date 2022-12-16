@@ -1007,7 +1007,11 @@ export default function TaskModal() {
                 </div>
                 <div className="flex-column taskmodal-body-smaller">
                   <Members params={params} />
-                  <Labels params={params} />
+                  <Labels
+                    params={params}
+                    task_labels={ListOfLabels}
+                    set_task_labels={setListOfLabels}
+                  />
                   <CheckList params={params} />
                   <Attachments params={params} />
                 </div>
