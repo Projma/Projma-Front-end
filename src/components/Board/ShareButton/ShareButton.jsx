@@ -159,7 +159,7 @@ const ShareButton = (props) => {
                                     fullWidth
                                     id="search_box"
                                     label="جستجو"
-                                    type="search"
+                                    type="search" // debouncing (in react) or throttle (in JS)
                                     // onChange={inputHandler}
                                     placeholder="آدرس ایمیل یا نام را وارد کنید."
                                     helperText="فرد مورد نظر خود را جستجو کنید."
@@ -221,14 +221,6 @@ const ShareButton = (props) => {
                                 justifyContent: "space-between",
                                 alignItems: "center",
                             }}>
-                                {/* <Avatar
-                                    key={member.id}
-                                    alt={(member.user.first_name + " " + member.user.last_name).toString()}
-                                    src={member.profile_pic !== null ? member.profile_pic : "none"}
-                                    {...stringAvatar((member.user.first_name + " " + member.user.last_name).toString())}
-                                    className="board_avatar-profile-picture"
-                                // sx={{ width: 56, height: 56 }}
-                                /> */}
                                 <Avatar sx={{ bgcolor: deepOrange[500], width: 56, height: 56, marginLeft: "10%" }} variant="rounded">
                                     <LinkSharpIcon sx={{ width: 45, height: 45, color: "black" }} />
                                 </Avatar>
@@ -254,20 +246,7 @@ const ShareButton = (props) => {
                                         fontFamily: "Vazir",
                                         backgroundColor: "#132F4C", // #0A1929 
                                     }}
-                                    // disabled={disableButton}
                                     onClick={copy}
-                                // onClick={() => {
-                                //     // let workspace_name = document.getElementById("workspace_name").value;
-                                //     // let create_workspace_formdata = new FormData();
-                                //     // create_workspace_formdata.append("name", workspace_name);
-                                //     // create_workspace_formdata.append("type", type);
-                                //     apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
-                                //         navigateToWorkspace(response.data.id);
-                                //     })
-                                //         .catch((error) => {
-                                //             console.log(error);
-                                //         });
-                                // }}
                                 >
                                     {/* {" "} */}
                                     کپی لینک
@@ -347,137 +326,6 @@ const ShareButton = (props) => {
                                 )
                             })
                         }
-                        {/* <Box
-                            sx={{
-                                // padding: "10%",
-                                fontFamily: 'Vazir',
-                                fontSize: '1.5rem',
-                            }}
-                        >
-                            <CacheProvider value={cacheRtl}>
-                                <StyledTextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="workspace_name"
-                                    label="نام فضای‌کار"
-                                    placeholder="نام فضای‌کار خود را وارد کنید."
-                                    // helperText="این نام شرکت، تیم یا سازمان شما است."
-                                    name="workspace_name"
-                                    autoComplete="workspace_name"
-                                    autoFocus
-                                    sx={{ width: "60%", display: "block" }}
-                                    InputLabelProps={{ style: { fontFamily: "Vazir" } }}
-                                    InputProps={{ style: { fontFamily: "Vazir" } }}
-                                    FormHelperTextProps={{ style: { fontFamily: "Vazir", color: "black" } }}
-                                    error={errorWorkspaceName}
-                                    helperText={errorWorkspaceName ? "نام فضای کار نمی‌تواند خالی باشد." : "این نام شرکت، تیم یا سازمان شما است."}
-                                />
-                            </CacheProvider>
-                            <CacheProvider value={cacheRtl}>
-                                <StyledTextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="workspace_type"
-                                    label="نوع فضای کاری"
-                                    select // https://mui.com/material-ui/react-text-field/#basic-textfield
-                                    placeholder="نوع فضای‌کاری خود را وارد کنید."
-                                    // helperText="انتخاب کنید."
-                                    onChange={handleChange}
-                                    name="workspace_type"
-                                    autoComplete="workspace_type"
-                                    autoFocus
-                                    sx={{ width: "60%", display: "block" }}
-                                    InputLabelProps={{ style: { fontFamily: "Vazir" } }}
-                                    InputProps={{ style: { fontFamily: "Vazir" } }}
-                                    FormHelperTextProps={{ style: { fontFamily: "Vazir", color: "black" } }}
-                                    error={errorWorkspaceType}
-                                    helperText={errorWorkspaceType ? "لطفا این فیلد را پر کنید." : ""}
-                                >
-                                    {types.map((option) => (
-                                        <MenuItem key={option.value} value={option.value} sx={{
-                                            fontFamily: 'Vazir',
-                                            color: 'black', // #0A1929
-                                            backgroundColor: '#265D97',
-                                            margin: '0%',
-                                            padding: '3%',
-                                        }}>
-                                            {option.label}
-                                        </MenuItem>
-                                    ))}
-                                </StyledTextField>
-                            </CacheProvider>
-                            <Button
-                                variant="contained"
-                                // button-key="buttonAttribute"
-                                sx={{
-                                    // height: 54,
-                                    // width: 150,
-                                    // fontSize: "90%",
-                                    width: "30%",
-                                    height: "100%",
-                                    fontFamily: "Vazir",
-                                    backgroundColor: "#0A1929", // #132F4C
-                                }}
-                                disabled={disableButton}
-                                // onClick={this.isClicked}
-                                onClick={() => {
-                                    let workspace_name = document.getElementById("workspace_name").value;
-                                    if (workspace_name === "") {
-                                        setErrorWorkspaceName(true);
-                                    }
-                                    else {
-                                        setErrorWorkspaceName(false);
-                                    }
-                                    if (type == "") {
-                                        setErrorWorkspaceType(true);
-                                    }
-                                    else {
-                                        setErrorWorkspaceType(false);
-                                    }
-                                    if (errorWorkspaceName && errorWorkspaceType) {
-                                        return;
-                                    }
-
-                                    let create_workspace_formdata = new FormData();
-                                    create_workspace_formdata.append("name", workspace_name);
-                                    create_workspace_formdata.append("type", type);
-                                    create_workspace_formdata.append("description", document.getElementById("workspace_description").value);
-                                    // console.log(create_workspace_formdata);
-                                    // console.log("clicked");
-                                    setDisableButton(true); // make text spinning and disable button
-                                    apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
-                                        console.log(response);
-                                        // console.log(response.data);
-                                        // {
-                                        //     "id": 11,
-                                        //     "name": "تست 11",
-                                        //     "description": "",
-                                        //     "type": "other",
-                                        //     "created_at": "2022-12-01T11:36:41.755515Z",
-                                        //     "updated_at": "2022-12-01",
-                                        //     "owner": 11,
-                                        //     "members": [],
-                                        //     "boards": []
-                                        // }
-                                        // console.log(response.data.id);
-                                        // navigate to the new workspace
-                                        // navigate(`/workspace/${response.data.id}`); // workspace/:id/*
-                                        // useNavigate(`/workspace/${response.data.id}`);
-                                        // return <Redirect to={`/workspace/${response.data.id}`} />;
-                                        navigateToWorkspace(response.data.id);
-
-                                    })
-                                        .catch((error) => {
-                                            console.log(error);
-                                        });
-                                }}
-                            >
-                                {" "}
-                                ادامه
-                            </Button>
-                        </Box> */}
                     </Box>
                 </Fade>
             </Modal>
