@@ -117,7 +117,7 @@ const ShareButton = (props) => {
                             // ":dir": "ltr"
                             // marginRight: "3800%",
                         }} /> </Button>
-                        <Typography id="spring-modal-title" variant="h6" component="h2" sx={{ color: "black" }}>
+                        <Typography id="spring-modal-title" variant="h5" component="h2" sx={{ color: "black", marginBottom: "2%", marginRight: "2%" }}>
                             بورد را به اشتراک بگذارید
                         </Typography>
                         {/* <Typography id="spring-modal-description" sx={{ mt: 2,marginBottom:2 }}>
@@ -142,12 +142,17 @@ const ShareButton = (props) => {
                                                 />
                                             </Box>
                                         </Tooltip>
+                                        <Box sx={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            marginLeft: "2%",
+                                        }}>
                                         <Typography>
                                             {member.user.first_name + " " + member.user.last_name}
                                         </Typography>
                                         {/* <br /> */}
-                                        {"\n"}
                                         <Typography>
+                                            {console.log(member.role)}
                                             نقش:
                                             {member.role ? "Admin" : "ادمین" ? "Member" : "کاربر" ? "Guest" : "مهمان"}
                                             {/* {() => {
@@ -161,11 +166,31 @@ const ShareButton = (props) => {
                                             }
                                             } */}
                                         </Typography>
-                                        {"\n"}
-                                        {"      "}
+                                        </Box>
+                                        <Box sx={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            marginLeft: "2%",
+                                        }}>
                                         <Typography>
-                                            ایمیل: {member.user.email}
+                                            ایمیل: 
                                         </Typography>
+                                        <Typography>
+                                            {member.user.email}
+                                        </Typography>
+                                        </Box>
+                                        <Box sx={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            marginLeft: "2%",
+                                        }}>
+                                        <Typography>
+                                            نام کاربری: 
+                                        </Typography>
+                                        <Typography>
+                                            {member.user.username}
+                                        </Typography>
+                                        </Box>
                                     </MenuItem>
                                 )
                             })
