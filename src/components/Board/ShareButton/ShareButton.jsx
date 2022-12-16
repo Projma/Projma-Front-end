@@ -23,6 +23,8 @@ import { useParams } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import { deepOrange, green } from '@mui/material/colors';
+import LinkSharpIcon from '@mui/icons-material/LinkSharp';
 
 const style = {
     position: 'absolute',
@@ -134,24 +136,24 @@ const ShareButton = (props) => {
                         }}>
                             <CacheProvider value={cacheRtl}>
                                 {/* <ThemeProvider theme={theme}> */}
-                                    <StyledTextField
-                                        // margin="normal"
-                                        // required
-                                        fullWidth
-                                        id="search_box"
-                                        label="جستجو"
-                                        type="search"
-                                        placeholder="آدرس ایمیل یا نام را وارد کنید."
-                                        helperText="فرد مورد نظر خود را جستجو کنید."
-                                        name="search_box"
-                                        autoComplete="search_box"
-                                        autoFocus
-                                        sx={{ width: "60%", display: "block", marginRight: "3%" }}
-                                        InputLabelProps={{ style: { fontFamily: "Vazir" } }}
-                                        InputProps={{ style: { fontFamily: "Vazir" } }}
-                                        FormHelperTextProps={{ style: { fontFamily: "Vazir", color: "black" } }}
-                                    // error={errorWorkspaceName}
-                                    />
+                                <StyledTextField
+                                    // margin="normal"
+                                    // required
+                                    fullWidth
+                                    id="search_box"
+                                    label="جستجو"
+                                    type="search"
+                                    placeholder="آدرس ایمیل یا نام را وارد کنید."
+                                    helperText="فرد مورد نظر خود را جستجو کنید."
+                                    name="search_box"
+                                    autoComplete="search_box"
+                                    autoFocus
+                                    sx={{ width: "60%", display: "block", marginRight: "3%" }}
+                                    InputLabelProps={{ style: { fontFamily: "Vazir" } }}
+                                    InputProps={{ style: { fontFamily: "Vazir" } }}
+                                    FormHelperTextProps={{ style: { fontFamily: "Vazir", color: "black" } }}
+                                // error={errorWorkspaceName}
+                                />
                                 {/* </ThemeProvider> */}
                             </CacheProvider>
                             <Button
@@ -189,6 +191,31 @@ const ShareButton = (props) => {
                                 اشتراک
                             </Button>
                         </Box>
+                        <MenuItem>
+                            <Box sx={{
+                                display: "flex",
+                                marginLeft: "2%",
+                                marginBottom: "2%",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                            }}>
+                                {/* <Avatar
+                                    key={member.id}
+                                    alt={(member.user.first_name + " " + member.user.last_name).toString()}
+                                    src={member.profile_pic !== null ? member.profile_pic : "none"}
+                                    {...stringAvatar((member.user.first_name + " " + member.user.last_name).toString())}
+                                    className="board_avatar-profile-picture"
+                                // sx={{ width: 56, height: 56 }}
+                                /> */}
+                                <Avatar sx={{ bgcolor: deepOrange[500], width: 56, height: 56, marginLeft:"10%"}} variant="rounded">
+                                    <LinkSharpIcon sx={{width: 45, height: 45, color: "black"}}/>
+                                </Avatar>
+                                <Typography variant='h6' >
+                                    لینک بورد را به اشتراک بگذارید
+                                </Typography>
+                            </Box>
+                        </MenuItem>
                         {
                             members.map((member) => {
                                 return (
@@ -204,7 +231,7 @@ const ShareButton = (props) => {
                                                     src={member.profile_pic !== null ? member.profile_pic : "none"}
                                                     {...stringAvatar((member.user.first_name + " " + member.user.last_name).toString())}
                                                     className="board_avatar-profile-picture"
-                                                    // sx={{ width: 56, height: 56 }}
+                                                // sx={{ width: 56, height: 56 }}
                                                 />
                                             </Box>
                                         </Tooltip>
@@ -426,7 +453,7 @@ function stringAvatar(name) {
         sx: {
             bgcolor: stringToColor(name),
             width: 56,
-            height: 56 
+            height: 56
         },
         children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
     };
