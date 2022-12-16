@@ -25,6 +25,7 @@ import AvatarGroup from '@mui/material/AvatarGroup';
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import { deepOrange, green } from '@mui/material/colors';
 import LinkSharpIcon from '@mui/icons-material/LinkSharp';
+import { useState} from 'react'
 
 const style = {
     position: 'absolute',
@@ -79,6 +80,15 @@ const ShareButton = (props) => {
         });
     }, []);
 
+    const [inviteLink, setinviteLink] = useState('');
+
+    const copy = async () => {
+        // setinviteLink(`http://localhost:3000/board/${params.id}/`);
+        setinviteLink('این یک تست است.');
+        await navigator.clipboard.writeText(inviteLink);
+        alert('Text copied');
+    }
+
     return (
         <>
             <Button
@@ -130,7 +140,7 @@ const ShareButton = (props) => {
                             flexDirection: "row",
                             // justifyContent: "space-between",
                             alignItems: "center",
-                            marginBottom: "1%",
+                            // marginBottom: "0%",
                             // marginTop: "2%",
                             marginRight: "2%"
                         }}>
@@ -143,6 +153,7 @@ const ShareButton = (props) => {
                                     id="search_box"
                                     label="جستجو"
                                     type="search"
+                                    // onChange={inputHandler}
                                     placeholder="آدرس ایمیل یا نام را وارد کنید."
                                     helperText="فرد مورد نظر خود را جستجو کنید."
                                     name="search_box"
@@ -162,7 +173,7 @@ const ShareButton = (props) => {
                                 sx={{
                                     // height: 54,
                                     // width: 150,
-                                    // fontSize: "90%",
+                                    // fontSize: 20,
                                     // marginTop: "0%",
                                     marginBottom: "2.4%",
                                     padding: "1.35%",
@@ -172,20 +183,20 @@ const ShareButton = (props) => {
                                     fontFamily: "Vazir",
                                     backgroundColor: "#0A1929", // #132F4C
                                 }}
-                            // disabled={disableButton}
-                            // onClick={this.isClicked}
-                            // onClick={() => {
-                            //     // let workspace_name = document.getElementById("workspace_name").value;
-                            //     // let create_workspace_formdata = new FormData();
-                            //     // create_workspace_formdata.append("name", workspace_name);
-                            //     // create_workspace_formdata.append("type", type);
-                            //     apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
-                            //         navigateToWorkspace(response.data.id);
-                            //     })
-                            //         .catch((error) => {
-                            //             console.log(error);
-                            //         });
-                            // }}
+                                // disabled={disableButton}
+                                // onClick={this.isClicked}
+                                // onClick={() => {
+                                //     // let workspace_name = document.getElementById("workspace_name").value;
+                                //     // let create_workspace_formdata = new FormData();
+                                //     // create_workspace_formdata.append("name", workspace_name);
+                                //     // create_workspace_formdata.append("type", type);
+                                //     apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
+                                //         navigateToWorkspace(response.data.id);
+                                //     })
+                                //         .catch((error) => {
+                                //             console.log(error);
+                                //         });
+                                // }}
                             >
                                 {/* {" "} */}
                                 اشتراک
@@ -195,7 +206,8 @@ const ShareButton = (props) => {
                             <Box sx={{
                                 display: "flex",
                                 marginLeft: "2%",
-                                marginBottom: "2%",
+                                marginBottom: "1.5%",
+                                marginTop: "1.5%",
                                 flexDirection: "row",
                                 justifyContent: "space-between",
                                 alignItems: "center",
@@ -208,12 +220,48 @@ const ShareButton = (props) => {
                                     className="board_avatar-profile-picture"
                                 // sx={{ width: 56, height: 56 }}
                                 /> */}
-                                <Avatar sx={{ bgcolor: deepOrange[500], width: 56, height: 56, marginLeft:"10%"}} variant="rounded">
-                                    <LinkSharpIcon sx={{width: 45, height: 45, color: "black"}}/>
+                                <Avatar sx={{ bgcolor: deepOrange[500], width: 56, height: 56, marginLeft: "10%" }} variant="rounded">
+                                    <LinkSharpIcon sx={{ width: 45, height: 45, color: "black" }} />
                                 </Avatar>
-                                <Typography variant='h6' >
+                                <Typography variant='h6' sx={{ color: "#000", marginLeft: "10%" }}>
                                     لینک بورد را به اشتراک بگذارید
                                 </Typography>
+                                <Button
+                                    variant="contained"
+                                    // button-key="buttonAttribute"
+                                    sx={{
+                                        // fullWidth: true,
+                                        // height: 54,
+                                        width: 300,
+                                        // width: "20%",
+                                        // fontSize: "90%",
+                                        // marginTop: "0%",
+                                        // marginBottom: "2.4%",
+                                        // padding: "10%",
+                                        // paddingTop: "5%",
+                                        // width: "20%",
+                                        // height: "100%",
+                                        fontFamily: "Vazir",
+                                        backgroundColor: "#132F4C", // #0A1929 
+                                    }}
+                                    // disabled={disableButton}
+                                    onClick={copy}
+                                // onClick={() => {
+                                //     // let workspace_name = document.getElementById("workspace_name").value;
+                                //     // let create_workspace_formdata = new FormData();
+                                //     // create_workspace_formdata.append("name", workspace_name);
+                                //     // create_workspace_formdata.append("type", type);
+                                //     apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
+                                //         navigateToWorkspace(response.data.id);
+                                //     })
+                                //         .catch((error) => {
+                                //             console.log(error);
+                                //         });
+                                // }}
+                                >
+                                    {/* {" "} */}
+                                    کپی لینک
+                                </Button>
                             </Box>
                         </MenuItem>
                         {
