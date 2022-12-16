@@ -102,7 +102,7 @@ export default function Attachments({ params }) {
             />
             {/* <button onClick={(e) => createAttachment()}>اضافه کردن</button> */}
             <button
-              class="button-33"
+              class="attachment_button-33"
               role="button"
               onClick={(e) => createAttachment()}
             >
