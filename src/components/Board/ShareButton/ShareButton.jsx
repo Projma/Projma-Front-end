@@ -55,9 +55,15 @@ const cacheRtl = createCache({
 
 const ShareButton = (props) => {
     const [open, setOpen] = React.useState(false);
+    const [inviteLink, setinviteLink] = useState('');
+    const [members, setMembers] = React.useState([]);
+    const role_english_to_persian = {
+        "Admin" : "ادمین",
+        "Member" : "کاربر", 
+        "Guest" : "مهمان"
+    }
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [members, setMembers] = React.useState([]);
     const params = useParams();
     useEffect(() => {
         apiInstance.get(`/workspaces/board/${params.id}/members/`).then((res) => {
@@ -82,7 +88,6 @@ const ShareButton = (props) => {
         });
     }, []);
 
-    const [inviteLink, setinviteLink] = useState('');
 
     const copy = async () => {
         // setinviteLink(`http://localhost:3000/board/${params.id}/`);
@@ -281,21 +286,9 @@ const ShareButton = (props) => {
                                             <Typography>
                                                 {member.user.first_name + " " + member.user.last_name}
                                             </Typography>
-                                            {/* <br /> */}
                                             <Typography>
-                                                {console.log(member.role)}
                                                 نقش:
-                                                {member.role ? "Admin" : "ادمین" ? "Member" : "کاربر" ? "Guest" : "مهمان"}
-                                                {/* {() => {
-                                                if (member.role === "Admin") {
-                                                    return "ادمین";
-                                                } else if (member.role === "Member") {
-                                                    return "کاربر";
-                                                } else if (member.role === "Guest") {
-                                                    return "مهمان";
-                                                }
-                                            }
-                                            } */}
+                                                {role_english_to_persian[member.role]}
                                             </Typography>
                                         </Box>
                                         <Box sx={{
