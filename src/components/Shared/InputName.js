@@ -10,11 +10,15 @@ const theme = createTheme({
     MuiInput: {
       styleOverrides: {
         root: {
+          fontSize: "2rem",
+          color: "#fff",
+          border: "0.2rem solid var(--mior-bg)",
+          borderRadius: "0.5rem",
           "&.Mui-focused": {
-            backgroundColor: "#163658",
-            border: "0.1rem solid var(--minor-item-color)",
-            borderRadius: "0.5rem",
-          }
+            // backgroundColor: "#121212",
+            // color: "#000",
+            border: "0.2rem solid var(--mui-blue)",
+          },
         },
         // The props to change the default for.
         disableRipple: true, // No more ripple, on the whole application 💣!
@@ -25,6 +29,7 @@ const theme = createTheme({
 
 const InputName = (props) => {
   const [name, setName] = React.useState(props.name);
+  // const [blur, setblur] = React.useState(false);
   const [underline, setUnderline] = React.useState(true);
 
   const handleChange = (event) => {
@@ -50,7 +55,6 @@ const InputName = (props) => {
             onBlur={blurHandler}
             onFocus={() => {}}
             // onBlur={() => setUnderline(true)}
-            color={"info"}
             disableUnderline={true}
           />
         </ThemeProvider>
