@@ -323,7 +323,7 @@
 
 .MuiInputBase-input {
   font-family: vazir !important;
-  font-size: 13px !important;
+  /*font-size: 13px !important;*/
 }
 
 .taskmodal-plusforprojma {
