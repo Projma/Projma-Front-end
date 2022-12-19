@@ -17,6 +17,8 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import InputName from "../../Shared/InputName";
 import apiInstance from "../../../utilities/axiosConfig";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import AddIcon from '@mui/icons-material/Add';
 
 const List = (props) => {
   const [cards, setCards] = useState(props.card);
@@ -94,6 +96,14 @@ const List = (props) => {
   //       props.onPost(true);
   //     });
 
+  const optionClickHandler = () => {
+
+  };
+
+  const addCardClickHandler = () => {
+
+  }
+
   return (
     <Draggable draggableId={String(props.id)+props.name} index={props.index}>
       {(provided) => (
@@ -107,10 +117,21 @@ const List = (props) => {
           {/* {isToast ? ( */}
           {/*   <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} /> */}
           {/* ) : null} */}
+          <div className="list_header">
+            <div className="list_header-title">
+              <InputName name={props.name}/>
+            </div>
+            <div className="list_header-add-card">
+              <AddIcon onClick={addCardClickHandler} sx={{fontSize:"2.2rem"}}/>
+            </div>
+            <div className="list_header-option">
+              <MoreVertIcon onClick={optionClickHandler} sx={{fontSize:"2.2rem"}}/>
+            </div>
+          </div>
           <Droppable droppableId={String(props.id)}>
             {(provided, snapshot) => (
               <div
-                className="board_card-list"
+                className="list_card-container"
                 {...provided.droppableProps}
                 ref={provided.innerRef}
                 style={
