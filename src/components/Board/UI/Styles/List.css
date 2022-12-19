@@ -1,7 +1,49 @@
 .list_container {
-
+  /*background-color: #4cd964;*/
+  width: 30rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
 }
 
-.board_card-list {
+.list_header {
+  display: flex;
+  /*font-size: 2rem;*/
+  align-items: center;
+  padding: 0.4rem;
+  justify-content: space-between;
+  color: #fff;
+  background-color: var(--minor-bg);
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 0.1rem solid var(--mui-blue);
+}
 
+.list_header-title {
+  margin-right: 0.4rem;
+}
+
+.list_header-add-card, .list_header-option {
+  display: flex;
+  align-items: center;
+  padding: 0.2rem;
+  margin-right: 0.4rem;
+}
+
+.list_header-option {
+  margin-left: 0.4rem;
+}
+
+.list_header-option:hover, .list_header-add-card:hover {
+  cursor: pointer;
+  /*opacity: 60%;*/
+  background-color: var(--mui-blue);
+  border-radius: inherit;
+}
+
+.list_card-container {
+  min-height: 10rem;
+  min-width: 10rem;
+  overflow: auto;
 }
