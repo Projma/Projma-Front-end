@@ -133,7 +133,12 @@ const Board = ({ params, on_submit }) => {
                 onStarred={starredHandler}
               />
             ))}
-            <CreateBoardModal params={params} on_submit={on_submit} />
+            <CreateBoardModal
+              params={params}
+              on_submit={on_submit}
+              boards={list}
+              setBoards={setList}
+            />
           </div>
         </div>
       </div>
