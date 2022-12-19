@@ -1,17 +1,15 @@
+
 .kanban_main-page {
-  height: 100vh;
-  width: 100vw;
+  max-height: 100vh;
+  max-width: 100vw;
 }
 
 .kanban_board {
-  overflow: hidden;
-  overflow-x: scroll;
+
 }
 
 .kanban_header {
-  width: 100%;
 }
 
 .kanban_footer {
-  width: 100%;
 }
