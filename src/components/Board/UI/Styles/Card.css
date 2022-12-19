@@ -1,3 +1,41 @@
 .card_container {
+  min-height: 14rem;
+  background-color: var(--minor-bg);
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  border: 0.1rem solid var(--mui-blue);
+}
 
+.card_container:hover {
+  cursor: pointer;
+  opacity: 80%;
+}
+
+.card_container:hover .card_header-icon{
+  display: flex;
+}
+
+.card_header-icon {
+  display: none;
+  height: auto;
+  color: #fff;
+  flex-direction: row-reverse;
+  margin-left: 0.4rem;
+  padding: 0.4rem;
+}
+
+.card_close-icon, .card_edit-icon {
+  display: flex;
+  align-items: center;
+  padding: 0.2rem;
+  margin-right: 0.2rem;
+  opacity: revert;
+}
+
+.card_close-icon:hover, .card_edit-icon:hover {
+  cursor: pointer;
+  /*opacity: 60%;*/
+  background-color: var(--mui-blue);
+  border-radius: 0.5rem;
+  opacity: revert;
 }
