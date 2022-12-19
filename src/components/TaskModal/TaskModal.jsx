@@ -52,8 +52,9 @@ const cacheRtl = createCache({
 
 function APIcall() {}
 
-export default function TaskModal() {
-  const params = useParams();
+export default function TaskModal(props) {
+  const params = props.cardId;
+  console.log(params);
   const handleRemoveChecklist = (id) => {
     setAllChecklists((prevState) => {
       return prevState.filter((item) => item.id !== id);
@@ -380,18 +381,18 @@ export default function TaskModal() {
 
   return (
     <div>
-      <Button
-        variant="contained"
-        onClick={() => {
-          // setEditCheckList.map;
-          EditCheckList[0] = !EditCheckList[0];
-          console.log(EditCheckList);
-        }}
-      ></Button>
+      {/* <Button */}
+      {/*   variant="contained" */}
+      {/*   onClick={() => { */}
+      {/*     // setEditCheckList.map; */}
+      {/*     EditCheckList[0] = !EditCheckList[0]; */}
+      {/*     console.log(EditCheckList); */}
+      {/*   }} */}
+      {/* ></Button> */}
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
-          <div className="taskmodal-page">
-            <div className="taskmodal-container">
+          <div className="taskmodal-page" style={{width: "50vw",marginTop: 0}}>
+            <div className="taskmodal-container" style={{width: "100%"}}>
               <div className="taskmodal-header flex-row flex-column-gap-2">
                 <div className="flex" style={{ marginTop: "3px" }}>
                   <PersonIcon
