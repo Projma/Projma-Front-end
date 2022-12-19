@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import List from "./List";
-import "./Styles/Board.css";
-import PerTextField from "../../Shared/PerTextField";
-import StyledTextField from "../../Shared/StyledTextField";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import apiInstance from "../../../utilities/axiosConfig";
-import InvitationHeader from "../InvitationHeader/InvitationHeader";
-import { v4 as uuid } from "uuid";
-import axios from "axios";
-import Loading from "../../Shared/Loading";
-import { toast, ToastContainer } from "react-toastify";
-import "../../../styles/ReactToastify.css";
+import React, { useState, useEffect } from 'react';
+import List from './List';
+import './Styles/Board.css';
+import PerTextField from '../../Shared/PerTextField';
+import StyledTextField from '../../Shared/StyledTextField';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import apiInstance from '../../../utilities/axiosConfig';
+import InvitationHeader from '../InvitationHeader/InvitationHeader';
+import { v4 as uuid } from 'uuid';
+import axios from 'axios';
+import Loading from '../../Shared/Loading';
+import { toast, ToastContainer } from 'react-toastify';
+import '../../../styles/ReactToastify.css';
 
 const Board = (props) => {
   const [lists, setLists] = useState([]);
@@ -20,19 +20,25 @@ const Board = (props) => {
   // const [isFail, setIsFail] = useState(false);
 
   useEffect(() => {
-    apiInstance
-        .get(`workspaces/board/${props.boardId}/get-board-overview/`)
-        .then((response) => {
-          // console.log(response.data);
-          // console.log(response.data.tasklists);
-          console.log(props.boardId);
-          setLists(response.data.tasklists);
-        })
-        .finally(() => {
-          // setIsPost(null);
-          console.log(lists);
-        });
+    getBoard();
   }, []);
+
+  const getBoard = async () => {
+    let data;
+    await apiInstance
+      .get(`workspaces/board/${props.boardId}/get-board-overview/`)
+      .then((response) => {
+        // console.log(response.data);
+        // console.log(response.data.tasklists);
+        // console.log(props.boardId);
+        data = response.data.tasklists;
+        console.log(data);
+      })
+      .finally(() => {
+        // setIsPost(null);
+        setLists(data);
+      });
+  }
 
   // const postCreateList = async (data, id) =>
   //   await apiInstance
@@ -78,32 +84,32 @@ const Board = (props) => {
 
   return (
     <DragDropContext onDragEnd={dragHandler}>
-      <InvitationHeader board_id={props.boardId} />
+      <InvitationHeader board_id={props.boardId}/>
       <div>
         {/* {isPost ? <Loading /> : null} */}
         {/* {isFail ? ( */}
         {/*   <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} /> */}
         {/* ) : null} */}
-          <Droppable
-            droppableId={uuid().toString()}
-            type="list"
-            direction="horizontal"
-          >
-            {(provided, snapshot) => (
-              <div className="board_list-container"
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-                style={
-                  snapshot.isUsingPlaceholder
-                    ? {
-                        backgroundColor: "var(--hover-color)",
-                        borderRadius: "0.5rem",
-                      }
-                    : null
-                }
-              >
-                {lists.slice(0).reverse().map((list, index) => (
-                  <div className="board_list-container-box">
+        <Droppable
+          droppableId={uuid().toString()}
+          type="list"
+          direction="horizontal"
+        >
+          {(provided, snapshot) => (
+            <div className="board_list-container"
+                 {...provided.droppableProps}
+                 ref={provided.innerRef}
+                 style={
+                   snapshot.isUsingPlaceholder
+                     ? {
+                       backgroundColor: 'var(--hover-color)',
+                       borderRadius: '0.5rem',
+                     }
+                     : null
+                 }
+            >
+              {lists.slice(0).reverse().map((list, index) => (
+                <div className="board_list-container-box">
                   <List
                     name={list.title}
                     key={list.id}
@@ -112,12 +118,12 @@ const Board = (props) => {
                     card={list.tasks}
                     boardId={props.boardId}
                   />
-                  </div>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
+                </div>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
       </div>
     </DragDropContext>
   );
