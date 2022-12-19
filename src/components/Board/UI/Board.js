@@ -30,6 +30,7 @@ const Board = (props) => {
         })
         .finally(() => {
           // setIsPost(null);
+          console.log(lists);
         });
   }, []);
 
@@ -78,7 +79,7 @@ const Board = (props) => {
   return (
     <DragDropContext onDragEnd={dragHandler}>
       <InvitationHeader board_id={props.boardId} />
-      <div className="board_list-container">
+      <div>
         {/* {isPost ? <Loading /> : null} */}
         {/* {isFail ? ( */}
         {/*   <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} /> */}
@@ -89,8 +90,7 @@ const Board = (props) => {
             direction="horizontal"
           >
             {(provided, snapshot) => (
-              <div
-                className="board_list-container-box"
+              <div className="board_list-container"
                 {...provided.droppableProps}
                 ref={provided.innerRef}
                 style={
@@ -102,7 +102,8 @@ const Board = (props) => {
                     : null
                 }
               >
-                {lists.map((list, index) => (
+                {lists.slice(0).reverse().map((list, index) => (
+                  <div className="board_list-container-box">
                   <List
                     name={list.title}
                     key={list.id}
@@ -111,6 +112,7 @@ const Board = (props) => {
                     card={list.tasks}
                     boardId={props.boardId}
                   />
+                  </div>
                 ))}
                 {provided.placeholder}
               </div>
