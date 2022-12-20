@@ -102,6 +102,9 @@ const Card = (props) => {
             <div className="card_cover">
               <CardCover/>
             </div>
+            <div className="card_title">
+
+            </div>
           </div>
         </div>
       )}
