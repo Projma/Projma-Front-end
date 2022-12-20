@@ -65,7 +65,7 @@ export default function CheckList({ params }) {
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <ToastContainer />
       <Button
         className="taskmodal-smaller-button-inner"
@@ -76,10 +76,17 @@ export default function CheckList({ params }) {
           bgcolor: "#173b5e",
           marginTop: "5%",
           borderRadius: "35px",
+          display: "flex",
+          justifyContent: "start",
         }}
       >
         <LabelIcon rotate="90" fontSize="large"></LabelIcon>{" "}
-        <div className="taskmodal-smaller-button">لیست کنترل</div>
+        <div
+          className="taskmodal-smaller-button"
+          style={{ fontSize: "10px", marginRight: "0%", width: "80px" }}
+        >
+          لیست کنترل
+        </div>
       </Button>
       <Popover
         id={id}

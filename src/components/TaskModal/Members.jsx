@@ -183,10 +183,7 @@ export default function Members({ params }) {
     // console.log(ListOfAddedMembers);
   };
   return (
-    <div>
-      {/* <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-        Open Popover
-      </Button> */}
+    <div style={{ width: "100%" }}>
       <Button
         className="taskmodal-smaller-button-inner"
         aria-describedby={id}
@@ -196,6 +193,8 @@ export default function Members({ params }) {
           bgcolor: "#173b5e",
           marginTop: "5%",
           borderRadius: "35px",
+          display: "flex",
+          justifyContent: "start",
         }}
       >
         <PersonIcon rotate="90" fontSize="large"></PersonIcon>{" "}

@@ -5,6 +5,7 @@ import { prefixer } from "stylis";
 import createCache from "@emotion/cache";
 import Labels from "./Labels";
 import Members from "./Members";
+import DueTime from "./dueTime";
 import Attachments from "./Attachments";
 import CheckList from "./Checklist";
 import "../../styles/TaskModal.css";
@@ -40,6 +41,8 @@ import Checkbox from "@mui/material/Checkbox";
 import { useEffect } from "react";
 import { baseUrl } from "../../utilities/constants";
 import { Link } from "react-router-dom";
+import { Calendarr } from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -149,7 +152,7 @@ export default function TaskModal() {
                 fontSize: "12px",
               }}
             >
-              {initials.first_name[0] + "‌" + initials.last_name[0]}
+              {/* {initials.first_name[0] + "‌" + initials.last_name[0]} */}
             </div>
           )}
         </div>
@@ -212,6 +215,13 @@ export default function TaskModal() {
   const [user, setUser] = useState({});
   const [allChecklists, setAllChecklists] = useState([]);
   const [ListOfLabels, setListOfLabels] = useState([]);
+  const [ListOfMembers, setListOfMembers] = React.useState([]);
+  const [estimate, setEstimate] = useState("");
+  const [tasklistName, setTasklistName] = useState("");
+  const [done, setDone] = useState("");
+  const [changePlus, setChangePlus] = useState(false);
+  const [dueDate, setDueDate] = useState("");
+  const [taskdoner, setTaskDoner] = useState("");
   const [EditCheckList, setEditCheckList] = useState(Array(1000).fill(false));
   const [EditCommentList, setEditCommentList] = useState(
     Array(1000).fill(false)
@@ -247,6 +257,24 @@ export default function TaskModal() {
         console.log(res);
       });
   };
+
+  const plusforprojma = () => {
+    const formdata = new FormData();
+    formdata.append("estimate", estimate);
+    formdata.append("spend", done);
+    if (estimate == "") {
+      formdata.append("estimate", 0);
+    }
+    if (done == "") {
+      formdata.append("spend", 0);
+    }
+    apiInstance
+      .patch(`/workspaces/task/${params.task_id}/update-task/`, formdata)
+      .then((res) => {
+        console.log(res);
+      });
+  };
+
   const AddCheckList = () => {
     console.log("navid");
     const formData = new FormData();
@@ -336,6 +364,20 @@ export default function TaskModal() {
   };
   useEffect(() => {
     apiInstance
+      .get(`/workspaces/board/${params.board_id}/members/`)
+      .then((res) => {
+        // console.log(res);
+        const members = res.data.map((obj) => ({
+          id: obj.user.id,
+          firstName: obj.user.first_name,
+          lastName: obj.user.last_name,
+          userName: obj.user.username,
+          email: obj.user.email,
+          image: obj.profile_pic,
+        }));
+        setListOfMembers(members);
+      });
+    apiInstance
       .get(`/workspaces/task/${params.task_id}/get-all-checklists/`)
       .then((res) => {
         console.log(res);
@@ -349,6 +391,10 @@ export default function TaskModal() {
       .get(`/workspaces/task/${params.task_id}/get-task/`)
       .then((res) => {
         console.log(res);
+        setDueDate(res.data.end_date);
+        setEstimate(res.data.estimate);
+        setTasklistName(res.data.tasklist_name);
+        setDone(res.data.spend);
         setDescription(res.data.description);
         setTitle(res.data.title);
         const labels = res.data.labels.map((item) => ({
@@ -383,9 +429,7 @@ export default function TaskModal() {
       <Button
         variant="contained"
         onClick={() => {
-          // setEditCheckList.map;
-          EditCheckList[0] = !EditCheckList[0];
-          console.log(EditCheckList);
+          console.log(params.task_id);
         }}
       ></Button>
       <CacheProvider value={cacheRtl}>
@@ -393,7 +437,7 @@ export default function TaskModal() {
           <div className="taskmodal-page">
             <div className="taskmodal-container">
               <div className="taskmodal-header flex-row flex-column-gap-2">
-                <div className="flex" style={{ marginTop: "3px" }}>
+                <div className="flex-taskmodal" style={{ marginTop: "3px" }}>
                   <PersonIcon
                     fontSize="large"
                     sx={{ color: "white" }}
@@ -405,7 +449,7 @@ export default function TaskModal() {
                 >
                   <div className="neonText taskmodal-title">{title}</div>
                   <div className="neonText taskmodal-subtitle">
-                    زیر موضوع این کارت
+                    در لیست {tasklistName}
                   </div>
                 </div>
               </div>
@@ -450,12 +494,41 @@ export default function TaskModal() {
                         ))}
                       </div>
                     </div>
+                    <div className="taskmodal-body-duetime">
+                      <div
+                        className="flex-taskmodal taskmodel-body-members-title"
+                        style={{ marginBottom: "0px" }}
+                      >
+                        تاریخ اتمام
+                      </div>
+                      <div
+                        className="flex-taskmodal"
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
+                        <div
+                          className="duetime-showDate"
+                          style={{
+                            width: "47%",
+                            height: "37px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          {dueDate.toString() != "" ? (
+                            <div>{dueDate.toString().replaceAll("-", "/")}</div>
+                          ) : (
+                            <div></div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div
                     className="flex-row taskmodal-body-larger-description"
                     style={{ gap: "3%" }}
                   >
-                    <div className="flex">
+                    <div className="flex-taskmodal">
                       <DehazeIcon
                         fontSize="large"
                         sx={{ color: "white" }}
@@ -571,7 +644,7 @@ export default function TaskModal() {
                   </div>
 
                   <div className="flex-row taskmodal-body-checklist">
-                    <div className="flex taskmodal-body-checklist-icon">
+                    <div className="flex-taskmodal taskmodal-body-checklist-icon">
                       <ContentPasteIcon
                         fontSize="large"
                         sx={{ color: "white" }}
@@ -581,7 +654,7 @@ export default function TaskModal() {
                       className="taskmodal-body-checklist-body"
                       style={{ width: "90%" }}
                     >
-                      <div className="flex taskmodal-body-checklist-title">
+                      <div className="flex-taskmodal taskmodal-body-checklist-title">
                         <div className="neonText taskmodal-description-title">
                           لیست کنترل
                         </div>
@@ -781,7 +854,7 @@ export default function TaskModal() {
                   </div>
                   <div className="taskmodal-body-activity">
                     <div className="flex-row taskmodal-body-activity-header">
-                      <div className="flex taskmodal-body-activity-icon">
+                      <div className="flex-taskmodal taskmodal-body-activity-icon">
                         <CommentIcon
                           fontSize="large"
                           sx={{ color: "white" }}
@@ -790,6 +863,86 @@ export default function TaskModal() {
                       <div className="flex neonText taskmodal-description-title">
                         فعالیت
                       </div>
+                    </div>
+                    <div className="taskmodal-plusforprojma">
+                      <Box
+                        onSubmit={plusforprojma}
+                        component="form"
+                        className="flex-taskmodal form-plusforprojma"
+                      >
+                        <StyledTextField
+                          size="small"
+                          variant="outlined"
+                          sx={{
+                            width: "20%",
+                            color: "white",
+                            paddingLeft: "0px",
+                            paddingRight: "0px",
+                          }}
+                          label="تخمین"
+                          name="estimate"
+                          id="estimate"
+                          value={estimate}
+                          onChange={(e) => {
+                            setEstimate(e.target.value);
+                            setChangePlus(true);
+                          }}
+                          InputLabelProps={{
+                            style: { fontFamily: "Vazir", fontSize: "11px" },
+                          }}
+                          InputProps={{
+                            style: { fontFamily: "Vazir", fontSize: "11px" },
+                          }}
+                          autoFocus
+                        />
+                        <StyledTextField
+                          size="small"
+                          variant="outlined"
+                          sx={{
+                            width: "20%",
+                            color: "white",
+                            paddingLeft: "0px",
+                            paddingRight: "0px",
+                            marginLeft: "3%",
+                          }}
+                          label="عملی"
+                          name="done"
+                          id="done"
+                          value={done}
+                          onChange={(e) => {
+                            setDone(e.target.value);
+                            setChangePlus(true);
+                          }}
+                          InputLabelProps={{
+                            style: { fontFamily: "Vazir", fontSize: "11px" },
+                          }}
+                          InputProps={{
+                            style: { fontFamily: "Vazir", fontSize: "11px" },
+                          }}
+                          autoFocus
+                        />
+                        {changePlus ? (
+                          <Button
+                            style={{
+                              marginRight: "13%",
+                              borderRadius: "6px",
+                              borderColor: "white",
+                              display: "flex",
+                              alignItems: "center",
+                              color: "white",
+                              fontFamily: "Vazir",
+                              fontSize: "10px",
+                              height: "30%",
+                            }}
+                            type="submit"
+                            variant="contained"
+                          >
+                            ثبت
+                          </Button>
+                        ) : (
+                          <div></div>
+                        )}
+                      </Box>
                     </div>
                     <div className="flex-row taskmodal-body-activity-body">
                       <div className="flex taskmodal-body-activity-body-icon">
@@ -1014,6 +1167,11 @@ export default function TaskModal() {
                   />
                   <CheckList params={params} />
                   <Attachments params={params} />
+                  <DueTime
+                    params={params}
+                    dueDate={dueDate}
+                    setDueTime={setDueDate}
+                  />
                 </div>
               </div>
             </div>

@@ -58,7 +58,7 @@ export default function Attachments({ params }) {
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <ToastContainer />
       <Button
         className="taskmodal-smaller-button-inner"
@@ -69,6 +69,8 @@ export default function Attachments({ params }) {
           bgcolor: "#173b5e",
           marginTop: "5%",
           borderRadius: "35px",
+          display: "flex",
+          justifyContent: "start",
         }}
       >
         <AttachFileIcon rotate="90" fontSize="large"></AttachFileIcon>{" "}
