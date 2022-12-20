@@ -20,8 +20,20 @@ import Loading from '../../Shared/Loading';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
 import apiInstance from '../../../utilities/axiosConfig';
+import TaskModal from '../../TaskModal/TaskModal';
+import { Modal } from '@mui/material';
+import CardCover from '../Cards Item/CardCover';
 
 const Card = (props) => {
+  const [open, setOpen] = useState(false);
+  const [click, setClick] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setClick(!click);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [click]);
+
   // const reqDeleteCard = async (id) =>
   //   await apiInstance
   //     .delete(`workspaces/task/${id}/`)
@@ -47,6 +59,16 @@ const Card = (props) => {
   //       props.onPost(true);
   //     });
 
+  // const modalOpenHandler = () => {
+  //   isOpen = true;
+  //   console.log('open moh: ', isOpen);
+  // };
+  //
+  // const modalCloseHandler = () => {
+  //   isOpen = false;
+  //   console.log('open mch: ', isOpen);
+  // };
+
   return (
     <Draggable draggableId={String(props.id)} index={props.index}>
       {(provided) => (
@@ -55,17 +77,30 @@ const Card = (props) => {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
+          onClick={handleOpen}
         >
           {/* {isPost ? <Loading /> : null} */}
           {/* {isToast ? ( */}
           {/*   <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} /> */}
           {/* ) : null} */}
-          <div className="card_header-icon">
+          <Modal open={open} onClose={handleClose} style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-around'
+          }}>
+            <TaskModal cardId={props.id}/>
+          </Modal>
+          <div className="card_header">
             <div className="card_close-icon">
               <CloseIcon sx={{ fontSize: '1.4rem' }}/>
             </div>
             <div className="card_edit-icon">
               <EditIcon sx={{ fontSize: '1.4rem' }}/>
+            </div>
+          </div>
+          <div className="card_body">
+            <div className="card_cover">
+              <CardCover/>
             </div>
           </div>
         </div>
