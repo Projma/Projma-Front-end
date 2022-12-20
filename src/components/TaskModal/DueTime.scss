@@ -1,0 +1,33 @@
+.taskmodal-duetime-body {
+  display: flex;
+  justify-content: center;
+}
+
+.duetime-text {
+  color: white;
+  padding: 9%;
+  font-size: 1.2em;
+}
+
+.duetime-showDate {
+  margin-top: 4%;
+  padding: 4%;
+  font-size: 14px;
+  border: 1px solid #e6e6e6;
+  display: flex;
+  justify-content: center;
+  border-radius: 35px;
+  background-color: #1d4b7a;
+}
+
+.tm-duetime-header-title {
+  font-family: Vazir;
+  color: #e6e6e6;
+}
+
+.duetime-submit {
+  display: flex;
+  width: 20%;
+  margin-top: 3% !important;
+  font-size: 10px !important;
+}
