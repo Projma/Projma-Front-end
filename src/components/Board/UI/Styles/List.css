@@ -17,7 +17,7 @@
   background-color: var(--minor-bg);
   border-radius: 0.5rem;
   margin-bottom: 1rem;
-  border-bottom: 0.1rem solid var(--mui-blue);
+  border-bottom: 0.1rem solid var(--minor-item-color);
 }
 
 .list_header-title {
@@ -46,4 +46,6 @@
   min-height: 10rem;
   min-width: 10rem;
   overflow: auto;
+  padding: 0.1rem;
 }
+

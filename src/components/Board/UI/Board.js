@@ -85,7 +85,7 @@ const Board = (props) => {
   return (
     <DragDropContext onDragEnd={dragHandler}>
       <InvitationHeader board_id={props.boardId}/>
-      <div>
+      <div className="styled-scrollbars">
         {/* {isPost ? <Loading /> : null} */}
         {/* {isFail ? ( */}
         {/*   <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} /> */}
