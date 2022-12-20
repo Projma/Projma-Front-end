@@ -37,6 +37,7 @@ export default function DueTime({ params, dueDate, setDueTime }) {
   };
 
   const submitDate = () => {
+    handleClose();
     console.log(value);
     let date = "";
     if (!value.toString().includes("Standard")) {
