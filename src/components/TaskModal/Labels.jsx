@@ -565,7 +565,7 @@ export default function Labels({ params, task_labels, set_task_labels }) {
   //   current = EditPage;
   // }
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       {/* <Button aria-describedby={id} variant="contained" onClick={handleClick}>
         Open Popover
       </Button> */}
@@ -578,6 +578,8 @@ export default function Labels({ params, task_labels, set_task_labels }) {
           bgcolor: "#173b5e",
           marginTop: "5%",
           borderRadius: "35px",
+          display: "flex",
+          justifyContent: "start",
         }}
       >
         <LabelIcon rotate="90" fontSize="large"></LabelIcon>{" "}
