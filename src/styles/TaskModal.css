@@ -102,6 +102,36 @@
   width: 80%;
 }
 
+.taskmodal-body-attachment-header {
+  column-gap: 3%;
+}
+
+.taskmodal-body-attachment-list-item {
+  column-gap: 2%;
+  flex-direction: column;
+  width: 100%;
+}
+
+.taskmodal-body-attachment-list {
+  margin-top: 3%;
+  padding: 3%;
+}
+
+.taskmodal-body-attachment-list-item-createdTime {
+  margin-top: 2%;
+  font-size: 12px;
+  color: white;
+}
+
+.taskmodal-body-attachment-list-item-title {
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+}
+
+.taskmodal-body-attachment-list-item-icon {
+}
+
 .taskmodal-body-labels {
   width: 100%;
 }
@@ -191,6 +221,16 @@
   color: #fff;
 }
 
+.taskmodal-attachment-link-btn {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2%;
+  width: 100%;
+}
+
+/* .taskmodal-attachment-link-btn:hover {
+  background-color: #5271ff !important;
+} */
 .taskmodal-button-setting {
   color: white;
   font-family: vazir;
@@ -203,6 +243,9 @@
   font-family: vazir;
 }
 
+.taskmodal-body-activity {
+  margin-top: 3%;
+}
 .taskmodal-body-activity-header {
   column-gap: 3%;
 }
