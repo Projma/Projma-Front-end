@@ -23,3 +23,19 @@ body {
   --hover-color: #5090D380;
   --mui-blue: #1976d2;
 }
+
+.styled-scrollbars {
+  /* Foreground, Background */
+  scrollbar-color: var(--minor-item-color) var(--minor-bg);
+  scrollbar-width: thin;
+}
+.styled-scrollbars::-webkit-scrollbar {
+  width: 1rem; /* Mostly for vertical scrollbars */
+  height: 1rem; /* Mostly for horizontal scrollbars */
+}
+.styled-scrollbars::-webkit-scrollbar-thumb { /* Foreground */
+  background: var(--minor-item-color);
+}
+.styled-scrollbars::-webkit-scrollbar-track { /* Background */
+  background: var(--minor-bg);
+}
