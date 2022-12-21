@@ -14,31 +14,48 @@ import '../../../styles/ReactToastify.css';
 
 const Board = (props) => {
   const [lists, setLists] = useState([]);
+  const [req, setReq] = useState(false);
+  let data;
   // const [isclicked, setIsclicked] = useState(false);
   // const [inputName, setInputName] = useState("");
   // const [isPost, setIsPost] = useState(true);
   // const [isFail, setIsFail] = useState(false);
 
+  // useEffect(() => {
+  //   getBoard();
+  //   console.log('1');
+  // }, []);
+
   useEffect(() => {
     getBoard();
+    console.log('2');
+    return () => {setLists([])};
   }, []);
 
-  const getBoard = async () => {
-    let data;
-    await apiInstance
+  useEffect(() => {
+    setLists(lists);
+    console.log(lists);
+  }, [lists]);
+
+  const getBoard = () => {
+    apiInstance
       .get(`workspaces/board/${props.boardId}/get-board-overview/`)
       .then((response) => {
         // console.log(response.data);
         // console.log(response.data.tasklists);
         // console.log(props.boardId);
-        data = response.data.tasklists;
-        console.log(data);
+        setLists(response.data.tasklists.sort((a, b) => b.id - a.id));
+        console.log(lists);
       })
       .finally(() => {
         // setIsPost(null);
-        setLists(data);
       });
-  }
+  };
+
+  const handleReq = () => {
+    console.log('fuck it');
+    setReq(!req);
+  };
 
   // const postCreateList = async (data, id) =>
   //   await apiInstance
@@ -78,8 +95,92 @@ const Board = (props) => {
   // };
 
   const dragHandler = (result) => {
-    // const [destination, source, draggableId, type] = result;
-    // if (!destination) return;
+    const destination = result.destination;
+    const source = result.source;
+    console.log("result ", result);
+    if (!destination || !source) {
+      console.log("hey");
+      return;
+    }
+    if (result.type === "list") {
+      const newList = Array.from(lists);
+      console.log(lists);
+      const [removed] = newList.splice(source.index, 1);
+      newList.splice(destination.index, 0, removed);
+      setLists(newList);
+      return;
+    }
+    console.log(result);
+
+    console.log("destination ", destination);
+    console.log("source ", source);
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      console.log("in self position");
+      return;
+    }
+    const start = lists.find(
+      (list) => list.id === parseInt(source.droppableId)
+    );
+    const finish = lists.find(
+      (list) => list.id === parseInt(destination.droppableId)
+    );
+    console.log("shoroo");
+    console.log(start);
+    console.log(finish);
+    if (start === finish) {
+      const newTasks = Array.from(start.tasks);
+      console.log(newTasks);
+      // console.log(newTasks[0]);
+      let temp = newTasks[source.index];
+      // console.log(source.index);
+      // console.log(temp);
+      newTasks.splice(source.index, 1);
+      newTasks.splice(destination.index, 0, temp);
+      console.log(newTasks);
+      const newStart = {
+        ...start,
+        tasks: newTasks,
+      };
+      console.log(newStart);
+      const newState = lists.map((list) => {
+        if (list.id === newStart.id) {
+          return newStart;
+        }
+        return list;
+      });
+      console.log(newState);
+      setLists(newState);
+      return;
+    } else {
+      const startTasks = Array.from(start.tasks);
+      const finishTasks = Array.from(finish.tasks);
+      const [removed] = startTasks.splice(source.index, 1);
+      finishTasks.splice(destination.index, 0, removed);
+      const newStart = {
+        ...start,
+        tasks: startTasks,
+      };
+      const newFinish = {
+        ...finish,
+        tasks: finishTasks,
+      };
+      const newState = lists.map((list) => {
+        if (list.id === newStart.id) {
+          return newStart;
+        }
+        if (list.id === newFinish.id) {
+          return newFinish;
+        }
+        return list;
+      });
+      console.log(newState);
+      setLists(newState);
+      return;
+    }
   };
 
   return (
@@ -99,17 +200,16 @@ const Board = (props) => {
             <div className="board_list-container"
                  {...provided.droppableProps}
                  ref={provided.innerRef}
-                 style={
-                   snapshot.isUsingPlaceholder
-                     ? {
-                       backgroundColor: 'var(--hover-color)',
-                       borderRadius: '0.5rem',
-                     }
-                     : null
-                 }
             >
-              {lists.slice(0).reverse().map((list, index) => (
-                <div className="board_list-container-box">
+              {lists.map((list, index) => (
+                <div className="board_list-container-box" style={
+                  snapshot.draggingOverWith
+                    ? {
+                      backgroundColor: 'var(--main-bg)',
+                      borderRadius: '0.5rem',
+                    }
+                    : null
+                }>
                   <List
                     name={list.title}
                     key={list.id}
@@ -117,6 +217,7 @@ const Board = (props) => {
                     index={index}
                     card={list.tasks}
                     boardId={props.boardId}
+                    onReq={handleReq}
                   />
                 </div>
               ))}
