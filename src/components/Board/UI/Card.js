@@ -1,243 +1,128 @@
-import React, { useState, useEffect } from "react";
-import "../Styles/Card.css";
-import CardLabel from "../Cards Item/CardLabel";
-import Avatar from "@mui/material/Avatar";
-import AvatarGroup from "@mui/material/AvatarGroup";
-import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
-import { Navigate, useNavigate } from "react-router-dom";
-import EditIcon from "@mui/icons-material/Edit";
-import CloseIcon from "@mui/icons-material/Close";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
-import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
-import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
-import { Draggable } from "react-beautiful-dnd";
-import { v4 as uuid } from "uuid";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import Loading from "../../Shared/Loading";
-import { toast, ToastContainer } from "react-toastify";
-import axios from "axios";
-import apiInstance from "../../../utilities/axiosConfig";
+import React, { useState, useEffect } from 'react';
+import './Styles/Card.css';
+import Avatar from '@mui/material/Avatar';
+import AvatarGroup from '@mui/material/AvatarGroup';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import { Navigate, useNavigate } from 'react-router-dom';
+import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import { Draggable } from 'react-beautiful-dnd';
+import { v4 as uuid } from 'uuid';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Loading from '../../Shared/Loading';
+import { toast, ToastContainer } from 'react-toastify';
+import axios from 'axios';
+import apiInstance from '../../../utilities/axiosConfig';
+import TaskModal from '../../TaskModal/TaskModal';
+import { Modal } from '@mui/material';
+import CardCover from '../Cards Item/CardCover';
+import CardTitle from '../Cards Item/CardTitle';
 
 const Card = (props) => {
-  const [showLabelName, setShowLabelName] = useState(false);
-  const [isPost, setIsPost] = useState(null);
-  const [isToast, setIsToast] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  let isIn = false;
-  let navigate = useNavigate();
-  // let outSideButton = false;
-  // const [close, setClose] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [click, setClick] = useState(false);
+  const [enable, setEnable] = useState(false);
+  const [insideButton, setInsideButton] = useState(false);
+  const [req, setReq] = useState(false);
+  const handleModalOpen = (event) => {
+    event.preventDefault();
+    // event.stopPropagation();
+    setOpen(true);
+  };
+  const handleModalClose = () => {
+    setClick(!click);
+  };
+  const handleEditCardName = (e) => {
+    e.stopPropagation();
+    setInsideButton(true);
+    setEnable(!enable);
+  };
+
+  const handleDeleteCard = (e) => {
+    e.stopPropagation();
+    reqDeleteCard(props.id);
+  };
+
+  useEffect(() => {
+    setOpen(false);
+  }, [click, enable]);
 
   // useEffect(() => {
-  //   // setIsIn(false);
-  //   // setIsOpen(false);
-  //   // isOpen = true;
-  // }, [isIn]);
+  // },[enable])
 
-  const reqDeleteCard = async (id) =>
-    await apiInstance
+  // useEffect(() => {setOpen(false);}, [insideButton]);
+
+  const reqDeleteCard = (id) =>
+    apiInstance
       .delete(`workspaces/task/${id}/`)
       .then(() => {
-        setIsToast(true);
         toast.success("کارت با موفقیت حذف شد", {
-          position: toast.POSITION.TOP_CENTER,
+          position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
       })
       .catch((error) => {
         if (error.response.status === 404) {
-          setIsToast(true);
           toast.error("عملیات با خطا مواجه شد", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
         }
       })
       .finally(() => {
-        setIsPost(null);
+        // setIsPost(null);
         console.log("reqDeleteCard Done");
-        props.onPost(true);
+        props.remID(props.id);
+        // props.onPost(true);
       });
-
-  const cardClickHandker = () => {
-    // console.log("board");
-    // console.log("outside: ", outSideButton);
-    // console.log("close: ",close);
-    if (isIn) return;
-    navigate(`/${props.boardId}/taskmodal/${props.id}`);
-    // navigate("/");
-  };
-
-  const cardDeleteHandler = () => {
-    isIn = true;
-    setIsOpen(true);
-    reqDeleteCard(props.id);
-    console.log("cardDeleteHandler ", isOpen);
-  };
-
-  // const deleteCardHandler = () => {
-  //   Event.stopPropation();
-  //   // setIsPost(true);
-  //   // reqDeleteList(props.id);
-  //   console.log("deleteCardHandler ",isOpen);
-  //   setIsOpen(false);
-  // };
-
-  const cardEditHandler = () => {
-    isIn = true;
-    // navigate("/signin");
-  };
-
-  // const handleClose = () => {
-  //   Event.stopPropation();
-  //   setIsOpen(false);
-  //   isIn = false;
-  //   console.log("handleClose ",isOpen);
-  // };
 
   return (
     <Draggable draggableId={String(props.id)} index={props.index}>
       {(provided) => (
         <div
-          className="board_card"
-          onClick={() => {
-            cardClickHandker();
-          }}
+          className="card_container"
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
+          onClick={event => handleModalOpen(event)}
         >
-          {isPost ? <Loading /> : null}
-          {isToast ? (
-            <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
-          ) : null}
-          <div className="board_icon_container">
-            <div
-              className="board_icon-box"
-              onClick={() => {
-                cardEditHandler();
-              }}
-            >
-              <EditIcon className="board_edit-icon board_default-icon" />
+          {/* {isPost ? <Loading /> : null} */}
+          <ToastContainer autoClose={3000} style={{ fontSize: "1.2rem" }} />
+          <Modal open={open} onClose={handleModalClose} style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-around'
+          }}>
+            <TaskModal cardId={props.id}/>
+          </Modal>
+          <div className="card_header">
+            <div className="card_close-icon" onClick={event => handleDeleteCard(event)}>
+              <CloseIcon sx={{ fontSize: '1.6rem' }}/>
             </div>
-            <div
-              className="board_icon-box"
-              onClick={() => {
-                cardDeleteHandler();
-              }}
-            >
-              <CloseIcon className="board_close-icon board_default-icon" />
-              {/* <Dialog
-            open={isOpen}
-            onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-          >
-            <DialogTitle id="alert-dialog-title">
-              {"آیا از حذف کردن کارت مطمئن هستید؟"}
-            </DialogTitle>
-            <DialogActions>
-              <div className="List_dialog-button-container">
-                <button
-                  onClick={() => {
-                    deleteCardHandler();
-                  }}
-                  className="List_dialog-button"
-                >
-                  تایید
-                </button>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  autoFocus
-                  className="List_dialog-button"
-                >
-                  انصراف
-                </button>
-              </div>
-            </DialogActions>
-          </Dialog> */}
+            <div className="card_edit-icon" onClick={event => handleEditCardName(event)}>
+              <EditIcon sx={{ fontSize: '1.6rem' }}/>
             </div>
           </div>
-          {props.labels !== [] && (
-            <div className="board_card-label">
-              {props.labels.map((x) => (
-                <CardLabel
-                  key={x.id}
-                  color={x.color}
-                  name={x.title}
-                  onClick={() => {
-                    isIn = true;
-                    setShowLabelName(!showLabelName);
-                  }}
-                  show={showLabelName}
-                />
-              ))}
+          <div className="card_body">
+            {/* <div className="card_cover"> */}
+            {/*   <CardCover/> */}
+            {/* </div> */}
+            <div className="card_title" onClick={event => {
+              if (enable) event.stopPropagation();
+            }}>
+              <CardTitle enable={enable} title={props.title}/>
             </div>
-          )}
-          <div className="board_card-title">
-            {/* <InputName name={props.name} color="#212121"/> */}
-            <p className="board_title">{props.name}</p>
-          </div>
-          <div className="board_footer">
-            <div className="board_card-avatar">
-              {props.members !== [] && (
-                <AvatarGroup
-                  max={5}
-                  spacing="-1"
-                  sx={{ direction: "ltr", border: "none" }}
-                  className="board_avatar-container"
-                >
-                  {props.members.map((x) => (
-                    <Tooltip title={x.first_name + " " + x.last_name}>
-                      <Avatar
-                        key={uuid()}
-                        alt={x.first_name + " " + x.last_name}
-                        src={x.profile_pic !== null ? x.profile_pic : "none"}
-                        {...stringAvatar(x.first_name + " " + x.last_name)}
-                        className="board_avatar-profile-picture"
-                      />
-                    </Tooltip>
-                  ))}
-                </AvatarGroup>
-              )}
-            </div>
-            <div className="board_footer-icon">
-              {props.attachNum !== 0 && (
-                <div className="board_icon-container">
-                  <AttachFileIcon className="board_default-footer-icon" />
-                  <p className="board_icon-info">{props.attachNum}</p>
-                </div>
-              )}
-              {props.checkTotal !== 0 && (
-                <div>
-                  {props.checkDone === props.checkTotal ? (
-                    <div className="board_icon-container">
-                      <CheckBoxOutlinedIcon className="board_default-footer-icon board_checklist-finish" />
-                      <p className="board_icon-info ">
-                        {props.checkDone}/{props.checkTotal}
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="board_icon-container">
-                      <CheckBoxOutlinedIcon className="board_default-footer-icon" />
-                      <p className="board_icon-info">
-                        {props.checkDone}/{props.checkTotal}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              )}
-              {props.chatNum !== 0 && (
-                <div className="board_icon-container">
-                  <ChatBubbleIcon className="board_default-footer-icon" />
-                  <p className="board_icon-info">{props.chatNum}</p>
-                </div>
-              )}
-            </div>
+            {/* <div className="card_disc"> */}
+            {/*   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, blanditiis commodi corporis dignissimos */}
+            {/*     dolorum ea facilis</p> */}
+            {/* </div> */}
           </div>
         </div>
       )}
@@ -245,7 +130,7 @@ const Card = (props) => {
   );
 };
 
-function stringToColor(string) {
+function stringToColor (string) {
   let hash = 0;
   let i;
 
@@ -254,7 +139,7 @@ function stringToColor(string) {
     hash = string.charCodeAt(i) + ((hash << 5) - hash);
   }
 
-  let color = "#";
+  let color = '#';
 
   for (i = 0; i < 3; i += 1) {
     const value = (hash >> (i * 8)) & 0xff;
@@ -265,10 +150,10 @@ function stringToColor(string) {
   return color;
 }
 
-function stringAvatar(name) {
+function stringAvatar (name) {
   return {
-    children: `${name.split(" ")[0][0].toUpperCase()}${name
-      .split(" ")[1][0]
+    children: `${name.split(' ')[0][0].toUpperCase()}${name
+      .split(' ')[1][0]
       .toUpperCase()}`,
   };
 }

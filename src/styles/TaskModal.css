@@ -11,7 +11,6 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: 5%;
   height: fit-content;
 }
 
@@ -323,7 +322,7 @@
 
 .MuiInputBase-input {
   font-family: vazir !important;
-  font-size: 13px !important;
+  /*font-size: 13px !important;*/
 }
 
 .taskmodal-plusforprojma {

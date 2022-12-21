@@ -1,5 +1,5 @@
 import * as React from "react";
-import "../Styles/CardLabel.css";
+import "../UI/Styles/CardLabel.css";
 import CardLabelWithName from "./CardLabelWithName";
 import CardLabelWithoutName from "./CardLabelWithoutName";
 
