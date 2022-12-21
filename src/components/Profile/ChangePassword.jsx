@@ -23,12 +23,13 @@ import TextField from "@mui/material/TextField";
 import apiInstance from "../../utilities/axiosConfig";
 import PersonIcon from "@mui/icons-material/Person";
 import PasswordIcon from "@mui/icons-material/Password";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Helmet } from "react-helmet";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Shared/Loading";
+import { baseUrl } from "../../utilities/constants";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -39,6 +40,7 @@ const cacheRtl = createCache({
   stylisPlugins: [prefixer, rtlPlugin],
 });
 export default function ChangePassword() {
+  const baseURL = baseUrl.substring(0, baseUrl.length - 1);
   const [password, setPassword] = React.useState("");
   const [errorPassword, setErrorPassword] = React.useState(false);
   const [password2, setPassword2] = React.useState("");
@@ -160,11 +162,7 @@ export default function ChangePassword() {
               <div className="profile-box-body-profile-container">
                 <Avatar
                   className="Avatar"
-                  src={
-                    getImage !== null
-                      ? `https://mohammadosoolian.pythonanywhere.com/${getImage}`
-                      : file
-                  }
+                  src={getImage !== null ? `${baseURL}${getImage}` : file}
                   alt="profile"
                   sx={{
                     mt: 1,

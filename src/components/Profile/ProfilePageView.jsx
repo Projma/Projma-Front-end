@@ -11,6 +11,8 @@ import Avatar from "@mui/material/Avatar";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import profile_preview from "../../static/images/profile/profile-preview.png";
+import apiInstance from "../../utilities/axiosConfig";
+import { baseUrl } from "../../utilities/constants";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -21,6 +23,7 @@ const cacheRtl = createCache({
   stylisPlugins: [prefixer, rtlPlugin],
 });
 export default function ProfileView() {
+  const baseURL = baseUrl.substring(0, baseUrl.length - 1);
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [username, setUsername] = React.useState("");
@@ -32,10 +35,8 @@ export default function ProfileView() {
   const temp = useParams();
   // console.log(temp.username);
   React.useEffect(() => {
-    axios
-      .get(
-        `http://mohammadosoolian.pythonanywhere.com/accounts/profile/public-profile/${temp.username}/`
-      )
+    apiInstance
+      .get(`/accounts/profile/public-profile/${temp.username}/`)
       .then((res) => {
         console.log(res.data);
         setFirstName(res.data.user.first_name);
@@ -77,7 +78,7 @@ export default function ProfileView() {
                       className="Avatar"
                       src={
                         getImage !== null
-                          ? `https://mohammadosoolian.pythonanywhere.com/${getImage}`
+                          ? `${baseURL}${getImage}`
                           : profile_preview
                       }
                       alt="profile"

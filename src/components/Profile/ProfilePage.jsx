@@ -16,7 +16,7 @@ import Avatar from "@mui/material/Avatar";
 import apiInstance from "../../utilities/axiosConfig";
 import PersonIcon from "@mui/icons-material/Person";
 import PasswordIcon from "@mui/icons-material/Password";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Helmet } from "react-helmet";
 import { ToastContainer, toast } from "react-toastify";
@@ -111,41 +111,23 @@ export default function Profile() {
       document.getElementById("em").innerHTML = errormessage;
       return;
     }
-    const profile_without_name_form_data = new FormData();
-    const profile_with_name_form_data = new FormData();
-    profile_with_name_form_data.append("first_name", firstName);
-    profile_with_name_form_data.append("last_name", lastName);
-    apiInstance
-      .patch("/accounts/users/myaccount/", profile_with_name_form_data)
-      .then((res) => {
-        console.log(res);
-        toast.success("با موفقیت بروز شد.", {
-          position: toast.POSITION.BOTTOM_LEFT,
-          rtl: true,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("مشکلی پیش آمده است.", {
-          position: toast.POSITION.BOTTOM_LEFT,
-          rtl: true,
-        });
-      })
-      .finally(() => {
-        setIsPost(null);
-      });
+    const formData = new FormData();
+    const user = {
+      first_name: firstName,
+      last_name: lastName,
+    };
+    formData.append("user", user);
     let birthd = "";
     if (typeof birthDate !== "string" && birthDate !== null) {
       birthd = `${birthDate.year}-${birthDate.month.number}-${birthDate.day}`;
-      profile_without_name_form_data.append("birth_date", birthd);
+      formData.append("birth_date", birthd);
     }
-
-    profile_without_name_form_data.append("bio", bio);
+    formData.append("bio", bio);
     if (binaryFile !== null) {
-      profile_without_name_form_data.append("profile_pic", binaryFile);
+      formData.append("profile_pic", binaryFile);
     }
     apiInstance
-      .patch("/accounts/profile/myprofile/", profile_without_name_form_data)
+      .patch("/accounts/profile/edit-profile/", formData)
       .then((res) => {
         console.log(res);
         toast.success("با موفقیت بروز شد.", {
