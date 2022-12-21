@@ -4,7 +4,17 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  /*align-items: flex-start;*/
   flex: 1 0 auto;
+}
+
+.list_header-container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--minor-bg);
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 0.2rem solid var(--minor-item-color);
 }
 
 .list_header {
@@ -14,10 +24,6 @@
   padding: 0.4rem;
   justify-content: space-between;
   color: #fff;
-  background-color: var(--minor-bg);
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-  border-bottom: 0.1rem solid var(--minor-item-color);
 }
 
 .list_header-title {
@@ -42,10 +48,23 @@
   border-radius: inherit;
 }
 
+.list_add-card-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem;
+  gap: 0.3rem;
+  margin: 0.1rem 0.2rem;
+}
+
+.list_add-card-button {
+
+}
+
 .list_card-container {
   min-height: 10rem;
   min-width: 10rem;
   overflow: auto;
-  padding: 0.1rem;
+  padding: 0.5rem;
 }
 
