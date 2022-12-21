@@ -7,7 +7,7 @@ const CardCover = () => {
       <img
         className="card-item_picture"
         src="https://s2.uupload.ir/files/simurgh_w7qp.jpg"
-        alt="card cover picture"
+        alt="تصویر پس زمینه کارت"
       />
     </div>
   );
