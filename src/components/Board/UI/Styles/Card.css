@@ -1,5 +1,5 @@
 .card_container {
-  /*min-height: 10rem;*/
+  min-height: 1rem;
   max-width: 100%;
   background-color: #0A1929;
   margin-bottom: 0.5rem;
@@ -10,7 +10,7 @@
 
 .card_container:hover {
   cursor: pointer;
-  opacity: 80%;
+  opacity: 90%;
 }
 
 .card_container:hover .card_header{
@@ -56,5 +56,16 @@
 }
 
 .card_title {
+  width: 100%;
+  margin: 0 1rem 0.2rem;
+  padding: 0.4rem;
+}
 
+.card_disc {
+  color: var(--minor-item-color);
+  /*margin: 0 1rem;*/
+  margin-top: 0.1rem;
+  padding: 0 0.4rem;
+  font-size: 1.4rem;
+  text-justify: distribute-all-lines;
 }

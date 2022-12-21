@@ -23,51 +23,65 @@ import apiInstance from '../../../utilities/axiosConfig';
 import TaskModal from '../../TaskModal/TaskModal';
 import { Modal } from '@mui/material';
 import CardCover from '../Cards Item/CardCover';
+import CardTitle from '../Cards Item/CardTitle';
 
 const Card = (props) => {
   const [open, setOpen] = useState(false);
   const [click, setClick] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setClick(!click);
+  const [enable, setEnable] = useState(false);
+  const [insideButton, setInsideButton] = useState(false);
+  const [req, setReq] = useState(false);
+  const handleModalOpen = (event) => {
+    event.preventDefault();
+    // event.stopPropagation();
+    setOpen(true);
+  };
+  const handleModalClose = () => {
+    setClick(!click);
+  };
+  const handleEditCardName = (e) => {
+    e.stopPropagation();
+    setInsideButton(true);
+    setEnable(!enable);
+  };
+
+  const handleDeleteCard = (e) => {
+    e.stopPropagation();
+    reqDeleteCard(props.id);
+  };
 
   useEffect(() => {
     setOpen(false);
-  }, [click]);
+  }, [click, enable]);
 
-  // const reqDeleteCard = async (id) =>
-  //   await apiInstance
-  //     .delete(`workspaces/task/${id}/`)
-  //     .then(() => {
-  //       setIsToast(true);
-  //       toast.success("کارت با موفقیت حذف شد", {
-  //         position: toast.POSITION.TOP_CENTER,
-  //         rtl: true,
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       if (error.response.status === 404) {
-  //         setIsToast(true);
-  //         toast.error("عملیات با خطا مواجه شد", {
-  //           position: toast.POSITION.TOP_CENTER,
-  //           rtl: true,
-  //         });
-  //       }
-  //     })
-  //     .finally(() => {
-  //       setIsPost(null);
-  //       console.log("reqDeleteCard Done");
-  //       props.onPost(true);
-  //     });
+  // useEffect(() => {
+  // },[enable])
 
-  // const modalOpenHandler = () => {
-  //   isOpen = true;
-  //   console.log('open moh: ', isOpen);
-  // };
-  //
-  // const modalCloseHandler = () => {
-  //   isOpen = false;
-  //   console.log('open mch: ', isOpen);
-  // };
+  // useEffect(() => {setOpen(false);}, [insideButton]);
+
+  const reqDeleteCard = (id) =>
+    apiInstance
+      .delete(`workspaces/task/${id}/`)
+      .then(() => {
+        toast.success("کارت با موفقیت حذف شد", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          toast.error("عملیات با خطا مواجه شد", {
+            position: toast.POSITION.BOTTOM_LEFT,
+            rtl: true,
+          });
+        }
+      })
+      .finally(() => {
+        // setIsPost(null);
+        console.log("reqDeleteCard Done");
+        props.remID(props.id);
+        // props.onPost(true);
+      });
 
   return (
     <Draggable draggableId={String(props.id)} index={props.index}>
@@ -77,13 +91,11 @@ const Card = (props) => {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          onClick={handleOpen}
+          onClick={event => handleModalOpen(event)}
         >
           {/* {isPost ? <Loading /> : null} */}
-          {/* {isToast ? ( */}
-          {/*   <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} /> */}
-          {/* ) : null} */}
-          <Modal open={open} onClose={handleClose} style={{
+          <ToastContainer autoClose={3000} style={{ fontSize: "1.2rem" }} />
+          <Modal open={open} onClose={handleModalClose} style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-around'
@@ -91,20 +103,26 @@ const Card = (props) => {
             <TaskModal cardId={props.id}/>
           </Modal>
           <div className="card_header">
-            <div className="card_close-icon">
-              <CloseIcon sx={{ fontSize: '1.4rem' }}/>
+            <div className="card_close-icon" onClick={event => handleDeleteCard(event)}>
+              <CloseIcon sx={{ fontSize: '1.6rem' }}/>
             </div>
-            <div className="card_edit-icon">
-              <EditIcon sx={{ fontSize: '1.4rem' }}/>
+            <div className="card_edit-icon" onClick={event => handleEditCardName(event)}>
+              <EditIcon sx={{ fontSize: '1.6rem' }}/>
             </div>
           </div>
           <div className="card_body">
-            <div className="card_cover">
-              <CardCover/>
+            {/* <div className="card_cover"> */}
+            {/*   <CardCover/> */}
+            {/* </div> */}
+            <div className="card_title" onClick={event => {
+              if (enable) event.stopPropagation();
+            }}>
+              <CardTitle enable={enable} title={props.title}/>
             </div>
-            <div className="card_title">
-
-            </div>
+            {/* <div className="card_disc"> */}
+            {/*   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, blanditiis commodi corporis dignissimos */}
+            {/*     dolorum ea facilis</p> */}
+            {/* </div> */}
           </div>
         </div>
       )}
