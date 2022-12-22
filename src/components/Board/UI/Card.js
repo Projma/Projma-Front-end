@@ -100,7 +100,7 @@ const Card = (props) => {
             alignItems: 'center',
             justifyContent: 'space-around'
           }}>
-            <TaskModal cardId={props.id}/>
+            <TaskModal cardId={props.id} boardId={props.boardId}/>
           </Modal>
           <div className="card_header">
             <div className="card_close-icon" onClick={event => handleDeleteCard(event)}>

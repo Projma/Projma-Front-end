@@ -104,11 +104,6 @@ function App() {
               path="/email-verification"
               element={<Email_verification_2 />}
             />
-            <Route
-              exact
-              path=":board_id/taskmodal/:task_id/*"
-              element={<PrivateRoute children={<TaskModal />} />}
-            />
           </Routes>
         </Router>
       </Provider>
