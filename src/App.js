@@ -24,6 +24,7 @@ import { faIR } from "@mui/material/locale";
 import TaskModal from "./components/TaskModal/TaskModal";
 import { useSelector } from "react-redux";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import BoardInvitation from "./pages/BoardInvitation";
 
 const theme = createTheme(
   {
@@ -93,6 +94,11 @@ function App() {
               }
             />
             <Route exact path="/invite_page/:token" element={<InvitePage />} />
+            <Route
+              exact
+              path="/borad_invitation/:id/:token"
+              element={<PrivateRoute children={<BoardInvitation />} />}
+            />
             <Route
               exact
               path="/email-verification"
