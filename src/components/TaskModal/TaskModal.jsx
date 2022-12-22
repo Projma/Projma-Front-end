@@ -56,7 +56,7 @@ const cacheRtl = createCache({
 function APIcall() {}
 
 export default function TaskModal(props) {
-  const params = props.cardId;
+  const params = {task_id: props.cardId, board_id: props.boardId};
   console.log(params);
   const handleRemoveChecklist = (id) => {
     setAllChecklists((prevState) => {
@@ -533,11 +533,11 @@ export default function TaskModal(props) {
                             justifyContent: "center",
                           }}
                         >
-                          {dueDate.toString() != "" ? (
-                            <div>{dueDate.toString().replaceAll("-", "/")}</div>
-                          ) : (
-                            <div></div>
-                          )}
+                          {/* {dueDate.toString() != "" ? ( */}
+                          {/*   <div>{dueDate.toString().replaceAll("-", "/")}</div> */}
+                          {/* ) : ( */}
+                          {/*   <div></div> */}
+                          {/* )} */}
                         </div>
                       </div>
                     </div>
@@ -1251,11 +1251,11 @@ export default function TaskModal(props) {
                   />
                   <CheckList params={params} />
                   <Attachments params={params} />
-                  <DueTime
-                    params={params}
-                    dueDate={dueDate}
-                    setDueTime={setDueDate}
-                  />
+                  {/* <DueTime */}
+                  {/*   params={params} */}
+                  {/*   dueDate={dueDate} */}
+                  {/*   setDueTime={setDueDate} */}
+                  {/* /> */}
                 </div>
               </div>
             </div>

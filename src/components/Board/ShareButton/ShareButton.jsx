@@ -118,12 +118,13 @@ const ShareButton = (props) => {
                 // button-key="buttonAttribute"
                 // onClick={() => navigate("/signup/")}
                 sx={{
-                    margin: "1%",
                     // height: 54,
                     // width: 150,
                     // fontSize: "90%",
                     // width: "30%",
                     // height: "100%",
+                    ml: "0.5rem",
+                    mr: "1.3rem",
                     fontFamily: "Vazir",
                 }}
                 onClick={handleOpen}
@@ -206,7 +207,7 @@ const ShareButton = (props) => {
                                     //         {option.title}
                                     //     </MenuItem>
                                     // }
-                                    
+
                                     }
                                 sx={{
                                     width: "60%",
@@ -332,7 +333,7 @@ const ShareButton = (props) => {
                                         // width: "20%",
                                         // height: "100%",
                                         fontFamily: "Vazir",
-                                        backgroundColor: "#132F4C", // #0A1929 
+                                        backgroundColor: "#132F4C", // #0A1929
                                     }}
                                     onClick={copy}
                                 >
