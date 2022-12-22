@@ -33,7 +33,7 @@ const Board = (props) => {
   }, []);
 
   useEffect(() => {
-    setLists(lists);
+    setLists(lists.sort((a, b) => b.order - a.order));
     console.log(lists);
   }, [lists]);
 
@@ -44,7 +44,7 @@ const Board = (props) => {
         // console.log(response.data);
         // console.log(response.data.tasklists);
         // console.log(props.boardId);
-        setLists(response.data.tasklists.sort((a, b) => b.id - a.id));
+        setLists(response.data.tasklists.sort((a, b) => b.order - a.order));
         console.log(lists);
       })
       .finally(() => {
@@ -57,28 +57,9 @@ const Board = (props) => {
     setReq(!req);
   };
 
-  // const postCreateList = async (data, id) =>
-  //   await apiInstance
-  //     .post(`workspaces/board/${id}/create-tasklist/`, data)
-  //     .then(() => {
-  //       setIsFail(true);
-  //       toast.success("لیست با موفقیت ساخته شد", {
-  //         position: toast.POSITION.TOP_CENTER,
-  //         rtl: true,
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       if (error.response.status === 404) {
-  //         setIsFail(true);
-  //         toast.error("عملیات با خطا مواجه شد", {
-  //           position: toast.POSITION.TOP_CENTER,
-  //           rtl: true,
-  //         });
-  //       }
-  //     })
-  //     .finally(() => {
-  //       setIsPost(null);
-  //     });
+  const handleCreateList = (data) => {
+    setLists((pervlists) => [...pervlists,data]);
+  };
 
   // const submitHandler = (event) => {
   //   event.preventDefault();
@@ -185,7 +166,7 @@ const Board = (props) => {
 
   return (
     <DragDropContext onDragEnd={dragHandler}>
-      <InvitationHeader board_id={props.boardId}/>
+      <InvitationHeader board_id={props.boardId} onCreateList={handleCreateList}/>
       <div className="styled-scrollbars">
         {/* {isPost ? <Loading /> : null} */}
         {/* {isFail ? ( */}
