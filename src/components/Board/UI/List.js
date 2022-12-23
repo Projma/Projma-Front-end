@@ -197,16 +197,9 @@ const List = (props) => {
               >
                 {cards.map((card, index) => (
                   <Card
-                    title={card.title}
                     key={card.id}
-                    id={card.id}
+                    cardId ={card.id}
                     index={index}
-                    members={card.doers}
-                    checkTotal={card.checklists_num}
-                    checkDone={card.checked_checklists_num}
-                    attachNum={card.attachments_num}
-                    chatNum={card.comments_num}
-                    labels={card.labels}
                     boardId={props.boardId}
                     remID={handleRemoveCard}
                   />
