@@ -175,6 +175,10 @@ export default function Members({ params, setDoers, doer }) {
         }}
       >
         <div className="tm-members-main-div">
+          <Button onClick={() => console.log(ListOfMembers)}>
+            {" "}
+            اضافه کردن پیوست{" "}
+          </Button>
           <header className="tm-members-header">
             <h2 className="tm_labels-header-title">اعضا</h2>
             <Divider sx={{ backgroundColor: "black" }} />
