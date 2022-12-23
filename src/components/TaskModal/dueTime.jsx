@@ -98,7 +98,7 @@ export default function DueTime({ params, dueDate, setDueTime }) {
   };
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%", marginBottom: "3%" }}>
       <Button
         className="taskmodal-smaller-button-inner"
         aria-describedby={id}
@@ -157,7 +157,11 @@ export default function DueTime({ params, dueDate, setDueTime }) {
               </div>
             ) : (
               <div className="duetime-showDate">
-                <div>{dueDate.toString().replaceAll("-", "/")}</div>
+                {dueDate !== null ? (
+                  <div>{dueDate.toString().replaceAll("-", "/")}</div>
+                ) : (
+                  <div></div>
+                )}
               </div>
             )}
             {changeDate ? (

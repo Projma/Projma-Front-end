@@ -23,30 +23,6 @@ function check_username_in_list(username, list) {
   return false;
 }
 
-// function add_member_to_doers(params, member, ListOfDoers) {
-//   const formData = new FormData();
-//   const json = {
-//     doers: [member.id],
-//   };
-//   if (ListOfDoers.includes(member)) {
-//     console.log("if");
-//     formData.append("doers", [member.id]);
-//     apiInstance
-//       .patch(`/workspaces/task/${params.task_id}/add-doers-to-task/`, json)
-//       .then((res) => {
-//         console.log(res);
-//       });
-//   } else {
-//     formData.append("doers", [member.id]);
-//     apiInstance
-//       .patch(`/workspaces/task/${params.task_id}/delete-doers-from-task/`, json)
-//       .then((res) => {
-//         console.log("else");
-//         console.log(res);
-//       });
-//   }
-// }
-
 export default function Members({ params, setDoers, doer }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [changeMemberStatus, setChangeMemberStatus] = React.useState(false);
