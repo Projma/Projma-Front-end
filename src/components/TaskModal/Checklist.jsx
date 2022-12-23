@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CheckList({ params }) {
+export default function CheckList({ params, setAllChecklists }) {
   const classes = useStyles();
   const [createdCheckTitle, setCreatedCheckTitle] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -48,6 +48,7 @@ export default function CheckList({ params }) {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
+        setAllChecklists((prev) => [...prev, res.data]);
       });
     handleClose();
   };

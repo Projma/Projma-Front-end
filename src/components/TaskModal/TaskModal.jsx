@@ -1260,7 +1260,10 @@ export default function TaskModal(props) {
                     task_labels={ListOfLabels}
                     set_task_labels={setListOfLabels}
                   />
-                  <CheckList params={params} />
+                  <CheckList
+                    params={params}
+                    setAllChecklists={setAllChecklists}
+                  />
                   <Attachments params={params} />
                   <DueTime
                     params={params}
