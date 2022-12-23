@@ -194,6 +194,7 @@ const Board = (props) => {
       <InvitationHeader
         board_id={props.boardId}
         onCreateList={handleCreateList}
+        setLists={setLists}
       />
       <div className="styled-scrollbars">
         {/* {isPost ? <Loading /> : null} */}
