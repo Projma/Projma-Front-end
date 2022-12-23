@@ -16,7 +16,7 @@ import { baseUrl } from "../../utilities/constants";
 
 function check_username_in_list(username, list) {
   for (let i = 0; i < list.length; i++) {
-    if (list[i].userName === username) {
+    if (list[i].username === username) {
       return true;
     }
   }
