@@ -39,3 +39,18 @@ body {
 .styled-scrollbars::-webkit-scrollbar-track { /* Background */
   background: var(--minor-bg);
 }
+
+.MuiTooltip-tooltip {
+  background-color: var(--minor-bg) !important;
+  border: 0.2rem solid var(--minor-item-color);
+  color: #fff;
+}
+
+.MuiAvatarGroup-root 	.MuiAvatarGroup-avatar{
+  /*background-color: var(--minor-item-color) !important;*/
+  width: 4rem !important;
+  height: 4rem !important;
+  font-size: 1.6rem !important;
+  text-align: center !important;
+  border: 0.3rem solid var(--mui-blue) !important;
+}

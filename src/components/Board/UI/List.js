@@ -24,29 +24,35 @@ import { Button } from '@mui/material';
 const List = (props) => {
   const [cards, setCards] = useState(props.card);
   const [addCard, setAddCard] = useState(false);
-  const [cardName,setCardName] = useState("");
-  const [req,setReq] = useState(false);
+  const [cardName, setCardName] = useState('');
+  const [listName, setListName] = useState(props.name);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [req, setReq] = useState(false);
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   useEffect(() => {
     setCards(props.card);
-  },[])
+  }, []);
 
   useEffect(() => {
     setCards(props.card);
-  },[props])
+  }, [props]);
   const reqCreateCard = async (data, id) =>
     await apiInstance
       .post(`workspaces/board/${id}/create-task/`, data)
       .then((response) => {
-        toast.success("کارت با موفقیت ساخته شد", {
+        toast.success('کارت با موفقیت ساخته شد', {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        setCards((pervCards) => [...pervCards,response.data]);
+        setCards((pervCards) => [...pervCards, response.data]);
       })
       .catch((error) => {
         if (error.response.status === 404) {
-          toast.error("عملیات با خطا مواجه شد", {
+          toast.error('عملیات با خطا مواجه شد', {
             position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
@@ -54,79 +60,95 @@ const List = (props) => {
       })
       .finally(() => {
         setReq(null);
-        console.log("reqCreateCard Done");
-        // props.onReq();
+        console.log('reqCreateCard Done');
       });
 
-  // const reqDeleteList = async (id) =>
-  //   await apiInstance
-  //     .delete(`workspaces/tasklist/${id}/delete-tasklist/`)
-  //     .then(() => {
-  //       setIsToast(true);
-  //       toast.success("لیست با موفقیت حذف شد", {
-  //         position: toast.POSITION.TOP_CENTER,
-  //         rtl: true,
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       if (error.response.status === 404) {
-  //         setIsToast(true);
-  //         toast.error("عملیات با خطا مواجه شد", {
-  //           position: toast.POSITION.TOP_CENTER,
-  //           rtl: true,
-  //         });
-  //       }
-  //     })
-  //     .finally(() => {
-  //       setIsPost(null);
-  //       console.log("reqDeleteList Done");
-  //       props.onPost(true);
-  //     });
+  const reqDeleteList = async (id) =>
+    await apiInstance
+      .delete(`workspaces/tasklist/${id}/delete-tasklist/`)
+      .then(() => {
+        toast.success('لیست با موفقیت حذف شد', {
+          position: toast.POSITION.TOP_CENTER,
+          rtl: true,
+        });
+        props.remId(id);
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          toast.error('عملیات با خطا مواجه شد', {
+            position: toast.POSITION.TOP_CENTER,
+            rtl: true,
+          });
+        }
+      })
+      .finally(() => {
+        setReq(null);
+        console.log('reqDeleteList Done');
+      });
 
-  // const reqEditListName = async (data, id) =>
-  //   await apiInstance
-  //     .patch(`workspaces/tasklist/${id}/update-tasklist/`, data)
-  //     .then(() => {
-  //       setIsToast(true);
-  //       toast.success("اسم لیست با موفقیت عوض شد", {
-  //         position: toast.POSITION.TOP_CENTER,
-  //         rtl: true,
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       if (error.response.status === 404) {
-  //         setIsToast(true);
-  //         toast.error("عملیات با خطا مواجه شد", {
-  //           position: toast.POSITION.TOP_CENTER,
-  //           rtl: true,
-  //         });
-  //       }
-  //     })
-  //     .finally(() => {
-  //       setIsPost(null);
-  //       props.onPost(true);
-  //     });
+  const reqEditListName = async (data, id, name) =>
+    await apiInstance
+      .patch(`workspaces/tasklist/${id}/update-tasklist/`, data)
+      .then(() => {
+        toast.success('اسم لیست با موفقیت عوض شد', {
+          position: toast.POSITION.TOP_CENTER,
+          rtl: true,
+        });
+        setListName(name);
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          toast.error('عملیات با خطا مواجه شد', {
+            position: toast.POSITION.TOP_CENTER,
+            rtl: true,
+          });
+        }
+      })
+      .finally(() => {
+        setReq(null);
+      });
 
   const addCardClickHandler = () => {
-
+    setAddCard(!addCard);
   };
-  const optionClickHandler = () => {
-
+  const optionClickHandler = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
   const handleRemoveCard = (id) => {
     setCards(cards.filter(card => card.id !== id));
-  }
+  };
 
   const handleAddCardSubmit = (e) => {
     e.preventDefault();
     setAddCard(!addCard);
     setReq(true);
     const data = new FormData();
-    data.append("title", cardName);
+    data.append('title', cardName);
     reqCreateCard(data, props.id);
-    setCardName("");
-  }
+    setCardName('');
+  };
+
+  const handleChangeListName = (name) => {
+    const data = new FormData();
+    data.append('title', name);
+    setReq(true);
+    reqEditListName(data, props.id, name);
+  };
+
+  const handleDeleteList = () => {
+    setReq(true);
+    reqDeleteList(props.id);
+    handleClose();
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleOption = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <Draggable draggableId={String(props.id) + props.name} index={props.index}>
@@ -137,18 +159,92 @@ const List = (props) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          {req ? <Loading /> : null}
-          <ToastContainer autoClose={3000} style={{ fontSize: "1.2rem" }} />
+          {req ? <Loading/> : null}
+          <ToastContainer autoClose={3000} style={{ fontSize: '1.2rem' }}/>
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleOption}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+          >
+            <div className="board_option">
+              <p className="board_option-text board_option-title">
+                فهرست اقدامات لیست
+              </p>
+              <div className="board_option-button-container">
+                <button
+                  className="board_option-button"
+                  onClick={addCardClickHandler}
+                >
+                  <p className="board_option-text">افزودن کارت</p>
+                </button>
+                <button
+                  className="board_option-button"
+                  onClick={() => {
+                    setIsOpen(true);
+                  }}
+                >
+                  <p className="board_option-text">حذف کردن لیست</p>
+                </button>
+                <Dialog
+                  open={isOpen}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {'آیا از حذف کردن لیست مطمئن هستید؟'}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText
+                      id="alert-dialog-description"
+                      sx={{ color: '#fff' }}
+                    >
+                      اخطار: با حذف کردن لیست تمام کارت های داخل آن نیز حذف
+                      میشود
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <div className="List_dialog-button-container">
+                      <Button
+                        type="button"
+                        variant="contained"
+                        onClick={() => {
+                          handleDeleteList();
+                        }}
+                        className="List_dialog-button"
+                      >
+                        تایید
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="contained"
+                        onClick={handleClose}
+                        autoFocus
+                        className="List_dialog-button"
+                      >
+                        انصراف
+                      </Button>
+                    </div>
+                  </DialogActions>
+                </Dialog>
+              </div>
+            </div>
+          </Popover>
           <div className="list_header-container">
             <div className="list_header">
               <div className="list_header-title">
-                <InputName name={props.name}/>
+                <InputName name={listName} onChangeName={handleChangeListName}/>
               </div>
-              <div className="list_header-add-card" onClick={() => setAddCard(!addCard)}>
-                <AddIcon onClick={addCardClickHandler} sx={{ fontSize: '2.2rem' }}/>
+              <div className="list_header-add-card" onClick={addCardClickHandler}>
+                <AddIcon o sx={{ fontSize: '2.2rem' }}/>
               </div>
-              <div className="list_header-option">
-                <MoreVertIcon onClick={optionClickHandler} sx={{ fontSize: '2.2rem' }}/>
+              <div className="list_header-option" onClick={optionClickHandler}>
+                <MoreVertIcon sx={{ fontSize: '2.2rem' }}/>
               </div>
             </div>
             {addCard && <div className="list_add-card">
@@ -165,12 +261,12 @@ const List = (props) => {
                     placeholder="اسم کارت را در این بخش بنویسید"
                     InputProps={{ disableUnderline: true }}
                     sx={{
-                      backgroundColor: "var(--main-item-color)",
-                      borderBottom: "0.2rem solid var(--minor-item-color)",
-                      borderRadius: "0.5rem",
+                      backgroundColor: 'var(--main-item-color)',
+                      borderBottom: '0.2rem solid var(--minor-item-color)',
+                      borderRadius: '0.5rem',
                       // borderRadius: "0.5rem",
-                      "& input::placeholder": {
-                        fontSize: "1.2rem"
+                      '& input::placeholder': {
+                        fontSize: '1.2rem'
                       },
                       margin: 0
                     }}
@@ -198,10 +294,15 @@ const List = (props) => {
                 {cards.map((card, index) => (
                   <Card
                     key={card.id}
-                    cardId ={card.id}
+                    cardId={card.id}
                     index={index}
                     boardId={props.boardId}
                     remID={handleRemoveCard}
+                    attachments_num={card.attachments_num}
+                    doers={card.doers}
+                    checklists_num={card.checklists_num}
+                    checked_checklists_num={card.checked_checklists_num}
+                    comments_num={card.comments_num}
                   />
                 ))}
                 {provided.placeholder}

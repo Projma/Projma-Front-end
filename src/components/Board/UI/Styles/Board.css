@@ -4,17 +4,19 @@
   margin: 0.4rem;
   overflow: auto;
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
+  direction: ltr;
   /*align-items: flex-start;*/
+  /*justify-content: flex-end;*/
   flex: 1 1 auto;
 }
 
 .board_list-container-box {
-  /*direction: rtl;*/
+  direction: rtl;
   max-width: 31rem;
-  max-height: 75vh;
+  max-height: 78vh;
   width: 31rem;
-  height: 75vh;
+  height: 78vh;
   /*min-height: 70vh;*/
   padding: 0.4rem 0.5rem;
   margin: 0.4rem 0.4rem 0.4rem 0;
