@@ -62,10 +62,19 @@
 }
 
 .card_disc {
+  direction: rtl;
+  text-justify: auto;
+  text-align: right;
   color: var(--minor-item-color);
   /*margin: 0 1rem;*/
   margin-top: 0.1rem;
   padding: 0 0.4rem;
   font-size: 1.4rem;
-  text-justify: distribute-all-lines;
+}
+
+.card_label {
+  display: flex;
+  width: 100%;
+  margin: 0 1rem 0.2rem;
+  padding: 0.4rem;
 }

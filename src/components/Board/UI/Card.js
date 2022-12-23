@@ -21,16 +21,39 @@ import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
 import apiInstance from '../../../utilities/axiosConfig';
 import TaskModal from '../../TaskModal/TaskModal';
-import { Modal } from '@mui/material';
+import { Modal, responsiveFontSizes } from '@mui/material';
 import CardCover from '../Cards Item/CardCover';
 import CardTitle from '../Cards Item/CardTitle';
+import CardLabel from '../Cards Item/CardLabel';
 
-const Card = (props) => {
+const Card = ({
+  boardId,
+  remID,
+  index,
+  cardId
+}) => {
+  let cardInfo;
+  const [card, setCard] = useState({});
   const [open, setOpen] = useState(false);
   const [click, setClick] = useState(false);
   const [enable, setEnable] = useState(false);
   const [insideButton, setInsideButton] = useState(false);
   const [req, setReq] = useState(false);
+  const [cover, setCover] = useState('');
+  const [update, setUpdate] = useState(false);
+  useEffect(() => {
+    getCard();
+    setUpdate(!update);
+    return setCard({});
+  }, []);
+
+  const getCard = () => {
+    apiInstance.get(`workspaces/task/${cardId}/get-task/`).then(response => setCard(response.data));
+  };
+  useEffect(() => {
+    setCard(card);
+    // setCover(cover);
+  }, [card]);
   const handleModalOpen = (event) => {
     event.preventDefault();
     // event.stopPropagation();
@@ -47,7 +70,35 @@ const Card = (props) => {
 
   const handleDeleteCard = (e) => {
     e.stopPropagation();
-    reqDeleteCard(props.id);
+    reqDeleteCard(cardId);
+  };
+
+  const findCover = () => {
+    const attach = card.attachments;
+    if (attach !== undefined) {
+      attach.every((x) => {
+        console.log(x);
+        let file = x.file.split('attachments/')[1];
+        file = file.split('.')[1];
+        if (file === 'png' || file === 'jpeg' || file === 'jpg') {
+          console.log(file);
+          setCover(x.file);
+          return false;
+        }
+        console.log(cover);
+      });
+    }
+    return cover !== '';
+  };
+
+  const disc = () => {
+    let description = null;
+    if(card.description == null)
+      return null;
+    if (card.description.length > 80) {
+      description = card.description.substring(0, 79);
+    }
+    return description;
   };
 
   useEffect(() => {
@@ -63,14 +114,14 @@ const Card = (props) => {
     apiInstance
       .delete(`workspaces/task/${id}/`)
       .then(() => {
-        toast.success("کارت با موفقیت حذف شد", {
+        toast.success('کارت با موفقیت حذف شد', {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
       })
       .catch((error) => {
         if (error.response.status === 404) {
-          toast.error("عملیات با خطا مواجه شد", {
+          toast.error('عملیات با خطا مواجه شد', {
             position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
@@ -78,13 +129,13 @@ const Card = (props) => {
       })
       .finally(() => {
         // setIsPost(null);
-        console.log("reqDeleteCard Done");
-        props.remID(props.id);
+        console.log('reqDeleteCard Done');
+        remID(cardId);
         // props.onPost(true);
       });
 
   return (
-    <Draggable draggableId={String(props.id)} index={props.index}>
+    <Draggable draggableId={String(cardId)} index={index}>
       {(provided) => (
         <div
           className="card_container"
@@ -94,13 +145,13 @@ const Card = (props) => {
           onClick={event => handleModalOpen(event)}
         >
           {/* {isPost ? <Loading /> : null} */}
-          <ToastContainer autoClose={3000} style={{ fontSize: "1.2rem" }} />
+          <ToastContainer autoClose={3000} style={{ fontSize: '1.2rem' }}/>
           <Modal open={open} onClose={handleModalClose} style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-around'
           }}>
-            <TaskModal cardId={props.id} boardId={props.boardId}/>
+            <TaskModal cardId={cardId} boardId={boardId}/>
           </Modal>
           <div className="card_header">
             <div className="card_close-icon" onClick={event => handleDeleteCard(event)}>
@@ -111,18 +162,20 @@ const Card = (props) => {
             </div>
           </div>
           <div className="card_body">
-            {/* <div className="card_cover"> */}
-            {/*   <CardCover/> */}
-            {/* </div> */}
+            {findCover() && <div className="card_cover">
+              <CardCover src={cover}/>
+            </div>}
             <div className="card_title" onClick={event => {
               if (enable) event.stopPropagation();
             }}>
-              <CardTitle enable={enable} title={props.title}/>
+              <CardTitle enable={enable} title={card.title}/>
             </div>
-            {/* <div className="card_disc"> */}
-            {/*   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, blanditiis commodi corporis dignissimos */}
-            {/*     dolorum ea facilis</p> */}
-            {/* </div> */}
+            {disc() !== null && <div className="card_disc">
+              <p>{disc()}...</p>
+            </div>}
+            {card.labels !== [] && <div className="card_label">
+              <CardLabel label={card.labels}/>
+            </div>}
           </div>
         </div>
       )}
