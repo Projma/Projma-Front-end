@@ -108,8 +108,11 @@ export default function SignUp() {
       signup_form_data.append("email", email);
       signup_form_data.append("password", password);
       setIsPost(true);
-      apiInstance
-        .post("accounts/users/signup/", signup_form_data)
+      axios
+        .post(
+          "https://mohammadosoolian.pythonanywhere.com/accounts/users/signup/",
+          signup_form_data
+        )
         .then((res) => {
           toast.success("ثبت‌نام با موفقیت انجام شد.", {
             position: toast.POSITION.BOTTOM_LEFT,
@@ -183,7 +186,6 @@ export default function SignUp() {
                 onSubmit={handleSubmit}
                 sx={{
                   mt: 3,
-
                   borderRadius: 3,
                   border: "1px solid none",
                   backgroundImage:
