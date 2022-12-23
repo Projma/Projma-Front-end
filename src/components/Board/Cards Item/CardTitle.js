@@ -55,8 +55,7 @@ const CardTitle = (props) => {
   const [name, setName] = React.useState(props.title);
   // const [blur, setblur] = React.useState(false);
   const [underline, setUnderline] = React.useState(true);
-
-  // useEffect(() => {},[enable])
+  useEffect(() => {setName(props.title)},[props])
   const handleChange = (event) => {
     setName(event.target.value);
   };
