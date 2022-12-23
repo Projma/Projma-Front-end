@@ -45,7 +45,7 @@
   cursor: pointer;
   /*opacity: 60%;*/
   background-color: var(--mui-blue);
-  border-radius: inherit;
+  border-radius: 0.5rem;
 }
 
 .list_add-card-form {
@@ -67,4 +67,82 @@
   overflow: auto;
   padding: 0.5rem;
 }
+
+.board_option {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  border: 0.2rem solid var(--minor-item-color);
+  color: #fff !important;
+  background-color: var(--minor-bg);
+  padding: 0.5rem;
+}
+
+.board_option-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.board_option-button {
+  width: 100%;
+  border: none;
+  background-color: inherit;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: flex-start;
+  padding-right: 0.4rem;
+}
+.board_option-button:hover {
+  background-color: #163658;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+.board_option-text {
+  /* background-color: #163658; */
+  border: none;
+  color: #fff;
+  text-align: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.board_option-title {
+  border-bottom: 0.2rem solid var(--minor-item-color);
+  padding-bottom: 0.5rem;
+  font-size: 1.2rem !important;
+}
+
+.board_add-form-card {
+  width: 100%;
+  background-color: var(--minor-bg);
+  border-radius: 1rem;
+  padding: 0.5rem;
+  /* margin-right: 0.6rem; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 !important;
+}
+
+.MuiDialog-paper {
+  background-color: var(--minor-bg) !important;
+  border: 0.2rem solid var(--minor-item-color) !important;
+  color: #fff !important;
+}
+
+.List_dialog-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.3rem;
+}
+
+.List_dialog-button:hover {
+  cursor: pointer;
+  opacity: 60%;
+}
+
 
