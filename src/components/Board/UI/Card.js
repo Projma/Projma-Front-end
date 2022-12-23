@@ -274,6 +274,69 @@ const Card = ({
                 </div>
               </div>
             </div>
+            {disc() !== null && <div className="card_disc">
+              <p>{disc()}...</p>
+            </div>}
+            {card.labels !== [] && <div className="card_label">
+              <CardLabel label={card.labels}/>
+            </div>}
+            <div className="board_footer">
+              <div className="board_card-avatar">
+                {doers !== [] && (
+                  <AvatarGroup
+                    max={5}
+                    spacing="-1"
+                    sx={{ direction: "ltr", border: "none" }}
+                    className="board_avatar-container"
+                  >
+                    {doers.map((x) => (
+                      <Tooltip title={x.first_name + " " + x.last_name}>
+                        <Avatar
+                          key={uuid()}
+                          alt={x.first_name + " " + x.last_name}
+                          src={x.profile_pic !== null ? x.profile_pic : "none"}
+                          {...stringAvatar(x.first_name + " " + x.last_name)}
+                          className="board_avatar-profile-picture"
+                        />
+                      </Tooltip>
+                    ))}
+                  </AvatarGroup>
+                )}
+              </div>
+              <div className="board_footer-icon">
+                {attachments_num !== 0 && (
+                  <div className="board_icon-container">
+                    <AttachFileIcon className="board_default-footer-icon" />
+                    <p className="board_icon-info">{attachments_num}</p>
+                  </div>
+                )}
+                {checklists_num !== 0 && (
+                  <div>
+                    {checked_checklists_num === checklists_num ? (
+                      <div className="board_icon-container">
+                        <CheckBoxOutlinedIcon className="board_default-footer-icon board_checklist-finish" />
+                        <p className="board_icon-info ">
+                          {checked_checklists_num}/{checklists_num}
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="board_icon-container">
+                        <CheckBoxOutlinedIcon className="board_default-footer-icon" />
+                        <p className="board_icon-info">
+                          {checked_checklists_num}/{checklists_num}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+                {comments_num !== 0 && (
+                  <div className="board_icon-container">
+                    <ChatBubbleIcon className="board_default-footer-icon" />
+                    <p className="board_icon-info">{comments_num}</p>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         )}
       </Draggable>
