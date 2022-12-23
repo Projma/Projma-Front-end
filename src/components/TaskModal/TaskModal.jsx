@@ -271,6 +271,7 @@ export default function TaskModal(props) {
   };
 
   const plusforprojma = () => {
+    console.log("plusforprojma");
     const formdata = new FormData();
     formdata.append("estimate", estimate);
     formdata.append("spend", done);
@@ -283,6 +284,7 @@ export default function TaskModal(props) {
     apiInstance
       .patch(`/workspaces/task/${params.task_id}/update-task/`, formdata)
       .then((res) => {
+        console.log("navid");
         console.log(res);
       });
   };
@@ -527,7 +529,6 @@ export default function TaskModal(props) {
                         style={{ display: "flex", justifyContent: "center" }}
                       >
                         <div
-                          className="duetime-showDate"
                           style={{
                             width: "47%",
                             height: "37px",
@@ -536,11 +537,13 @@ export default function TaskModal(props) {
                             justifyContent: "center",
                           }}
                         >
-                          {/* {dueDate.toString() != "" ? ( */}
-                          {/*   <div>{dueDate.toString().replaceAll("-", "/")}</div> */}
-                          {/* ) : ( */}
-                          {/*   <div></div> */}
-                          {/* )} */}
+                          {dueDate != null ? (
+                            <div className="duetime-showDate">
+                              {dueDate.toString().replaceAll("-", "/")}
+                            </div>
+                          ) : (
+                            <div></div>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -1022,6 +1025,7 @@ export default function TaskModal(props) {
                               height: "30%",
                             }}
                             type="submit"
+                            onClick={plusforprojma}
                             variant="contained"
                           >
                             ثبت
