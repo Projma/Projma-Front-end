@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -60,6 +60,7 @@ export default function SignIn() {
       });
   }, []);
   const handleSubmit = (event) => {
+    console.log("handleSubmit");
     event.preventDefault();
     setErrorUsername(false);
     setErrorPassword(false);
@@ -152,7 +153,7 @@ export default function SignIn() {
                 </Typography>
                 <Box
                   component="form"
-                  className="shadow"
+                  className="registration-form shadow"
                   onSubmit={handleSubmit}
                   noValidate
                   error

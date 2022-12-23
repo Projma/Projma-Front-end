@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -108,8 +108,11 @@ export default function SignUp() {
       signup_form_data.append("email", email);
       signup_form_data.append("password", password);
       setIsPost(true);
-      apiInstance
-        .post("accounts/users/signup/", signup_form_data)
+      axios
+        .post(
+          "https://mohammadosoolian.pythonanywhere.com/accounts/users/signup/",
+          signup_form_data
+        )
         .then((res) => {
           toast.success("ثبت‌نام با موفقیت انجام شد.", {
             position: toast.POSITION.BOTTOM_LEFT,
@@ -183,13 +186,12 @@ export default function SignUp() {
                 onSubmit={handleSubmit}
                 sx={{
                   mt: 3,
-
                   borderRadius: 3,
                   border: "1px solid none",
                   backgroundImage:
                     "linear-gradient(to right bottom, #001E3C 0%, #0059B2 130%)",
                 }}
-                className="shadow"
+                className="shadow registration-form"
               >
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>

@@ -56,7 +56,7 @@ const cacheRtl = createCache({
 function APIcall() {}
 
 export default function TaskModal(props) {
-  const params = {task_id: props.cardId, board_id: props.boardId};
+  const params = { task_id: props.cardId, board_id: props.boardId };
   console.log(params);
   const handleRemoveChecklist = (id) => {
     setAllChecklists((prevState) => {
@@ -271,6 +271,7 @@ export default function TaskModal(props) {
   };
 
   const plusforprojma = () => {
+    console.log("plusforprojma");
     const formdata = new FormData();
     formdata.append("estimate", estimate);
     formdata.append("spend", done);
@@ -283,6 +284,7 @@ export default function TaskModal(props) {
     apiInstance
       .patch(`/workspaces/task/${params.task_id}/update-task/`, formdata)
       .then((res) => {
+        console.log("navid");
         console.log(res);
       });
   };
@@ -452,8 +454,11 @@ export default function TaskModal(props) {
       ></Button> */}
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
-          <div className="taskmodal-page" style={{width: "50vw",marginTop: 0}}>
-            <div className="taskmodal-container" style={{width: "100%"}}>
+          <div
+            className="taskmodal-page"
+            style={{ width: "50vw", marginTop: 0 }}
+          >
+            <div className="taskmodal-container" style={{ width: "100%" }}>
               <div className="taskmodal-header flex-row flex-column-gap-2">
                 <div className="flex-taskmodal" style={{ marginTop: "3px" }}>
                   <PersonIcon
@@ -524,7 +529,6 @@ export default function TaskModal(props) {
                         style={{ display: "flex", justifyContent: "center" }}
                       >
                         <div
-                          className="duetime-showDate"
                           style={{
                             width: "47%",
                             height: "37px",
@@ -533,11 +537,13 @@ export default function TaskModal(props) {
                             justifyContent: "center",
                           }}
                         >
-                          {/* {dueDate.toString() != "" ? ( */}
-                          {/*   <div>{dueDate.toString().replaceAll("-", "/")}</div> */}
-                          {/* ) : ( */}
-                          {/*   <div></div> */}
-                          {/* )} */}
+                          {dueDate != null ? (
+                            <div className="duetime-showDate">
+                              {dueDate.toString().replaceAll("-", "/")}
+                            </div>
+                          ) : (
+                            <div></div>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -1019,6 +1025,7 @@ export default function TaskModal(props) {
                               height: "30%",
                             }}
                             type="submit"
+                            onClick={plusforprojma}
                             variant="contained"
                           >
                             ثبت
@@ -1243,7 +1250,11 @@ export default function TaskModal(props) {
                   </div>
                 </div>
                 <div className="flex-column taskmodal-body-smaller">
-                  <Members params={params} />
+                  <Members
+                    params={params}
+                    setDoers={setListOfDoers}
+                    doer={ListOfDoers}
+                  />
                   <Labels
                     params={params}
                     task_labels={ListOfLabels}
@@ -1251,11 +1262,11 @@ export default function TaskModal(props) {
                   />
                   <CheckList params={params} />
                   <Attachments params={params} />
-                  {/* <DueTime */}
-                  {/*   params={params} */}
-                  {/*   dueDate={dueDate} */}
-                  {/*   setDueTime={setDueDate} */}
-                  {/* /> */}
+                  <DueTime
+                    params={params}
+                    dueDate={dueDate}
+                    setDueTime={setDueDate}
+                  />
                 </div>
               </div>
             </div>

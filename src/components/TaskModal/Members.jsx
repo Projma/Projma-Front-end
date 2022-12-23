@@ -23,31 +23,7 @@ function check_username_in_list(username, list) {
   return false;
 }
 
-// function add_member_to_doers(params, member, ListOfDoers) {
-//   const formData = new FormData();
-//   const json = {
-//     doers: [member.id],
-//   };
-//   if (ListOfDoers.includes(member)) {
-//     console.log("if");
-//     formData.append("doers", [member.id]);
-//     apiInstance
-//       .patch(`/workspaces/task/${params.task_id}/add-doers-to-task/`, json)
-//       .then((res) => {
-//         console.log(res);
-//       });
-//   } else {
-//     formData.append("doers", [member.id]);
-//     apiInstance
-//       .patch(`/workspaces/task/${params.task_id}/delete-doers-from-task/`, json)
-//       .then((res) => {
-//         console.log("else");
-//         console.log(res);
-//       });
-//   }
-// }
-
-export default function Members({ params }) {
+export default function Members({ params, setDoers, doer }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [changeMemberStatus, setChangeMemberStatus] = React.useState(false);
 
@@ -59,19 +35,6 @@ export default function Members({ params }) {
     setAnchorEl(null);
   };
   useEffect(() => {
-    apiInstance
-      .get(`/workspaces/task/${params.task_id}/get-task/`)
-      .then((res) => {
-        // console.log(res);
-        const doer = res.data.doers.map((item) => ({
-          email: item.email,
-          userName: item.username,
-          firstName: item.first_name,
-          lastName: item.last_name,
-          image: item.profile_pic,
-        }));
-        setListOfDoers(doer);
-      });
     apiInstance
       .get(`/workspaces/board/${params.board_id}/members/`)
       .then((res) => {
@@ -89,7 +52,6 @@ export default function Members({ params }) {
   }, []);
 
   const [ListOfMembers, setListOfMembers] = React.useState([]);
-  const [ListOfDoers, setListOfDoers] = React.useState([]);
   const baseURL = baseUrl.substring(0, baseUrl.length - 1);
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -104,16 +66,14 @@ export default function Members({ params }) {
   };
   const add_member_to_doers = (member) => {
     const formData = new FormData();
-    console.log(ListOfDoers);
+    console.log(doer);
     console.log(member.id);
     const json = {
       doers: [member.id],
     };
     console.log(json);
-    if (check_username_in_list(member.userName, ListOfDoers)) {
-      setListOfDoers(
-        ListOfDoers.filter((item) => item.userName !== member.userName)
-      );
+    if (check_username_in_list(member.userName, doer)) {
+      setDoers(doer.filter((item) => item.userName !== member.userName));
       console.log("if");
       formData.append("doers", [member.id]);
       apiInstance
@@ -126,7 +86,7 @@ export default function Members({ params }) {
           console.log(res);
         });
     } else {
-      setListOfDoers([...ListOfDoers, member]);
+      setDoers([...doer, member]);
       formData.append("doers", [member.id]);
 
       apiInstance
@@ -265,10 +225,7 @@ export default function Members({ params }) {
                           " )"}
                       </div>
                       <div>
-                        {check_username_in_list(
-                          member.userName,
-                          ListOfDoers
-                        ) ? (
+                        {check_username_in_list(member.userName, doer) ? (
                           <CheckBoxIcon
                             fontSize="large"
                             className="flex taskmodal-members-checkbox"
