@@ -1,0 +1,21 @@
+.card-item_label {
+  display: flex;
+  gap: 0.3rem;
+  height: auto;
+  width: auto;
+  flex-wrap: wrap;
+}
+
+.card-item_label-container {
+  display: flex;
+  font-size: 1.4rem;
+  align-items: center;
+  justify-content: center;
+  color: #ffff;
+  height: 100%;
+  width: fit-content;
+  border-radius: 1rem;
+  padding: 0.2rem 1.5rem;
+  font-weight: bold;
+  /*letter-spacing: 0.1rem;*/
+}
