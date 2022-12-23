@@ -53,18 +53,9 @@ const Board = (props) => {
     setLists((pervlists) => [...pervlists,data]);
   };
 
-  // const submitHandler = (event) => {
-  //   event.preventDefault();
-  //   // setLists((pervList) => {
-  //   //   return [...pervList, { name: inputName, id: uuid() }];
-  //   // });
-  //   const data = new FormData();
-  //   data.append("title", inputName);
-  //   setIsPost(true);
-  //   postCreateList(data, props.boardId);
-  //   setIsclicked(false);
-  //   setInputName("");
-  // };
+  const handleRemoveList = (id) => {
+    setLists(lists.filter(lists => lists.id !== id));
+  }
 
   const dragHandler = (result) => {
     const destination = result.destination;
@@ -170,6 +161,7 @@ const Board = (props) => {
                     card={list.tasks}
                     boardId={props.boardId}
                     onReq={handleReq}
+                    remId={handleRemoveList}
                   />
                 </div>
               ))}
