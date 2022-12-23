@@ -60,6 +60,7 @@ export default function SignIn() {
       });
   }, []);
   const handleSubmit = (event) => {
+    console.log("handleSubmit");
     event.preventDefault();
     setErrorUsername(false);
     setErrorPassword(false);
@@ -151,6 +152,7 @@ export default function SignIn() {
                   صفحه ورود
                 </Typography>
                 <Box
+                  component="form"
                   className="registration-form shadow"
                   onSubmit={handleSubmit}
                   noValidate
