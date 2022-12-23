@@ -16,7 +16,7 @@ import { baseUrl } from "../../utilities/constants";
 
 function check_username_in_list(username, list) {
   for (let i = 0; i < list.length; i++) {
-    if (list[i].userName === username) {
+    if (list[i].username === username) {
       return true;
     }
   }
@@ -75,7 +75,6 @@ export default function Members({ params, setDoers, doer }) {
     if (check_username_in_list(member.userName, doer)) {
       setDoers(doer.filter((item) => item.userName !== member.userName));
       console.log("if");
-      formData.append("doers", [member.id]);
       apiInstance
         .patch(
           `/workspaces/task/${params.task_id}/delete-doers-from-task/`,
@@ -87,7 +86,7 @@ export default function Members({ params, setDoers, doer }) {
         });
     } else {
       setDoers([...doer, member]);
-      formData.append("doers", [member.id]);
+      const form_data = { doers: [member.id] };
 
       apiInstance
         .patch(`/workspaces/task/${params.task_id}/add-doers-to-task/`, json)
