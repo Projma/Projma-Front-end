@@ -1,0 +1,143 @@
+.card_container {
+  min-height: 1rem;
+  max-width: 100%;
+  background-color: #0A1929;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  /*border: 0.1rem solid var(--mui-blue);*/
+}
+
+.card_container:hover {
+  cursor: pointer;
+  opacity: 90%;
+}
+
+.card_container:hover .card_header{
+  display: flex;
+}
+
+.card_header {
+  display: none;
+  height: auto;
+  color: #fff;
+  flex-direction: row-reverse;
+  margin-left: 0.4rem;
+  padding: 0.4rem;
+}
+
+.card_close-icon, .card_edit-icon {
+  display: flex;
+  align-items: center;
+  padding: 0.2rem;
+  margin-right: 0.2rem;
+  opacity: revert;
+}
+
+.card_close-icon:hover, .card_edit-icon:hover {
+  cursor: pointer;
+  /*opacity: 60%;*/
+  background-color: var(--mui-blue);
+  border-radius: 0.5rem;
+  opacity: revert;
+}
+
+.card_body {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card_cover {
+  margin: 0 1rem;
+  padding: 0.4rem;
+}
+
+.card_title {
+  width: 100%;
+  margin: 0 1rem 0.2rem;
+  padding: 0.4rem;
+}
+
+.card_disc {
+  direction: rtl;
+  text-justify: auto;
+  text-align: right;
+  color: var(--minor-item-color);
+  /*margin: 0 1rem;*/
+  margin-top: 0.1rem;
+  padding: 0 0.4rem;
+  font-size: 1.4rem;
+}
+
+.card_label {
+  display: flex;
+  width: 100%;
+  margin: 0 1rem 0.2rem;
+  padding: 0.4rem;
+}
+
+.board_footer {
+  display: flex;
+  width: 100%;
+  margin: 0.2rem 0.2rem;
+  padding: 0.4rem;
+  flex-direction: row-reverse;
+  align-items: center;
+  /* gap: 0.1rem; */
+  justify-content: space-between;
+}
+
+.board_footer-icon {
+  display: flex;
+  color: #fff;
+  /*font-size: 1.6rem;*/
+  gap: 0.5rem;
+}
+
+.board_icon-container {
+  width: auto;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.board_checklist-finish {
+  color: #66bb6a !important;
+}
+
+.board_avatar-profile-picture:hover , .board_avatar-profile-picture:last-child:hover {
+  opacity: 60%;
+}
+
+
+
+.board_icon_container {
+  position: absolute;
+  display: none;
+  left: 1%;
+  top: 1%;
+}
+
+.board_card:hover .board_icon_container {
+  display: flex;
+  width: auto;
+  /* justify-content: space-between; */
+  gap: 0.1rem;
+}
+
+.board_default-icon {
+  color: var(--minor-item-color);
+  font-size: 1.7rem !important;
+  text-align: center;
+}
+
+.board_default-footer-icon {
+  color: var(--minor-item-color);
+  font-size: 1.7rem !important;
+  text-align: center;
+}

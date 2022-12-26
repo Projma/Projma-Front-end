@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useSelector } from "react";
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
@@ -27,7 +27,12 @@ const style = {
   p: 4,
 };
 
-export default function CreateBoardModal({ params, on_submit }) {
+export default function CreateBoardModal({
+  params,
+  on_submit,
+  boards,
+  setBoards,
+}) {
   const handleChange = (e) => {
     const [file] = e.target.files;
     setBinaryFile(e.target.files[0]);
@@ -52,7 +57,8 @@ export default function CreateBoardModal({ params, on_submit }) {
     form_data.append("name", title);
     form_data.append("description", description);
     form_data.append("type", "education");
-    on_submit(form_data);
+    on_submit(form_data, boards, setBoards);
+    handleClose();
   };
   return (
     <div>

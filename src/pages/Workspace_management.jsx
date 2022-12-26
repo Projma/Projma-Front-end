@@ -7,8 +7,11 @@ import Members from "../components/Workspace_management/Members/Members";
 import BasicModal from "../components/Workspace_management/CreateBoardModal/CreateBoard";
 import Navbar from "../components/Workspace_management/Navbar/Navbar";
 import "../styles/Workspace_management.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Header from "../components/Header/Header";
 import Board from "../components/Workspace_management/Board/Board";
+import { Helmet } from "react-helmet";
 
 const Workspace_management = () => {
   const params = useParams();
@@ -25,18 +28,26 @@ const Workspace_management = () => {
       });
   }, []);
 
-  const submit_form = (form_data) => {
+  const submit_form = (form_data, boards, setBoards) => {
     console.log("here");
     apiInstance
       .post(`/workspaces/workspaceowner/${params.id}/create-board/`, form_data)
       .then((res) => {
         console.log(res.data);
+        setBoards([...boards, res.data]);
+        toast.success("بورد با موفقیت ساخته شد", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
       });
   };
   return (
     <div className="mother-div">
+      <Helmet>
+        <title>فضای کاری</title>
+      </Helmet>
       {/* <div> */}
-
+      <ToastContainer />
       <ResponsiveDrawerRight width={"249px"} />
       {/* </div> */}
       {/* <Link to="workspace/members">Members</Link> */}

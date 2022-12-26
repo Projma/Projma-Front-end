@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
+import {Box} from "@mui/material";
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -365,20 +365,26 @@ export default function BasicModal(props) {
                                     // onClick={this.isClicked}
                                     onClick={() => {
                                         let workspace_name = document.getElementById("workspace_name").value;
+                                        let isValid = true;
                                         if (workspace_name === "") {
                                             setErrorWorkspaceName(true);
+                                            isValid = false;
                                         }
                                         else {
                                             setErrorWorkspaceName(false);
                                         }
                                         if (type == "") {
                                             setErrorWorkspaceType(true);
+                                            isValid = false;
                                         }
                                         else {
                                             setErrorWorkspaceType(false);
                                         }
-                                        if (errorWorkspaceName && errorWorkspaceType) {
+                                        if (isValid === false) {
                                             return;
+                                        }
+                                        else {
+                                            setDisableButton(true); // make text spinning and disable button
                                         }
 
                                         let create_workspace_formdata = new FormData();
@@ -387,7 +393,6 @@ export default function BasicModal(props) {
                                         create_workspace_formdata.append("description", document.getElementById("workspace_description").value);
                                         // console.log(create_workspace_formdata);
                                         // console.log("clicked");
-                                        setDisableButton(true); // make text spinning and disable button
                                         apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
                                             console.log(response);
                                             // console.log(response.data);

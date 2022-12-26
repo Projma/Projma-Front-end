@@ -1,37 +1,25 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Navbar from "../Navbar/Navbar";
 import Divider from "@mui/material/Divider";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import DeleteDialog from "./DeleteDialog";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { baseUrl } from "../../../utilities/constants";
 import "./Members.scss";
-import x from "../../../static/images/workspace_management/members/mohammadi.jpg";
-const members = [
-  { id: 2, firstName: "1", lastName: "1", email: "email@email.ir", image: x },
-  { id: 2, firstName: "2", lastName: "2", email: "email@email.ir", image: x },
-  { id: 2, firstName: "3", lastName: "3", email: "email@email.ir", image: x },
-  { id: 2, firstName: "4", lastName: "4", email: "email@email.ir", image: x },
-  { id: 2, firstName: "5", lastName: "5", email: "email@email.ir", image: x },
-  { id: 2, firstName: "6", lastName: "6", email: "email@email.ir", image: x },
-  { id: 2, firstName: "7", lastName: "7", email: "email@email.ir", image: x },
-  { id: 2, firstName: "8", lastName: "8", email: "email@email.ir", image: x },
-];
 
 const Members = ({ params }) => {
   const [members, setMembers] = React.useState([]);
   const [buttonClicked, setButtonClicked] = React.useState(false);
   const [workspace, setWorkspace] = React.useState({});
+  const [button_inner, setButton_inner] = React.useState("کپی لینک دعوت");
   useEffect(() => {
     apiInstance
       .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
       .then((res) => {
-        // console.log(res.data);
-        console.log(res.data);
-        console.log(
-          "*********************************************************"
-        );
         setWorkspace(res.data);
       });
   }, []);
@@ -46,36 +34,36 @@ const Members = ({ params }) => {
           lastName: obj.user.last_name,
           userName: obj.user.username,
           email: obj.user.email,
-          image: obj.profile_pic,
+          image: baseUrl + obj.profile_pic?.slice(1),
         }));
+        console.log(baseUrl + res.data.profile_pic?.slice(1));
         setMembers(members);
         console.log(members);
       });
-    // apiInstance
-    //   .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
-    //   .then((res) => {
-    //     // console.log(res.data);
-    //     console.log(res.data);
-    //     console.log(
-    //       "*********************************************************"
-    //     );
-    //     setWorkspace(res.data);
-    //   });
   }, []);
   const navigate = useNavigate();
   const copyLink = (e) => {
     console.log(`${baseUrl}workspaces/workspaceowner/${params.id}/invite-link`);
-    apiInstance
-      .get(`workspaces/workspaceowner/${params.id}/invite_link/`)
-      .then((res) => {
-        console.log(res.data);
-        navigator.clipboard.writeText(
-          `localhost:3001/invite_page/${res.data}/`
-        );
-      });
+    if (button_inner === "کپی لینک دعوت") {
+      apiInstance
+        .get(`workspaces/workspaceowner/${params.id}/invite-link/`)
+        .then((res) => {
+          navigator.clipboard
+            .writeText(`localhost:3000/invite_page/${res.data}/`)
+            .then(
+              buttonRef.current.blur(),
+              setButton_inner("لینک کپی شد"),
+
+              function (err) {
+                console.error("Async: Could not copy text: ", err);
+              }
+            );
+        });
+    } else {
+      setButton_inner("کپی لینک دعوت");
+    }
   };
   const go_to_profile = (e) => {
-    console.log(e.currentTarget.id);
     navigate(`/profileview/${e.currentTarget.id}/`);
   };
 
@@ -88,9 +76,14 @@ const Members = ({ params }) => {
       .then((res) => {
         console.log(res.status);
         console.log("in delete person");
+
         setMembers((members) =>
           members.filter((member) => member.id !== user_id)
         );
+        toast.success("کاربر با موفقیت حذف شد", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
       });
     setButtonClicked((prev) => !prev);
   };
@@ -107,8 +100,10 @@ const Members = ({ params }) => {
         console.log(res.data);
       });
   };
+  const buttonRef = useRef(null);
   return (
     <div className="main-div">
+      <ToastContainer />
       <Navbar params={params} />
       <div className="copy-link">
         <div className="copy-link-text">
@@ -117,8 +112,8 @@ const Members = ({ params }) => {
             کارگاه شما بپیوندند
           </h2>
         </div>
-        <button onClick={copyLink} class="button-9">
-          کپی لینک دعوت
+        <button onClick={copyLink} ref={buttonRef} class="button-9">
+          {button_inner}
         </button>
       </div>
       <Divider
@@ -129,16 +124,6 @@ const Members = ({ params }) => {
         }}
       />
       <div className="members">
-        {/* <div className="members-text">اعضای کارگاه</div>
-        <div className="members-list">
-          <div className="members-list-header">
-            <div className="members-list-header-item">نام</div>
-            <div className="members-list-header-item">ایمیل</div>
-            <div className="members-list-header-item">نقش</div>
-            <div className="members-list-header-item">عملیات</div>
-          </div>
-          <div className="members-list-item"></div>
-        </div> */}
         <table class="styled-table">
           <thead>
             <tr>
@@ -175,14 +160,20 @@ const Members = ({ params }) => {
                   </button>
                 </td>
                 <td>
-                  <button
+                  <DeleteDialog
+                    className="ws_members-person-remove-button"
+                    key={member.id}
+                    removeMember={removeMember}
+                    user_id={member.id}
+                  />
+                  {/* <button
                     key={member.id}
                     id={member.userName}
                     className="ws_members-person-remove-button"
                     onClick={(event) => removeMember(event, member.id)}
                   >
                     <PersonRemoveIcon sx={{ color: "#fff" }} />
-                  </button>
+                  </button> */}
                 </td>
               </tr>
             ))}

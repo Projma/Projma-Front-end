@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../Header/Header";
 import Board from "../Board/UI/Board";
 import Footer from "../Shared/Footer";
+import { Helmet } from "react-helmet";
 
 const Kanban = () => {
   const baseLink = window.location.href;
@@ -10,9 +11,12 @@ const Kanban = () => {
   };
   return (
     <div className="Kanban_main-page">
-      <Header/>
-      <Board boardId={getLinkInfo(baseLink)}/>
-      <Footer/>
+      <Helmet>
+        <title>بورد</title>
+      </Helmet>
+      <Header />
+      <Board boardId={getLinkInfo(baseLink)} />
+      <Footer />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
+import {Box} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import StyledTextField from "../Shared/StyledTextField";
@@ -12,6 +12,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "../../styles/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
@@ -118,13 +119,18 @@ const ResetPassword = () => {
     }
   };
 
-  document.body.style.backgroundColor = "#0A1929";
+  document.body.style.backgroundColor = "var(--minor-background)";
 
   return (
     <>
       {isPost ? <Loading /> : null}
-      {isFail ? <ToastContainer autoClose={5000} style={{fontSize:"1.2rem"}}/> : null}
+      {isFail ? (
+        <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
+      ) : null}
       <Container maxWidth="xs">
+        <Helmet>
+          <title>تغییر رمز عبور</title>
+        </Helmet>
         <CssBaseline />
         <Box
           sx={{
@@ -136,10 +142,10 @@ const ResetPassword = () => {
             justifyContent: "center",
             border: "1px solid none",
             borderRadius: 3,
-            // backgroundColor: "#001E3C",
+            // backgroundColor: "var(--main-background)",
             opacity: 1,
             backgroundImage:
-              "linear-gradient(to right bottom, #001E3C 0%, #0059B2 130%)",
+              "linear-gradient(to right bottom, var(--main-background) 0%, #0059B2 130%)",
           }}
         >
           <Box

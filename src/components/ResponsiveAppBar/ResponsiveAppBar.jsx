@@ -1,6 +1,6 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
+import {Box} from "@mui/material";
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -74,13 +74,14 @@ function ResponsiveAppBar() {
     let settings = ['ورود', 'پروفایل', 'داشبورد', 'تغییر رمز عبور', 'خروج']; // حساب کاربری
     if (state.isAuthenticated === false) {
         // dispatch(setToken(localStorage.getItem("token")));
-        settings = ['ورود'];
+        settings = ['ورود', 'ثبت نام'];
     }
     else {
         settings = ['پروفایل', 'داشبورد', 'تغییر رمز عبور', 'خروج'];
     }
     let settings_map_to_functions = {
         "ورود": '/signin/',
+        "ثبت نام": '/signup/',
         "پروفایل": '/profile/',
         "داشبورد": '/dashboard/',
         "تغییر رمز عبور": '/changepassword/',

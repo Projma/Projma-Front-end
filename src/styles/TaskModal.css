@@ -11,7 +11,6 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: 5%;
   height: fit-content;
 }
 
@@ -44,7 +43,7 @@
   width: 100%;
 }
 
-.flex {
+.flex-taskmodal {
   display: flex;
 }
 .flex-column {
@@ -82,7 +81,7 @@
 }
 
 .taskmodal-body-smaller {
-  width: 20%;
+  width: 25%;
   height: 100%;
   justify-content: center;
   align-items: center;
@@ -90,16 +89,50 @@
 
 .taskmodal-body-members {
   margin-left: 8px;
-  width: 100%;
-  width: fit-content;
+  width: 100% !important;
   margin-left: 5%;
 }
 
 .taskmodal-body-options {
-  height: 15%;
-  width: 90%;
+  height: fit-content;
+  width: fit-content;
   align-items: center;
   margin-right: 6.5%;
+  width: 80%;
+}
+
+.taskmodal-body-attachment-header {
+  column-gap: 3%;
+}
+
+.taskmodal-body-attachment-list-item {
+  column-gap: 2%;
+  flex-direction: column;
+  width: 100%;
+}
+
+.taskmodal-body-attachment-list {
+  margin-top: 3%;
+  padding: 3%;
+}
+
+.taskmodal-body-attachment-list-item-createdTime {
+  margin-top: 2%;
+  font-size: 12px;
+  color: white;
+}
+
+.taskmodal-body-attachment-list-item-title {
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+}
+
+.taskmodal-body-attachment-list-item-icon {
+}
+
+.taskmodal-body-labels {
+  width: 100%;
 }
 
 .taskmodel-body-members-title {
@@ -107,7 +140,7 @@
   display: block;
   font-size: 13px;
   font-weight: 600;
-  margin-bottom: 4%;
+  margin-bottom: 2%;
 }
 
 .flex-gap {
@@ -157,10 +190,15 @@
   width: 100%;
 }
 
+.Vazir {
+  font-family: vazir !important;
+}
+
 .taskmodal-checklist-showList {
   margin-right: 2%;
   width: 100%;
   font-size: 14px;
+  direction: rtl !important;
 }
 
 .taskmodal-body-activity-box {
@@ -182,6 +220,16 @@
   color: #fff;
 }
 
+.taskmodal-attachment-link-btn {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2%;
+  width: 100%;
+}
+
+/* .taskmodal-attachment-link-btn:hover {
+  background-color: #5271ff !important;
+} */
 .taskmodal-button-setting {
   color: white;
   font-family: vazir;
@@ -194,6 +242,9 @@
   font-family: vazir;
 }
 
+.taskmodal-body-activity {
+  margin-top: 3%;
+}
 .taskmodal-body-activity-header {
   column-gap: 3%;
 }
@@ -209,6 +260,7 @@
 
 .taskmodal-comment-showList {
   width: 100%;
+  margin-top: 2%;
 }
 
 .taskmodal-comment-showList-auther {
@@ -250,10 +302,65 @@
   padding-top: 3px;
   justify-content: left;
   align-items: left;
+  border-radius: 60px;
 }
 .taskmodal-larger_smaller {
   display: flex;
   flex-direction: row;
+}
+
+.taskmodal-comment-showList-auther {
+  font-family: vazir;
+  font-size: 12px;
+  margin-right: 2%;
+  font-weight: bold;
+}
+
+.taskmodal-comment-showList-auther-time {
+  margin-right: 2%;
+}
+
+.MuiInputBase-input {
+  font-family: vazir !important;
+  /*font-size: 13px !important;*/
+}
+
+.taskmodal-plusforprojma {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 40px;
+  margin-right: 20px;
+  margin-top: 6%;
+}
+
+.taskmodal-plusforprojma-input {
+  background-color: #7498bec3;
+  display: flex;
+  justify-content: center;
+  color: white;
+  width: 30px;
+  margin-right: 10%;
+  height: 20px;
+}
+
+.taskmodal-plusforprojma-input::placeholder {
+  font-family: vazir !important;
+  font-size: 9px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.taskmodal-body-duetime {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-plusforprojma {
+  padding: 0% !important;
 }
 
 @media screen and (max-width: 600px) {

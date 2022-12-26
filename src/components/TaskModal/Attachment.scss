@@ -1,0 +1,59 @@
+.tm_attachments-header {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
+}
+
+.tm_attachments-body {
+  padding: 1rem;
+  border: 2px solid #00cec9;
+  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
+}
+
+.attachment_button-33 {
+  background-color: #c2fbd7;
+  border-radius: 100px;
+  box-shadow: rgba(44, 187, 99, 0.2) 0 -25px 18px -14px inset,
+    rgba(44, 187, 99, 0.15) 0 1px 2px, rgba(44, 187, 99, 0.15) 0 2px 4px,
+    rgba(44, 187, 99, 0.15) 0 4px 8px, rgba(44, 187, 99, 0.15) 0 8px 16px,
+    rgba(44, 187, 99, 0.15) 0 16px 32px;
+  color: green;
+  cursor: pointer;
+  display: inline-block;
+  // font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+  font-family: Vazir;
+  padding: 7px 15px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.attachment_button-33:hover {
+  box-shadow: rgba(44, 187, 99, 0.35) 0 -25px 18px -14px inset,
+    rgba(44, 187, 99, 0.25) 0 1px 2px, rgba(44, 187, 99, 0.25) 0 2px 4px,
+    rgba(44, 187, 99, 0.25) 0 4px 8px, rgba(44, 187, 99, 0.25) 0 8px 16px,
+    rgba(44, 187, 99, 0.25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
+}
+
+input[type="file"]::file-selector-button {
+  border: 2px solid #5090d3;
+  padding: 0.2em 0.4em;
+  border-radius: 0.5em;
+  background-color: #fff;
+  // background-color: #a29bfe;
+  transition: 1s;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: #173a5e;
+  color: #fff;
+  // background-color: #81ecec;
+  border: 2px solid #00cec9;
+}

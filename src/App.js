@@ -24,6 +24,7 @@ import { faIR } from "@mui/material/locale";
 import TaskModal from "./components/TaskModal/TaskModal";
 import { useSelector } from "react-redux";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import BoardInvitation from "./pages/BoardInvitation";
 
 const theme = createTheme(
   {
@@ -45,28 +46,63 @@ function App() {
         <Router>
           <Routes>
             <Route exact path="/" element={<Landing />} />
-            <Route exact path="/dashboard" element={<Dashborad />} />
-            {/* <Route exact path="/dashboard" element={<PrivateRoute children={<Dashborad />}/> } /> */}
-            {/* <Route exact path="/dashboard" element={<PrivateRoute> <Dashborad /> </PrivateRoute> } /> */}
+            <Route
+              exact
+              path="/dashboard"
+              element={<PrivateRoute children={<Dashborad />} />}
+            />
             <Route exact path="/signin" element={<SignIn />} />
             <Route exact path="/signup" element={<SignUp />} />
-            <Route exact path="/profile" element={<Profile />} />
+            <Route
+              exact
+              path="/profile"
+              element={<PrivateRoute children={<Profile />} />}
+            />
             <Route exact path="/forget-password" element={<ForgetPassword />} />
-            <Route exact path="/reset-password" element={<ResetPassword />} />
-            <Route path="workspace/:id/*" element={<Workspace_management />} />
-            <Route exact path="/profileview/" element={<ProfileView />} />
-            <Route exact path="/changepassword" element={<ChangePassword />} />
-            <Route exact path="/kanban/:id" element={<Kanban />} />
+            <Route
+              exact
+              path="/reset-password"
+              element={<PrivateRoute children={<ResetPassword />} />}
+            />
+            <Route
+              path="workspace/:id/*"
+              element={
+                <PrivateRoute
+                  children={
+                    <PrivateRoute children={<Workspace_management />} />
+                  }
+                />
+              }
+            />
+            <Route
+              exact
+              path="/profileview/:username"
+              element={<ProfileView />}
+            />
+            <Route
+              exact
+              path="/changepassword"
+              element={<PrivateRoute children={<ChangePassword />} />}
+            />
+            <Route
+              exact
+              path="/kanban/:id"
+              element={
+                <PrivateRoute
+                  children={<PrivateRoute children={<Kanban />} />}
+                />
+              }
+            />
             <Route exact path="/invite_page/:token" element={<InvitePage />} />
+            <Route
+              exact
+              path="/borad_invitation/:id/:token"
+              element={<PrivateRoute children={<BoardInvitation />} />}
+            />
             <Route
               exact
               path="/email-verification"
               element={<Email_verification_2 />}
-            />
-            <Route
-              exact
-              path=":board_id/taskmodal/:task_id/*"
-              element={<TaskModal />}
             />
           </Routes>
         </Router>

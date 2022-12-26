@@ -1,4 +1,18 @@
-.Kanban_main-page {
-  height: 100vh;
-  width: 100vw;
+
+.kanban_main-page {
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+  max-width: 100vw;
+}
+
+.kanban_board {
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.kanban_header {
+}
+
+.kanban_footer {
 }

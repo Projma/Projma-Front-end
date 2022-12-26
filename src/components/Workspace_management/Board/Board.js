@@ -119,7 +119,7 @@ const Board = ({ params, on_submit }) => {
       )}
       <div className="workspace--my-board">
         <div className="workspace--board-header">
-          <DashboardIcon />
+          <DashboardIcon sx={{ color: "#fff", marginLeft: "10px" }} />
           <p className="workspace--board-header-title">بورد ها</p>
         </div>
         <div className="workspace--board-body">
@@ -133,7 +133,12 @@ const Board = ({ params, on_submit }) => {
                 onStarred={starredHandler}
               />
             ))}
-            <CreateBoardModal params={params} on_submit={on_submit} />
+            <CreateBoardModal
+              params={params}
+              on_submit={on_submit}
+              boards={list}
+              setBoards={setList}
+            />
           </div>
         </div>
       </div>

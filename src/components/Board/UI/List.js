@@ -1,289 +1,317 @@
-import React, { useState, useEffect } from "react";
-import "../Styles/List.css";
-import Card from "./Card";
-import PerTextField from "../../Shared/PerTextField";
-import StyledTextField from "../../Shared/StyledTextField";
-import Popover from "@mui/material/Popover";
-import { Droppable } from "react-beautiful-dnd";
-import { v4 as uuid } from "uuid";
-import axios from "axios";
-import Loading from "../../Shared/Loading";
-import { toast, ToastContainer } from "react-toastify";
-import "../../../styles/ReactToastify.css";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import InputName from "../../Shared/InputName";
+import React, { useState, useEffect } from 'react';
+import './Styles/List.css';
+import Card from './Card';
+import PerTextField from '../../Shared/PerTextField';
+import StyledTextField from '../../Shared/StyledTextField';
+import Popover from '@mui/material/Popover';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { v4 as uuid } from 'uuid';
+import axios from 'axios';
+import Loading from '../../Shared/Loading';
+import { toast, ToastContainer } from 'react-toastify';
+import '../../../styles/ReactToastify.css';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import InputName from '../../Shared/InputName';
+import apiInstance from '../../../utilities/axiosConfig';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import AddIcon from '@mui/icons-material/Add';
+import { Button } from '@mui/material';
 
 const List = (props) => {
   const [cards, setCards] = useState(props.card);
-  const [isclicked, setIsclicked] = useState(false);
-  const [inputName, setInputName] = useState("");
-  const [isToast, setIsToast] = useState(false);
-  const [isPost, setIsPost] = useState(null);
+  const [addCard, setAddCard] = useState(false);
+  const [cardName, setCardName] = useState('');
+  const [listName, setListName] = useState(props.name);
   const [anchorEl, setAnchorEl] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [isDel, setIsDel] = useState(false);
-
-  useEffect(() => {
-    setIsToast(false);
-    setIsDel(false);
-    setIsOpen(false);
-  }, [isPost]);
+  const [req, setReq] = useState(false);
 
   const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const id = open ? 'simple-popover' : undefined;
 
+  useEffect(() => {
+    setCards(props.card);
+  }, []);
+
+  useEffect(() => {
+    setCards(props.card);
+  }, [props]);
   const reqCreateCard = async (data, id) =>
-    await axios
-      .post(`http://127.0.0.1:8000/workspaces/board/${id}/create-task/`, data)
-      .then(() => {
-        setIsToast(true);
-        toast.success("کارت با موفقیت ساخته شد", {
-          position: toast.POSITION.TOP_CENTER,
+    await apiInstance
+      .post(`/workspaces/tasklist/${id}/create-task/`, data)
+      .then((response) => {
+        toast.success('کارت با موفقیت ساخته شد', {
+          position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
+        setCards((pervCards) => [...pervCards, response.data]);
       })
       .catch((error) => {
         if (error.response.status === 404) {
-          setIsToast(true);
-          toast.error("عملیات با خطا مواجه شد", {
-            position: toast.POSITION.TOP_CENTER,
+          toast.error('عملیات با خطا مواجه شد', {
+            position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
         }
       })
       .finally(() => {
-        setIsPost(null);
-        props.onPost(true);
+        setReq(null);
+        console.log('reqCreateCard Done');
       });
 
   const reqDeleteList = async (id) =>
-    await axios
-      .delete(
-        `http://127.0.0.1:8000/workspaces/tasklist/${id}/delete-tasklist/`
-      )
+    await apiInstance
+      .delete(`workspaces/tasklist/${id}/delete-tasklist/`)
       .then(() => {
-        setIsToast(true);
-        toast.success("لیست با موفقیت حذف شد", {
+        toast.success('لیست با موفقیت حذف شد', {
           position: toast.POSITION.TOP_CENTER,
           rtl: true,
         });
+        props.remId(id);
       })
       .catch((error) => {
         if (error.response.status === 404) {
-          setIsToast(true);
-          toast.error("عملیات با خطا مواجه شد", {
+          toast.error('عملیات با خطا مواجه شد', {
             position: toast.POSITION.TOP_CENTER,
             rtl: true,
           });
         }
       })
       .finally(() => {
-        setIsPost(null);
-        props.onPost(true);
+        setReq(null);
+        console.log('reqDeleteList Done');
       });
 
-  const reqEditListName = async (data,id) =>
-    await axios
-      .patch(
-        `http://127.0.0.1:8000/workspaces/tasklist/${id}/update-tasklist/`,data
-      )
+  const reqEditListName = async (data, id, name) =>
+    await apiInstance
+      .patch(`workspaces/tasklist/${id}/update-tasklist/`, data)
       .then(() => {
-        setIsToast(true);
-        toast.success("اسم لیست با موفقیت عوض شد", {
+        toast.success('اسم لیست با موفقیت عوض شد', {
           position: toast.POSITION.TOP_CENTER,
           rtl: true,
         });
+        setListName(name);
       })
       .catch((error) => {
         if (error.response.status === 404) {
-          setIsToast(true);
-          toast.error("عملیات با خطا مواجه شد", {
+          toast.error('عملیات با خطا مواجه شد', {
             position: toast.POSITION.TOP_CENTER,
             rtl: true,
           });
         }
       })
       .finally(() => {
-        setIsPost(null);
-        props.onPost(true);
+        setReq(null);
       });
 
+  const addCardClickHandler = () => {
+    setAddCard(!addCard);
+  };
   const optionClickHandler = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const optionsHandler = () => {
-    setAnchorEl(null);
+  const handleRemoveCard = (id) => {
+    setCards(cards.filter(card => card.id !== id));
   };
 
-  const clickHandler = () => {
-    setIsclicked(!isclicked);
+  const handleAddCardSubmit = (e) => {
+    e.preventDefault();
+    setAddCard(!addCard);
+    setReq(true);
+    const data = new FormData();
+    data.append('title', cardName);
+    reqCreateCard(data, props.id);
+    setCardName('');
   };
 
-  const deleteListHandler = () => {
-    setIsPost(true);
+  const handleChangeListName = (name) => {
+    const data = new FormData();
+    data.append('title', name);
+    setReq(true);
+    reqEditListName(data, props.id, name);
+  };
+
+  const handleDeleteList = () => {
+    setReq(true);
     reqDeleteList(props.id);
     handleClose();
-  };
-
-  const submitHandler = (event) => {
-    event.preventDefault();
-    // setCards((pervList) => {
-    //   return [...pervList, { name: inputName, id: keycard.toString() }];
-    // });
-    const data = new FormData();
-    data.append("title", inputName);
-    setIsPost(true);
-    reqCreateCard(data, props.id);
-    setIsclicked(false);
-    setInputName("");
-    // keycard++;
   };
 
   const handleClose = () => {
     setIsOpen(false);
   };
 
-  const onPostHandler = (isa) => {
-    props.onPost(isa);
-  }
-
-  const changeNameHandler = (name) => {
-    const data = new FormData();
-    data.append("title",name);
-    setIsPost(true);
-    reqEditListName(data,props.id);
+  const handleOption = () => {
+    setAnchorEl(null);
   };
 
   return (
-    <div className="board_list">
-      {isPost ? <Loading /> : null}
-      {isToast ? (
-        <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
-      ) : null}
-      <div className="board_header">
-        {/* <p className="board_header-title">{props.name}</p> */}
-        <InputName
-          className="board_header-title"
-          name={props.name}
-          onChangeName={changeNameHandler}
-        />
-        <button className="board_header-button" onClick={optionClickHandler}>
-          <p className="board_button-title">...</p>
-        </button>
-        <Popover
-          id={id}
-          open={open}
-          anchorEl={anchorEl}
-          onClose={optionsHandler}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
+    <Draggable draggableId={String(props.id) + props.name} index={props.index}>
+      {(provided) => (
+        <div
+          className="list_container"
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
         >
-          <div className="board_option">
-            <p className="board_option-text board_option-title">
-              فهرست اقدامات لیست
-            </p>
-            <div className="board_option-button-container">
-              <button className="board_option-button" onClick={clickHandler}>
-                <p className="board_option-text">افزودن کارت</p>
-              </button>
-              <button
-                className="board_option-button"
-                onClick={() => {
-                  setIsOpen(true);
-                }}
-              >
-                <p className="board_option-text">حذف کردن لیست</p>
-              </button>
-              <Dialog
-                open={isOpen}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-              >
-                <DialogTitle id="alert-dialog-title">
-                  {"آیا از حذف کردن لیست مطمئن هستید؟"}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText
-                    id="alert-dialog-description"
-                    sx={{ color: "#fff" }}
-                  >
-                    اخطار: با حذف کردن لیست تمام کارت های داخل آن نیز حذف میشود
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <div className="List_dialog-button-container">
-                    <button
-                      onClick={() => {
-                        setIsDel(true);
-                        deleteListHandler();
-                      }}
-                      className="List_dialog-button"
-                    >
-                      تایید
-                    </button>
-                    <button
-                      onClick={handleClose}
-                      autoFocus
-                      className="List_dialog-button"
-                    >
-                      انصراف
-                    </button>
-                  </div>
-                </DialogActions>
-              </Dialog>
-            </div>
-          </div>
-        </Popover>
-      </div>
-      <div className="board_card-list">
-        {cards.map((card, index) => (
-          <Card name={card.title} key={uuid()} id={card.id} index={index} members={card.doers} checkTotal={card.checklists_num} checkDone={card.checked_checklists_num} attachNum={card.attachments_num} chatNum={card.comments_num} labels={card.labels} onPost={onPostHandler} boardId={props.boardId}/>
-        ))}
-      </div>
-      {/* <div className="board_space"></div> */}
-      <div className="board_add-card">
-        {!isclicked ? (
-          <div className="board_add-button">
-            <button className="board_add-card_button" onClick={clickHandler}>
-              + افزودن کارت
-            </button>
-          </div>
-        ) : (
-          <div className="board_add-list-form">
-            <form className="board_add-form-card" onSubmit={submitHandler}>
-              <PerTextField>
-                <StyledTextField
-                  margin="normal"
-                  label="اسم کارت"
-                  variant="filled"
-                  required
-                  fullWidth
-                  autoFocus
-                  onChange={(e) => setInputName(e.target.value)}
-                  placeholder="اسم کارت را در این بخش بنویسید"
-                  sx={{
-                    backgroundColor: "#132F4C",
-                    border: "0.2rem solid #5090D3",
-                    borderRadius: "0.5rem",
+          {req ? <Loading/> : null}
+          <ToastContainer autoClose={3000} style={{ fontSize: '1.2rem' }}/>
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleOption}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+          >
+            <div className="board_option">
+              <p className="board_option-text board_option-title">
+                فهرست اقدامات لیست
+              </p>
+              <div className="board_option-button-container">
+                <button
+                  className="board_option-button"
+                  onClick={addCardClickHandler}
+                >
+                  <p className="board_option-text">افزودن کارت</p>
+                </button>
+                <button
+                  className="board_option-button"
+                  onClick={() => {
+                    setIsOpen(true);
                   }}
-                />
-              </PerTextField>
-              <button type="submit" className="board_form-button">
-                افزودن
-              </button>
-            </form>
+                >
+                  <p className="board_option-text">حذف کردن لیست</p>
+                </button>
+                <Dialog
+                  open={isOpen}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {'آیا از حذف کردن لیست مطمئن هستید؟'}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText
+                      id="alert-dialog-description"
+                      sx={{ color: '#fff' }}
+                    >
+                      اخطار: با حذف کردن لیست تمام کارت های داخل آن نیز حذف
+                      میشود
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <div className="List_dialog-button-container">
+                      <Button
+                        type="button"
+                        variant="contained"
+                        onClick={() => {
+                          handleDeleteList();
+                        }}
+                        className="List_dialog-button"
+                      >
+                        تایید
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="contained"
+                        onClick={handleClose}
+                        autoFocus
+                        className="List_dialog-button"
+                      >
+                        انصراف
+                      </Button>
+                    </div>
+                  </DialogActions>
+                </Dialog>
+              </div>
+            </div>
+          </Popover>
+          <div className="list_header-container">
+            <div className="list_header">
+              <div className="list_header-title">
+                <InputName name={listName} onChangeName={handleChangeListName}/>
+              </div>
+              <div className="list_header-add-card" onClick={addCardClickHandler}>
+                <AddIcon o sx={{ fontSize: '2.2rem' }}/>
+              </div>
+              <div className="list_header-option" onClick={optionClickHandler}>
+                <MoreVertIcon sx={{ fontSize: '2.2rem' }}/>
+              </div>
+            </div>
+            {addCard && <div className="list_add-card">
+              <form className="list_add-card-form" onSubmit={e => handleAddCardSubmit(e)}>
+                <PerTextField>
+                  <StyledTextField
+                    margin="normal"
+                    label="اسم کارت"
+                    variant="filled"
+                    required
+                    fullWidth
+                    autoFocus
+                    onChange={(e) => setCardName(e.target.value)}
+                    placeholder="اسم کارت را در این بخش بنویسید"
+                    InputProps={{ disableUnderline: true }}
+                    sx={{
+                      backgroundColor: 'var(--main-item-color)',
+                      borderBottom: '0.2rem solid var(--minor-item-color)',
+                      borderRadius: '0.5rem',
+                      // borderRadius: "0.5rem",
+                      '& input::placeholder': {
+                        fontSize: '1.2rem'
+                      },
+                      margin: 0
+                    }}
+                  />
+                </PerTextField>
+                <Button type="submit" variant="contained">افزودن</Button>
+              </form>
+            </div>}
           </div>
-        )}
-      </div>
-    </div>
+          <Droppable droppableId={String(props.id)}>
+            {(provided, snapshot) => (
+              <div
+                className="list_card-container"
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                style={
+                  snapshot.draggingOverWith
+                    ? {
+                      backgroundColor: 'var(--hover-color)',
+                      borderRadius: '0.5rem',
+                    }
+                    : null
+                }
+              >
+                {cards.map((card, index) => (
+                  <Card
+                    key={card.id}
+                    cardId={card.id}
+                    index={index}
+                    boardId={props.boardId}
+                    remID={handleRemoveCard}
+                    attachments_num={card.attachments_num}
+                    doers={card.doers}
+                    checklists_num={card.checklists_num}
+                    checked_checklists_num={card.checked_checklists_num}
+                    comments_num={card.comments_num}
+                  />
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </div>
+      )}
+    </Draggable>
   );
 };
 
