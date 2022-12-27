@@ -27,6 +27,9 @@ export default function BasicMenu(props) {
         handleClose();
         navigate(`/workspace/${workspaceId}`);
     }
+    const navigateToBoard = (boardId) => {
+        navigate(`/kanban/${boardId}`);
+    };
 
     const params = useParams();
     const submit_form = (form_data) => {
@@ -73,6 +76,22 @@ export default function BasicMenu(props) {
                             }}>
                                 <h4>{props.workspaces[key]}</h4>
                                 {/* {props.workspaces[key]} */}
+                            </MenuItem>
+                        )
+                    }))
+                }
+                {
+                    (props.name == 'ستاره دارها') && (Object.keys(props.starred_boards).map((board) => {
+                        return (
+                            <MenuItem onClick={() => navigateToBoard(board["id"])} key={board["id"]} sx={{
+                                ":hover": {
+                                    color: '#E2EDF8',
+                                    backgroundColor: '#007fff',
+                                    borderRadius: '5px',
+                                },
+                                transition: '0.3s',
+                            }}>
+                                <h4>{board["name"]}</h4>
                             </MenuItem>
                         )
                     }))
