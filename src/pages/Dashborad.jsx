@@ -287,7 +287,10 @@ export const Dashborad = () => {
                       // }}
                     >
                       <p variant="h1" component="h2" className="add--text">
-                        ساخت بورد جدید
+                        {/* ساخت بورد جدید */}
+                        <CreateBoardModal 
+                          workspace_id={workspace.id}
+                        />
                       </p>
                     </Paper>
                   </Grid>
