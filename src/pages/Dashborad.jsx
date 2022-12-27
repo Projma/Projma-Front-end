@@ -137,6 +137,7 @@ export const Dashborad = () => {
     }
     console.log("---------------------");
     console.log(res);
+    console.log("---------------------");
     setBoardsInfo(res);
   }, [boards]);
 
