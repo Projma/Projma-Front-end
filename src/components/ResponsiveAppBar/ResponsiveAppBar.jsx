@@ -186,7 +186,7 @@ function ResponsiveAppBar() {
 
                             {
                                 pages.map((page) => (
-                                    <BasicMenu name={page} workspaces={workspaces_id_to_name} />
+                                    <BasicMenu name={page} workspaces={workspaces_id_to_name} starred_boards={starredBoards}/>
                                 ))
                             }
                         </Menu>
@@ -213,7 +213,7 @@ function ResponsiveAppBar() {
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {
                             pages.map((page) => (
-                                <BasicMenu name={page} workspaces={workspaces_id_to_name} />
+                                <BasicMenu name={page} workspaces={workspaces_id_to_name} starred_boards={starredBoards}/>
                             ))}
                     </Box>
 
