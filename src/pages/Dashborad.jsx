@@ -48,6 +48,7 @@ export const Dashborad = () => {
   let [workspaces, setWorkspaces] = useState([]);
   let [owningWorkspaces, setOwningWorkspaces] = useState([]);
   let [boards, setBoards] = useState([]);
+  let flag = 0;
 
   useEffect(() => {
     apiInstance
@@ -126,7 +127,7 @@ export const Dashborad = () => {
       .catch((error) => {
         // console.log(error);
       });
-  }, []);
+  }, [flag]);
 
   const [boardsInfo, setBoardsInfo] = useState([]);
   useEffect(() => {
@@ -287,15 +288,13 @@ export const Dashborad = () => {
                       //     open create modal board
                       // }}
                     >
-                      <p variant="h1" component="h2" className="add--text">
+                      {/* <p variant="h1" component="h2" className="add--text"> */}
                         {/* ساخت بورد جدید */}
                         <CreateBoardModal 
                           workspace_id={workspace.id}
-                          boards={boards}
-                          setBoards={setBoards}
-                          
+                          flag={flag}
                         />
-                      </p>
+                      {/* </p> */}
                     </Paper>
                   </Grid>
                   {/*  */}
@@ -489,9 +488,13 @@ export const Dashborad = () => {
                       //     open create modal board
                       // }}
                     >
-                      <p variant="h1" component="h2" className="add--text">
+                      {/* <p variant="h1" component="h2" className="add--text">
                         ساخت بورد جدید
-                      </p>
+                      </p> */}
+                      <CreateBoardModal 
+                          workspace_id={workspace.id}
+                          flag={flag}
+                        />
                     </Paper>
                   </Grid>
                 </Grid>
@@ -654,6 +657,7 @@ export const Dashborad = () => {
       // https://mui.com/material-ui/react-bottom-navigation/
       <Fragment>
         <Header />
+        <ToastContainer />
         <div>
           {Object.entries(mobile_tabs).map((tab) => (
             <>{activeTab === tab[0] && tab[1].content}</>
