@@ -10,7 +10,8 @@ import { color } from '@mui/system';
 // import { BasicModal as CreateBoard } from '../../Workspace_management/BasicModal/CreateBoard';
 import apiInstance from '../../../utilities/axiosConfig';
 import { useParams } from "react-router-dom";
-import CreateBoardModal from '../../Dashboard/CreateBoardModal/CreateBoardModal';
+// import CreateBoardModal from '../../Dashboard/CreateBoardModal/CreateBoardModal';
+import CreateBoardModal from '../CreateBoardModal/CreateBoardModal';
 
 export default function BasicMenu(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
