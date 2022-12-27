@@ -38,6 +38,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import CreateBoardModal from "../components/Dashboard/CreateBoardModal/CreateBoardModal";
+import { ToastContainer, toast } from "react-toastify";
 
 // useMediaQuery
 // import Typography from "@mui/material";
@@ -598,6 +599,7 @@ export const Dashborad = () => {
     return (
       <div>
         <Header />
+        <ToastContainer />
         <Grid
           container
           spacing={{ xs: 0, md: 0 }}
