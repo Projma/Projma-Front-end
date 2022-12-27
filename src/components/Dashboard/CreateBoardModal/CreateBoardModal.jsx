@@ -20,10 +20,10 @@ const style = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "38rem",
-    height: "55rem",
-    // width: "35%",
-    // height: "80%",
+    // width: "38rem",
+    width: "42rem",
+    // height: "55rem",
+    height: "62rem",
     backgroundColor: "#001E3C",
     // bgcolor: "background.paper",
     border: '2px solid #000',
@@ -60,9 +60,6 @@ export default function CreateBoardModal({
     const [title, setTitle] = React.useState("");
     const [description, setDescription] = React.useState("");
     const [file, setFile] = React.useState(null);
-    const test = () => {
-        console.log(result);
-    };
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     // const on_submit = (form_data, boards, setBoards) => {
     const on_submit = (form_data) => {
@@ -70,9 +67,10 @@ export default function CreateBoardModal({
         apiInstance
             .post(`/workspaces/workspaceowner/${workspace_id}/create-board/`, form_data)
             .then((res) => {
+                console.log("here");
                 console.log(res.data);
+                console.log("here");
                 flag++;
-                // setBoards([...boards, res.data]);
                 toast.success("بورد با موفقیت ساخته شد", {
                     // position: toast.POSITION.BOTTOM_LEFT,
                     position: toast.POSITION.TOP_CENTER,
@@ -95,12 +93,44 @@ export default function CreateBoardModal({
         // navigate to board page that created
     };
     return (
-        <div>
-            <div className="workspace-modal--add-button-container">
+        <div >
+            {/* <div className="workspace-modal--add-button-container">
                 <button className="workspace-modal--add-button" onClick={handleOpen}>
                     <p className="workspace-modal--add-button-title">+ افزودن بورد</p>
                 </button>
-            </div>
+            </div> */}
+            <Button  onClick={handleOpen} 
+            sx={{
+                // color: '#00bfff',
+                color: '#000',
+                ":hover": {
+                    color: '#E2EDF8',
+                    backgroundColor: '#007fff',
+                    borderRadius: '5px',
+                },
+                // marginTop: '8%',
+                // padding: '10%',
+                // paddingTop: '1%',
+                // paddingBottom: '1%',
+                // margin: '10%',
+                // padding: '10%',
+                // paddingTop: '5%',
+                // marginTop: '5%',
+
+                fontFamily: 'Vazir',
+                textDecoration: 'none',
+                display: 'block',
+                transition: '0.3s',
+                display: 'flex',
+                alignItems: 'center',
+            }}
+            >
+                <h2 
+                // style={{color: 'black',}}
+                >
+                    افزودن بورد +
+                </h2>
+            </Button>
             <Modal
                 open={open}
                 onClose={handleClose}
