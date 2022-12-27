@@ -38,7 +38,6 @@ const style = {
 
 export default function CreateBoardModal({
     workspace_id,
-    flag
 }) {
     const navigate = useNavigate();
     const navigateToBoard = (boardId) => {
@@ -70,7 +69,6 @@ export default function CreateBoardModal({
                 console.log("here");
                 console.log(res.data);
                 console.log("here");
-                flag++;
                 toast.success("بورد با موفقیت ساخته شد", {
                     // position: toast.POSITION.BOTTOM_LEFT,
                     position: toast.POSITION.TOP_CENTER,
@@ -125,11 +123,16 @@ export default function CreateBoardModal({
                 alignItems: 'center',
             }}
             >
-                <h2 
+                {/* <h2 
                 // style={{color: 'black',}}
                 >
                     افزودن بورد +
-                </h2>
+                </h2> */}
+                <h4 
+                // style={{color: 'black',}}
+                >
+                    افزودن بورد +
+                </h4>
             </Button>
             <Modal
                 open={open}
