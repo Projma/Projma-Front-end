@@ -290,6 +290,9 @@ export const Dashborad = () => {
                         {/* ساخت بورد جدید */}
                         <CreateBoardModal 
                           workspace_id={workspace.id}
+                          boards={boards}
+                          setBoards={setBoards}
+                          
                         />
                       </p>
                     </Paper>
