@@ -37,6 +37,7 @@ import apiInstance from "../utilities/axiosConfig";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import CreateBoardModal from "../components/Dashboard/CreateBoardModal/CreateBoardModal";
 
 // useMediaQuery
 // import Typography from "@mui/material";
