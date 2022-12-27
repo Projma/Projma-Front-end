@@ -521,6 +521,77 @@ export const Dashborad = () => {
           <p variant="h1" component="h2" className="text paragraph">
             <StarPurple500TwoToneIcon sx={{ ml: 1.5 }} /> بورد های ستاره‌دار
           </p>
+          <Grid
+            container
+            columns={{ xs: 2, sm: 4, md: 8 }}
+            // spacing={{ xs: 1, sm: 2, md: 3 }}
+            sx={{
+              // paddingTop: "5%",
+              // marginTop: "10%",
+              marginBottom: "10%",
+              // backgroundColor: "#f5f5f5",
+            }}
+          >
+            {starredBoards.map((board) => {
+              return (
+                <Grid item xs={2} sm={2} md={2} key={board["id"]} sx={{}}>
+                  <div>
+                    {/* // style={{}}> */}
+                    <Paper
+                      sx={{
+                        padding: "2%",
+                        textAlign: "center",
+                        // color: "#007fff",
+                        backgroundColor: "#007fff", // 5090D3
+                        borderRadius: "10px",
+                        // width: "100%",
+                        // height: "100%",
+                        // minWidth: "200px",
+                        // maxWidth: "300px",
+                        minHeight: "150px",
+                        // maxHeight: "300px",
+                        margin: "10%",
+                        // padding: "100px",
+                        // display: "flex",
+                        // justifyContent: "center",
+                        // alignItems: "center",
+                        // flexDirection: "column",
+                        ":hover": {
+                          backgroundColor: "#5090D3",
+                          cursor: "pointer",
+                        },
+                      }}
+                      // hover
+                      onClick={() => {
+                        // history.push(`/board/${board_id}`);
+                        navigateToBoard(board["id"]);
+                      }}
+                    >
+                      <p
+                        variant="h1"
+                        component="h2"
+                        className="text paragraph"
+                      >
+                        {/* check that is null or not */}
+                        {board["name"]
+                          ? board["name"]
+                          : "بی‌نام"}
+                      </p>
+                      <p
+                        variant="h1"
+                        component="h2"
+                        className="text paragraph"
+                      >
+                        {board["description"]
+                          ? board["description"]
+                          : "بدون توضیحات"}
+                      </p>
+                    </Paper>
+                  </div>
+                </Grid>
+              );
+            })}
+          </Grid>
           <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
           <p variant="h1" component="h2" className="text paragraph">
             <AvTimerTwoToneIcon sx={{ ml: 1.5 }} /> اخیرا دیده شده
@@ -536,77 +607,66 @@ export const Dashborad = () => {
               // backgroundColor: "#f5f5f5",
             }}
           >
-          {recentBoards.map((board) => {
-                    return (
-                      <Grid item xs={2} sm={2} md={2} key={board["id"]} sx={{}}>
-                        <div>
-                          {/* // style={{}}> */}
-                          <Paper
-                            sx={{
-                              padding: "2%",
-                              textAlign: "center",
-                              // color: "#007fff",
-                              backgroundColor: "#007fff", // 5090D3
-                              borderRadius: "10px",
-                              // width: "100%",
-                              // height: "100%",
-                              // minWidth: "200px",
-                              // maxWidth: "300px",
-                              minHeight: "150px",
-                              // maxHeight: "300px",
-                              margin: "10%",
-                              // padding: "100px",
-                              // display: "flex",
-                              // justifyContent: "center",
-                              // alignItems: "center",
-                              // flexDirection: "column",
-                              ":hover": {
-                                backgroundColor: "#5090D3",
-                                cursor: "pointer",
-                              },
-                            }}
-                            // hover
-                            onClick={() => {
-                              // history.push(`/board/${board_id}`);
-                              navigateToBoard(board["id"]);
-                            }}
-                          >
-                            <p
-                              variant="h1"
-                              component="h2"
-                              className="text paragraph"
-                            >
-                              {/* check that is null or not */}
-                              {board["name"]
-                                ? board["name"]
-                                : "بی‌نام"}
-                            </p>
-                            <p
-                              variant="h1"
-                              component="h2"
-                              className="text paragraph"
-                            >
-                              {board["description"]
-                                ? board["description"]
-                                : "بدون توضیحات"}
-                            </p>
-                          </Paper>
-                        </div>
-                      </Grid>
-                    );
-                  })}
-
+            {recentBoards.map((board) => {
+              return (
+                <Grid item xs={2} sm={2} md={2} key={board["id"]} sx={{}}>
+                  <div>
+                    {/* // style={{}}> */}
+                    <Paper
+                      sx={{
+                        padding: "2%",
+                        textAlign: "center",
+                        // color: "#007fff",
+                        backgroundColor: "#007fff", // 5090D3
+                        borderRadius: "10px",
+                        // width: "100%",
+                        // height: "100%",
+                        // minWidth: "200px",
+                        // maxWidth: "300px",
+                        minHeight: "150px",
+                        // maxHeight: "300px",
+                        margin: "10%",
+                        // padding: "100px",
+                        // display: "flex",
+                        // justifyContent: "center",
+                        // alignItems: "center",
+                        // flexDirection: "column",
+                        ":hover": {
+                          backgroundColor: "#5090D3",
+                          cursor: "pointer",
+                        },
+                      }}
+                      // hover
+                      onClick={() => {
+                        // history.push(`/board/${board_id}`);
+                        navigateToBoard(board["id"]);
+                      }}
+                    >
+                      <p
+                        variant="h1"
+                        component="h2"
+                        className="text paragraph"
+                      >
+                        {/* check that is null or not */}
+                        {board["name"]
+                          ? board["name"]
+                          : "بی‌نام"}
+                      </p>
+                      <p
+                        variant="h1"
+                        component="h2"
+                        className="text paragraph"
+                      >
+                        {board["description"]
+                          ? board["description"]
+                          : "بدون توضیحات"}
+                      </p>
+                    </Paper>
+                  </div>
+                </Grid>
+              );
+            })}
           </Grid>
-          {/* {recentBoards.map((board) => {
-            return (
-              <div>
-                <p variant="h1" component="h2" className="text paragraph">
-                  {board.name}
-                </p>
-              </div>
-            );
-          })
-          } */}
 
           <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
           <p variant="h1" component="h2" className="text paragraph">
