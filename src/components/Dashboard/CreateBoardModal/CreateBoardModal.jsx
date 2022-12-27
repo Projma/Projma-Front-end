@@ -13,6 +13,7 @@ import x from "../../../static/images/workspace_management/create_board/board.jp
 import "./CreateBoardModal.scss";
 import { ToastContainer, toast } from "react-toastify";
 import apiInstance from "../../../utilities/axiosConfig";
+import { useNavigate } from "react-router-dom";
 
 const style = {
     position: "absolute",
@@ -40,6 +41,11 @@ export default function CreateBoardModal({
     setBoards,
     workspace_id,
 }) {
+    const navigate = useNavigate();
+    const navigateToBoard = (boardId) => {
+        // navigate(`/board/`);
+        navigate(`/kanban/${boardId}`);
+      };
     const handleChange = (e) => {
         const [file] = e.target.files;
         setBinaryFile(e.target.files[0]);
@@ -71,6 +77,8 @@ export default function CreateBoardModal({
                     position: toast.POSITION.TOP_CENTER,
                     rtl: true,
                 });
+                
+                navigateToBoard(res.data.id);
             });
     };
     const create_board = (e) => {
