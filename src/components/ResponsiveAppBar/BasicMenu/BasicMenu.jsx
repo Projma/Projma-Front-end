@@ -10,6 +10,7 @@ import { color } from '@mui/system';
 // import { BasicModal as CreateBoard } from '../../Workspace_management/BasicModal/CreateBoard';
 import apiInstance from '../../../utilities/axiosConfig';
 import { useParams } from "react-router-dom";
+import CreateBoardModal from '../../Dashboard/CreateBoardModal/CreateBoardModal';
 
 export default function BasicMenu(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -67,9 +68,11 @@ export default function BasicMenu(props) {
                                     color: '#E2EDF8',
                                     backgroundColor: '#007fff',
                                     borderRadius: '5px',
-                                }
+                                },
+                                transition: '0.3s',
                             }}>
-                                {props.workspaces[key]}
+                                <h4>{props.workspaces[key]}</h4>
+                                {/* {props.workspaces[key]} */}
                             </MenuItem>
                         )
                     }))
@@ -92,7 +95,8 @@ export default function BasicMenu(props) {
                             },
                             color: 'black',
                         }}>
-                            <BasicModal text="ایجاد بورد جدید" /> 
+                            {/* <BasicModal text="ایجاد بورد جدید" />  */}
+                            <CreateBoardModal />
                             {/* create board modal (correct text) */}
                             {/* <CreateBoard params={params} on_submit={submit_form} /> */}
                         </MenuItem> </>
