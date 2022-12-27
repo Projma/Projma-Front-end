@@ -105,6 +105,9 @@ export default function CreateBoardModal({
                 }}
                 required
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
+                InputLabelProps={{
+                  style: { fontFamily: "Vazir" },
+                }}
               />
               <StyledTextField
                 className="workspace-modal--board-name"
@@ -114,6 +117,9 @@ export default function CreateBoardModal({
                   setDescription(e.target.value);
                 }}
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
+                InputLabelProps={{
+                  style: { fontFamily: "Vazir" },
+                }}
               />
             </PerTextField>
             <Avatar
@@ -139,7 +145,7 @@ export default function CreateBoardModal({
                 marginTop: 0,
               }}
             >
-              <p style={{ fontSize: "0.8rem" }}>انتخاب عکس</p>
+              <p style={{ fontSize: "1rem" }}>انتخاب عکس</p>
               <input
                 type="file"
                 hidden
@@ -165,6 +171,7 @@ export default function CreateBoardModal({
               value="بساز"
               className="workspace-modal--button-29"
               onClick={create_board}
+              style={{ fontFamily: "Vazir" }}
             />
           </form>
           {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>

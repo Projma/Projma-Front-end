@@ -37,6 +37,7 @@ import apiInstance from "../utilities/axiosConfig";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import CreateBoardModal from "../components/Dashboard/CreateBoardModal/CreateBoardModal";
 
 // useMediaQuery
 // import Typography from "@mui/material";
@@ -286,7 +287,10 @@ export const Dashborad = () => {
                       // }}
                     >
                       <p variant="h1" component="h2" className="add--text">
-                        ساخت بورد جدید
+                        {/* ساخت بورد جدید */}
+                        <CreateBoardModal 
+                          workspace_id={workspace.id}
+                        />
                       </p>
                     </Paper>
                   </Grid>
