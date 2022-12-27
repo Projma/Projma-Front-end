@@ -11,6 +11,8 @@ import PerTextField from "../../Shared/PerTextField.js";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 // import file from "../../../static/images/workspace_management/create_board/board.jpeg";
 import "./CreateBoardModal.scss";
+import { ToastContainer, toast } from "react-toastify";
+import apiInstance from "../../../utilities/axiosConfig";
 
 const style = {
     position: "absolute",
@@ -28,10 +30,9 @@ const style = {
 };
 
 export default function CreateBoardModal({
-    params,
-    on_submit,
     boards,
     setBoards,
+    workspace_id,
 }) {
     const handleChange = (e) => {
         const [file] = e.target.files;
@@ -51,6 +52,19 @@ export default function CreateBoardModal({
     const test = () => {
         console.log(result);
     };
+    const on_submit = (form_data, boards, setBoards) => {
+        console.log("here");
+        apiInstance
+            .post(`/workspaces/workspaceowner/${workspace_id}/create-board/`, form_data)
+            .then((res) => {
+                console.log(res.data);
+                setBoards([...boards, res.data]);
+                toast.success("بورد با موفقیت ساخته شد", {
+                    position: toast.POSITION.BOTTOM_LEFT,
+                    rtl: true,
+                });
+            });
+    };
     const create_board = (e) => {
         e.preventDefault();
         const form_data = new FormData();
@@ -59,6 +73,7 @@ export default function CreateBoardModal({
         form_data.append("type", "education");
         on_submit(form_data, boards, setBoards);
         handleClose();
+        // navigate to board page that created
     };
     return (
         <div>
