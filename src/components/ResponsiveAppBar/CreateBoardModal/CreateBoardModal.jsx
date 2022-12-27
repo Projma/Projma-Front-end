@@ -14,6 +14,8 @@ import "./CreateBoardModal.scss";
 import { ToastContainer, toast } from "react-toastify";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import MenuItem from '@mui/material/MenuItem';
 
 const style = {
     position: "absolute",
@@ -37,13 +39,12 @@ const style = {
 };
 
 export default function CreateBoardModal({
-    workspace_id,
 }) {
     const navigate = useNavigate();
     const navigateToBoard = (boardId) => {
         // navigate(`/board/`);
         navigate(`/kanban/${boardId}`);
-      };
+    };
     const handleChange = (e) => {
         const [file] = e.target.files;
         setBinaryFile(e.target.files[0]);
@@ -54,6 +55,7 @@ export default function CreateBoardModal({
     const [result, setResult] = useState("");
     const [binaryFile, setBinaryFile] = useState(null);
     const [open, setOpen] = React.useState(false);
+    const [workspaceId, setWorkspaceId] = React.useState(0);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [title, setTitle] = React.useState("");
@@ -64,7 +66,7 @@ export default function CreateBoardModal({
     const on_submit = (form_data) => {
         console.log("here");
         apiInstance
-            .post(`/workspaces/workspaceowner/${workspace_id}/create-board/`, form_data)
+            .post(`/workspaces/workspaceowner/${workspaceId}/create-board/`, form_data)
             .then((res) => {
                 console.log("here");
                 console.log(res.data);
@@ -74,7 +76,7 @@ export default function CreateBoardModal({
                     position: toast.POSITION.TOP_CENTER,
                     rtl: true,
                 });
-                
+
                 // navigateToBoard(res.data.id);
                 delay(6000).then(() => navigateToBoard(res.data.id));
             });
@@ -90,6 +92,43 @@ export default function CreateBoardModal({
         handleClose();
         // navigate to board page that created
     };
+    let [workspaces, setWorkspaces] = useState([]);
+    useEffect(() => {
+        apiInstance
+            .get("/workspaces/dashboard/myworkspaces/")
+            .then((response) => {
+                // console.log(response.data);
+
+                // array of
+                // {
+                //     "id": 2,
+                //     "name": "تست 1",
+                //     "description": "تست",
+                //     "type": "education",
+                //     "created_at": "2022-12-01T09:07:35.527499Z",
+                //     "updated_at": "2022-12-01",
+                //     "owner": 11,
+                //     "members": [
+                //         5,
+                //         10,
+                //         11
+                //     ],
+                //     "boards": [
+                //         9,
+                //         10,
+                //         11
+                //     ]
+                // }
+
+                // console.log(response);
+                setWorkspaces(response.data);
+                // console.log(workspaces);
+            })
+            .catch((error) => {
+                // console.log(error);
+            });
+    }, []);
+
     return (
         <div >
             {/* <div className="workspace-modal--add-button-container">
@@ -97,38 +136,38 @@ export default function CreateBoardModal({
                     <p className="workspace-modal--add-button-title">+ افزودن بورد</p>
                 </button>
             </div> */}
-            <Button  onClick={handleOpen} 
-            sx={{
-                // color: '#00bfff',
-                color: '#000',
-                ":hover": {
-                    color: '#E2EDF8',
-                    backgroundColor: '#007fff',
-                    borderRadius: '5px',
-                },
-                // marginTop: '8%',
-                // padding: '10%',
-                // paddingTop: '1%',
-                // paddingBottom: '1%',
-                // margin: '10%',
-                // padding: '10%',
-                // paddingTop: '5%',
-                // marginTop: '5%',
+            <Button onClick={handleOpen}
+                sx={{
+                    // color: '#00bfff',
+                    color: '#000',
+                    ":hover": {
+                        color: '#E2EDF8',
+                        backgroundColor: '#007fff',
+                        borderRadius: '5px',
+                    },
+                    // marginTop: '8%',
+                    // padding: '10%',
+                    // paddingTop: '1%',
+                    // paddingBottom: '1%',
+                    // margin: '10%',
+                    // padding: '10%',
+                    // paddingTop: '5%',
+                    // marginTop: '5%',
 
-                fontFamily: 'Vazir',
-                textDecoration: 'none',
-                display: 'block',
-                transition: '0.3s',
-                display: 'flex',
-                alignItems: 'center',
-            }}
+                    fontFamily: 'Vazir',
+                    textDecoration: 'none',
+                    display: 'block',
+                    transition: '0.3s',
+                    display: 'flex',
+                    alignItems: 'center',
+                }}
             >
                 {/* <h2 
                 // style={{color: 'black',}}
                 >
                     افزودن بورد +
                 </h2> */}
-                <h4 
+                <h4
                 // style={{color: 'black',}}
                 >
                     افزودن بورد +
@@ -176,6 +215,61 @@ export default function CreateBoardModal({
                                     style: { fontFamily: "Vazir" },
                                 }}
                             />
+                            <StyledTextField
+                                className="workspace-modal--board-name"
+                                label="نام فضای کاری"
+                                // value={workspaceName}
+                                onChange={(e) => {
+                                    setWorkspaceId(e.target.value);
+                                }}
+                                required
+                                sx={{
+                                    fontFamily: "Vazir",
+                                }}
+                                InputLabelProps={{
+                                    style: { fontFamily: "Vazir" },
+                                }}
+                                // change selected background color
+
+
+
+                                // margin="normal"
+                                // required
+                                // fullWidth
+                                // id="workspace_type"
+                                // label="نوع فضای کاری"
+                                select // https://mui.com/material-ui/react-text-field/#basic-textfield
+                            // placeholder="نوع فضای‌کاری خود را وارد کنید."
+                            // // helperText="انتخاب کنید."
+                            // onChange={handleChange}
+                            // name="workspace_type"
+                            // autoComplete="workspace_type"
+                            // autoFocus
+                            // sx={{ width: "60%", display: "block" }}
+                            // InputLabelProps={{ style: { fontFamily: "Vazir" } }}
+                            // InputProps={{ style: { fontFamily: "Vazir" } }}
+                            // FormHelperTextProps={{ style: { fontFamily: "Vazir", color: "black" } }}
+                            // error={errorWorkspaceType}
+                            // helperText={errorWorkspaceType ? "لطفا این فیلد را پر کنید." : ""}
+                            >
+                                {workspaces.map((workspace) => (
+                                    <MenuItem key={workspace.id} value={workspace.id} sx={{
+                                        fontFamily: 'Vazir',
+                                        color: '#007fff', // #0A1929
+                                        // backgroundColor: '#265D97',
+                                        backgroundColor: "#001E3C",
+                                        // margin: '0%',
+                                        // padding: '3%',
+                                        ":hover": {
+                                            backgroundColor: "#132F4C",
+                                            // borderRadius: '5px',
+                                        },
+                                    }}>
+                                        {workspace.name}
+                                    </MenuItem>
+                                ))}
+                            </StyledTextField>
+
                             <StyledTextField
                                 className="workspace-modal--board-name"
                                 label="توضیحات"
