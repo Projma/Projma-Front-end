@@ -20,10 +20,10 @@ const style = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    // width: "38rem",
-    // height: "55rem",
-    width: "35%",
-    height: "80%",
+    width: "38rem",
+    height: "55rem",
+    // width: "35%",
+    // height: "80%",
     backgroundColor: "#001E3C",
     // bgcolor: "background.paper",
     border: '2px solid #000',
@@ -37,9 +37,8 @@ const style = {
 };
 
 export default function CreateBoardModal({
-    boards,
-    setBoards,
     workspace_id,
+    flag
 }) {
     const navigate = useNavigate();
     const navigateToBoard = (boardId) => {
@@ -64,6 +63,7 @@ export default function CreateBoardModal({
     const test = () => {
         console.log(result);
     };
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     // const on_submit = (form_data, boards, setBoards) => {
     const on_submit = (form_data) => {
         console.log("here");
@@ -71,14 +71,16 @@ export default function CreateBoardModal({
             .post(`/workspaces/workspaceowner/${workspace_id}/create-board/`, form_data)
             .then((res) => {
                 console.log(res.data);
-                setBoards([...boards, res.data]);
+                flag++;
+                // setBoards([...boards, res.data]);
                 toast.success("بورد با موفقیت ساخته شد", {
                     // position: toast.POSITION.BOTTOM_LEFT,
                     position: toast.POSITION.TOP_CENTER,
                     rtl: true,
                 });
                 
-                navigateToBoard(res.data.id);
+                // navigateToBoard(res.data.id);
+                delay(6000).then(() => navigateToBoard(res.data.id));
             });
     };
     const create_board = (e) => {
@@ -87,8 +89,8 @@ export default function CreateBoardModal({
         form_data.append("name", title);
         form_data.append("description", description);
         form_data.append("type", "education");
-        on_submit(form_data, boards, setBoards);
-        // on_submit(form_data);
+        // on_submit(form_data, boards, setBoards);
+        on_submit(form_data);
         handleClose();
         // navigate to board page that created
     };
