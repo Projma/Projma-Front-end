@@ -145,7 +145,7 @@ export default function CreateBoardModal({
                 marginTop: 0,
               }}
             >
-              <p style={{ fontSize: "0.8rem" }}>انتخاب عکس</p>
+              <p style={{ fontSize: "1rem" }}>انتخاب عکس</p>
               <input
                 type="file"
                 hidden
