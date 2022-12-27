@@ -50,7 +50,7 @@ export const Dashborad = () => {
   let [boards, setBoards] = useState([]);
   let [recentBoards, setRecentBoards] = useState([]);
   let [starredBoards, setStarredBoards] = useState([]);
-  let flag = 0;
+  let [flag, setFlag] = useState(false);
 
   useEffect(() => {
     apiInstance
@@ -451,7 +451,13 @@ export const Dashborad = () => {
                       {/* ساخت بورد جدید */}
                       <CreateBoardModal
                         workspace_id={workspace.id}
-                        flag={flag}
+                        // flag={flag}
+                        sx={{
+                          onclick: () => {
+                            setFlag(!flag);
+                            // flag++;
+                          },
+                        }}
                       />
                       {/* </p> */}
                     </Paper>
