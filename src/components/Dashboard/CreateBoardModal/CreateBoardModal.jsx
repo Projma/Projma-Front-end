@@ -19,14 +19,20 @@ const style = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "38rem",
-    height: "55rem",
+    // width: "38rem",
+    // height: "55rem",
+    width: "35%",
+    height: "80%",
     backgroundColor: "#001E3C",
     // bgcolor: "background.paper",
-    // border: "0.5rem solid #dfe6e5",
-    borderRadius: "1rem",
+    border: '2px solid #000',
+    // borderRadius: "1rem",
+    borderRadius: '10px',
     boxShadow: 50,
     p: 4,
+    fontFamily: "Vazir",
+    // overflow: 'hidden', scroll
+    overflow: 'auto',
 };
 
 export default function CreateBoardModal({
@@ -52,7 +58,8 @@ export default function CreateBoardModal({
     const test = () => {
         console.log(result);
     };
-    const on_submit = (form_data, boards, setBoards) => {
+    // const on_submit = (form_data, boards, setBoards) => {
+    const on_submit = (form_data) => {
         console.log("here");
         apiInstance
             .post(`/workspaces/workspaceowner/${workspace_id}/create-board/`, form_data)
@@ -60,7 +67,8 @@ export default function CreateBoardModal({
                 console.log(res.data);
                 setBoards([...boards, res.data]);
                 toast.success("بورد با موفقیت ساخته شد", {
-                    position: toast.POSITION.BOTTOM_LEFT,
+                    // position: toast.POSITION.BOTTOM_LEFT,
+                    position: toast.POSITION.TOP_CENTER,
                     rtl: true,
                 });
             });
@@ -72,6 +80,7 @@ export default function CreateBoardModal({
         form_data.append("description", description);
         form_data.append("type", "education");
         on_submit(form_data, boards, setBoards);
+        // on_submit(form_data);
         handleClose();
         // navigate to board page that created
     };
