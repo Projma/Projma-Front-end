@@ -11,7 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Attachment.scss";
 
-export default function Attachments({ params }) {
+export default function Attachments({ params, setAllAttachments }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [file, setFile] = React.useState(null);
   const [binaryFile, setBinaryFile] = React.useState(null);
@@ -52,6 +52,9 @@ export default function Attachments({ params }) {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
+        console.log("##############33");
+        console.log(res.data);
+        // setAllAttachments(res.data);
       });
   };
   const open = Boolean(anchorEl);
