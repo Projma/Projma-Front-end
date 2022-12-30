@@ -12,7 +12,9 @@ export default function FilterTask({ boardId, setLists }) {
   const [boardMembers, setBoardMembers] = useState([]);
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [selectedLabels, setSelectedLabels] = useState([]);
+  const [date, setDate] = useState("");
   useEffect(() => {
+    console.log("hereeeeeeeeeeeeeeeeee");
     apiInstance
       .get(`workspaces/board/${boardId}/get-board-labels/`)
       .then((res) => {
@@ -22,6 +24,7 @@ export default function FilterTask({ boardId, setLists }) {
           id: obj.id,
           title: obj.title,
           color: obj.color,
+          checked: false,
         }));
         console.log(board_labels);
         setBoardLabels(board_labels);
@@ -38,6 +41,7 @@ export default function FilterTask({ boardId, setLists }) {
         username: obj.user.username,
         role: obj.role,
         profile_pic: obj.profile_pic,
+        checked: false,
       }));
       console.log(board_members);
       setBoardMembers(board_members);
@@ -82,6 +86,19 @@ export default function FilterTask({ boardId, setLists }) {
         url = url + "?doers=";
       }
       url = url + value;
+    }
+    if (type === "date") {
+      setDate(value);
+      if (value !== "") {
+        if (!labels_empty || !members_empty) {
+          url = url + "&";
+          url = url + "end_date=" + value;
+        } else {
+          url = url + "?end_date=" + value;
+        }
+      }
+    } else {
+      if (date !== "") url = url + "&end_date=" + date;
     }
     apiInstance.get(url).then((res) => {
       console.log("filtered tasks");
@@ -146,6 +163,14 @@ export default function FilterTask({ boardId, setLists }) {
         }
       }
     }
+    if (date !== "") {
+      if (!labels_empty || !members_empty) {
+        url = url + "&";
+        url = url + "end_date=" + date;
+      } else {
+        url = url + "?end_date=" + date;
+      }
+    }
     apiInstance.get(url).then((res) => {
       console.log("filtered tasks");
       console.log(res.data);
@@ -182,6 +207,11 @@ export default function FilterTask({ boardId, setLists }) {
           horizontal: "left",
         }}
       >
+        <input
+          type="date"
+          value={date}
+          onChange={(e) => filterTaskAfterCheck(e.target.value, "date")}
+        />
         <div>
           {boardMembers.map((member) => (
             <div>
@@ -193,13 +223,30 @@ export default function FilterTask({ boardId, setLists }) {
                 id={member.id}
                 name={member.name}
                 value={member.id}
+                checked={member.checked}
                 onChange={(e) => {
                   if (e.target.checked) {
                     setSelectedMembers([...selectedMembers, e.target.value]);
+                    setBoardMembers((prevState) =>
+                      prevState.map((item) => {
+                        if (item.id === parseInt(e.target.value)) {
+                          item.checked = true;
+                        }
+                        return item;
+                      })
+                    );
                     filterTaskAfterCheck(e.target.value, "member");
                   } else {
                     setSelectedMembers((prevState) =>
                       prevState.filter((item) => item !== e.target.value)
+                    );
+                    setBoardMembers((prevState) =>
+                      prevState.map((item) => {
+                        if (item.id === parseInt(e.target.value)) {
+                          item.checked = false;
+                        }
+                        return item;
+                      })
                     );
                     filterTaskAfterUnCheck(e.target.value, "member");
                   }
@@ -215,13 +262,30 @@ export default function FilterTask({ boardId, setLists }) {
                 id={label.id}
                 name={label.title}
                 value={label.id}
+                checked={label.checked}
                 onChange={(e) => {
                   if (e.target.checked) {
                     setSelectedLabels([...selectedLabels, e.target.value]);
+                    setBoardLabels((prevState) =>
+                      prevState.map((item) => {
+                        if (item.id === parseInt(e.target.value)) {
+                          item.checked = true;
+                        }
+                        return item;
+                      })
+                    );
                     filterTaskAfterCheck(e.target.value, "label");
                   } else {
                     setSelectedLabels((prevState) =>
                       prevState.filter((item) => item !== e.target.value)
+                    );
+                    setBoardLabels((prevState) =>
+                      prevState.map((item) => {
+                        if (item.id === parseInt(e.target.value)) {
+                          item.checked = false;
+                        }
+                        return item;
+                      })
                     );
                     filterTaskAfterUnCheck(e.target.value, "label");
                   }
