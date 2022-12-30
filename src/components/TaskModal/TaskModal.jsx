@@ -1264,7 +1264,10 @@ export default function TaskModal(props) {
                     params={params}
                     setAllChecklists={setAllChecklists}
                   />
-                  <Attachments params={params} />
+                  <Attachments
+                    params={params}
+                    setAllAttachments={setAllAttachments}
+                  />
                   <DueTime
                     params={params}
                     dueDate={dueDate}
