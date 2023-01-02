@@ -33,7 +33,7 @@ export default function Attachments({ params, setAllAttachments }) {
     }
   };
   const createAttachment = () => {
-    console.log("create attachment");
+    console.log("create attachment$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     const formData = new FormData();
     formData.append("file", binaryFile);
     apiInstance
@@ -52,9 +52,10 @@ export default function Attachments({ params, setAllAttachments }) {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        console.log("##############33");
+        console.log("##############333333333333333333333333333333333333333");
+        // console.log(res.data);
         console.log(res.data);
-        // setAllAttachments(res.data);
+        setAllAttachments((prev) => [...prev, res.data]);
       });
   };
   const open = Boolean(anchorEl);
