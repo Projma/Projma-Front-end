@@ -1,6 +1,5 @@
 .list_container {
-  /*background-color: #4cd964;*/
-  width: 30rem;
+    width: 30rem;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -65,7 +64,7 @@
   min-height: 10rem;
   min-width: 10rem;
   overflow: auto;
-  padding: 0.5rem;
+  padding: 0.3rem;
 }
 
 .board_option {
