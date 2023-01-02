@@ -1,41 +1,43 @@
-.workspace--board {
+.workspace--my-board,.workspace--starred-board {
   width: 90%;
   height: 100%;
   margin: 5%;
+  color: #fff !important;
 }
 
 .workspace--board-header {
-  font-size: 1.6rem (10);
+  font-size: 1.6rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem (10);
+  gap: 0.5rem;
   margin-bottom: 20px;
 }
 
 .workspace--board-body {
   border: 0.2rem solid var(--minor-item-color);
-  padding: 0.5rem (10);
-  border-radius: 0.5rem (10);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 }
 
 .workspace--board-header-title {
-  color: #fff;
+  color: #fff !important;
 }
 
 .workspace--board-body-list {
+  margin: 0.5rem;
   overflow: auto;
-  max-height: 26rem (10);
+  max-height: 26rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, 20rem);
   justify-content: space-evenly;
-  gap: 1rem 1rem (10);
+  gap: 1rem 1rem;
   justify-items: start;
 }
 
 .workspace--add_button {
-  height: 8rem (10);
-  width: 20rem (10);
-  border-radius: 0.5rem (10);
+  height: 8rem;
+  width: 20rem;
+  border-radius: 0.5rem;
   background-color: #173a5e;
   padding: 3% 3%;
   border: 0.1rem solid var(--minor-item-color);

@@ -12,6 +12,7 @@ import CreateBoardModal from "../CreateBoardModal/CreateBoard";
 const Board = ({ params, on_submit }) => {
   console.log(params.id);
   const [workspace, setWorkspace] = useState({});
+  const [star,setStar] = useState({});
   useEffect(() => {
     console.log(params);
     apiInstance
@@ -43,6 +44,7 @@ const Board = ({ params, on_submit }) => {
   };
 
   const starredHandler = (data) => {
+
     setList((current) =>
       current.map((obj) => {
         if (obj.id === data.id) {
@@ -65,7 +67,7 @@ const Board = ({ params, on_submit }) => {
   return (
     <div className="board" style={{ width: "100%" }}>
       <Navbar params={params} />
-      {list.find((e) => e.isStarred === true) && (
+      {list.find((e) => e.isStarred === true) && star !== {} && (
         <div>
           <div className="workspace--starred-board">
             <div className="workspace--board-header">

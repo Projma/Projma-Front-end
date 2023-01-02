@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import "./BoardView.css";
 import { Navigate, useNavigate } from "react-router-dom";
+import apiInstance from "../../../utilities/axiosConfig";
 
 const BoardView = (props) => {
   let navigate = useNavigate();
   const [hover, setHover] = useState(false);
   const [isStarred, setIsStarred] = useState(props.is);
-  const clickHandler = () => {
+  const clickHandler = (e) => {
+    e.stopPropagation();
+    apiInstance.post(`workspaces/board/${props.id}/toggle-myboard-star/`);
     const flag = !isStarred;
     const id = props.id;
     setIsStarred(flag);
@@ -19,7 +22,10 @@ const BoardView = (props) => {
   return (
     <div
       className="workspace--board-view"
-      onClick={(e) => navigate(`/kanban/${props.id}`)}
+      onClick={(e) => {
+        e.stopPropagation();
+        navigate(`/kanban/${props.id}`);
+      }}
     >
       <button
         className="workspace--view"
@@ -29,7 +35,10 @@ const BoardView = (props) => {
         <p className="workspace--board-title">{props.name}</p>
       </button>
       {isStarred ? (
-        <button className="workspace--icon-button" onClick={clickHandler}>
+        <button
+          className="workspace--icon-button"
+          onClick={(e) => clickHandler(e)}
+        >
           <StarIcon
             className="workspace--board-icon"
             sx={{ "& :hover": { fill: "#fff" } }}
