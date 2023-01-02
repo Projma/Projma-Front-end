@@ -68,7 +68,10 @@ export default function Profile() {
     const profile_without_name_form_data = new FormData();
     profile_without_name_form_data.append("profile_pic", binaryFile);
     apiInstance
-      .patch("accounts/profile/myprofile/", profile_without_name_form_data)
+      .patch(
+        "accounts/profile/delete-myprofile-pic/",
+        profile_without_name_form_data
+      )
       .then((res) => {
         setGetImage(null);
         toast.success("با موفقیت بروز شد.", {
@@ -127,7 +130,7 @@ export default function Profile() {
       formData.append("profile_pic", binaryFile);
     }
     apiInstance
-      .patch("/accounts/profile/edit-profile/", formData)
+      .patch("/accounts/profile/edit-myprofile/", formData)
       .then((res) => {
         console.log(res);
         toast.success("با موفقیت بروز شد.", {
