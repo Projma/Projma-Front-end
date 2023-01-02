@@ -64,7 +64,7 @@ export default function CreateBoardModal({
     <div>
       <div className="workspace-modal--add-button-container">
         <button className="workspace-modal--add-button" onClick={handleOpen}>
-          <p className="workspace-modal--add-button-title">+ افزودن بورد</p>
+          <p className="workspace-modal--add-button-title" style={{color: '#fff'}}>+ افزودن بورد</p>
         </button>
       </div>
       <Modal
