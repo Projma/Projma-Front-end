@@ -25,7 +25,7 @@ export default function Email_verification() {
   const url = "/accounts/users/active/?" + getLinkInfo(baseLink);
   console.log(url);
   axios
-    .post(`http://mohammadosoolian.pythonanywhere.com${url}`, "Fuck")
+    .get(`http://mohammadosoolian.pythonanywhere.com${url}`)
     .then((res) => console.log(res));
   return (
     <Container
