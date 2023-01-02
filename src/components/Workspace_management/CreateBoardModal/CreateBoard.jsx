@@ -57,6 +57,7 @@ export default function CreateBoardModal({
     form_data.append("name", title);
     form_data.append("description", description);
     form_data.append("type", "education");
+    form_data.append("background_pic", binaryFile);
     on_submit(form_data, boards, setBoards);
     handleClose();
   };
