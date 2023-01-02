@@ -19,6 +19,7 @@ import StyledTextField from "./StyledTextField";
 import apiInstance from "../../utilities/axiosConfig";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Shared/Loading";
@@ -66,6 +67,7 @@ export default function SignUp() {
   }, []);
 
   let navigate = useNavigate();
+  const { state } = useLocation();
   const cacheRtl = createCache({
     key: "muirtl",
     stylisPlugins: [prefixer, rtlPlugin],
@@ -269,6 +271,7 @@ export default function SignUp() {
                       id="email"
                       label="ایمیل"
                       name="email"
+                      defaultValue={state.email}
                       autoComplete="email"
                       InputLabelProps={{
                         style: input_text,
