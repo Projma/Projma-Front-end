@@ -25,6 +25,7 @@ import TaskModal from "./components/TaskModal/TaskModal";
 import { useSelector } from "react-redux";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import BoardInvitation from "./pages/BoardInvitation";
+import { Navigate } from "react-router-dom";
 
 const theme = createTheme(
   {
@@ -104,6 +105,11 @@ function App() {
               path="/email-verification"
               element={<Email_verification_2 />}
             />
+
+            {/* has to be last  */}
+            {/* <Route path='*' exact={true} component={My404Component} /> */}
+            <Route path="/404" element={<Landing />} />
+            <Route path="*" element={<Navigate replace to="/404" />} />
           </Routes>
         </Router>
       </Provider>
