@@ -8,14 +8,29 @@
 
 .card-item_label-container {
   display: flex;
-  font-size: 1.4rem;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
   color: #ffff;
   height: 100%;
   width: fit-content;
   border-radius: 1rem;
-  padding: 0.2rem 1.5rem;
-  font-weight: bold;
+  padding: 0.2rem 1rem;
+  /* font-weight: bold; */
   /*letter-spacing: 0.1rem;*/
+}
+
+.card-item_label-color-ball {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+}
+
+.card-item_label-name {
+  font-size: 1.2rem;
+}
+
+.card-item_label-without-name {
+  width: 0.8rem;
+  height: 0.5rem;
 }
