@@ -8,7 +8,7 @@ const CardLabel = ({ label }) => {
       {label !== undefined && <div className="card-item_label">
         {label.map((l) => (
           <div className="card-item_label-container"
-               style={{ backgroundColor: (l.color === '#ffffff' || l.color === '#000000' || l.color === '#fff' || l.color === '#000') ? '#66666644' : l.color + '44' }}>
+               style={{ backgroundColor: (l.color === '#ffffff' || l.color === '#000000' || l.color === '#fff' || l.color === '#000') ? '#66666644' : l.color + '55' }}>
             <spans style={{
               color: l.color,
             }}>{l.title}</spans>

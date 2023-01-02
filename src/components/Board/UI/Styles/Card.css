@@ -1,7 +1,8 @@
 .card_container {
   min-height: 1rem;
   max-width: 100%;
-  background-color: #0A1929;
+  background-color: var(--main-item-color);
+  border: var(--minor-item-color) solid 0.1rem;
   margin-bottom: 0.5rem;
   border-radius: 0.5rem;
   padding: 0.5rem;
@@ -79,7 +80,7 @@
   padding: 0.4rem;
 }
 
-.board_footer {
+.card_footer {
   display: flex;
   width: 100%;
   margin: 0.2rem 0.2rem;
@@ -90,14 +91,14 @@
   justify-content: space-between;
 }
 
-.board_footer-icon {
+.card_footer-icon {
   display: flex;
   color: #fff;
   /*font-size: 1.6rem;*/
   gap: 0.5rem;
 }
 
-.board_icon-container {
+.card_icon-container {
   width: auto;
   display: flex;
   flex-direction: row-reverse;
@@ -106,37 +107,35 @@
   gap: 0.2rem;
 }
 
-.board_checklist-finish {
+.card_checklist-finish {
   color: #66bb6a !important;
 }
 
-.board_avatar-profile-picture:hover , .board_avatar-profile-picture:last-child:hover {
+.card_avatar-profile-picture:hover , .card_avatar-profile-picture:last-child:hover {
   opacity: 60%;
 }
 
-
-
-.board_icon_container {
+.card_icon_container {
   position: absolute;
   display: none;
   left: 1%;
   top: 1%;
 }
 
-.board_card:hover .board_icon_container {
+.card:hover .card_icon_container {
   display: flex;
   width: auto;
   /* justify-content: space-between; */
   gap: 0.1rem;
 }
 
-.board_default-icon {
+.card_default-icon {
   color: var(--minor-item-color);
   font-size: 1.7rem !important;
   text-align: center;
 }
 
-.board_default-footer-icon {
+.card_default-footer-icon {
   color: var(--minor-item-color);
   font-size: 1.7rem !important;
   text-align: center;
