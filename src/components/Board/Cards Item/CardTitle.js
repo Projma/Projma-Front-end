@@ -35,7 +35,7 @@ const themeDisable = createTheme({
         root: {
           fontSize: '1.8rem',
           color: '#fff',
-          borderBottom: '0.2rem solid var(--minor-bg)',
+          borderBottom: '0.2rem solid var(--main-item-color)',
           // borderRadius: '0.5rem',
           // cursor: "pointer"
           // "&.Mui-focused": {

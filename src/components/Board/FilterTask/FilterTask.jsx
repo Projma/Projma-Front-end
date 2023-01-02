@@ -195,7 +195,7 @@ export default function FilterTask({ boardId, setLists }) {
   return (
     <div>
       <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-        Open Popover
+        فیلتر تسک
       </Button>
       <Popover
         id={id}

@@ -42,7 +42,7 @@ const List = (props) => {
   }, [props]);
   const reqCreateCard = async (data, id) =>
     await apiInstance
-      .post(`/workspaces/tasklist/${id}/create-task/`, data)
+      .post(`/workspaces/board/${id}/create-task/`, data)
       .then((response) => {
         toast.success('کارت با موفقیت ساخته شد', {
           position: toast.POSITION.BOTTOM_LEFT,

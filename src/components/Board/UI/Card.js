@@ -41,11 +41,22 @@ const Card = ({
   const [card, setCard] = useState({});
   const [open, setOpen] = useState(false);
   const [click, setClick] = useState(false);
+  const [show, setShow] = useState(false);
   const [enable, setEnable] = useState(false);
   const [insideButton, setInsideButton] = useState(false);
   const [req, setReq] = useState(false);
   const [cover, setCover] = useState("");
   const [update, setUpdate] = useState(false);
+  const [chatnum, setChatnum] = useState(comments_num == undefined ? 0 : comments_num);
+  const [clnum, setClnum] = useState(checklists_num == undefined ? 0 : checklists_num);
+  const [cclnum, setCclnum] = useState(checked_checklists_num == undefined ? 0 : checked_checklists_num);
+  const [attachnum, setAttachnum] = useState(attachments_num == undefined ? 0 : comments_num);
+  
+  console.log(card);
+  console.log(chatnum);
+  console.log(clnum);
+  console.log(cclnum);
+  console.log(attachnum);
   useEffect(() => {
     getCard();
     setUpdate(!update);
@@ -68,9 +79,12 @@ const Card = ({
   };
   const handleModalClose = () => {
     setClick(!click);
+    getCard();
+    setAttachnum(card.attachments.length);
   };
   const handleEditCardName = (e) => {
     e.stopPropagation();
+    setShow(!show);
     setInsideButton(true);
     setEnable(!enable);
   };
@@ -202,76 +216,72 @@ const Card = ({
                   if (enable) event.stopPropagation();
                 }}
               >
-                <CardTitle enable={enable} title={card.title} />
+                {show ? <CardTitle enable={enable} title={card.title} /> : <p>{card.title}</p>}
               </div>
               {disc() !== null && (
                 <div className="card_disc">
                   <p>{disc()}...</p>
                 </div>
               )}
-              {card.labels !== [] && (
-                <div className="card_label">
-                  <CardLabel label={card.labels} />
-                </div>
-              )}
-              <div className="board_footer">
-                <div className="board_card-avatar">
-                  {doers !== [] && (
-                    <AvatarGroup
-                      max={5}
-                      spacing="-1"
-                      sx={{ direction: "ltr", border: "none" }}
-                      className="board_avatar-container"
-                    >
-                      {doers.map((x) => (
-                        <Tooltip title={x.first_name + " " + x.last_name}>
-                          <Avatar
-                            key={uuid()}
-                            alt={x.first_name + " " + x.last_name}
-                            src={
-                              x.profile_pic !== null ? x.profile_pic : "none"
-                            }
-                            {...stringAvatar(x.first_name + " " + x.last_name)}
-                            className="board_avatar-profile-picture"
-                          />
-                        </Tooltip>
-                      ))}
-                    </AvatarGroup>
-                  )}
-                </div>
-                <div className="board_footer-icon">
-                  {attachments_num !== 0 && (
-                    <div className="board_icon-container">
-                      <AttachFileIcon className="board_default-footer-icon" />
-                      <p className="board_icon-info">{attachments_num}</p>
-                    </div>
-                  )}
-                  {checklists_num !== 0 && (
-                    <div>
-                      {checked_checklists_num === checklists_num ? (
-                        <div className="board_icon-container">
-                          <CheckBoxOutlinedIcon className="board_default-footer-icon board_checklist-finish" />
-                          <p className="board_icon-info ">
-                            {checked_checklists_num}/{checklists_num}
-                          </p>
-                        </div>
-                      ) : (
-                        <div className="board_icon-container">
-                          <CheckBoxOutlinedIcon className="board_default-footer-icon" />
-                          <p className="board_icon-info">
-                            {checked_checklists_num}/{checklists_num}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                  {comments_num !== 0 && (
-                    <div className="board_icon-container">
-                      <ChatBubbleIcon className="board_default-footer-icon" />
-                      <p className="board_icon-info">{comments_num}</p>
-                    </div>
-                  )}
-                </div>
+            </div>
+            {card.labels !== [] && <div className="card_label">
+              <CardLabel label={card.labels}/>
+            </div>}
+            <div className="card_footer">
+              <div className="card_card-avatar">
+                {doers !== [] && (
+                  <AvatarGroup
+                    max={5}
+                    spacing="-1"
+                    sx={{ direction: "ltr", border: "none" }}
+                    className="card_avatar-container"
+                  >
+                    {doers.map((x) => (
+                      <Tooltip title={x.first_name + " " + x.last_name}>
+                        <Avatar
+                          key={uuid()}
+                          alt={x.first_name + " " + x.last_name}
+                          src={x.profile_pic !== null ? x.profile_pic : "none"}
+                          {...stringAvatar(x.first_name + " " + x.last_name)}
+                          className="card_avatar-profile-picture"
+                        />
+                      </Tooltip>
+                    ))}
+                  </AvatarGroup>
+                )}
+              </div>
+              <div className="card_footer-icon">
+                {attachnum !== 0 && (
+                  <div className="card_icon-container">
+                    <AttachFileIcon className="card_default-footer-icon" />
+                    <p className="card_icon-info">{attachnum}</p>
+                  </div>
+                )}
+                {clnum !== 0 && (
+                  <div>
+                    {cclnum === clnum ? (
+                      <div className="card_icon-container">
+                        <CheckBoxOutlinedIcon className="card_default-footer-icon card_checklist-finish" />
+                        <p className="card_icon-info ">
+                          {cclnum}/{clnum}
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="card_icon-container">
+                        <CheckBoxOutlinedIcon className="card_default-footer-icon" />
+                        <p className="card_icon-info">
+                          {cclnum}/{clnum}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+                {chatnum !== 0 && (
+                  <div className="card_icon-container">
+                    <ChatBubbleIcon className="card_default-footer-icon" />
+                    <p className="card_icon-info">{chatnum}</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>

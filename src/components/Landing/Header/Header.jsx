@@ -99,7 +99,9 @@ const Header = () => {
               <Button
                 variant="contained"
                 // button-key="buttonAttribute"
-                onClick={() => navigate("/signup/")}
+                // onClick={() => navigate("/signup/")}
+                // navifate with email address
+                onClick={() => navigate("/signup/", { state: { email: document.getElementById("email").value } })}
                 sx={{
                   // height: 54,
                   // width: 150,

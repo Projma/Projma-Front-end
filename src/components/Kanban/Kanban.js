@@ -16,7 +16,7 @@ const Kanban = () => {
       </Helmet>
       <Header />
       <Board boardId={getLinkInfo(baseLink)} />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

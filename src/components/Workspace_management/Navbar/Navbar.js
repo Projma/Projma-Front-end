@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import EditModal from "../WorkspaceEditModal/EditModal";
 import apiInstance from "../../../utilities/axiosConfig";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import "transition-style";
 import "./Navbar.css";
 const Navbar = ({ params }) => {
@@ -29,11 +31,16 @@ const Navbar = ({ params }) => {
     console.log(data.name);
     setWorkspace(data);
     setName(data.name);
+    toast.success("اطلاعات فضای کاری با موفقیت تغییر کرد", {
+      position: toast.POSITION.TOP_CENTER,
+      rtl: true,
+    });
   };
 
   return (
     <div className="ws_navbar-main-div">
       <div className="ws_navbar-ws-name">
+        <ToastContainer />
         <div transition-style className="ws_navbar-symbol --in-custom">
           <h3>{name?.charAt(0).toUpperCase()}</h3>
         </div>

@@ -1,20 +1,33 @@
-import * as React from 'react';
-import './styles/CardLabel.css';
+import * as React from "react";
+import "./styles/CardLabel.css";
 
 const CardLabel = ({ label }) => {
-  console.log(label);
   return (
     <>
-      {label !== undefined && <div className="card-item_label">
-        {label.map((l) => (
-          <div className="card-item_label-container"
-               style={{ backgroundColor: (l.color === '#ffffff' || l.color === '#000000' || l.color === '#fff' || l.color === '#000') ? '#66666644' : l.color + '44' }}>
-            <spans style={{
-              color: l.color,
-            }}>{l.title}</spans>
-          </div>
-        ))}
-      </div>}
+      {label !== undefined && (
+        <div className="card-item_label">
+          {label.map((l) => (
+            <div
+              className="card-item_label-container"
+              style={{
+                backgroundColor:
+                  l.color === "#ffffff" ||
+                  l.color === "#000000" ||
+                  l.color === "#fff" ||
+                  l.color === "#000"
+                    ? "#66666644"
+                    : l.color + "66",
+              }}
+            >
+                <div
+                  className="card-item_label-color-ball"
+                  style={{ backgroundColor: l.color }}
+                ></div>
+                <p className="card-item_label-name">{l.title}</p>
+              </div>
+          ))}
+        </div>
+      )}
     </>
   );
 };

@@ -42,79 +42,89 @@ function App() {
   // functional base component
   // const state = useSelector((state) => state);
   return (
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        {/* https://www.freecodecamp.org/news/how-to-build-a-redux-powered-react-app/ */}
-        <Router>
-          <Routes>
-            <Route exact path="/" element={<Landing />} />
-            <Route
-              exact
-              path="/dashboard"
-              element={<PrivateRoute children={<Dashborad />} />}
-            />
-            <Route exact path="/signin" element={<SignIn />} />
-            <Route exact path="/signup" element={<SignUp />} />
-            <Route
-              exact
-              path="/profile"
-              element={<PrivateRoute children={<Profile />} />}
-            />
-            <Route exact path="/forget-password" element={<ForgetPassword />} />
-            <Route
-              exact
-              path="/reset-password"
-              element={<PrivateRoute children={<ResetPassword />} />}
-            />
-            <Route
-              path="workspace/:id/*"
-              element={
-                <PrivateRoute
-                  children={
-                    <PrivateRoute children={<Workspace_management />} />
-                  }
-                />
-              }
-            />
-            <Route
-              exact
-              path="/profileview/:username"
-              element={<ProfileView />}
-            />
-            <Route
-              exact
-              path="/changepassword"
-              element={<PrivateRoute children={<ChangePassword />} />}
-            />
-            <Route
-              exact
-              path="/kanban/:id"
-              element={
-                <PrivateRoute
-                  children={<PrivateRoute children={<Kanban />} />}
-                />
-              }
-            />
-            <Route exact path="/invite_page/:token" element={<InvitePage />} />
-            <Route
-              exact
-              path="/borad_invitation/:id/:token"
-              element={<PrivateRoute children={<BoardInvitation />} />}
-            />
-            <Route
-              exact
-              path="/email-verification"
-              element={<Email_verification_2 />}
-            />
+    <div className="styled-scrollbars">
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          {/* https://www.freecodecamp.org/news/how-to-build-a-redux-powered-react-app/ */}
+          <Router>
+            <Routes>
+              <Route exact path="/" element={<Landing />} />
+              <Route
+                exact
+                path="/dashboard"
+                element={<PrivateRoute children={<Dashborad />} />}
+              />
+              <Route exact path="/signin" element={<SignIn />} />
+              <Route exact path="/signup" element={<SignUp />} />
+              <Route
+                exact
+                path="/profile"
+                element={<PrivateRoute children={<Profile />} />}
+              />
+              <Route
+                exact
+                path="/forget-password"
+                element={<ForgetPassword />}
+              />
+              <Route
+                exact
+                path="/reset-password"
+                element={<PrivateRoute children={<ResetPassword />} />}
+              />
+              <Route
+                path="workspace/:id/*"
+                element={
+                  <PrivateRoute
+                    children={
+                      <PrivateRoute children={<Workspace_management />} />
+                    }
+                  />
+                }
+              />
+              <Route
+                exact
+                path="/profileview/:username"
+                element={<ProfileView />}
+              />
+              <Route
+                exact
+                path="/changepassword"
+                element={<PrivateRoute children={<ChangePassword />} />}
+              />
+              <Route
+                exact
+                path="/kanban/:id"
+                element={
+                  <PrivateRoute
+                    children={<PrivateRoute children={<Kanban />} />}
+                  />
+                }
+              />
+              <Route
+                exact
+                path="/invite_page/:token"
+                element={<InvitePage />}
+              />
+              <Route
+                exact
+                path="/borad_invitation/:id/:token"
+                element={<PrivateRoute children={<BoardInvitation />} />}
+              />
+              <Route
+                exact
+                path="/email-verification"
+                element={<Email_verification_2 />}
+              />
 
-            {/* has to be last  */}
+              {/* has to be last  */}
             {/* <Route path='*' exact={true} component={My404Component} /> */}
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<Navigate replace to="/404" />} />
-          </Routes>
-        </Router>
-      </Provider>
-    </ThemeProvider>
+            </Routes>
+          </Router>
+        </Provider>
+      </ThemeProvider>
+    </div>
   );
 }
 
