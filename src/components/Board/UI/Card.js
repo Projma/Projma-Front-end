@@ -68,6 +68,7 @@ const Card = ({
   };
   const handleModalClose = () => {
     setClick(!click);
+    getCard();
   };
   const handleEditCardName = (e) => {
     e.stopPropagation();
