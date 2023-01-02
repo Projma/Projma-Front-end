@@ -285,7 +285,7 @@ export default function TaskModal(props) {
       .patch(`/workspaces/task/${params.task_id}/update-task/`, formdata)
       .then((res) => {
         console.log("navid");
-        console.log(res);
+        // console.log(res);
       });
   };
 
@@ -561,7 +561,7 @@ export default function TaskModal(props) {
                     <div className="flex-column" style={{ width: "90%" }}>
                       <div
                         className="neonText taskmodal-description-title"
-                        style={{ marginBottom: "-2%" }}
+                        style={{ marginBottom: "2%" }}
                       >
                         توضیحات
                       </div>
@@ -603,7 +603,7 @@ export default function TaskModal(props) {
                             </div>
                           </div>
                         ) : (
-                          <div>
+                          <div style={{ marginBottom: "2px" }}>
                             {description == "" ? (
                               <Button
                                 className="taskmodal-closeButton"
@@ -860,18 +860,7 @@ export default function TaskModal(props) {
                             </div>
                           </div>
                         ) : (
-                          <Button
-                            className="taskmodal-closeButton"
-                            onClick={() => setShowChecklist(true)}
-                            sx={{
-                              fontFamily: "Vazir",
-                              color: "white",
-                              fontSize: "100%",
-                              bgcolor: "#1d4b7a",
-                            }}
-                          >
-                            اضافه کردن آیتم جدید
-                          </Button>
+                          <div></div>
                         )}
                       </Box>
                     </div>
@@ -1024,7 +1013,7 @@ export default function TaskModal(props) {
                               fontSize: "10px",
                               height: "30%",
                             }}
-                            type="submit"
+                            // type="submit"
                             onClick={plusforprojma}
                             variant="contained"
                           >
@@ -1264,7 +1253,10 @@ export default function TaskModal(props) {
                     params={params}
                     setAllChecklists={setAllChecklists}
                   />
-                  <Attachments params={params} />
+                  <Attachments
+                    params={params}
+                    setAllAttachments={setAllAttachments}
+                  />
                   <DueTime
                     params={params}
                     dueDate={dueDate}

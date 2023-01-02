@@ -14,9 +14,14 @@ import { useEffect } from "react";
 import apiInstance from "../../utilities/axiosConfig";
 import { baseUrl } from "../../utilities/constants";
 
-function check_username_in_list(username, list) {
+function check_username_in_list(username, userName, list) {
+  console.log(list);
   for (let i = 0; i < list.length; i++) {
     if (list[i].username === username) {
+      return true;
+    } else if (list[i].userName === username) {
+      return true;
+    } else if (list[i].userName === userName) {
       return true;
     }
   }
@@ -65,15 +70,13 @@ export default function Members({ params, setDoers, doer }) {
     );
   };
   const add_member_to_doers = (member) => {
+    console.log(member);
     const formData = new FormData();
-    console.log(doer);
-    console.log(member.id);
     const json = {
       doers: [member.id],
     };
-    console.log(json);
-    if (check_username_in_list(member.userName, doer)) {
-      setDoers(doer.filter((item) => item.userName !== member.userName));
+    console.log(doer);
+    if (check_username_in_list(member.userName, member.username, doer)) {
       console.log("if");
       apiInstance
         .patch(
@@ -81,17 +84,19 @@ export default function Members({ params, setDoers, doer }) {
           json
         )
         .then((res) => {
+          setDoers(doer.filter((item) => item.username !== member.userName));
           console.log("else");
           console.log(res);
         });
     } else {
-      setDoers([...doer, member]);
+      console.log("else");
       const form_data = { doers: [member.id] };
-
       apiInstance
         .patch(`/workspaces/task/${params.task_id}/add-doers-to-task/`, json)
         .then((res) => {
+          console.log("havid");
           console.log(res);
+          setDoers([...doer, member]);
         });
     }
     setChangeMemberStatus(!changeMemberStatus);
@@ -215,7 +220,7 @@ export default function Members({ params, setDoers, doer }) {
                       {/* <InitialIconcircle initials={member.username[0]} /> */}
                     </div>
                     <div className="flex taskmodal-members-body-row-text">
-                      <div>
+                      <div className="taskmodal-members-body-descriptionn">
                         {member.firstName +
                           " " +
                           member.lastName +
@@ -224,7 +229,11 @@ export default function Members({ params, setDoers, doer }) {
                           " )"}
                       </div>
                       <div>
-                        {check_username_in_list(member.userName, doer) ? (
+                        {check_username_in_list(
+                          member.userName,
+                          member.username,
+                          doer
+                        ) ? (
                           <CheckBoxIcon
                             fontSize="large"
                             className="flex taskmodal-members-checkbox"

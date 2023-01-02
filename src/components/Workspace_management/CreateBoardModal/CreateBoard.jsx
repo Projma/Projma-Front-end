@@ -57,6 +57,7 @@ export default function CreateBoardModal({
     form_data.append("name", title);
     form_data.append("description", description);
     form_data.append("type", "education");
+    form_data.append("background_pic", binaryFile);
     on_submit(form_data, boards, setBoards);
     handleClose();
   };
@@ -64,7 +65,7 @@ export default function CreateBoardModal({
     <div>
       <div className="workspace-modal--add-button-container">
         <button className="workspace-modal--add-button" onClick={handleOpen}>
-          <p className="workspace-modal--add-button-title">+ افزودن بورد</p>
+          <p className="workspace-modal--add-button-title" style={{color: '#fff'}}>+ افزودن بورد</p>
         </button>
       </div>
       <Modal
@@ -105,6 +106,9 @@ export default function CreateBoardModal({
                 }}
                 required
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
+                InputLabelProps={{
+                  style: { fontFamily: "Vazir" },
+                }}
               />
               <StyledTextField
                 className="workspace-modal--board-name"
@@ -114,6 +118,9 @@ export default function CreateBoardModal({
                   setDescription(e.target.value);
                 }}
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
+                InputLabelProps={{
+                  style: { fontFamily: "Vazir" },
+                }}
               />
             </PerTextField>
             <Avatar
@@ -139,7 +146,7 @@ export default function CreateBoardModal({
                 marginTop: 0,
               }}
             >
-              <p style={{ fontSize: "0.8rem" }}>انتخاب عکس</p>
+              <p style={{ fontSize: "1rem" }}>انتخاب عکس</p>
               <input
                 type="file"
                 hidden
@@ -165,6 +172,7 @@ export default function CreateBoardModal({
               value="بساز"
               className="workspace-modal--button-29"
               onClick={create_board}
+              style={{ fontFamily: "Vazir" }}
             />
           </form>
           {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>

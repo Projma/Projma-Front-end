@@ -25,7 +25,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../actions/authActions";
 
 function ResponsiveAppBar() {
-    let [workspaces, setWorkspaces] = useState([])
+    let [workspaces, setWorkspaces] = useState([]);
+    let [starredBoards, setStarredBoards] = useState([]);
     // let [owningWorkspaces, setOwningWorkspaces] = useState([])
     useEffect(() => {
         apiInstance.get("/workspaces/dashboard/myworkspaces/").then((response) => {
@@ -39,6 +40,11 @@ function ResponsiveAppBar() {
         // }).catch((error) => {
         //     // console.log(error);
         // });
+        apiInstance.get("/boards/dashboard/mystarred-boards/").then((response) => {
+            setStarredBoards(response.data);
+        }).catch((error) => {
+            // console.log(error);
+        });
     }, [])
 
     const pages = ['ستاره دارها', 'فضای کارها', 'ایجاد']; // 'اخیرا دیده شده‌ها',
@@ -179,9 +185,11 @@ function ResponsiveAppBar() {
                         >
 
                             {
+                                (state.isAuthenticated === true) && (
                                 pages.map((page) => (
-                                    <BasicMenu name={page} workspaces={workspaces_id_to_name} />
+                                    <BasicMenu name={page} workspaces={workspaces_id_to_name} starred_boards={starredBoards}/>
                                 ))
+                                )
                             }
                         </Menu>
                     </Box>
@@ -206,9 +214,12 @@ function ResponsiveAppBar() {
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {
+                            (state.isAuthenticated === true) && (
                             pages.map((page) => (
-                                <BasicMenu name={page} workspaces={workspaces_id_to_name} />
-                            ))}
+                                <BasicMenu name={page} workspaces={workspaces_id_to_name} starred_boards={starredBoards}/>
+                            ))
+                            )
+                        }
                     </Box>
 
                     <Box sx={{ flexGrow: 0, fontFamily: 'Vazir' }}>

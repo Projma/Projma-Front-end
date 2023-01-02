@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -200,46 +200,59 @@ export default function BasicModal(props) {
     }
 
     return (
-        <div style={{
-            // hover: {
-            //     color: '#E2EDF8',
-            //     backgroundColor: '#007fff',
-            //     borderRadius: '5px',
-            // },
-        }}>
-            <Button onClick={handleOpen} sx={{
-                color: '#00bfff',
-                ":hover": {
-                    color: '#E2EDF8',
-                    backgroundColor: '#007fff',
-                    borderRadius: '5px',
-                },
-                marginTop: '8%',
-                padding: '5%',
+        <>
+            {
+                (props.text === "+") &&
+                <Button onClick={handleOpen} sx={{
+                    color: '#00bfff',
+                    ":hover": {
+                        color: '#E2EDF8',
+                        backgroundColor: '#007fff',
+                        borderRadius: '5px',
+                    },
+                    marginTop: '8%',
+                    padding: '5%',
 
-                fontFamily: 'Vazir',
-                textDecoration: 'none',
-                display: 'block',
-                transition: '0.3s',
-                display: 'flex',
-                alignItems: 'center',
-            }}>
-                {
-                    (props.text === "+") && 
+                    fontFamily: 'Vazir',
+                    textDecoration: 'none',
+                    display: 'block',
+                    transition: '0.3s',
+                    display: 'flex',
+                    alignItems: 'center',
+                }}>
                     <h2>
                         +
                     </h2>
-                }
+                </Button>
+            }
 
-                {
-                    (props.text === "ایجاد فضای کاری جدید") && 
-                    <p style={{
-                        color: 'black',
+            {
+
+                (props.text === "ایجاد فضای کاری جدید") &&
+                <Button onClick={handleOpen} sx={{
+
+                    color: '#000',
+                    ":hover": {
+                        color: '#E2EDF8',
+                        backgroundColor: '#007fff',
+                        borderRadius: '5px',
+                    },
+                    // marginTop: '8%',
+                    // padding: '10%',
+                    fontFamily: 'Vazir',
+                    textDecoration: 'none',
+                    display: 'block',
+                    transition: '0.3s',
+                    display: 'flex',
+                    alignItems: 'center',
+                }}>
+                    <h4 style={{
                     }} className="text-in-button">
                         {props.text}
-                    </p>
-                }
-            </Button>
+                    </h4>
+                </Button>
+            }
+
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -440,6 +453,6 @@ export default function BasicModal(props) {
                     </Grid>
                 </Box>
             </Modal>
-        </div>
+        </>
     );
 }

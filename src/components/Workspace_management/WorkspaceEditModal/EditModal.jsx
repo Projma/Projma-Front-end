@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useSelector, useEffect } from "react";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { baseUrl } from "../../../utilities/constants";
@@ -189,6 +189,7 @@ export default function EditModal({ params, update_navbar }) {
                 }}
               />
               <label className="ws_editmodal-label">توضیحات</label>
+              <br></br>
               <label className="ws_editmodal-label">نوع فضای کار</label>
               <BasicSelect
                 type={workspace.type}
@@ -199,7 +200,7 @@ export default function EditModal({ params, update_navbar }) {
             <input
               type="submit"
               value="ذخیره"
-              className="button-29"
+              className="edit_workspace-modal-button-29"
               onClick={edit_workspace}
             />
           </form>
