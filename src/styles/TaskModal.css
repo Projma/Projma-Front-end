@@ -167,6 +167,7 @@
 .taskmodal-body-checklist {
   margin-top: 2%;
   column-gap: 3%;
+  margin-bottom: 3%;
 }
 
 .taskmodal-body-checklist-header {
@@ -268,6 +269,7 @@
   font-size: 15px;
   margin-right: 2%;
   font-weight: bold;
+  color: rgba(255, 255, 255, 0.885);
 }
 
 .taskmodal-comment-showList-comment {
