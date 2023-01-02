@@ -5,7 +5,6 @@ import "../styles/Landing.css";
 import Grid from "@mui/material/Grid"; // Grid version 1
 import Container from "@mui/material/Container";
 import Footer from "../components/Landing/Footer/Footer";
-import x from "../static/images/cards/paella.jpg";
 import good_team from "../static/images/landing/good_team.svg";
 import software_engineer from "../static/images/landing/software_engineer.svg";
 import team_up from "../static/images/landing/team_up.svg";

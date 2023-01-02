@@ -219,7 +219,7 @@ const ShareButton = (props) => {
                                     // backgroundColor: "#66B2FF",
                                 }}
                                 // defaultValue={[top100Films[13]]}
-                                defaultValue={[top100Films[7]]}
+                                defaultValue={[top100Films[0]]}
                                 filterSelectedOptions
                                 filterOptions={(x) => x}
                                 renderInput={(params) => (
@@ -453,6 +453,10 @@ function stringAvatar(name) {
 const top100Films = [
     { title: 'فرزان رحمانی', year: 1994 },
     { title: 'محمد اصولیان', year: 1972 },
+    { title: 'نوید ابراهیمی', year: 1974 },
+    { title: 'سینا علینژاد', year: 2008 },
+    { title: 'وحید محمدی', year: 1957 },
+    { title: "محمد حسین عباسپور", year: 1993 },
     { title: 'سینا علینژاد', year: 1974 },
     { title: 'محمد حسین عباسپور', year: 2008 },
     { title: 'وحید محمدی', year: 1957 },

@@ -185,9 +185,11 @@ function ResponsiveAppBar() {
                         >
 
                             {
+                                (state.isAuthenticated === true) && (
                                 pages.map((page) => (
                                     <BasicMenu name={page} workspaces={workspaces_id_to_name} starred_boards={starredBoards}/>
                                 ))
+                                )
                             }
                         </Menu>
                     </Box>
@@ -212,9 +214,12 @@ function ResponsiveAppBar() {
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {
+                            (state.isAuthenticated === true) && (
                             pages.map((page) => (
                                 <BasicMenu name={page} workspaces={workspaces_id_to_name} starred_boards={starredBoards}/>
-                            ))}
+                            ))
+                            )
+                        }
                     </Box>
 
                     <Box sx={{ flexGrow: 0, fontFamily: 'Vazir' }}>
