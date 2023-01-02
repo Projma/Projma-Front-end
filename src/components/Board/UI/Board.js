@@ -11,19 +11,6 @@ import axios from "axios";
 import Loading from "../../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import "../../../styles/ReactToastify.css";
-import React, { useState, useEffect } from "react";
-import List from "./List";
-import "./Styles/Board.css";
-import PerTextField from "../../Shared/PerTextField";
-import StyledTextField from "../../Shared/StyledTextField";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import apiInstance from "../../../utilities/axiosConfig";
-import InvitationHeader from "../InvitationHeader/InvitationHeader";
-import { v4 as uuid } from "uuid";
-import axios from "axios";
-import Loading from "../../Shared/Loading";
-import { toast, ToastContainer } from "react-toastify";
-import "../../../styles/ReactToastify.css";
 
 const Board = (props) => {
   const [lists, setLists] = useState([]);
