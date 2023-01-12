@@ -73,8 +73,14 @@ export default function FilterTask({ boardId, setLists }) {
     ) {
       url = url + "&";
     }
+    if (labels_empty && type !== "label") {
+      url = url + "?";
+    }
     if (!members_empty) {
-      url = url + "?doers=";
+      // if (labels_empty) {
+      //   url += "?";
+      // }
+      url = url + "doers=";
       for (let i = 0; i < selectedMembers.length; i++) {
         url = url + `${selectedMembers[i]}`;
         if (i !== selectedMembers.length - 1 || type === "member")
@@ -83,7 +89,7 @@ export default function FilterTask({ boardId, setLists }) {
     }
     if (type === "member") {
       if (members_empty) {
-        url = url + "?doers=";
+        url = url + "doers=";
       }
       url = url + value;
     }
@@ -171,6 +177,29 @@ export default function FilterTask({ boardId, setLists }) {
         url = url + "?end_date=" + date;
       }
     }
+    apiInstance.get(url).then((res) => {
+      console.log("filtered tasks");
+      console.log(res.data);
+      res.data.tasklists.map((list) => {
+        list.tasks.sort((a, b) => a.order - b.order);
+      });
+      setLists(res.data.tasklists.sort((a, b) => b.order - a.order));
+    });
+  };
+
+  const resetFilter = (event) => {
+    setSelectedLabels([]);
+    setSelectedMembers([]);
+    setDate("");
+    let url = `workspaces/task/${boardId}/filter/`;
+    const resetlabel = boardLabels.map((val) => {
+      return { ...val, checked: false };
+    });
+    setBoardLabels(resetlabel);
+    const resetmem = boardMembers.map((val) => {
+      return { ...val, checked: false };
+    });
+    setBoardMembers(resetmem);
     apiInstance.get(url).then((res) => {
       console.log("filtered tasks");
       console.log(res.data);
@@ -293,6 +322,8 @@ export default function FilterTask({ boardId, setLists }) {
               />
             </div>
           ))}
+          <label>reset</label>
+          <input type="button" onClick={resetFilter} />
         </div>
       </Popover>
     </div>
