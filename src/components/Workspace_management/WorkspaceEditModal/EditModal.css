@@ -17,6 +17,10 @@
   font-weight: 600;
 }
 
+.ws_editmodal-inputs {
+  display: grid;
+}
+
 /* .ws_editmodal-input {
   width: 100%;
   height: 3rem;
@@ -29,8 +33,15 @@
   margin-bottom: 1rem;
 } */
 
+.ws_editmodal-button-div {
+  display: flex;
+  align-items: center;
+}
+
 .edit_workspace-modal-button-29 {
-  margin-top: 1.1rem;
+  margin-top: 6rem;
+  margin-right: auto;
+  margin-left: auto;
   align-items: center;
   appearance: none;
   background-image: radial-gradient(

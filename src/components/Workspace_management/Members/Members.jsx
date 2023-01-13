@@ -149,31 +149,32 @@ const Members = ({ params }) => {
                   {member.email}
                 </td>
                 <td className="list-item-prop for-button">
-                  <button
-                    id={member.userName}
-                    key={member.id}
-                    className="more-details"
-                    role="button"
-                    onClick={go_to_profile}
-                  >
-                    <span class="text">پروفایل</span>
-                  </button>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <button
+                      id={member.userName}
+                      key={member.id}
+                      className="more-details"
+                      role="button"
+                      onClick={go_to_profile}
+                    >
+                      <span class="text">پروفایل</span>
+                    </button>
+                  </div>
                 </td>
-                <td>
+                <td
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: "3rem",
+                  }}
+                >
                   <DeleteDialog
                     className="ws_members-person-remove-button"
                     key={member.id}
                     removeMember={removeMember}
                     user_id={member.id}
                   />
-                  {/* <button
-                    key={member.id}
-                    id={member.userName}
-                    className="ws_members-person-remove-button"
-                    onClick={(event) => removeMember(event, member.id)}
-                  >
-                    <PersonRemoveIcon sx={{ color: "#fff" }} />
-                  </button> */}
                 </td>
               </tr>
             ))}
