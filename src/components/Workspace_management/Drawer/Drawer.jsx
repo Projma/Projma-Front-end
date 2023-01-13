@@ -2,7 +2,7 @@ import * as React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
@@ -70,7 +70,7 @@ function ResponsiveDrawer(props) {
   const sidebarButton = [
     { nameFa: "بورد‌ها", nameEn: "Boards" },
     { nameFa: "اعضا", nameEn: "members" },
-    { nameFa: "تنظیمات", nameEn: "setting" },
+    // { nameFa: "تنظیمات", nameEn: "setting" },
   ];
   const drawer = (
     <div className="drawer">
@@ -133,48 +133,6 @@ function ResponsiveDrawer(props) {
         ))}
       </List>
       <Divider sx={{ backgroundColor: "#9499a8" }} />
-      <List>
-        {["همه میل‌ها", "زباله", "اسپم"].map((text, index) => (
-          <ListItem key={text} className={classes.list_item} disablePadding>
-            <Link
-              to="/members"
-              style={{
-                textDecoration: "none",
-                color: "#000",
-                display: "block",
-                width: "100%",
-              }}
-            >
-              <ListItemButton sx={{ textDecoration: "none" }}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? (
-                    <InboxIcon className={classes.list_item_icon} />
-                  ) : (
-                    <MailIcon className={classes.list_item_icon} />
-                  )}
-                </ListItemIcon>
-                <ListItemText
-                  disableTypography
-                  primary={
-                    <Typography
-                      type="body2"
-                      style={{ color: "#fff", fontFamily: "Vazir" }}
-                    >
-                      {text}
-                    </Typography>
-                  }
-                  sx={{
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    fontSize: "1.3rem",
-                    color: "#fff",
-                  }}
-                />
-              </ListItemButton>
-            </Link>
-          </ListItem>
-        ))}
-      </List>
     </div>
   );
 

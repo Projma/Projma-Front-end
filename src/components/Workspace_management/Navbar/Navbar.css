@@ -6,6 +6,35 @@
   height: 10rem;
 }
 
+.ws_navbar-delete-div {
+  justify-self: flex-end;
+}
+
+.ws_navbar-delete-button {
+  /* color: #d04213; */
+  background-color: #d04213;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 0.6rem;
+}
+
+.ws_navbar-delete-button:hover {
+  background-color: #9c4c31;
+  cursor: pointer;
+}
+
+.ws_workspace-remove-button {
+  border: 0;
+  background: none;
+}
+
+.ws_workspace-remove-button:hover {
+  cursor: pointer;
+  background-color: #e25c09;
+  opacity: 80%;
+  border-radius: 20%;
+}
+
 .ws_navbar-symbol {
   /* font-size: 2rem; */
   /* background-color: pink; */

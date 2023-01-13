@@ -115,7 +115,7 @@ export default function CheckList({ params, setAllChecklists }) {
               onChange={(e) => setCreatedCheckTitle(e.target.value)}
               placeholder="عنوان"
               sx={{
-                color: "#000 !important",
+                color: "#fff !important",
                 width: "100%",
                 marginBottom: "1rem",
               }}

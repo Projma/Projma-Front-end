@@ -140,6 +140,7 @@
 
 /* CSS */
 .more-details {
+  margin: 0 !important;
   align-items: center;
   background-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
   border: 0;
@@ -150,8 +151,9 @@
   display: flex;
   // font-family: Phantomsans, sans-serif;
   font-size: 0.8rem;
-  justify-content: center;
+  justify-content: flex-end;
   margin-left: 0 !important;
+  // margin-right: 3rem !important;
   line-height: 1em;
   // max-width: 100%;
   // min-width: 140px;

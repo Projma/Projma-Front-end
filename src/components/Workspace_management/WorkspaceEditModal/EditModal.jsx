@@ -40,25 +40,18 @@ export default function EditModal({ params, update_navbar }) {
   const [page, setPage] = React.useState("");
   const handleOpen = () => {
     setOpen(true);
-    // setPage(body);
-    // nameRef.current.value = workspace.name;
-    // descriptionRef.current.value = workspace.description;
-    console.log(workspace);
   };
   const handleClose = () => {
-    setNewType(workspace.type);
-    console.log("herrrr");
-    console.log(workspace);
-    // setNewName(workspace.name);
-    // setNewDescription(workspace.description);
+    setWorkspace(oldWorkspace);
     setOpen(false);
-    // setPage("");
   };
   // console.log("workspace in edit modal", name, description, type);
   const [newType, setNewType] = React.useState("");
   const [newName, setNewName] = React.useState("");
   const [newDescription, setNewDescription] = React.useState("");
   const [workspace, setWorkspace] = React.useState({});
+  const [oldWorkspace, setOldWorkspace] = React.useState({});
+  const [change, setChange] = React.useState(false);
   useEffect(() => {
     apiInstance
       .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
@@ -68,6 +61,30 @@ export default function EditModal({ params, update_navbar }) {
           "*********************************************************"
         );
         setWorkspace(res.data);
+        setOldWorkspace(res.data);
+        console.log(workspace);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setNewName(workspace.name);
+    console.log(newName);
+    setNewDescription(workspace.description);
+    setNewType(workspace.type);
+    console.log(workspace.description);
+    console.log(workspace.type);
+  }, [change]);
+
+  useEffect(() => {
+    apiInstance
+      .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
+      .then((res) => {
+        console.log(res.data);
+        console.log(
+          "*********************************************************"
+        );
+        setWorkspace(res.data);
+        setOldWorkspace(res.data);
         console.log(workspace);
       })
       .catch((err) => {
@@ -82,34 +99,38 @@ export default function EditModal({ params, update_navbar }) {
   }, []);
 
   const edit_workspace = (e) => {
+    // setOldWorkspace(workspace);
     setIsPost(true);
     e.preventDefault();
     const form_data = new FormData();
-    if (newName == undefined || newName == "" || newName == workspace.name) {
-      form_data.append("name", workspace.name);
-    } else {
-      form_data.append("name", newName);
-    }
-    console.log("newDescription");
-    console.log(newDescription);
-    if (
-      newDescription == undefined ||
-      newDescription == "" ||
-      newDescription == workspace.description
-    ) {
-      console.log("yesss");
-      form_data.append("description", workspace.description);
-    } else {
-      console.log("nooo");
-      form_data.append("description", newDescription);
-    }
-    if (newType == undefined || newType == "" || newType == workspace.type) {
-      form_data.append("type", workspace.type);
-    } else {
-      form_data.append("type", newType);
-    }
-    console.log("form_data");
-    console.log(form_data);
+    // if (newName == undefined || newName == "" || newName == workspace.name) {
+    //   form_data.append("name", workspace.name);
+    // } else {
+    //   form_data.append("name", newName);
+    // }
+    // console.log("newDescription");
+    // console.log(newDescription);
+    // if (
+    //   newDescription == undefined ||
+    //   newDescription == "" ||
+    //   newDescription == workspace.description
+    // ) {
+    //   console.log("yesss");
+    //   form_data.append("description", workspace.description);
+    // } else {
+    //   console.log("nooo");
+    //   form_data.append("description", newDescription);
+    // }
+    form_data.append("name", workspace.name);
+    form_data.append("description", workspace.description);
+    form_data.append("type", workspace.type);
+    // if (newType == undefined || newType == "" || newType == workspace.type) {
+    //   form_data.append("type", workspace.type);
+    // } else {
+    //   form_data.append("type", newType);
+    // }
+    // console.log("form_data");
+    // console.log(form_data);
     apiInstance
       .patch(
         `workspaces/workspaceowner/${params.id}/edit-workspace/`,
@@ -117,6 +138,7 @@ export default function EditModal({ params, update_navbar }) {
       )
       .then((res) => {
         update_navbar(workspace);
+        setChange(!change);
         handleClose();
       })
       .finally(() => {
@@ -161,48 +183,51 @@ export default function EditModal({ params, update_navbar }) {
           {/* <img src={x} className="board-image" /> */}
           <form className="board-form">
             <PerTextField>
-              <StyledTextField
-                className="ws_editmodal-input"
-                value={workspace.name}
-                defaultValue={workspace.name}
-                onChange={(e) =>
-                  setWorkspace({ ...workspace, name: e.target.value })
-                }
-                sx={{ textAlign: "center", fontFamily: "Vazir" }}
-              />
-              <label className="ws_editmodal-label">نام فضای کار</label>
-
-              <StyledTextField
-                ref={descriptionRef}
-                className="ws_editmodal-input"
-                onChange={(e) =>
-                  setWorkspace({ ...workspace, description: e.target.value })
-                }
-                value={workspace.description}
-                defaultValue={workspace.description}
-                sx={{
-                  textAlign: "center",
-                  fontFamily: "Vazir",
-                  marginTop: "5%",
-                  fontSize: "1.5rem",
-                  // direction: "rtl",
-                }}
-              />
-              <label className="ws_editmodal-label">توضیحات</label>
-              <br></br>
-              <label className="ws_editmodal-label">نوع فضای کار</label>
-              <BasicSelect
-                type={workspace.type}
-                setWorkspaceType={setWorkspaceType}
-                workspace={workspace}
-              />
+              <div className="ws_editmodal-inputs">
+                <StyledTextField
+                  className="ws_editmodal-input"
+                  value={workspace.name}
+                  defaultValue={workspace.name}
+                  onChange={(e) =>
+                    setWorkspace({ ...workspace, name: e.target.value })
+                  }
+                  sx={{ textAlign: "center", fontFamily: "Vazir" }}
+                />
+                <label className="ws_editmodal-label">نام فضای کار</label>
+                <StyledTextField
+                  ref={descriptionRef}
+                  className="ws_editmodal-input"
+                  onChange={(e) =>
+                    setWorkspace({ ...workspace, description: e.target.value })
+                  }
+                  value={workspace.description}
+                  defaultValue={workspace.description}
+                  sx={{
+                    textAlign: "center",
+                    fontFamily: "Vazir",
+                    marginTop: "5%",
+                    fontSize: "1.5rem",
+                    // direction: "rtl",
+                  }}
+                />
+                <label className="ws_editmodal-label">توضیحات</label>
+                <br></br>
+                <BasicSelect
+                  type={workspace.type}
+                  setWorkspaceType={setWorkspaceType}
+                  workspace={workspace}
+                />
+                <label className="ws_editmodal-label">نوع فضای کار</label>
+              </div>
             </PerTextField>
-            <input
-              type="submit"
-              value="ذخیره"
-              className="edit_workspace-modal-button-29"
-              onClick={edit_workspace}
-            />
+            <div className="ws_editmodal-button-div">
+              <input
+                type="submit"
+                value="ذخیره"
+                className="edit_workspace-modal-button-29"
+                onClick={edit_workspace}
+              />
+            </div>
           </form>
         </Box>
       </Modal>
