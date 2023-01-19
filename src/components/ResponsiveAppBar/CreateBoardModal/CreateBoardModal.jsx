@@ -16,6 +16,7 @@ import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import MenuItem from '@mui/material/MenuItem';
+import { convertNumberToPersian, convertNumberToEnglish } from "../../../utilities/helpers.js";
 
 const style = {
     position: "absolute",
@@ -207,12 +208,20 @@ export default function CreateBoardModal({
                                 label="نام برد"
                                 value={title}
                                 onChange={(e) => {
-                                    setTitle(e.target.value);
+                                    setTitle(convertNumberToPersian(e.target.value));
                                 }}
                                 required
                                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                                 InputLabelProps={{
-                                    style: { fontFamily: "Vazir" },
+                                    style: { fontFamily: "Vazir", fontSize: "1.6rem", },
+                                }}
+                                inputProps={{
+                                    style: {
+                                        height: "50px",
+                                        padding: "0 14px",
+                                        fontFamily: "Vazir",
+                                        fontSize: "1.7rem",
+                                    },
                                 }}
                             />
                             <StyledTextField
@@ -225,9 +234,24 @@ export default function CreateBoardModal({
                                 required
                                 sx={{
                                     fontFamily: "Vazir",
+                                    fontSize: "1.7rem",
                                 }}
                                 InputLabelProps={{
-                                    style: { fontFamily: "Vazir" },
+                                    style: { fontFamily: "Vazir", fontSize: "1.6rem", },
+                                }}
+                                inputProps={{
+                                    style: {
+                                        // height: "50px",
+                                        // padding: "0 14px",
+                                        fontFamily: "Vazir",
+                                        fontSize: "1.7rem",
+                                    },
+                                }}
+                                SelectProps={{
+                                    style: {
+                                        fontFamily: "Vazir",
+                                        fontSize: "1.6rem",
+                                    },
                                 }}
                                 // change selected background color
 
@@ -264,6 +288,7 @@ export default function CreateBoardModal({
                                             backgroundColor: "#132F4C",
                                             // borderRadius: '5px',
                                         },
+                                        fontSize: '1.5rem',
                                     }}>
                                         {workspace.name}
                                     </MenuItem>
@@ -275,11 +300,19 @@ export default function CreateBoardModal({
                                 label="توضیحات"
                                 value={description}
                                 onChange={(e) => {
-                                    setDescription(e.target.value);
+                                    setDescription(convertNumberToPersian(e.target.value));
                                 }}
                                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                                 InputLabelProps={{
-                                    style: { fontFamily: "Vazir" },
+                                    style: { fontFamily: "Vazir" , fontSize: "1.6rem",},
+                                }}
+                                inputProps={{
+                                    style: {
+                                        height: "50px",
+                                        padding: "0 14px",
+                                        fontFamily: "Vazir",
+                                        fontSize: "1.7rem",
+                                    },
                                 }}
                             />
                         </PerTextField>
@@ -306,7 +339,7 @@ export default function CreateBoardModal({
                                 marginTop: 0,
                             }}
                         >
-                            <p style={{ fontSize: "1rem" }}>انتخاب عکس</p>
+                            <p style={{ fontSize: "1.5rem" }}>انتخاب عکس</p>
                             <input
                                 type="file"
                                 hidden
