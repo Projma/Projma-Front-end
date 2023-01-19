@@ -8,6 +8,7 @@ import StyledTextField from "../Shared/StyledTextField";
 import Divider from "@mui/material/Divider";
 import PerTextField from "../Shared/PerTextField.js";
 import "../../styles/TaskModal.css";
+import { convertNumberToPersian } from "../../utilities/helpers";
 
 const EditLabel = ({ setShowEdit, item, set_task_labels, setAllLabels }) => {
   const [editedTitle, setEditedTitle] = useState(item.title);
@@ -134,7 +135,7 @@ const EditLabel = ({ setShowEdit, item, set_task_labels, setAllLabels }) => {
             >
               <StyledTextField
                 value={editedTitle}
-                onChange={(e) => setEditedTitle(e.target.value)}
+                onChange={(e) => setEditedTitle(convertNumberToPersian(e.target.value))}
                 sx={{
                   textAlign: "center",
                   fontFamily: "Vazir",
