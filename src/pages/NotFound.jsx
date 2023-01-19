@@ -9,7 +9,7 @@ import Container from "@mui/material/Container";
 import { Box } from "@mui/system";
 import { Divider } from "@mui/material";
 import page_not_found from "../static/images/not found/page_not_found.svg"
-
+import { convertNumberToPersian, convertNumberToEnglish } from "../utilities/helpers.js";
 
 const NotFound = () => {
     return (
@@ -56,11 +56,13 @@ const NotFound = () => {
                                     justifyContent: "space-between",
                                 }}
                             >
-                                <h1>ارور 404</h1>
+                                <h1>
+                                {convertNumberToPersian("ارور 404")}
+                                </h1>
                             </Box>
                             <Divider />
                             <Box sx={{ pt: 1 }}>
-                                <p>
+                                <p className="my_paragraph">
                                     صفحه مورد نظر شما یافت نشد. لطفا آدرس صفحه را
                                     بررسی کنید.
                                 </p>

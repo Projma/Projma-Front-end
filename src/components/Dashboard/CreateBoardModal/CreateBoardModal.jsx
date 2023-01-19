@@ -14,6 +14,7 @@ import "./CreateBoardModal.scss";
 import { ToastContainer, toast } from "react-toastify";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
+import { convertNumberToPersian } from "../../../utilities/helpers.js";
 
 const style = {
   position: "absolute",
@@ -192,21 +193,24 @@ export default function CreateBoardModal({ workspace_id }) {
             <PerTextField>
               <StyledTextField
                 className="workspace-modal--board-name"
-                id="board_name"
                 label="نام برد"
                 value={title}
                 onChange={(e) => {
-                  setTitle(e.target.value);
+                  setTitle(convertNumberToPersian(e.target.value));
                 }}
                 required
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir" },
+                  style: { fontFamily: "Vazir", fontSize: "1.6rem", },
                 }}
-                name="board_name"
-                autoComplete="board_name"
-                autoFocus
-                InputProps={{ style: { fontFamily: "Vazir" } }}
+                inputProps={{
+                  style: {
+                    height: "50px",
+                    padding: "0 14px",
+                    fontFamily: "Vazir",
+                    fontSize: "1.7rem",
+                  },
+                }}
                 FormHelperTextProps={{
                   style: { fontFamily: "Vazir", color: "red" },
                 }}
@@ -218,11 +222,19 @@ export default function CreateBoardModal({ workspace_id }) {
                 label="توضیحات"
                 value={description}
                 onChange={(e) => {
-                  setDescription(e.target.value);
+                  setDescription(convertNumberToPersian(e.target.value));
                 }}
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir" },
+                  style: { fontFamily: "Vazir", fontSize: "1.6rem", },
+                }}
+                inputProps={{
+                  style: {
+                    height: "50px",
+                    padding: "0 14px",
+                    fontFamily: "Vazir",
+                    fontSize: "1.7rem",
+                  },
                 }}
               />
             </PerTextField>
@@ -249,7 +261,7 @@ export default function CreateBoardModal({ workspace_id }) {
                 marginTop: 0,
               }}
             >
-              <p style={{ fontSize: "1rem" }}>انتخاب عکس</p>
+              <p style={{ fontSize: "1.5rem" }}>انتخاب عکس</p>
               <input
                 type="file"
                 hidden
