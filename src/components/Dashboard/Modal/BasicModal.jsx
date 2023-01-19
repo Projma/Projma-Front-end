@@ -20,6 +20,7 @@ import apiInstance from '../../../utilities/axiosConfig';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
 // import {redirect} from 'react-router-dom';
+import { convertNumberToPersian, convertNumberToEnglish } from "../../../utilities/helpers.js";
 
 const style = {
     position: 'absolute',
@@ -300,6 +301,9 @@ export default function BasicModal(props) {
                                             FormHelperTextProps={{ style: { fontFamily: "Vazir", color: "black" } }}
                                             error={errorWorkspaceName}
                                             helperText={errorWorkspaceName ? "نام فضای کار نمی‌تواند خالی باشد." : "این نام شرکت، تیم یا سازمان شما است."}
+                                            onChange={(e) => {
+                                                document.getElementById("workspace_name").value = convertNumberToPersian(e.target.value);
+                                            }}
                                         />
                                     </ThemeProvider>
                                 </CacheProvider>
@@ -359,6 +363,9 @@ export default function BasicModal(props) {
                                             InputLabelProps={{ style: { fontFamily: "Vazir" } }}
                                             InputProps={{ style: { fontFamily: "Vazir" } }}
                                             FormHelperTextProps={{ style: { fontFamily: "Vazir", color: "black" } }}
+                                            onChange={(e) => {
+                                                document.getElementById("workspace_description").value = convertNumberToPersian(e.target.value);
+                                            }}
                                         />
                                     </ThemeProvider>
                                 </CacheProvider>

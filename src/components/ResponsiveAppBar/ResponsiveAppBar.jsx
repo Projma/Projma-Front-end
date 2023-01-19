@@ -45,6 +45,7 @@ function ResponsiveAppBar() {
         }).catch((error) => {
             // console.log(error);
         });
+        console.log("state:", state);
     }, [])
 
     const pages = ['ستاره دارها', 'فضای کارها', 'ایجاد']; // 'اخیرا دیده شده‌ها',
@@ -77,15 +78,16 @@ function ResponsiveAppBar() {
     }
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
-    let settings = ['ورود', 'پروفایل', 'داشبورد', 'تغییر رمز عبور', 'خروج']; // حساب کاربری
+    let settings = ['صفحه اصلی', 'ورود', 'پروفایل', 'داشبورد', 'تغییر رمز عبور', 'خروج']; // حساب کاربری
     if (state.isAuthenticated === false) {
         // dispatch(setToken(localStorage.getItem("token")));
-        settings = ['ورود', 'ثبت نام'];
+        settings = ['صفحه اصلی', 'ورود', 'ثبت نام'];
     }
     else {
-        settings = ['پروفایل', 'داشبورد', 'تغییر رمز عبور', 'خروج'];
+        settings = ['صفحه اصلی', 'پروفایل', 'داشبورد', 'تغییر رمز عبور', 'خروج'];
     }
     let settings_map_to_functions = {
+        'صفحه اصلی': '/',
         "ورود": '/signin/',
         "ثبت نام": '/signup/',
         "پروفایل": '/profile/',

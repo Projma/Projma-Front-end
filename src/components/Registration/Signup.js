@@ -24,6 +24,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Shared/Loading";
 import { Helmet } from "react-helmet";
+import { convertNumberToPersian, convertNumberToEnglish } from "../../utilities/helpers";
 
 function Copyright(props) {
   return (
@@ -56,6 +57,9 @@ export default function SignUp() {
   const [isLogin, setIsLogin] = React.useState(false);
 
   React.useEffect(() => {
+    if (state) {
+      setEmail(convertNumberToEnglish(state.email));
+    }
     apiInstance
       .get("/accounts/users/myaccount/")
       .then((response) => {
@@ -64,6 +68,7 @@ export default function SignUp() {
       .catch((error) => {
         setIsLogin(true);
       });
+      // state ? state.email : ""
   }, []);
 
   let navigate = useNavigate();
@@ -214,7 +219,12 @@ export default function SignUp() {
                       InputLabelProps={{
                         style: input_text,
                       }}
-                      onChange={(e) => setFirstName(e.target.value)}
+                      value={convertNumberToPersian(firstName)}
+                      onChange={(e) => {
+                        setFirstName(convertNumberToEnglish(e.target.value))
+                        // console.log(firstName)
+                      }
+                      }
                       error={errorFirstName}
                     />
                   </Grid>
@@ -237,7 +247,8 @@ export default function SignUp() {
                       InputLabelProps={{
                         style: input_text,
                       }}
-                      onChange={(e) => setLastName(e.target.value)}
+                      value={convertNumberToPersian(lastName)}
+                      onChange={(e) => setLastName(convertNumberToEnglish(e.target.value))}
                       error={errorLastName}
                     />
                   </Grid>
@@ -260,7 +271,8 @@ export default function SignUp() {
                           fontSize: "1.7rem",
                         },
                       }}
-                      onChange={(e) => setUsername(e.target.value)}
+                      value={convertNumberToPersian(username)}
+                      onChange={(e) => setUsername(convertNumberToEnglish(e.target.value))}
                       error={errorUsername}
                     />
                   </Grid>
@@ -271,7 +283,8 @@ export default function SignUp() {
                       id="email"
                       label="ایمیل"
                       name="email"
-                      defaultValue={state.email}
+                      value={convertNumberToPersian(email)}
+                      // defaultValue={state ? state.email : ""}
                       autoComplete="email"
                       InputLabelProps={{
                         style: input_text,
@@ -284,7 +297,10 @@ export default function SignUp() {
                           fontSize: "1.7rem",
                         },
                       }}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => {
+                        // console.log(email)
+                        setEmail(convertNumberToEnglish(e.target.value))
+                        }}
                       error={errorEmail}
                     />
                   </Grid>

@@ -14,6 +14,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "../../styles/ReactToastify.css";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { convertNumberToPersian, convertNumberToEnglish } from "../../utilities/helpers.js";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -32,9 +33,14 @@ const ForgetPassword = () => {
   const postreq = () => {
     const data = new FormData();
     data.append("email", email);
-    axios
+    // axios
+    //   .post(
+    //     "http://mohammadosoolian.pythonanywhere.com/accounts/forgot-password/",
+    //     data
+    //   )
+    apiInstance
       .post(
-        "http://mohammadosoolian.pythonanywhere.com/accounts/forgot-password/",
+        "accounts/forgot-password/",
         data
       )
       .then(() => {
@@ -155,7 +161,13 @@ const ForgetPassword = () => {
                 name="email"
                 type="email"
                 autoComplete="email"
-                onChange={(e) => setEmail(e.target.value)}
+                InputLabelProps={{ style: { fontFamily: "Vazir" } }}
+                InputProps={{ style: { fontFamily: "Vazir", fontSize: "1.7rem" } }}
+                onChange={(e) => {
+                  setEmail(convertNumberToEnglish(e.target.value))
+                  // console.log(email)
+                }}
+                value={convertNumberToPersian(email)}
                 error={errorEmail}
                 autoFocus
                 sx={{
@@ -164,6 +176,7 @@ const ForgetPassword = () => {
                     fontSize: "1.6rem(10)",
                   },
                 }}
+
               />
             </PerTextField>
 
