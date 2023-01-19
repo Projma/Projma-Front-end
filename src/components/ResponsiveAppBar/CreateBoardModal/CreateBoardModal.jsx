@@ -241,8 +241,6 @@ export default function CreateBoardModal({
                                 }}
                                 inputProps={{
                                     style: {
-                                        // height: "50px",
-                                        // padding: "0 14px",
                                         fontFamily: "Vazir",
                                         fontSize: "1.7rem",
                                     },
