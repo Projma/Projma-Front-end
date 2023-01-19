@@ -23,6 +23,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Shared/Loading";
 import { baseUrl } from "../../utilities/constants";
+import { convertNumberToPersian, convertNumberToEnglish } from "../../utilities/helpers.js";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -50,7 +51,7 @@ export default function Profile() {
 
   React.useEffect(() => {
     apiInstance.get("accounts/profile/myprofile/").then((res) => {
-      console.log(res);
+      // console.log(res);
       setFirstName(res.data.user.first_name);
       setLastName(res.data.user.last_name);
       setUsername(res.data.user.username);
@@ -188,7 +189,7 @@ export default function Profile() {
                     }}
                     className="neonText flex profile-information-fname-lname vazir"
                   >
-                    {firstName}
+                    {convertNumberToPersian(firstName)}
                   </h3>
                   <h3
                     style={{
@@ -199,7 +200,7 @@ export default function Profile() {
                     }}
                     className="neonText flex profile-information-fname-lname vazir"
                   >
-                    {lastName}
+                    {convertNumberToPersian(lastName)}
                   </h3>
                   <h4
                     style={{
@@ -209,7 +210,7 @@ export default function Profile() {
                     }}
                     className="neonText"
                   >
-                    {`${username}@`}
+                    {`${convertNumberToPersian(username)}@`}
                   </h4>
                 </div>
                 <div style={{ marginTop: "20%", width: "100%" }}>
@@ -366,14 +367,14 @@ export default function Profile() {
                         margin="normal"
                         id="firstName"
                         fullWidth
-                        value={firstName}
+                        value={convertNumberToPersian(firstName)}
                         label="نام"
                         name="firstName"
                         InputLabelProps={{
                           style: input_text,
                         }}
                         InputProps={{ style: { fontFamily: "Vazir" } }}
-                        onChange={(e) => setFirstName(e.target.value)}
+                        onChange={(e) => setFirstName(convertNumberToEnglish(e.target.value))}
                         autoComplete="firstname"
                         error={errorFirstName}
                         autoFocus
@@ -383,14 +384,14 @@ export default function Profile() {
                         margin="normal"
                         id="lastname"
                         fullWidth
-                        value={lastName}
+                        value={convertNumberToPersian(lastName)}
                         label="نام خانوادگی"
                         name="lastname"
                         InputLabelProps={{
                           style: input_text,
                         }}
                         InputProps={{ style: { fontFamily: "Vazir" } }}
-                        onChange={(e) => setLastName(e.target.value)}
+                        onChange={(e) => setLastName(convertNumberToEnglish(e.target.value))}
                         autoComplete="lastname"
                         error={errorLastName}
                         autoFocus
@@ -403,7 +404,7 @@ export default function Profile() {
                         ایمیل
                       </label>
                       <h3 className="email-text-box email-font-size">
-                        {email}
+                        {convertNumberToPersian(email)}
                       </h3>
                     </div>
                     <div
@@ -413,7 +414,7 @@ export default function Profile() {
                       <label for="username" className="title-css">
                         نام کاربری
                       </label>
-                      <h3 className="email-text-box">{username}</h3>
+                      <h3 className="email-text-box">{convertNumberToPersian(username)}</h3>
                     </div>
                   </div>
                   <div className="birthday-border-media">
@@ -449,7 +450,7 @@ export default function Profile() {
                       fullWidth
                       name="bio"
                       multiline
-                      onChange={(e) => setBio(e.target.value)}
+                      onChange={(e) => setBio(convertNumberToPersian(e.target.value))}
                       value={bio}
                       rows={2}
                       InputProps={{ style: { fontFamily: "Vazir" } }}
