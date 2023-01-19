@@ -293,7 +293,7 @@ export default function SignUp() {
                           fontSize: "1.7rem",
                         },
                       }}
-                      // onChange={(e) => setEmail(e.target.value)}
+                      value={convertNumberToPersian(email)}
                       onChange={(e) => setEmail(convertNumberToPersian(e.target.value))}
                       error={errorEmail}
                     />
