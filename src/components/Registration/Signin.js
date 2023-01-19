@@ -24,6 +24,7 @@ import { login } from "../../actions/authActions";
 import { useState } from "react";
 import Loading from "../Shared/Loading";
 import { Helmet } from "react-helmet";
+import { convertNumberToPersian, convertNumberToEnglish } from "../../utilities/helpers.js";
 
 function Copyright(props) {
   return (
@@ -183,7 +184,8 @@ export default function SignIn() {
                         fontSize: "1.7rem",
                       },
                     }}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={(e) => setUsername(convertNumberToEnglish(e.target.value))}
+                    value={convertNumberToPersian(username)}
                     autoComplete="username"
                     error={errorUsername}
                     autoFocus
