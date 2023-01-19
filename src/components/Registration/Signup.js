@@ -57,6 +57,9 @@ export default function SignUp() {
   const [isLogin, setIsLogin] = React.useState(false);
 
   React.useEffect(() => {
+    if (state) {
+      setEmail(convertNumberToEnglish(state.email));
+    }
     apiInstance
       .get("/accounts/users/myaccount/")
       .then((response) => {
@@ -65,6 +68,7 @@ export default function SignUp() {
       .catch((error) => {
         setIsLogin(true);
       });
+      // state ? state.email : ""
   }, []);
 
   let navigate = useNavigate();
@@ -279,7 +283,8 @@ export default function SignUp() {
                       id="email"
                       label="ایمیل"
                       name="email"
-                      defaultValue={state ? state.email : ""}
+                      value={convertNumberToPersian(email)}
+                      // defaultValue={state ? state.email : ""}
                       autoComplete="email"
                       InputLabelProps={{
                         style: input_text,
@@ -292,8 +297,10 @@ export default function SignUp() {
                           fontSize: "1.7rem",
                         },
                       }}
-                      value={convertNumberToPersian(email)}
-                      onChange={(e) => setEmail(convertNumberToPersian(e.target.value))}
+                      onChange={(e) => {
+                        // console.log(email)
+                        setEmail(convertNumberToEnglish(e.target.value))
+                        }}
                       error={errorEmail}
                     />
                   </Grid>
