@@ -7,6 +7,7 @@ import Loading from '../../Shared/Loading';
 import apiInstance from '../../../utilities/axiosConfig';
 import AddIcon from '@mui/icons-material/Add';
 import "./AddList.css";
+import { convertNumberToPersian, convertNumberToEnglish } from '../../../utilities/helpers.js';
 
 const AddList = (props) => {
   const [req, setReq] = useState(false);
@@ -17,8 +18,8 @@ const AddList = (props) => {
   const handleAddListSubmit = (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append("title",listName);
-    postCreateList(data,props.boardId);
+    data.append("title", listName);
+    postCreateList(data, props.boardId);
   };
   const postCreateList = async (data, id) =>
     await apiInstance
@@ -51,8 +52,8 @@ const AddList = (props) => {
   }
   return (
     <>
-      {req ? <Loading/> : null}
-      <ToastContainer autoClose={3000} style={{ fontSize: '1.2rem' }}/>
+      {req ? <Loading /> : null}
+      <ToastContainer autoClose={3000} style={{ fontSize: '1.2rem' }} />
       {click ? <form className="baord_add-list-form" onSubmit={e => handleAddListSubmit(e)}>
         <PerTextField>
           <StyledTextField
@@ -62,9 +63,24 @@ const AddList = (props) => {
             required
             fullWidth
             autoFocus
-            onChange={(e) => setListName(e.target.value)}
+            onChange={(e) => setListName(convertNumberToPersian(e.target.value))}
+            value={listName}
             placeholder="اسم لیست را در این بخش بنویسید"
-            InputProps={{ disableUnderline: true }}
+            InputProps={{
+              disableUnderline: true,
+              style: {
+                // height: "50px",
+                // padding: "0 14px",
+                fontFamily: "Vazir",
+                // fontSize: "1.7rem",
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                fontFamily: "Vazir",
+                // fontSize: "1.6rem",
+              },
+            }}
             sx={{
               backgroundColor: 'var(--main-item-color)',
               borderBottom: '0.2rem solid var(--minor-item-color)',
@@ -82,7 +98,7 @@ const AddList = (props) => {
         <Button type="submit" variant="contained">افزودن</Button>
         <Button type="button" variant="contained" onClick={handleClick}>لفو</Button>
       </form> : <Button type="button" variant="contained" onClick={handleClick}>
-        <AddIcon/>
+        <AddIcon />
         ایجاد لیست
       </Button>}
     </>
