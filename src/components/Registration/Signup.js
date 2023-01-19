@@ -24,7 +24,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Shared/Loading";
 import { Helmet } from "react-helmet";
-// import convertNumberToPersian from "../../utilities/helpers";
 import { convertNumberToPersian, convertNumberToEnglish } from "../../utilities/helpers";
 
 function Copyright(props) {
@@ -217,7 +216,7 @@ export default function SignUp() {
                         style: input_text,
                       }}
                       value={convertNumberToPersian(firstName)}
-                      onChange={(e) =>  {
+                      onChange={(e) => {
                         setFirstName(convertNumberToEnglish(e.target.value))
                         // console.log(firstName)
                       }
