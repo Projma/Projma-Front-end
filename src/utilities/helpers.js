@@ -11,6 +11,7 @@ export const convertNumberToPersian = input => {
     }
     return res;
 };
+// export default convertNumberToPersian;
 
 export const convertNumberToEnglish = input => {
     input = `${input}`;
@@ -53,22 +54,22 @@ export const formatPrice = input => {
 };
 
 
-export const changeDateFormat = (input) => {
-    const JDate = require('jalali-date');
-    const jdate = new JDate(input.split("-"));
-    return convertNumberToPersian(jdate.format('dddd DD MMMM YYYY'));
-};
+// export const changeDateFormat = (input) => {
+//     const JDate = require('jalali-date');
+//     const jdate = new JDate(input.split("-"));
+//     return convertNumberToPersian(jdate.format('dddd DD MMMM YYYY'));
+// };
 
-export const changeDateFormat2 = (input) => {
-    const JDate = require('jalali-date');
-    const jdate = new JDate(input.split("-"));
-    return convertNumberToPersian(jdate.format('dddd DD MMMM'));
-};
+// export const changeDateFormat2 = (input) => {
+//     const JDate = require('jalali-date');
+//     const jdate = new JDate(input.split("-"));
+//     return convertNumberToPersian(jdate.format('dddd DD MMMM'));
+// };
 
-export const dateDiff = (input) => {
-    const JDate = require('jalali-date');
-    const jdate = new JDate(input.split("-"));
-    var msDiff = jdate.toGregorian().getTime() - new Date().getTime(); //Future date - current date
-    //days till that day
-    return Math.floor(msDiff / (1000 * 60 * 60 * 24));
-};
+// export const dateDiff = (input) => {
+//     const JDate = require('jalali-date');
+//     const jdate = new JDate(input.split("-"));
+//     var msDiff = jdate.toGregorian().getTime() - new Date().getTime(); //Future date - current date
+//     //days till that day
+//     return Math.floor(msDiff / (1000 * 60 * 60 * 24));
+// };
