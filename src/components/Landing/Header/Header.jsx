@@ -17,6 +17,7 @@ import { AddBox } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import conversation from "../../../static/images/landing/conversation.svg";
 import { useNavigate } from 'react-router-dom';
+import { convertNumberToPersian, convertNumberToEnglish } from "../../../utilities/helpers.js";
 
 // const loader = async () => {
 //   const attButton = e.target.getAttribute("button-key");
@@ -93,6 +94,10 @@ const Header = () => {
                     sx={{ width: "60%", display: "block" }}
                     InputLabelProps={{ style: { fontFamily: "Vazir" } }}
                     InputProps={{ style: { fontFamily: "Vazir" } }}
+                    onChange={(e) => {
+                      // console.log(e.target.value);
+                      document.getElementById("email").value = convertNumberToPersian(e.target.value);
+                    }}
                   />
                 </ThemeProvider>
               </CacheProvider>
@@ -101,7 +106,7 @@ const Header = () => {
                 // button-key="buttonAttribute"
                 // onClick={() => navigate("/signup/")}
                 // navifate with email address
-                onClick={() => navigate("/signup/", { state: { email: document.getElementById("email").value } })}
+                onClick={() => navigate("/signup/", { state: { email: convertNumberToEnglish(document.getElementById("email").value) } })}
                 sx={{
                   // height: 54,
                   // width: 150,
