@@ -244,8 +244,8 @@ export default function SignUp() {
                       InputLabelProps={{
                         style: input_text,
                       }}
-                      // onChange={(e) => setLastName(e.target.value)}
-                      onChange={(e) => setLastName(convertNumberToPersian(e.target.value))}
+                      value={convertNumberToPersian(lastName)}
+                      onChange={(e) => setLastName(convertNumberToEnglish(e.target.value))}
                       error={errorLastName}
                     />
                   </Grid>
