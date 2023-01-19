@@ -14,6 +14,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "../../styles/ReactToastify.css";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { convertNumberToPersian, convertNumberToEnglish } from "../../utilities/helpers.js";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -155,6 +156,8 @@ const ForgetPassword = () => {
                 name="email"
                 type="email"
                 autoComplete="email"
+                InputLabelProps={{ style: { fontFamily: "Vazir" } }}
+                InputProps={{ style: { fontFamily: "Vazir" } }}
                 onChange={(e) => setEmail(e.target.value)}
                 error={errorEmail}
                 autoFocus
@@ -164,6 +167,7 @@ const ForgetPassword = () => {
                     fontSize: "1.6rem(10)",
                   },
                 }}
+
               />
             </PerTextField>
 
