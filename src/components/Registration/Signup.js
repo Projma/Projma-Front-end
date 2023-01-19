@@ -268,8 +268,8 @@ export default function SignUp() {
                           fontSize: "1.7rem",
                         },
                       }}
-                      // onChange={(e) => setUsername(e.target.value)}
-                      onChange={(e) => setUsername(convertNumberToPersian(e.target.value))}
+                      value={convertNumberToPersian(username)}
+                      onChange={(e) => setUsername(convertNumberToEnglish(e.target.value))}
                       error={errorUsername}
                     />
                   </Grid>
