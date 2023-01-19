@@ -48,24 +48,56 @@ export default function CreateBoardModal({
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [file, setFile] = React.useState(null);
+  const [errorBoardName, setErrorBoardName] = React.useState(false);
+  const [errorFile, setErrorFile] = React.useState(false);
+  const [disableButton, setDisableButton] = React.useState(false);
   const test = () => {
     console.log(result);
   };
   const create_board = (e) => {
     e.preventDefault();
+    let board_name = document.getElementById("board_name").value;
+    let isValid = true;
+    console.log(board_name);
+    console.log("board name");
+    if (board_name === "") {
+      setErrorBoardName(true);
+      isValid = false;
+    } else {
+      setErrorBoardName(false);
+    }
+    if (file === null) {
+      setErrorFile(true);
+      isValid = false;
+    } else {
+      setErrorFile(false);
+    }
+    if (isValid === false) {
+      console.log("false");
+      return;
+    } else {
+      setDisableButton(true); // make text spinning and disable button
+    }
+
     const form_data = new FormData();
     form_data.append("name", title);
     form_data.append("description", description);
     form_data.append("type", "education");
-    form_data.append("background_pic", binaryFile);
-    on_submit(form_data, boards, setBoards);
-    handleClose();
+    // on_submit(form_data, boards, setBoards);
+    // on_submit(form_data);
+    // handleClose();
+    // navigate to board page that created
   };
   return (
     <div>
       <div className="workspace-modal--add-button-container">
         <button className="workspace-modal--add-button" onClick={handleOpen}>
-          <p className="workspace-modal--add-button-title" style={{color: '#fff'}}>+ افزودن بورد</p>
+          <p
+            className="workspace-modal--add-button-title"
+            style={{ color: "#fff" }}
+          >
+            + افزودن بورد
+          </p>
         </button>
       </div>
       <Modal
@@ -99,6 +131,7 @@ export default function CreateBoardModal({
             <PerTextField>
               <StyledTextField
                 className="workspace-modal--board-name"
+                id="board_name"
                 label="نام برد"
                 value={title}
                 onChange={(e) => {
@@ -109,6 +142,15 @@ export default function CreateBoardModal({
                 InputLabelProps={{
                   style: { fontFamily: "Vazir" },
                 }}
+                name="workspace_name"
+                autoComplete="workspace_name"
+                autoFocus
+                InputProps={{ style: { fontFamily: "Vazir" } }}
+                FormHelperTextProps={{
+                  style: { fontFamily: "Vazir", color: "red" },
+                }}
+                error={errorBoardName}
+                helperText={errorBoardName ? "نام برد نمی تواند خالی باشد" : ""}
               />
               <StyledTextField
                 className="workspace-modal--board-name"
