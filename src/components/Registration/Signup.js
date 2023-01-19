@@ -25,6 +25,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Shared/Loading";
 import { Helmet } from "react-helmet";
 // import convertNumberToPersian from "../../utilities/helpers";
+import { convertNumberToPersian, convertNumberToEnglish } from "../../utilities/helpers";
 
 function Copyright(props) {
   return (
@@ -215,7 +216,12 @@ export default function SignUp() {
                       InputLabelProps={{
                         style: input_text,
                       }}
-                      onChange={(e) => setFirstName(e.target.value)}
+                      value={convertNumberToPersian(firstName)}
+                      onChange={(e) =>  {
+                        setFirstName(convertNumberToEnglish(e.target.value))
+                        // console.log(firstName)
+                      }
+                      }
                       error={errorFirstName}
                     />
                   </Grid>
@@ -238,7 +244,8 @@ export default function SignUp() {
                       InputLabelProps={{
                         style: input_text,
                       }}
-                      onChange={(e) => setLastName(e.target.value)}
+                      // onChange={(e) => setLastName(e.target.value)}
+                      onChange={(e) => setLastName(convertNumberToPersian(e.target.value))}
                       error={errorLastName}
                     />
                   </Grid>
@@ -261,7 +268,8 @@ export default function SignUp() {
                           fontSize: "1.7rem",
                         },
                       }}
-                      onChange={(e) => setUsername(e.target.value)}
+                      // onChange={(e) => setUsername(e.target.value)}
+                      onChange={(e) => setUsername(convertNumberToPersian(e.target.value))}
                       error={errorUsername}
                     />
                   </Grid>
@@ -285,7 +293,8 @@ export default function SignUp() {
                           fontSize: "1.7rem",
                         },
                       }}
-                      onChange={(e) => setEmail(e.target.value)}
+                      // onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => setEmail(convertNumberToPersian(e.target.value))}
                       error={errorEmail}
                     />
                   </Grid>
