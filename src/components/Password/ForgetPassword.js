@@ -157,8 +157,12 @@ const ForgetPassword = () => {
                 type="email"
                 autoComplete="email"
                 InputLabelProps={{ style: { fontFamily: "Vazir" } }}
-                InputProps={{ style: { fontFamily: "Vazir" } }}
-                onChange={(e) => setEmail(e.target.value)}
+                InputProps={{ style: { fontFamily: "Vazir", fontSize: "1.7rem" } }}
+                onChange={(e) => {
+                  setEmail(convertNumberToEnglish(e.target.value))
+                  // console.log(email)
+                }}
+                value={convertNumberToPersian(email)}
                 error={errorEmail}
                 autoFocus
                 sx={{
