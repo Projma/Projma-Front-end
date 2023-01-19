@@ -24,6 +24,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Shared/Loading";
 import { Helmet } from "react-helmet";
+// import convertNumberToPersian from "../../utilities/helpers";
 
 function Copyright(props) {
   return (
@@ -271,7 +272,7 @@ export default function SignUp() {
                       id="email"
                       label="ایمیل"
                       name="email"
-                      defaultValue={state.email}
+                      defaultValue={state ? state.email : ""}
                       autoComplete="email"
                       InputLabelProps={{
                         style: input_text,
