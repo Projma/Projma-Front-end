@@ -7,6 +7,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import StyledTextField from "../Shared/StyledTextField";
 import PerTextField from "../Shared/PerTextField.js";
 import "../../styles/TaskModal.css";
+// persian num
+import { convertNumberToPersian } from "../../utilities/helpers";
 
 const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
   const [createdTitle, setCreatedTitle] = useState("");
@@ -116,7 +118,7 @@ const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
             >
               <StyledTextField
                 value={createdTitle}
-                onChange={(e) => setCreatedTitle(e.target.value)}
+                onChange={(e) => setCreatedTitle(convertNumberToPersian(e.target.value))}
                 sx={{
                   textAlign: "center",
                   fontFamily: "Vazir",
