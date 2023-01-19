@@ -30,6 +30,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Shared/Loading";
 import { baseUrl } from "../../utilities/constants";
+import { convertNumberToPersian, convertNumberToEnglish } from "../../utilities/helpers.js";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -184,7 +185,7 @@ export default function ChangePassword() {
                   }}
                   className="neonText profile-information-fname-lname vazir"
                 >
-                  {firstName} {lastName}
+                  {convertNumberToPersian(firstName)} {convertNumberToPersian(lastName)}
                 </h3>
                 <h4
                   style={{
@@ -194,7 +195,7 @@ export default function ChangePassword() {
                   }}
                   className="neonText"
                 >
-                  {`${username}@`}
+                  {`${convertNumberToPersian(username)}@`}
                 </h4>
               </div>
               <div style={{ marginTop: "20%", width: "100%" }}>
