@@ -4,6 +4,7 @@ import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
+import { convertNumberToPersian } from '../../../utilities/helpers.js';
 
 const themeEnable = createTheme({
   components: {
@@ -57,7 +58,7 @@ const CardTitle = (props) => {
   const [underline, setUnderline] = React.useState(true);
   useEffect(() => {setName(props.title)},[props])
   const handleChange = (event) => {
-    setName(event.target.value);
+    setName(convertNumberToPersian(event.target.value));
   };
 
   const blurHandler = (props) => {

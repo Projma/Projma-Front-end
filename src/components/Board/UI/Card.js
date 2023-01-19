@@ -25,6 +25,7 @@ import { Modal, responsiveFontSizes } from "@mui/material";
 import CardCover from "../Cards Item/CardCover";
 import CardTitle from "../Cards Item/CardTitle";
 import CardLabel from "../Cards Item/CardLabel";
+import { convertNumberToPersian } from "../../../utilities/helpers";
 
 const Card = ({
   boardId,
@@ -118,6 +119,7 @@ const Card = ({
     if (card.description.length > 80) {
       description = card.description.substring(0, 79);
     }
+    description = convertNumberToPersian(description);
     return description;
   };
 
@@ -216,7 +218,7 @@ const Card = ({
                   if (enable) event.stopPropagation();
                 }}
               >
-                {show ? <CardTitle enable={enable} title={card.title} /> : <p>{card.title}</p>}
+                {show ? <CardTitle enable={enable} title={convertNumberToPersian(card.title)} /> : <p>{convertNumberToPersian(card.title)}</p>}
               </div>
               {disc() !== null && (
                 <div className="card_disc">

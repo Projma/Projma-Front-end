@@ -31,6 +31,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./ShareButton.scss";
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
+import { convertNumberToPersian } from '../../../utilities/helpers.js';
 
 const style = {
     position: 'absolute',
@@ -347,8 +348,8 @@ const ShareButton = (props) => {
                         {
                             members.map((member) => {
                                 return (
-                                    <MenuItem value={member.user.username} key={member.user.username}>  {/* or menu item  */}
-                                        <Tooltip title={member.user.username} >
+                                    <MenuItem value={convertNumberToPersian(member.user.username)} key={member.user.username}>  {/* or menu item  */}
+                                        <Tooltip title={convertNumberToPersian(member.user.username)} >
                                             <Box sx={{
                                                 // display: "flex",
                                                 marginLeft: "2%",
@@ -357,7 +358,7 @@ const ShareButton = (props) => {
                                                     key={member.id}
                                                     alt={(member.user.first_name + " " + member.user.last_name).toString()}
                                                     src={member.profile_pic !== null ? member.profile_pic : "none"}
-                                                    {...stringAvatar((member.user.first_name + " " + member.user.last_name).toString())}
+                                                    {...stringAvatar(convertNumberToPersian((member.user.first_name + " " + member.user.last_name).toString()))}
                                                     className="board_avatar-profile-picture"
                                                 // sx={{ width: 56, height: 56 }}
                                                 />
@@ -385,7 +386,7 @@ const ShareButton = (props) => {
                                                 ایمیل:
                                             </Typography>
                                             <Typography>
-                                                {member.user.email}
+                                                {convertNumberToPersian(member.user.email)}
                                             </Typography>
                                         </Box>
                                         <Box sx={{
@@ -397,7 +398,7 @@ const ShareButton = (props) => {
                                                 نام کاربری:
                                             </Typography>
                                             <Typography>
-                                                {member.user.username}
+                                                {convertNumberToPersian(member.user.username)}
                                             </Typography>
                                         </Box>
                                     </MenuItem>

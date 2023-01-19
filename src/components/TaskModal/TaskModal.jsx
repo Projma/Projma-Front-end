@@ -43,6 +43,7 @@ import { baseUrl } from "../../utilities/constants";
 import { Link } from "react-router-dom";
 import { Calendarr } from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
+import { convertNumberToPersian } from "../../utilities/helpers";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -306,6 +307,7 @@ export default function TaskModal(props) {
   const handleCommentSubmit = (event, user_id) => {
     event.preventDefault();
     const formData = new FormData();
+    setComment(convertNumberToPersian(Comment));
     formData.append("text", Comment);
     apiInstance
       .post(`/workspaces/task/${params.task_id}/new-comment/`, formData)
@@ -575,7 +577,7 @@ export default function TaskModal(props) {
                             <StyledTextField
                               fullWidth
                               autoFocus
-                              onChange={(e) => setDescription(e.target.value)}
+                              onChange={(e) => setDescription(convertNumberToPersian(e.target.value))}
                               value={description}
                               multiline
                               rows={2}
@@ -963,7 +965,7 @@ export default function TaskModal(props) {
                           id="estimate"
                           value={estimate}
                           onChange={(e) => {
-                            setEstimate(e.target.value);
+                            setEstimate(convertNumberToPersian(e.target.value));
                             setChangePlus(true);
                           }}
                           InputLabelProps={{
@@ -989,7 +991,7 @@ export default function TaskModal(props) {
                           id="done"
                           value={done}
                           onChange={(e) => {
-                            setDone(e.target.value);
+                            setDone(convertNumberToPersian(e.target.value));
                             setChangePlus(true);
                           }}
                           InputLabelProps={{
@@ -1058,7 +1060,7 @@ export default function TaskModal(props) {
                             <StyledTextField
                               fullWidth
                               autoFocus
-                              onChange={(e) => setComment(e.target.value)}
+                              onChange={(e) => setComment(convertNumberToPersian(e.target.value))}
                             ></StyledTextField>
                             <div dir="ltr" style={{ marginTop: "3%" }}>
                               <Button
@@ -1142,7 +1144,7 @@ export default function TaskModal(props) {
                                   fullWidth
                                   autoFocus
                                   onChange={(e) => {
-                                    setEditCommentText(e.target.value);
+                                    setEditCommentText(convertNumberToPersian(e.target.value));
                                   }}
                                   value={editcommentText}
                                   // defaultValue={item.text}
@@ -1157,7 +1159,7 @@ export default function TaskModal(props) {
                                       });
                                       handleEditComment(
                                         item.id,
-                                        editcommentText
+                                        convertNumberToPersian(editcommentText)
                                       );
                                     }}
                                     variant="contained"
@@ -1221,7 +1223,7 @@ export default function TaskModal(props) {
                                           newState[item.id] = true;
                                           return newState;
                                         });
-                                        setEditCommentText(item.text);
+                                        setEditCommentText(convertNumberToPersian(item.text));
                                       }}
                                     >
                                       ویرایش

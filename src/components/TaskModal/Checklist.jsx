@@ -12,6 +12,7 @@ import "../../styles/TaskModal.css";
 import "./Checklist.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { convertNumberToPersian } from "../../utilities/helpers";
 
 const useStyles = makeStyles({
   title_input: {
@@ -112,7 +113,7 @@ export default function CheckList({ params, setAllChecklists }) {
             <Input
               className={classes.title_input}
               value={createdCheckTitle}
-              onChange={(e) => setCreatedCheckTitle(e.target.value)}
+              onChange={(e) => setCreatedCheckTitle(convertNumberToPersian(e.target.value))}
               placeholder="عنوان"
               sx={{
                 color: "#fff !important",

@@ -20,6 +20,7 @@ import apiInstance from "../../../utilities/axiosConfig";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
+import { convertNumberToPersian, convertNumberToEnglish } from "../../../utilities/helpers.js";
 
 const List = (props) => {
   const [cards, setCards] = useState(props.card);
@@ -86,7 +87,8 @@ const List = (props) => {
         console.log("reqDeleteList Done");
       });
 
-  const reqEditListName = async (data, id, name) =>
+  const reqEditListName = async (data, id, name) => {
+    name = convertNumberToPersian(name);
     await apiInstance
       .patch(`workspaces/tasklist/${id}/update-tasklist/`, data)
       .then(() => {
@@ -107,6 +109,7 @@ const List = (props) => {
       .finally(() => {
         setReq(null);
       });
+  }
 
   const addCardClickHandler = () => {
     setAddCard(!addCard);
@@ -130,6 +133,9 @@ const List = (props) => {
   };
 
   const handleChangeListName = (name) => {
+    name = convertNumberToPersian(name);
+    // alert(name);
+    setListName(name);
     const data = new FormData();
     data.append("title", name);
     setReq(true);
@@ -239,7 +245,8 @@ const List = (props) => {
             <div className="list_header">
               <div className="list_header-title">
                 <InputName
-                  name={listName}
+                  name={convertNumberToPersian(listName)}
+                  // value={listName}
                   onChangeName={handleChangeListName}
                 />
               </div>
@@ -267,9 +274,24 @@ const List = (props) => {
                       required
                       fullWidth
                       autoFocus
-                      onChange={(e) => setCardName(e.target.value)}
+                      onChange={(e) => setCardName(convertNumberToPersian(e.target.value))}
+                      value={cardName}
                       placeholder="اسم کارت را در این بخش بنویسید"
-                      InputProps={{ disableUnderline: true }}
+                      InputProps={{
+                        disableUnderline: true,
+                        style: {
+                          // height: "50px",
+                          // padding: "0 14px",
+                          fontFamily: "Vazir",
+                          // fontSize: "1.7rem",
+                        },
+                      }}
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "Vazir",
+                          // fontSize: "1.6rem",
+                        },
+                      }}
                       sx={{
                         backgroundColor: "var(--main-item-color)",
                         borderBottom: "0.2rem solid var(--minor-item-color)",
@@ -298,9 +320,9 @@ const List = (props) => {
                 style={
                   snapshot.draggingOverWith
                     ? {
-                        backgroundColor: "var(--hover-color)",
-                        borderRadius: "0.5rem",
-                      }
+                      backgroundColor: "var(--hover-color)",
+                      borderRadius: "0.5rem",
+                    }
                     : null
                 }
               >
