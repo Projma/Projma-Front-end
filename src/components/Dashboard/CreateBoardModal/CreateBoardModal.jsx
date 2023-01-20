@@ -186,6 +186,7 @@ export default function CreateBoardModal({ workspace_id }) {
             <PerTextField>
               <StyledTextField
                 className="workspace-modal--board-name"
+                id="board_name"
                 label="نام برد"
                 value={title}
                 onChange={(e) => {

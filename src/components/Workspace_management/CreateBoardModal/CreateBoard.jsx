@@ -11,6 +11,7 @@ import PerTextField from "../../Shared/PerTextField.js";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 // import file from "../../../static/images/workspace_management/create_board/board.jpeg";
 import "./CreateBoard.css";
+import { convertNumberToPersian } from "../../../utilities/helpers";
 
 const style = {
   position: "absolute",
@@ -25,6 +26,7 @@ const style = {
   borderRadius: "1rem",
   boxShadow: 50,
   p: 4,
+  overflow: "auto",
 };
 
 export default function CreateBoardModal({
@@ -98,6 +100,9 @@ export default function CreateBoardModal({
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        // sx={{
+        //   height: "100%",
+        // }}
       >
         <Box sx={style}>
           <Typography
@@ -126,9 +131,9 @@ export default function CreateBoardModal({
                 className="workspace-modal--board-name"
                 id="board_name"
                 label="نام برد"
-                value={title}
+                value={convertNumberToPersian(title)}
                 onChange={(e) => {
-                  setTitle(e.target.value);
+                  setTitle(convertNumberToPersian(e.target.value));
                 }}
                 required
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
@@ -159,9 +164,9 @@ export default function CreateBoardModal({
               <StyledTextField
                 className="workspace-modal--board-name"
                 label="توضیحات"
-                value={description}
+                value={convertNumberToPersian(description)}
                 onChange={(e) => {
-                  setDescription(e.target.value);
+                  setDescription(convertNumberToPersian(e.target.value));
                 }}
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{

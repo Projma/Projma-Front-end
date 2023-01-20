@@ -10,6 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { baseUrl } from "../../../utilities/constants";
 import "./Members.scss";
+import { convertNumberToPersian } from "../../../utilities/helpers";
 
 const Members = ({ params }) => {
   const [members, setMembers] = React.useState([]);
@@ -138,7 +139,9 @@ const Members = ({ params }) => {
           <tbody>
             {members.map((member, idx) => (
               <tr>
-                <td className="list-item-prop hide-when-small">{idx + 1}</td>
+                <td className="list-item-prop hide-when-small">
+                  {convertNumberToPersian(idx + 1)}
+                </td>
                 <td className="list-item-prop hide-when-small">
                   <img src={member.image} className="member-image" />
                 </td>
