@@ -20,6 +20,7 @@ import ListItemText from "@mui/material/ListItemText";
 import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import DehazeIcon from "@mui/icons-material/Dehaze";
 import Toolbar from "@mui/material/Toolbar";
@@ -28,6 +29,11 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Members from "../Members/Members";
 import "./Drawer.css";
+import { useEffect } from "react";
+import anonymous from "../../../static/images/workspace_management/members/anonymous.png";
+import { baseUrl } from "../../../utilities/constants";
+import apiInstance from "../../../utilities/axiosConfig";
+import { useState } from "react";
 
 const drawerWidth = 250;
 
@@ -49,12 +55,12 @@ const useStyles = makeStyles({
   },
 });
 function ResponsiveDrawer(props) {
+  const [members, setMembers] = useState([]);
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -73,7 +79,7 @@ function ResponsiveDrawer(props) {
     // { nameFa: "تنظیمات", nameEn: "setting" },
   ];
   const drawer = (
-    <div className="drawer">
+    <div className="drawer" style={{ overflow: "auto" }}>
       {/* <Toolbar /> */}
       {matches ? "" : right_arrow}
       <Divider />
@@ -133,15 +139,100 @@ function ResponsiveDrawer(props) {
         ))}
       </List>
       <Divider sx={{ backgroundColor: "#9499a8" }} />
+      <List>
+        {members.map((member, index) => (
+          <ListItem
+            button
+            href="#"
+            key={member.name}
+            disablePadding
+            className={classes.list_item}
+          >
+            <Link
+              to={"/profileview/" + member.userName}
+              className={classes.list_item}
+              style={{
+                textDecoration: "none",
+                color: "#000",
+                display: "block",
+                width: "100%",
+              }}
+            >
+              <ListItemButton sx={{}}>
+                <ListItemIcon>
+                  <img
+                    src={member.image}
+                    style={{
+                      border: "1px solid #ddd",
+                      "border-radius": "4px",
+                      padding: "5px",
+                      width: "4rem",
+                      height: "4rem",
+                    }}
+                  />
+                </ListItemIcon>
+                <ListItemText
+                  disableTypography
+                  primary={
+                    <Typography
+                      type="body2"
+                      style={{ color: "#fff", fontFamily: "Vazir" }}
+                    >
+                      {member.name}
+                    </Typography>
+                  }
+                  sx={{
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    fontSize: "1.3rem",
+                  }}
+                />
+              </ListItemButton>
+            </Link>
+          </ListItem>
+        ))}
+      </List>
     </div>
   );
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
+  useEffect(() => {
+    apiInstance
+      .get(`workspaces/workspaceowner/${props.params.id}/workspace-members/`)
+      .then((res) => {
+        const members = res.data.map((obj) => ({
+          id: obj.user.id,
+          name: obj.user.first_name + " " + obj.user.last_name,
+          userName: obj.user.username,
+          email: obj.user.email,
+          image: obj.profile_pic
+            ? baseUrl + obj.profile_pic?.slice(1)
+            : anonymous,
+        }));
+        console.log(members);
+        console.log(baseUrl + res.data.profile_pic?.slice(1));
+        setMembers(members);
+        console.log(members);
+      });
+  }, []);
+
   return (
     <div style={{ height: "5%" }}>
-      <DehazeIcon
+      {/* <DehazeIcon
+        onClick={handleDrawerToggle}
+        sx={{
+          fontSize: "3rem",
+          // backgroundColor: "#B0ACB1",
+          // backgroundColor: "#6d88e3",
+          color: "#B0ACB1",
+          borderRadius: "50%",
+          marginTop: "10px",
+          marginRight: "10px",
+        }}
+      /> */}
+      <KeyboardDoubleArrowLeftIcon
         onClick={handleDrawerToggle}
         sx={{
           fontSize: "3rem",

@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { baseUrl } from "../../../utilities/constants";
 import "./Members.scss";
 import { convertNumberToPersian } from "../../../utilities/helpers";
+import anonymous from "../../../static/images/workspace_management/members/anonymous.png";
 
 const Members = ({ params }) => {
   const [members, setMembers] = React.useState([]);
@@ -35,8 +36,11 @@ const Members = ({ params }) => {
           lastName: obj.user.last_name,
           userName: obj.user.username,
           email: obj.user.email,
-          image: baseUrl + obj.profile_pic?.slice(1),
+          image: obj.profile_pic
+            ? baseUrl + obj.profile_pic?.slice(1)
+            : anonymous,
         }));
+        console.log(members);
         console.log(baseUrl + res.data.profile_pic?.slice(1));
         setMembers(members);
         console.log(members);
