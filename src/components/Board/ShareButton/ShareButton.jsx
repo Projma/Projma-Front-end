@@ -31,7 +31,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./ShareButton.scss";
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import { convertNumberToPersian } from '../../../utilities/helpers.js';
+import { convertNumberToEnglish, convertNumberToPersian } from '../../../utilities/helpers.js';
 
 const style = {
     position: 'absolute',
@@ -62,6 +62,7 @@ const ShareButton = (props) => {
     const [inviteLink, setinviteLink] = useState('');
     const [members, setMembers] = React.useState([]);
     const [inviteToken, setInviteToken] = React.useState('');
+    const [search_text, setSearchText] = React.useState('');
     const [membersList, setMembersList] = React.useState([
         // { title: 'فرزان رحمانی', year: 1994 },
         // { title: 'محمد اصولیان', year: 1972 },
@@ -106,24 +107,24 @@ const ShareButton = (props) => {
             setInviteToken(res.data);
         });
 
-        apiInstance.get('/accounts/profile/', {
-            params: {
-                search: " "
-            }
-        }).then((res) => {
-            // var result = [];
-            setMembersList([])
-            for (let i = 0; i < res.data.length; i++) {
-                // { title: 'فرزان رحمانی', year: 1994 }
-                var temp = {}
-                temp.name = convertNumberToPersian(res.data[i].user.first_name + " " + res.data[i].user.last_name);
-                temp.id = res.data[i].user.id;
-                // temp.email = convertNumberToPersian(res.data[i].user.email);
-                // temp.username = convertNumberToPersian(res.data[i].user.username);
-                // // temp.role = convertNumberToPersian(role_english_to_persian[res.data[i].role]);
-                setMembersList(prevState => [...prevState, temp]);
-            }
-        });
+        // apiInstance.get('/accounts/profile/', {
+        //     params: {
+        //         search: " "
+        //     }
+        // }).then((res) => {
+        //     // var result = [];
+        //     setMembersList([])
+        //     for (let i = 0; i < res.data.length; i++) {
+        //         // { title: 'فرزان رحمانی', year: 1994 }
+        //         var temp = {}
+        //         temp.name = convertNumberToPersian(res.data[i].user.first_name + " " + res.data[i].user.last_name);
+        //         temp.id = res.data[i].user.id;
+        //         // temp.email = convertNumberToPersian(res.data[i].user.email);
+        //         // temp.username = convertNumberToPersian(res.data[i].user.username);
+        //         // // temp.role = convertNumberToPersian(role_english_to_persian[res.data[i].role]);
+        //         setMembersList(prevState => [...prevState, temp]);
+        //     }
+        // });
 
     }, []);
 
@@ -142,12 +143,14 @@ const ShareButton = (props) => {
     }
 
     const inputSearchHandler = (event) => {
+        setSearchText(convertNumberToPersian(event.target.value));
         // console.log(event);
         // console.log(event.target.value); // text 
         // console.log("***************************    ");
+        setMembersList([]);
         apiInstance.get('/accounts/profile/', {
             params: {
-                search: event.target.value
+                search: convertNumberToEnglish(event.target.value)
             }
         }).then((res) => {
             // [
@@ -182,12 +185,11 @@ const ShareButton = (props) => {
             //         "telegram_id": null
             //     }
             // ]
-            setMembersList([]);
             for (let i = 0; i < res.data.length; i++) {
                 // { title: 'فرزان رحمانی', year: 1994 }
                 var temp = {}
-                temp.title = convertNumberToPersian(res.data[i].user.first_name + " " + res.data[i].user.last_name);
-                temp.year = res.data[i].user.id;
+                temp.name = convertNumberToPersian(res.data[i].user.first_name + " " + res.data[i].user.last_name);
+                temp.id = res.data[i].user.id;
                 // temp.email = convertNumberToPersian(res.data[i].user.email);
                 // temp.username = convertNumberToPersian(res.data[i].user.username);
                 // // temp.role = convertNumberToPersian(role_english_to_persian[res.data[i].role]);
@@ -290,6 +292,7 @@ const ShareButton = (props) => {
                                 id="tags-outlined"
                                 options={membersList}
                                 fullWidth
+                                inputValue={search_text}
                                 getOptionLabel={
                                     (option) => option.name
                                     // (option) => {
@@ -297,8 +300,7 @@ const ShareButton = (props) => {
                                     //         {/* <ListItemText primary={option.title} /> */}
                                     //         {option.title}
                                     //     </MenuItem>
-                                    // }
-
+                                    // }    
                                     }
                                 sx={{
                                     width: "60%",
