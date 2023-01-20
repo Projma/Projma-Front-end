@@ -23,7 +23,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Shared/Loading";
 import { baseUrl } from "../../utilities/constants";
-import { convertNumberToPersian, convertNumberToEnglish } from "../../utilities/helpers.js";
+import {
+  convertNumberToPersian,
+  convertNumberToEnglish,
+} from "../../utilities/helpers.js";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -116,22 +119,35 @@ export default function Profile() {
       return;
     }
     const formData = new FormData();
-    const user = {
+    const user = JSON.stringify({
       first_name: firstName,
       last_name: lastName,
-    };
-    formData.append("user", user);
+    });
+
+    console.log(user);
+    // formData.append("user", user);
+    // formData.append("first_name", firstName);
+    // formData.append("last_name", lastName);
     let birthd = "";
     if (typeof birthDate !== "string" && birthDate !== null) {
       birthd = `${birthDate.year}-${birthDate.month.number}-${birthDate.day}`;
-      formData.append("birth_date", birthd);
+      // formData.append("birth_date", birthd);
     }
-    formData.append("bio", bio);
+    // formData.append("bio", bio);
     if (binaryFile !== null) {
       formData.append("profile_pic", binaryFile);
     }
+    const data = {
+      user: {
+        first_name: firstName,
+        last_name: lastName,
+      },
+      birth_date: birthd,
+      bio: bio,
+      // profile_pic: binaryFile,
+    };
     apiInstance
-      .patch("/accounts/profile/edit-myprofile/", formData)
+      .patch("/accounts/profile/edit-myprofile/", data)
       .then((res) => {
         //console.log(res);
         toast.success("با موفقیت بروز شد.", {
@@ -149,6 +165,18 @@ export default function Profile() {
       .finally(() => {
         setIsPost(null);
       });
+    apiInstance
+      .patch("/accounts/profile/edit-myprofile/", formData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("مشکلی پیش آمده است.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      });
     setIsPost(null);
   };
   if (!loading) {
@@ -162,7 +190,7 @@ export default function Profile() {
           </Helmet>
           <ThemeProvider theme={theme}>
             <div className="profile-container profile-page">
-              <div className="profile-information row-gap-8 profile-information-media">
+              <div className="profile-information-pro row-gap-8 profile-information-media">
                 <div className="profile-box-body-profile-container">
                   <Avatar
                     className="Avatar"
@@ -186,6 +214,8 @@ export default function Profile() {
                       fontSize: "90%",
                       color: "white",
                       justifyContent: "center",
+                      width: "100%",
+                      height: "100%",
                     }}
                     className="neonText flex profile-information-fname-lname vazir"
                   >
@@ -197,6 +227,8 @@ export default function Profile() {
                       fontSize: "90%",
                       color: "white",
                       justifyContent: "center",
+                      width: "100%",
+                      height: "100%",
                     }}
                     className="neonText flex profile-information-fname-lname vazir"
                   >
@@ -374,7 +406,9 @@ export default function Profile() {
                           style: input_text,
                         }}
                         InputProps={{ style: { fontFamily: "Vazir" } }}
-                        onChange={(e) => setFirstName(convertNumberToEnglish(e.target.value))}
+                        onChange={(e) =>
+                          setFirstName(convertNumberToEnglish(e.target.value))
+                        }
                         autoComplete="firstname"
                         error={errorFirstName}
                         autoFocus
@@ -391,7 +425,9 @@ export default function Profile() {
                           style: input_text,
                         }}
                         InputProps={{ style: { fontFamily: "Vazir" } }}
-                        onChange={(e) => setLastName(convertNumberToEnglish(e.target.value))}
+                        onChange={(e) =>
+                          setLastName(convertNumberToEnglish(e.target.value))
+                        }
                         autoComplete="lastname"
                         error={errorLastName}
                         autoFocus
@@ -414,7 +450,9 @@ export default function Profile() {
                       <label for="username" className="title-css">
                         نام کاربری
                       </label>
-                      <h3 className="email-text-box">{convertNumberToPersian(username)}</h3>
+                      <h3 className="email-text-box">
+                        {convertNumberToPersian(username)}
+                      </h3>
                     </div>
                   </div>
                   <div className="birthday-border-media">
@@ -450,7 +488,9 @@ export default function Profile() {
                       fullWidth
                       name="bio"
                       multiline
-                      onChange={(e) => setBio(convertNumberToPersian(e.target.value))}
+                      onChange={(e) =>
+                        setBio(convertNumberToPersian(e.target.value))
+                      }
                       value={bio}
                       rows={2}
                       InputProps={{ style: { fontFamily: "Vazir" } }}
