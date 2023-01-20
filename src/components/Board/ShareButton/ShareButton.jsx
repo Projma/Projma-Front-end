@@ -64,13 +64,7 @@ const ShareButton = (props) => {
     const [inviteToken, setInviteToken] = React.useState('');
     const [search_text, setSearchText] = React.useState('');
     const [membersList, setMembersList] = React.useState([
-        // { title: 'فرزان رحمانی', year: 1994 },
-        // { title: 'محمد اصولیان', year: 1972 },
-        // { title: 'نوید ابراهیمی', year: 1974 },
-        // { title: 'سینا علینژاد', year: 2008 },
-        // { title: 'وحید محمدی', year: 1957 },
-        // { title: "محمد حسین عباسپور", year: 1993 },
-        // { title: 'افشین زنگنه', year: 1994 },
+        // { name: 'فرزان رحمانی', id: 1994 },
     ]);
     const [selectedOptions, setSelectedOptions] = useState([]);
     const params = useParams();
@@ -103,7 +97,6 @@ const ShareButton = (props) => {
             // }
         });
         apiInstance.get(`/workspaces/board/${params.id}/invite_link/`).then((res) => {
-            // apiInstance.get(`/workspaces/board/${2}/invite/`).then((res) => {
             // console.log(res.data);
             setInviteToken(res.data);
         });
@@ -133,12 +126,9 @@ const ShareButton = (props) => {
     const copy = async () => {
         const invite_link = "http://localhost:3000/borad_invitation/" + params.id + "/" + inviteToken + "/";
         setinviteLink(invite_link);
-        // setinviteLink(`http://localhost:3000/board/${params.id}/`);
-        // setinviteLink('این یک تست است.');
         while (inviteLink === '') {
             await new Promise(r => setTimeout(r, 100));
         }
-        // await navigator.clipboard.writeText(inviteLink);
         await navigator.clipboard.writeText(inviteLink);
         // alert('Text copied');
         toast.success("لینک کپی شد.", {
@@ -150,10 +140,6 @@ const ShareButton = (props) => {
     const inputSearchHandler = (event, value) => {
         setSearchText(convertNumberToPersian(event.target.value));
         setSelectedOptions(value);
-        console.log(value);
-        // console.log(event);
-        // console.log(event.target.value); // text 
-        console.log("***************************    ");
         setMembersList([]);
         apiInstance.get('/accounts/profile/', {
             params: {
@@ -176,21 +162,6 @@ const ShareButton = (props) => {
             //         "profile_pic": null,
             //         "telegram_id": null
             //     },
-            //     {
-            //         "user": {
-            //             "id": 13,
-            //             "first_name": "Rahmani",
-            //             "last_name": "Ahmad",
-            //             "username": "farzan_rahmani",
-            //             "password": "pbkdf2_sha256$390000$f6wF28sLu7Zj68dSVxhafA$y/+jDfK1rT6/9aDeB9g0uLymdjYK9HsEiZy6nbdyq1o=",
-            //             "email": "farzanrahmanilkmkdlcscs@gmail.com"
-            //         },
-            //         "birth_date": null,
-            //         "bio": null,
-            //         "phone": null,
-            //         "profile_pic": null,
-            //         "telegram_id": null
-            //     }
             // ]
             setMembersList([]);
             for (let i = 0; i < res.data.length; i++) {
@@ -218,33 +189,28 @@ const ShareButton = (props) => {
         //     }
         // ]
         setSelectedOptions(value);
-        // console.log(selectedOptions);
     }
 
     const handleAddUsers = (event) => {
-        // console.log("event");
-        console.log(selectedOptions);
+        // console.log(selectedOptions);
         // [
         //     {
         //         "name": "Vahid Mohammadi",
         //         "id": 14
         //     },
-        //     {
-        //         "name": "Rahmani Ahmad",
-        //         "id": 13
-        //     }
         // ]
 
         for (let index = 0; index < selectedOptions.length; index++) {
             const element = selectedOptions[index];
             let member_id = element.id;
+            let wasSuccessful = true;
             apiInstance.post('/workspaces/board/' + params.id + '/add-user-to-board/' + member_id
-            // {
-            //     params: {
-            //         id: params.id,
-            //         user_id: member_id
-            //     }
-            // }
+                // {
+                //     params: {
+                //         id: params.id,
+                //         user_id: member_id
+                //     }
+                // }
             ).then((res) => {
                 console.log("success", res);
                 // console.log(res.data);
@@ -254,11 +220,10 @@ const ShareButton = (props) => {
                 //     "user": 12,
             }).catch((error) => {
                 console.log("error", error);
+                wasSuccessful = false;
                 // console.log(error.response);
                 // console.log(error.response.data);
                 // toast error
-
-
             });
         }
 
@@ -358,7 +323,9 @@ const ShareButton = (props) => {
                                 getOptionLabel={
                                     (option) => option.name
                                     // (option) => {
-                                    //     <MenuItem>
+                                    //     <MenuItem sx={{
+                                    //         color: "black",
+                                    //     }}>
                                     //         {/* <ListItemText primary={option.title} /> */}
                                     //         {option.title}
                                     //     </MenuItem>
