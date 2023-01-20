@@ -131,7 +131,7 @@ const ShareButton = (props) => {
 
 
     const copy = async () => {
-    const invite_link = "http://localhost:3000/borad_invitation/" + params.id + "/" + inviteToken + "/";
+        const invite_link = "http://localhost:3000/borad_invitation/" + params.id + "/" + inviteToken + "/";
         setinviteLink(invite_link);
         // setinviteLink(`http://localhost:3000/board/${params.id}/`);
         // setinviteLink('این یک تست است.');
@@ -153,7 +153,7 @@ const ShareButton = (props) => {
         console.log(value);
         // console.log(event);
         // console.log(event.target.value); // text 
-        // console.log("***************************    ");
+        console.log("***************************    ");
         setMembersList([]);
         apiInstance.get('/accounts/profile/', {
             params: {
@@ -192,6 +192,7 @@ const ShareButton = (props) => {
             //         "telegram_id": null
             //     }
             // ]
+            setMembersList([]);
             for (let i = 0; i < res.data.length; i++) {
                 // { title: 'فرزان رحمانی', year: 1994 }
                 var temp = {}
@@ -205,29 +206,62 @@ const ShareButton = (props) => {
         });
     }
 
+    const selectedOptionsChanged = (event, value) => {
+        // [
+        //     {
+        //         "name": "فرزان رحمانی",
+        //         "id": 12
+        //     },
+        //     {
+        //         "name": "Rahmani Ahmad",
+        //         "id": 13
+        //     }
+        // ]
+        setSelectedOptions(value);
+        // console.log(selectedOptions);
+    }
+
     const handleAddUsers = (event) => {
-        console.log("event");
+        // console.log("event");
         console.log(selectedOptions);
-        // console.log(event);
-        // console.log(event.target.value);
-        // console.log(event.target.value);
+        // [
+        //     {
+        //         "name": "Vahid Mohammadi",
+        //         "id": 14
+        //     },
+        //     {
+        //         "name": "Rahmani Ahmad",
+        //         "id": 13
+        //     }
+        // ]
 
-        // let workspace_name = document.getElementById("tags-outlined");
-        // let workspace_name = document.getElementById("search_box");
-        // let selectted = document.getElementById("tags-outlined");
-        // console.log("*****************")
-        // console.log("workspace_name: ", workspace_name);
-        // console.log("selectted: ", selectted);
+        for (let index = 0; index < selectedOptions.length; index++) {
+            const element = selectedOptions[index];
+            let member_id = element.id;
+            apiInstance.post('/workspaces/board/' + params.id + '/add-user-to-board/' + member_id
+            // {
+            //     params: {
+            //         id: params.id,
+            //         user_id: member_id
+            //     }
+            // }
+            ).then((res) => {
+                console.log("success", res);
+                // console.log(res.data);
+                // {
+                //     "id": 1,
+                //     "board": 1,
+                //     "user": 12,
+            }).catch((error) => {
+                console.log("error", error);
+                // console.log(error.response);
+                // console.log(error.response.data);
+                // toast error
 
-        //     // let create_workspace_formdata = new FormData();
-        //     // create_workspace_formdata.append("name", workspace_name);
-        //     // // create_workspace_formdata.append("type", type);
-        //     // apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
-        //     //     navigateToWorkspace(response.data.id);
-        //     // })
-        //     //     .catch((error) => {
-        //     //         console.log(error);
-        //     //     });
+
+            });
+        }
+
     }
 
 
@@ -329,7 +363,7 @@ const ShareButton = (props) => {
                                     //         {option.title}
                                     //     </MenuItem>
                                     // }    
-                                    }
+                                }
                                 sx={{
                                     width: "60%",
                                     display: "block",
@@ -339,6 +373,7 @@ const ShareButton = (props) => {
                                     // color: "white",
                                     // backgroundColor: "#66B2FF",
                                 }}
+                                onChange={(event, value) => selectedOptionsChanged(event, value)}
                                 // defaultValue={[membersList[0]]}
                                 filterSelectedOptions
                                 filterOptions={(x) => x}
@@ -349,8 +384,6 @@ const ShareButton = (props) => {
                                             color: "white",
                                             // backgroundColor: "#66B2FF",
                                         }}
-                                        // label="filterSelectedOptions"
-                                        // placeholder="Favorites"
                                         label="جستجو"
                                         placeholder="آدرس ایمیل یا نام کاربری را وارد کنید."
                                         helperText="فرد مورد نظر خود را جستجو کنید."
@@ -362,12 +395,11 @@ const ShareButton = (props) => {
                                         // onFocus={() => {
                                         //     placeholder = "";
                                         // }}
-                                        onChange={(event, newValue) => 
-                                        {
+                                        onChange={(event, newValue) => {
                                             inputSearchHandler(event, newValue);
                                         }
                                         }
-                                        // onChange={(e) => serachUser(convertNumberToPersian(e.target.value))}
+                                    // onChange={(e) => serachUser(convertNumberToPersian(e.target.value))}
                                     />
 
                                     // <StyledTextField
@@ -408,26 +440,26 @@ const ShareButton = (props) => {
                                     fontFamily: "Vazir",
                                     backgroundColor: "#0A1929", // #132F4C
                                 }}
-                            // disabled={disableButton}
-                            // onClick={this.isClicked}
-                            onSubmit={() => {
-                                let workspace_name = document.getElementById("tags-outlined").value;
-                                // let selectted = document.getElementById("tags-outlined").ariaSelected;
-                                console.log("*****************")
-                                console.log("workspace_name: ", workspace_name);
-                                // console.log("selectted: ", selectted);
+                                // disabled={disableButton}
+                                // onClick={this.isClicked}
+                                // onSubmit={() => {
+                                //     let workspace_name = document.getElementById("tags-outlined").value;
+                                //     // let selectted = document.getElementById("tags-outlined").ariaSelected;
+                                //     console.log("*****************")
+                                //     console.log("workspace_name: ", workspace_name);
+                                //     // console.log("selectted: ", selectted);
 
-                                // let create_workspace_formdata = new FormData();
-                                // create_workspace_formdata.append("name", workspace_name);
-                                // // create_workspace_formdata.append("type", type);
-                                // apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
-                                //     navigateToWorkspace(response.data.id);
-                                // })
-                                //     .catch((error) => {
-                                //         console.log(error);
-                                //     });
-                            }}
-                            onClick={handleAddUsers}
+                                //     // let create_workspace_formdata = new FormData();
+                                //     // create_workspace_formdata.append("name", workspace_name);
+                                //     // // create_workspace_formdata.append("type", type);
+                                //     // apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
+                                //     //     navigateToWorkspace(response.data.id);
+                                //     // })
+                                //     //     .catch((error) => {
+                                //     //         console.log(error);
+                                //     //     });
+                                // }}
+                                onClick={handleAddUsers}
                             // onClick={() => {
                             //     let workspace_name = document.getElementById("tags-outlined");
                             //     // let selectted = document.getElementById("tags-outlined").ariaSelected;
