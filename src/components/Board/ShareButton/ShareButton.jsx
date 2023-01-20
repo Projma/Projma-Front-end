@@ -72,6 +72,7 @@ const ShareButton = (props) => {
         // { title: "محمد حسین عباسپور", year: 1993 },
         // { title: 'افشین زنگنه', year: 1994 },
     ]);
+    const [selectedOptions, setSelectedOptions] = useState([]);
     const params = useParams();
     const role_english_to_persian = {
         "Admin": "ادمین",
@@ -146,8 +147,10 @@ const ShareButton = (props) => {
         });
     }
 
-    const inputSearchHandler = (event) => {
+    const inputSearchHandler = (event, value) => {
         setSearchText(convertNumberToPersian(event.target.value));
+        setSelectedOptions(value);
+        console.log(value);
         // console.log(event);
         // console.log(event.target.value); // text 
         // console.log("***************************    ");
@@ -202,8 +205,29 @@ const ShareButton = (props) => {
         });
     }
 
-    const serachUser = (event) => {
+    const handleAddUsers = (event) => {
+        console.log("event");
+        console.log(selectedOptions);
+        // console.log(event);
         // console.log(event.target.value);
+        // console.log(event.target.value);
+
+        // let workspace_name = document.getElementById("tags-outlined");
+        // let workspace_name = document.getElementById("search_box");
+        // let selectted = document.getElementById("tags-outlined");
+        // console.log("*****************")
+        // console.log("workspace_name: ", workspace_name);
+        // console.log("selectted: ", selectted);
+
+        //     // let create_workspace_formdata = new FormData();
+        //     // create_workspace_formdata.append("name", workspace_name);
+        //     // // create_workspace_formdata.append("type", type);
+        //     // apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
+        //     //     navigateToWorkspace(response.data.id);
+        //     // })
+        //     //     .catch((error) => {
+        //     //         console.log(error);
+        //     //     });
     }
 
 
@@ -338,7 +362,11 @@ const ShareButton = (props) => {
                                         // onFocus={() => {
                                         //     placeholder = "";
                                         // }}
-                                        onChange={inputSearchHandler}
+                                        onChange={(event, newValue) => 
+                                        {
+                                            inputSearchHandler(event, newValue);
+                                        }
+                                        }
                                         // onChange={(e) => serachUser(convertNumberToPersian(e.target.value))}
                                     />
 
@@ -382,21 +410,45 @@ const ShareButton = (props) => {
                                 }}
                             // disabled={disableButton}
                             // onClick={this.isClicked}
+                            onSubmit={() => {
+                                let workspace_name = document.getElementById("tags-outlined").value;
+                                // let selectted = document.getElementById("tags-outlined").ariaSelected;
+                                console.log("*****************")
+                                console.log("workspace_name: ", workspace_name);
+                                // console.log("selectted: ", selectted);
+
+                                // let create_workspace_formdata = new FormData();
+                                // create_workspace_formdata.append("name", workspace_name);
+                                // // create_workspace_formdata.append("type", type);
+                                // apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
+                                //     navigateToWorkspace(response.data.id);
+                                // })
+                                //     .catch((error) => {
+                                //         console.log(error);
+                                //     });
+                            }}
+                            onClick={handleAddUsers}
                             // onClick={() => {
-                            //     // let workspace_name = document.getElementById("workspace_name").value;
+                            //     let workspace_name = document.getElementById("tags-outlined");
+                            //     // let selectted = document.getElementById("tags-outlined").ariaSelected;
+                            //     console.log("*****************")
+                            //     console.log("workspace_name: ", workspace_name);
+                            //     // console.log("selectted: ", selectted);
+
                             //     // let create_workspace_formdata = new FormData();
                             //     // create_workspace_formdata.append("name", workspace_name);
-                            //     // create_workspace_formdata.append("type", type);
-                            //     apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
-                            //         navigateToWorkspace(response.data.id);
-                            //     })
-                            //         .catch((error) => {
-                            //             console.log(error);
-                            //         });
+                            //     // // create_workspace_formdata.append("type", type);
+                            //     // apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
+                            //     //     navigateToWorkspace(response.data.id);
+                            //     // })
+                            //     //     .catch((error) => {
+                            //     //         console.log(error);
+                            //     //     });
                             // }}
                             >
                                 {/* {" "} */}
                                 اشتراک
+                                گذاری
                             </Button>
                         </Box>
                         <MenuItem sx={{
