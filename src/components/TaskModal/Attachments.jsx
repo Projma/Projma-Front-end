@@ -24,16 +24,16 @@ export default function Attachments({ params, setAllAttachments }) {
   };
 
   const handleFileChange = (e) => {
-    console.log(e.target.files[0]);
+    //console.log(e.target.files[0]);
     const [file] = e.target.files;
     setBinaryFile(e.target.files[0]);
     if (file) {
       setFile(URL.createObjectURL(file));
-      console.log(URL.createObjectURL(file));
+      //console.log(URL.createObjectURL(file));
     }
   };
   const createAttachment = () => {
-    console.log("create attachment$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+    //console.log("create attachment$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     const formData = new FormData();
     formData.append("file", binaryFile);
     apiInstance
@@ -47,14 +47,14 @@ export default function Attachments({ params, setAllAttachments }) {
         }
       )
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         toast.success("پیوست جدید اضافه شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        console.log("##############333333333333333333333333333333333333333");
-        // console.log(res.data);
-        console.log(res.data);
+        //console.log("##############333333333333333333333333333333333333333");
+        // //console.log(res.data);
+        //console.log(res.data);
         setAllAttachments((prev) => [...prev, res.data]);
       });
   };

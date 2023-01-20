@@ -8,44 +8,74 @@ import apiInstance from "../../../utilities/axiosConfig";
 import "./Board.css";
 import BoardView from "./BoardView";
 import CreateBoardModal from "../CreateBoardModal/CreateBoard";
+// import { createGlobalStyle } from "styled-components";
 
 const Board = ({ params, on_submit }) => {
-  console.log(params.id);
+  //console.log(params.id);
   const [workspace, setWorkspace] = useState({});
-  const [star,setStar] = useState({});
+  const [star, setStar] = useState([]);
+  const [recent, setRecent] = useState([]);
+  const [list, setList] = useState([]);
+  const [update, setUpdate] = useState(false);
   useEffect(() => {
-    console.log(params);
+    //console.log(params);
     apiInstance
       .get(`workspaces/workspaceowner/${params.id}/workspace-boards/`)
       .then((res) => {
         const boards = res.data.map((obj) => ({
           id: obj.id,
           name: obj.name,
+          background_pic: obj.background_pic,
         }));
         setList(boards);
-        console.log(boards);
+        //console.log(boards);
       });
     apiInstance
       .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
       .then((res) => {
-        // console.log(res.data);
-        console.log("*********************************");
-        console.log(res.data);
+        // //console.log(res.data);
+        //console.log("*********************************");
+        //console.log(res.data);
         setWorkspace(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
+      });
+    apiInstance
+      .get(`workspaces/workspaces/${params.id}/workspace-starred-boards/`)
+      .then((res) => {
+        // //console.log(res.data);
+        //console.log("*********************************");
+        //console.log(res.data);
+        setStar(res.data);
+      })
+      .catch((err) => {
+        //console.log(err);
+        setStar([]);
       });
   }, []);
-  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    apiInstance
+      .get(`workspaces/workspaces/${params.id}/workspace-starred-boards/`)
+      .then((res) => {
+        // //console.log(res.data);
+        //console.log("*********************************");
+        //console.log(res.data);
+        setStar(res.data);
+      })
+      .catch((err) => {
+        //console.log(err);
+        setStar([]);
+      });
+  }, [update]);
 
   const addBoardHandler = (obj) => {
     setList((current) => [...current, obj]);
   };
 
   const starredHandler = (data) => {
-
-    setList((current) =>
+    setStar((current) =>
       current.map((obj) => {
         if (obj.id === data.id) {
           return { ...obj, isStarred: data.is };
@@ -53,21 +83,14 @@ const Board = ({ params, on_submit }) => {
         return obj;
       })
     );
+    setUpdate(!update);
   };
 
-  // ✅ Remove one or more objects from state array
-  // const removeObjectFromArray = () => {
-  //   setEmployees(current =>
-  //     current.filter(obj => {
-  //       return obj.id !== 2;
-  //     }),
-  //   );
-  // };
   const [open, setOpen] = useState(false);
   return (
-    <div className="board" style={{ width: "100%" }}>
+    <div className="workspace-board-main" style={{ width: "100%" }}>
       <Navbar params={params} />
-      {list.find((e) => e.isStarred === true) && star !== {} && (
+      {star.length > 0 && (
         <div>
           <div className="workspace--starred-board">
             <div className="workspace--board-header">
@@ -76,18 +99,16 @@ const Board = ({ params, on_submit }) => {
             </div>
             <div className="workspace--board-body">
               <div className="workspace--board-body-list">
-                {list.map(
-                  (x) =>
-                    x.isStarred && (
-                      <BoardView
-                        name={x.name}
-                        key={x.id}
-                        is={x.isStarred}
-                        id={x.id}
-                        onStarred={starredHandler}
-                      />
-                    )
-                )}
+                {star.map((x) => (
+                  <BoardView
+                    name={x.name}
+                    key={x.id}
+                    is={true}
+                    id={x.id}
+                    pic={x.background_pic}
+                    onStarred={starredHandler}
+                  />
+                ))}
               </div>
             </div>
           </div>
@@ -108,8 +129,9 @@ const Board = ({ params, on_submit }) => {
                       <BoardView
                         name={x.name}
                         key={x.id}
-                        is={x.isStarred}
+                        is={star.find((e) => e.id === x.id) ? true : false}
                         id={x.id}
+                        pic={x.background_pic}
                         onStarred={starredHandler}
                       />
                     )
@@ -130,8 +152,12 @@ const Board = ({ params, on_submit }) => {
               <BoardView
                 name={x.name}
                 key={x.id}
-                is={x.isStarred}
+                is={star.find((e) => e.id === x.id) ? true : false}
                 id={x.id}
+                pic={
+                  "http://mohammadosoolian.pythonanywhere.com" +
+                  x.background_pic
+                }
                 onStarred={starredHandler}
               />
             ))}

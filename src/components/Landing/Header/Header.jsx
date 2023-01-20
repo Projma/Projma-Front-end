@@ -21,13 +21,13 @@ import { convertNumberToPersian, convertNumberToEnglish } from "../../../utiliti
 
 // const loader = async () => {
 //   const attButton = e.target.getAttribute("button-key");
-//   console.log(attButton);
+//   //console.log(attButton);
 //   return redirect("/test");
 // };
 
 // isClicked = (e) => {
 //   const attButton = e.target.getAttribute("button-key");
-//   console.log(attButton);
+//   //console.log(attButton);
 // };
 
 const theme = createTheme({
@@ -95,7 +95,7 @@ const Header = () => {
                     InputLabelProps={{ style: { fontFamily: "Vazir" } }}
                     InputProps={{ style: { fontFamily: "Vazir" } }}
                     onChange={(e) => {
-                      // console.log(e.target.value);
+                      // //console.log(e.target.value);
                       document.getElementById("email").value = convertNumberToPersian(e.target.value);
                     }}
                   />

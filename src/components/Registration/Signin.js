@@ -61,7 +61,7 @@ export default function SignIn() {
       });
   }, []);
   const handleSubmit = (event) => {
-    console.log("handleSubmit");
+    //console.log("handleSubmit");
     event.preventDefault();
     setErrorUsername(false);
     setErrorPassword(false);

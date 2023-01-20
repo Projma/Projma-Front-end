@@ -16,6 +16,7 @@ import PerTextField from "../../Shared/PerTextField.js";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 import Loading from "../../Shared/Loading";
 import "./EditModal.css";
+import { convertNumberToPersian } from "../../../utilities/helpers.js";
 
 const style = {
   position: "absolute",
@@ -45,7 +46,7 @@ export default function EditModal({ params, update_navbar }) {
     setWorkspace(oldWorkspace);
     setOpen(false);
   };
-  // console.log("workspace in edit modal", name, description, type);
+  // //console.log("workspace in edit modal", name, description, type);
   const [newType, setNewType] = React.useState("");
   const [newName, setNewName] = React.useState("");
   const [newDescription, setNewDescription] = React.useState("");
@@ -56,46 +57,38 @@ export default function EditModal({ params, update_navbar }) {
     apiInstance
       .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
       .then((res) => {
-        console.log(res.data);
-        console.log(
-          "*********************************************************"
-        );
         setWorkspace(res.data);
         setOldWorkspace(res.data);
-        console.log(workspace);
+        //console.log(workspace);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
     setNewName(workspace.name);
-    console.log(newName);
+    //console.log(newName);
     setNewDescription(workspace.description);
     setNewType(workspace.type);
-    console.log(workspace.description);
-    console.log(workspace.type);
+    //console.log(workspace.description);
+    //console.log(workspace.type);
   }, [change]);
 
   useEffect(() => {
     apiInstance
       .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
       .then((res) => {
-        console.log(res.data);
-        console.log(
-          "*********************************************************"
-        );
         setWorkspace(res.data);
         setOldWorkspace(res.data);
-        console.log(workspace);
+        //console.log(workspace);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
     setNewName(workspace.name);
-    console.log(newName);
+    //console.log(newName);
     setNewDescription(workspace.description);
     setNewType(workspace.type);
-    console.log(workspace.description);
-    console.log(workspace.type);
+    //console.log(workspace.description);
+    //console.log(workspace.type);
   }, []);
 
   const edit_workspace = (e) => {
@@ -103,34 +96,9 @@ export default function EditModal({ params, update_navbar }) {
     setIsPost(true);
     e.preventDefault();
     const form_data = new FormData();
-    // if (newName == undefined || newName == "" || newName == workspace.name) {
-    //   form_data.append("name", workspace.name);
-    // } else {
-    //   form_data.append("name", newName);
-    // }
-    // console.log("newDescription");
-    // console.log(newDescription);
-    // if (
-    //   newDescription == undefined ||
-    //   newDescription == "" ||
-    //   newDescription == workspace.description
-    // ) {
-    //   console.log("yesss");
-    //   form_data.append("description", workspace.description);
-    // } else {
-    //   console.log("nooo");
-    //   form_data.append("description", newDescription);
-    // }
     form_data.append("name", workspace.name);
     form_data.append("description", workspace.description);
     form_data.append("type", workspace.type);
-    // if (newType == undefined || newType == "" || newType == workspace.type) {
-    //   form_data.append("type", workspace.type);
-    // } else {
-    //   form_data.append("type", newType);
-    // }
-    // console.log("form_data");
-    // console.log(form_data);
     apiInstance
       .patch(
         `workspaces/workspaceowner/${params.id}/edit-workspace/`,
@@ -186,10 +154,13 @@ export default function EditModal({ params, update_navbar }) {
               <div className="ws_editmodal-inputs">
                 <StyledTextField
                   className="ws_editmodal-input"
-                  value={workspace.name}
-                  defaultValue={workspace.name}
+                  value={convertNumberToPersian(workspace.name)}
+                  defaultValue={convertNumberToPersian(workspace.name)}
                   onChange={(e) =>
-                    setWorkspace({ ...workspace, name: e.target.value })
+                    setWorkspace({
+                      ...workspace,
+                      name: convertNumberToPersian(e.target.value),
+                    })
                   }
                   sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 />
@@ -198,10 +169,13 @@ export default function EditModal({ params, update_navbar }) {
                   ref={descriptionRef}
                   className="ws_editmodal-input"
                   onChange={(e) =>
-                    setWorkspace({ ...workspace, description: e.target.value })
+                    setWorkspace({
+                      ...workspace,
+                      description: convertNumberToPersian(e.target.value),
+                    })
                   }
-                  value={workspace.description}
-                  defaultValue={workspace.description}
+                  value={convertNumberToPersian(workspace.description)}
+                  defaultValue={convertNumberToPersian(workspace.description)}
                   sx={{
                     textAlign: "center",
                     fontFamily: "Vazir",

@@ -34,10 +34,12 @@ export default function DeleteWorkspace({ workspace_id, removeWorkspace }) {
       <button
         key={workspace_id}
         // id={member.userName}
-        className="ws_members-person-remove-button"
+        className="ws_workspace-remove-button"
         onClick={handleClickOpen}
       >
-        <DeleteIcon sx={{ color: "#fff" }} />
+        <div className="ws_workspace-remove-button-div">
+          <DeleteIcon sx={{ color: "rgb(45, 36, 36)" }} />
+        </div>
       </button>
       <Dialog
         fullScreen={fullScreen}

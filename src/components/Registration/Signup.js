@@ -222,7 +222,7 @@ export default function SignUp() {
                       value={convertNumberToPersian(firstName)}
                       onChange={(e) => {
                         setFirstName(convertNumberToEnglish(e.target.value))
-                        // console.log(firstName)
+                        // //console.log(firstName)
                       }
                       }
                       error={errorFirstName}
@@ -298,7 +298,7 @@ export default function SignUp() {
                         },
                       }}
                       onChange={(e) => {
-                        // console.log(email)
+                        // //console.log(email)
                         setEmail(convertNumberToEnglish(e.target.value))
                         }}
                       error={errorEmail}

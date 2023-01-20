@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import PerTextField from '../../Shared/PerTextField';
-import StyledTextField from '../../Shared/StyledTextField';
-import { Button } from '@mui/material';
-import { toast, ToastContainer } from 'react-toastify';
-import Loading from '../../Shared/Loading';
-import apiInstance from '../../../utilities/axiosConfig';
-import AddIcon from '@mui/icons-material/Add';
+import React, { useState, useEffect } from "react";
+import PerTextField from "../../Shared/PerTextField";
+import StyledTextField from "../../Shared/StyledTextField";
+import { Button } from "@mui/material";
+import { toast, ToastContainer } from "react-toastify";
+import Loading from "../../Shared/Loading";
+import apiInstance from "../../../utilities/axiosConfig";
+import AddIcon from "@mui/icons-material/Add";
 import "./AddList.css";
-import { convertNumberToPersian, convertNumberToEnglish } from '../../../utilities/helpers.js';
+import {
+  convertNumberToPersian,
+  convertNumberToEnglish,
+} from "../../../utilities/helpers.js";
 
 const AddList = (props) => {
   const [req, setReq] = useState(false);
-  const [listName, setListName] = useState('');
+  const [listName, setListName] = useState("");
   const [click, setClick] = useState(false);
   // const [list,setList] = useState({});
   let list;
@@ -25,18 +28,20 @@ const AddList = (props) => {
     await apiInstance
       .post(`workspaces/board/${id}/create-tasklist/`, data)
       .then((response) => {
-        toast.success('لیست با موفقیت ساخته شد', {
+        toast.success("لیست با موفقیت ساخته شد", {
           position: toast.POSITION.TOP_CENTER,
           rtl: true,
         });
+        console.log("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+        console.log(response.data);
         // setList(response.data);
         list = response.data;
-        console.log(list);
+        // console.log(list);
         props.onCreateList(list);
       })
       .catch((error) => {
         if (error.response.status === 404) {
-          toast.error('عملیات با خطا مواجه شد', {
+          toast.error("عملیات با خطا مواجه شد", {
             position: toast.POSITION.TOP_CENTER,
             rtl: true,
           });
@@ -49,58 +54,71 @@ const AddList = (props) => {
   const handleClick = () => {
     setClick(!click);
     setListName(null);
-  }
+  };
   return (
     <>
       {req ? <Loading /> : null}
-      <ToastContainer autoClose={3000} style={{ fontSize: '1.2rem' }} />
-      {click ? <form className="baord_add-list-form" onSubmit={e => handleAddListSubmit(e)}>
-        <PerTextField>
-          <StyledTextField
-            margin="normal"
-            label="اسم لیست"
-            variant="filled"
-            required
-            fullWidth
-            autoFocus
-            onChange={(e) => setListName(convertNumberToPersian(e.target.value))}
-            value={listName}
-            placeholder="اسم لیست را در این بخش بنویسید"
-            InputProps={{
-              disableUnderline: true,
-              style: {
-                // height: "50px",
-                // padding: "0 14px",
-                fontFamily: "Vazir",
-                // fontSize: "1.7rem",
-              },
-            }}
-            InputLabelProps={{
-              style: {
-                fontFamily: "Vazir",
-                // fontSize: "1.6rem",
-              },
-            }}
-            sx={{
-              backgroundColor: 'var(--main-item-color)',
-              borderBottom: '0.2rem solid var(--minor-item-color)',
-              borderRadius: '0.5rem',
-              width: '30rem',
-              height: '100%',
-              // borderRadius: "0.5rem",
-              '& input::placeholder': {
-                fontSize: '1.2rem'
-              },
-              margin: 0
-            }}
-          />
-        </PerTextField>
-        <Button type="submit" variant="contained">افزودن</Button>
-        <Button type="button" variant="contained" onClick={handleClick}>لفو</Button>
-      </form> : <Button type="button" variant="contained" onClick={handleClick}>
-        <AddIcon />
-        ایجاد لیست
-      </Button>}
+      <ToastContainer autoClose={3000} style={{ fontSize: "1.2rem" }} />
+      {click ? (
+        <form
+          className="baord_add-list-form"
+          onSubmit={(e) => handleAddListSubmit(e)}
+        >
+          <PerTextField>
+            <StyledTextField
+              margin="normal"
+              label="اسم لیست"
+              variant="filled"
+              required
+              fullWidth
+              autoFocus
+              onChange={(e) =>
+                setListName(convertNumberToPersian(e.target.value))
+              }
+              value={listName}
+              placeholder="اسم لیست را در این بخش بنویسید"
+              InputProps={{
+                disableUnderline: true,
+                style: {
+                  // height: "50px",
+                  // padding: "0 14px",
+                  fontFamily: "Vazir",
+                  // fontSize: "1.7rem",
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "Vazir",
+                  // fontSize: "1.6rem",
+                },
+              }}
+              sx={{
+                backgroundColor: "var(--main-item-color)",
+                borderBottom: "0.2rem solid var(--minor-item-color)",
+                borderRadius: "0.5rem",
+                width: "30rem",
+                height: "100%",
+                // borderRadius: "0.5rem",
+                "& input::placeholder": {
+                  fontSize: "1.2rem",
+                },
+                margin: 0,
+              }}
+            />
+          </PerTextField>
+          <Button type="submit" variant="contained">
+            افزودن
+          </Button>
+          <Button type="button" variant="contained" onClick={handleClick}>
+            لفو
+          </Button>
+        </form>
+      ) : (
+        <Button type="button" variant="contained" onClick={handleClick}>
+          <AddIcon />
+          ایجاد لیست
+        </Button>
+      )}
     </>
   );
 };

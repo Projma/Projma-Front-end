@@ -34,11 +34,11 @@ export default function BasicMenu(props) {
 
     const params = useParams();
     const submit_form = (form_data) => {
-        console.log("here");
+        //console.log("here");
         apiInstance
             .post(`/workspaces/workspaceowner/${params.id}/create-board/`, form_data)
             .then((res) => {
-                console.log(res.data);
+                //console.log(res.data);
             });
     };
 

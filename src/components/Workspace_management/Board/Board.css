@@ -1,8 +1,17 @@
-.workspace--my-board,.workspace--starred-board {
-  width: 90%;
+.workspace--my-board,
+.workspace--starred-board {
+  width: 100%;
   height: 100%;
-  margin: 5%;
   color: #fff !important;
+}
+
+.workspace-board-main {
+  display: flex;
+  gap: 5%;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  margin: 5%;
 }
 
 .workspace--board-header {
@@ -10,11 +19,11 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 }
 
 .workspace--board-body {
-  border: 0.2rem solid var(--minor-item-color);
+  /* border: 0.2rem solid var(--minor-item-color); */
   padding: 0.5rem;
   border-radius: 0.5rem;
 }
@@ -29,8 +38,9 @@
   max-height: 26rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, 20rem);
-  justify-content: space-evenly;
-  gap: 1rem 1rem;
+  justify-content: space-between;
+  /* gap: 1rem 1rem; */
+  row-gap: 3rem;
   justify-items: start;
 }
 
@@ -55,10 +65,10 @@
   color: #007fff;
 }
 
-.workspace--starred-board {
+/* .workspace--starred-board {
   margin-bottom: 5%;
 }
 
 .workspace--recent-board {
   margin-bottom: 5%;
-}
+} */

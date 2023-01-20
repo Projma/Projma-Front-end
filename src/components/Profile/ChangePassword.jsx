@@ -127,14 +127,14 @@ export default function ChangePassword() {
       apiInstance
         .post("/accounts/profile/change-password/", change_password_form_data)
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           toast.success("رمز عبور با موفقیت تغییر کرد", {
             position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
         })
         .catch((err) => {
-          console.log(err);
+          //console.log(err);
           toast.error("رمز عبور قبلی اشتباه است", {
             position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
@@ -147,7 +147,7 @@ export default function ChangePassword() {
   };
   // apiInstance.get("/accounts/users/").then((res) => {
   //   setUserDetail(res.data);
-  //   console.log(res.data);
+  //   //console.log(res.data);
   // });
   return (
     <div>
