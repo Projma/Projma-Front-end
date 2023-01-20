@@ -200,10 +200,10 @@ const ShareButton = (props) => {
         //     },
         // ]
 
+        let wasSuccessful = true;
         for (let index = 0; index < selectedOptions.length; index++) {
             const element = selectedOptions[index];
             let member_id = element.id;
-            let wasSuccessful = true;
             apiInstance.post('/workspaces/board/' + params.id + '/add-user-to-board/' + member_id
                 // {
                 //     params: {
@@ -219,15 +219,15 @@ const ShareButton = (props) => {
                 //     "board": 1,
                 //     "user": 12,
             }).catch((error) => {
-                console.log("error", error);
                 wasSuccessful = false;
+                console.log("error", error);
                 // console.log(error.response);
                 // console.log(error.response.data);
                 // toast error
             });
         }
         if (wasSuccessful) {
-            toast.success("کاربران با موفقیت اضافه شدند.", {
+            toast.success("کاربر(ان) با موفقیت اضافه شدند.", {
                 position: toast.POSITION.TOP_CENTER,
                 rtl: true,
             });
