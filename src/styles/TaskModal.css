@@ -10,8 +10,8 @@
   /* justify-content: space-around; */
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: fit-content;
+  width: 110% !important;
+  height: 100%;
 }
 
 .taskmodal-container {
@@ -23,10 +23,10 @@
   /* background-color: rgb(234, 234, 234); */
   background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
   border-radius: 30px;
-  width: 50%;
   justify-content: center;
   align-items: center;
   padding: 4%;
+  height: 100%;
 }
 
 .taskmodal-box {
@@ -99,6 +99,14 @@
   align-items: center;
   margin-right: 6.5%;
   width: 80%;
+}
+
+.taskmodal-body-activity-body-icon {
+  align-items: flex-start !important;
+}
+
+.taskmodal-body-attachment {
+  margin-top: 8%;
 }
 
 .taskmodal-body-attachment-header {

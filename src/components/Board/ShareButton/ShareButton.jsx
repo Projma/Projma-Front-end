@@ -31,7 +31,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./ShareButton.scss";
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import { convertNumberToPersian } from '../../../utilities/helpers.js';
+import { convertNumberToEnglish, convertNumberToPersian } from '../../../utilities/helpers.js';
 
 const style = {
     position: 'absolute',
@@ -62,6 +62,11 @@ const ShareButton = (props) => {
     const [inviteLink, setinviteLink] = useState('');
     const [members, setMembers] = React.useState([]);
     const [inviteToken, setInviteToken] = React.useState('');
+    const [search_text, setSearchText] = React.useState('');
+    const [membersList, setMembersList] = React.useState([
+        // { name: 'فرزان رحمانی', id: 1994 },
+    ]);
+    const [selectedOptions, setSelectedOptions] = useState([]);
     const params = useParams();
     const role_english_to_persian = {
         "Admin": "ادمین",
@@ -92,18 +97,38 @@ const ShareButton = (props) => {
             // }
         });
         apiInstance.get(`/workspaces/board/${params.id}/invite_link/`).then((res) => {
-            // apiInstance.get(`/workspaces/board/${2}/invite/`).then((res) => {
-            // //console.log(res.data);
+            // console.log(res.data);
             setInviteToken(res.data);
         });
+
+        // apiInstance.get('/accounts/profile/', {
+        //     params: {
+        //         search: " "
+        //     }
+        // }).then((res) => {
+        //     // var result = [];
+        //     setMembersList([])
+        //     for (let i = 0; i < res.data.length; i++) {
+        //         // { title: 'فرزان رحمانی', year: 1994 }
+        //         var temp = {}
+        //         temp.name = convertNumberToPersian(res.data[i].user.first_name + " " + res.data[i].user.last_name);
+        //         temp.id = res.data[i].user.id;
+        //         // temp.email = convertNumberToPersian(res.data[i].user.email);
+        //         // temp.username = convertNumberToPersian(res.data[i].user.username);
+        //         // // temp.role = convertNumberToPersian(role_english_to_persian[res.data[i].role]);
+        //         setMembersList(prevState => [...prevState, temp]);
+        //     }
+        // });
+
     }, []);
 
 
     const copy = async () => {
-    const invite_link = "http://localhost:3000/borad_invitation/" + params.id + "/" + inviteToken + "/";
+        const invite_link = "http://localhost:3000/borad_invitation/" + params.id + "/" + inviteToken + "/";
         setinviteLink(invite_link);
-        // setinviteLink(`http://localhost:3000/board/${params.id}/`);
-        // setinviteLink('این یک تست است.');
+        while (inviteLink === '') {
+            await new Promise(r => setTimeout(r, 100));
+        }
         await navigator.clipboard.writeText(inviteLink);
         // alert('Text copied');
         toast.success("لینک کپی شد.", {
@@ -111,6 +136,111 @@ const ShareButton = (props) => {
             rtl: true,
         });
     }
+
+    const inputSearchHandler = (event, value) => {
+        setSearchText(convertNumberToPersian(event.target.value));
+        setSelectedOptions(value);
+        setMembersList([]);
+        apiInstance.get('/accounts/profile/', {
+            params: {
+                search: convertNumberToEnglish(event.target.value)
+            }
+        }).then((res) => {
+            // [
+            //     {
+            //         "user": {
+            //             "id": 12,
+            //             "first_name": "فرزان",
+            //             "last_name": "رحمانی",
+            //             "username": "farzan1234",
+            //             "password": "pbkdf2_sha256$390000$w1YCj1jvgVGuV5aP8WReoO$15JeTCbD2hJoj6+xZaTT3WaTEDqfjIryfhivN8L9jHQ=",
+            //             "email": "farzanrahmani70@gmail.com"
+            //         },
+            //         "birth_date": null,
+            //         "bio": null,
+            //         "phone": null,
+            //         "profile_pic": null,
+            //         "telegram_id": null
+            //     },
+            // ]
+            setMembersList([]);
+            for (let i = 0; i < res.data.length; i++) {
+                // { title: 'فرزان رحمانی', year: 1994 }
+                var temp = {}
+                temp.name = convertNumberToPersian(res.data[i].user.first_name + " " + res.data[i].user.last_name);
+                temp.id = res.data[i].user.id;
+                // temp.email = convertNumberToPersian(res.data[i].user.email);
+                // temp.username = convertNumberToPersian(res.data[i].user.username);
+                // // temp.role = convertNumberToPersian(role_english_to_persian[res.data[i].role]);
+                setMembersList(membersList => [...membersList, temp]);
+            }
+        });
+    }
+
+    const selectedOptionsChanged = (event, value) => {
+        // [
+        //     {
+        //         "name": "فرزان رحمانی",
+        //         "id": 12
+        //     },
+        //     {
+        //         "name": "Rahmani Ahmad",
+        //         "id": 13
+        //     }
+        // ]
+        setSelectedOptions(value);
+    }
+
+    const handleAddUsers = (event) => {
+        // console.log(selectedOptions);
+        // [
+        //     {
+        //         "name": "Vahid Mohammadi",
+        //         "id": 14
+        //     },
+        // ]
+
+        let wasSuccessful = true;
+        for (let index = 0; index < selectedOptions.length; index++) {
+            const element = selectedOptions[index];
+            let member_id = element.id;
+            apiInstance.post('/workspaces/board/' + params.id + '/add-user-to-board/' + member_id
+                // {
+                //     params: {
+                //         id: params.id,
+                //         user_id: member_id
+                //     }
+                // }
+            ).then((res) => {
+                console.log("success", res);
+                // console.log(res.data);
+                // {
+                //     "id": 1,
+                //     "board": 1,
+                //     "user": 12,
+            }).catch((error) => {
+                wasSuccessful = false;
+                console.log("error", error);
+                // console.log(error.response);
+                // console.log(error.response.data);
+                // toast error
+            });
+        }
+        if (wasSuccessful) {
+            toast.success("کاربر(ان) با موفقیت اضافه شدند.", {
+                position: toast.POSITION.TOP_CENTER,
+                rtl: true,
+            });
+        }
+        else {
+            toast.error("مشکلی پیش آمده است.", {
+                position: toast.POSITION.TOP_CENTER,
+                rtl: true,
+            });
+        }
+    }
+
+
 
     return (
         <>
@@ -198,49 +328,56 @@ const ShareButton = (props) => {
                             <Autocomplete
                                 multiple
                                 id="tags-outlined"
-                                options={top100Films}
+                                options={membersList}
                                 fullWidth
+                                inputValue={search_text}
                                 getOptionLabel={
-                                    (option) => option.title
+                                    (option) => option.name
                                     // (option) => {
-                                    //     <MenuItem>
+                                    //     <MenuItem sx={{
+                                    //         color: "black",
+                                    //     }}>
                                     //         {/* <ListItemText primary={option.title} /> */}
                                     //         {option.title}
                                     //     </MenuItem>
-                                    // }
-
-                                    }
+                                    // }    
+                                }
                                 sx={{
                                     width: "60%",
                                     display: "block",
                                     marginRight: "3%",
                                     marginBottom: "2%",
                                     marginLeft: "2%",
-                                    //    color: "black"
+                                    // color: "white",
                                     // backgroundColor: "#66B2FF",
                                 }}
-                                // defaultValue={[top100Films[13]]}
-                                defaultValue={[top100Films[0]]}
+                                onChange={(event, value) => selectedOptionsChanged(event, value)}
+                                // defaultValue={[membersList[0]]}
                                 filterSelectedOptions
                                 filterOptions={(x) => x}
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
                                         sx={{
-                                            color: "black",
+                                            color: "white",
                                             // backgroundColor: "#66B2FF",
                                         }}
-                                        // label="filterSelectedOptions"
-                                        // placeholder="Favorites"
                                         label="جستجو"
                                         placeholder="آدرس ایمیل یا نام کاربری را وارد کنید."
                                         helperText="فرد مورد نظر خود را جستجو کنید."
-                                        FormHelperTextProps={{ style: { color: "black" } }}
-                                        InputLabelProps={{ style: { color: "black" } }}
-
-                                        // InputProps={{ style: { fontFamily: "Vazir", color: "black" } }}
+                                        FormHelperTextProps={{ style: { color: "white" } }}
+                                        InputLabelProps={{ style: { color: "white" } }}
+                                        // InputProps={{style: {  color: "white" } }}
                                         id="search_box"
                                         name='search_box'
+                                        // onFocus={() => {
+                                        //     placeholder = "";
+                                        // }}
+                                        onChange={(event, newValue) => {
+                                            inputSearchHandler(event, newValue);
+                                        }
+                                        }
+                                    // onChange={(e) => serachUser(convertNumberToPersian(e.target.value))}
                                     />
 
                                     // <StyledTextField
@@ -273,7 +410,7 @@ const ShareButton = (props) => {
                                     // width: 150,
                                     // fontSize: 20,
                                     // marginTop: "0%",
-                                    marginBottom: "2.4%",
+                                    marginBottom: "5%",
                                     padding: "1.35%",
                                     // paddingTop: "5%",
                                     width: "20%",
@@ -281,23 +418,47 @@ const ShareButton = (props) => {
                                     fontFamily: "Vazir",
                                     backgroundColor: "#0A1929", // #132F4C
                                 }}
-                            // disabled={disableButton}
-                            // onClick={this.isClicked}
+                                // disabled={disableButton}
+                                // onClick={this.isClicked}
+                                // onSubmit={() => {
+                                //     let workspace_name = document.getElementById("tags-outlined").value;
+                                //     // let selectted = document.getElementById("tags-outlined").ariaSelected;
+                                //     console.log("*****************")
+                                //     console.log("workspace_name: ", workspace_name);
+                                //     // console.log("selectted: ", selectted);
+
+                                //     // let create_workspace_formdata = new FormData();
+                                //     // create_workspace_formdata.append("name", workspace_name);
+                                //     // // create_workspace_formdata.append("type", type);
+                                //     // apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
+                                //     //     navigateToWorkspace(response.data.id);
+                                //     // })
+                                //     //     .catch((error) => {
+                                //     //         console.log(error);
+                                //     //     });
+                                // }}
+                                onClick={handleAddUsers}
                             // onClick={() => {
-                            //     // let workspace_name = document.getElementById("workspace_name").value;
+                            //     let workspace_name = document.getElementById("tags-outlined");
+                            //     // let selectted = document.getElementById("tags-outlined").ariaSelected;
+                            //     console.log("*****************")
+                            //     console.log("workspace_name: ", workspace_name);
+                            //     // console.log("selectted: ", selectted);
+
                             //     // let create_workspace_formdata = new FormData();
                             //     // create_workspace_formdata.append("name", workspace_name);
-                            //     // create_workspace_formdata.append("type", type);
-                            //     apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
-                            //         navigateToWorkspace(response.data.id);
-                            //     })
-                            //         .catch((error) => {
-                            //             //console.log(error);
-                            //         });
+                            //     // // create_workspace_formdata.append("type", type);
+                            //     // apiInstance.post('workspaces/dashboard/create-workspace/', create_workspace_formdata).then((response) => {
+                            //     //     navigateToWorkspace(response.data.id);
+                            //     // })
+                            //     //     .catch((error) => {
+                            //     //         console.log(error);
+                            //     //     });
                             // }}
                             >
                                 {/* {" "} */}
                                 اشتراک
+                                گذاری
                             </Button>
                         </Box>
                         <MenuItem sx={{
@@ -368,6 +529,7 @@ const ShareButton = (props) => {
                                             display: "flex",
                                             flexDirection: "column",
                                             marginLeft: "2%",
+                                            color: "#FFF",
                                         }}>
                                             <Typography>
                                                 {member.user.first_name + " " + member.user.last_name}
@@ -381,6 +543,7 @@ const ShareButton = (props) => {
                                             display: "flex",
                                             flexDirection: "column",
                                             marginLeft: "2%",
+                                            color: "#FFF",
                                         }}>
                                             <Typography>
                                                 ایمیل:
@@ -393,6 +556,7 @@ const ShareButton = (props) => {
                                             display: "flex",
                                             flexDirection: "column",
                                             marginLeft: "2%",
+                                            color: "#FFF",
                                         }}>
                                             <Typography>
                                                 نام کاربری:
@@ -451,16 +615,4 @@ function stringAvatar(name) {
 }
 
 
-const top100Films = [
-    { title: 'فرزان رحمانی', year: 1994 },
-    { title: 'محمد اصولیان', year: 1972 },
-    { title: 'نوید ابراهیمی', year: 1974 },
-    { title: 'سینا علینژاد', year: 2008 },
-    { title: 'وحید محمدی', year: 1957 },
-    { title: "محمد حسین عباسپور", year: 1993 },
-    { title: 'سینا علینژاد', year: 1974 },
-    { title: 'محمد حسین عباسپور', year: 2008 },
-    { title: 'وحید محمدی', year: 1957 },
-    { title: "نوید ابراهیمی", year: 1993 },
-    { title: 'افشین زنگنه', year: 1994 },
-];
+
