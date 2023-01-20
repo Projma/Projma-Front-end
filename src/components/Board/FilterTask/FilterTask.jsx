@@ -9,6 +9,7 @@ import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { Calendar } from "react-multi-date-picker";
+import { Try } from "@mui/icons-material";
 
 export default function FilterTask({ boardId, setLists }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -100,25 +101,36 @@ export default function FilterTask({ boardId, setLists }) {
       url = url + value;
     }
     let datee = "";
-    if (!value.toString().includes("Standard")) {
-      datee = `${value.year}-${value.month.number}-${value.day}`;
-    }
+    console.log("hamid");
+    console.log(value);
+    try {
+      if (!value.toString().includes("Standard")) {
+        datee = `${value.year}-${value.month.number}-${value.day}`;
+      }
+    } catch {}
+
     console.log("navid");
     console.log(datee);
     if (type === "date") {
-      console.log(value);
+      console.log("sina");
       setDate(datee);
       if (datee !== "") {
         if (!labels_empty || !members_empty) {
           url = url + "&";
           url = url + "end_date=" + datee;
         } else {
-          url = url + "?end_date=" + datee;
+          url = url + "end_date=" + datee;
         }
       }
     } else {
-      if (datee !== "") url = url + "&end_date=" + datee;
+      console.log("alinejad");
+      console.log(datee);
+      if (date !== "") {
+        console.log("alinejad2");
+        url = url + "&end_date=" + date;
+      }
     }
+    console.log(url);
     apiInstance.get(url).then((res) => {
       //console.log("filtered tasks");
       //console.log(res.data);
@@ -314,7 +326,7 @@ export default function FilterTask({ boardId, setLists }) {
 
                   <p style={{ display: "flex", color: "white" }}>
                     <div style={{ fontSize: "13px" }}>{member.full_name}</div>
-                    <div style={{ fontSize: "13px" }}>{member.username}</div>
+                    {/* <div style={{ fontSize: "13px" }}>{member.username}</div> */}
                   </p>
                 </div>
               ))}
@@ -343,6 +355,7 @@ export default function FilterTask({ boardId, setLists }) {
                         value={label.id}
                         checked={label.checked}
                         onChange={(e) => {
+                          console.log("nvdi");
                           if (e.target.checked) {
                             setSelectedLabels([
                               ...selectedLabels,
