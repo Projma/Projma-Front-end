@@ -168,9 +168,9 @@ export default function TaskModal(props) {
         style={{
           backgroundColor: initials.color + "55",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "start",
           width: 90,
-          height: 25,
+          height: 30,
           borderRadius: 30,
         }}
       >
@@ -180,6 +180,7 @@ export default function TaskModal(props) {
             alignItems: "center",
             justifyContent: "center",
             borderRadius: 30,
+            marginRight: "8%",
             width: 17,
             height: 17,
             marginLeft: 7,
@@ -194,6 +195,9 @@ export default function TaskModal(props) {
             height: "100%",
             justifyContent: "center",
             alignItems: "center",
+            overflowX: "auto",
+            paddingTop: 2,
+            paddingRight: -10,
           }}
         >
           {initials.title}
@@ -448,12 +452,6 @@ export default function TaskModal(props) {
 
   return (
     <div>
-      {/* <Button
-        variant="contained"
-        onClick={() => {
-          console.log(params.task_id);
-        }}
-      ></Button> */}
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
           <div
@@ -577,9 +575,14 @@ export default function TaskModal(props) {
                             <StyledTextField
                               fullWidth
                               autoFocus
-                              onChange={(e) => setDescription(convertNumberToPersian(e.target.value))}
+                              onChange={(e) =>
+                                setDescription(
+                                  convertNumberToPersian(e.target.value)
+                                )
+                              }
                               value={description}
                               multiline
+                              sx={{ fontFamily: "Vazir", color: "white" }}
                               rows={2}
                             ></StyledTextField>
                             <div dir="ltr" style={{ marginTop: "3%" }}>
@@ -621,18 +624,23 @@ export default function TaskModal(props) {
                               </Button>
                             ) : (
                               <div>
-                                <div
+                                <Typography
                                   className="taskmodal-comment-showList-comment"
                                   style={{
                                     height: "70px",
-                                    width: "100%",
+                                    // width: "100%",
                                     padding: "5%",
                                     borderRadius: "10px",
                                     marginRight: "0px",
+                                    color: "white",
+                                    overflow: "auto",
                                   }}
+                                  multiline
+                                  rows={2}
+                                  // defalutValue={description}
                                 >
                                   {description}
-                                </div>
+                                </Typography>
                                 <div className="taskmodal-comment-button">
                                   <Button
                                     onClick={handleDeleteDescription}
@@ -1060,7 +1068,11 @@ export default function TaskModal(props) {
                             <StyledTextField
                               fullWidth
                               autoFocus
-                              onChange={(e) => setComment(convertNumberToPersian(e.target.value))}
+                              onChange={(e) =>
+                                setComment(
+                                  convertNumberToPersian(e.target.value)
+                                )
+                              }
                             ></StyledTextField>
                             <div dir="ltr" style={{ marginTop: "3%" }}>
                               <Button
@@ -1144,7 +1156,9 @@ export default function TaskModal(props) {
                                   fullWidth
                                   autoFocus
                                   onChange={(e) => {
-                                    setEditCommentText(convertNumberToPersian(e.target.value));
+                                    setEditCommentText(
+                                      convertNumberToPersian(e.target.value)
+                                    );
                                   }}
                                   value={editcommentText}
                                   // defaultValue={item.text}
@@ -1223,7 +1237,9 @@ export default function TaskModal(props) {
                                           newState[item.id] = true;
                                           return newState;
                                         });
-                                        setEditCommentText(convertNumberToPersian(item.text));
+                                        setEditCommentText(
+                                          convertNumberToPersian(item.text)
+                                        );
                                       }}
                                     >
                                       ویرایش
