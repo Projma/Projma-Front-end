@@ -216,7 +216,7 @@ const ShareButton = (props) => {
                                     marginRight: "3%",
                                     marginBottom: "2%",
                                     marginLeft: "2%",
-                                    //    color: "black"
+                                    // color: "white",
                                     // backgroundColor: "#66B2FF",
                                 }}
                                 // defaultValue={[top100Films[13]]}
@@ -227,7 +227,7 @@ const ShareButton = (props) => {
                                     <TextField
                                         {...params}
                                         sx={{
-                                            color: "black",
+                                            color: "white",
                                             // backgroundColor: "#66B2FF",
                                         }}
                                         // label="filterSelectedOptions"
@@ -235,12 +235,14 @@ const ShareButton = (props) => {
                                         label="جستجو"
                                         placeholder="آدرس ایمیل یا نام کاربری را وارد کنید."
                                         helperText="فرد مورد نظر خود را جستجو کنید."
-                                        FormHelperTextProps={{ style: { color: "black" } }}
-                                        InputLabelProps={{ style: { color: "black" } }}
-
-                                        // InputProps={{ style: { fontFamily: "Vazir", color: "black" } }}
+                                        FormHelperTextProps={{ style: { color: "white" } }}
+                                        InputLabelProps={{ style: { color: "white" } }}
+                                        // InputProps={{style: {  color: "white" } }}
                                         id="search_box"
                                         name='search_box'
+                                        // onFocus={() => {
+                                        //     placeholder = "";
+                                        // }}
                                     />
 
                                     // <StyledTextField
@@ -273,7 +275,7 @@ const ShareButton = (props) => {
                                     // width: 150,
                                     // fontSize: 20,
                                     // marginTop: "0%",
-                                    marginBottom: "2.4%",
+                                    marginBottom: "5%",
                                     padding: "1.35%",
                                     // paddingTop: "5%",
                                     width: "20%",
