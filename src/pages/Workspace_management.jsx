@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ResponsiveDrawerRight from "../components/Workspace_management/Drawer/Drawer";
 import WS_AppBar from "../components/Workspace_management/AppBar/WS_AppBar";
+import ResponsiveAppBar from "../components/ResponsiveAppBar/ResponsiveAppBar";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import apiInstance from "../utilities/axiosConfig";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
 import { Navigate, useNavigate } from "react-router-dom";
 import Members from "../components/Workspace_management/Members/Members";
 import WorkspaceSettings from "../components/Workspace_management/Settings/WorkspaceSettings";
@@ -47,58 +50,67 @@ const Workspace_management = () => {
         });
       });
   };
+  const matches = useMediaQuery("(min-width:984px)");
+  const state_header = matches ? "24rem" : "0";
   return (
-    <div className="mother-div">
-      <Helmet>
-        <title>فضای کاری</title>
-      </Helmet>
-      {/* <div> */}
-      <ToastContainer />
-      <ResponsiveDrawerRight width={"249px"} />
-      {/* <WS_AppBar /> */}
-      {/* </div> */}
-      {/* <Link to="workspace/members">Members</Link> */}
-      {/* <h1 style={{ color: "white", backgroundColor: "white" }}>Members</h1> */}
-      <Routes>
-        <Route
-          path="members"
-          element={
-            <Members
-              params={params}
-              workspace={workspace}
-              setWorkspace={setWorkspace}
-            />
-          }
-        />
-        {/* <Route
+    <>
+      <header height="80" style={{ marginRight: state_header }}>
+        <ResponsiveAppBar />
+      </header>
+      <div className="mother-div">
+        <Helmet>
+          <title>فضای کاری</title>
+        </Helmet>
+        {/* <div> */}
+        <ToastContainer />
+        {/* <div style={{ marginTop: "20px" }}> */}
+        <ResponsiveDrawerRight width={"249px"} />
+        {/* </div> */}
+        {/* <WS_AppBar /> */}
+        {/* </div> */}
+        {/* <Link to="workspace/members">Members</Link> */}
+        {/* <h1 style={{ color: "white", backgroundColor: "white" }}>Members</h1> */}
+        <Routes>
+          <Route
+            path="members"
+            element={
+              <Members
+                params={params}
+                workspace={workspace}
+                setWorkspace={setWorkspace}
+              />
+            }
+          />
+          {/* <Route
           path="create_board"
           element={<BasicModal params={params} on_submit={submit_form} />}
         /> */}
-        <Route
-          path="boards"
-          element={
-            <Board
-              params={params}
-              on_submit={submit_form}
-              workspace={workspace}
-              setWorkspace={setWorkspace}
-            />
-          }
-        />
+          <Route
+            path="boards"
+            element={
+              <Board
+                params={params}
+                on_submit={submit_form}
+                workspace={workspace}
+                setWorkspace={setWorkspace}
+              />
+            }
+          />
 
-        <Route
-          path="setting"
-          element={
-            <WorkspaceSettings
-              params={params}
-              workspace={workspace}
-              setWorkspace={setWorkspace}
-            />
-          }
-        />
-      </Routes>
-      {/* <Link to="create_board">Create Board</Link> */}
-    </div>
+          <Route
+            path="setting"
+            element={
+              <WorkspaceSettings
+                params={params}
+                workspace={workspace}
+                setWorkspace={setWorkspace}
+              />
+            }
+          />
+        </Routes>
+        {/* <Link to="create_board">Create Board</Link> */}
+      </div>
+    </>
   );
 };
 

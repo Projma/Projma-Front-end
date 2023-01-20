@@ -1,8 +1,13 @@
-.workspace--my-board,.workspace--starred-board {
+.workspace--my-board,
+.workspace--starred-board {
   width: 90%;
   height: 100%;
   margin: 5%;
   color: #fff !important;
+}
+
+.workspace-board-main {
+  margin: 5%;
 }
 
 .workspace--board-header {

@@ -59,7 +59,6 @@ export default function CreateBoardModal({ workspace_id }) {
   const [description, setDescription] = React.useState("");
   const [file, setFile] = React.useState(null);
   const [errorBoardName, setErrorBoardName] = React.useState(false);
-  const [errorFile, setErrorFile] = React.useState(false);
   const [disableButton, setDisableButton] = React.useState(false);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   // const on_submit = (form_data, boards, setBoards) => {
@@ -95,12 +94,6 @@ export default function CreateBoardModal({ workspace_id }) {
       isValid = false;
     } else {
       setErrorBoardName(false);
-    }
-    if (file === null) {
-      setErrorFile(true);
-      isValid = false;
-    } else {
-      setErrorFile(false);
     }
     if (isValid === false) {
       console.log("false");
@@ -193,6 +186,7 @@ export default function CreateBoardModal({ workspace_id }) {
             <PerTextField>
               <StyledTextField
                 className="workspace-modal--board-name"
+                id="board_name"
                 label="نام برد"
                 value={title}
                 onChange={(e) => {
@@ -201,7 +195,7 @@ export default function CreateBoardModal({ workspace_id }) {
                 required
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir", fontSize: "1.6rem", },
+                  style: { fontFamily: "Vazir", fontSize: "1.6rem" },
                 }}
                 inputProps={{
                   style: {
@@ -211,8 +205,15 @@ export default function CreateBoardModal({ workspace_id }) {
                     fontSize: "1.7rem",
                   },
                 }}
+                name="board_name"
+                autoComplete="board_name"
+                autoFocus
                 FormHelperTextProps={{
-                  style: { fontFamily: "Vazir", color: "red" },
+                  style: {
+                    fontFamily: "Vazir",
+                    color: "red",
+                    fontSize: "1.3rem",
+                  },
                 }}
                 error={errorBoardName}
                 helperText={errorBoardName ? "نام برد نمی تواند خالی باشد" : ""}
@@ -226,7 +227,7 @@ export default function CreateBoardModal({ workspace_id }) {
                 }}
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir", fontSize: "1.6rem", },
+                  style: { fontFamily: "Vazir", fontSize: "1.6rem" },
                 }}
                 inputProps={{
                   style: {

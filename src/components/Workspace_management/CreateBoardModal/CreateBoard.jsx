@@ -11,6 +11,7 @@ import PerTextField from "../../Shared/PerTextField.js";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 // import file from "../../../static/images/workspace_management/create_board/board.jpeg";
 import "./CreateBoard.css";
+import { convertNumberToPersian } from "../../../utilities/helpers";
 
 const style = {
   position: "absolute",
@@ -25,6 +26,7 @@ const style = {
   borderRadius: "1rem",
   boxShadow: 50,
   p: 4,
+  overflow: "auto",
 };
 
 export default function CreateBoardModal({
@@ -49,7 +51,6 @@ export default function CreateBoardModal({
   const [description, setDescription] = React.useState("");
   const [file, setFile] = React.useState(null);
   const [errorBoardName, setErrorBoardName] = React.useState(false);
-  const [errorFile, setErrorFile] = React.useState(false);
   const [disableButton, setDisableButton] = React.useState(false);
   const test = () => {
     console.log(result);
@@ -57,6 +58,7 @@ export default function CreateBoardModal({
   const create_board = (e) => {
     e.preventDefault();
     let board_name = document.getElementById("board_name").value;
+    // let board_name = "test";
     let isValid = true;
     console.log(board_name);
     console.log("board name");
@@ -65,12 +67,6 @@ export default function CreateBoardModal({
       isValid = false;
     } else {
       setErrorBoardName(false);
-    }
-    if (file === null) {
-      setErrorFile(true);
-      isValid = false;
-    } else {
-      setErrorFile(false);
     }
     if (isValid === false) {
       console.log("false");
@@ -83,9 +79,8 @@ export default function CreateBoardModal({
     form_data.append("name", title);
     form_data.append("description", description);
     form_data.append("type", "education");
-    // on_submit(form_data, boards, setBoards);
-    // on_submit(form_data);
-    // handleClose();
+    on_submit(form_data, boards, setBoards);
+    handleClose();
     // navigate to board page that created
   };
   return (
@@ -105,6 +100,9 @@ export default function CreateBoardModal({
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        // sx={{
+        //   height: "100%",
+        // }}
       >
         <Box sx={style}>
           <Typography
@@ -133,21 +131,32 @@ export default function CreateBoardModal({
                 className="workspace-modal--board-name"
                 id="board_name"
                 label="نام برد"
-                value={title}
+                value={convertNumberToPersian(title)}
                 onChange={(e) => {
-                  setTitle(e.target.value);
+                  setTitle(convertNumberToPersian(e.target.value));
                 }}
                 required
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir" },
+                  style: { fontFamily: "Vazir", fontSize: "1.6rem" },
+                }}
+                inputProps={{
+                  style: {
+                    height: "50px",
+                    padding: "0 14px",
+                    fontFamily: "Vazir",
+                    fontSize: "1.7rem",
+                  },
                 }}
                 name="workspace_name"
                 autoComplete="workspace_name"
                 autoFocus
-                InputProps={{ style: { fontFamily: "Vazir" } }}
                 FormHelperTextProps={{
-                  style: { fontFamily: "Vazir", color: "red" },
+                  style: {
+                    fontFamily: "Vazir",
+                    color: "red",
+                    fontSize: "1.3rem",
+                  },
                 }}
                 error={errorBoardName}
                 helperText={errorBoardName ? "نام برد نمی تواند خالی باشد" : ""}
@@ -155,9 +164,9 @@ export default function CreateBoardModal({
               <StyledTextField
                 className="workspace-modal--board-name"
                 label="توضیحات"
-                value={description}
+                value={convertNumberToPersian(description)}
                 onChange={(e) => {
-                  setDescription(e.target.value);
+                  setDescription(convertNumberToPersian(e.target.value));
                 }}
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{

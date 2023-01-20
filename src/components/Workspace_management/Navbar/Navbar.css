@@ -1,9 +1,10 @@
 .ws_navbar-main-div {
-  background-color: #0059b2;
+  background-color: #e3e3e3;
   display: flex;
   justify-content: space-around;
   align-items: center;
   height: 10rem;
+  border-radius: 1.5rem;
 }
 
 .ws_navbar-delete-div {
@@ -26,13 +27,26 @@
 .ws_workspace-remove-button {
   border: 0;
   background: none;
+  /* font-size: 1.5rem; */
+  /* width: 3rem; */
+}
+.ws_workspace-remove-button-div {
+  border: 0;
+  background: none;
+  width: 4.5rem;
+  height: 4.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 3rem; */
 }
 
 .ws_workspace-remove-button:hover {
-  cursor: pointer;
-  background-color: #e25c09;
-  opacity: 80%;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  transform: translateY(-2px);
   border-radius: 20%;
+  cursor: pointer;
 }
 
 .ws_navbar-symbol {
@@ -77,16 +91,16 @@
 }
 
 .ws_navbar-edit-button:hover {
-  background-color: #173a5e;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  transform: translateY(-2px);
   border-radius: 20%;
   cursor: pointer;
-  opacity: 0.8;
-  width: 4.5rem;
-  height: 4.5rem;
 }
 
 .ws_navbar-edit-button:hover .ws_navbar-edit-icon {
   font-size: 3rem;
+  /* color: #fff; */
 }
 
 .ws_navbar-ws-name {
@@ -101,7 +115,7 @@
 
 .ws_navbar-ws-name-text {
   font-size: 2rem;
-  color: white;
+  color: rgb(45, 36, 36);
   font-weight: 500;
   font-style: italic;
 }
