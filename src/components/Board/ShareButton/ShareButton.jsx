@@ -370,6 +370,7 @@ const ShareButton = (props) => {
                                             display: "flex",
                                             flexDirection: "column",
                                             marginLeft: "2%",
+                                            color: "#FFF",
                                         }}>
                                             <Typography>
                                                 {member.user.first_name + " " + member.user.last_name}
@@ -383,6 +384,7 @@ const ShareButton = (props) => {
                                             display: "flex",
                                             flexDirection: "column",
                                             marginLeft: "2%",
+                                            color: "#FFF",
                                         }}>
                                             <Typography>
                                                 ایمیل:
@@ -395,6 +397,7 @@ const ShareButton = (props) => {
                                             display: "flex",
                                             flexDirection: "column",
                                             marginLeft: "2%",
+                                            color: "#FFF",
                                         }}>
                                             <Typography>
                                                 نام کاربری:
