@@ -39,6 +39,7 @@ import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import CreateBoardModal from "../components/Dashboard/CreateBoardModal/CreateBoardModal";
 import { ToastContainer, toast } from "react-toastify";
+import CreateBoard from "../components/Dashboard/CreateBoard/CreateBoard";
 
 // useMediaQuery
 // import Typography from "@mui/material";
@@ -637,17 +638,17 @@ export const Dashborad = () => {
               // }}
               >
                 {/* <p variant="h1" component="h2" className="add--text"> */}
-                ساخت بورد جدید
-                {/* <CreateBoardModal
-                  workspace_id={workspace.id}
+                {/* ساخت بورد جدید */}
+                <CreateBoard
+                  // workspace_id={workspace.id}
                   // flag={flag}
-                  sx={{
-                    onclick: () => {
-                      setFlag(!flag);
-                      // flag++;
-                    },
-                  }}
-                /> */}
+                  // sx={{
+                  //   onclick: () => {
+                  //     setFlag(!flag);
+                  //     // flag++;
+                  //   },
+                  // }}
+                />
                 {/* </p> */}
               </Paper>
             </Grid>
