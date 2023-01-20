@@ -51,7 +51,7 @@ const Workspace_management = () => {
       });
   };
   const matches = useMediaQuery("(min-width:984px)");
-  const state_header = matches ? "24rem" : "0";
+  const state_header = matches ? "23rem" : "0";
   return (
     <>
       <header height="80" style={{ marginRight: state_header }}>
@@ -64,7 +64,7 @@ const Workspace_management = () => {
         {/* <div> */}
         <ToastContainer />
         {/* <div style={{ marginTop: "20px" }}> */}
-        <ResponsiveDrawerRight width={"249px"} />
+        <ResponsiveDrawerRight width={"249px"} params={params} />
         {/* </div> */}
         {/* <WS_AppBar /> */}
         {/* </div> */}
