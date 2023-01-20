@@ -8,7 +8,7 @@ import apiInstance from "../../../utilities/axiosConfig";
 import "./Board.css";
 import BoardView from "./BoardView";
 import CreateBoardModal from "../CreateBoardModal/CreateBoard";
-import { createGlobalStyle } from "styled-components";
+// import { createGlobalStyle } from "styled-components";
 
 const Board = ({ params, on_submit }) => {
   //console.log(params.id);
@@ -154,8 +154,10 @@ const Board = ({ params, on_submit }) => {
                 key={x.id}
                 is={star.find((e) => e.id === x.id) ? true : false}
                 id={x.id}
-                pic={"http://mohammadosoolian.pythonanywhere.com" +
-                x.background_pic}
+                pic={
+                  "http://mohammadosoolian.pythonanywhere.com" +
+                  x.background_pic
+                }
                 onStarred={starredHandler}
               />
             ))}

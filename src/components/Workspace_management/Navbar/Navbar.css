@@ -1,11 +1,11 @@
 .ws_navbar-main-div {
-  background-color: #265D97;
+  background-color: #dadada;
   display: flex;
   padding: 0.5rem;
   margin: 0.5rem;
   justify-content: space-around;
   align-items: center;
-  height: 10rem;
+  height: 15rem;
   border-radius: 0.5rem;
   color: #fff;
 }
@@ -118,7 +118,7 @@
 
 .ws_navbar-ws-name-text {
   font-size: 2rem;
-  /* color: rgb(45, 36, 36); */
+  color: rgb(45, 36, 36);
   font-weight: 500;
   font-style: italic;
 }
