@@ -53,8 +53,18 @@ export default function CreateBoardModal({ workspace_id }) {
   const [result, setResult] = useState("");
   const [binaryFile, setBinaryFile] = useState(null);
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => {
+    setTitle("");
+    setDescription("");
+    setFile(x);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setTitle("");
+    setDescription("");
+    setFile(x);
+    setOpen(false);
+  };
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [file, setFile] = React.useState(null);

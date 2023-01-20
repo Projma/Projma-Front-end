@@ -59,8 +59,20 @@ export default function CreateBoardModal({}) {
   const [binaryFile, setBinaryFile] = useState(null);
   const [open, setOpen] = React.useState(false);
   const [workspaceId, setWorkspaceId] = React.useState(-1);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => {
+    setWorkspaceId(-1);
+    setTitle("");
+    setDescription("");
+    setFile(x);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setWorkspaceId(-1);
+    setTitle("");
+    setDescription("");
+    setFile(x);
+    setOpen(false);
+  };
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [file, setFile] = React.useState(null);
@@ -271,8 +283,8 @@ export default function CreateBoardModal({}) {
                     fontSize: "1.6rem",
                   },
                 }}
-                name="board_name"
-                autoComplete="board_name"
+                name="workspace_name"
+                autoComplete="workspace_name"
                 autoFocus
                 FormHelperTextProps={{
                   style: {
@@ -285,25 +297,7 @@ export default function CreateBoardModal({}) {
                 helperText={
                   errorWorkspace ? "نام فضای کاری نمی تواند خالی باشد" : ""
                 }
-                // change selected background color
-                // margin="normal"
-                // required
-                // fullWidth
-                // id="workspace_type"
-                // label="نوع فضای کاری"
                 select // https://mui.com/material-ui/react-text-field/#basic-textfield
-                // placeholder="نوع فضای‌کاری خود را وارد کنید."
-                // // helperText="انتخاب کنید."
-                // onChange={handleChange}
-                // name="workspace_type"
-                // autoComplete="workspace_type"
-                // autoFocus
-                // sx={{ width: "60%", display: "block" }}
-                // InputLabelProps={{ style: { fontFamily: "Vazir" } }}
-                // InputProps={{ style: { fontFamily: "Vazir" } }}
-                // FormHelperTextProps={{ style: { fontFamily: "Vazir", color: "black" } }}
-                // error={errorWorkspaceType}
-                // helperText={errorWorkspaceType ? "لطفا این فیلد را پر کنید." : ""}
               >
                 {workspaces.map((workspace) => (
                   <MenuItem
