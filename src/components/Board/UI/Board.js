@@ -11,7 +11,10 @@ import axios from "axios";
 import Loading from "../../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import "../../../styles/ReactToastify.css";
-import { convertNumberToPersian, convertNumberToEnglish } from "../../../utilities/helpers.js";
+import {
+  convertNumberToPersian,
+  convertNumberToEnglish,
+} from "../../../utilities/helpers.js";
 
 const Board = (props) => {
   const [lists, setLists] = useState([]);
@@ -33,9 +36,9 @@ const Board = (props) => {
   //   };
   // }, []);
 
-  useEffect(() => {
-    setLists(lists.sort((a, b) => b.order - a.order));
-  }, [lists]);
+  // useEffect(() => {
+  //   setLists(lists.sort((a, b) => b.order - a.order));
+  // }, [lists]);
 
   useEffect(() => {
     //console.log("useEffect");
@@ -65,18 +68,32 @@ const Board = (props) => {
   };
 
   const handleCreateList = (data) => {
-    setLists((pervlists) => [...pervlists, data]);
+    setLists((pervlists) => [data, ...pervlists]);
   };
 
   const handleRemoveList = (id) => {
     setLists(lists.filter((lists) => lists.id !== id));
   };
 
+  const handleAddCardToList = (card, list_id) => {
+    setLists(
+      lists.map((list) => {
+        if (list.id === list_id) {
+          return {
+            ...list,
+            tasks: [...list.tasks, card],
+          };
+        }
+        return list;
+      })
+    );
+  };
+
   const dragHandler = (result) => {
     const destination = result.destination;
     const source = result.source;
-    //console.log(destination);
-    //console.log(source);
+    console.log(destination);
+    console.log(source);
     //console.log("result ", result);
     // return;
     if (!destination || !source) {
@@ -85,7 +102,8 @@ const Board = (props) => {
     }
     if (result.type === "list") {
       const newList = Array.from(lists);
-      //console.log(lists);
+      console.log("@@@@@@@@@@@@@@@@@@@@@");
+      console.log(lists);
       const [removed] = newList.splice(source.index, 1);
       newList.splice(destination.index, 0, removed);
       apiInstance
@@ -234,6 +252,7 @@ const Board = (props) => {
                     boardId={props.boardId}
                     onReq={handleReq}
                     remId={handleRemoveList}
+                    addCardToList={handleAddCardToList}
                   />
                 </div>
               ))}
