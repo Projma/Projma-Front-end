@@ -631,24 +631,10 @@ export const Dashborad = () => {
                     cursor: "pointer",
                   },
                 }}
-              // hover
-              // onClick={() => {
-              //     navigateToBoard(board_id);
-              //     open create modal board
-              // }}
               >
                 {/* <p variant="h1" component="h2" className="add--text"> */}
                 {/* ساخت بورد جدید */}
-                <CreateBoard
-                  // workspace_id={workspace.id}
-                  // flag={flag}
-                  // sx={{
-                  //   onclick: () => {
-                  //     setFlag(!flag);
-                  //     // flag++;
-                  //   },
-                  // }}
-                />
+                <CreateBoard/>
                 {/* </p> */}
               </Paper>
             </Grid>
@@ -988,7 +974,55 @@ export const Dashborad = () => {
           <p variant="h1" component="h2" className="text paragraph">
             <DeveloperBoardTwoToneIcon sx={{ ml: 1.5 }} /> ساخت بورد جدید
           </p>
-          {/* Grid */}
+          <Grid
+                  container
+                  columns={{ xs: 2, sm: 4, md: 8 }}
+                  // spacing={{ xs: 1, sm: 2, md: 3 }}
+                  sx={{
+                    // paddingTop: "5%",
+                    // marginTop: "10%",
+                    marginBottom: "10%",
+                    // backgroundColor: "#f5f5f5",
+                  }}
+                >
+                  <Grid item xs={2} sm={2} md={2} sx={{}}>
+                    <Paper
+                      sx={{
+                        // padding: "10%",
+                        textAlign: "center",
+                        // color: "#007fff",
+                        backgroundColor: "#007fff", // 5090D3
+                        borderRadius: "10px",
+                        // width: "100%",
+                        // height: "100%",
+                        // minWidth: "200px",
+                        // maxWidth: "300px",
+                        minHeight: "150px",
+                        // maxHeight: "300px",
+                        margin: "10%",
+                        // padding: "10px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        // flexDirection: "column",
+                        ":hover": {
+                          backgroundColor: "#5090D3",
+                          cursor: "pointer",
+                        },
+                      }}
+                      // hover
+                      // onClick={() => {
+                      //     navigateToBoard(board_id);
+                      //     open create modal board
+                      // }}
+                    >
+                      {/* <p variant="h1" component="h2" className="add--text">
+                        ساخت بورد جدید
+                      </p> */}
+                      <CreateBoard/>
+                    </Paper>
+                  </Grid>
+                </Grid>
           {/* <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
           <p variant="h1" component="h2" className="text paragraph">
             <MessageTwoToneIcon sx={{ ml: 1.5 }} /> پیام ها
