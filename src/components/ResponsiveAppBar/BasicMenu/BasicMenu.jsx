@@ -82,7 +82,7 @@ export default function BasicMenu(props) {
                     }))
                 }
                 {
-                    (props.name == 'ستاره دارها') && (Object.keys(props.starred_boards).map((board) => {
+                    (props.name == 'ستاره دارها') && (props.starred_boards.map((board) => {
                         return (
                             <MenuItem onClick={() => navigateToBoard(board["id"])} key={board["id"]} sx={{
                                 ":hover": {

@@ -40,8 +40,28 @@ function ResponsiveAppBar() {
         // }).catch((error) => {
         //     // //console.log(error);
         // });
-        apiInstance.get("/boards/dashboard/mystarred-boards/").then((response) => {
+        apiInstance.get("/workspaces/dashboard/mystarred-boards/").then((response) => {
             setStarredBoards(response.data);
+            // [
+            //     {
+            //         "id": 4,
+            //         "name": "۵۴۶۵۴۴",
+            //         "description": "۴۶۵۴۶",
+            //         "background_pic": null,
+            //         "admins": [],
+            //         "members": [],
+            //         "tasklists": [
+            //             4,
+            //             5,
+            //             6
+            //         ],
+            //         "labels": [
+            //             2,
+            //             3,
+            //             4
+            //         ]
+            //     }
+            // ]
         }).catch((error) => {
             // //console.log(error);
         });
