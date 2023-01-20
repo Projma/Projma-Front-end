@@ -163,8 +163,8 @@ export default function CreateBoard({
                     alignItems: 'center',
                 }}
             >
-                <h4>
-                    افزودن بورد +
+                <h4 >
+                    بورد تو بساز!😁
                 </h4>
             </Button>
             <Modal
@@ -346,7 +346,7 @@ export default function CreateBoard({
                         /> */}
                         {/* <img src={this.state.imgSrc} alt="img" /> */}
                         {/* <label id="title">عنوان برد</label>
-            <input type="text" id="title" className="workspace-modal--title-inp" /> */}
+                        <input type="text" id="title" className="workspace-modal--title-inp" /> */}
                         {/* <button onClick={create_board}>submit</button> */}
                         <input
                             type="submit"
