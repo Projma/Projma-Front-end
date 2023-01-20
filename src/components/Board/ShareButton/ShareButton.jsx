@@ -119,8 +119,8 @@ const ShareButton = (props) => {
                 temp.name = convertNumberToPersian(res.data[i].user.first_name + " " + res.data[i].user.last_name);
                 temp.id = res.data[i].user.id;
                 // temp.email = convertNumberToPersian(res.data[i].user.email);
-                // temp.role = convertNumberToPersian(role_english_to_persian[res.data[i].role]);
                 // temp.username = convertNumberToPersian(res.data[i].user.username);
+                // // temp.role = convertNumberToPersian(role_english_to_persian[res.data[i].role]);
                 setMembersList(prevState => [...prevState, temp]);
             }
         });
@@ -188,6 +188,9 @@ const ShareButton = (props) => {
                 var temp = {}
                 temp.title = convertNumberToPersian(res.data[i].user.first_name + " " + res.data[i].user.last_name);
                 temp.year = res.data[i].user.id;
+                // temp.email = convertNumberToPersian(res.data[i].user.email);
+                // temp.username = convertNumberToPersian(res.data[i].user.username);
+                // // temp.role = convertNumberToPersian(role_english_to_persian[res.data[i].role]);
                 setMembersList(membersList => [...membersList, temp]);
             }
         });
@@ -288,7 +291,7 @@ const ShareButton = (props) => {
                                 options={membersList}
                                 fullWidth
                                 getOptionLabel={
-                                    (option) => option.title
+                                    (option) => option.name
                                     // (option) => {
                                     //     <MenuItem>
                                     //         {/* <ListItemText primary={option.title} /> */}
