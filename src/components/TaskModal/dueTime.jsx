@@ -38,7 +38,7 @@ export default function DueTime({ params, dueDate, setDueTime }) {
 
   const submitDate = () => {
     handleClose();
-    console.log(value);
+    //console.log(value);
     let date = "";
     if (!value.toString().includes("Standard")) {
       date = `${value.year}-${value.month.number}-${value.day}`;
@@ -49,14 +49,14 @@ export default function DueTime({ params, dueDate, setDueTime }) {
         end_date: date,
       })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
       });
   };
   useEffect(() => {
     apiInstance
       .get(`/workspaces/task/${params.task_id}/get-task/`)
       .then((res) => {
-        // console.log(res);
+        // //console.log(res);
         const doer = res.data.doers.map((item) => ({
           email: item.email,
           userName: item.username,
@@ -69,7 +69,7 @@ export default function DueTime({ params, dueDate, setDueTime }) {
     apiInstance
       .get(`/workspaces/board/${params.board_id}/members/`)
       .then((res) => {
-        // console.log(res);
+        // //console.log(res);
         const members = res.data.map((obj) => ({
           id: obj.user.id,
           firstName: obj.user.first_name,

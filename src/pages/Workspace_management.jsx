@@ -29,10 +29,6 @@ const Workspace_management = () => {
     apiInstance
       .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
       .then((res) => {
-        console.log(res.data);
-        console.log(
-          "*********************************************************"
-        );
         setWorkspace(res.data);
       });
   }, []);

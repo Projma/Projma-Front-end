@@ -15,7 +15,7 @@ import apiInstance from "../../utilities/axiosConfig";
 import { baseUrl } from "../../utilities/constants";
 
 function check_username_in_list(username, userName, list) {
-  console.log(list);
+  //console.log(list);
   for (let i = 0; i < list.length; i++) {
     if (list[i].username === username) {
       return true;
@@ -43,7 +43,7 @@ export default function Members({ params, setDoers, doer }) {
     apiInstance
       .get(`/workspaces/board/${params.board_id}/members/`)
       .then((res) => {
-        // console.log(res);
+        // //console.log(res);
         const members = res.data.map((obj) => ({
           id: obj.user.id,
           firstName: obj.user.first_name,
@@ -70,14 +70,14 @@ export default function Members({ params, setDoers, doer }) {
     );
   };
   const add_member_to_doers = (member) => {
-    console.log(member);
+    //console.log(member);
     const formData = new FormData();
     const json = {
       doers: [member.id],
     };
-    console.log(doer);
+    //console.log(doer);
     if (check_username_in_list(member.userName, member.username, doer)) {
-      console.log("if");
+      //console.log("if");
       apiInstance
         .patch(
           `/workspaces/task/${params.task_id}/delete-doers-from-task/`,
@@ -85,17 +85,17 @@ export default function Members({ params, setDoers, doer }) {
         )
         .then((res) => {
           setDoers(doer.filter((item) => item.username !== member.userName));
-          console.log("else");
-          console.log(res);
+          //console.log("else");
+          //console.log(res);
         });
     } else {
-      console.log("else");
+      //console.log("else");
       const form_data = { doers: [member.id] };
       apiInstance
         .patch(`/workspaces/task/${params.task_id}/add-doers-to-task/`, json)
         .then((res) => {
-          console.log("havid");
-          console.log(res);
+          //console.log("havid");
+          //console.log(res);
           setDoers([...doer, member]);
         });
     }
@@ -136,15 +136,15 @@ export default function Members({ params, setDoers, doer }) {
     // } else {
     //   setListOfAddedMembers([...ListOfAddedMembers, member]);
     // }
-    // console.log(member.id);
+    // //console.log(member.id);
     const formData = new FormData();
     formData.append("doers", [member.id]);
     apiInstance
       .patch(`/workspaces/task/${params.task_id}/add-doers-to-task/`, formData)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
       });
-    // console.log(ListOfAddedMembers);
+    // //console.log(ListOfAddedMembers);
   };
   return (
     <div style={{ width: "100%" }}>

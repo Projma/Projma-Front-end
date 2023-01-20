@@ -73,7 +73,7 @@ const ShareButton = (props) => {
     useEffect(() => {
         apiInstance.get(`/workspaces/board/${params.id}/members/`).then((res) => {
             // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
-            // console.log(res.data);
+            // //console.log(res.data);
             setMembers(res.data);
             // array of members
             // "user": {
@@ -93,7 +93,7 @@ const ShareButton = (props) => {
         });
         apiInstance.get(`/workspaces/board/${params.id}/invite_link/`).then((res) => {
             // apiInstance.get(`/workspaces/board/${2}/invite/`).then((res) => {
-            // console.log(res.data);
+            // //console.log(res.data);
             setInviteToken(res.data);
         });
     }, []);
@@ -292,7 +292,7 @@ const ShareButton = (props) => {
                             //         navigateToWorkspace(response.data.id);
                             //     })
                             //         .catch((error) => {
-                            //             console.log(error);
+                            //             //console.log(error);
                             //         });
                             // }}
                             >

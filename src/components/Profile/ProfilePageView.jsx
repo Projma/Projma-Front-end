@@ -33,19 +33,19 @@ export default function ProfileView() {
 
   const [bio, setBio] = React.useState("");
   const temp = useParams();
-  // console.log(temp.username);
+  // //console.log(temp.username);
   React.useEffect(() => {
     apiInstance
       .get(`/accounts/profile/public-profile/${temp.username}/`)
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         setFirstName(res.data.user.first_name);
         setLastName(res.data.user.last_name);
         setUsername(res.data.user.username);
         setEmail(res.data.user.email);
         setGetImage(res.data.profile_pic);
         setBio(res.data.bio);
-        console.log(res.data.user.firstName);
+        //console.log(res.data.user.firstName);
       });
   });
   return (

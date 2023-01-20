@@ -7,16 +7,21 @@ import apiInstance from "../../../utilities/axiosConfig";
 const BoardView = (props) => {
   let navigate = useNavigate();
   const [hover, setHover] = useState(false);
-  const [isStarred, setIsStarred] = useState(props.is);
+  const [isStarred, setIsStarred] = useState();
+  React.useEffect(() => {
+    setIsStarred(props.is);
+    return () => {setIsStarred(false);};
+  }, [props.is]);
   const clickHandler = (e) => {
     e.stopPropagation();
-    apiInstance.post(`workspaces/board/${props.id}/toggle-myboard-star/`);
-    const flag = !isStarred;
-    const id = props.id;
-    setIsStarred(flag);
-    console.log(flag);
-    const data = { id: id, is: flag };
-    props.onStarred(data);
+    apiInstance.post(`workspaces/board/${props.id}/toggle-myboard-star/`).then(() => {
+      const flag = !isStarred;
+      const id = props.id;
+      setIsStarred(flag);
+      //console.log(flag);
+      const data = { id: id, is: flag };
+      props.onStarred(data);
+    });
   };
 
   return (
@@ -26,6 +31,7 @@ const BoardView = (props) => {
         e.stopPropagation();
         navigate(`/kanban/${props.id}`);
       }}
+      style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(${props.pic})`}}
     >
       <button
         className="workspace--view"

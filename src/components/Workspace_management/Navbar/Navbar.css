@@ -1,10 +1,13 @@
 .ws_navbar-main-div {
-  background-color: #e3e3e3;
+  background-color: #265D97;
   display: flex;
+  padding: 0.5rem;
+  margin: 0.5rem;
   justify-content: space-around;
   align-items: center;
   height: 10rem;
-  border-radius: 1.5rem;
+  border-radius: 0.5rem;
+  color: #fff;
 }
 
 .ws_navbar-delete-div {
@@ -115,7 +118,7 @@
 
 .ws_navbar-ws-name-text {
   font-size: 2rem;
-  color: rgb(45, 36, 36);
+  /* color: rgb(45, 36, 36); */
   font-weight: 500;
   font-style: italic;
 }
