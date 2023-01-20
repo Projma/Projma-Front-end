@@ -62,6 +62,15 @@ const ShareButton = (props) => {
     const [inviteLink, setinviteLink] = useState('');
     const [members, setMembers] = React.useState([]);
     const [inviteToken, setInviteToken] = React.useState('');
+    const [membersList, setMembersList] = React.useState([
+        // { title: 'فرزان رحمانی', year: 1994 },
+        // { title: 'محمد اصولیان', year: 1972 },
+        // { title: 'نوید ابراهیمی', year: 1974 },
+        // { title: 'سینا علینژاد', year: 2008 },
+        // { title: 'وحید محمدی', year: 1957 },
+        // { title: "محمد حسین عباسپور", year: 1993 },
+        // { title: 'افشین زنگنه', year: 1994 },
+    ]);
     const params = useParams();
     const role_english_to_persian = {
         "Admin": "ادمین",
@@ -96,6 +105,26 @@ const ShareButton = (props) => {
             // console.log(res.data);
             setInviteToken(res.data);
         });
+
+        apiInstance.get('/accounts/profile/', {
+            params: {
+                search: " "
+            }
+        }).then((res) => {
+            // var result = [];
+            setMembersList([])
+            for (let i = 0; i < res.data.length; i++) {
+                // { title: 'فرزان رحمانی', year: 1994 }
+                var temp = {}
+                temp.name = convertNumberToPersian(res.data[i].user.first_name + " " + res.data[i].user.last_name);
+                temp.id = res.data[i].user.id;
+                // temp.email = convertNumberToPersian(res.data[i].user.email);
+                // temp.role = convertNumberToPersian(role_english_to_persian[res.data[i].role]);
+                // temp.username = convertNumberToPersian(res.data[i].user.username);
+                setMembersList(prevState => [...prevState, temp]);
+            }
+        });
+
     }, []);
 
 
@@ -111,6 +140,64 @@ const ShareButton = (props) => {
             rtl: true,
         });
     }
+
+    const inputSearchHandler = (event) => {
+        // console.log(event);
+        // console.log(event.target.value); // text 
+        // console.log("***************************    ");
+        apiInstance.get('/accounts/profile/', {
+            params: {
+                search: event.target.value
+            }
+        }).then((res) => {
+            // [
+            //     {
+            //         "user": {
+            //             "id": 12,
+            //             "first_name": "فرزان",
+            //             "last_name": "رحمانی",
+            //             "username": "farzan1234",
+            //             "password": "pbkdf2_sha256$390000$w1YCj1jvgVGuV5aP8WReoO$15JeTCbD2hJoj6+xZaTT3WaTEDqfjIryfhivN8L9jHQ=",
+            //             "email": "farzanrahmani70@gmail.com"
+            //         },
+            //         "birth_date": null,
+            //         "bio": null,
+            //         "phone": null,
+            //         "profile_pic": null,
+            //         "telegram_id": null
+            //     },
+            //     {
+            //         "user": {
+            //             "id": 13,
+            //             "first_name": "Rahmani",
+            //             "last_name": "Ahmad",
+            //             "username": "farzan_rahmani",
+            //             "password": "pbkdf2_sha256$390000$f6wF28sLu7Zj68dSVxhafA$y/+jDfK1rT6/9aDeB9g0uLymdjYK9HsEiZy6nbdyq1o=",
+            //             "email": "farzanrahmanilkmkdlcscs@gmail.com"
+            //         },
+            //         "birth_date": null,
+            //         "bio": null,
+            //         "phone": null,
+            //         "profile_pic": null,
+            //         "telegram_id": null
+            //     }
+            // ]
+            setMembersList([]);
+            for (let i = 0; i < res.data.length; i++) {
+                // { title: 'فرزان رحمانی', year: 1994 }
+                var temp = {}
+                temp.title = convertNumberToPersian(res.data[i].user.first_name + " " + res.data[i].user.last_name);
+                temp.year = res.data[i].user.id;
+                setMembersList(membersList => [...membersList, temp]);
+            }
+        });
+    }
+
+    const serachUser = (event) => {
+        // console.log(event.target.value);
+    }
+
+
 
     return (
         <>
@@ -198,7 +285,7 @@ const ShareButton = (props) => {
                             <Autocomplete
                                 multiple
                                 id="tags-outlined"
-                                options={top100Films}
+                                options={membersList}
                                 fullWidth
                                 getOptionLabel={
                                     (option) => option.title
@@ -219,8 +306,7 @@ const ShareButton = (props) => {
                                     // color: "white",
                                     // backgroundColor: "#66B2FF",
                                 }}
-                                // defaultValue={[top100Films[13]]}
-                                defaultValue={[top100Films[0]]}
+                                // defaultValue={[membersList[0]]}
                                 filterSelectedOptions
                                 filterOptions={(x) => x}
                                 renderInput={(params) => (
@@ -243,6 +329,8 @@ const ShareButton = (props) => {
                                         // onFocus={() => {
                                         //     placeholder = "";
                                         // }}
+                                        onChange={inputSearchHandler}
+                                        // onChange={(e) => serachUser(convertNumberToPersian(e.target.value))}
                                     />
 
                                     // <StyledTextField
@@ -456,16 +544,4 @@ function stringAvatar(name) {
 }
 
 
-const top100Films = [
-    { title: 'فرزان رحمانی', year: 1994 },
-    { title: 'محمد اصولیان', year: 1972 },
-    { title: 'نوید ابراهیمی', year: 1974 },
-    { title: 'سینا علینژاد', year: 2008 },
-    { title: 'وحید محمدی', year: 1957 },
-    { title: "محمد حسین عباسپور", year: 1993 },
-    { title: 'سینا علینژاد', year: 1974 },
-    { title: 'محمد حسین عباسپور', year: 2008 },
-    { title: 'وحید محمدی', year: 1957 },
-    { title: "نوید ابراهیمی", year: 1993 },
-    { title: 'افشین زنگنه', year: 1994 },
-];
+
