@@ -144,6 +144,26 @@ export const Dashborad = () => {
       .get("/workspaces/dashboard/mystarred-boards/")
       .then((response) => {
         setStarredBoards(response.data);
+        // [
+            //     {
+            //         "id": 4,
+            //         "name": "۵۴۶۵۴۴",
+            //         "description": "۴۶۵۴۶",
+            //         "background_pic": null,
+            //         "admins": [],
+            //         "members": [],
+            //         "tasklists": [
+            //             4,
+            //             5,
+            //             6
+            //         ],
+            //         "labels": [
+            //             2,
+            //             3,
+            //             4
+            //         ]
+            //     }
+            // ]
         // console.log("starred", response.data);
       })
       .catch((error) => {
