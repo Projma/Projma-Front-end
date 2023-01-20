@@ -20,7 +20,10 @@ import apiInstance from "../../../utilities/axiosConfig";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
-import { convertNumberToPersian, convertNumberToEnglish } from "../../../utilities/helpers.js";
+import {
+  convertNumberToPersian,
+  convertNumberToEnglish,
+} from "../../../utilities/helpers.js";
 
 const List = (props) => {
   const [cards, setCards] = useState(props.card);
@@ -45,11 +48,14 @@ const List = (props) => {
     await apiInstance
       .post(`/workspaces/tasklist/${id}/create-task/`, data)
       .then((response) => {
+        console.log("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
+        console.log(response.data);
         toast.success("کارت با موفقیت ساخته شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        setCards((pervCards) => [...pervCards, response.data]);
+        props.addCardToList(response.data, props.id);
+        // setCards((pervCards) => [...pervCards, response.data]);
       })
       .catch((error) => {
         if (error.response.status === 404) {
@@ -109,7 +115,7 @@ const List = (props) => {
       .finally(() => {
         setReq(null);
       });
-  }
+  };
 
   const addCardClickHandler = () => {
     setAddCard(!addCard);
@@ -274,7 +280,9 @@ const List = (props) => {
                       required
                       fullWidth
                       autoFocus
-                      onChange={(e) => setCardName(convertNumberToPersian(e.target.value))}
+                      onChange={(e) =>
+                        setCardName(convertNumberToPersian(e.target.value))
+                      }
                       value={cardName}
                       placeholder="اسم کارت را در این بخش بنویسید"
                       InputProps={{
@@ -320,14 +328,15 @@ const List = (props) => {
                 style={
                   snapshot.draggingOverWith
                     ? {
-                      backgroundColor: "var(--hover-color)",
-                      borderRadius: "0.5rem",
-                    }
+                        backgroundColor: "var(--hover-color)",
+                        borderRadius: "0.5rem",
+                      }
                     : null
                 }
               >
                 {cards.map((card, index) => (
                   <Card
+                    cardName={card.title}
                     key={card.id}
                     cardId={card.id}
                     index={index}

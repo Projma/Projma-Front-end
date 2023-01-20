@@ -28,6 +28,7 @@ import CardLabel from "../Cards Item/CardLabel";
 import { convertNumberToPersian } from "../../../utilities/helpers";
 
 const Card = ({
+  cardName,
   boardId,
   remID,
   index,
@@ -48,21 +49,31 @@ const Card = ({
   const [req, setReq] = useState(false);
   const [cover, setCover] = useState("");
   const [update, setUpdate] = useState(false);
-  const [chatnum, setChatnum] = useState(comments_num == undefined ? 0 : comments_num);
-  const [clnum, setClnum] = useState(checklists_num == undefined ? 0 : checklists_num);
-  const [cclnum, setCclnum] = useState(checked_checklists_num == undefined ? 0 : checked_checklists_num);
-  const [attachnum, setAttachnum] = useState(attachments_num == undefined ? 0 : comments_num);
-  
+  const [chatnum, setChatnum] = useState(
+    comments_num == undefined ? 0 : comments_num
+  );
+  const [clnum, setClnum] = useState(
+    checklists_num == undefined ? 0 : checklists_num
+  );
+  const [cclnum, setCclnum] = useState(
+    checked_checklists_num == undefined ? 0 : checked_checklists_num
+  );
+  const [attachnum, setAttachnum] = useState(
+    attachments_num == undefined ? 0 : comments_num
+  );
+
   //console.log(card);
   //console.log(chatnum);
   //console.log(clnum);
   //console.log(cclnum);
   //console.log(attachnum);
-  useEffect(() => {
-    getCard();
-    setUpdate(!update);
-    return setCard({});
-  }, []);
+
+  // i dont know why but this is not working
+  // useEffect(() => {
+  //   getCard();
+  //   setUpdate(!update);
+  //   return setCard({});
+  // }, []);
 
   const getCard = () => {
     apiInstance
@@ -80,7 +91,7 @@ const Card = ({
   };
   const handleModalClose = () => {
     setClick(!click);
-    getCard();
+    // getCard();
     setAttachnum(card.attachments.length);
   };
   const handleEditCardName = (e) => {
@@ -218,7 +229,14 @@ const Card = ({
                   if (enable) event.stopPropagation();
                 }}
               >
-                {show ? <CardTitle enable={enable} title={convertNumberToPersian(card.title)} /> : <p>{convertNumberToPersian(card.title)}</p>}
+                {show ? (
+                  <CardTitle
+                    enable={enable}
+                    title={convertNumberToPersian(cardName)}
+                  />
+                ) : (
+                  <p>{convertNumberToPersian(cardName)}</p>
+                )}
               </div>
               {disc() !== null && (
                 <div className="card_disc">
@@ -226,9 +244,11 @@ const Card = ({
                 </div>
               )}
             </div>
-            {card.labels !== [] && <div className="card_label">
-              <CardLabel label={card.labels}/>
-            </div>}
+            {card.labels !== [] && (
+              <div className="card_label">
+                <CardLabel label={card.labels} />
+              </div>
+            )}
             <div className="card_footer">
               <div className="card_card-avatar">
                 {doers !== [] && (
