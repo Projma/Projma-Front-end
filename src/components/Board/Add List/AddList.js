@@ -31,7 +31,7 @@ const AddList = (props) => {
         });
         // setList(response.data);
         list = response.data;
-        console.log(list);
+        //console.log(list);
         props.onCreateList(list);
       })
       .catch((error) => {

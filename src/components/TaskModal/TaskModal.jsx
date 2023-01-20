@@ -58,7 +58,7 @@ function APIcall() {}
 
 export default function TaskModal(props) {
   const params = { task_id: props.cardId, board_id: props.boardId };
-  console.log(params);
+  //console.log(params);
   const handleRemoveChecklist = (id) => {
     setAllChecklists((prevState) => {
       return prevState.filter((item) => item.id !== id);
@@ -66,7 +66,7 @@ export default function TaskModal(props) {
     apiInstance
       .delete(`/workspaces/task/delete-checklist/${id}/`)
       .then((response) => {
-        console.log(response);
+        //console.log(response);
       });
   };
 
@@ -74,7 +74,7 @@ export default function TaskModal(props) {
     apiInstance
       .delete(`/workspaces/comment/${id}/delete-comment/`)
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         setListOfComments((prevState) => {
           return prevState.filter((item) => item.id !== id);
         });
@@ -86,7 +86,7 @@ export default function TaskModal(props) {
     apiInstance
       .patch(`/workspaces/comment/${index}/eddit-comment/`, formData)
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         setListOfComments((prevState) => {
           return prevState.map((item) => {
             if (item.id === index) {
@@ -243,7 +243,7 @@ export default function TaskModal(props) {
     apiInstance
       .delete(`/workspaces/attachment/${id}/delete-attachment-from-task/`)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
       });
   };
   const handleSubmit = (event) => {
@@ -254,7 +254,7 @@ export default function TaskModal(props) {
     apiInstance
       .patch(`/workspaces/task/${params.task_id}/update-task/`, formData)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
       });
   };
   const handleEditChecklist = (id) => {
@@ -271,12 +271,12 @@ export default function TaskModal(props) {
     apiInstance
       .patch(`/workspaces/task/update-checklist/${id}/`, formData)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
       });
   };
 
   const plusforprojma = () => {
-    console.log("plusforprojma");
+    //console.log("plusforprojma");
     const formdata = new FormData();
     formdata.append("estimate", estimate);
     formdata.append("spend", done);
@@ -289,23 +289,23 @@ export default function TaskModal(props) {
     apiInstance
       .patch(`/workspaces/task/${params.task_id}/update-task/`, formdata)
       .then((res) => {
-        console.log("navid");
-        // console.log(res);
+        //console.log("navid");
+        // //console.log(res);
       });
   };
 
   const AddCheckList = () => {
-    console.log("navid");
+    //console.log("navid");
     const formData = new FormData();
     formData.append("text", checklistTitle);
     apiInstance
       .post(`/workspaces/task/${params.task_id}/create-checklist/`, formData)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         setAllChecklists((prevState) => [...prevState, res.data]);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   };
   const handleCommentSubmit = (event, user_id) => {
@@ -316,7 +316,7 @@ export default function TaskModal(props) {
     apiInstance
       .post(`/workspaces/task/${params.task_id}/new-comment/`, formData)
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         setListOfComments((prevState) => [
           ...prevState,
           {
@@ -337,7 +337,7 @@ export default function TaskModal(props) {
         ]);
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
     setComment("");
     setShowComment(false);
@@ -350,7 +350,7 @@ export default function TaskModal(props) {
         description: "",
       })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
       });
   };
   const handleCheckboxIsDone = (id) => {
@@ -379,14 +379,14 @@ export default function TaskModal(props) {
     apiInstance
       .patch(`/workspaces/task/update-checklist/${id}/`, formData)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
       });
   };
   useEffect(() => {
     apiInstance
       .get(`/workspaces/board/${params.board_id}/members/`)
       .then((res) => {
-        // console.log(res);
+        // //console.log(res);
         const members = res.data.map((obj) => ({
           id: obj.user.id,
           firstName: obj.user.first_name,
@@ -400,17 +400,17 @@ export default function TaskModal(props) {
     apiInstance
       .get(`/workspaces/task/${params.task_id}/get-all-checklists/`)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         setAllChecklists(res.data);
       });
     apiInstance.get(`/accounts/profile/myprofile/`).then((res) => {
       setUser(res.data);
-      console.log(user);
+      //console.log(user);
     });
     apiInstance
       .get(`/workspaces/task/${params.task_id}/get-task/`)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         setDueDate(res.data.end_date);
         setEstimate(res.data.estimate);
         setTasklistName(res.data.tasklist_name);
@@ -735,8 +735,8 @@ export default function TaskModal(props) {
                                   variant="outlined"
                                   className="taskmodal-button-setting"
                                   onClick={() => {
-                                    console.log("navid");
-                                    console.log(item.id);
+                                    //console.log("navid");
+                                    //console.log(item.id);
                                     setEditCheckList((oldState) => {
                                       const newState = [...oldState];
                                       newState[item.id] = false;
@@ -762,8 +762,8 @@ export default function TaskModal(props) {
                               <Checkbox
                                 onClick={() => {
                                   handleCheckboxIsDone(item.id);
-                                  console.log(allChecklists);
-                                  // console.log(i);
+                                  //console.log(allChecklists);
+                                  // //console.log(i);
                                 }}
                                 sx={{
                                   color: "white",
@@ -782,7 +782,7 @@ export default function TaskModal(props) {
                                     color: "white",
                                   }}
                                   onClick={() => {
-                                    console.log(item.id);
+                                    //console.log(item.id);
                                     setEditCheckList((oldState) => {
                                       const newState = [...oldState];
                                       newState[item.id] = true;
@@ -803,7 +803,7 @@ export default function TaskModal(props) {
                                     color: "white",
                                   }}
                                   onClick={() => {
-                                    console.log(item.id);
+                                    //console.log(item.id);
                                     setEditCheckList((oldState) => {
                                       const newState = [...oldState];
                                       newState[item.id] = true;

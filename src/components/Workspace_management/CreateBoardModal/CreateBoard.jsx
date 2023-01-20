@@ -65,8 +65,8 @@ export default function CreateBoardModal({
     let board_name = document.getElementById("board_name").value;
     // let board_name = "test";
     let isValid = true;
-    console.log(board_name);
-    console.log("board name");
+    //console.log(board_name);
+    //console.log("board name");
     if (board_name === "") {
       setErrorBoardName(true);
       isValid = false;
@@ -74,7 +74,7 @@ export default function CreateBoardModal({
       setErrorBoardName(false);
     }
     if (isValid === false) {
-      console.log("false");
+      //console.log("false");
       return;
     } else {
       setDisableButton(true); // make text spinning and disable button

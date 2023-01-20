@@ -35,7 +35,7 @@ const ResetPassword = () => {
     const getLinkInfo = (baseLink) => {
       return baseLink.split("reset-password?")[1];
     };
-    console.log(getLinkInfo(baseLink));
+    //console.log(getLinkInfo(baseLink));
     const data = new FormData();
     data.append("password", password);
     const url =

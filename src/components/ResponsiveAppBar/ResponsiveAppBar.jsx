@@ -32,20 +32,20 @@ function ResponsiveAppBar() {
         apiInstance.get("/workspaces/dashboard/myworkspaces/").then((response) => {
             setWorkspaces(response.data);
         }).catch((error) => {
-            // console.log(error);
+            // //console.log(error);
         });
         // apiInstance.get("/workspaces/dashboard/myowning-workspaces/").then((response) => {
         //     setOwningWorkspaces(response.data);
         //     // setWorkspaces(response.data);
         // }).catch((error) => {
-        //     // console.log(error);
+        //     // //console.log(error);
         // });
         apiInstance.get("/boards/dashboard/mystarred-boards/").then((response) => {
             setStarredBoards(response.data);
         }).catch((error) => {
-            // console.log(error);
+            // //console.log(error);
         });
-        console.log("state:", state);
+        //console.log("state:", state);
     }, [])
 
     const pages = ['ستاره دارها', 'فضای کارها', 'ایجاد']; // 'اخیرا دیده شده‌ها',
@@ -118,9 +118,9 @@ function ResponsiveAppBar() {
 
     const navigateToPage = (page) => {
         if (page === '/logout/') {
-            // console.log('remove token');
+            // //console.log('remove token');
             dispatch(logout());
-            console.log(state);
+            //console.log(state);
             navigate('/'); // 
         }
         else {

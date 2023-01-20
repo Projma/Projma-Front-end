@@ -53,11 +53,11 @@ const Card = ({
   const [cclnum, setCclnum] = useState(checked_checklists_num == undefined ? 0 : checked_checklists_num);
   const [attachnum, setAttachnum] = useState(attachments_num == undefined ? 0 : comments_num);
   
-  console.log(card);
-  console.log(chatnum);
-  console.log(clnum);
-  console.log(cclnum);
-  console.log(attachnum);
+  //console.log(card);
+  //console.log(chatnum);
+  //console.log(clnum);
+  //console.log(cclnum);
+  //console.log(attachnum);
   useEffect(() => {
     getCard();
     setUpdate(!update);
@@ -99,15 +99,15 @@ const Card = ({
     const attach = card.attachments;
     if (attach !== undefined) {
       attach.every((x) => {
-        console.log(x);
+        //console.log(x);
         let file = x.file.split("attachments/")[1];
         file = file.split(".")[1];
         if (file === "png" || file === "jpeg" || file === "jpg") {
-          console.log(file);
+          //console.log(file);
           setCover(x.file);
           return false;
         }
-        console.log(cover);
+        //console.log(cover);
       });
     }
     return cover !== "";
@@ -151,7 +151,7 @@ const Card = ({
       })
       .finally(() => {
         // setIsPost(null);
-        console.log("reqDeleteCard Done");
+        //console.log("reqDeleteCard Done");
         remID(cardId);
         // props.onPost(true);
       });

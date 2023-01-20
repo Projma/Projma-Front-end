@@ -56,7 +56,7 @@ export const Dashborad = () => {
     apiInstance
       .get("/workspaces/dashboard/myworkspaces/")
       .then((response) => {
-        // console.log(response.data);
+        // //console.log(response.data);
 
         // array of
         // {
@@ -79,29 +79,29 @@ export const Dashborad = () => {
         //     ]
         // }
 
-        // console.log(response);
+        // //console.log(response);
         setWorkspaces(response.data);
-        // console.log(workspaces);
+        // //console.log(workspaces);
       })
       .catch((error) => {
-        // console.log(error);
+        // //console.log(error);
       });
 
     apiInstance
       .get("/workspaces/dashboard/myowning-workspaces/")
       .then((response) => {
-        // console.log(response.data);
+        // //console.log(response.data);
         setOwningWorkspaces(response.data);
         // setWorkspaces(response.data);
       })
       .catch((error) => {
-        // console.log(error);
+        // //console.log(error);
       });
 
     apiInstance
       .get("/workspaces/dashboard/myboards/")
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
 
         // array of
         // {
@@ -127,27 +127,27 @@ export const Dashborad = () => {
         setBoards(response.data);
       })
       .catch((error) => {
-        // console.log(error);
+        // //console.log(error);
       });
 
     apiInstance
       .get("/workspaces/dashboard/myrecent-boards/")
       .then((response) => {
         setRecentBoards(response.data);
-        // console.log("recent", response.data);
+        // //console.log("recent", response.data);
       })
       .catch((error) => {
-        // console.log(error);
+        // //console.log(error);
       });
 
     apiInstance
       .get("/workspaces/dashboard/mystarred-boards/")
       .then((response) => {
         setStarredBoards(response.data);
-        // console.log("starred", response.data);
+        // //console.log("starred", response.data);
       })
       .catch((error) => {
-        // console.log(error);
+        // //console.log(error);
       });
   }, [flag]);
 
@@ -157,9 +157,9 @@ export const Dashborad = () => {
     for (let i = 0; i < boards.length; i++) {
       res[boards[i].id] = boards[i];
     }
-    console.log("---------------------");
-    console.log(res);
-    console.log("---------------------");
+    //console.log("---------------------");
+    //console.log(res);
+    //console.log("---------------------");
     setBoardsInfo(res);
   }, [boards]);
 
@@ -897,7 +897,7 @@ export const Dashborad = () => {
   };
 
   // const state = useSelector((state) => state);
-  // console.log("store", state);
+  // //console.log("store", state);
   // const dispatch = useDispatch();
   // dispatch(actionObject or calling the action creator); (when an action is dispatched, all the reducers become active.)
   // onClick={() => {
