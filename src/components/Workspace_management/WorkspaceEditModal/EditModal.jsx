@@ -46,7 +46,7 @@ export default function EditModal({ params, update_navbar }) {
     setWorkspace(oldWorkspace);
     setOpen(false);
   };
-  // console.log("workspace in edit modal", name, description, type);
+  // //console.log("workspace in edit modal", name, description, type);
   const [newType, setNewType] = React.useState("");
   const [newName, setNewName] = React.useState("");
   const [newDescription, setNewDescription] = React.useState("");
@@ -57,46 +57,38 @@ export default function EditModal({ params, update_navbar }) {
     apiInstance
       .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
       .then((res) => {
-        console.log(res.data);
-        console.log(
-          "*********************************************************"
-        );
         setWorkspace(res.data);
         setOldWorkspace(res.data);
-        console.log(workspace);
+        //console.log(workspace);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
     setNewName(workspace.name);
-    console.log(newName);
+    //console.log(newName);
     setNewDescription(workspace.description);
     setNewType(workspace.type);
-    console.log(workspace.description);
-    console.log(workspace.type);
+    //console.log(workspace.description);
+    //console.log(workspace.type);
   }, [change]);
 
   useEffect(() => {
     apiInstance
       .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
       .then((res) => {
-        console.log(res.data);
-        console.log(
-          "*********************************************************"
-        );
         setWorkspace(res.data);
         setOldWorkspace(res.data);
-        console.log(workspace);
+        //console.log(workspace);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
     setNewName(workspace.name);
-    console.log(newName);
+    //console.log(newName);
     setNewDescription(workspace.description);
     setNewType(workspace.type);
-    console.log(workspace.description);
-    console.log(workspace.type);
+    //console.log(workspace.description);
+    //console.log(workspace.type);
   }, []);
 
   const edit_workspace = (e) => {

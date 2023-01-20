@@ -8,17 +8,17 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 export default function BasicSelect({ type, setWorkspaceType, workspace }) {
-  console.log(type);
+  //console.log(type);
   const [types, setTypes] = React.useState([]);
   const [typeInp, setTypeInp] = React.useState("");
   useEffect(() => {
-    console.log("useEffect");
-    console.log(type);
+    //console.log("useEffect");
+    //console.log(type);
     apiInstance.get(`workspaces/workspaces/type/`).then((res) => {
       const typee = Object.entries(res.data).filter((item) => {
         return item[0] === type;
       });
-      console.log(typee[0][1]);
+      //console.log(typee[0][1]);
       setTypeInp(typee[0][1]);
       setTypes(res.data);
     });
@@ -27,7 +27,7 @@ export default function BasicSelect({ type, setWorkspaceType, workspace }) {
   const handleChange = (event) => {
     event.preventDefault();
     setWorkspaceType(event.target.value);
-    console.log(event.target.value);
+    //console.log(event.target.value);
     const inp = Object.entries(types).filter((item) => {
       return item[0] === event.target.value;
     });

@@ -17,16 +17,15 @@ export default function Email_verification() {
   const getLinkInfo = (baseLink) => {
     return baseLink.split("email-verification?")[1];
   };
-  // console.log(getLinkInfo(baseLink));
+  // //console.log(getLinkInfo(baseLink));
   // React.useEffect(() => {
   //   // ?user_id=8&confirmation_token=bfif3c-384b7a6cff61d1f98dc95f9a5f0516c1
-  //   console.log(temp.id);
+  //   //console.log(temp.id);
   // }, []);
   const url = "/accounts/users/active/?" + getLinkInfo(baseLink);
-  console.log(url);
+  //console.log(url);
   axios
-    .get(`http://mohammadosoolian.pythonanywhere.com${url}`)
-    .then((res) => console.log(res));
+    .get(`http://mohammadosoolian.pythonanywhere.com${url}`);
   return (
     <Container
       component="main"

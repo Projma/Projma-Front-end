@@ -15,22 +15,22 @@ const InvitePage = () => {
   const [progress, setProgress] = useState(0);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   useEffect(() => {
-    console.log(params.token);
+    //console.log(params.token);
     try {
       apiInstance
         .get(`workspaces/workspaces/join-to-workspace/${params.token}/`)
         .then((res) => {
-          console.log("there");
-          console.log(res.data);
+          //console.log("there");
+          //console.log(res.data);
           setResult(success);
           delay(4000).then(() => navigate("/dashboard"));
         });
     } catch (error) {
-      console.log("here");
+      //console.log("here");
       if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
+        //console.log(error.response.data);
+        //console.log(error.response.status);
+        //console.log(error.response.headers);
         setError(error.response.data);
         setErrorRes(error.response.status);
         setResult(failure);

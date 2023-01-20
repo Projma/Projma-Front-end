@@ -89,21 +89,21 @@ export default function BasicModal(props) {
   //     // // }
   //     //     types.push(obj)
   //     // ));
-  //     console.log(res.data)
-  //     // console.log(res.data.keys())
+  //     //console.log(res.data)
+  //     // //console.log(res.data.keys())
   //     // res.data.length
   // }).catch((err) => {
-  //     console.log(err)
+  //     //console.log(err)
   // })
-  // console.log(workspaceTypes)
+  // //console.log(workspaceTypes)
   // let response = await apiInstance.fetch('/workspaces/workspaces/type/')
   // workspaceTypes = await response.json()
-  // console.log(workspaceTypes)
+  // //console.log(workspaceTypes)
   // const [workspaceType, setWorkspaceType] = React.useState(workspaceTypes[0]);
-  // console.log(workspaceTypes["education"])
-  // console.log(workspaceTypes.length)
+  // //console.log(workspaceTypes["education"])
+  // //console.log(workspaceTypes.length)
   // const map1 = new Map(workspaceTypes);
-  // console.log(map1)
+  // //console.log(map1)
   // for (const [key, value] of workspaceTypes[0]) {
   //     types.push(
   //         {
@@ -111,10 +111,10 @@ export default function BasicModal(props) {
   //             'label': value,
   //         }
   //     )
-  //     console.log(key)
-  //     console.log(value)
-  //     console.log("----------------")
-  //     console.log(types)
+  //     //console.log(key)
+  //     //console.log(value)
+  //     //console.log("----------------")
+  //     //console.log(types)
   // }
 
   // setWorkspaceTypes({
@@ -439,16 +439,16 @@ export default function BasicModal(props) {
                       "description",
                       document.getElementById("workspace_description").value
                     );
-                    // console.log(create_workspace_formdata);
-                    // console.log("clicked");
+                    // //console.log(create_workspace_formdata);
+                    // //console.log("clicked");
                     apiInstance
                       .post(
                         "workspaces/dashboard/create-workspace/",
                         create_workspace_formdata
                       )
                       .then((response) => {
-                        console.log(response);
-                        // console.log(response.data);
+                        //console.log(response);
+                        // //console.log(response.data);
                         // {
                         //     "id": 11,
                         //     "name": "تست 11",
@@ -460,7 +460,7 @@ export default function BasicModal(props) {
                         //     "members": [],
                         //     "boards": []
                         // }
-                        // console.log(response.data.id);
+                        // //console.log(response.data.id);
                         // navigate to the new workspace
                         // navigate(`/workspace/${response.data.id}`); // workspace/:id/*
                         // useNavigate(`/workspace/${response.data.id}`);
@@ -468,7 +468,7 @@ export default function BasicModal(props) {
                         navigateToWorkspace(response.data.id);
                       })
                       .catch((error) => {
-                        console.log(error);
+                        //console.log(error);
                       });
                   }}
                 >

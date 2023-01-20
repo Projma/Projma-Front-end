@@ -61,7 +61,7 @@ const List = (props) => {
       })
       .finally(() => {
         setReq(null);
-        console.log("reqCreateCard Done");
+        //console.log("reqCreateCard Done");
       });
 
   const reqDeleteList = async (id) =>
@@ -84,7 +84,7 @@ const List = (props) => {
       })
       .finally(() => {
         setReq(null);
-        console.log("reqDeleteList Done");
+        //console.log("reqDeleteList Done");
       });
 
   const reqEditListName = async (data, id, name) => {
