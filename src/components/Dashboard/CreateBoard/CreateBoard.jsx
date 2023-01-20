@@ -163,14 +163,7 @@ export default function CreateBoard({
                     alignItems: 'center',
                 }}
             >
-                {/* <h2 
-                // style={{color: 'black',}}
-                >
-                    افزودن بورد +
-                </h2> */}
-                <h4
-                // style={{color: 'black',}}
-                >
+                <h4>
                     افزودن بورد +
                 </h4>
             </Button>
@@ -252,9 +245,6 @@ export default function CreateBoard({
                                     },
                                 }}
                                 // change selected background color
-
-
-
                                 // margin="normal"
                                 // required
                                 // fullWidth
@@ -302,7 +292,7 @@ export default function CreateBoard({
                                 }}
                                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                                 InputLabelProps={{
-                                    style: { fontFamily: "Vazir" , fontSize: "1.6rem",},
+                                    style: { fontFamily: "Vazir", fontSize: "1.6rem", },
                                 }}
                                 inputProps={{
                                     style: {
@@ -346,14 +336,14 @@ export default function CreateBoard({
                             />
                         </Button>
                         {/* <input
-              type="file"
-              // ref="file"
-              onChange={handleChange}
-              // name="user[image]"
-              // multiple="true"
-              // name="img"
-              // id="img"
-            /> */}
+                        type="file"
+                        // ref="file"
+                        onChange={handleChange}
+                        // name="user[image]"
+                        // multiple="true"
+                        // name="img"
+                        // id="img"
+                        /> */}
                         {/* <img src={this.state.imgSrc} alt="img" /> */}
                         {/* <label id="title">عنوان برد</label>
             <input type="text" id="title" className="workspace-modal--title-inp" /> */}
