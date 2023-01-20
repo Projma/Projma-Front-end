@@ -134,6 +134,10 @@ const ShareButton = (props) => {
         setinviteLink(invite_link);
         // setinviteLink(`http://localhost:3000/board/${params.id}/`);
         // setinviteLink('این یک تست است.');
+        while (inviteLink === '') {
+            await new Promise(r => setTimeout(r, 100));
+        }
+        // await navigator.clipboard.writeText(inviteLink);
         await navigator.clipboard.writeText(inviteLink);
         // alert('Text copied');
         toast.success("لینک کپی شد.", {
