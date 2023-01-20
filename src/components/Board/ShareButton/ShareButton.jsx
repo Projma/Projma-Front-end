@@ -177,6 +177,16 @@ const ShareButton = (props) => {
         });
     }
 
+    const handleDisableButton = () => {
+        if (selectedOptions === null) {
+            return true;
+        }
+        // else if (selectedOptions.length === 0) {
+        //     return true;
+        // }
+        return false;
+    }
+
     const selectedOptionsChanged = (event, value) => {
         // [
         //     {
@@ -199,12 +209,14 @@ const ShareButton = (props) => {
         //         "id": 14
         //     },
         // ]
-
-        let wasSuccessful = true;
+        if (selectedOptions === null) {
+            return; // no user selected
+        }
+        let count = 0;
         for (let index = 0; index < selectedOptions.length; index++) {
             const element = selectedOptions[index];
             let member_id = element.id;
-            apiInstance.post('/workspaces/board/' + params.id + '/add-user-to-board/' + member_id
+            apiInstance.post('/workspaces/board/' + params.id + '/add-user-to-board/' + member_id + "/"
                 // {
                 //     params: {
                 //         id: params.id,
@@ -214,19 +226,19 @@ const ShareButton = (props) => {
             ).then((res) => {
                 console.log("success", res);
                 // console.log(res.data);
-                // {
-                //     "id": 1,
-                //     "board": 1,
-                //     "user": 12,
+                apiInstance.get(`/workspaces/board/${params.id}/members/`).then((res) => {
+                    setMembers(res.data);
+                });
+                count++;
             }).catch((error) => {
-                wasSuccessful = false;
+                // wasSuccessful = false;
                 console.log("error", error);
                 // console.log(error.response);
                 // console.log(error.response.data);
                 // toast error
             });
         }
-        if (wasSuccessful) {
+        if (count === selectedOptions.length) { // all requests were successful
             toast.success("کاربر(ان) با موفقیت اضافه شدند.", {
                 position: toast.POSITION.TOP_CENTER,
                 rtl: true,
@@ -418,7 +430,7 @@ const ShareButton = (props) => {
                                     fontFamily: "Vazir",
                                     backgroundColor: "#0A1929", // #132F4C
                                 }}
-                                // disabled={disableButton}
+                                disabled={handleDisableButton()}
                                 // onClick={this.isClicked}
                                 // onSubmit={() => {
                                 //     let workspace_name = document.getElementById("tags-outlined").value;
