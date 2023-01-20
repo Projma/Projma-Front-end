@@ -21,8 +21,6 @@ const style = {
   width: "38rem",
   height: "55rem",
   backgroundColor: "#001E3C",
-  // bgcolor: "background.paper",
-  // border: "0.5rem solid #dfe6e5",
   borderRadius: "1rem",
   boxShadow: 50,
   p: 4,
@@ -45,16 +43,23 @@ export default function CreateBoardModal({
   const [result, setResult] = useState("");
   const [binaryFile, setBinaryFile] = useState(null);
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => {
+    setTitle("");
+    setDescription("");
+    setFile(x);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setTitle("");
+    setDescription("");
+    setFile(x);
+    setOpen(false);
+  };
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [file, setFile] = React.useState(null);
   const [errorBoardName, setErrorBoardName] = React.useState(false);
   const [disableButton, setDisableButton] = React.useState(false);
-  const test = () => {
-    console.log(result);
-  };
   const create_board = (e) => {
     e.preventDefault();
     let board_name = document.getElementById("board_name").value;
