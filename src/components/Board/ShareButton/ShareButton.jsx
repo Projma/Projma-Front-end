@@ -226,7 +226,18 @@ const ShareButton = (props) => {
                 // toast error
             });
         }
-
+        if (wasSuccessful) {
+            toast.success("کاربران با موفقیت اضافه شدند.", {
+                position: toast.POSITION.TOP_CENTER,
+                rtl: true,
+            });
+        }
+        else {
+            toast.error("مشکلی پیش آمده است.", {
+                position: toast.POSITION.TOP_CENTER,
+                rtl: true,
+            });
+        }
     }
 
 
