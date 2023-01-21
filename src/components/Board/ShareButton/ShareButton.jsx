@@ -297,7 +297,10 @@ const ShareButton = (props) => {
         }}
         onClick={handleOpen}
       >
-        <SendTwoToneIcon sx={{ ml: 1.5 }} />
+        <SendTwoToneIcon sx={{ 
+          ml: 1.5,
+          color: "springgreen",
+          }} />
         اشتراک
       </Button>
       <Modal
