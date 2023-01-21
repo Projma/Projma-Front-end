@@ -6,6 +6,7 @@ import ShareButton from "../ShareButton/ShareButton";
 import AddList from "../Add List/AddList";
 import { Filter } from "@mui/icons-material";
 import FilterTask from "../FilterTask/FilterTask";
+import InfoChart from "../InfoChart/InfoChart";
 
 const InvitationHeader = (props) => {
   const handleCreateList = (data) => {
@@ -17,6 +18,7 @@ const InvitationHeader = (props) => {
       <GroupAvatars boardId={props.board_id} />
       <AddList boardId={props.board_id} onCreateList={handleCreateList} />
       <FilterTask boardId={props.board_id} setLists={props.setLists} />
+      <InfoChart boardId={props.board_id} />
     </div>
   );
 };
