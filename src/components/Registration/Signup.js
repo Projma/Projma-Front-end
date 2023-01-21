@@ -24,7 +24,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Shared/Loading";
 import { Helmet } from "react-helmet";
-import { convertNumberToPersian, convertNumberToEnglish } from "../../utilities/helpers";
+import {
+  convertNumberToPersian,
+  convertNumberToEnglish,
+} from "../../utilities/helpers";
+import Header from "../Header/Header";
 
 function Copyright(props) {
   return (
@@ -68,7 +72,7 @@ export default function SignUp() {
       .catch((error) => {
         setIsLogin(true);
       });
-      // state ? state.email : ""
+    // state ? state.email : ""
   }, []);
 
   let navigate = useNavigate();
@@ -165,6 +169,7 @@ export default function SignUp() {
   if (isLogin) {
     return (
       <CacheProvider value={cacheRtl}>
+        <Header></Header>
         <Helmet>
           <title>صفحه ثبت‌نام</title>
         </Helmet>
@@ -221,10 +226,9 @@ export default function SignUp() {
                       }}
                       value={convertNumberToPersian(firstName)}
                       onChange={(e) => {
-                        setFirstName(convertNumberToEnglish(e.target.value))
+                        setFirstName(convertNumberToEnglish(e.target.value));
                         // //console.log(firstName)
-                      }
-                      }
+                      }}
                       error={errorFirstName}
                     />
                   </Grid>
@@ -248,7 +252,9 @@ export default function SignUp() {
                         style: input_text,
                       }}
                       value={convertNumberToPersian(lastName)}
-                      onChange={(e) => setLastName(convertNumberToEnglish(e.target.value))}
+                      onChange={(e) =>
+                        setLastName(convertNumberToEnglish(e.target.value))
+                      }
                       error={errorLastName}
                     />
                   </Grid>
@@ -272,7 +278,9 @@ export default function SignUp() {
                         },
                       }}
                       value={convertNumberToPersian(username)}
-                      onChange={(e) => setUsername(convertNumberToEnglish(e.target.value))}
+                      onChange={(e) =>
+                        setUsername(convertNumberToEnglish(e.target.value))
+                      }
                       error={errorUsername}
                     />
                   </Grid>
@@ -299,8 +307,8 @@ export default function SignUp() {
                       }}
                       onChange={(e) => {
                         // //console.log(email)
-                        setEmail(convertNumberToEnglish(e.target.value))
-                        }}
+                        setEmail(convertNumberToEnglish(e.target.value));
+                      }}
                       error={errorEmail}
                     />
                   </Grid>
