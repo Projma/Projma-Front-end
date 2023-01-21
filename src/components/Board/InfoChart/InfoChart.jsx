@@ -667,7 +667,7 @@ const InfoChart = (props) => {
     );
 };
 
-export default ShareButton;
+export default InfoChart;
 
 function stringToColor(string) {
     let hash = 0;
