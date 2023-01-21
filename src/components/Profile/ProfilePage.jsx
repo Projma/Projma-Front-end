@@ -161,9 +161,6 @@ export default function Profile() {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-      })
-      .finally(() => {
-        setIsPost(null);
       });
     apiInstance
       .patch("/accounts/profile/edit-myprofile/", formData)
@@ -176,8 +173,10 @@ export default function Profile() {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
+      })
+      .finally(() => {
+        setIsPost(null);
       });
-    setIsPost(null);
   };
   if (!loading) {
     return (

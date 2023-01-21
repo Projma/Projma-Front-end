@@ -148,10 +148,6 @@ export default function ChangePassword() {
         });
     }
   };
-  // apiInstance.get("/accounts/users/").then((res) => {
-  //   setUserDetail(res.data);
-  //   //console.log(res.data);
-  // });
   return (
     <div>
       <Helmet>
