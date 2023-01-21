@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import BasicMenu from './BasicMenu/BasicMenu';
 import { useState } from "react";
 import apiInstance from "../../utilities/axiosConfig";
+import { baseUrl } from '../../utilities/constants';
 import { useEffect } from "react";
 // https://mui.com/#app-bar-with-responsive-menu
 import { useSelector, useDispatch } from "react-redux";
@@ -25,10 +26,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../actions/authActions";
 
 function ResponsiveAppBar() {
+    const baseURL = baseUrl.substring(0, baseUrl.length - 1);
     let [workspaces, setWorkspaces] = useState([]);
     let [starredBoards, setStarredBoards] = useState([]);
     // let [owningWorkspaces, setOwningWorkspaces] = useState([])
     useEffect(() => {
+        // console.log(state);
+        // console.log("***************************");
         apiInstance.get("/workspaces/dashboard/myworkspaces/").then((response) => {
             setWorkspaces(response.data);
         }).catch((error) => {
@@ -251,7 +255,9 @@ function ResponsiveAppBar() {
                             title={<h3 style={{ fontFamily: 'Vazir' }}>باز کردن تنظیمات</h3>}
                         >
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="عکس پروفایل" src={state.user.profile_pic ? state.user.profile_pic : avatar_photo} />
+                                {/* profile_pic: "/media/abbas.JPG" */}
+                                {/* <Avatar alt="عکس پروفایل" src={state.user.profile_pic ? state.user.profile_pic : avatar_photo} /> */}
+                                <Avatar alt="عکس پروفایل" src={(baseURL + state.user.profile_pic) ? (baseURL + state.user.profile_pic) : avatar_photo} />
                             </IconButton>
                         </Tooltip>
                         <Menu
