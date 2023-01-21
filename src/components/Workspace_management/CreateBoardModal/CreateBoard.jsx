@@ -120,6 +120,7 @@ export default function CreateBoardModal({
               color: "#fff",
               fontSize: "109%",
             }}
+            className="neonText"
           >
             ساخت بورد جدید
           </Typography>

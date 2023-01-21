@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useEffect, useRef } from "react";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import apiInstance from "../../../utilities/axiosConfig";
@@ -44,7 +44,7 @@ export default function BasicSelect({ type, setWorkspaceType, workspace }) {
           value={workspace.type}
           onChange={handleChange}
           sx={{
-            border: "1px solid #fff",
+            border: "1px solid #66B2FF",
             color: "#fff",
           }}
         >

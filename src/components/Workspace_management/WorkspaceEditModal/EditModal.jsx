@@ -137,15 +137,17 @@ export default function EditModal({ params, update_navbar }) {
               textAlign: "center",
               fontFamily: "Vazir",
               color: "#fff",
+              fontSize: "109%",
             }}
+            className="neonText"
           >
             بروزرسانی اطلاعات فضای کار
           </Typography>
           <Divider
             sx={{
               backgroundColor: "#007fff",
-              marginTop: "0.5rem",
-              marginBottom: "0.75rem",
+              marginTop: "5%",
+              marginBottom: "8%",
             }}
           />
           {/* <img src={x} className="board-image" /> */}
@@ -154,6 +156,7 @@ export default function EditModal({ params, update_navbar }) {
               <div className="ws_editmodal-inputs">
                 <StyledTextField
                   className="ws_editmodal-input"
+                  label="نام فضای کاری"
                   value={convertNumberToPersian(workspace.name)}
                   defaultValue={convertNumberToPersian(workspace.name)}
                   onChange={(e) =>
@@ -162,12 +165,23 @@ export default function EditModal({ params, update_navbar }) {
                       name: convertNumberToPersian(e.target.value),
                     })
                   }
+                  InputLabelProps={{
+                    style: { fontFamily: "Vazir", fontSize: "75%" },
+                  }}
+                  inputProps={{
+                    style: {
+                      height: "50px",
+                      padding: "0 14px",
+                      fontFamily: "Vazir",
+                      fontSize: "1.5rem",
+                    },
+                  }}
                   sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 />
-                <label className="ws_editmodal-label">نام فضای کار</label>
                 <StyledTextField
                   ref={descriptionRef}
                   className="ws_editmodal-input"
+                  label="توضیحات"
                   onChange={(e) =>
                     setWorkspace({
                       ...workspace,
@@ -179,23 +193,42 @@ export default function EditModal({ params, update_navbar }) {
                   sx={{
                     textAlign: "center",
                     fontFamily: "Vazir",
-                    marginTop: "5%",
-                    fontSize: "1.5rem",
+                    marginTop: "10%",
                     // direction: "rtl",
                   }}
+                  InputLabelProps={{
+                    style: { fontFamily: "Vazir", fontSize: "75%" },
+                  }}
+                  inputProps={{
+                    style: {
+                      height: "50px",
+                      padding: "0 14px",
+                      fontFamily: "Vazir",
+                      fontSize: "1.5rem",
+                    },
+                  }}
                 />
-                <label className="ws_editmodal-label">توضیحات</label>
                 <br></br>
+                <label
+                  style={{
+                    color: "white",
+                    fontSize: "76%",
+                    marginBottom: "3%",
+                  }}
+                >
+                  نوع فضای کار
+                </label>
                 <BasicSelect
                   type={workspace.type}
                   setWorkspaceType={setWorkspaceType}
                   workspace={workspace}
+                  label="نوع فضای کار"
                 />
-                <label className="ws_editmodal-label">نوع فضای کار</label>
               </div>
             </PerTextField>
             <div className="ws_editmodal-button-div">
               <input
+                style={{ fontFamily: "Vazir", fontSize: "101%", width: "100%" }}
                 type="submit"
                 value="ذخیره"
                 className="edit_workspace-modal-button-29"

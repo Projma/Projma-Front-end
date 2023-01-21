@@ -622,6 +622,7 @@ export default function CreateBoardModal({}) {
               color: "#fff",
               fontSize: "109px",
             }}
+            className="neonText"
           >
             ساخت بورد جدید
           </Typography>
