@@ -67,7 +67,7 @@ export default function CheckList({ params, setAllChecklists }) {
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <div style={{ width: "100%" }}>
+    <div className="taskmodal-flexibale-icon">
       <ToastContainer />
       <Button
         className="taskmodal-smaller-button-inner"
@@ -78,6 +78,7 @@ export default function CheckList({ params, setAllChecklists }) {
           bgcolor: "#173b5e",
           marginTop: "5%",
           borderRadius: "35px",
+          height: "80%",
           display: "flex",
           justifyContent: "start",
         }}
@@ -85,7 +86,7 @@ export default function CheckList({ params, setAllChecklists }) {
         <LabelIcon rotate="90" fontSize="large"></LabelIcon>{" "}
         <div
           className="taskmodal-smaller-button"
-          style={{ fontSize: "10px", marginRight: "0%", width: "80px" }}
+          style={{ fontSize: "9px", marginRight: "0%", width: "80px" }}
         >
           لیست کنترل
         </div>
@@ -113,7 +114,9 @@ export default function CheckList({ params, setAllChecklists }) {
             <Input
               className={classes.title_input}
               value={createdCheckTitle}
-              onChange={(e) => setCreatedCheckTitle(convertNumberToPersian(e.target.value))}
+              onChange={(e) =>
+                setCreatedCheckTitle(convertNumberToPersian(e.target.value))
+              }
               placeholder="عنوان"
               sx={{
                 color: "#fff !important",
