@@ -98,7 +98,7 @@ export default function DueTime({ params, dueDate, setDueTime }) {
   };
 
   return (
-    <div style={{ width: "100%", marginBottom: "3%" }}>
+    <div className="taskmodal-flexibale-icon">
       <Button
         className="taskmodal-smaller-button-inner"
         aria-describedby={id}
@@ -108,6 +108,7 @@ export default function DueTime({ params, dueDate, setDueTime }) {
           bgcolor: "#173b5e",
           marginTop: "5%",
           borderRadius: "35px",
+          height: "80%",
           display: "flex",
           justifyContent: "start",
         }}
@@ -131,7 +132,7 @@ export default function DueTime({ params, dueDate, setDueTime }) {
       >
         <div className="tm-members-main-div">
           <header className="tm-members-header">
-            <h2 className="tm-duetime-header-title">زمان اتمام</h2>
+            <h2 className="tm-duetime-header-title ">زمان اتمام</h2>
             <Divider sx={{ backgroundColor: "black" }} />
           </header>
           <div className="taskmodal-duetime-body">
@@ -150,13 +151,13 @@ export default function DueTime({ params, dueDate, setDueTime }) {
           <div className="duetime-text">
             <div>زمان اتمام</div>
             {!value.toString().includes("Standard") ? (
-              <div className="duetime-showDate">
+              <div className="duetime-showDate" style={{ padding: "6%" }}>
                 <div>
                   {value?.year + "/" + value?.month?.number + "/" + value?.day}
                 </div>
               </div>
             ) : (
-              <div className="duetime-showDate">
+              <div className="duetime-showDate" style={{ padding: "6%" }}>
                 {dueDate !== null ? (
                   <div>{dueDate.toString().replaceAll("-", "/")}</div>
                 ) : (

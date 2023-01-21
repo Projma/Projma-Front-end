@@ -157,7 +157,7 @@ export default function Labels({ params, task_labels, set_task_labels }) {
   };
 
   return (
-    <div style={{ width: "100%" }}>
+    <div className="taskmodal-flexibale-icon">
       <Button
         className="taskmodal-smaller-button-inner"
         aria-describedby={id}
@@ -167,6 +167,7 @@ export default function Labels({ params, task_labels, set_task_labels }) {
           bgcolor: "#173b5e",
           marginTop: "5%",
           borderRadius: "35px",
+          height: "80%",
           display: "flex",
           justifyContent: "start",
         }}
