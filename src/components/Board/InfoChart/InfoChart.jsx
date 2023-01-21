@@ -9,6 +9,8 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import Fade from "@mui/material/Fade";
 import ClearTwoToneIcon from "@mui/icons-material/ClearTwoTone";
+// chart icon
+import { AddchartTwoTone } from "@mui/icons-material";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
@@ -54,12 +56,6 @@ const style = {
     overflow: "auto",
     padding: "1%",
 };
-
-// Create rtl cache
-const cacheRtl = createCache({
-    key: "muirtl",
-    stylisPlugins: [prefixer, rtlPlugin],
-});
 
 const InfoChart = (props) => {
     const [open, setOpen] = React.useState(false);
@@ -297,8 +293,11 @@ const InfoChart = (props) => {
                 }}
                 onClick={handleOpen}
             >
-                <SendTwoToneIcon sx={{ ml: 1.5 }} />
-                اشتراک
+                <AddchartTwoTone sx={{ 
+                    ml: 1.5,
+                    color: "tomato"
+                    }} />
+                اطلاعات نموداری
             </Button>
             <Modal
                 aria-labelledby="spring-modal-title"
