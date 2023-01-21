@@ -40,6 +40,7 @@ import { Helmet } from "react-helmet";
 import CreateBoardModal from "../components/Dashboard/CreateBoardModal/CreateBoardModal";
 import { ToastContainer, toast } from "react-toastify";
 import CreateBoard from "../components/Dashboard/CreateBoard/CreateBoard";
+import CreateTemplateModal from "../components/Dashboard/CreateTemplateModal/CreateTemplateModal";
 
 // useMediaQuery
 // import Typography from "@mui/material";
