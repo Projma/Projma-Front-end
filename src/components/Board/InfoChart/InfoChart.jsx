@@ -38,6 +38,9 @@ import {
     convertNumberToEnglish,
     convertNumberToPersian,
 } from "../../../utilities/helpers.js";
+// import React, { Component } from "react";
+import Chart from "react-apexcharts";
+
 
 const style = {
     position: "absolute",
@@ -70,6 +73,30 @@ const InfoChart = (props) => {
         //     setMembers(res.data);
     }, []);
 
+    const data = {
+        options: {
+            chart: {
+                id: "basic-bar"
+            },
+            xaxis: {
+                categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+            }
+        },
+        series: [
+            {
+                name: "series-1",
+                data: [30, 40, 45, 50, 49, 60, 70, 91]
+            }
+        ]
+    };
+
+    const data2 = {
+        options: {},
+        series: [44, 55, 41, 17, 15],
+        labels: ['A', 'B', 'C', 'D', 'E']
+    }
+
+
     return (
         <>
             {isPost ? <Loading /> : null}
@@ -88,10 +115,10 @@ const InfoChart = (props) => {
                 }}
                 onClick={handleOpen}
             >
-                <AddchartTwoTone sx={{ 
+                <AddchartTwoTone sx={{
                     ml: 1.5,
                     color: "tomato"
-                    }} />
+                }} />
                 اطلاعات نموداری
             </Button>
             <Modal
@@ -139,6 +166,27 @@ const InfoChart = (props) => {
                                 // marginLeft: "2%",
                             }}
                         >
+                            <div className="app">
+                                <div className="row">
+                                    <div className="mixed-chart">
+                                        <Chart
+                                            options={data.options}
+                                            series={data.series}
+                                            type="bar"
+                                            // type="line"
+                                            width="500"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="donut">
+                                <Chart options={data2.options} series={data2.series} type="donut" width="380" />
+                            </div>
+
+                            <div id="chart">
+                                <div id="timeline-chart"></div>
+                            </div>
                         </Box>
                     </Box>
                 </Fade>
