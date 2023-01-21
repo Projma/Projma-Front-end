@@ -32,8 +32,8 @@ const AddList = (props) => {
           position: toast.POSITION.TOP_CENTER,
           rtl: true,
         });
-        console.log("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
-        console.log(response.data);
+        // console.log("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+        // console.log(response.data);
         // setList(response.data);
         list = response.data;
         // console.log(list);
