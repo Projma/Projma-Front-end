@@ -249,9 +249,9 @@ export default function BasicModal(props) {
             alignItems: "center",
           }}
         >
-          <h4 style={{}} className="text-in-button">
+          <div style={{ fontSize: "87%" }} className="text-in-button">
             {props.text}
-          </h4>
+          </div>
         </Button>
       )}
 
