@@ -490,13 +490,6 @@ export const Dashborad = () => {
 
   }, []);
 
-  const openCreateTemplateModal = (template_id, template_name, template_description, template_background_pic) => {
-    //console.log(template.id, template.name, template.description, template.background_pic);
-    //console.log(template);
-    // setTemplate(template);
-    // setCreateTemplateModal(true);
-  }
-
   const computer_tabs = {
     boards: {
       title: "بورد ها",
@@ -853,11 +846,9 @@ export const Dashborad = () => {
                         },
                       }}
                       // hover
-                      onClick={() => {
-                        // history.push(`/board/${board_id}`);
-                        // navigateToBoard(template.id);
-                        openCreateTemplateModal(template.id, template.name, template.description, template.background_pic);
-                      }}
+                      // onClick={() => {
+                      //   // openCreateTemplateModal(template.id, template.name, template.description, template.background_pic);
+                      // }}
                     >
                       <p
                         variant="h1"
@@ -1314,11 +1305,9 @@ export const Dashborad = () => {
                           },
                         }}
                         // hover
-                        onClick={() => {
-                          // history.push(`/board/${board_id}`);
-                          // navigateToBoard(template.id);
-                          // openCreateTemplateModal(template.id, template.name, template.description, template.background_pic);
-                        }}
+                        // onClick={() => {
+                        //   // openCreateTemplateModal(template.id, template.name, template.description, template.background_pic);
+                        // }}
                       >
                         <p
                           variant="h1"
