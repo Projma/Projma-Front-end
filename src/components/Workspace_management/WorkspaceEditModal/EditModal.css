@@ -7,7 +7,12 @@
   font-weight: 600;
   display: inline;
 }
-
+.neonText {
+  color: #fff;
+  text-shadow: 0 0 7px rgb(193, 180, 180), 0 0 10px rgb(193, 180, 180),
+    0 0 21px rgb(193, 180, 180), 0 0 42px #5271ff, 0 0 82px #5271ff,
+    0 0 92px #5271ff, 0 0 102px #5271ff, 0 0 151px #5271ff;
+}
 .ws_editmodal-main-div {
   width: 100%;
 }
