@@ -1,5 +1,6 @@
 .workspace--my-board,
-.workspace--starred-board {
+.workspace--starred-board,
+.workspace--recent-board {
   width: 100%;
   height: 100%;
   color: #fff !important;
@@ -9,9 +10,24 @@
   display: flex;
   gap: 5%;
   flex-direction: column;
-  /* align-items: center; */
-  justify-content: center;
-  margin: 5%;
+  /* align-items: flex-start; */
+  /* justify-content: center; */
+  margin: 4%;
+  margin-top: 1%;
+  padding-bottom: 3rem;
+  max-height: 100%;
+}
+
+.workspace-board-section {
+  display: flex;
+  gap: 5%;
+  flex-direction: column;
+  /* align-items: flex-start; */
+  justify-content: flex-start;
+  /* margin: 5%; */
+  /* padding-top: 6rem; */
+  padding-left: 3%;
+  overflow: auto;
 }
 
 .workspace--board-header {
@@ -34,8 +50,8 @@
 
 .workspace--board-body-list {
   margin: 0.5rem;
-  overflow: auto;
-  max-height: 26rem;
+  /* overflow: auto; */
+  /* max-height: 26rem; */
   display: grid;
   grid-template-columns: repeat(auto-fill, 20rem);
   justify-content: space-between;
@@ -65,10 +81,10 @@
   color: #007fff;
 }
 
-/* .workspace--starred-board {
-  margin-bottom: 5%;
+.workspace--starred-board {
+  /* margin-top: 15%; */
 }
 
-.workspace--recent-board {
-  margin-bottom: 5%;
-} */
+.workspace--my-board {
+  /* margin-bottom: 5%; */
+} 

@@ -9,6 +9,7 @@
 
 html {
   font-size: 10px;
+  overflow: hidden;
 }
 
 body {
@@ -24,7 +25,7 @@ body {
   --mui-blue: #1976d2;
 }
 
-.styled-scrollbars {
+html,.styled-scrollbars {
   /* Foreground, Background */
   scrollbar-color: var(--minor-item-color) var(--minor-bg);
   scrollbar-width: thin;

@@ -14,6 +14,7 @@ const BoardView = (props) => {
   }, [props.is]);
   const clickHandler = (e) => {
     e.stopPropagation();
+    props.onLoading();
     apiInstance.post(`workspaces/board/${props.id}/toggle-myboard-star/`).then(() => {
       const flag = !isStarred;
       const id = props.id;
@@ -47,7 +48,7 @@ const BoardView = (props) => {
         >
           <StarIcon
             className="workspace--board-icon"
-            sx={{ "& :hover": { fill: "#fff" } }}
+            sx={{ "& :hover": { fill: "#fff !important" } }}
             style={{ fontSize: "1.6rem", fill: "yellow" }}
           />
         </button>
@@ -62,7 +63,7 @@ const BoardView = (props) => {
             >
               <StarIcon
                 className="workspace--board-icon"
-                sx={{ "& :hover": { color: "yellow" } }}
+                sx={{ "& :hover": { color: "yellow" },"&": { color: "#fff" } }}
                 style={{ fontSize: "1.6rem" }}
               />
             </button>
