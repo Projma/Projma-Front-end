@@ -10,7 +10,7 @@ import StyledTextField from "../../Shared/StyledTextField";
 import PerTextField from "../../Shared/PerTextField.js";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 // import file from "../../../static/images/workspace_management/create_board/board.jpeg";
-import "./CreateBoardModal.scss";
+import "./CreateTemplateModal.scss";
 import { ToastContainer, toast } from "react-toastify";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
@@ -42,7 +42,7 @@ const style = {
     overflow: "auto",
 };
 
-export default function CreateBoardModal({ }) {
+export default function CreateTemplateModal(props) {
     const navigate = useNavigate();
     const navigateToBoard = (boardId) => {
         // navigate(`/board/`);
@@ -82,17 +82,14 @@ export default function CreateBoardModal({ }) {
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     // const on_submit = (form_data, boards, setBoards) => {
     const on_submit = (form_data) => {
-        //console.log("here");
         apiInstance
             .post(
-                `/workspaces/workspaceowner/${workspaceId}/create-board/`,
+                `/workspaces/templates/${props.template_id}/create-board-from-template/${workspaceId}/`,
                 form_data
             )
             .then((res) => {
-                //console.log("here");
-                //console.log(res.data);
-                //console.log("here");
-                toast.success("بورد با موفقیت ساخته شد", {
+
+                toast.success("تمپلیت با موفقیت ساخته شد", {
                     // position: toast.POSITION.BOTTOM_LEFT,
                     position: toast.POSITION.TOP_CENTER,
                     rtl: true,
@@ -100,7 +97,13 @@ export default function CreateBoardModal({ }) {
 
                 // navigateToBoard(res.data.id);
                 delay(6000).then(() => navigateToBoard(res.data.id));
-            });
+            }).catch((err) => {
+                console.log(err);
+                toast.error("خطا در ساخت تمپلیت", {
+                    // position: toast.POSITION.BOTTOM_LEFT,
+                    position: toast.POSITION.TOP_CENTER,
+                    rtl: true,
+            })});
     };
     const create_board = (e) => {
         e.preventDefault();
@@ -147,11 +150,6 @@ export default function CreateBoardModal({ }) {
 
     return (
         <div>
-            {/* <div className="workspace-modal--add-button-container">
-                <button className="workspace-modal--add-button" onClick={handleOpen}>
-                    <p className="workspace-modal--add-button-title">+ افزودن بورد</p>
-                </button>
-            </div> */}
             <Button
                 onClick={handleOpen}
                 sx={{
@@ -179,16 +177,11 @@ export default function CreateBoardModal({ }) {
                     alignItems: "center",
                 }}
             >
-                {/* <h2 
-                // style={{color: 'black',}}
-                >
-                    افزودن بورد +
-                </h2> */}
 
                 <h4
                 // style={{color: 'black',}}
                 >
-                    افزودن بورد +
+                    افزودن تمپلیت +
                 </h4>
             </Button>
             <Modal
@@ -208,7 +201,7 @@ export default function CreateBoardModal({ }) {
                             color: "#fff",
                         }}
                     >
-                        ساخت برد جدید
+                        ساخت تمپلیت جدید
                     </Typography>
                     <Divider
                         sx={{
@@ -223,7 +216,7 @@ export default function CreateBoardModal({ }) {
                             <StyledTextField
                                 className="workspace-modal--board-name"
                                 id="board_name"
-                                label="نام برد"
+                                label="نام تمپلیت"
                                 value={title}
                                 onChange={(e) => {
                                     setTitle(convertNumberToPersian(e.target.value));
@@ -252,7 +245,7 @@ export default function CreateBoardModal({ }) {
                                     },
                                 }}
                                 error={errorBoardName}
-                                helperText={errorBoardName ? "نام برد نمی تواند خالی باشد" : ""}
+                                helperText={errorBoardName ? "نام تمپلیت نمی تواند خالی باشد" : ""}
                             />
                             <StyledTextField
                                 className="workspace-modal--board-name"
@@ -384,7 +377,7 @@ export default function CreateBoardModal({ }) {
               // id="img"
             /> */}
                         {/* <img src={this.state.imgSrc} alt="img" /> */}
-                        {/* <label id="title">عنوان برد</label>
+                        {/* <label id="title">عنوان تمپلیت</label>
             <input type="text" id="title" className="workspace-modal--title-inp" /> */}
                         {/* <button onClick={create_board}>submit</button> */}
                         <input
