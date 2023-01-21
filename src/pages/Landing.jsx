@@ -19,7 +19,7 @@ import { Helmet } from "react-helmet";
 
 const Landing = () => {
   return (
-    <div>
+    <div style={{overflow: "auto", maxHeight: "100vh", height: "100vh"}}>
       <Helmet>
         <title>پروجما</title>
       </Helmet>
