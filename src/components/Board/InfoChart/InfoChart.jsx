@@ -48,10 +48,10 @@ const style = {
     left: "50%",
     transform: "translate(-50%, -50%)",
     // width: 400,
-    width: "70%",
+    width: "80%",
     height: "78%",
     // bgcolor: 'background.paper',
-    bgcolor: "#265D97", // #5090D3 #1E4976
+    bgcolor: "#CEE0F3", // #5090D3 #1E4976 #265D97
     border: "2px solid #000",
     borderRadius: "10px",
     boxShadow: 24,
@@ -70,7 +70,7 @@ const InfoChart = (props) => {
         // apiInstance.get(`/workspaces/board/${params.id}/members/`).then((res) => {
         //     // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
         //     // //console.log(res.data);
-        //     setMembers(res.data);
+        //     setMembers(res.data);  
     }, []);
 
     const data = {
@@ -96,9 +96,178 @@ const InfoChart = (props) => {
         labels: ['A', 'B', 'C', 'D', 'E']
     }
 
+    const data3 = {
+        options: {
+            chart: {
+                type: "area",
+                height: 300,
+                foreColor: "#999",
+                stacked: true,
+                dropShadow: {
+                    enabled: true,
+                    enabledSeries: [0],
+                    top: -2,
+                    left: 2,
+                    blur: 5,
+                    opacity: 0.06
+                }
+            },
+            colors: ['#00E396', '#0090FF'],
+            stroke: {
+                curve: "smooth",
+                width: 3
+            },
+            dataLabels: {
+                enabled: false
+            },
+            series: [{
+                name: 'Total Views',
+                data: generateDayWiseTimeSeries(0, 18)
+            }, {
+                name: 'Unique Views',
+                data: generateDayWiseTimeSeries(1, 18)
+            }],
+            markers: {
+                size: 0,
+                strokeColor: "#fff",
+                strokeWidth: 3,
+                strokeOpacity: 1,
+                fillOpacity: 1,
+                hover: {
+                    size: 6
+                }
+            },
+            xaxis: {
+                type: "datetime",
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false
+                }
+            },
+            yaxis: {
+                labels: {
+                    offsetX: 14,
+                    offsetY: -5
+                },
+                tooltip: {
+                    enabled: true
+                }
+            },
+            grid: {
+                padding: {
+                    left: -5,
+                    right: 5
+                }
+            },
+            tooltip: {
+                x: {
+                    format: "dd MMM yyyy"
+                },
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'left'
+            },
+            fill: {
+                type: "solid",
+                fillOpacity: 0.7
+            }
+        },
+        series: [{
+            name: 'Total Views',
+            data: generateDayWiseTimeSeries(0, 18)
+        }, {
+            name: 'Unique Views',
+            data: generateDayWiseTimeSeries(1, 18)
+        }]
+    };
+
+    var data3_options = {
+        chart: {
+            type: "area",
+            height: 300,
+            foreColor: "#999",
+            stacked: true,
+            dropShadow: {
+                enabled: true,
+                enabledSeries: [0],
+                top: -2,
+                left: 2,
+                blur: 5,
+                opacity: 0.06
+            }
+        },
+        colors: ['#00E396', '#0090FF'],
+        stroke: {
+            curve: "smooth",
+            width: 3
+        },
+        dataLabels: {
+            enabled: false
+        },
+        series: [{
+            name: 'Total Views',
+            data: generateDayWiseTimeSeries(0, 18)
+        }, {
+            name: 'Unique Views',
+            data: generateDayWiseTimeSeries(1, 18)
+        }],
+        markers: {
+            size: 0,
+            strokeColor: "#fff",
+            strokeWidth: 3,
+            strokeOpacity: 1,
+            fillOpacity: 1,
+            hover: {
+                size: 6
+            }
+        },
+        xaxis: {
+            type: "datetime",
+            axisBorder: {
+                show: false
+            },
+            axisTicks: {
+                show: false
+            }
+        },
+        yaxis: {
+            labels: {
+                offsetX: 14,
+                offsetY: -5
+            },
+            tooltip: {
+                enabled: true
+            }
+        },
+        grid: {
+            padding: {
+                left: -5,
+                right: 5
+            }
+        },
+        tooltip: {
+            x: {
+                format: "dd MMM yyyy"
+            },
+        },
+        legend: {
+            position: 'top',
+            horizontalAlign: 'left'
+        },
+        fill: {
+            type: "solid",
+            fillOpacity: 0.7
+        }
+    };
+
 
     return (
         <>
+            <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+            <script src="https://cdn.jsdelivr.net/npm/react-apexcharts"></script>
             {isPost ? <Loading /> : null}
             <Button
                 variant="contained"
@@ -112,6 +281,7 @@ const InfoChart = (props) => {
                     ml: "0.5rem",
                     mr: "1.3rem",
                     fontFamily: "Vazir",
+                    // color: "black",
                 }}
                 onClick={handleOpen}
             >
@@ -150,7 +320,7 @@ const InfoChart = (props) => {
                             id="spring-modal-title"
                             variant="h5"
                             component="h2"
-                            sx={{ color: "white", marginBottom: "2%", marginRight: "2%" }}
+                            sx={{ color: "black", marginBottom: "2%", marginRight: "2%" }}
                         >
                             اطلاعات نموداری
                         </Typography>
@@ -164,28 +334,66 @@ const InfoChart = (props) => {
                                 // marginTop: "2%",
                                 marginRight: "2%",
                                 // marginLeft: "2%",
+                                // backgroundColor: "white",
                             }}
                         >
-                            <div className="app">
-                                <div className="row">
-                                    <div className="mixed-chart">
-                                        <Chart
-                                            options={data.options}
-                                            series={data.series}
-                                            type="bar"
-                                            // type="line"
-                                            width="500"
-                                        />
-                                    </div>
+                            <div className="chart" dir="ltr">
+                                <div className="timeline-chart">
+                                    <Chart
+                                        options={data.options}
+                                        series={data.series}
+                                        type="bar"
+                                        // type="line"
+                                        width="500"
+                                    />
+                                </div>
+                            </div>
+                        </Box>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                // justifyContent: "space-between",
+                                alignItems: "center",
+                                // marginBottom: "0%",
+                                // marginTop: "2%",
+                                marginRight: "2%",
+                                // marginLeft: "2%",
+                                // backgroundColor: "white",
+                            }}
+                        >
+                            <div className="chart donut" dir="ltr">
+                                <div className="timeline-chart">
+                                    <Chart options={data2.options} series={data2.series} type="donut" width="380" />
                                 </div>
                             </div>
 
-                            <div className="donut">
-                                <Chart options={data2.options} series={data2.series} type="donut" width="380" />
-                            </div>
+                        </Box>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                // justifyContent: "space-between",
+                                alignItems: "center",
+                                // marginBottom: "0%",
+                                // marginTop: "2%",
+                                marginRight: "2%",
+                                // marginLeft: "2%",
+                                // backgroundColor: "white",
+                                // right to left
+                                // ":dir": "ltr"
+                            }}
 
-                            <div id="chart">
-                                <div id="timeline-chart"></div>
+                        >
+                            <div className="chart" dir="ltr">
+                                <div className="timeline-chart">
+                                    <Chart
+                                        options={data3.options}
+                                        series={data3.series}
+                                        type="area"
+                                        width="500"
+                                    />
+                                </div>
                             </div>
                         </Box>
                     </Box>
@@ -196,6 +404,26 @@ const InfoChart = (props) => {
 };
 
 export default InfoChart;
+
+function generateDayWiseTimeSeries(s, count) {
+    var values = [
+        [
+            4, 3, 10, 9, 29, 19, 25, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5
+        ],
+        [
+            2, 3, 8, 7, 22, 16, 23, 7, 11, 5, 12, 5, 10, 4, 15, 2, 6, 2
+        ]
+    ];
+    var i = 0;
+    var series = [];
+    var x = new Date("11 Nov 2012").getTime();
+    while (i < count) {
+        series.push([x, values[s][i]]);
+        x += 86400000;
+        i++;
+    }
+    return series;
+}
 
 function stringToColor(string) {
     let hash = 0;
