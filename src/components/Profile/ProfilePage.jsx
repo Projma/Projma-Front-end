@@ -23,6 +23,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Shared/Loading";
 import { baseUrl } from "../../utilities/constants";
+import Header from "../Header/Header";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
@@ -103,21 +104,21 @@ export default function Profile() {
     event.preventDefault();
     errormessage = "";
     document.getElementById("em").innerHTML = errormessage;
-    setIsPost(true);
-    if (firstName === "") {
-      setErrorFirstName(true);
-      errormessage += "*فیلد نام نمیتواد خالی باشد.";
-      sign += 1;
-    }
-    if (lastName === "") {
-      errormessage += "*فیلد نام خانوادگی نمیتواد خالی باشد.<br>";
-      setErrorLastName(true);
-      sign += 1;
-    }
-    if (sign !== 0) {
-      document.getElementById("em").innerHTML = errormessage;
-      return;
-    }
+
+    // if (firstName === "") {
+    //   setErrorFirstName(true);
+    //   errormessage += "*فیلد نام نمیتواد خالی باشد.";
+    //   sign += 1;
+    // }
+    // if (lastName === "") {
+    //   errormessage += "*فیلد نام خانوادگی نمیتواد خالی باشد.<br>";
+    //   setErrorLastName(true);
+    //   sign += 1;
+    // }
+    // if (sign !== 0) {
+    //   document.getElementById("em").innerHTML = errormessage;
+    //   return;
+    // }
     const formData = new FormData();
     const user = JSON.stringify({
       first_name: firstName,
@@ -129,6 +130,11 @@ export default function Profile() {
     // formData.append("first_name", firstName);
     // formData.append("last_name", lastName);
     let birthd = "";
+    console.log("--------------");
+    console.log(birthDate);
+    if (birthDate !== "") {
+      birthd = birthDate;
+    }
     if (typeof birthDate !== "string" && birthDate !== null) {
       birthd = `${birthDate.year}-${birthDate.month.number}-${birthDate.day}`;
       // formData.append("birth_date", birthd);
@@ -137,6 +143,10 @@ export default function Profile() {
     if (binaryFile !== null) {
       formData.append("profile_pic", binaryFile);
     }
+    if (birthDate == null) {
+      birthd = null;
+    }
+
     const data = {
       user: {
         first_name: firstName,
@@ -146,6 +156,8 @@ export default function Profile() {
       bio: bio,
       // profile_pic: binaryFile,
     };
+    console.log(data);
+    setIsPost(true);
     apiInstance
       .patch("/accounts/profile/edit-myprofile/", data)
       .then((res) => {
@@ -182,6 +194,7 @@ export default function Profile() {
     return (
       <div className="profile-total-page">
         {isPost ? <Loading /> : null}
+        <Header></Header>
         <ToastContainer />
         <CacheProvider value={cacheRtl}>
           <Helmet>
@@ -204,8 +217,12 @@ export default function Profile() {
                   />
                 </div>
                 <div
-                  className="flex-col row-gap-8 align-center"
-                  style={{ width: "100%", marginTop: "20%" }}
+                  className="flex-col align-center"
+                  style={{
+                    width: "100%",
+                    marginTop: "30%",
+                    justifyContent: "flex-start",
+                  }}
                 >
                   <h3
                     style={{
@@ -214,9 +231,9 @@ export default function Profile() {
                       color: "white",
                       justifyContent: "center",
                       width: "100%",
-                      height: "100%",
+                      height: "40px",
                     }}
-                    className="neonText flex profile-information-fname-lname vazir"
+                    className="flex profile-information-fname-lname vazir"
                   >
                     {convertNumberToPersian(firstName)}
                   </h3>
@@ -227,9 +244,9 @@ export default function Profile() {
                       color: "white",
                       justifyContent: "center",
                       width: "100%",
-                      height: "100%",
+                      height: "40px",
                     }}
-                    className="neonText flex profile-information-fname-lname vazir"
+                    className="flex profile-information-fname-lname vazir"
                   >
                     {convertNumberToPersian(lastName)}
                   </h3>

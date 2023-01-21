@@ -4,9 +4,11 @@
 
 .profile-container {
   width: 100% !important;
-  height: 127vh;
-  display: flex;
+  height: 96vh;
+  display: flex !important;
+  align-items: flex-start !important;
   place-items: center;
+  overflow: auto;
 }
 
 .profile-container-password-page {
@@ -17,12 +19,13 @@
 }
 
 .profile-box {
-  width: 35%;
+  width: 28%;
   height: 90%;
   background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
   border-radius: 53px;
-  padding: 60px 80px;
+  padding: 25px 33px;
   font-size: 16.5729px;
+  overflow: auto;
 }
 .flex {
   display: flex;
@@ -96,11 +99,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 15%;
+  width: 10%;
   height: 90%;
   background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
   border-radius: 53px;
-  padding: 28px 39px;
   font-size: 16.5729px;
 }
 
@@ -164,7 +166,7 @@
 
 .btn {
   background-color: #001e3c00;
-  width: 120%;
+  width: 100%;
   height: auto;
   font-weight: 400;
   font-size: 90%;
@@ -176,7 +178,7 @@
 .btn:hover {
   background-color: #d4e3d43f;
   color: white;
-  width: 120%;
+  width: 100%;
   border-radius: 50px;
 }
 
@@ -223,6 +225,7 @@
 
 .profile-information-fname-lname {
   max-width: 100%;
+  width: fit-content;
   overflow-x: auto;
 }
 
@@ -289,11 +292,12 @@
 }
 
 .profile-box-changePassword {
-  width: 35%;
+  width: 25%;
   height: 90%;
   background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
   border-radius: 53px;
-  padding: 60px 80px;
+  padding-top: 4%;
+
   font-size: 16.5729px;
 }
 
@@ -301,11 +305,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 15%;
+  width: 10%;
   height: 90%;
   background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
   border-radius: 53px;
-  padding: 28px 39px;
+  padding: 1px 8px;
   font-size: 16.5729px;
 }
 
@@ -330,7 +334,6 @@
     height: 100%;
     justify-content: center;
     align-items: center;
-    margin-top: 15%;
   }
   .box-profile-view {
     display: flex;
@@ -345,16 +348,21 @@
   .avatar-container {
     margin-top: 1% !important;
   }
+  .Avatar {
+    width: 100px !important;
+    height: 100px !important;
+  }
   .profile-box {
     width: 65% !important;
     padding: 0%;
+    height: fit-content;
     padding-top: 5%;
   }
   .otherStyledTextField-media {
     width: 100% !important;
   }
   .profile-container {
-    height: 878px;
+    height: 828px;
     width: 150%;
     margin-top: -35px;
     align-items: center !important;
@@ -364,8 +372,8 @@
     /* width: 100px; */
     font-size: 10px;
     justify-content: flex-end;
-    margin-top: 20px;
-    margin-right: -70px;
+    /* margin-top: 20px; */
+    /* margin-right: -70px; */
   }
   .birthday-border-media {
     padding-left: 100%;
@@ -389,18 +397,18 @@
     width: 100%;
   }
   .profile-information {
-    height: 756px;
-    width: 28% !important;
-    padding: 5%;
+    height: 656px;
+    width: 25% !important;
     align-items: center;
     display: flex;
+    padding-top: 10px;
     justify-content: flex-start;
     flex-direction: column;
   }
   .profile-information-pro {
-    height: 789px;
+    height: 757px;
     width: 28% !important;
-    padding: 5%;
+    padding-top: 5%;
     align-items: center;
     display: flex;
     justify-content: flex-start;
@@ -436,7 +444,7 @@
     width: 65% !important;
     padding: 0%;
     padding-top: 5%;
-    height: 758px;
+    height: 664px;
   }
 }
 
