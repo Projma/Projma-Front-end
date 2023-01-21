@@ -30,6 +30,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Shared/Loading";
 import { baseUrl } from "../../utilities/constants";
+import Header from "../Header/Header";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
@@ -150,6 +151,7 @@ export default function ChangePassword() {
   };
   return (
     <div>
+      <Header></Header>
       <Helmet>
         <title>تغییر رمز عبور</title>
       </Helmet>
@@ -181,10 +183,25 @@ export default function ChangePassword() {
                     fontWeight: "400",
                     fontSize: "90%",
                     color: "white",
+                    justifyContent: "center",
+                    width: "100%",
+                    height: "100%",
                   }}
-                  className="neonText profile-information-fname-lname vazir"
+                  className="flex profile-information-fname-lname vazir"
                 >
-                  {convertNumberToPersian(firstName)}{" "}
+                  {convertNumberToPersian(firstName)}
+                </h3>
+                <h3
+                  style={{
+                    fontWeight: "400",
+                    fontSize: "90%",
+                    color: "white",
+                    justifyContent: "center",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                  className="flex profile-information-fname-lname vazir"
+                >
                   {convertNumberToPersian(lastName)}
                 </h3>
                 <h4
@@ -267,10 +284,6 @@ export default function ChangePassword() {
                 </h3>
               </div>
               <div className="profile-box-body">
-                <div
-                  className="flex margin-top col-gap-8"
-                  style={{ justifyContent: "center", marginBottom: "1%" }}
-                ></div>
                 <div
                   style={{
                     display: "flex",
