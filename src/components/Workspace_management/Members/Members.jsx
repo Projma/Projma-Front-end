@@ -12,11 +12,13 @@ import { baseUrl } from "../../../utilities/constants";
 import "./Members.scss";
 import { convertNumberToPersian } from "../../../utilities/helpers";
 import anonymous from "../../../static/images/workspace_management/members/anonymous.png";
+import Loading from "../../Shared/Loading";
 
 const Members = ({ params }) => {
   const [members, setMembers] = React.useState([]);
   const [buttonClicked, setButtonClicked] = React.useState(false);
   const [workspace, setWorkspace] = React.useState({});
+  const [isPost, setIsPost] = useState(false);
   const [button_inner, setButton_inner] = React.useState("کپی لینک دعوت");
   useEffect(() => {
     apiInstance
@@ -49,6 +51,7 @@ const Members = ({ params }) => {
   const copyLink = (e) => {
     //console.log(`${baseUrl}workspaces/workspaceowner/${params.id}/invite-link`);
     if (button_inner === "کپی لینک دعوت") {
+      setIsPost(true);
       apiInstance
         .get(`workspaces/workspaceowner/${params.id}/invite-link/`)
         .then((res) => {
@@ -62,7 +65,8 @@ const Members = ({ params }) => {
                 console.error("Async: Could not copy text: ", err);
               }
             );
-        });
+        })
+        .finally(() => setIsPost(null));
     } else {
       setButton_inner("کپی لینک دعوت");
     }
@@ -107,6 +111,7 @@ const Members = ({ params }) => {
   const buttonRef = useRef(null);
   return (
     <div className="main-div">
+      {isPost ? <Loading /> : null}
       <ToastContainer />
       <Navbar params={params} />
       <div className="copy-link">

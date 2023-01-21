@@ -430,12 +430,15 @@ export default function TaskModal(props) {
         }));
         setListOfLabels(labels);
         const doer = res.data.doers.map((item) => ({
+          // id: item.id,
           email: item.email,
           username: item.username,
           first_name: item.first_name,
           last_name: item.last_name,
           profile_pic: item.profile_pic,
         }));
+        console.log("HHHHHHHHHHHHHHHHHHH");
+        console.log(doer);
         setListOfDoers(doer);
         const comments = res.data.comments.map((obj) => ({
           text: obj.text,

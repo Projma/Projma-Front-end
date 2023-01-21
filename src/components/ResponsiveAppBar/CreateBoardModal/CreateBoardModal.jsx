@@ -15,6 +15,7 @@ import { ToastContainer, toast } from "react-toastify";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Loading from "../../Shared/Loading";
 import MenuItem from "@mui/material/MenuItem";
 import {
   convertNumberToPersian,
@@ -79,10 +80,12 @@ export default function CreateBoardModal({}) {
   const [errorBoardName, setErrorBoardName] = React.useState(false);
   const [errorWorkspace, setErrorWorkspace] = React.useState(false);
   const [disableButton, setDisableButton] = React.useState(false);
+  const [isPost, setIsPost] = useState(false);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   // const on_submit = (form_data, boards, setBoards) => {
   const on_submit = (form_data) => {
     //console.log("here");
+    setIsPost(true);
     apiInstance
       .post(
         `/workspaces/workspaceowner/${workspaceId}/create-board/`,
@@ -100,7 +103,8 @@ export default function CreateBoardModal({}) {
 
         // navigateToBoard(res.data.id);
         delay(6000).then(() => navigateToBoard(res.data.id));
-      });
+      })
+      .finally(() => setIsPost(null));
   };
   const create_board = (e) => {
     e.preventDefault();
@@ -152,6 +156,7 @@ export default function CreateBoardModal({}) {
                     <p className="workspace-modal--add-button-title">+ افزودن بورد</p>
                 </button>
             </div> */}
+      {isPost ? <Loading /> : null}
       <Button
         onClick={handleOpen}
         sx={{
