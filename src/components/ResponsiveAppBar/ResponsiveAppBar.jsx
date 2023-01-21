@@ -156,7 +156,8 @@ function ResponsiveAppBar() {
         }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, }} />
+                    {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, }} /> */}
+                    <img src={require('./../../static/images/icon/logo.png')} style={{width: "4.5rem",}}/>
                     <Typography
                         variant="h6"
                         noWrap
@@ -172,7 +173,7 @@ function ResponsiveAppBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        PROJMA
+                        پروجما
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none', fontFamily: 'Vazir' } }}>
