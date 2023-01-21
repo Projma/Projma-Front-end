@@ -1251,12 +1251,12 @@ export const Dashborad = () => {
       ),
     },
     "templates": {
-        title: "تمپلیت ها",
-        icon: <ContentPasteTwoToneIcon sx={{ ml: 1.5 }} />,
-        content: (
-            // <a className="option" href="#"><ContentPasteTwoToneIcon /> </a>
-            <>
-                <p><ViewDayTwoToneIcon sx={{ ml: 1.5 }} />تمپلیت های گوناگون </p>
+      title: "تمپلیت ها",
+      icon: <ContentPasteTwoToneIcon sx={{ ml: 1.5 }} />,
+      content: (
+        // <a className="option" href="#"><ContentPasteTwoToneIcon /> </a>
+        <>
+          {/* <p><ViewDayTwoToneIcon sx={{ ml: 1.5 }} />تمپلیت های گوناگون </p>
                 <ul className="unOrderList">
                     <li className="list">مدیریت</li>
                     <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
@@ -1265,9 +1265,98 @@ export const Dashborad = () => {
                     <li className="list">صنعتی</li>
                     <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
                     <li className="list">مالی</li>
-                </ul>
-            </>
-        )
+                </ul> */}
+          <p variant="h1" component="h2" className="text paragraph">
+            <ViewDayTwoToneIcon
+              sx={{
+                // paddingLeft: "1%",
+                // minWidth: "35px",
+                ml: 1.5,
+              }}
+            />{" "}
+            تمپلیت های گوناگون
+          </p>
+          {templates.map((template) => {
+            return (
+              <>
+                <div>
+                  <p variant="h1" component="h2" className="text paragraph">
+                    {template.name}
+                  </p>
+                </div>
+                <Grid
+                  container
+                  columns={{ xs: 2, sm: 4, md: 8 }}
+                  // spacing={{ xs: 1, sm: 2, md: 3 }}
+                  sx={{
+                    // paddingTop: "5%",
+                    // marginTop: "10%",
+                    marginBottom: "10%",
+                    // backgroundColor: "#f5f5f5",
+                  }}
+                >
+                  <Grid item xs={2} sm={2} md={2} key={template.id} sx={{}}>
+                    <div>
+                      {/* // style={{}}> */}
+                      <Paper
+                        sx={{
+                          padding: "2%",
+                          textAlign: "center",
+                          // color: "#007fff",
+                          backgroundColor: "#007fff", // 5090D3
+                          borderRadius: "10px",
+                          // width: "100%",
+                          // height: "100%",
+                          // minWidth: "200px",
+                          // maxWidth: "300px",
+                          minHeight: "150px",
+                          // maxHeight: "300px",
+                          margin: "10%",
+                          // padding: "100px",
+                          // display: "flex",
+                          // justifyContent: "center",
+                          // alignItems: "center",
+                          // flexDirection: "column",
+                          ":hover": {
+                            backgroundColor: "#5090D3",
+                            cursor: "pointer",
+                          },
+                        }}
+                        // hover
+                        onClick={() => {
+                          // history.push(`/board/${board_id}`);
+                          // navigateToBoard(template.id);
+                        }}
+                      >
+                        <p
+                          variant="h1"
+                          component="h2"
+                          className="text paragraph"
+                        >
+                          {/* check that is null or not */}
+                          {template.name
+                            ? template.name
+                            : "بی‌نام"}
+                        </p>
+                        <p
+                          variant="h1"
+                          component="h2"
+                          className="text paragraph"
+                        >
+                          {template.description
+                            ? template.description
+                            : "بدون توضیحات"}
+                        </p>
+                      </Paper>
+                    </div>
+                  </Grid>
+                </Grid>
+                <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+              </>
+            );
+          })}
+        </>
+      )
     },
     home: {
       title: "خانه",
@@ -1567,9 +1656,9 @@ export const Dashborad = () => {
               icon={<HomeTwoToneIcon />}
             />
             <BottomNavigationAction
-                label="تمپلیت ها"
-                value="templates"
-                icon={<ContentPasteTwoToneIcon />}
+              label="تمپلیت ها"
+              value="templates"
+              icon={<ContentPasteTwoToneIcon />}
             />
             <BottomNavigationAction
               label="فضای کار ها"
