@@ -824,9 +824,10 @@ export const Dashborad = () => {
                     <Paper
                       sx={{
                         padding: "3%",
-                        textAlign: "center",
+                        // textAlign: "center",
                         // color: "#007fff",
-                        backgroundColor: "#007fff", // 5090D3
+                        // backgroundColor: "#007fff", // 5090D3
+                        backgroundColor: "#0A1929", // 5090D3 , 007fff, 132F4C, 173A5E
                         borderRadius: "10px",
                         // width: "100%",
                         // height: "100%",
@@ -841,8 +842,8 @@ export const Dashborad = () => {
                         // alignItems: "center",
                         // flexDirection: "column",
                         ":hover": {
-                          backgroundColor: "#5090D3",
-                          cursor: "pointer",
+                          backgroundColor: "#173A5E", // 5090D3
+                          // cursor: "pointer",
                         },
                       }}
                       // hover
@@ -855,7 +856,66 @@ export const Dashborad = () => {
                         component="h2"
                         className="text paragraph"
                       >
-                        {/* check that is null or not */}
+                        نام تمپلیت: 
+                        <br/>
+                        {template.name
+                          ? template.name
+                          : "بی‌نام"}
+                      </p>
+                      <p
+                        variant="h1"
+                        component="h2"
+                        className="text paragraph"
+                      >
+                        توضیحات: 
+                        <br/>
+                        {template
+                          ? template.description
+                          : "بدون توضیحات"}
+                      </p>
+                      {/* <CreateTemplateModal
+                          template_id={template.id}
+                          template_name={template.name}
+                          template_description={template.description}
+                          template_background_pic={template.background_pic}
+                        /> */}
+                    </Paper>
+                  </Grid>
+                  <Grid item xs={2} sm={2} md={2} key={template.id} sx={{}}>
+                    <Paper
+                      sx={{
+                        padding: "3%",
+                        textAlign: "center",
+                        // color: "#007fff",
+                        backgroundColor: "#007fff", // 5090D3
+                        borderRadius: "10px",
+                        // width: "100%",
+                        // height: "100%",
+                        // minWidth: "200px",
+                        // maxWidth: "300px",
+                        minHeight: "150px",
+                        // maxHeight: "300px",
+                        margin: "10%",
+                        // padding: "10px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        ":hover": {
+                          backgroundColor: "#5090D3",
+                          cursor: "pointer",
+                        },
+                      }}
+                      // hover
+                      // onClick={() => {
+                      //   // openCreateTemplateModal(template.id, template.name, template.description, template.background_pic);
+                      // }}
+                    >
+                      {/* <p
+                        variant="h1"
+                        component="h2"
+                        className="text paragraph"
+                      >
                         {template.name
                           ? template.name
                           : "بی‌نام"}
@@ -868,7 +928,7 @@ export const Dashborad = () => {
                         {template
                           ? template.description
                           : "بدون توضیحات"}
-                      </p>
+                      </p> */}
                       <CreateTemplateModal
                           template_id={template.id}
                           template_name={template.name}
@@ -1277,15 +1337,14 @@ export const Dashborad = () => {
                     // backgroundColor: "#f5f5f5",
                   }}
                 >
-                  <Grid item xs={2} sm={2} md={2} key={template.id} sx={{}}>
+                  <Grid item xs={2} sm={2} md={2} key={template.id*template.id+1} sx={{}}>
                     <div>
-                      {/* // style={{}}> */}
                       <Paper
                         sx={{
                           padding: "2%",
-                          textAlign: "center",
+                          // textAlign: "center",
                           // color: "#007fff",
-                          backgroundColor: "#007fff", // 5090D3
+                          backgroundColor: "#0A1929", // 5090D3 , 007fff, 132F4C, 173A5E
                           borderRadius: "10px",
                           // width: "100%",
                           // height: "100%",
@@ -1301,7 +1360,8 @@ export const Dashborad = () => {
                           // flexDirection: "column",
                           ":hover": {
                             backgroundColor: "#5090D3",
-                            cursor: "pointer",
+                            // backgroundColor: "#007fff",
+                            // cursor: "pointer",
                           },
                         }}
                         // hover
@@ -1314,7 +1374,68 @@ export const Dashborad = () => {
                           component="h2"
                           className="text paragraph"
                         >
-                          {/* check that is null or not */}
+                          نام تمپلیت:
+                          <br/>
+                          {template.name
+                            ? template.name
+                            : "بی‌نام"}
+                        </p>
+                        <p
+                          variant="h1"
+                          component="h2"
+                          className="text paragraph"
+                        >
+                          توضیحات:
+                          <br />
+                          {template.description
+                            ? template.description
+                            : "بدون توضیحات"}
+                        </p>
+                        {/* <CreateTemplateModal
+                          template_id={template.id}
+                          template_name={template.name}
+                          template_description={template.description}
+                          template_background_pic={template.background_pic}
+                        /> */}
+                      </Paper>
+                    </div>
+                  </Grid>
+                  <Grid item xs={2} sm={2} md={2} key={template.id} sx={{}}>
+                    <div>
+                      <Paper
+                        sx={{
+                          padding: "2%",
+                          textAlign: "center",
+                          // color: "#007fff",
+                          backgroundColor: "#007fff", // 5090D3
+                          borderRadius: "10px",
+                          // width: "100%",
+                          // height: "100%",
+                          // minWidth: "200px",
+                          // maxWidth: "300px",
+                          minHeight: "150px",
+                          // maxHeight: "300px",
+                          margin: "10%",
+                          // padding: "100px",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          flexDirection: "column",
+                          ":hover": {
+                            backgroundColor: "#5090D3",
+                            cursor: "pointer",
+                          },
+                        }}
+                        // hover
+                        // onClick={() => {
+                        //   // openCreateTemplateModal(template.id, template.name, template.description, template.background_pic);
+                        // }}
+                      >
+                        {/* <p
+                          variant="h1"
+                          component="h2"
+                          className="text paragraph"
+                        >
                           {template.name
                             ? template.name
                             : "بی‌نام"}
@@ -1327,7 +1448,7 @@ export const Dashborad = () => {
                           {template.description
                             ? template.description
                             : "بدون توضیحات"}
-                        </p>
+                        </p> */}
                         <CreateTemplateModal
                           template_id={template.id}
                           template_name={template.name}
