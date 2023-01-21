@@ -1,0 +1,21 @@
+.board_avatar-profile-picture:hover,
+.board_avatar-profile-picture:last-child:hover {
+    opacity: 60%;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+.chart {
+    max-width: 760px;
+    margin: 35px auto;
+    opacity: 0.9;
+}
+
+.timeline-chart .apexcharts-toolbar {
+    opacity: 1;
+    border: 0;
+}
