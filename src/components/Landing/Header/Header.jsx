@@ -60,20 +60,37 @@ const Header = () => {
   const matches = useMediaQuery("(max-width:900px)");
 
   return (
-    <header>
+    <>
       <Nav />
       <div className="top-section">
         <Grid
           container
           // spacing={{ xs: 1, md: 10, sm: 5 }}
-          columns={{ xs: 2, sm: 4, md: 5 }}
+          columns={{ xs: 2, sm: 4, md: 4 }}
+          sx = {{
+            padding: "0%",
+            margin: "0%",
+          }}
         >
-          <Grid item xs={2} sm={4} md={2}>
+          <Grid item xs={2} sm={4} md={2}
+          sx= {{
+            padding: "0%",
+            margin: "0%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          >
             {/* <div className="top-el top-el-2"> */}
             <Box
               sx={{
                 padding: "10%",
                 fontSize: "1.5rem",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                // alignItems: "center",
+
               }}
             >
               {/* <h1 className="responsive--font--size--2"> */}
@@ -94,9 +111,9 @@ const Header = () => {
                     name="email"
                     autoComplete="email"
                     autoFocus
-                    sx={{ width: "60%", display: "block" }}
-                    InputLabelProps={{ style: { fontFamily: "Vazir" } }}
-                    InputProps={{ style: { fontFamily: "Vazir" } }}
+                    sx={{ width: "85%", display: "block" }}
+                    InputLabelProps={{ style: { fontFamily: "Vazir", fontSize: "2rem" } }}
+                    InputProps={{ style: { fontFamily: "Vazir", fontSize: "1.7rem" } }}
                     onChange={(e) => {
                       // //console.log(e.target.value);
                       document.getElementById("email").value =
@@ -122,8 +139,8 @@ const Header = () => {
                 sx={{
                   // height: 54,
                   // width: 150,
-                  fontSize: "90%",
-                  width: "30%",
+                  fontSize: "1.8rem",
+                  width: "60%",
                   height: "100%",
                   fontFamily: "Vazir",
                 }}
@@ -135,19 +152,31 @@ const Header = () => {
             {/* </div> */}
           </Grid>
           <Grid
-            item
-            xs={2}
-            sm={4}
-            md={3}
-            sx={{ display: "flex", justifyContent: "flex-end" }}
+            item xs={2} sm={4} md={2}
+            sx={{ 
+              display: "flex", 
+              justifyContent: "center",
+              // justifyContent: "flex-end" ,
+              alignItems: "center",
+              padding: "0%",
+              // background: "#076585" /* fallback for old browsers */,
+              backgroundColor: "transparent",
+              padding: "0%",
+              }}
           >
             {/* <div className="top-el top-el-1 top-el-img"> */}
-            <img src={conversation} className="responsive--height top-img" />
+            {/* <Grid> */}
+
+              <img src={conversation} className="top-img" style={{
+                // background: "transparent",
+                // backgroundColor: "black",
+              }}/>
+            {/* </Grid> */}
             {/* </div> */}
           </Grid>
         </Grid>
       </div>
-    </header>
+    </>
   );
 };
 

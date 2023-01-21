@@ -2,8 +2,9 @@
   display: flex;
   justify-content: center;
   background-color: white;
-  height: 60vh;
-  margin: Auto;
+  /* height: 60%; */
+  /* margin: Auto; */
+  margin-bottom: 0%;
   font-family: -Apple-System, BlinkMacSystemFont, Sans-Serif;
   /* overflow: Auto; */
   background: Linear-Gradient(
@@ -31,9 +32,9 @@
 }
 
 .top-img {
-  width: 65%;
-  height: 65%;
-  margin-top: 1rem;
+  width: 85%;
+  height: 85%;
+  /* margin-top: 5rem; */
 }
 
 .black--text {
