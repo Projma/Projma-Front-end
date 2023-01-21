@@ -213,7 +213,7 @@ export default function CreateBoardModal({}) {
               color: "#fff",
             }}
           >
-            ساخت برد جدید
+            ساخت بورد جدید
           </Typography>
           <Divider
             sx={{
@@ -228,7 +228,7 @@ export default function CreateBoardModal({}) {
               <StyledTextField
                 className="workspace-modal--board-name"
                 id="board_name"
-                label="نام برد"
+                label="نام بورد"
                 value={title}
                 onChange={(e) => {
                   setTitle(convertNumberToPersian(e.target.value));
@@ -257,7 +257,7 @@ export default function CreateBoardModal({}) {
                   },
                 }}
                 error={errorBoardName}
-                helperText={errorBoardName ? "نام برد نمی تواند خالی باشد" : ""}
+                helperText={errorBoardName ? "نام بورد نمی تواند خالی باشد" : ""}
               />
               <StyledTextField
                 className="workspace-modal--board-name"
@@ -389,7 +389,7 @@ export default function CreateBoardModal({}) {
               // id="img"
             /> */}
             {/* <img src={this.state.imgSrc} alt="img" /> */}
-            {/* <label id="title">عنوان برد</label>
+            {/* <label id="title">عنوان بورد</label>
             <input type="text" id="title" className="workspace-modal--title-inp" /> */}
             {/* <button onClick={create_board}>submit</button> */}
             <input
