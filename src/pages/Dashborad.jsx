@@ -881,7 +881,7 @@ export const Dashborad = () => {
                         /> */}
                     </Paper>
                   </Grid>
-                  <Grid item xs={2} sm={2} md={2} key={template.id} sx={{}}>
+                  <Grid item xs={2} sm={2} md={2} key={template.id*template.id+2} sx={{}}>
                     <Paper
                       sx={{
                         padding: "3%",
