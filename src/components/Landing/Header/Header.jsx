@@ -16,8 +16,11 @@ import { redirect } from "react-router-dom";
 import { AddBox } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import conversation from "../../../static/images/landing/conversation.svg";
-import { useNavigate } from 'react-router-dom';
-import { convertNumberToPersian, convertNumberToEnglish } from "../../../utilities/helpers.js";
+import { useNavigate } from "react-router-dom";
+import {
+  convertNumberToPersian,
+  convertNumberToEnglish,
+} from "../../../utilities/helpers.js";
 
 // const loader = async () => {
 //   const attButton = e.target.getAttribute("button-key");
@@ -43,17 +46,17 @@ const Header = () => {
   const navigate = useNavigate();
   let width = window.innerWidth;
   let isMatch = width > 900 ? true : false;
-  const config = isMatch
-    ? {
-        background: "#076585" /* fallback for old browsers */,
-        background: "-webkit-linear-gradient(to left, #076585, #fff)",
-        background: "linear-gradient(to left, #076585, #fff)",
-      }
-    : {
-        background: "#076585" /* fallback for old browsers */,
-        background: "-webkit-linear-gradient(to top, #076585, #fff)",
-        background: "linear-gradient(to top, #076585, #fff)",
-      };
+  // const config = isMatch
+  //   ? {
+  //       background: "#076585" /* fallback for old browsers */,
+  //       background: "-webkit-linear-gradient(to left, #076585, #fff)",
+  //       background: "linear-gradient(to left, #076585, #fff)",
+  //     }
+  //   : {
+  //       background: "#076585" /* fallback for old browsers */,
+  //       background: "-webkit-linear-gradient(to top, #076585, #fff)",
+  //       background: "linear-gradient(to top, #076585, #fff)",
+  //     };
   const matches = useMediaQuery("(max-width:900px)");
 
   return (
@@ -65,7 +68,7 @@ const Header = () => {
           // spacing={{ xs: 1, md: 10, sm: 5 }}
           columns={{ xs: 2, sm: 4, md: 5 }}
         >
-          <Grid item xs={2} sm={4} md={2} sx={config}>
+          <Grid item xs={2} sm={4} md={2}>
             {/* <div className="top-el top-el-2"> */}
             <Box
               sx={{
@@ -75,9 +78,9 @@ const Header = () => {
             >
               {/* <h1 className="responsive--font--size--2"> */}
               <h2>
-              <b className="black--text">
-                با پروجما کیفیت کار تیمی خود را ارتقا دهید
-              </b>
+                <b className="black--text">
+                  با پروجما کیفیت کار تیمی خود را ارتقا دهید
+                </b>
               </h2>
               <CacheProvider value={cacheRtl}>
                 <ThemeProvider theme={theme}>
@@ -96,7 +99,8 @@ const Header = () => {
                     InputProps={{ style: { fontFamily: "Vazir" } }}
                     onChange={(e) => {
                       // //console.log(e.target.value);
-                      document.getElementById("email").value = convertNumberToPersian(e.target.value);
+                      document.getElementById("email").value =
+                        convertNumberToPersian(e.target.value);
                     }}
                   />
                 </ThemeProvider>
@@ -106,7 +110,15 @@ const Header = () => {
                 // button-key="buttonAttribute"
                 // onClick={() => navigate("/signup/")}
                 // navifate with email address
-                onClick={() => navigate("/signup/", { state: { email: convertNumberToEnglish(document.getElementById("email").value) } })}
+                onClick={() =>
+                  navigate("/signup/", {
+                    state: {
+                      email: convertNumberToEnglish(
+                        document.getElementById("email").value
+                      ),
+                    },
+                  })
+                }
                 sx={{
                   // height: 54,
                   // width: 150,
@@ -122,7 +134,13 @@ const Header = () => {
             </Box>
             {/* </div> */}
           </Grid>
-          <Grid item xs={2} sm={4} md={3}>
+          <Grid
+            item
+            xs={2}
+            sm={4}
+            md={3}
+            sx={{ display: "flex", justifyContent: "flex-end" }}
+          >
             {/* <div className="top-el top-el-1 top-el-img"> */}
             <img src={conversation} className="responsive--height top-img" />
             {/* </div> */}
