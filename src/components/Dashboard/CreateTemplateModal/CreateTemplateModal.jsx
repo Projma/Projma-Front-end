@@ -201,7 +201,7 @@ export default function CreateTemplateModal(props) {
                             color: "#fff",
                         }}
                     >
-                        ساخت تمپلیت جدید
+                        ساخت تمپلیت {props.template_name}
                     </Typography>
                     <Divider
                         sx={{
