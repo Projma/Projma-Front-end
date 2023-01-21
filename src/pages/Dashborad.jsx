@@ -489,6 +489,13 @@ export const Dashborad = () => {
 
   }, []);
 
+  const openCreateTemplateModal = (template_id, template_name, template_description, template_background_pic) => {
+    //console.log(template.id, template.name, template.description, template.background_pic);
+    //console.log(template);
+    // setTemplate(template);
+    // setCreateTemplateModal(true);
+  }
+
   const computer_tabs = {
     boards: {
       title: "بورد ها",
@@ -789,18 +796,7 @@ export const Dashborad = () => {
       title: "تمپلیت ها",
       icon: <ContentPasteTwoToneIcon sx={{ ml: 1.5 }} />,
       content: (
-        // <a className="option" href="#"><ContentPasteTwoToneIcon /> </a>
         <>
-          {/* <p><ViewDayTwoToneIcon sx={{ ml: 1.5 }} />تمپلیت های گوناگون </p>
-                <ul className="unOrderList">
-                    <li className="list">Agile Board</li>
-                    <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                    <li className="list">Kanban</li>
-                    <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                    <li className="list">Project Management</li>
-                    <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                    <li className="list">Simple Template</li>
-                </ul> */}
           <p variant="h1" component="h2" className="text paragraph">
             <ViewDayTwoToneIcon
               sx={{
@@ -859,9 +855,9 @@ export const Dashborad = () => {
                       onClick={() => {
                         // history.push(`/board/${board_id}`);
                         // navigateToBoard(template.id);
+                        openCreateTemplateModal(template.id, template.name, template.description, template.background_pic);
                       }}
                     >
-                      {/* `/workspaces/boardsmemberapi/${board_id}/get-board/` */}
                       <p
                         variant="h1"
                         component="h2"
@@ -881,7 +877,12 @@ export const Dashborad = () => {
                           ? template.description
                           : "بدون توضیحات"}
                       </p>
-                      {/* </> */}
+                      <CreateTemplateModal
+                          template_id={template.id}
+                          template_name={template.name}
+                          template_description={template.description}
+                          template_background_pic={template.background_pic}
+                        />
                     </Paper>
                   </Grid>
                 </Grid>
@@ -1254,18 +1255,7 @@ export const Dashborad = () => {
       title: "تمپلیت ها",
       icon: <ContentPasteTwoToneIcon sx={{ ml: 1.5 }} />,
       content: (
-        // <a className="option" href="#"><ContentPasteTwoToneIcon /> </a>
         <>
-          {/* <p><ViewDayTwoToneIcon sx={{ ml: 1.5 }} />تمپلیت های گوناگون </p>
-                <ul className="unOrderList">
-                    <li className="list">مدیریت</li>
-                    <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                    <li className="list">تیمی</li>
-                    <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                    <li className="list">صنعتی</li>
-                    <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-                    <li className="list">مالی</li>
-                </ul> */}
           <p variant="h1" component="h2" className="text paragraph">
             <ViewDayTwoToneIcon
               sx={{
@@ -1326,6 +1316,7 @@ export const Dashborad = () => {
                         onClick={() => {
                           // history.push(`/board/${board_id}`);
                           // navigateToBoard(template.id);
+                          // openCreateTemplateModal(template.id, template.name, template.description, template.background_pic);
                         }}
                       >
                         <p
@@ -1347,6 +1338,12 @@ export const Dashborad = () => {
                             ? template.description
                             : "بدون توضیحات"}
                         </p>
+                        <CreateTemplateModal
+                          template_id={template.id}
+                          template_name={template.name}
+                          template_description={template.description}
+                          template_background_pic={template.background_pic}
+                        />
                       </Paper>
                     </div>
                   </Grid>
