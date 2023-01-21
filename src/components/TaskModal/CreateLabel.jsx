@@ -7,17 +7,20 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import StyledTextField from "../Shared/StyledTextField";
 import PerTextField from "../Shared/PerTextField.js";
 import "../../styles/TaskModal.css";
+import Loading from "../Shared/Loading";
 // persian num
 import { convertNumberToPersian } from "../../utilities/helpers";
 
 const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
   const [createdTitle, setCreatedTitle] = useState("");
   const [createdColor, setCreatedColor] = useState("#265D97");
+  const [isPost, setIsPost] = useState(false);
 
   const createThisItem = (e) => {
     //console.log("create this item");
     //console.log(createdTitle);
     //console.log(createdColor);
+    setIsPost(true);
     if (createdTitle === "") {
       toast.error("عنوان برچسب نمیتواند خالی باشد", {
         position: toast.POSITION.BOTTOM_LEFT,
@@ -38,12 +41,14 @@ const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-      });
+      })
+      .finally(() => setIsPost(null));
     setShowCreate(false);
   };
 
   return (
     <>
+      {isPost ? <Loading /> : null}
       <div className="tm_create-labels-main-div">
         <button
           onClick={(e) => setShowCreate(false)}
@@ -118,7 +123,9 @@ const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
             >
               <StyledTextField
                 value={createdTitle}
-                onChange={(e) => setCreatedTitle(convertNumberToPersian(e.target.value))}
+                onChange={(e) =>
+                  setCreatedTitle(convertNumberToPersian(e.target.value))
+                }
                 sx={{
                   textAlign: "center",
                   fontFamily: "Vazir",
