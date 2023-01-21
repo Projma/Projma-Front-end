@@ -15,6 +15,7 @@ import { ToastContainer, toast } from "react-toastify";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { convertNumberToPersian } from "../../../utilities/helpers.js";
+import Loading from "../../Shared/Loading";
 
 const style = {
   position: "absolute",
@@ -69,11 +70,13 @@ export default function CreateBoardModal({ workspace_id }) {
   const [description, setDescription] = React.useState("");
   const [file, setFile] = React.useState(null);
   const [errorBoardName, setErrorBoardName] = React.useState(false);
+  const [isPost, setIsPost] = useState(false);
   const [disableButton, setDisableButton] = React.useState(false);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   // const on_submit = (form_data, boards, setBoards) => {
   const on_submit = (form_data) => {
     //console.log("here");
+    setIsPost(true);
     apiInstance
       .post(
         `/workspaces/workspaceowner/${workspace_id}/create-board/`,
@@ -91,7 +94,8 @@ export default function CreateBoardModal({ workspace_id }) {
 
         // navigateToBoard(res.data.id);
         delay(6000).then(() => navigateToBoard(res.data.id));
-      });
+      })
+      .finally(() => setIsPost(null));
   };
   const create_board = (e) => {
     e.preventDefault();
@@ -122,6 +126,7 @@ export default function CreateBoardModal({ workspace_id }) {
   };
   return (
     <div>
+      {isPost ? <Loading /> : null}
       {/* <div className="workspace-modal--add-button-container">
                 <button className="workspace-modal--add-button" onClick={handleOpen}>
                     <p className="workspace-modal--add-button-title">+ افزودن بورد</p>

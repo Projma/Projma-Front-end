@@ -9,13 +9,14 @@ import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { Calendar } from "react-multi-date-picker";
-import { Try } from "@mui/icons-material";
+import Loading from "../../Shared/Loading";
 
 export default function FilterTask({ boardId, setLists }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [boardLabels, setBoardLabels] = useState([]);
   const [boardMembers, setBoardMembers] = useState([]);
   const [selectedMembers, setSelectedMembers] = useState([]);
+  const [isPost, setIsPost] = useState(false);
   const [selectedLabels, setSelectedLabels] = useState([]);
   // const [date, setDate] = useState("");
   const [value, setValue] = React.useState(new Date());
@@ -213,6 +214,7 @@ export default function FilterTask({ boardId, setLists }) {
   };
 
   const resetFilter = (event) => {
+    setIsPost(true);
     setSelectedLabels([]);
     setSelectedMembers([]);
     setDate("");
@@ -225,14 +227,19 @@ export default function FilterTask({ boardId, setLists }) {
       return { ...val, checked: false };
     });
     setBoardMembers(resetmem);
-    apiInstance.get(url).then((res) => {
-      //console.log("filtered tasks");
-      //console.log(res.data);
-      res.data.tasklists.map((list) => {
-        list.tasks.sort((a, b) => a.order - b.order);
+    apiInstance
+      .get(url)
+      .then((res) => {
+        //console.log("filtered tasks");
+        //console.log(res.data);
+        res.data.tasklists.map((list) => {
+          list.tasks.sort((a, b) => a.order - b.order);
+        });
+        setLists(res.data.tasklists.sort((a, b) => b.order - a.order));
+      })
+      .finally(() => {
+        setIsPost(null);
       });
-      setLists(res.data.tasklists.sort((a, b) => b.order - a.order));
-    });
   };
 
   const handleClick = (event) => {
@@ -248,6 +255,7 @@ export default function FilterTask({ boardId, setLists }) {
 
   return (
     <div>
+      {isPost ? <Loading /> : null}
       <Button aria-describedby={id} variant="contained" onClick={handleClick}>
         فیلتر تسک
       </Button>
