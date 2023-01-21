@@ -83,7 +83,7 @@ export default function CreateTemplateModal(props) {
     // const on_submit = (form_data, boards, setBoards) => {
     const on_submit = (form_data) => {
         apiInstance
-            .post(
+            .get(
                 `/workspaces/templates/${props.template_id}/create-board-from-template/${workspaceId}/`,
                 form_data
             )
