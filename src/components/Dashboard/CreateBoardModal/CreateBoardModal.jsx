@@ -231,7 +231,9 @@ export default function CreateBoardModal({ workspace_id }) {
                   },
                 }}
                 error={errorBoardName}
-                helperText={errorBoardName ? "نام بورد نمی تواند خالی باشد" : ""}
+                helperText={
+                  errorBoardName ? "نام بورد نمی تواند خالی باشد" : ""
+                }
               />
               <StyledTextField
                 className="workspace-modal--board-name"

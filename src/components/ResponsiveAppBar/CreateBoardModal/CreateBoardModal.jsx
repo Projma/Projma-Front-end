@@ -190,11 +190,12 @@ export default function CreateBoardModal({}) {
                     افزودن بورد +
                 </h2> */}
 
-        <h4
-        // style={{color: 'black',}}
+        <div
+          style={{ fontSize: "87%" }}
+          // style={{color: 'black',}}
         >
           افزودن بورد +
-        </h4>
+        </div>
       </Button>
       <Modal
         open={open}
@@ -211,6 +212,7 @@ export default function CreateBoardModal({}) {
               textAlign: "center",
               fontFamily: "Vazir",
               color: "#fff",
+              fontSize: "109%",
             }}
           >
             ساخت بورد جدید
@@ -236,7 +238,7 @@ export default function CreateBoardModal({}) {
                 required
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir", fontSize: "1.6rem" },
+                  style: { fontFamily: "Vazir", fontSize: "75%" },
                 }}
                 inputProps={{
                   style: {
@@ -257,7 +259,9 @@ export default function CreateBoardModal({}) {
                   },
                 }}
                 error={errorBoardName}
-                helperText={errorBoardName ? "نام بورد نمی تواند خالی باشد" : ""}
+                helperText={
+                  errorBoardName ? "نام بورد نمی تواند خالی باشد" : ""
+                }
               />
               <StyledTextField
                 className="workspace-modal--board-name"
@@ -272,7 +276,7 @@ export default function CreateBoardModal({}) {
                   fontSize: "1.7rem",
                 }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir", fontSize: "1.6rem" },
+                  style: { fontFamily: "Vazir", fontSize: "80%" },
                 }}
                 inputProps={{
                   style: {
@@ -336,7 +340,7 @@ export default function CreateBoardModal({}) {
                 }}
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir", fontSize: "1.6rem" },
+                  style: { fontFamily: "Vazir", fontSize: "75%" },
                 }}
                 inputProps={{
                   style: {
@@ -348,37 +352,46 @@ export default function CreateBoardModal({}) {
                 }}
               />
             </PerTextField>
-            <Avatar
-              src={file ? file : x}
-              alt="profile"
-              sx={{
-                mt: 1,
-                width: "11vmin",
-                height: "11vmin",
-                borderRadius: "50%",
-              }}
-            />
-
-            <Button
-              variant="contained"
-              component="label"
-              sx={{
-                // backgroundColor: themeProps.primaryColor,
-                color: "white",
-                width: "120px",
-                mt: 2,
-                marginRight: "1.5rem",
-                marginTop: 0,
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+                rowGap: "1rem",
               }}
             >
-              <p style={{ fontSize: "1.5rem" }}>انتخاب عکس</p>
-              <input
-                type="file"
-                hidden
-                onChange={handleChange}
-                accept=".jpg,.jpeg,.png"
+              <Avatar
+                src={file ? file : x}
+                alt="profile"
+                sx={{
+                  mt: 1,
+                  width: "11vmin",
+                  height: "11vmin",
+                  borderRadius: "50%",
+                }}
               />
-            </Button>
+
+              <Button
+                variant="contained"
+                component="label"
+                sx={{
+                  // backgroundColor: themeProps.primaryColor,
+                  color: "white",
+                  width: "120px",
+                  mt: 2,
+                  marginTop: 0,
+                }}
+              >
+                <p style={{ fontSize: "76%" }}>انتخاب عکس</p>
+                <input
+                  type="file"
+                  hidden
+                  onChange={handleChange}
+                  accept=".jpg,.jpeg,.png"
+                />
+              </Button>
+            </div>
             {/* <input
               type="file"
               // ref="file"
@@ -397,7 +410,7 @@ export default function CreateBoardModal({}) {
               value="بساز"
               className="workspace-modal--button-29"
               onClick={create_board}
-              style={{ fontFamily: "Vazir" }}
+              style={{ fontFamily: "Vazir", fontSize: "101%" }}
             />
           </form>
           {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
