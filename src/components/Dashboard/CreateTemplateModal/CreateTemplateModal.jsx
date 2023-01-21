@@ -164,8 +164,8 @@ export default function CreateTemplateModal(props) {
                     // padding: '10%',
                     // paddingTop: '1%',
                     // paddingBottom: '1%',
-                    // margin: '10%',
-                    // padding: '10%',
+                    margin: '0%',
+                    // padding: '5%',
                     // paddingTop: '5%',
                     // marginTop: '5%',
 
@@ -178,11 +178,11 @@ export default function CreateTemplateModal(props) {
                 }}
             >
 
-                <h4
+                <h3
                 // style={{color: 'black',}}
                 >
-                    افزودن تمپلیت +
-                </h4>
+                    افزودن تمپلیت
+                </h3>
             </Button>
             <Modal
                 open={open}
