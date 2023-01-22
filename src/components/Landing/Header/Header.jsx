@@ -16,17 +16,21 @@ import { redirect } from "react-router-dom";
 import { AddBox } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import conversation from "../../../static/images/landing/conversation.svg";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import {
+  convertNumberToPersian,
+  convertNumberToEnglish,
+} from "../../../utilities/helpers.js";
 
 // const loader = async () => {
 //   const attButton = e.target.getAttribute("button-key");
-//   console.log(attButton);
+//   ////console.log(attButton);
 //   return redirect("/test");
 // };
 
 // isClicked = (e) => {
 //   const attButton = e.target.getAttribute("button-key");
-//   console.log(attButton);
+//   ////console.log(attButton);
 // };
 
 const theme = createTheme({
@@ -42,41 +46,58 @@ const Header = () => {
   const navigate = useNavigate();
   let width = window.innerWidth;
   let isMatch = width > 900 ? true : false;
-  const config = isMatch
-    ? {
-        background: "#076585" /* fallback for old browsers */,
-        background: "-webkit-linear-gradient(to left, #076585, #fff)",
-        background: "linear-gradient(to left, #076585, #fff)",
-      }
-    : {
-        background: "#076585" /* fallback for old browsers */,
-        background: "-webkit-linear-gradient(to top, #076585, #fff)",
-        background: "linear-gradient(to top, #076585, #fff)",
-      };
+  // const config = isMatch
+  //   ? {
+  //       background: "#076585" /* fallback for old browsers */,
+  //       background: "-webkit-linear-gradient(to left, #076585, #fff)",
+  //       background: "linear-gradient(to left, #076585, #fff)",
+  //     }
+  //   : {
+  //       background: "#076585" /* fallback for old browsers */,
+  //       background: "-webkit-linear-gradient(to top, #076585, #fff)",
+  //       background: "linear-gradient(to top, #076585, #fff)",
+  //     };
   const matches = useMediaQuery("(max-width:900px)");
 
   return (
-    <header>
+    <>
       <Nav />
       <div className="top-section">
         <Grid
           container
           // spacing={{ xs: 1, md: 10, sm: 5 }}
-          columns={{ xs: 2, sm: 4, md: 5 }}
+          columns={{ xs: 2, sm: 4, md: 4 }}
+          sx = {{
+            padding: "0%",
+            margin: "0%",
+          }}
         >
-          <Grid item xs={2} sm={4} md={2} sx={config}>
+          <Grid item xs={2} sm={4} md={2}
+          sx= {{
+            padding: "0%",
+            margin: "0%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          >
             {/* <div className="top-el top-el-2"> */}
             <Box
               sx={{
                 padding: "10%",
                 fontSize: "1.5rem",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                // alignItems: "center",
+
               }}
             >
               {/* <h1 className="responsive--font--size--2"> */}
               <h2>
-              <b className="black--text">
-                با پروجما کیفیت کار تیمی خود را ارتقا دهید
-              </b>
+                <b className="black--text">
+                  با پروجما کیفیت کار تیمی خود را ارتقا دهید
+                </b>
               </h2>
               <CacheProvider value={cacheRtl}>
                 <ThemeProvider theme={theme}>
@@ -90,9 +111,14 @@ const Header = () => {
                     name="email"
                     autoComplete="email"
                     autoFocus
-                    sx={{ width: "60%", display: "block" }}
-                    InputLabelProps={{ style: { fontFamily: "Vazir" } }}
-                    InputProps={{ style: { fontFamily: "Vazir" } }}
+                    sx={{ width: "85%", display: "block" }}
+                    InputLabelProps={{ style: { fontFamily: "Vazir", fontSize: "2rem" } }}
+                    InputProps={{ style: { fontFamily: "Vazir", fontSize: "1.7rem" } }}
+                    onChange={(e) => {
+                      // ////console.log(e.target.value);
+                      document.getElementById("email").value =
+                        convertNumberToPersian(e.target.value);
+                    }}
                   />
                 </ThemeProvider>
               </CacheProvider>
@@ -101,12 +127,20 @@ const Header = () => {
                 // button-key="buttonAttribute"
                 // onClick={() => navigate("/signup/")}
                 // navifate with email address
-                onClick={() => navigate("/signup/", { state: { email: document.getElementById("email").value } })}
+                onClick={() =>
+                  navigate("/signup/", {
+                    state: {
+                      email: convertNumberToEnglish(
+                        document.getElementById("email").value
+                      ),
+                    },
+                  })
+                }
                 sx={{
                   // height: 54,
                   // width: 150,
-                  fontSize: "90%",
-                  width: "30%",
+                  fontSize: "1.8rem",
+                  width: "60%",
                   height: "100%",
                   fontFamily: "Vazir",
                 }}
@@ -117,14 +151,32 @@ const Header = () => {
             </Box>
             {/* </div> */}
           </Grid>
-          <Grid item xs={2} sm={4} md={3}>
+          <Grid
+            item xs={2} sm={4} md={2}
+            sx={{ 
+              display: "flex", 
+              justifyContent: "center",
+              // justifyContent: "flex-end" ,
+              alignItems: "center",
+              padding: "0%",
+              // background: "#076585" /* fallback for old browsers */,
+              backgroundColor: "transparent",
+              padding: "0%",
+              }}
+          >
             {/* <div className="top-el top-el-1 top-el-img"> */}
-            <img src={conversation} className="responsive--height top-img" />
+            {/* <Grid> */}
+
+              <img src={conversation} className="top-img" style={{
+                // background: "transparent",
+                // backgroundColor: "black",
+              }}/>
+            {/* </Grid> */}
             {/* </div> */}
           </Grid>
         </Grid>
       </div>
-    </header>
+    </>
   );
 };
 

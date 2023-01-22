@@ -16,6 +16,7 @@ import PerTextField from "../../Shared/PerTextField.js";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 import Loading from "../../Shared/Loading";
 import "./EditModal.css";
+import { convertNumberToPersian } from "../../../utilities/helpers.js";
 
 const style = {
   position: "absolute",
@@ -40,76 +41,64 @@ export default function EditModal({ params, update_navbar }) {
   const [page, setPage] = React.useState("");
   const handleOpen = () => {
     setOpen(true);
-    // setPage(body);
-    // nameRef.current.value = workspace.name;
-    // descriptionRef.current.value = workspace.description;
-    console.log(workspace);
   };
   const handleClose = () => {
-    setNewType(workspace.type);
-    console.log("herrrr");
-    console.log(workspace);
-    // setNewName(workspace.name);
-    // setNewDescription(workspace.description);
+    setWorkspace(oldWorkspace);
     setOpen(false);
-    // setPage("");
   };
-  // console.log("workspace in edit modal", name, description, type);
+  // ////console.log("workspace in edit modal", name, description, type);
   const [newType, setNewType] = React.useState("");
   const [newName, setNewName] = React.useState("");
   const [newDescription, setNewDescription] = React.useState("");
   const [workspace, setWorkspace] = React.useState({});
+  const [oldWorkspace, setOldWorkspace] = React.useState({});
+  const [change, setChange] = React.useState(false);
   useEffect(() => {
     apiInstance
       .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
       .then((res) => {
-        console.log(res.data);
-        console.log(
-          "*********************************************************"
-        );
         setWorkspace(res.data);
-        console.log(workspace);
+        setOldWorkspace(res.data);
+        ////console.log(workspace);
       })
       .catch((err) => {
-        console.log(err);
+        ////console.log(err);
       });
     setNewName(workspace.name);
-    console.log(newName);
+    ////console.log(newName);
     setNewDescription(workspace.description);
     setNewType(workspace.type);
-    console.log(workspace.description);
-    console.log(workspace.type);
+    ////console.log(workspace.description);
+    ////console.log(workspace.type);
+  }, [change]);
+
+  useEffect(() => {
+    apiInstance
+      .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
+      .then((res) => {
+        setWorkspace(res.data);
+        setOldWorkspace(res.data);
+        ////console.log(workspace);
+      })
+      .catch((err) => {
+        ////console.log(err);
+      });
+    setNewName(workspace.name);
+    ////console.log(newName);
+    setNewDescription(workspace.description);
+    setNewType(workspace.type);
+    ////console.log(workspace.description);
+    ////console.log(workspace.type);
   }, []);
 
   const edit_workspace = (e) => {
+    // setOldWorkspace(workspace);
     setIsPost(true);
     e.preventDefault();
     const form_data = new FormData();
-    if (newName == undefined || newName == "" || newName == workspace.name) {
-      form_data.append("name", workspace.name);
-    } else {
-      form_data.append("name", newName);
-    }
-    console.log("newDescription");
-    console.log(newDescription);
-    if (
-      newDescription == undefined ||
-      newDescription == "" ||
-      newDescription == workspace.description
-    ) {
-      console.log("yesss");
-      form_data.append("description", workspace.description);
-    } else {
-      console.log("nooo");
-      form_data.append("description", newDescription);
-    }
-    if (newType == undefined || newType == "" || newType == workspace.type) {
-      form_data.append("type", workspace.type);
-    } else {
-      form_data.append("type", newType);
-    }
-    console.log("form_data");
-    console.log(form_data);
+    form_data.append("name", workspace.name);
+    form_data.append("description", workspace.description);
+    form_data.append("type", workspace.type);
     apiInstance
       .patch(
         `workspaces/workspaceowner/${params.id}/edit-workspace/`,
@@ -117,6 +106,7 @@ export default function EditModal({ params, update_navbar }) {
       )
       .then((res) => {
         update_navbar(workspace);
+        setChange(!change);
         handleClose();
       })
       .finally(() => {
@@ -147,62 +137,104 @@ export default function EditModal({ params, update_navbar }) {
               textAlign: "center",
               fontFamily: "Vazir",
               color: "#fff",
+              fontSize: "109%",
             }}
+            className="neonText"
           >
             بروزرسانی اطلاعات فضای کار
           </Typography>
           <Divider
             sx={{
               backgroundColor: "#007fff",
-              marginTop: "0.5rem",
-              marginBottom: "0.75rem",
+              marginTop: "5%",
+              marginBottom: "8%",
             }}
           />
           {/* <img src={x} className="board-image" /> */}
           <form className="board-form">
             <PerTextField>
-              <StyledTextField
-                className="ws_editmodal-input"
-                value={workspace.name}
-                defaultValue={workspace.name}
-                onChange={(e) =>
-                  setWorkspace({ ...workspace, name: e.target.value })
-                }
-                sx={{ textAlign: "center", fontFamily: "Vazir" }}
-              />
-              <label className="ws_editmodal-label">نام فضای کار</label>
-
-              <StyledTextField
-                ref={descriptionRef}
-                className="ws_editmodal-input"
-                onChange={(e) =>
-                  setWorkspace({ ...workspace, description: e.target.value })
-                }
-                value={workspace.description}
-                defaultValue={workspace.description}
-                sx={{
-                  textAlign: "center",
-                  fontFamily: "Vazir",
-                  marginTop: "5%",
-                  fontSize: "1.5rem",
-                  // direction: "rtl",
-                }}
-              />
-              <label className="ws_editmodal-label">توضیحات</label>
-              <br></br>
-              <label className="ws_editmodal-label">نوع فضای کار</label>
-              <BasicSelect
-                type={workspace.type}
-                setWorkspaceType={setWorkspaceType}
-                workspace={workspace}
-              />
+              <div className="ws_editmodal-inputs">
+                <StyledTextField
+                  className="ws_editmodal-input"
+                  label="نام فضای کاری"
+                  value={convertNumberToPersian(workspace.name)}
+                  defaultValue={convertNumberToPersian(workspace.name)}
+                  onChange={(e) =>
+                    setWorkspace({
+                      ...workspace,
+                      name: convertNumberToPersian(e.target.value),
+                    })
+                  }
+                  InputLabelProps={{
+                    style: { fontFamily: "Vazir", fontSize: "75%" },
+                  }}
+                  inputProps={{
+                    style: {
+                      height: "50px",
+                      padding: "0 14px",
+                      fontFamily: "Vazir",
+                      fontSize: "1.5rem",
+                    },
+                  }}
+                  sx={{ textAlign: "center", fontFamily: "Vazir" }}
+                />
+                <StyledTextField
+                  ref={descriptionRef}
+                  className="ws_editmodal-input"
+                  label="توضیحات"
+                  onChange={(e) =>
+                    setWorkspace({
+                      ...workspace,
+                      description: convertNumberToPersian(e.target.value),
+                    })
+                  }
+                  value={convertNumberToPersian(workspace.description)}
+                  defaultValue={convertNumberToPersian(workspace.description)}
+                  sx={{
+                    textAlign: "center",
+                    fontFamily: "Vazir",
+                    marginTop: "10%",
+                    // direction: "rtl",
+                  }}
+                  InputLabelProps={{
+                    style: { fontFamily: "Vazir", fontSize: "75%" },
+                  }}
+                  inputProps={{
+                    style: {
+                      height: "50px",
+                      padding: "0 14px",
+                      fontFamily: "Vazir",
+                      fontSize: "1.5rem",
+                    },
+                  }}
+                />
+                <br></br>
+                <label
+                  style={{
+                    color: "white",
+                    fontSize: "76%",
+                    marginBottom: "3%",
+                  }}
+                >
+                  نوع فضای کار
+                </label>
+                <BasicSelect
+                  type={workspace.type}
+                  setWorkspaceType={setWorkspaceType}
+                  workspace={workspace}
+                  label="نوع فضای کار"
+                />
+              </div>
             </PerTextField>
-            <input
-              type="submit"
-              value="ذخیره"
-              className="edit_workspace-modal-button-29"
-              onClick={edit_workspace}
-            />
+            <div className="ws_editmodal-button-div">
+              <input
+                style={{ fontFamily: "Vazir", fontSize: "101%", width: "100%" }}
+                type="submit"
+                value="ذخیره"
+                className="edit_workspace-modal-button-29"
+                onClick={edit_workspace}
+              />
+            </div>
           </form>
         </Box>
       </Modal>

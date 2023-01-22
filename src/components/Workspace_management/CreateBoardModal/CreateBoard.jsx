@@ -11,6 +11,7 @@ import PerTextField from "../../Shared/PerTextField.js";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 // import file from "../../../static/images/workspace_management/create_board/board.jpeg";
 import "./CreateBoard.css";
+import { convertNumberToPersian } from "../../../utilities/helpers";
 
 const style = {
   position: "absolute",
@@ -20,11 +21,10 @@ const style = {
   width: "38rem",
   height: "55rem",
   backgroundColor: "#001E3C",
-  // bgcolor: "background.paper",
-  // border: "0.5rem solid #dfe6e5",
   borderRadius: "1rem",
   boxShadow: 50,
   p: 4,
+  overflow: "auto",
 };
 
 export default function CreateBoardModal({
@@ -43,29 +43,65 @@ export default function CreateBoardModal({
   const [result, setResult] = useState("");
   const [binaryFile, setBinaryFile] = useState(null);
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => {
+    setTitle("");
+    setDescription("");
+    setFile(x);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setTitle("");
+    setDescription("");
+    setFile(x);
+    setOpen(false);
+  };
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [file, setFile] = React.useState(null);
-  const test = () => {
-    console.log(result);
-  };
+  const [errorBoardName, setErrorBoardName] = React.useState(false);
+  const [disableButton, setDisableButton] = React.useState(false);
+  const [isPost, setIsPost] = useState(false);
   const create_board = (e) => {
     e.preventDefault();
+    let board_name = document.getElementById("board_name").value;
+    // let board_name = "test";
+    let isValid = true;
+    ////console.log(board_name);
+    ////console.log("board name");
+    if (board_name === "") {
+      setErrorBoardName(true);
+      isValid = false;
+    } else {
+      setErrorBoardName(false);
+    }
+    if (isValid === false) {
+      ////console.log("false");
+      return;
+    } else {
+      setDisableButton(true); // make text spinning and disable button
+    }
+
     const form_data = new FormData();
     form_data.append("name", title);
     form_data.append("description", description);
-    form_data.append("type", "education");
-    form_data.append("background_pic", binaryFile);
+    // form_data.append("type", "education");
+    if (binaryFile !== null) {
+      form_data.append("background_pic", binaryFile);
+    }
     on_submit(form_data, boards, setBoards);
     handleClose();
+    // navigate to board page that created
   };
   return (
     <div>
       <div className="workspace-modal--add-button-container">
         <button className="workspace-modal--add-button" onClick={handleOpen}>
-          <p className="workspace-modal--add-button-title" style={{color: '#fff'}}>+ افزودن بورد</p>
+          <p
+            className="workspace-modal--add-button-title"
+            style={{ color: "#fff" }}
+          >
+            + افزودن بورد
+          </p>
         </button>
       </div>
       <Modal
@@ -73,6 +109,9 @@ export default function CreateBoardModal({
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        // sx={{
+        //   height: "100%",
+        // }}
       >
         <Box sx={style}>
           <Typography
@@ -83,9 +122,11 @@ export default function CreateBoardModal({
               textAlign: "center",
               fontFamily: "Vazir",
               color: "#fff",
+              fontSize: "109%",
             }}
+            className="neonText"
           >
-            ساخت برد جدید
+            ساخت بورد جدید
           </Typography>
           <Divider
             sx={{
@@ -94,66 +135,102 @@ export default function CreateBoardModal({
               marginBottom: "0.75rem",
             }}
           />
-          <img src={x} className="workspace-modal--board-image" />
+          <img
+            style={{ marginTop: "5%" }}
+            src={x}
+            className="workspace-modal--board-image"
+          />
           <form className="workspace-modal--board-form">
             <PerTextField>
               <StyledTextField
                 className="workspace-modal--board-name"
-                label="نام برد"
-                value={title}
+                id="board_name"
+                label="نام بورد"
+                value={convertNumberToPersian(title)}
                 onChange={(e) => {
-                  setTitle(e.target.value);
+                  setTitle(convertNumberToPersian(e.target.value));
                 }}
                 required
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir" },
+                  style: { fontFamily: "Vazir", fontSize: "75%" },
                 }}
+                inputProps={{
+                  style: {
+                    height: "50px",
+                    padding: "0 14px",
+                    fontFamily: "Vazir",
+                    fontSize: "1.7rem",
+                  },
+                }}
+                name="workspace_name"
+                autoComplete="workspace_name"
+                autoFocus
+                FormHelperTextProps={{
+                  style: {
+                    fontFamily: "Vazir",
+                    color: "red",
+                    fontSize: "1.3rem",
+                  },
+                }}
+                error={errorBoardName}
+                helperText={
+                  errorBoardName ? "نام بورد نمی تواند خالی باشد" : ""
+                }
               />
               <StyledTextField
                 className="workspace-modal--board-name"
                 label="توضیحات"
-                value={description}
+                value={convertNumberToPersian(description)}
                 onChange={(e) => {
-                  setDescription(e.target.value);
+                  setDescription(convertNumberToPersian(e.target.value));
                 }}
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir" },
+                  style: { fontFamily: "Vazir", fontSize: "75%" },
                 }}
               />
             </PerTextField>
-            <Avatar
-              src={file ? file : x}
-              alt="profile"
-              sx={{
-                mt: 1,
-                width: "11vmin",
-                height: "11vmin",
-                borderRadius: "50%",
-              }}
-            />
-
-            <Button
-              variant="contained"
-              component="label"
-              sx={{
-                // backgroundColor: themeProps.primaryColor,
-                color: "white",
-                width: "120px",
-                mt: 2,
-                marginRight: "1.5rem",
-                marginTop: 0,
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+                rowGap: "1rem",
               }}
             >
-              <p style={{ fontSize: "1rem" }}>انتخاب عکس</p>
-              <input
-                type="file"
-                hidden
-                onChange={handleChange}
-                accept=".jpg,.jpeg,.png"
+              <Avatar
+                src={file ? file : x}
+                alt="profile"
+                sx={{
+                  mt: 1,
+                  width: "11vmin",
+                  height: "11vmin",
+                  borderRadius: "50%",
+                }}
               />
-            </Button>
+
+              <Button
+                variant="contained"
+                component="label"
+                sx={{
+                  // backgroundColor: themeProps.primaryColor,
+                  color: "white",
+                  width: "120px",
+                  mt: 2,
+                  marginTop: 0,
+                }}
+              >
+                <p style={{ fontSize: "1rem" }}>انتخاب عکس</p>
+                <input
+                  type="file"
+                  hidden
+                  onChange={handleChange}
+                  accept=".jpg,.jpeg,.png"
+                />
+              </Button>
+            </div>
             {/* <input
               type="file"
               // ref="file"
@@ -164,7 +241,7 @@ export default function CreateBoardModal({
               // id="img"
             /> */}
             {/* <img src={this.state.imgSrc} alt="img" /> */}
-            {/* <label id="title">عنوان برد</label>
+            {/* <label id="title">عنوان بورد</label>
             <input type="text" id="title" className="workspace-modal--title-inp" /> */}
             {/* <button onClick={create_board}>submit</button> */}
             <input
@@ -172,7 +249,7 @@ export default function CreateBoardModal({
               value="بساز"
               className="workspace-modal--button-29"
               onClick={create_board}
-              style={{ fontFamily: "Vazir" }}
+              style={{ fontFamily: "Vazir", fontSize: "101%" }}
             />
           </form>
           {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>

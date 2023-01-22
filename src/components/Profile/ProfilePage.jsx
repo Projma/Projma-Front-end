@@ -23,6 +23,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Shared/Loading";
 import { baseUrl } from "../../utilities/constants";
+import Header from "../Header/Header";
+import {
+  convertNumberToPersian,
+  convertNumberToEnglish,
+} from "../../utilities/helpers.js";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -50,7 +55,7 @@ export default function Profile() {
 
   React.useEffect(() => {
     apiInstance.get("accounts/profile/myprofile/").then((res) => {
-      console.log(res);
+      // ////console.log(res);
       setFirstName(res.data.user.first_name);
       setLastName(res.data.user.last_name);
       setUsername(res.data.user.username);
@@ -99,47 +104,83 @@ export default function Profile() {
     event.preventDefault();
     errormessage = "";
     document.getElementById("em").innerHTML = errormessage;
-    setIsPost(true);
-    if (firstName === "") {
-      setErrorFirstName(true);
-      errormessage += "*فیلد نام نمیتواد خالی باشد.";
-      sign += 1;
-    }
-    if (lastName === "") {
-      errormessage += "*فیلد نام خانوادگی نمیتواد خالی باشد.<br>";
-      setErrorLastName(true);
-      sign += 1;
-    }
-    if (sign !== 0) {
-      document.getElementById("em").innerHTML = errormessage;
-      return;
-    }
+
+    // if (firstName === "") {
+    //   setErrorFirstName(true);
+    //   errormessage += "*فیلد نام نمیتواد خالی باشد.";
+    //   sign += 1;
+    // }
+    // if (lastName === "") {
+    //   errormessage += "*فیلد نام خانوادگی نمیتواد خالی باشد.<br>";
+    //   setErrorLastName(true);
+    //   sign += 1;
+    // }
+    // if (sign !== 0) {
+    //   document.getElementById("em").innerHTML = errormessage;
+    //   return;
+    // }
     const formData = new FormData();
-    const user = {
+    const user = JSON.stringify({
       first_name: firstName,
       last_name: lastName,
-    };
-    formData.append("user", user);
+    });
+
+    //console.log(user);
+    // formData.append("user", user);
+    // formData.append("first_name", firstName);
+    // formData.append("last_name", lastName);
     let birthd = "";
+    //console.log("--------------");
+    //console.log(birthDate);
+    if (birthDate !== "") {
+      birthd = birthDate;
+    }
     if (typeof birthDate !== "string" && birthDate !== null) {
       birthd = `${birthDate.year}-${birthDate.month.number}-${birthDate.day}`;
-      formData.append("birth_date", birthd);
+      // formData.append("birth_date", birthd);
     }
-    formData.append("bio", bio);
+    // formData.append("bio", bio);
     if (binaryFile !== null) {
       formData.append("profile_pic", binaryFile);
     }
+    if (birthDate == null) {
+      birthd = null;
+    }
+
+    const data = {
+      user: {
+        first_name: firstName,
+        last_name: lastName,
+      },
+      birth_date: birthd,
+      bio: bio,
+      // profile_pic: binaryFile,
+    };
+    //console.log(data);
+    setIsPost(true);
     apiInstance
-      .patch("/accounts/profile/edit-myprofile/", formData)
+      .patch("/accounts/profile/edit-myprofile/", data)
       .then((res) => {
-        console.log(res);
+        ////console.log(res);
         toast.success("با موفقیت بروز شد.", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
       })
       .catch((err) => {
-        console.log(err);
+        ////console.log(err);
+        toast.error("مشکلی پیش آمده است.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      });
+    apiInstance
+      .patch("/accounts/profile/edit-myprofile/", formData)
+      .then((res) => {
+        //console.log(res);
+      })
+      .catch((err) => {
+        //console.log(err);
         toast.error("مشکلی پیش آمده است.", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
@@ -148,12 +189,12 @@ export default function Profile() {
       .finally(() => {
         setIsPost(null);
       });
-    setIsPost(null);
   };
   if (!loading) {
     return (
       <div className="profile-total-page">
         {isPost ? <Loading /> : null}
+        <Header></Header>
         <ToastContainer />
         <CacheProvider value={cacheRtl}>
           <Helmet>
@@ -161,7 +202,7 @@ export default function Profile() {
           </Helmet>
           <ThemeProvider theme={theme}>
             <div className="profile-container profile-page">
-              <div className="profile-information row-gap-8 profile-information-media">
+              <div className="profile-information-pro row-gap-8 profile-information-media">
                 <div className="profile-box-body-profile-container">
                   <Avatar
                     className="Avatar"
@@ -176,8 +217,12 @@ export default function Profile() {
                   />
                 </div>
                 <div
-                  className="flex-col row-gap-8 align-center"
-                  style={{ width: "100%", marginTop: "20%" }}
+                  className="flex-col align-center"
+                  style={{
+                    width: "100%",
+                    marginTop: "30%",
+                    justifyContent: "flex-start",
+                  }}
                 >
                   <h3
                     style={{
@@ -185,10 +230,12 @@ export default function Profile() {
                       fontSize: "90%",
                       color: "white",
                       justifyContent: "center",
+                      width: "100%",
+                      height: "40px",
                     }}
-                    className="neonText flex profile-information-fname-lname vazir"
+                    className="flex profile-information-fname-lname vazir"
                   >
-                    {firstName}
+                    {convertNumberToPersian(firstName)}
                   </h3>
                   <h3
                     style={{
@@ -196,10 +243,12 @@ export default function Profile() {
                       fontSize: "90%",
                       color: "white",
                       justifyContent: "center",
+                      width: "100%",
+                      height: "40px",
                     }}
-                    className="neonText flex profile-information-fname-lname vazir"
+                    className="flex profile-information-fname-lname vazir"
                   >
-                    {lastName}
+                    {convertNumberToPersian(lastName)}
                   </h3>
                   <h4
                     style={{
@@ -209,7 +258,7 @@ export default function Profile() {
                     }}
                     className="neonText"
                   >
-                    {`${username}@`}
+                    {`${convertNumberToPersian(username)}@`}
                   </h4>
                 </div>
                 <div style={{ marginTop: "20%", width: "100%" }}>
@@ -324,16 +373,16 @@ export default function Profile() {
                             type="file"
                             hidden
                             onChange={(e) => {
-                              // console.log("-----");
-                              // console.log(getImage);
-                              // console.log("****");
+                              // ////console.log("-----");
+                              // ////console.log(getImage);
+                              // ////console.log("****");
                               setBinaryFile(e.target.files[0]);
                               setChangeImage(true);
                               const [filee] = e.target.files;
                               setFile(URL.createObjectURL(filee));
-                              // console.log(e.target.files[0]);
-                              // console.log(file);
-                              // console.log("-----");
+                              // ////console.log(e.target.files[0]);
+                              // ////console.log(file);
+                              // ////console.log("-----");
                             }}
                             accept=".jpg,.jpeg,.png"
                           />
@@ -366,14 +415,16 @@ export default function Profile() {
                         margin="normal"
                         id="firstName"
                         fullWidth
-                        value={firstName}
+                        value={convertNumberToPersian(firstName)}
                         label="نام"
                         name="firstName"
                         InputLabelProps={{
                           style: input_text,
                         }}
                         InputProps={{ style: { fontFamily: "Vazir" } }}
-                        onChange={(e) => setFirstName(e.target.value)}
+                        onChange={(e) =>
+                          setFirstName(convertNumberToEnglish(e.target.value))
+                        }
                         autoComplete="firstname"
                         error={errorFirstName}
                         autoFocus
@@ -383,14 +434,16 @@ export default function Profile() {
                         margin="normal"
                         id="lastname"
                         fullWidth
-                        value={lastName}
+                        value={convertNumberToPersian(lastName)}
                         label="نام خانوادگی"
                         name="lastname"
                         InputLabelProps={{
                           style: input_text,
                         }}
                         InputProps={{ style: { fontFamily: "Vazir" } }}
-                        onChange={(e) => setLastName(e.target.value)}
+                        onChange={(e) =>
+                          setLastName(convertNumberToEnglish(e.target.value))
+                        }
                         autoComplete="lastname"
                         error={errorLastName}
                         autoFocus
@@ -403,7 +456,7 @@ export default function Profile() {
                         ایمیل
                       </label>
                       <h3 className="email-text-box email-font-size">
-                        {email}
+                        {convertNumberToPersian(email)}
                       </h3>
                     </div>
                     <div
@@ -413,7 +466,9 @@ export default function Profile() {
                       <label for="username" className="title-css">
                         نام کاربری
                       </label>
-                      <h3 className="email-text-box">{username}</h3>
+                      <h3 className="email-text-box">
+                        {convertNumberToPersian(username)}
+                      </h3>
                     </div>
                   </div>
                   <div className="birthday-border-media">
@@ -449,7 +504,9 @@ export default function Profile() {
                       fullWidth
                       name="bio"
                       multiline
-                      onChange={(e) => setBio(e.target.value)}
+                      onChange={(e) =>
+                        setBio(convertNumberToPersian(e.target.value))
+                      }
                       value={bio}
                       rows={2}
                       InputProps={{ style: { fontFamily: "Vazir" } }}

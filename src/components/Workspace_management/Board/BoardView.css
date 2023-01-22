@@ -3,14 +3,20 @@
   height: 8rem;
   width: 20rem;
   border-radius: 0.5rem;
-  background-color: #265D97;
+  /* background-color: #265D97; */
+  background-color: #66B2FF;
+  color: #fff !important;
   padding: 3% 3%;
+  background-repeat: no-repeat;
+  /* background-size: contain; */
+  background-size: 100% 100%;
+  /* background-attachment: fixed; */
 }
 
 .workspace--view {
   width: 100%;
   height: 100%;
-  background-color: inherit;
+  background: none;
   border: none;
   display: flex;
 }
@@ -31,7 +37,7 @@
 }
 
 .workspace--icon-button {
-  background-color: inherit;
+  background: none;
   border: none;
   position: absolute;
   bottom: 0%;

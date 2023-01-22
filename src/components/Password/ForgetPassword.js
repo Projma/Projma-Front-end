@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import StyledTextField from "../Shared/StyledTextField";
@@ -14,6 +14,10 @@ import { toast, ToastContainer } from "react-toastify";
 import "../../styles/ReactToastify.css";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import {
+  convertNumberToPersian,
+  convertNumberToEnglish,
+} from "../../utilities/helpers.js";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -32,22 +36,19 @@ const ForgetPassword = () => {
   const postreq = () => {
     const data = new FormData();
     data.append("email", email);
-    axios
-      .post(
-        "http://mohammadosoolian.pythonanywhere.com/accounts/forgot-password/",
-        data
-      )
+    apiInstance
+      .post("accounts/forgot-password/", data)
       .then(() => {
         setIsFail(true);
         toast.success("ایمیل تغییر رمز عبور با موفقیت ارسال شد", {
-          position: toast.POSITION.TOP_CENTER,
+          position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
         const getLinkInfo = () => {
           return email.split("@")[1];
         };
         const emailURL = getLinkInfo();
-        console.log(emailURL);
+        ////console.log(emailURL);
         if (
           emailURL === "gmail.com" ||
           emailURL === "yahoo.com" ||
@@ -63,7 +64,7 @@ const ForgetPassword = () => {
           setIsFail(true);
           setErrorEmail(true);
           toast.error("ایمیل وارد شده در سایت پروجما ثبت نشده است", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
         }
@@ -97,9 +98,11 @@ const ForgetPassword = () => {
   return (
     <>
       {isPost ? <Loading /> : null}
-      {isFail ? <ToastContainer autoClose={5000} style={{fontSize:"1.2rem"}}/> : null}
+      {isFail ? (
+        <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
+      ) : null}
       <Container component="main" maxWidth="xs">
-      <Helmet>
+        <Helmet>
           <title>فراموشی رمز عبور</title>
         </Helmet>
         <CssBaseline />
@@ -116,7 +119,7 @@ const ForgetPassword = () => {
             // backgroundColor: "var(--main-background)",
             opacity: 1,
             backgroundImage:
-              "linear-gradient(to right bottom, var(--main-background) 0%, #0059B2 130%)",
+                  "linear-gradient(to right bottom, #001E3C 0%, #0059B2 130%)",
           }}
         >
           <Box
@@ -140,6 +143,11 @@ const ForgetPassword = () => {
               variant="h5"
               color="#fff"
               sx={{ mb: 1, fontSize: "2rem(10)" }}
+              inputProps={{
+                style: {
+                  fontFamily: "Vazir",
+                },
+              }}
             >
               فراموشی رمز عبور
             </Typography>
@@ -155,13 +163,26 @@ const ForgetPassword = () => {
                 name="email"
                 type="email"
                 autoComplete="email"
-                onChange={(e) => setEmail(e.target.value)}
+                InputLabelProps={{ style: { fontFamily: "Vazir" } }}
+                InputProps={{
+                  style: { fontFamily: "Vazir", fontSize: "1.7rem" },
+                }}
+                onChange={(e) => {
+                  setEmail(convertNumberToEnglish(e.target.value));
+                  // ////console.log(email)
+                }}
+                value={convertNumberToPersian(email)}
                 error={errorEmail}
                 autoFocus
                 sx={{
                   input: {
                     color: "#fff",
                     fontSize: "1.6rem(10)",
+                  },
+                }}
+                inputProps={{
+                  style: {
+                    fontFamily: "Vazir",
                   },
                 }}
               />
@@ -177,6 +198,11 @@ const ForgetPassword = () => {
                 backgroundColor: "#265D97",
                 fontSize: "1.6rem(10)",
               }}
+              inputProps={{
+                style: {
+                  fontFamily: "Vazir",
+                },
+              }}
             >
               ارسال ایمیل
             </Button>
@@ -188,6 +214,11 @@ const ForgetPassword = () => {
                 color: "red",
                 fontWeight: "bold",
                 fontSize: "1.6rem",
+              }}
+              inputProps={{
+                style: {
+                  fontFamily: "Vazir",
+                },
               }}
             ></Typography>
           </Box>

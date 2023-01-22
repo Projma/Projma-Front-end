@@ -24,6 +24,11 @@ import { login } from "../../actions/authActions";
 import { useState } from "react";
 import Loading from "../Shared/Loading";
 import { Helmet } from "react-helmet";
+import {
+  convertNumberToPersian,
+  convertNumberToEnglish,
+} from "../../utilities/helpers.js";
+import Header from "../Header/Header";
 
 function Copyright(props) {
   return (
@@ -44,23 +49,12 @@ export default function SignIn() {
   const [password, setPassword] = React.useState("");
   const [errorPassword, setErrorPassword] = React.useState(false);
   const [isPost, setIsPost] = useState(false);
-  const [isLogin, setIsLogin] = React.useState(false);
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   let navigate = useNavigate();
   const dispatch = useDispatch();
-  React.useEffect(() => {
-    apiInstance
-      .get("/accounts/users/myaccount/")
-      .then((response) => {
-        navigate("/");
-      })
-      .catch((error) => {
-        setIsLogin(true);
-      });
-  }, []);
   const handleSubmit = (event) => {
-    console.log("handleSubmit");
+    ////console.log("handleSubmit");
     event.preventDefault();
     setErrorUsername(false);
     setErrorPassword(false);
@@ -110,164 +104,161 @@ export default function SignIn() {
     stylisPlugins: [prefixer, rtlPlugin],
   });
 
-  if (isLogin) {
-    return (
-      <div>
-        <Helmet>
-          <title>صفحه ورود</title>
-        </Helmet>
-        {isPost ? <Loading /> : null}
-        <CacheProvider value={cacheRtl}>
-          <ThemeProvider theme={theme}>
-            <Container
-              component="main"
-              maxWidth="xs"
-              style={{
-                borderRadius: 3,
+  return (
+    <div>
+      <Header></Header>
+      <Helmet>
+        <title>صفحه ورود</title>
+      </Helmet>
+      {isPost ? <Loading /> : null}
+      <CacheProvider value={cacheRtl}>
+        <ThemeProvider theme={theme}>
+          <Container
+            component="main"
+            maxWidth="xs"
+            style={{
+              borderRadius: 3,
+            }}
+          >
+            <CssBaseline />
+            <Box
+              sx={{
+                marginTop: 8,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
               }}
             >
-              <CssBaseline />
-              <Box
-                sx={{
-                  marginTop: 8,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
+              <Avatar sx={{ m: 1, bgcolor: "#001E3C" }}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography
+                component="h1"
+                variant="h5"
+                style={{
+                  fontFamily: "Vazir",
+                  fontSize: "150%",
+                  color: "white",
+                  fontWeight: "bold",
+                  marginBottom: "4%",
                 }}
               >
-                <Avatar sx={{ m: 1, bgcolor: "#001E3C" }}>
-                  <LockOutlinedIcon />
-                </Avatar>
-                <Typography
-                  component="h1"
-                  variant="h5"
+                صفحه ورود
+              </Typography>
+              <Box
+                component="form"
+                className="registration-form shadow"
+                onSubmit={handleSubmit}
+                noValidate
+                error
+                sx={{
+                  mt: 1,
+                  backgroundImage:
+                    "linear-gradient(to right bottom, #001E3C 0%, #0059B2 130%)",
+                  borderRadius: 3,
+                  backgroundColor: "red",
+                }}
+              >
+                <StyledTextField
+                  margin="normal"
+                  fullWidth
+                  required="required"
+                  id="username"
+                  label="نام کاربری"
+                  name="username"
+                  InputLabelProps={{
+                    style: input_text,
+                  }}
+                  inputProps={{
+                    style: {
+                      height: "50px",
+                      padding: "0 14px",
+                      fontFamily: "Vazir",
+                      fontSize: "1.7rem",
+                    },
+                  }}
+                  onChange={(e) =>
+                    setUsername(convertNumberToEnglish(e.target.value))
+                  }
+                  value={convertNumberToPersian(username)}
+                  autoComplete="username"
+                  error={errorUsername}
+                  autoFocus
+                />
+                <StyledTextField
+                  margin="normal"
+                  fullWidth
+                  required="required"
+                  name="password"
+                  label="پسورد"
+                  type="password"
+                  id="password"
+                  InputLabelProps={{
+                    style: input_text,
+                  }}
+                  inputProps={{
+                    style: {
+                      height: "50px",
+                      padding: "0 14px",
+                      fontFamily: "Vazir",
+                      fontSize: "1.7rem",
+                    },
+                  }}
+                  onChange={(e) => setPassword(e.target.value)}
+                  error={errorPassword}
+                  autoComplete="current-password"
+                  style={{ fontFamily: "Vazir" }}
+                />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
                   style={{
                     fontFamily: "Vazir",
-                    fontSize: "150%",
-                    color: "white",
+                    fontSize: "120%",
                     fontWeight: "bold",
-                    marginBottom: "4%",
                   }}
                 >
-                  صفحه ورود
-                </Typography>
-                <Box
-                  component="form"
-                  className="registration-form shadow"
-                  onSubmit={handleSubmit}
-                  noValidate
-                  error
-                  sx={{
-                    mt: 1,
-                    backgroundImage:
-                      "linear-gradient(to right bottom, #001E3C 0%, #0059B2 130%)",
-                    borderRadius: 3,
-                    backgroundColor: "red",
-                  }}
-                >
-                  <StyledTextField
-                    margin="normal"
-                    fullWidth
-                    required="required"
-                    id="username"
-                    label="نام کاربری"
-                    name="username"
-                    InputLabelProps={{
-                      style: input_text,
-                    }}
-                    inputProps={{
-                      style: {
-                        height: "50px",
-                        padding: "0 14px",
+                  ورود
+                </Button>
+                <ToastContainer />
+                <Grid container style={{ marginBottom: "5%", marginTop: "1%" }}>
+                  <Grid item xs>
+                    <Link
+                      href="/forget-password"
+                      variant="body2"
+                      style={{
                         fontFamily: "Vazir",
-                        fontSize: "1.7rem",
-                      },
-                    }}
-                    onChange={(e) => setUsername(e.target.value)}
-                    autoComplete="username"
-                    error={errorUsername}
-                    autoFocus
-                  />
-                  <StyledTextField
-                    margin="normal"
-                    fullWidth
-                    required="required"
-                    name="password"
-                    label="پسورد"
-                    type="password"
-                    id="password"
-                    InputLabelProps={{
-                      style: input_text,
-                    }}
-                    inputProps={{
-                      style: {
-                        height: "50px",
-                        padding: "0 14px",
-                        fontFamily: "Vazir",
-                        fontSize: "1.7rem",
-                      },
-                    }}
-                    onChange={(e) => setPassword(e.target.value)}
-                    error={errorPassword}
-                    autoComplete="current-password"
-                    style={{ fontFamily: "Vazir" }}
-                  />
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                    style={{
-                      fontFamily: "Vazir",
-                      fontSize: "120%",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    ورود
-                  </Button>
-                  <ToastContainer />
-                  <Grid
-                    container
-                    style={{ marginBottom: "5%", marginTop: "1%" }}
-                  >
-                    <Grid item xs>
-                      <Link
-                        href="/forget-password"
-                        variant="body2"
-                        style={{
-                          fontFamily: "Vazir",
-                          fontSize: "110%",
-                          color: "white",
-                        }}
-                      >
-                        فراموشی رمز عبور
-                      </Link>
-                    </Grid>
-                    <Grid item>
-                      <Link
-                        href="/signup"
-                        variant="body2"
-                        style={{
-                          fontFamily: "Vazir",
-                          fontSize: "110%",
-                          color: "white",
-                        }}
-                      >
-                        {"اکانت ندارید؟ ثبت‌نام کنید"}
-                      </Link>
-                    </Grid>
+                        fontSize: "110%",
+                        color: "white",
+                      }}
+                    >
+                      فراموشی رمز عبور
+                    </Link>
                   </Grid>
-                </Box>
+                  <Grid item>
+                    <Link
+                      href="/signup"
+                      variant="body2"
+                      style={{
+                        fontFamily: "Vazir",
+                        fontSize: "110%",
+                        color: "white",
+                      }}
+                    >
+                      {"اکانت ندارید؟ ثبت‌نام کنید"}
+                    </Link>
+                  </Grid>
+                </Grid>
               </Box>
-              <Copyright sx={{ mt: 8, mb: 4 }} />
-            </Container>
-          </ThemeProvider>
-        </CacheProvider>
-      </div>
-    );
-  } else {
-    return <div></div>;
-  }
+            </Box>
+            <Copyright sx={{ mt: 8, mb: 4 }} />
+          </Container>
+        </ThemeProvider>
+      </CacheProvider>
+    </div>
+  );
 }
 
 const input_text = {

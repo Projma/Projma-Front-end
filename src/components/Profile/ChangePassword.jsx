@@ -30,6 +30,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Shared/Loading";
 import { baseUrl } from "../../utilities/constants";
+import Header from "../Header/Header";
+import {
+  convertNumberToPersian,
+  convertNumberToEnglish,
+} from "../../utilities/helpers.js";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -126,14 +131,14 @@ export default function ChangePassword() {
       apiInstance
         .post("/accounts/profile/change-password/", change_password_form_data)
         .then((res) => {
-          console.log(res);
+          ////console.log(res);
           toast.success("رمز عبور با موفقیت تغییر کرد", {
             position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
         })
         .catch((err) => {
-          console.log(err);
+          ////console.log(err);
           toast.error("رمز عبور قبلی اشتباه است", {
             position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
@@ -144,12 +149,9 @@ export default function ChangePassword() {
         });
     }
   };
-  // apiInstance.get("/accounts/users/").then((res) => {
-  //   setUserDetail(res.data);
-  //   console.log(res.data);
-  // });
   return (
     <div>
+      <Header></Header>
       <Helmet>
         <title>تغییر رمز عبور</title>
       </Helmet>
@@ -181,10 +183,26 @@ export default function ChangePassword() {
                     fontWeight: "400",
                     fontSize: "90%",
                     color: "white",
+                    justifyContent: "center",
+                    width: "100%",
+                    height: "100%",
                   }}
-                  className="neonText profile-information-fname-lname vazir"
+                  className="flex profile-information-fname-lname vazir"
                 >
-                  {firstName} {lastName}
+                  {convertNumberToPersian(firstName)}
+                </h3>
+                <h3
+                  style={{
+                    fontWeight: "400",
+                    fontSize: "90%",
+                    color: "white",
+                    justifyContent: "center",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                  className="flex profile-information-fname-lname vazir"
+                >
+                  {convertNumberToPersian(lastName)}
                 </h3>
                 <h4
                   style={{
@@ -194,7 +212,7 @@ export default function ChangePassword() {
                   }}
                   className="neonText"
                 >
-                  {`${username}@`}
+                  {`${convertNumberToPersian(username)}@`}
                 </h4>
               </div>
               <div style={{ marginTop: "20%", width: "100%" }}>
@@ -256,7 +274,7 @@ export default function ChangePassword() {
             </div>
 
             <Box
-              className="profile-box"
+              className="profile-box-changePassword"
               component="form"
               onSubmit={handleSubmit}
             >
@@ -266,10 +284,6 @@ export default function ChangePassword() {
                 </h3>
               </div>
               <div className="profile-box-body">
-                <div
-                  className="flex margin-top col-gap-8"
-                  style={{ justifyContent: "center", marginBottom: "1%" }}
-                ></div>
                 <div
                   style={{
                     display: "flex",

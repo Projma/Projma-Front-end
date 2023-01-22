@@ -8,7 +8,9 @@
 }
 
 html {
-  font-size: 10px;
+  font-size: 62.5%;
+  /* overflow: hidden; */
+  overflow: auto;
 }
 
 body {
@@ -24,7 +26,7 @@ body {
   --mui-blue: #1976d2;
 }
 
-.styled-scrollbars {
+html,.styled-scrollbars {
   /* Foreground, Background */
   scrollbar-color: var(--minor-item-color) var(--minor-bg);
   scrollbar-width: thin;
@@ -44,10 +46,11 @@ body {
 }
 ::-webkit-scrollbar-button {
   background-color: var(--minor-item-color) !important;
-  background-size: 1rem;
+  /* background-color: #fff !important; */
+  background-size: 0.5rem;
   background-repeat: no-repeat;
   width: auto;
-  height: auto;
+  height: 0.5rem;
   display: block;
   border-style: solid;
 }
@@ -64,5 +67,5 @@ body {
   height: 3.5rem !important;
   font-size: 1.6rem !important;
   text-align: center !important;
-  border: 0.3rem solid var(--mui-blue) !important;
+  border: 0.2rem solid var(--minor-item-color) !important;
 }

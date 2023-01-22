@@ -5,36 +5,44 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import "./FilterTask.css";
+import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import { Calendar } from "react-multi-date-picker";
+import Loading from "../../Shared/Loading";
 
 export default function FilterTask({ boardId, setLists }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [boardLabels, setBoardLabels] = useState([]);
   const [boardMembers, setBoardMembers] = useState([]);
   const [selectedMembers, setSelectedMembers] = useState([]);
+  const [isPost, setIsPost] = useState(false);
   const [selectedLabels, setSelectedLabels] = useState([]);
-  const [date, setDate] = useState("");
+  // const [date, setDate] = useState("");
+  const [value, setValue] = React.useState(new Date());
+  const [date, setDate] = React.useState("");
   useEffect(() => {
-    console.log("hereeeeeeeeeeeeeeeeee");
+    ////console.log("hereeeeeeeeeeeeeeeeee");
     apiInstance
       .get(`workspaces/board/${boardId}/get-board-labels/`)
       .then((res) => {
-        console.log("board labels");
-        console.log(res.data);
+        ////console.log("board labels");
+        ////console.log(res.data);
         const board_labels = res.data.map((obj) => ({
           id: obj.id,
           title: obj.title,
           color: obj.color,
           checked: false,
         }));
-        console.log(board_labels);
+        ////console.log(board_labels);
         setBoardLabels(board_labels);
       });
   }, []);
 
   useEffect(() => {
     apiInstance.get(`workspaces/board/${boardId}/members/`).then((res) => {
-      console.log("sinasssssssssssssssssssssss");
-      console.log(res.data);
+      ////console.log("sinasssssssssssssssssssssss");
+      ////console.log(res.data);
       const board_members = res.data.map((obj) => ({
         id: obj.user.id,
         full_name: obj.user.first_name + " " + obj.user.last_name,
@@ -43,13 +51,14 @@ export default function FilterTask({ boardId, setLists }) {
         profile_pic: obj.profile_pic,
         checked: false,
       }));
-      console.log(board_members);
+      ////console.log(board_members);
       setBoardMembers(board_members);
     });
   }, []);
 
   const filterTaskAfterCheck = (value, type) => {
     // const labelIds =
+    setIsPost(true);
     let labels_empty = selectedLabels.length === 0;
     let members_empty = selectedMembers.length === 0;
     let url = `workspaces/task/${boardId}/filter/`;
@@ -73,8 +82,14 @@ export default function FilterTask({ boardId, setLists }) {
     ) {
       url = url + "&";
     }
+    if (labels_empty && type !== "label") {
+      url = url + "?";
+    }
     if (!members_empty) {
-      url = url + "?doers=";
+      // if (labels_empty) {
+      //   url += "?";
+      // }
+      url = url + "doers=";
       for (let i = 0; i < selectedMembers.length; i++) {
         url = url + `${selectedMembers[i]}`;
         if (i !== selectedMembers.length - 1 || type === "member")
@@ -83,26 +98,44 @@ export default function FilterTask({ boardId, setLists }) {
     }
     if (type === "member") {
       if (members_empty) {
-        url = url + "?doers=";
+        url = url + "doers=";
       }
       url = url + value;
     }
+    let datee = "";
+    //console.log("hamid");
+    //console.log(value);
+    try {
+      if (!value.toString().includes("Standard")) {
+        datee = `${value.year}-${value.month.number}-${value.day}`;
+      }
+    } catch {}
+
+    //console.log("navid");
+    //console.log(datee);
     if (type === "date") {
-      setDate(value);
-      if (value !== "") {
+      //console.log("sina");
+      setDate(datee);
+      if (datee !== "") {
         if (!labels_empty || !members_empty) {
           url = url + "&";
-          url = url + "end_date=" + value;
+          url = url + "end_date=" + datee;
         } else {
-          url = url + "?end_date=" + value;
+          url = url + "end_date=" + datee;
         }
       }
     } else {
-      if (date !== "") url = url + "&end_date=" + date;
+      //console.log("alinejad");
+      //console.log(datee);
+      if (date !== "") {
+        //console.log("alinejad2");
+        url = url + "&end_date=" + date;
+      }
     }
+    //console.log(url);
     apiInstance.get(url).then((res) => {
-      console.log("filtered tasks");
-      console.log(res.data);
+      ////console.log("filtered tasks");
+      ////console.log(res.data);
       res.data.tasklists.map((list) => {
         list.tasks.sort((a, b) => a.order - b.order);
       });
@@ -111,6 +144,7 @@ export default function FilterTask({ boardId, setLists }) {
   };
 
   const filterTaskAfterUnCheck = (value, type) => {
+    setIsPost(true);
     let url = `workspaces/task/${boardId}/filter/`;
     let labels_empty =
       selectedLabels.length === 0 ||
@@ -171,14 +205,48 @@ export default function FilterTask({ boardId, setLists }) {
         url = url + "?end_date=" + date;
       }
     }
-    apiInstance.get(url).then((res) => {
-      console.log("filtered tasks");
-      console.log(res.data);
-      res.data.tasklists.map((list) => {
-        list.tasks.sort((a, b) => a.order - b.order);
+    apiInstance
+      .get(url)
+      .then((res) => {
+        //console.log("filtered tasks");
+        //console.log(res.data);
+        res.data.tasklists.map((list) => {
+          list.tasks.sort((a, b) => a.order - b.order);
+        });
+        setLists(res.data.tasklists.sort((a, b) => b.order - a.order));
+      })
+      .finally(() => {
+        setIsPost(null);
       });
-      setLists(res.data.tasklists.sort((a, b) => b.order - a.order));
+  };
+
+  const resetFilter = (event) => {
+    setIsPost(true);
+    setSelectedLabels([]);
+    setSelectedMembers([]);
+    setDate("");
+    let url = `workspaces/task/${boardId}/filter/`;
+    const resetlabel = boardLabels.map((val) => {
+      return { ...val, checked: false };
     });
+    setBoardLabels(resetlabel);
+    const resetmem = boardMembers.map((val) => {
+      return { ...val, checked: false };
+    });
+    setBoardMembers(resetmem);
+    apiInstance
+      .get(url)
+      .then((res) => {
+        ////console.log("filtered tasks");
+        ////console.log(res.data);
+        res.data.tasklists.map((list) => {
+          list.tasks.sort((a, b) => a.order - b.order);
+        });
+        setLists(res.data.tasklists.sort((a, b) => b.order - a.order));
+      })
+      .finally(() => {
+        setIsPost(null);
+      });
   };
 
   const handleClick = (event) => {
@@ -194,6 +262,7 @@ export default function FilterTask({ boardId, setLists }) {
 
   return (
     <div>
+      {isPost ? <Loading /> : null}
       <Button aria-describedby={id} variant="contained" onClick={handleClick}>
         فیلتر تسک
       </Button>
@@ -207,92 +276,168 @@ export default function FilterTask({ boardId, setLists }) {
           horizontal: "left",
         }}
       >
-        <input
+        <div className="filter-container">
+          <Calendar
+            className="background-blue"
+            value={value}
+            onChange={(val) => {
+              setValue(val);
+              filterTaskAfterCheck(val, "date");
+            }}
+            calendar={persian}
+            locale={persian_fa}
+            // calendarPosition="bottom-right"
+          />
+          {/* <input
           type="date"
           value={date}
           onChange={(e) => filterTaskAfterCheck(e.target.value, "date")}
-        />
-        <div>
-          {boardMembers.map((member) => (
-            <div>
-              <p>
-                {member.full_name} {member.username} {member.id}
-              </p>
-              <input
-                type="checkbox"
-                id={member.id}
-                name={member.name}
-                value={member.id}
-                checked={member.checked}
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setSelectedMembers([...selectedMembers, e.target.value]);
-                    setBoardMembers((prevState) =>
-                      prevState.map((item) => {
-                        if (item.id === parseInt(e.target.value)) {
-                          item.checked = true;
-                        }
-                        return item;
-                      })
-                    );
-                    filterTaskAfterCheck(e.target.value, "member");
-                  } else {
-                    setSelectedMembers((prevState) =>
-                      prevState.filter((item) => item !== e.target.value)
-                    );
-                    setBoardMembers((prevState) =>
-                      prevState.map((item) => {
-                        if (item.id === parseInt(e.target.value)) {
-                          item.checked = false;
-                        }
-                        return item;
-                      })
-                    );
-                    filterTaskAfterUnCheck(e.target.value, "member");
-                  }
-                }}
-              />
+        /> */}
+          <div style={{ marginTop: "10px" }}>
+            <div style={{ padding: "5%" }}>
+              <h2 style={{ color: "white" }}>اعضا</h2>
+              {boardMembers.map((member) => (
+                <div
+                  style={{ marginTop: "5px", display: "flex", columnGap: "6%" }}
+                >
+                  <input
+                    style={{ display: "flex" }}
+                    type="checkbox"
+                    id={member.id}
+                    name={member.name}
+                    value={member.id}
+                    checked={member.checked}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setSelectedMembers([
+                          ...selectedMembers,
+                          e.target.value,
+                        ]);
+                        setBoardMembers((prevState) =>
+                          prevState.map((item) => {
+                            if (item.id === parseInt(e.target.value)) {
+                              item.checked = true;
+                            }
+                            return item;
+                          })
+                        );
+                        filterTaskAfterCheck(e.target.value, "member");
+                      } else {
+                        setSelectedMembers((prevState) =>
+                          prevState.filter((item) => item !== e.target.value)
+                        );
+                        setBoardMembers((prevState) =>
+                          prevState.map((item) => {
+                            if (item.id === parseInt(e.target.value)) {
+                              item.checked = false;
+                            }
+                            return item;
+                          })
+                        );
+                        filterTaskAfterUnCheck(e.target.value, "member");
+                      }
+                    }}
+                  />
+
+                  <p style={{ display: "flex", color: "white" }}>
+                    <div style={{ fontSize: "13px" }}>{member.full_name}</div>
+                    {/* <div style={{ fontSize: "13px" }}>{member.username}</div> */}
+                  </p>
+                </div>
+              ))}
             </div>
-          ))}
-          {boardLabels.map((label) => (
-            <div>
-              <p>{label.title}</p>
-              <input
-                type="checkbox"
-                id={label.id}
-                name={label.title}
-                value={label.id}
-                checked={label.checked}
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setSelectedLabels([...selectedLabels, e.target.value]);
-                    setBoardLabels((prevState) =>
-                      prevState.map((item) => {
-                        if (item.id === parseInt(e.target.value)) {
-                          item.checked = true;
-                        }
-                        return item;
-                      })
-                    );
-                    filterTaskAfterCheck(e.target.value, "label");
-                  } else {
-                    setSelectedLabels((prevState) =>
-                      prevState.filter((item) => item !== e.target.value)
-                    );
-                    setBoardLabels((prevState) =>
-                      prevState.map((item) => {
-                        if (item.id === parseInt(e.target.value)) {
-                          item.checked = false;
-                        }
-                        return item;
-                      })
-                    );
-                    filterTaskAfterUnCheck(e.target.value, "label");
-                  }
-                }}
-              />
+            <div style={{ padding: "5%" }}>
+              <h2 style={{ color: "white", marginBottom: "5%" }}>برچسب</h2>
+              {boardLabels.map(
+                (label) => (
+                  //console.log(label),
+                  (
+                    <div
+                      style={{
+                        display: "flex",
+                        columnGap: "5%",
+                        backgroundColor: `${label.color + "99"}`,
+                        borderRadius: "5px",
+                        padding: "2%",
+                        marginTop: "5px",
+                      }}
+                    >
+                      <input
+                        style={{ display: "flex" }}
+                        type="checkbox"
+                        id={label.id}
+                        name={label.title}
+                        value={label.id}
+                        checked={label.checked}
+                        onChange={(e) => {
+                          //console.log("nvdi");
+                          if (e.target.checked) {
+                            setSelectedLabels([
+                              ...selectedLabels,
+                              e.target.value,
+                            ]);
+                            setBoardLabels((prevState) =>
+                              prevState.map((item) => {
+                                if (item.id === parseInt(e.target.value)) {
+                                  item.checked = true;
+                                }
+                                return item;
+                              })
+                            );
+                            filterTaskAfterCheck(e.target.value, "label");
+                          } else {
+                            setSelectedLabels((prevState) =>
+                              prevState.filter(
+                                (item) => item !== e.target.value
+                              )
+                            );
+                            setBoardLabels((prevState) =>
+                              prevState.map((item) => {
+                                if (item.id === parseInt(e.target.value)) {
+                                  item.checked = false;
+                                }
+                                return item;
+                              })
+                            );
+                            filterTaskAfterUnCheck(e.target.value, "label");
+                          }
+                        }}
+                      />
+                      <div
+                        style={{
+                          backgroundColor: label.color,
+                          alignItems: "center",
+                          justifyContent: "center",
+                          borderRadius: 30,
+                          width: 17,
+                          height: 17,
+                          marginLeft: 7,
+                        }}
+                      ></div>
+                      <p style={{ display: "flex", fontSize: "13px" }}>
+                        {label.title}
+                      </p>
+                    </div>
+                  )
+                )
+              )}
             </div>
-          ))}
+            <div
+              style={{
+                padding: "3%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                variant="contained"
+                onClick={resetFilter}
+                sx={{ height: "35px", fontSize: "13px" }}
+              >
+                بازنشانی
+              </Button>
+            </div>
+          </div>
         </div>
       </Popover>
     </div>

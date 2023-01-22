@@ -10,8 +10,8 @@
   /* justify-content: space-around; */
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: fit-content;
+  width: 110% !important;
+  height: 90vh;
 }
 
 .taskmodal-container {
@@ -23,10 +23,10 @@
   /* background-color: rgb(234, 234, 234); */
   background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
   border-radius: 30px;
-  width: 50%;
   justify-content: center;
   align-items: center;
   padding: 4%;
+  height: 100%;
 }
 
 .taskmodal-box {
@@ -78,12 +78,15 @@
 
 .taskmodal-body-larger {
   width: 80%;
+  height: 100%;
+  overflow-y: auto;
+  max-width: 400px;
 }
 
 .taskmodal-body-smaller {
   width: 25%;
   height: 100%;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -99,6 +102,14 @@
   align-items: center;
   margin-right: 6.5%;
   width: 80%;
+}
+
+.taskmodal-body-activity-body-icon {
+  align-items: flex-start !important;
+}
+
+.taskmodal-body-attachment {
+  margin-top: 8%;
 }
 
 .taskmodal-body-attachment-header {
@@ -165,7 +176,7 @@
 }
 
 .taskmodal-body-checklist {
-  margin-top: 2%;
+  margin-top: 6%;
   column-gap: 3%;
   margin-bottom: 3%;
 }
@@ -281,7 +292,9 @@
   padding: 2%;
   padding-right: 3%;
   border-radius: 35px;
+  color: white;
   width: 90%;
+  overflow: auto;
 }
 
 .taskmodal-listofcomments-item {
@@ -365,17 +378,31 @@
   padding: 0% !important;
 }
 
+.taskmodal-flexibale-icon {
+  width: 100%;
+}
+
 @media screen and (max-width: 600px) {
   .taskmodal-title {
-    font-size: 13px;
+    font-size: 24px;
+    margin-bottom: 0px;
   }
 
   .taskmodal-subtitle {
-    font-size: 10px;
+    font-size: 14px;
     margin-bottom: 10%;
   }
 
+  .taskmodal-flexibale-icon {
+    width: 28%;
+  }
+
+  .taskmodal-smaller-button-inner {
+    width: 120% !important;
+  }
+
   .taskmodal-body-larger-description-textbox {
+    margin-top: 5%;
     width: 100%;
     padding-top: 5%;
     padding-left: 0%;
@@ -388,16 +415,29 @@
   }
   .taskmodal-body-smaller {
     flex-direction: row;
+    width: 100% !important;
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    justify-content: center;
   }
   .taskmodal-container {
-    width: 90%;
-    justify-content: center;
-    align-items: center;
+    width: 90% !important;
   }
   .taskmodal-larger_smaller {
     flex-direction: column-reverse;
   }
-  .taskmodal-body-smaller {
-    width: 100%;
+  .taskmodal-page {
+    width: 100% !important;
+  }
+  .taskmodal-body-larger {
+    width: 99%;
+    padding-top: 6%;
+  }
+  .taskmodal-body-checklist {
+    margin-bottom: 0px;
+  }
+  .taskmodal-body-attachment {
+    margin-top: 1%;
   }
 }

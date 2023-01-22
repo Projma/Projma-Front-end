@@ -10,11 +10,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { baseUrl } from "../../../utilities/constants";
 import "./Members.scss";
+import { convertNumberToPersian } from "../../../utilities/helpers";
+import anonymous from "../../../static/images/workspace_management/members/anonymous.png";
+import Loading from "../../Shared/Loading";
 
 const Members = ({ params }) => {
   const [members, setMembers] = React.useState([]);
   const [buttonClicked, setButtonClicked] = React.useState(false);
   const [workspace, setWorkspace] = React.useState({});
+  const [isPost, setIsPost] = useState(false);
   const [button_inner, setButton_inner] = React.useState("کپی لینک دعوت");
   useEffect(() => {
     apiInstance
@@ -34,22 +38,26 @@ const Members = ({ params }) => {
           lastName: obj.user.last_name,
           userName: obj.user.username,
           email: obj.user.email,
-          image: baseUrl + obj.profile_pic?.slice(1),
+          image: obj.profile_pic
+            ? baseUrl + obj.profile_pic?.slice(1)
+            : anonymous,
         }));
-        console.log(baseUrl + res.data.profile_pic?.slice(1));
+        ////console.log(baseUrl + res.data.profile_pic?.slice(1));
         setMembers(members);
-        console.log(members);
+        ////console.log(members);
       });
   }, []);
   const navigate = useNavigate();
   const copyLink = (e) => {
-    console.log(`${baseUrl}workspaces/workspaceowner/${params.id}/invite-link`);
+    ////console.log(`${baseUrl}workspaces/workspaceowner/${params.id}/invite-link`);
     if (button_inner === "کپی لینک دعوت") {
+      setIsPost(true);
       apiInstance
         .get(`workspaces/workspaceowner/${params.id}/invite-link/`)
         .then((res) => {
           navigator.clipboard
-            .writeText(`localhost:3000/invite_page/${res.data}/`)
+            // .writeText(`${baseUrl}invite_page/${res.data}/`)
+            .writeText(`http://localhost:3000/invite_page/${res.data}/`)
             .then(
               buttonRef.current.blur(),
               setButton_inner("لینک کپی شد"),
@@ -58,7 +66,8 @@ const Members = ({ params }) => {
                 console.error("Async: Could not copy text: ", err);
               }
             );
-        });
+        })
+        .finally(() => setIsPost(null));
     } else {
       setButton_inner("کپی لینک دعوت");
     }
@@ -68,14 +77,14 @@ const Members = ({ params }) => {
   };
 
   const removeMember = (e, user_id) => {
-    console.log(user_id);
+    ////console.log(user_id);
     apiInstance
       .delete(
         `workspaces/workspaceowner/${params.id}/remove-user-from-workspace/${user_id}/`
       )
       .then((res) => {
-        console.log(res.status);
-        console.log("in delete person");
+        ////console.log(res.status);
+        ////console.log("in delete person");
 
         setMembers((members) =>
           members.filter((member) => member.id !== user_id)
@@ -89,7 +98,7 @@ const Members = ({ params }) => {
   };
 
   const test = (e) => {
-    console.log("here");
+    ////console.log("here");
     const form_data = new FormData();
     form_data.append("name", "title");
     form_data.append("description", "description");
@@ -97,12 +106,13 @@ const Members = ({ params }) => {
     apiInstance
       .post(`/workspaces/workspaceowner/${params.id}/create-board/`, form_data)
       .then((res) => {
-        console.log(res.data);
+        ////console.log(res.data);
       });
   };
   const buttonRef = useRef(null);
   return (
     <div className="main-div">
+      {isPost ? <Loading /> : null}
       <ToastContainer />
       <Navbar params={params} />
       <div className="copy-link">
@@ -112,7 +122,12 @@ const Members = ({ params }) => {
             کارگاه شما بپیوندند
           </h2>
         </div>
-        <button onClick={copyLink} ref={buttonRef} class="button-9">
+        <button
+          onClick={copyLink}
+          ref={buttonRef}
+          class="button-9"
+          style={{ fontFamily: "Vazir" }}
+        >
           {button_inner}
         </button>
       </div>
@@ -138,7 +153,9 @@ const Members = ({ params }) => {
           <tbody>
             {members.map((member, idx) => (
               <tr>
-                <td className="list-item-prop hide-when-small">{idx + 1}</td>
+                <td className="list-item-prop hide-when-small">
+                  {convertNumberToPersian(idx + 1)}
+                </td>
                 <td className="list-item-prop hide-when-small">
                   <img src={member.image} className="member-image" />
                 </td>
@@ -149,31 +166,32 @@ const Members = ({ params }) => {
                   {member.email}
                 </td>
                 <td className="list-item-prop for-button">
-                  <button
-                    id={member.userName}
-                    key={member.id}
-                    className="more-details"
-                    role="button"
-                    onClick={go_to_profile}
-                  >
-                    <span class="text">پروفایل</span>
-                  </button>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <button
+                      id={member.userName}
+                      key={member.id}
+                      className="more-details"
+                      role="button"
+                      onClick={go_to_profile}
+                    >
+                      <span class="text">پروفایل</span>
+                    </button>
+                  </div>
                 </td>
-                <td>
+                <td
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: "3rem",
+                  }}
+                >
                   <DeleteDialog
                     className="ws_members-person-remove-button"
                     key={member.id}
                     removeMember={removeMember}
                     user_id={member.id}
                   />
-                  {/* <button
-                    key={member.id}
-                    id={member.userName}
-                    className="ws_members-person-remove-button"
-                    onClick={(event) => removeMember(event, member.id)}
-                  >
-                    <PersonRemoveIcon sx={{ color: "#fff" }} />
-                  </button> */}
                 </td>
               </tr>
             ))}

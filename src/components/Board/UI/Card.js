@@ -25,20 +25,10 @@ import { Modal, responsiveFontSizes } from "@mui/material";
 import CardCover from "../Cards Item/CardCover";
 import CardTitle from "../Cards Item/CardTitle";
 import CardLabel from "../Cards Item/CardLabel";
+import { convertNumberToPersian } from "../../../utilities/helpers";
 
-const Card = ({
-  boardId,
-  remID,
-  index,
-  cardId,
-  attachments_num,
-  doers,
-  checklists_num,
-  checked_checklists_num,
-  comments_num,
-}) => {
-  let cardInfo;
-  const [card, setCard] = useState({});
+const Card = ({ task, key, cardId, index, boardId, remID }) => {
+  const [card, setCard] = useState(task);
   const [open, setOpen] = useState(false);
   const [click, setClick] = useState(false);
   const [show, setShow] = useState(false);
@@ -47,27 +37,53 @@ const Card = ({
   const [req, setReq] = useState(false);
   const [cover, setCover] = useState("");
   const [update, setUpdate] = useState(false);
-  const [chatnum, setChatnum] = useState(comments_num == undefined ? 0 : comments_num);
-  const [clnum, setClnum] = useState(checklists_num == undefined ? 0 : checklists_num);
-  const [cclnum, setCclnum] = useState(checked_checklists_num == undefined ? 0 : checked_checklists_num);
-  const [attachnum, setAttachnum] = useState(attachments_num == undefined ? 0 : comments_num);
-  
-  console.log(card);
-  console.log(chatnum);
-  console.log(clnum);
-  console.log(cclnum);
-  console.log(attachnum);
-  useEffect(() => {
-    getCard();
-    setUpdate(!update);
-    return setCard({});
-  }, []);
+  const [chatnum, setChatnum] = useState(
+    card.comments_num == undefined ? 0 : card.comments_num
+  );
+  const [clnum, setClnum] = useState(
+    card.checklists_num == undefined ? 0 : card.checklists_num
+  );
+  const [cclnum, setCclnum] = useState(
+    card.checked_checklists_num == undefined ? 0 : card.checked_checklists_num
+  );
+  const [attachnum, setAttachnum] = useState(
+    card.attachments_num == undefined ? 0 : card.comments_num
+  );
+  const [label, setLabel] = useState(card.labels);
+  const [doers, setDoers] = useState(card.doers);
+  const [attachment, setAttachment] = useState([]);
 
   const getCard = () => {
-    apiInstance
-      .get(`workspaces/task/${cardId}/get-task/`)
-      .then((response) => setCard(response.data));
+    apiInstance.get(`workspaces/task/${cardId}/get-task/`).then((response) => {
+      setAttachment(response.data.attachments);
+    });
   };
+  const updateCard = async () => {
+    await apiInstance
+      .get(`workspaces/task/${cardId}/get-task/`)
+      .then((response) => {
+        setAttachment(response.data.attachments);
+        setAttachnum(response.data.attachments.length);
+        setDoers(response.data.doers);
+        setChatnum(response.data.comments.length);
+        setLabel(response.data.labels);
+      });
+    await apiInstance
+      .get(`workspaces/task/${cardId}/get-all-checklists/`)
+      .then((response) => {
+        setClnum(response.data.length);
+        const temp = response.data.filter((x) => x.is_done === true);
+        setCclnum(temp.length);
+      });
+    setUpdate(!update);
+  };
+  useEffect(() => {
+    getCard();
+    return () => {};
+  }, []);
+  // useEffect(() => {
+  //   updateCard();
+  // }, [update]);
   useEffect(() => {
     setCard(card);
     // setCover(cover);
@@ -78,9 +94,10 @@ const Card = ({
     setOpen(true);
   };
   const handleModalClose = () => {
-    setClick(!click);
-    getCard();
-    setAttachnum(card.attachments.length);
+    setOpen(false);
+    updateCard();
+    // setUpdate(!update);
+    // setClick(!click);
   };
   const handleEditCardName = (e) => {
     e.stopPropagation();
@@ -95,18 +112,17 @@ const Card = ({
   };
 
   const findCover = () => {
-    const attach = card.attachments;
-    if (attach !== undefined) {
-      attach.every((x) => {
-        console.log(x);
+    if (attachment !== undefined) {
+      attachment.every((x) => {
+        ////console.log(x);
         let file = x.file.split("attachments/")[1];
         file = file.split(".")[1];
         if (file === "png" || file === "jpeg" || file === "jpg") {
-          console.log(file);
+          ////console.log(file);
           setCover(x.file);
           return false;
         }
-        console.log(cover);
+        ////console.log(cover);
       });
     }
     return cover !== "";
@@ -118,6 +134,7 @@ const Card = ({
     if (card.description.length > 80) {
       description = card.description.substring(0, 79);
     }
+    description = convertNumberToPersian(description);
     return description;
   };
 
@@ -149,7 +166,7 @@ const Card = ({
       })
       .finally(() => {
         // setIsPost(null);
-        console.log("reqDeleteCard Done");
+        ////console.log("reqDeleteCard Done");
         remID(cardId);
         // props.onPost(true);
       });
@@ -197,12 +214,12 @@ const Card = ({
               >
                 <CloseIcon sx={{ fontSize: "1.6rem" }} />
               </div>
-              <div
+              {/* <div
                 className="card_edit-icon"
                 onClick={(event) => handleEditCardName(event)}
               >
                 <EditIcon sx={{ fontSize: "1.6rem" }} />
-              </div>
+              </div> */}
             </div>
             <div className="card_body">
               {findCover() && (
@@ -216,17 +233,26 @@ const Card = ({
                   if (enable) event.stopPropagation();
                 }}
               >
-                {show ? <CardTitle enable={enable} title={card.title} /> : <p>{card.title}</p>}
+                {show ? (
+                  <CardTitle
+                    enable={enable}
+                    title={convertNumberToPersian(card.title)}
+                  />
+                ) : (
+                  <p>{convertNumberToPersian(card.title)}</p>
+                )}
               </div>
-              {disc() !== null && (
+              {/* {disc() !== null && (
                 <div className="card_disc">
                   <p>{disc()}...</p>
                 </div>
-              )}
+              )} */}
             </div>
-            {card.labels !== [] && <div className="card_label">
-              <CardLabel label={card.labels}/>
-            </div>}
+            {label !== [] && (
+              <div className="card_label">
+                <CardLabel label={label} />
+              </div>
+            )}
             <div className="card_footer">
               <div className="card_card-avatar">
                 {doers !== [] && (
@@ -254,7 +280,9 @@ const Card = ({
                 {attachnum !== 0 && (
                   <div className="card_icon-container">
                     <AttachFileIcon className="card_default-footer-icon" />
-                    <p className="card_icon-info">{attachnum}</p>
+                    <p className="card_icon-info">
+                      {convertNumberToPersian(attachnum)}
+                    </p>
                   </div>
                 )}
                 {clnum !== 0 && (
@@ -263,14 +291,16 @@ const Card = ({
                       <div className="card_icon-container">
                         <CheckBoxOutlinedIcon className="card_default-footer-icon card_checklist-finish" />
                         <p className="card_icon-info ">
-                          {cclnum}/{clnum}
+                          {convertNumberToPersian(cclnum)} /
+                          {convertNumberToPersian(clnum)}
                         </p>
                       </div>
                     ) : (
                       <div className="card_icon-container">
                         <CheckBoxOutlinedIcon className="card_default-footer-icon" />
                         <p className="card_icon-info">
-                          {cclnum}/{clnum}
+                          {convertNumberToPersian(cclnum)}/
+                          {convertNumberToPersian(clnum)}
                         </p>
                       </div>
                     )}
@@ -279,7 +309,9 @@ const Card = ({
                 {chatnum !== 0 && (
                   <div className="card_icon-container">
                     <ChatBubbleIcon className="card_default-footer-icon" />
-                    <p className="card_icon-info">{chatnum}</p>
+                    <p className="card_icon-info">
+                      {convertNumberToPersian(chatnum)}
+                    </p>
                   </div>
                 )}
               </div>

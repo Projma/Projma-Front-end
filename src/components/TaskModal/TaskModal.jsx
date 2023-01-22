@@ -43,6 +43,10 @@ import { baseUrl } from "../../utilities/constants";
 import { Link } from "react-router-dom";
 import { Calendarr } from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
+import { convertNumberToPersian } from "../../utilities/helpers";
+import Loading from "../Shared/Loading";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -57,23 +61,19 @@ function APIcall() {}
 
 export default function TaskModal(props) {
   const params = { task_id: props.cardId, board_id: props.boardId };
-  console.log(params);
   const handleRemoveChecklist = (id) => {
     setAllChecklists((prevState) => {
       return prevState.filter((item) => item.id !== id);
     });
     apiInstance
       .delete(`/workspaces/task/delete-checklist/${id}/`)
-      .then((response) => {
-        console.log(response);
-      });
+      .then((response) => {});
   };
 
   function handleRemoveOfComment(id) {
     apiInstance
       .delete(`/workspaces/comment/${id}/delete-comment/`)
       .then((response) => {
-        console.log(response);
         setListOfComments((prevState) => {
           return prevState.filter((item) => item.id !== id);
         });
@@ -85,7 +85,6 @@ export default function TaskModal(props) {
     apiInstance
       .patch(`/workspaces/comment/${index}/eddit-comment/`, formData)
       .then((response) => {
-        console.log(response);
         setListOfComments((prevState) => {
           return prevState.map((item) => {
             if (item.id === index) {
@@ -93,6 +92,16 @@ export default function TaskModal(props) {
             }
             return item;
           });
+        });
+        toast.success("نظر شما با موفقیت ویرایش شد", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      })
+      .catch((error) => {
+        toast.error("مشکلی پیش آمده است. دوباره تلاش کنید.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
         });
       });
   }
@@ -135,7 +144,11 @@ export default function TaskModal(props) {
         >
           {initials.profile_pic != null ? (
             <img
-              src={initials.profile_pic}
+              src={
+                initials.profile_pic.toString().includes("http")
+                  ? initials.profile_pic
+                  : baseUrl + initials.profile_pic
+              }
               alt={initials.first_name}
               style={{ width: "100%", height: "100%", borderRadius: "50%" }}
             />
@@ -167,9 +180,9 @@ export default function TaskModal(props) {
         style={{
           backgroundColor: initials.color + "55",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "start",
           width: 90,
-          height: 25,
+          height: 30,
           borderRadius: 30,
         }}
       >
@@ -179,6 +192,7 @@ export default function TaskModal(props) {
             alignItems: "center",
             justifyContent: "center",
             borderRadius: 30,
+            marginRight: "8%",
             width: 17,
             height: 17,
             marginLeft: 7,
@@ -193,6 +207,9 @@ export default function TaskModal(props) {
             height: "100%",
             justifyContent: "center",
             alignItems: "center",
+            overflowX: "auto",
+            paddingTop: 2,
+            paddingRight: -10,
           }}
         >
           {initials.title}
@@ -223,6 +240,7 @@ export default function TaskModal(props) {
   const [changePlus, setChangePlus] = useState(false);
   const [dueDate, setDueDate] = useState("");
   const [taskdoner, setTaskDoner] = useState("");
+  const [isPost, setIsPost] = useState(false);
   const [allAttachments, setAllAttachments] = useState([]);
   const [EditCheckList, setEditCheckList] = useState(Array(1000).fill(false));
   const [EditCommentList, setEditCommentList] = useState(
@@ -230,18 +248,18 @@ export default function TaskModal(props) {
   );
   const [title, setTitle] = useState("");
   const baseURL = baseUrl.substring(0, baseUrl.length - 1);
-  // const params = useParams();
   const handleRemoveAttachment = (id) => {
+    setIsPost(true);
     setAllAttachments((prevState) => {
       return prevState.filter((item) => item.id !== id);
     });
     apiInstance
       .delete(`/workspaces/attachment/${id}/delete-attachment-from-task/`)
-      .then((res) => {
-        console.log(res);
-      });
+      .then((res) => {})
+      .finally(() => setIsPost(null));
   };
   const handleSubmit = (event) => {
+    setIsPost(true);
     event.preventDefault();
     setShowDescription(false);
     const formData = new FormData();
@@ -249,8 +267,18 @@ export default function TaskModal(props) {
     apiInstance
       .patch(`/workspaces/task/${params.task_id}/update-task/`, formData)
       .then((res) => {
-        console.log(res);
-      });
+        toast.success("با موفقیت ثبت شد.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      })
+      .catch((err) => {
+        toast.error("مشکلی پیش آمده است. دوباره تلاش کنید.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      })
+      .finally(() => setIsPost(null));
   };
   const handleEditChecklist = (id) => {
     setAllChecklists((prevState) => {
@@ -261,17 +289,28 @@ export default function TaskModal(props) {
         return item;
       });
     });
+    setIsPost(true);
     const formData = new FormData();
     formData.append("text", checklistTitle);
     apiInstance
       .patch(`/workspaces/task/update-checklist/${id}/`, formData)
       .then((res) => {
-        console.log(res);
-      });
+        toast.success("با موفقیت ویرایش شد.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      })
+      .catch((err) => {
+        toast.error("مشکلی پیش آمده است. دوباره تلاش کنید.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      })
+      .finally(() => setIsPost(null));
   };
 
   const plusforprojma = () => {
-    console.log("plusforprojma");
+    setIsPost(true);
     const formdata = new FormData();
     formdata.append("estimate", estimate);
     formdata.append("spend", done);
@@ -284,33 +323,50 @@ export default function TaskModal(props) {
     apiInstance
       .patch(`/workspaces/task/${params.task_id}/update-task/`, formdata)
       .then((res) => {
-        console.log("navid");
-        // console.log(res);
-      });
+        toast.success("با موفقیت ثبت شد.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      })
+      .catch((err) => {
+        toast.error("مشکلی پیش آمده است. دوباره تلاش کنید.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      })
+      .finally(() => setIsPost(null));
   };
 
   const AddCheckList = () => {
-    console.log("navid");
+    setIsPost(true);
     const formData = new FormData();
     formData.append("text", checklistTitle);
     apiInstance
       .post(`/workspaces/task/${params.task_id}/create-checklist/`, formData)
       .then((res) => {
-        console.log(res);
         setAllChecklists((prevState) => [...prevState, res.data]);
+        toast.success("با موفقیت ویرایش شد.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
       })
       .catch((err) => {
-        console.log(err);
-      });
+        toast.error("مشکلی پیش آمده است. دوباره تلاش کنید.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      })
+      .finally(() => setIsPost(null));
   };
   const handleCommentSubmit = (event, user_id) => {
+    setIsPost(true);
     event.preventDefault();
     const formData = new FormData();
+    setComment(convertNumberToPersian(Comment));
     formData.append("text", Comment);
     apiInstance
       .post(`/workspaces/task/${params.task_id}/new-comment/`, formData)
       .then((response) => {
-        console.log(response.data);
         setListOfComments((prevState) => [
           ...prevState,
           {
@@ -329,25 +385,34 @@ export default function TaskModal(props) {
             },
           },
         ]);
+        toast.success("با موفقیت ثبت شد.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
       })
       .catch((error) => {
-        console.log(error);
-      });
+        toast.error("مشکلی پیش آمده است. دوباره تلاش کنید.", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      })
+      .finally(() => setIsPost(null));
     setComment("");
     setShowComment(false);
   };
   const handleDeleteDescription = () => {
+    setIsPost(true);
     setDescription("");
     setShowDescription(false);
     apiInstance
       .patch(`/workspaces/task/${params.task_id}/update-task/`, {
         description: "",
       })
-      .then((res) => {
-        console.log(res);
-      });
+      .then((res) => {})
+      .finally(() => setIsPost(null));
   };
   const handleCheckboxIsDone = (id) => {
+    setIsPost(true);
     setAllChecklists((prevState) =>
       prevState.map((item) => {
         if (item.id === id) {
@@ -372,15 +437,13 @@ export default function TaskModal(props) {
     });
     apiInstance
       .patch(`/workspaces/task/update-checklist/${id}/`, formData)
-      .then((res) => {
-        console.log(res);
-      });
+      .then((res) => {})
+      .finally(() => setIsPost(null));
   };
   useEffect(() => {
     apiInstance
       .get(`/workspaces/board/${params.board_id}/members/`)
       .then((res) => {
-        // console.log(res);
         const members = res.data.map((obj) => ({
           id: obj.user.id,
           firstName: obj.user.first_name,
@@ -394,21 +457,18 @@ export default function TaskModal(props) {
     apiInstance
       .get(`/workspaces/task/${params.task_id}/get-all-checklists/`)
       .then((res) => {
-        console.log(res);
         setAllChecklists(res.data);
       });
     apiInstance.get(`/accounts/profile/myprofile/`).then((res) => {
       setUser(res.data);
-      console.log(user);
     });
     apiInstance
       .get(`/workspaces/task/${params.task_id}/get-task/`)
       .then((res) => {
-        console.log(res);
-        setDueDate(res.data.end_date);
-        setEstimate(res.data.estimate);
+        setDueDate(convertNumberToPersian(res.data.end_date));
+        setEstimate(convertNumberToPersian(res.data.estimate));
         setTasklistName(res.data.tasklist_name);
-        setDone(res.data.spend);
+        setDone(convertNumberToPersian(res.data.spend));
         setDescription(res.data.description);
         setTitle(res.data.title);
         const attachments = res.data.attachments.map((obj) => ({
@@ -424,6 +484,7 @@ export default function TaskModal(props) {
         }));
         setListOfLabels(labels);
         const doer = res.data.doers.map((item) => ({
+          // id: item.id,
           email: item.email,
           username: item.username,
           first_name: item.first_name,
@@ -446,12 +507,7 @@ export default function TaskModal(props) {
 
   return (
     <div>
-      {/* <Button
-        variant="contained"
-        onClick={() => {
-          console.log(params.task_id);
-        }}
-      ></Button> */}
+      {isPost ? <Loading /> : null}
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
           <div
@@ -491,6 +547,7 @@ export default function TaskModal(props) {
                           display: "flex",
                           flexDirection: "row",
                           flexGrow: 1,
+                          alignItems: "flex-start",
                           gap: "3%",
                         }}
                       >
@@ -509,6 +566,7 @@ export default function TaskModal(props) {
                           display: "flex",
                           flexDirection: "row",
                           flexGrow: 1,
+                          alignItems: "flex-start",
                           gap: "3%",
                         }}
                       >
@@ -537,7 +595,7 @@ export default function TaskModal(props) {
                             justifyContent: "center",
                           }}
                         >
-                          {dueDate != null ? (
+                          {dueDate.toString() != "null" ? (
                             <div className="duetime-showDate">
                               {dueDate.toString().replaceAll("-", "/")}
                             </div>
@@ -550,7 +608,7 @@ export default function TaskModal(props) {
                   </div>
                   <div
                     className="flex-row taskmodal-body-larger-description"
-                    style={{ gap: "3%" }}
+                    style={{ gap: "3%", fontFamily: "Vazir" }}
                   >
                     <div className="flex-taskmodal">
                       <DehazeIcon
@@ -575,10 +633,22 @@ export default function TaskModal(props) {
                             <StyledTextField
                               fullWidth
                               autoFocus
-                              onChange={(e) => setDescription(e.target.value)}
+                              onChange={(e) =>
+                                setDescription(
+                                  convertNumberToPersian(e.target.value)
+                                )
+                              }
                               value={description}
                               multiline
+                              sx={{ fontFamily: "Vazir", color: "white" }}
                               rows={2}
+                              inputProps={{
+                                style: {
+                                  padding: "1%",
+                                  fontFamily: "Vazir",
+                                  fontSize: "152%",
+                                },
+                              }}
                             ></StyledTextField>
                             <div dir="ltr" style={{ marginTop: "3%" }}>
                               <Button
@@ -604,7 +674,7 @@ export default function TaskModal(props) {
                           </div>
                         ) : (
                           <div style={{ marginBottom: "2px" }}>
-                            {description == "" ? (
+                            {description == "" || description == null ? (
                               <Button
                                 className="taskmodal-closeButton"
                                 onClick={() => setShowDescription(true)}
@@ -619,18 +689,25 @@ export default function TaskModal(props) {
                               </Button>
                             ) : (
                               <div>
-                                <div
+                                <Typography
                                   className="taskmodal-comment-showList-comment"
                                   style={{
                                     height: "70px",
-                                    width: "100%",
+                                    // width: "100%",
                                     padding: "5%",
                                     borderRadius: "10px",
                                     marginRight: "0px",
+                                    color: "white",
+                                    overflow: "auto",
+                                    fontFamily: "Vazir",
+                                    fontSize: "128%",
                                   }}
+                                  multiline
+                                  rows={2}
+                                  // defalutValue={description}
                                 >
                                   {description}
-                                </div>
+                                </Typography>
                                 <div className="taskmodal-comment-button">
                                   <Button
                                     onClick={handleDeleteDescription}
@@ -725,8 +802,6 @@ export default function TaskModal(props) {
                                   variant="outlined"
                                   className="taskmodal-button-setting"
                                   onClick={() => {
-                                    console.log("navid");
-                                    console.log(item.id);
                                     setEditCheckList((oldState) => {
                                       const newState = [...oldState];
                                       newState[item.id] = false;
@@ -752,8 +827,6 @@ export default function TaskModal(props) {
                               <Checkbox
                                 onClick={() => {
                                   handleCheckboxIsDone(item.id);
-                                  console.log(allChecklists);
-                                  // console.log(i);
                                 }}
                                 sx={{
                                   color: "white",
@@ -772,7 +845,6 @@ export default function TaskModal(props) {
                                     color: "white",
                                   }}
                                   onClick={() => {
-                                    console.log(item.id);
                                     setEditCheckList((oldState) => {
                                       const newState = [...oldState];
                                       newState[item.id] = true;
@@ -793,7 +865,6 @@ export default function TaskModal(props) {
                                     color: "white",
                                   }}
                                   onClick={() => {
-                                    console.log(item.id);
                                     setEditCheckList((oldState) => {
                                       const newState = [...oldState];
                                       newState[item.id] = true;
@@ -900,7 +971,7 @@ export default function TaskModal(props) {
                               </div>
                               <div className="flex-row taskmodal-body-attachment-list-item">
                                 <div className="flex-taskmodal taskmodal-body-attachment-list-item-title">
-                                  {item.file.toString().split("/")[5]}
+                                  {item?.file?.toString()?.split("/")[5]}
                                 </div>
                                 <div className="flex-row">
                                   <div className="flex-taskmodal taskmodal-body-attachment-list-item-createdTime">
@@ -963,7 +1034,7 @@ export default function TaskModal(props) {
                           id="estimate"
                           value={estimate}
                           onChange={(e) => {
-                            setEstimate(e.target.value);
+                            setEstimate(convertNumberToPersian(e.target.value));
                             setChangePlus(true);
                           }}
                           InputLabelProps={{
@@ -989,7 +1060,7 @@ export default function TaskModal(props) {
                           id="done"
                           value={done}
                           onChange={(e) => {
-                            setDone(e.target.value);
+                            setDone(convertNumberToPersian(e.target.value));
                             setChangePlus(true);
                           }}
                           InputLabelProps={{
@@ -1058,7 +1129,18 @@ export default function TaskModal(props) {
                             <StyledTextField
                               fullWidth
                               autoFocus
-                              onChange={(e) => setComment(e.target.value)}
+                              onChange={(e) =>
+                                setComment(
+                                  convertNumberToPersian(e.target.value)
+                                )
+                              }
+                              inputProps={{
+                                style: {
+                                  padding: "1%",
+                                  fontFamily: "Vazir",
+                                  fontSize: "152%",
+                                },
+                              }}
                             ></StyledTextField>
                             <div dir="ltr" style={{ marginTop: "3%" }}>
                               <Button
@@ -1107,7 +1189,13 @@ export default function TaskModal(props) {
                           <div className="flex taskmodal-body-activity-body-icon">
                             {item.sender?.profile_pic !== null ? (
                               <img
-                                src={`${item.sender?.profile_pic}`}
+                                src={
+                                  `${item.sender?.profile_pic}`
+                                    .toString()
+                                    .includes("http")
+                                    ? `${item.sender?.profile_pic}`
+                                    : `${baseURL}${item.sender?.profile_pic}`
+                                }
                                 alt="profile"
                                 style={{
                                   borderRadius: 30,
@@ -1142,9 +1230,18 @@ export default function TaskModal(props) {
                                   fullWidth
                                   autoFocus
                                   onChange={(e) => {
-                                    setEditCommentText(e.target.value);
+                                    setEditCommentText(
+                                      convertNumberToPersian(e.target.value)
+                                    );
                                   }}
                                   value={editcommentText}
+                                  inputProps={{
+                                    style: {
+                                      padding: "1%",
+                                      fontFamily: "Vazir",
+                                      fontSize: "152%",
+                                    },
+                                  }}
                                   // defaultValue={item.text}
                                 ></StyledTextField>
                                 <div dir="ltr" style={{ marginTop: "3%" }}>
@@ -1157,7 +1254,7 @@ export default function TaskModal(props) {
                                       });
                                       handleEditComment(
                                         item.id,
-                                        editcommentText
+                                        convertNumberToPersian(editcommentText)
                                       );
                                     }}
                                     variant="contained"
@@ -1221,7 +1318,9 @@ export default function TaskModal(props) {
                                           newState[item.id] = true;
                                           return newState;
                                         });
-                                        setEditCommentText(item.text);
+                                        setEditCommentText(
+                                          convertNumberToPersian(item.text)
+                                        );
                                       }}
                                     >
                                       ویرایش

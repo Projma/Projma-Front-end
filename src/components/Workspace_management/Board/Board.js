@@ -8,44 +8,96 @@ import apiInstance from "../../../utilities/axiosConfig";
 import "./Board.css";
 import BoardView from "./BoardView";
 import CreateBoardModal from "../CreateBoardModal/CreateBoard";
+import Loading from "../../Shared/Loading";
+import { baseUrl } from "../../../utilities/constants";
+// import { createGlobalStyle } from "styled-components";
 
 const Board = ({ params, on_submit }) => {
-  console.log(params.id);
+  ////console.log(params.id);
   const [workspace, setWorkspace] = useState({});
-  const [star,setStar] = useState({});
+  const [star, setStar] = useState([]);
+  const [recent, setRecent] = useState([]);
+  const [list, setList] = useState([]);
+  const [update, setUpdate] = useState(false);
+  const [loading, setLoading] = useState(true);
+  let tempdata;
   useEffect(() => {
-    console.log(params);
+    fetchData();
+  }, []);
+
+  useEffect(() => {
     apiInstance
+      .get(`workspaces/workspaces/${params.id}/workspace-starred-boards/`)
+      .then((res) => {
+        setLoading(true);
+        // ////console.log(res.data);
+        ////console.log("*********************************");
+        ////console.log(res.data);
+        setStar(res.data);
+      })
+      .catch((err) => {
+        ////console.log(err);
+        setStar([]);
+      })
+      .finally(() => setLoading(false));
+    // return () => {
+    //   setList(list);
+    // };
+  }, [update]);
+
+  const fetchData = async () => {
+    await apiInstance
       .get(`workspaces/workspaceowner/${params.id}/workspace-boards/`)
       .then((res) => {
         const boards = res.data.map((obj) => ({
           id: obj.id,
           name: obj.name,
+          background_pic: obj.background_pic,
         }));
         setList(boards);
-        console.log(boards);
+        tempdata = boards;
+        ////console.log(boards);
       });
-    apiInstance
+    await apiInstance
       .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
       .then((res) => {
-        // console.log(res.data);
-        console.log("*********************************");
-        console.log(res.data);
+        // ////console.log(res.data);
+        ////console.log("*********************************");
+        ////console.log(res.data);
         setWorkspace(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        ////console.log(err);
       });
-  }, []);
-  const [list, setList] = useState([]);
-
-  const addBoardHandler = (obj) => {
-    setList((current) => [...current, obj]);
+    await apiInstance
+      .get(`workspaces/workspaces/${params.id}/workspace-starred-boards/`)
+      .then((res) => {
+        // ////console.log(res.data);
+        ////console.log("*********************************");
+        ////console.log(res.data);
+        setStar(res.data);
+      })
+      .catch((err) => {
+        ////console.log(err);
+        // setStar([]);
+      });
+    await apiInstance
+      .get(`workspaces/dashboard/myrecent-boards/`)
+      .then((res) => {
+        // ////console.log(res.data);
+        ////console.log("*********************************");
+        ////console.log(res.data);
+        setRecent(res.data.filter((x) => tempdata.find((y) => y.id === x.id)));
+        //console.log(tempdata, res.data);
+      })
+      .catch((err) => {
+        ////console.log(err);
+        // setRecent([]);
+      })
+      .finally(() => setLoading(false));
   };
-
   const starredHandler = (data) => {
-
-    setList((current) =>
+    setStar((current) =>
       current.map((obj) => {
         if (obj.id === data.id) {
           return { ...obj, isStarred: data.is };
@@ -53,94 +105,96 @@ const Board = ({ params, on_submit }) => {
         return obj;
       })
     );
+    setUpdate(!update);
   };
-
-  // ✅ Remove one or more objects from state array
-  // const removeObjectFromArray = () => {
-  //   setEmployees(current =>
-  //     current.filter(obj => {
-  //       return obj.id !== 2;
-  //     }),
-  //   );
-  // };
-  const [open, setOpen] = useState(false);
   return (
-    <div className="board" style={{ width: "100%" }}>
+    <div className="workspace-board-main" style={{ width: "100vw" }}>
+      {loading && <Loading />}
       <Navbar params={params} />
-      {list.find((e) => e.isStarred === true) && star !== {} && (
-        <div>
-          <div className="workspace--starred-board">
-            <div className="workspace--board-header">
-              <StarIcon />
-              <p className="workspace--board-header-title">بورد های مهم</p>
-            </div>
-            <div className="workspace--board-body">
-              <div className="workspace--board-body-list">
-                {list.map(
-                  (x) =>
-                    x.isStarred && (
-                      <BoardView
-                        name={x.name}
-                        key={x.id}
-                        is={x.isStarred}
-                        id={x.id}
-                        onStarred={starredHandler}
-                      />
-                    )
-                )}
+      <div className="workspace-board-section">
+        {recent.length > 0 && (
+          <div>
+            <div className="workspace--recent-board">
+              <div className="workspace--board-header">
+                <AccessTimeIcon style={{ color: "#fff" }} />
+                <p className="workspace--board-header-title">آخرین بورد ها</p>
+              </div>
+              <div className="workspace--board-body">
+                <div className="workspace--board-body-list">
+                  {recent.map((x) => (
+                    <BoardView
+                      name={x.name}
+                      key={x.id}
+                      is={star.find((e) => e.id === x.id) ? true : false}
+                      id={x.id}
+                      pic={
+                        x.background_pic === null
+                          ? null
+                          : baseUrl + x.background_pic
+                      }
+                      onLoading={() => setLoading(true)}
+                      onStarred={starredHandler}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
-      {list.find((e) => e.isRecent === true) && (
-        <div>
-          <div className="workspace--recent-board">
-            <div className="workspace--board-header">
-              <AccessTimeIcon />
-              <p className="workspace--board-header-title">آخرین بورد ها</p>
-            </div>
-            <div className="workspace--board-body">
-              <div className="workspace--board-body-list">
-                {list.map(
-                  (x) =>
-                    x.isRecent && (
-                      <BoardView
-                        name={x.name}
-                        key={x.id}
-                        is={x.isStarred}
-                        id={x.id}
-                        onStarred={starredHandler}
-                      />
-                    )
-                )}
+        )}
+        {star.length > 0 && (
+          <div>
+            <div className="workspace--starred-board">
+              <div className="workspace--board-header">
+                <StarIcon />
+                <p className="workspace--board-header-title">بورد های مهم</p>
+              </div>
+              <div className="workspace--board-body">
+                <div className="workspace--board-body-list">
+                  {star.map((x) => (
+                    <BoardView
+                      name={x.name}
+                      key={x.id}
+                      is={true}
+                      id={x.id}
+                      pic={x.background_pic}
+                      onStarred={starredHandler}
+                      onLoading={() => setLoading(true)}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
-      <div className="workspace--my-board">
-        <div className="workspace--board-header">
-          <DashboardIcon sx={{ color: "#fff", marginLeft: "10px" }} />
-          <p className="workspace--board-header-title">بورد ها</p>
-        </div>
-        <div className="workspace--board-body">
-          <div className="workspace--board-body-list">
-            {list.map((x) => (
-              <BoardView
-                name={x.name}
-                key={x.id}
-                is={x.isStarred}
-                id={x.id}
-                onStarred={starredHandler}
+        )}
+        <div className="workspace--my-board">
+          <div className="workspace--board-header">
+            <DashboardIcon sx={{ color: "#fff" }} />
+            <p className="workspace--board-header-title">بورد ها</p>
+          </div>
+          <div className="workspace--board-body">
+            <div className="workspace--board-body-list">
+              {list.map((x) => (
+                <BoardView
+                  name={x.name}
+                  key={x.id}
+                  is={star.find((e) => e.id === x.id) ? true : false}
+                  id={x.id}
+                  pic={
+                    x.background_pic === null
+                      ? null
+                      : baseUrl + x.background_pic
+                  }
+                  onStarred={starredHandler}
+                  onLoading={() => setLoading(true)}
+                />
+              ))}
+              <CreateBoardModal
+                params={params}
+                on_submit={on_submit}
+                boards={list}
+                setBoards={setList}
               />
-            ))}
-            <CreateBoardModal
-              params={params}
-              on_submit={on_submit}
-              boards={list}
-              setBoards={setList}
-            />
+            </div>
           </div>
         </div>
       </div>

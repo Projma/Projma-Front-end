@@ -7,6 +7,7 @@ import LabelIcon from "@mui/icons-material/Label";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Divider from "@mui/material/Divider";
 import "../../styles/TaskModal.css";
+import Loading from "../Shared/Loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Attachment.scss";
@@ -14,6 +15,7 @@ import "./Attachment.scss";
 export default function Attachments({ params, setAllAttachments }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [file, setFile] = React.useState(null);
+  const [isPost, setIsPost] = React.useState(false);
   const [binaryFile, setBinaryFile] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -24,18 +26,20 @@ export default function Attachments({ params, setAllAttachments }) {
   };
 
   const handleFileChange = (e) => {
-    console.log(e.target.files[0]);
+    ////console.log(e.target.files[0]);
     const [file] = e.target.files;
     setBinaryFile(e.target.files[0]);
     if (file) {
       setFile(URL.createObjectURL(file));
-      console.log(URL.createObjectURL(file));
+      ////console.log(URL.createObjectURL(file));
     }
   };
   const createAttachment = () => {
-    console.log("create attachment$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+    ////console.log("create attachment$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     const formData = new FormData();
     formData.append("file", binaryFile);
+    setIsPost(true);
+    handleClose();
     apiInstance
       .patch(
         `workspaces/task/${params.task_id}/add-attachment-to-task/`,
@@ -47,22 +51,26 @@ export default function Attachments({ params, setAllAttachments }) {
         }
       )
       .then((res) => {
-        console.log(res.data);
+        ////console.log(res.data);
         toast.success("پیوست جدید اضافه شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        console.log("##############333333333333333333333333333333333333333");
-        // console.log(res.data);
-        console.log(res.data);
+        ////console.log("##############333333333333333333333333333333333333333");
+        // ////console.log(res.data);
+        ////console.log(res.data);
         setAllAttachments((prev) => [...prev, res.data]);
+      })
+      .finally(() => {
+        setIsPost(null);
       });
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <div style={{ width: "100%" }}>
+    <div className="taskmodal-flexibale-icon">
+      {isPost ? <Loading /> : null}
       <ToastContainer />
       <Button
         className="taskmodal-smaller-button-inner"
@@ -73,6 +81,7 @@ export default function Attachments({ params, setAllAttachments }) {
           bgcolor: "#173b5e",
           marginTop: "5%",
           borderRadius: "35px",
+          height: "80%",
           display: "flex",
           justifyContent: "start",
         }}
@@ -99,13 +108,55 @@ export default function Attachments({ params, setAllAttachments }) {
             <h2 style={{ color: "#fff" }}>اضافه کردن پیوست</h2>
           </div>
           <Divider />
-          <div className="tm_attachments-body">
-            {/* <input type="file" onChange={(e) => handleFileChange(e)} /> */}
-            <input
-              type="file"
-              id="fileUpload"
-              onChange={(e) => handleFileChange(e)}
-            />
+          <div
+            className="tm_attachments-body"
+            style={{ display: "flex", justifyContents: "space-between" }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContents: "center",
+                // marginRight: "5%",
+              }}
+            >
+              {console.log(binaryFile)}
+              {/* <input type="file" onChange={(e) => handleFileChange(e)} /> */}
+              <label
+                for="files"
+                class="btn"
+                style={{
+                  fontSize: "100%",
+                  padding: "3% 8%",
+                  display: "flex",
+                  justifyContent: "center",
+                  border: "1px solid white",
+                  borderRadius: "5px",
+                  width: "36%",
+                }}
+              >
+                انتخاب فایل
+              </label>
+              <input
+                type="file"
+                id="files"
+                name="fileUpload"
+                style={{ visibility: "hidden", width: "5%" }}
+                onChange={(e) => handleFileChange(e)}
+              />
+              <div
+                style={{
+                  display: "flex",
+                  color: "white",
+                  direction: "ltr",
+                  fontSize: "132%",
+                  overflow: "auto",
+                }}
+              >
+                {binaryFile != null ? binaryFile.name : ""}
+              </div>
+            </div>
+
             {/* <button onClick={(e) => createAttachment()}>اضافه کردن</button> */}
             <button
               class="attachment_button-33"

@@ -3,6 +3,7 @@ import PerTextField from "./PerTextField";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { convertNumberToPersian, convertNumberToEnglish } from "../../utilities/helpers.js";
 
 const theme = createTheme({
   components: {
@@ -28,17 +29,17 @@ const theme = createTheme({
 });
 
 const InputName = (props) => {
-  const [name, setName] = React.useState(props.name);
+  const [name, setName] = React.useState(convertNumberToPersian(props.name));
   // const [blur, setblur] = React.useState(false);
   const [underline, setUnderline] = React.useState(true);
 
   const handleChange = (event) => {
-    setName(event.target.value);
+    setName(convertNumberToPersian(event.target.value));
   };
 
   const blurHandler = () => {
     if (name !== props.name) {
-      props.onChangeName(name);
+      props.onChangeName(convertNumberToPersian(name));
     }
   };
 
@@ -49,8 +50,8 @@ const InputName = (props) => {
           <Input
             multiline
             id="component-simple"
-            value={name}
-            defaultValue={name}
+            value={convertNumberToPersian(name)}
+            defaultValue={(convertNumberToPersian)}
             onChange={handleChange}
             onBlur={blurHandler}
             onFocus={() => {}}

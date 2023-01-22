@@ -2,7 +2,6 @@ import * as React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import { Dashborad } from "./pages/Dashborad";
-import logo from "./logo.svg";
 import "./App.css";
 import "./fonts/Vazir.ttf";
 import { Provider } from "react-redux";
@@ -69,7 +68,8 @@ function App() {
               <Route
                 exact
                 path="/reset-password"
-                element={<PrivateRoute children={<ResetPassword />} />}
+                // element={<PrivateRoute children={<ResetPassword />} />}
+                element=<ResetPassword />
               />
               <Route
                 path="workspace/:id/*"

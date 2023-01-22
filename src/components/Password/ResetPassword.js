@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import StyledTextField from "../Shared/StyledTextField";
@@ -11,6 +11,7 @@ import Loading from "../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import "../../styles/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import apiInstance from "../../utilities/axiosConfig";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 
@@ -31,22 +32,18 @@ const ResetPassword = () => {
   }, [password]);
 
   const postreq = () => {
-    const baseLink = window.location.href;
-    const getLinkInfo = (baseLink) => {
-      return baseLink.split("reset-password?")[1];
+    const getLinkInfo = () => {
+      return window.location.href.split("reset-password?")[1];
     };
-    console.log(getLinkInfo(baseLink));
+    ////console.log(getLinkInfo(baseLink));
     const data = new FormData();
     data.append("password", password);
-    const url =
-      "http://mohammadosoolian.pythonanywhere.com/accounts/reset-password/?" +
-      getLinkInfo(baseLink);
-    axios
-      .post(url, data)
+    apiInstance
+      .post("accounts/reset-password/?" + getLinkInfo(), data)
       .then(() => {
         setIsFail(true);
         toast.success("رمز عبور با موفقیت تغییر کرد", {
-          position: toast.POSITION.TOP_CENTER,
+          position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
         delay(7000).then(() => navigate("/signin"));
@@ -56,7 +53,7 @@ const ResetPassword = () => {
         if (error.response.status === 404) {
           setIsFail(true);
           toast.error("عملیات با خطا مواجه شد ", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
           delay(7000).then(() => navigate("/forget-password"));
@@ -65,7 +62,7 @@ const ResetPassword = () => {
           setErrorconfirmPassword(true);
           setErrorPassword(true);
           toast.error("رمز وارد شده تکراری است", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
         }
@@ -145,7 +142,12 @@ const ResetPassword = () => {
             // backgroundColor: "var(--main-background)",
             opacity: 1,
             backgroundImage:
-              "linear-gradient(to right bottom, var(--main-background) 0%, #0059B2 130%)",
+                  "linear-gradient(to right bottom, #001E3C 0%, #0059B2 130%)",
+          }}
+          inputProps={{
+            style: {
+              fontFamily: "Vazir",
+            },
           }}
         >
           <Box
@@ -169,6 +171,11 @@ const ResetPassword = () => {
               variant="h5"
               color="#fff"
               sx={{ mb: 1, fontSize: "2rem(10)" }}
+              inputProps={{
+                style: {
+                  fontFamily: "Vazir",
+                },
+              }}
             >
               تغییر رمز عبور
             </Typography>
@@ -191,6 +198,11 @@ const ResetPassword = () => {
                     fontSize: "1.6rem",
                   },
                 }}
+                inputProps={{
+                  style: {
+                    fontFamily: "Vazir",
+                  },
+                }}
               />
               <StyledTextField
                 margin="normal"
@@ -210,6 +222,11 @@ const ResetPassword = () => {
                     fontSize: "1.6rem",
                   },
                 }}
+                inputProps={{
+                  style: {
+                    fontFamily: "Vazir",
+                  },
+                }}
               />
             </PerTextField>
 
@@ -223,6 +240,11 @@ const ResetPassword = () => {
                 backgroundColor: "#265D97",
                 fontSize: "1.6rem(10)",
               }}
+              inputProps={{
+                style: {
+                  fontFamily: "Vazir",
+                },
+              }}
             >
               تغییر رمز عبور
             </Button>
@@ -233,6 +255,11 @@ const ResetPassword = () => {
                 textAlign: "right",
                 color: "red",
                 fontWeight: "bold",
+              }}
+              inputProps={{
+                style: {
+                  fontFamily: "Vazir",
+                },
               }}
             ></Typography>
           </Box>

@@ -20,6 +20,10 @@ import apiInstance from "../../../utilities/axiosConfig";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
+import {
+  convertNumberToPersian,
+  convertNumberToEnglish,
+} from "../../../utilities/helpers.js";
 
 const List = (props) => {
   const [cards, setCards] = useState(props.card);
@@ -44,11 +48,13 @@ const List = (props) => {
     await apiInstance
       .post(`/workspaces/tasklist/${id}/create-task/`, data)
       .then((response) => {
+        //console.log(response.data);
         toast.success("کارت با موفقیت ساخته شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        setCards((pervCards) => [...pervCards, response.data]);
+        props.addCardToList(response.data, props.id);
+        // setCards((pervCards) => [...pervCards, response.data]);
       })
       .catch((error) => {
         if (error.response.status === 404) {
@@ -60,7 +66,7 @@ const List = (props) => {
       })
       .finally(() => {
         setReq(null);
-        console.log("reqCreateCard Done");
+        ////console.log("reqCreateCard Done");
       });
 
   const reqDeleteList = async (id) =>
@@ -68,7 +74,7 @@ const List = (props) => {
       .delete(`workspaces/tasklist/${id}/delete-tasklist/`)
       .then(() => {
         toast.success("لیست با موفقیت حذف شد", {
-          position: toast.POSITION.TOP_CENTER,
+          position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
         props.remId(id);
@@ -76,22 +82,23 @@ const List = (props) => {
       .catch((error) => {
         if (error.response.status === 404) {
           toast.error("عملیات با خطا مواجه شد", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
         }
       })
       .finally(() => {
         setReq(null);
-        console.log("reqDeleteList Done");
+        ////console.log("reqDeleteList Done");
       });
 
-  const reqEditListName = async (data, id, name) =>
+  const reqEditListName = async (data, id, name) => {
+    name = convertNumberToPersian(name);
     await apiInstance
       .patch(`workspaces/tasklist/${id}/update-tasklist/`, data)
       .then(() => {
         toast.success("اسم لیست با موفقیت عوض شد", {
-          position: toast.POSITION.TOP_CENTER,
+          position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
         setListName(name);
@@ -99,7 +106,7 @@ const List = (props) => {
       .catch((error) => {
         if (error.response.status === 404) {
           toast.error("عملیات با خطا مواجه شد", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
         }
@@ -107,6 +114,7 @@ const List = (props) => {
       .finally(() => {
         setReq(null);
       });
+  };
 
   const addCardClickHandler = () => {
     setAddCard(!addCard);
@@ -130,6 +138,9 @@ const List = (props) => {
   };
 
   const handleChangeListName = (name) => {
+    name = convertNumberToPersian(name);
+    // alert(name);
+    setListName(name);
     const data = new FormData();
     data.append("title", name);
     setReq(true);
@@ -239,7 +250,8 @@ const List = (props) => {
             <div className="list_header">
               <div className="list_header-title">
                 <InputName
-                  name={listName}
+                  name={convertNumberToPersian(listName)}
+                  // value={listName}
                   onChangeName={handleChangeListName}
                 />
               </div>
@@ -267,9 +279,26 @@ const List = (props) => {
                       required
                       fullWidth
                       autoFocus
-                      onChange={(e) => setCardName(e.target.value)}
+                      onChange={(e) =>
+                        setCardName(convertNumberToPersian(e.target.value))
+                      }
+                      value={cardName}
                       placeholder="اسم کارت را در این بخش بنویسید"
-                      InputProps={{ disableUnderline: true }}
+                      InputProps={{
+                        disableUnderline: true,
+                        style: {
+                          // height: "50px",
+                          // padding: "0 14px",
+                          fontFamily: "Vazir",
+                          // fontSize: "1.7rem",
+                        },
+                      }}
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "Vazir",
+                          // fontSize: "1.6rem",
+                        },
+                      }}
                       sx={{
                         backgroundColor: "var(--main-item-color)",
                         borderBottom: "0.2rem solid var(--minor-item-color)",
@@ -289,7 +318,7 @@ const List = (props) => {
               </div>
             )}
           </div>
-          <Droppable droppableId={String(props.id)}>
+          <Droppable droppableId={String(props.id)} type="task">
             {(provided, snapshot) => (
               <div
                 className="list_card-container"
@@ -304,18 +333,14 @@ const List = (props) => {
                     : null
                 }
               >
-                {cards.map((card, index) => (
+                {cards.map((value, index) => (
                   <Card
-                    key={card.id}
-                    cardId={card.id}
+                    task={value}
+                    key={value.id}
+                    cardId={value.id}
                     index={index}
                     boardId={props.boardId}
                     remID={handleRemoveCard}
-                    attachments_num={card.attachments_num}
-                    doers={card.doers}
-                    checklists_num={card.checklists_num}
-                    checked_checklists_num={card.checked_checklists_num}
-                    comments_num={card.comments_num}
                   />
                 ))}
                 {provided.placeholder}

@@ -12,6 +12,8 @@ import "../../styles/TaskModal.css";
 import "./Checklist.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "../Shared/Loading";
+import { convertNumberToPersian } from "../../utilities/helpers";
 
 const useStyles = makeStyles({
   title_input: {
@@ -26,6 +28,7 @@ export default function CheckList({ params, setAllChecklists }) {
   const classes = useStyles();
   const [createdCheckTitle, setCreatedCheckTitle] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [isPost, setIsPost] = React.useState(false);
   const add_section_ref = useRef(null);
   const add_button_ref = useRef(null);
   const createCheckList = (e) => {
@@ -37,18 +40,22 @@ export default function CheckList({ params, setAllChecklists }) {
       });
       return;
     }
+    setIsPost(true);
     const form_data = new FormData();
     form_data.append("text", createdCheckTitle);
     apiInstance
       .post(`workspaces/task/${params.task_id}/create-checklist/`, form_data)
       .then((res) => {
-        console.log("here2");
-        console.log(res.data);
+        ////console.log("here2");
+        ////console.log(res.data);
         toast.success("مورد لیست کنترل اضافه شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
         setAllChecklists((prev) => [...prev, res.data]);
+      })
+      .finally(() => {
+        setIsPost(null);
       });
     handleClose();
   };
@@ -66,7 +73,8 @@ export default function CheckList({ params, setAllChecklists }) {
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <div style={{ width: "100%" }}>
+    <div className="taskmodal-flexibale-icon">
+      {isPost ? <Loading /> : null}
       <ToastContainer />
       <Button
         className="taskmodal-smaller-button-inner"
@@ -77,6 +85,7 @@ export default function CheckList({ params, setAllChecklists }) {
           bgcolor: "#173b5e",
           marginTop: "5%",
           borderRadius: "35px",
+          height: "80%",
           display: "flex",
           justifyContent: "start",
         }}
@@ -84,7 +93,7 @@ export default function CheckList({ params, setAllChecklists }) {
         <LabelIcon rotate="90" fontSize="large"></LabelIcon>{" "}
         <div
           className="taskmodal-smaller-button"
-          style={{ fontSize: "10px", marginRight: "0%", width: "80px" }}
+          style={{ fontSize: "9px", marginRight: "0%", width: "80px" }}
         >
           لیست کنترل
         </div>
@@ -112,10 +121,12 @@ export default function CheckList({ params, setAllChecklists }) {
             <Input
               className={classes.title_input}
               value={createdCheckTitle}
-              onChange={(e) => setCreatedCheckTitle(e.target.value)}
+              onChange={(e) =>
+                setCreatedCheckTitle(convertNumberToPersian(e.target.value))
+              }
               placeholder="عنوان"
               sx={{
-                color: "#000 !important",
+                color: "#fff !important",
                 width: "100%",
                 marginBottom: "1rem",
               }}

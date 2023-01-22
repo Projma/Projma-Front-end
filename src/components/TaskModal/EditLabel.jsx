@@ -7,13 +7,17 @@ import apiInstance from "../../utilities/axiosConfig";
 import StyledTextField from "../Shared/StyledTextField";
 import Divider from "@mui/material/Divider";
 import PerTextField from "../Shared/PerTextField.js";
+import Loading from "../Shared/Loading";
 import "../../styles/TaskModal.css";
+import { convertNumberToPersian } from "../../utilities/helpers";
 
 const EditLabel = ({ setShowEdit, item, set_task_labels, setAllLabels }) => {
   const [editedTitle, setEditedTitle] = useState(item.title);
   const [editedColor, setEditedColor] = useState(item.color);
+  const [isPost, setIsPost] = React.useState(false);
+
   const editThisItem = (e) => {
-    console.log("edit this item");
+    ////console.log("edit this item");
     if (editedTitle === "") {
       toast.error("عنوان برچسب نمیتواند خالی باشد", {
         position: toast.POSITION.BOTTOM_LEFT,
@@ -21,14 +25,15 @@ const EditLabel = ({ setShowEdit, item, set_task_labels, setAllLabels }) => {
       });
       return;
     }
+    setIsPost(true);
     apiInstance
       .patch(`workspaces/label/${item.id}/update-label/`, {
         title: editedTitle,
         color: editedColor,
       })
       .then((res) => {
-        console.log("in edit label");
-        console.log(res.data);
+        ////console.log("in edit label");
+        ////console.log(res.data);
         let flag = 0;
         set_task_labels((prevState) =>
           prevState.map((label) => {
@@ -53,12 +58,16 @@ const EditLabel = ({ setShowEdit, item, set_task_labels, setAllLabels }) => {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
+      })
+      .finally(() => {
+        setIsPost(null);
       });
     setShowEdit(false);
   };
 
   return (
     <>
+      {isPost ? <Loading /> : null}
       <button
         onClick={(e) => setShowEdit(false)}
         className="tm_labels-arrow-back"
@@ -134,7 +143,9 @@ const EditLabel = ({ setShowEdit, item, set_task_labels, setAllLabels }) => {
             >
               <StyledTextField
                 value={editedTitle}
-                onChange={(e) => setEditedTitle(e.target.value)}
+                onChange={(e) =>
+                  setEditedTitle(convertNumberToPersian(e.target.value))
+                }
                 sx={{
                   textAlign: "center",
                   fontFamily: "Vazir",

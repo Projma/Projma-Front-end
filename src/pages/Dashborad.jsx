@@ -27,10 +27,10 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 // import * as React from 'react';
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import FolderIcon from "@mui/icons-material/Folder";
-import RestoreIcon from "@mui/icons-material/Restore";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+// import FolderIcon from "@mui/icons-material/Folder";
+// import RestoreIcon from "@mui/icons-material/Restore";
+// import FavoriteIcon from "@mui/icons-material/Favorite";
+// import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Paper from "@mui/material/Paper";
 import { useSelector, useDispatch } from "react-redux";
 import apiInstance from "../utilities/axiosConfig";
@@ -39,6 +39,8 @@ import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import CreateBoardModal from "../components/Dashboard/CreateBoardModal/CreateBoardModal";
 import { ToastContainer, toast } from "react-toastify";
+import CreateBoard from "../components/Dashboard/CreateBoard/CreateBoard";
+import CreateTemplateModal from "../components/Dashboard/CreateTemplateModal/CreateTemplateModal";
 
 // useMediaQuery
 // import Typography from "@mui/material";
@@ -51,12 +53,13 @@ export const Dashborad = () => {
   let [recentBoards, setRecentBoards] = useState([]);
   let [starredBoards, setStarredBoards] = useState([]);
   let [flag, setFlag] = useState(false);
+  const [templates, setTemplates] = useState([]);
 
   useEffect(() => {
     apiInstance
       .get("/workspaces/dashboard/myworkspaces/")
       .then((response) => {
-        // console.log(response.data);
+        // ////console.log(response.data);
 
         // array of
         // {
@@ -79,29 +82,29 @@ export const Dashborad = () => {
         //     ]
         // }
 
-        // console.log(response);
+        // ////console.log(response);
         setWorkspaces(response.data);
-        // console.log(workspaces);
+        // ////console.log(workspaces);
       })
       .catch((error) => {
-        // console.log(error);
+        // ////console.log(error);
       });
 
     apiInstance
       .get("/workspaces/dashboard/myowning-workspaces/")
       .then((response) => {
-        // console.log(response.data);
+        // ////console.log(response.data);
         setOwningWorkspaces(response.data);
         // setWorkspaces(response.data);
       })
       .catch((error) => {
-        // console.log(error);
+        // ////console.log(error);
       });
 
     apiInstance
       .get("/workspaces/dashboard/myboards/")
       .then((response) => {
-        console.log(response.data);
+        ////console.log(response.data);
 
         // array of
         // {
@@ -127,27 +130,47 @@ export const Dashborad = () => {
         setBoards(response.data);
       })
       .catch((error) => {
-        // console.log(error);
+        // ////console.log(error);
       });
 
     apiInstance
       .get("/workspaces/dashboard/myrecent-boards/")
       .then((response) => {
         setRecentBoards(response.data);
-        // console.log("recent", response.data);
+        // ////console.log("recent", response.data);
       })
       .catch((error) => {
-        // console.log(error);
+        // ////console.log(error);
       });
 
     apiInstance
       .get("/workspaces/dashboard/mystarred-boards/")
       .then((response) => {
         setStarredBoards(response.data);
-        // console.log("starred", response.data);
+        // [
+        //     {
+        //         "id": 4,
+        //         "name": "۵۴۶۵۴۴",
+        //         "description": "۴۶۵۴۶",
+        //         "background_pic": null,
+        //         "admins": [],
+        //         "members": [],
+        //         "tasklists": [
+        //             4,
+        //             5,
+        //             6
+        //         ],
+        //         "labels": [
+        //             2,
+        //             3,
+        //             4
+        //         ]
+        //     }
+        // ]
+        // //console.log("starred", response.data);
       })
       .catch((error) => {
-        // console.log(error);
+        // ////console.log(error);
       });
   }, [flag]);
 
@@ -157,22 +180,315 @@ export const Dashborad = () => {
     for (let i = 0; i < boards.length; i++) {
       res[boards[i].id] = boards[i];
     }
-    console.log("---------------------");
-    console.log(res);
-    console.log("---------------------");
+    ////console.log("---------------------");
+    ////console.log(res);
+    ////console.log("---------------------");
     setBoardsInfo(res);
   }, [boards]);
 
   const navigate = useNavigate();
 
   const navigateToWorkspace = (workspaceId) => {
-    navigate(`/workspace/${workspaceId}`);
+    navigate(`/workspace/${workspaceId}/Boards`);
   };
 
   const navigateToBoard = (boardId) => {
     // navigate(`/board/`);
     navigate(`/kanban/${boardId}`);
   };
+
+  useEffect(() => {
+    apiInstance.get("/workspaces/templates/").then((response) => {
+      ////console.log(response.data);
+      // [
+      //   {
+      //     "id": 21,
+      //     "name": "Agile Board",
+      //     "description": "Agile Board Template",
+      //     "background_pic": null,
+      //     "created_at": "2023-01-21T11:15:24.581576Z",
+      //     "updated_at": "2023-01-21",
+      //     "tasklists": [
+      //       {
+      //         "id": 9,
+      //         "title": "Done",
+      //         "board": 21,
+      //         "order": 9,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 10,
+      //         "title": "Current Sprint",
+      //         "board": 21,
+      //         "order": 10,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 11,
+      //         "title": "In Progress",
+      //         "board": 21,
+      //         "order": 11,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 12,
+      //         "title": "On Hold",
+      //         "board": 21,
+      //         "order": 12,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 13,
+      //         "title": "Next Up",
+      //         "board": 21,
+      //         "order": 13,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 14,
+      //         "title": "Questions",
+      //         "board": 21,
+      //         "order": 14,
+      //         "tasks": []
+      //       }
+      //     ],
+      //     "labels": [
+      //       {
+      //         "id": 9,
+      //         "title": "Demand Marketing",
+      //         "color": "#E221FF96",
+      //         "board": 21
+      //       },
+      //       {
+      //         "id": 10,
+      //         "title": "Planning",
+      //         "color": "#5EFF96",
+      //         "board": 21
+      //       },
+      //       {
+      //         "id": 11,
+      //         "title": "Happiness",
+      //         "color": "#FF396",
+      //         "board": 21
+      //       },
+      //       {
+      //         "id": 12,
+      //         "title": "Government",
+      //         "color": "#14FF96",
+      //         "board": 21
+      //       },
+      //       {
+      //         "id": 13,
+      //         "title": "Partners",
+      //         "color": "#1C9F96",
+      //         "board": 21
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     "id": 22,
+      //     "name": "Kanban",
+      //     "description": "Kanban Template",
+      //     "background_pic": null,
+      //     "created_at": "2023-01-21T11:15:37.576353Z",
+      //     "updated_at": "2023-01-21",
+      //     "tasklists": [
+      //       {
+      //         "id": 15,
+      //         "title": "Backlog",
+      //         "board": 22,
+      //         "order": 15,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 16,
+      //         "title": "Design",
+      //         "board": 22,
+      //         "order": 16,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 17,
+      //         "title": "To Do",
+      //         "board": 22,
+      //         "order": 17,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 18,
+      //         "title": "Doing",
+      //         "board": 22,
+      //         "order": 18,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 19,
+      //         "title": "Code Review",
+      //         "board": 22,
+      //         "order": 19,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 20,
+      //         "title": "Testing",
+      //         "board": 22,
+      //         "order": 20,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 21,
+      //         "title": "Done",
+      //         "board": 22,
+      //         "order": 21,
+      //         "tasks": []
+      //       }
+      //     ],
+      //     "labels": [
+      //       {
+      //         "id": 14,
+      //         "title": "In Queue",
+      //         "color": "#FF7896",
+      //         "board": 22
+      //       },
+      //       {
+      //         "id": 15,
+      //         "title": "In Progress",
+      //         "color": "#FFCD26",
+      //         "board": 22
+      //       },
+      //       {
+      //         "id": 16,
+      //         "title": "Completed",
+      //         "color": "#66FF96",
+      //         "board": 22
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     "id": 23,
+      //     "name": "Project Management",
+      //     "description": "Project Management Template",
+      //     "background_pic": null,
+      //     "created_at": "2023-01-21T11:15:46.661086Z",
+      //     "updated_at": "2023-01-21",
+      //     "tasklists": [
+      //       {
+      //         "id": 22,
+      //         "title": "Project Resources",
+      //         "board": 23,
+      //         "order": 22,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 23,
+      //         "title": "Questions For Next Meeting",
+      //         "board": 23,
+      //         "order": 23,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 24,
+      //         "title": "Project Progress",
+      //         "board": 23,
+      //         "order": 24,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 25,
+      //         "title": "To Do",
+      //         "board": 23,
+      //         "order": 25,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 26,
+      //         "title": "Pending",
+      //         "board": 23,
+      //         "order": 26,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 27,
+      //         "title": "Blocked",
+      //         "board": 23,
+      //         "order": 27,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 28,
+      //         "title": "Done",
+      //         "board": 23,
+      //         "order": 28,
+      //         "tasks": []
+      //       }
+      //     ],
+      //     "labels": [
+      //       {
+      //         "id": 17,
+      //         "title": "Copy Request",
+      //         "color": "#D6FF36",
+      //         "board": 23
+      //       },
+      //       {
+      //         "id": 18,
+      //         "title": "Priority",
+      //         "color": "#FF8980",
+      //         "board": 23
+      //       },
+      //       {
+      //         "id": 19,
+      //         "title": "Design Team",
+      //         "color": "#C71287",
+      //         "board": 23
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     "id": 24,
+      //     "name": "Simple Template",
+      //     "description": "Simple Board Template",
+      //     "background_pic": null,
+      //     "created_at": "2023-01-21T11:15:54.468111Z",
+      //     "updated_at": "2023-01-21",
+      //     "tasklists": [
+      //       {
+      //         "id": 29,
+      //         "title": "Brainstorm",
+      //         "board": 24,
+      //         "order": 29,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 30,
+      //         "title": "To Do",
+      //         "board": 24,
+      //         "order": 30,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 31,
+      //         "title": "Doing",
+      //         "board": 24,
+      //         "order": 31,
+      //         "tasks": []
+      //       },
+      //       {
+      //         "id": 32,
+      //         "title": "Done",
+      //         "board": 24,
+      //         "order": 32,
+      //         "tasks": []
+      //       }
+      //     ],
+      //     "labels": []
+      //   }
+      // ]
+      setTemplates(response.data);
+    }).catch((error) => {
+      ////console.log(error);
+    });
+
+  }, []);
 
   const computer_tabs = {
     boards: {
@@ -254,7 +570,7 @@ export const Dashborad = () => {
             })}
           </Grid>
           <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-          <p variant="h1" component="h2" className="text paragraph">
+          {/* <p variant="h1" component="h2" className="text paragraph">
             <AvTimerTwoToneIcon sx={{ ml: 1.5 }} /> اخیرا دیده شده
           </p>
           <Grid
@@ -301,13 +617,11 @@ export const Dashborad = () => {
                       navigateToBoard(board["id"]);
                     }}
                   >
-                    {/* `/workspaces/boardsmemberapi/${board_id}/get-board/` */}
                     <p
                       variant="h1"
                       component="h2"
                       className="text paragraph"
                     >
-                      {/* check that is null or not */}
                       {board["name"]
                         ? board["name"]
                         : "بی‌نام"}
@@ -321,13 +635,12 @@ export const Dashborad = () => {
                         ? board["description"]
                         : "بدون توضیحات"}
                     </p>
-                    {/* </> */}
                   </Paper>
                 </Grid>
               );
             })}
           </Grid>
-          <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+          <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} /> */}
           <p variant="h1" component="h2" className="text paragraph">
             <Diversity2TwoToneIcon
               sx={{
@@ -357,7 +670,6 @@ export const Dashborad = () => {
                     // backgroundColor: "#f5f5f5",
                   }}
                 >
-                  {/* workspace_boards.map((board) => { */}
                   {workspace.boards.map((board_id) => {
                     return (
                       <Grid item xs={2} sm={2} md={2} key={board_id} sx={{}}>
@@ -462,57 +774,310 @@ export const Dashborad = () => {
                       {/* </p> */}
                     </Paper>
                   </Grid>
-                  {/*  */}
                 </Grid>
               </>
             );
           })}
           {/* Grid */}
-          <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+          {/* <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
           <p variant="h1" component="h2" className="text paragraph">
             <HomeRepairServiceTwoToneIcon sx={{ ml: 1.5 }} /> فضا های مهمان
-          </p>
+          </p> */}
         </>
       ),
     },
-    // "templates": {
-    //     title: "تمپلیت ها",
-    //     icon: <ContentPasteTwoToneIcon sx={{ ml: 1.5 }} />,
-    //     content: (
-    //         // <a className="option" href="#"><ContentPasteTwoToneIcon /> </a>
-    //         <>
-    //             <p><ViewDayTwoToneIcon sx={{ ml: 1.5 }} />تمپلیت های گوناگون </p>
-    //             <ul className="unOrderList">
-    //                 <li className="list">مدیریت</li>
-    //                 <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-    //                 <li className="list">تیمی</li>
-    //                 <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-    //                 <li className="list">صنعتی</li>
-    //                 <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-    //                 <li className="list">مالی</li>
-    //             </ul>
-    //         </>
-    //     )
-    // },
+    "templates": {
+      title: "تمپلیت ها",
+      icon: <ContentPasteTwoToneIcon sx={{ ml: 1.5 }} />,
+      content: (
+        <>
+          <p variant="h1" component="h2" className="text paragraph">
+            <ViewDayTwoToneIcon
+              sx={{
+                // paddingLeft: "1%",
+                // minWidth: "35px",
+                ml: 1.5,
+              }}
+            />{" "}
+            تمپلیت های گوناگون
+          </p>
+          {templates.map((template) => {
+            return (
+              <>
+                <div>
+                  <p variant="h1" component="h2" className="text paragraph">
+                    {template.name}
+                  </p>
+                </div>
+                <Grid
+                  container
+                  columns={{ xs: 2, sm: 4, md: 8 }}
+                  // spacing={{ xs: 1, sm: 2, md: 3 }}
+                  sx={{
+                    // paddingTop: "5%",
+                    // marginTop: "10%",
+                    marginBottom: "7%",
+                    // backgroundColor: "#f5f5f5",
+                  }}
+                >
+                  <Grid item xs={2} sm={2} md={2} key={template.id} sx={{}}>
+                    <Paper
+                      sx={{
+                        padding: "3%",
+                        // textAlign: "center",
+                        // color: "#007fff",
+                        // backgroundColor: "#007fff", // 5090D3
+                        backgroundColor: "#0A1929", // 5090D3 , 007fff, 132F4C, 173A5E
+                        borderRadius: "10px",
+                        // width: "100%",
+                        // height: "100%",
+                        // minWidth: "200px",
+                        // maxWidth: "300px",
+                        minHeight: "150px",
+                        // maxHeight: "300px",
+                        margin: "10%",
+                        // padding: "10px",
+                        // display: "flex",
+                        // justifyContent: "center",
+                        // alignItems: "center",
+                        // flexDirection: "column",
+                        ":hover": {
+                          backgroundColor: "#173A5E", // 5090D3
+                          // cursor: "pointer",
+                        },
+                      }}
+                      // hover
+                      // onClick={() => {
+                      //   // openCreateTemplateModal(template.id, template.name, template.description, template.background_pic);
+                      // }}
+                    >
+                      <p
+                        variant="h1"
+                        component="h2"
+                        className="text paragraph"
+                      >
+                        نام تمپلیت: 
+                        <br/>
+                        {template.name
+                          ? template.name
+                          : "بی‌نام"}
+                      </p>
+                      <p
+                        variant="h1"
+                        component="h2"
+                        className="text paragraph"
+                      >
+                        توضیحات: 
+                        <br/>
+                        {template
+                          ? template.description
+                          : "بدون توضیحات"}
+                      </p>
+                      {/* <CreateTemplateModal
+                          template_id={template.id}
+                          template_name={template.name}
+                          template_description={template.description}
+                          template_background_pic={template.background_pic}
+                        /> */}
+                    </Paper>
+                  </Grid>
+                  <Grid item xs={2} sm={2} md={2} key={template.id*template.id+2} sx={{}}>
+                    <Paper
+                      sx={{
+                        padding: "3%",
+                        textAlign: "center",
+                        // color: "#007fff",
+                        backgroundColor: "#007fff", // 5090D3
+                        borderRadius: "10px",
+                        // width: "100%",
+                        // height: "100%",
+                        // minWidth: "200px",
+                        // maxWidth: "300px",
+                        minHeight: "150px",
+                        // maxHeight: "300px",
+                        margin: "10%",
+                        // padding: "10px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        ":hover": {
+                          backgroundColor: "#5090D3",
+                          cursor: "pointer",
+                        },
+                      }}
+                      // hover
+                      // onClick={() => {
+                      //   // openCreateTemplateModal(template.id, template.name, template.description, template.background_pic);
+                      // }}
+                    >
+                      {/* <p
+                        variant="h1"
+                        component="h2"
+                        className="text paragraph"
+                      >
+                        {template.name
+                          ? template.name
+                          : "بی‌نام"}
+                      </p>
+                      <p
+                        variant="h1"
+                        component="h2"
+                        className="text paragraph"
+                      >
+                        {template
+                          ? template.description
+                          : "بدون توضیحات"}
+                      </p> */}
+                      <CreateTemplateModal
+                          template_id={template.id}
+                          template_name={template.name}
+                          template_description={template.description}
+                          template_background_pic={template.background_pic}
+                        />
+                    </Paper>
+                  </Grid>
+                </Grid>
+                <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+              </>
+            );
+          })}
+        </>
+      )
+    },
     home: {
       title: "خانه",
       icon: <HomeTwoToneIcon sx={{ ml: 1.5 }} />,
       content: (
         // <a className="option" href="#"><HomeTwoToneIcon /> </a>
         <>
-          <p variant="h1" component="h2" className="text paragraph">
+          {/* <p variant="h1" component="h2" className="text paragraph">
             <StarPurple500TwoToneIcon sx={{ ml: 1.5 }} /> برجسته ها
           </p>
-          {/* <Grid></Grid> */}
+          <Grid></Grid>
+          <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} /> */}
+          <p variant="h1" component="h2" className="text paragraph">
+            <AvTimerTwoToneIcon sx={{ ml: 1.5 }} /> اخیرا دیده شده
+          </p>
+          <Grid
+            container
+            columns={{ xs: 2, sm: 4, md: 8 }}
+            // spacing={{ xs: 1, sm: 2, md: 3 }}
+            sx={{
+              // paddingTop: "5%",
+              // marginTop: "10%",
+              marginBottom: "7%",
+              // backgroundColor: "#f5f5f5",
+            }}
+          >
+            {recentBoards.map((board) => {
+              return (
+                <Grid item xs={2} sm={2} md={2} key={board["id"]} sx={{}}>
+                  <Paper
+                    sx={{
+                      padding: "3%",
+                      textAlign: "center",
+                      // color: "#007fff",
+                      backgroundColor: "#007fff", // 5090D3
+                      borderRadius: "10px",
+                      // width: "100%",
+                      // height: "100%",
+                      // minWidth: "200px",
+                      // maxWidth: "300px",
+                      minHeight: "150px",
+                      // maxHeight: "300px",
+                      margin: "10%",
+                      // padding: "10px",
+                      // display: "flex",
+                      // justifyContent: "center",
+                      // alignItems: "center",
+                      // flexDirection: "column",
+                      ":hover": {
+                        backgroundColor: "#5090D3",
+                        cursor: "pointer",
+                      },
+                    }}
+                    // hover
+                    onClick={() => {
+                      // history.push(`/board/${board_id}`);
+                      navigateToBoard(board["id"]);
+                    }}
+                  >
+                    <p
+                      variant="h1"
+                      component="h2"
+                      className="text paragraph"
+                    >
+                      {board["name"]
+                        ? board["name"]
+                        : "بی‌نام"}
+                    </p>
+                    <p
+                      variant="h1"
+                      component="h2"
+                      className="text paragraph"
+                    >
+                      {board["description"]
+                        ? board["description"]
+                        : "بدون توضیحات"}
+                    </p>
+                  </Paper>
+                </Grid>
+              );
+            })}
+          </Grid>
           <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
           <p variant="h1" component="h2" className="text paragraph">
             <DeveloperBoardTwoToneIcon sx={{ ml: 1.5 }} /> ساخت بورد جدید
           </p>
-          {/* Grid */}
-          <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+          <Grid
+            container
+            columns={{ xs: 2, sm: 4, md: 8 }}
+            // spacing={{ xs: 1, sm: 2, md: 3 }}
+            sx={{
+              // paddingTop: "5%",
+              // marginTop: "10%",
+              marginBottom: "7%",
+              // backgroundColor: "#f5f5f5",
+            }}
+          >
+            <Grid item xs={2} sm={2} md={2} sx={{}}>
+              <Paper
+                sx={{
+                  // padding: "10%",
+                  textAlign: "center",
+                  // color: "#007fff",
+                  backgroundColor: "#007fff", // 5090D3
+                  borderRadius: "10px",
+                  // width: "100%",
+                  // height: "100%",
+                  // minWidth: "200px",
+                  // maxWidth: "300px",
+                  minHeight: "150px",
+                  // maxHeight: "300px",
+                  margin: "10%",
+                  // padding: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  // flexDirection: "column",
+                  ":hover": {
+                    backgroundColor: "#5090D3",
+                    cursor: "pointer",
+                  },
+                }}
+              >
+                {/* <p variant="h1" component="h2" className="add--text"> */}
+                {/* ساخت بورد جدید */}
+                <CreateBoard />
+                {/* </p> */}
+              </Paper>
+            </Grid>
+          </Grid>
+          {/* <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
           <p variant="h1" component="h2" className="text paragraph">
             <MessageTwoToneIcon sx={{ ml: 1.5 }} /> پیام ها
-          </p>
+          </p> */}
         </>
       ),
     },
@@ -598,82 +1163,6 @@ export const Dashborad = () => {
               );
             })}
           </Grid>
-          <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-          <p variant="h1" component="h2" className="text paragraph">
-            <AvTimerTwoToneIcon sx={{ ml: 1.5 }} /> اخیرا دیده شده
-          </p>
-          <Grid
-            container
-            columns={{ xs: 2, sm: 4, md: 8 }}
-            // spacing={{ xs: 1, sm: 2, md: 3 }}
-            sx={{
-              // paddingTop: "5%",
-              // marginTop: "10%",
-              marginBottom: "10%",
-              // backgroundColor: "#f5f5f5",
-            }}
-          >
-            {recentBoards.map((board) => {
-              return (
-                <Grid item xs={2} sm={2} md={2} key={board["id"]} sx={{}}>
-                  <div>
-                    {/* // style={{}}> */}
-                    <Paper
-                      sx={{
-                        padding: "2%",
-                        textAlign: "center",
-                        // color: "#007fff",
-                        backgroundColor: "#007fff", // 5090D3
-                        borderRadius: "10px",
-                        // width: "100%",
-                        // height: "100%",
-                        // minWidth: "200px",
-                        // maxWidth: "300px",
-                        minHeight: "150px",
-                        // maxHeight: "300px",
-                        margin: "10%",
-                        // padding: "100px",
-                        // display: "flex",
-                        // justifyContent: "center",
-                        // alignItems: "center",
-                        // flexDirection: "column",
-                        ":hover": {
-                          backgroundColor: "#5090D3",
-                          cursor: "pointer",
-                        },
-                      }}
-                      // hover
-                      onClick={() => {
-                        // history.push(`/board/${board_id}`);
-                        navigateToBoard(board["id"]);
-                      }}
-                    >
-                      <p
-                        variant="h1"
-                        component="h2"
-                        className="text paragraph"
-                      >
-                        {/* check that is null or not */}
-                        {board["name"]
-                          ? board["name"]
-                          : "بی‌نام"}
-                      </p>
-                      <p
-                        variant="h1"
-                        component="h2"
-                        className="text paragraph"
-                      >
-                        {board["description"]
-                          ? board["description"]
-                          : "بدون توضیحات"}
-                      </p>
-                    </Paper>
-                  </div>
-                </Grid>
-              );
-            })}
-          </Grid>
-
           <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
           <p variant="h1" component="h2" className="text paragraph">
             <Diversity2TwoToneIcon
@@ -807,51 +1296,316 @@ export const Dashborad = () => {
               </>
             );
           })}
-          <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+          {/* <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
           <p variant="h1" component="h2" className="text paragraph">
             <HomeRepairServiceTwoToneIcon sx={{ ml: 1.5 }} /> فضا های مهمان
-          </p>
+          </p> */}
         </>
       ),
     },
-    // "templates": {
-    //     title: "تمپلیت ها",
-    //     icon: <ContentPasteTwoToneIcon sx={{ ml: 1.5 }} />,
-    //     content: (
-    //         // <a className="option" href="#"><ContentPasteTwoToneIcon /> </a>
-    //         <>
-    //             <p><ViewDayTwoToneIcon sx={{ ml: 1.5 }} />تمپلیت های گوناگون </p>
-    //             <ul className="unOrderList">
-    //                 <li className="list">مدیریت</li>
-    //                 <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-    //                 <li className="list">تیمی</li>
-    //                 <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-    //                 <li className="list">صنعتی</li>
-    //                 <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
-    //                 <li className="list">مالی</li>
-    //             </ul>
-    //         </>
-    //     )
-    // },
+    "templates": {
+      title: "تمپلیت ها",
+      icon: <ContentPasteTwoToneIcon sx={{ ml: 1.5 }} />,
+      content: (
+        <>
+          <p variant="h1" component="h2" className="text paragraph">
+            <ViewDayTwoToneIcon
+              sx={{
+                // paddingLeft: "1%",
+                // minWidth: "35px",
+                ml: 1.5,
+              }}
+            />{" "}
+            تمپلیت های گوناگون
+          </p>
+          {templates.map((template) => {
+            return (
+              <>
+                <div>
+                  <p variant="h1" component="h2" className="text paragraph">
+                    {template.name}
+                  </p>
+                </div>
+                <Grid
+                  container
+                  columns={{ xs: 2, sm: 4, md: 8 }}
+                  // spacing={{ xs: 1, sm: 2, md: 3 }}
+                  sx={{
+                    // paddingTop: "5%",
+                    // marginTop: "10%",
+                    marginBottom: "10%",
+                    // backgroundColor: "#f5f5f5",
+                  }}
+                >
+                  <Grid item xs={2} sm={2} md={2} key={template.id*template.id+1} sx={{}}>
+                    <div>
+                      <Paper
+                        sx={{
+                          padding: "2%",
+                          // textAlign: "center",
+                          // color: "#007fff",
+                          backgroundColor: "#0A1929", // 5090D3 , 007fff, 132F4C, 173A5E
+                          borderRadius: "10px",
+                          // width: "100%",
+                          // height: "100%",
+                          // minWidth: "200px",
+                          // maxWidth: "300px",
+                          minHeight: "150px",
+                          // maxHeight: "300px",
+                          margin: "10%",
+                          // padding: "100px",
+                          // display: "flex",
+                          // justifyContent: "center",
+                          // alignItems: "center",
+                          // flexDirection: "column",
+                          ":hover": {
+                            backgroundColor: "#5090D3",
+                            // backgroundColor: "#007fff",
+                            // cursor: "pointer",
+                          },
+                        }}
+                        // hover
+                        // onClick={() => {
+                        //   // openCreateTemplateModal(template.id, template.name, template.description, template.background_pic);
+                        // }}
+                      >
+                        <p
+                          variant="h1"
+                          component="h2"
+                          className="text paragraph"
+                        >
+                          نام تمپلیت:
+                          <br/>
+                          {template.name
+                            ? template.name
+                            : "بی‌نام"}
+                        </p>
+                        <p
+                          variant="h1"
+                          component="h2"
+                          className="text paragraph"
+                        >
+                          توضیحات:
+                          <br />
+                          {template.description
+                            ? template.description
+                            : "بدون توضیحات"}
+                        </p>
+                        {/* <CreateTemplateModal
+                          template_id={template.id}
+                          template_name={template.name}
+                          template_description={template.description}
+                          template_background_pic={template.background_pic}
+                        /> */}
+                      </Paper>
+                    </div>
+                  </Grid>
+                  <Grid item xs={2} sm={2} md={2} key={template.id} sx={{}}>
+                    <div>
+                      <Paper
+                        sx={{
+                          padding: "2%",
+                          textAlign: "center",
+                          // color: "#007fff",
+                          backgroundColor: "#007fff", // 5090D3
+                          borderRadius: "10px",
+                          // width: "100%",
+                          // height: "100%",
+                          // minWidth: "200px",
+                          // maxWidth: "300px",
+                          minHeight: "150px",
+                          // maxHeight: "300px",
+                          margin: "10%",
+                          // padding: "100px",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          flexDirection: "column",
+                          ":hover": {
+                            backgroundColor: "#5090D3",
+                            cursor: "pointer",
+                          },
+                        }}
+                        // hover
+                        // onClick={() => {
+                        //   // openCreateTemplateModal(template.id, template.name, template.description, template.background_pic);
+                        // }}
+                      >
+                        {/* <p
+                          variant="h1"
+                          component="h2"
+                          className="text paragraph"
+                        >
+                          {template.name
+                            ? template.name
+                            : "بی‌نام"}
+                        </p>
+                        <p
+                          variant="h1"
+                          component="h2"
+                          className="text paragraph"
+                        >
+                          {template.description
+                            ? template.description
+                            : "بدون توضیحات"}
+                        </p> */}
+                        <CreateTemplateModal
+                          template_id={template.id}
+                          template_name={template.name}
+                          template_description={template.description}
+                          template_background_pic={template.background_pic}
+                        />
+                      </Paper>
+                    </div>
+                  </Grid>
+                </Grid>
+                <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+              </>
+            );
+          })}
+        </>
+      )
+    },
     home: {
       title: "خانه",
       icon: <HomeTwoToneIcon sx={{ ml: 1.5 }} />,
       content: (
         // <a className="option" href="#"><HomeTwoToneIcon /> </a>
         <>
-          <p variant="h1" component="h2" className="text paragraph">
+          {/* <p variant="h1" component="h2" className="text paragraph">
             <StarPurple500TwoToneIcon sx={{ ml: 1.5 }} /> برجسته ها
           </p>
-          {/* <Grid></Grid> */}
+          <Grid></Grid>
+          <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} /> */}
+          <p variant="h1" component="h2" className="text paragraph">
+            <AvTimerTwoToneIcon sx={{ ml: 1.5 }} /> اخیرا دیده شده
+          </p>
+          <Grid
+            container
+            columns={{ xs: 2, sm: 4, md: 8 }}
+            // spacing={{ xs: 1, sm: 2, md: 3 }}
+            sx={{
+              // paddingTop: "5%",
+              // marginTop: "10%",
+              marginBottom: "10%",
+              // backgroundColor: "#f5f5f5",
+            }}
+          >
+            {recentBoards.map((board) => {
+              return (
+                <Grid item xs={2} sm={2} md={2} key={board["id"]} sx={{}}>
+                  <div>
+                    <Paper
+                      sx={{
+                        padding: "2%",
+                        textAlign: "center",
+                        // color: "#007fff",
+                        backgroundColor: "#007fff", // 5090D3
+                        borderRadius: "10px",
+                        // width: "100%",
+                        // height: "100%",
+                        // minWidth: "200px",
+                        // maxWidth: "300px",
+                        minHeight: "150px",
+                        // maxHeight: "300px",
+                        margin: "10%",
+                        // padding: "100px",
+                        // display: "flex",
+                        // justifyContent: "center",
+                        // alignItems: "center",
+                        // flexDirection: "column",
+                        ":hover": {
+                          backgroundColor: "#5090D3",
+                          cursor: "pointer",
+                        },
+                      }}
+                      // hover
+                      onClick={() => {
+                        // history.push(`/board/${board_id}`);
+                        navigateToBoard(board["id"]);
+                      }}
+                    >
+                      <p
+                        variant="h1"
+                        component="h2"
+                        className="text paragraph"
+                      >
+                        {board["name"]
+                          ? board["name"]
+                          : "بی‌نام"}
+                      </p>
+                      <p
+                        variant="h1"
+                        component="h2"
+                        className="text paragraph"
+                      >
+                        {board["description"]
+                          ? board["description"]
+                          : "بدون توضیحات"}
+                      </p>
+                    </Paper>
+                  </div>
+                </Grid>
+              );
+            })}
+          </Grid>
           <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
           <p variant="h1" component="h2" className="text paragraph">
             <DeveloperBoardTwoToneIcon sx={{ ml: 1.5 }} /> ساخت بورد جدید
           </p>
-          {/* Grid */}
-          <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+          <Grid
+            container
+            columns={{ xs: 2, sm: 4, md: 8 }}
+            // spacing={{ xs: 1, sm: 2, md: 3 }}
+            sx={{
+              // paddingTop: "5%",
+              // marginTop: "10%",
+              marginBottom: "10%",
+              // backgroundColor: "#f5f5f5",
+            }}
+          >
+            <Grid item xs={2} sm={2} md={2} sx={{}}>
+              <Paper
+                sx={{
+                  // padding: "10%",
+                  textAlign: "center",
+                  // color: "#007fff",
+                  backgroundColor: "#007fff", // 5090D3
+                  borderRadius: "10px",
+                  // width: "100%",
+                  // height: "100%",
+                  // minWidth: "200px",
+                  // maxWidth: "300px",
+                  minHeight: "150px",
+                  // maxHeight: "300px",
+                  margin: "10%",
+                  // padding: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  // flexDirection: "column",
+                  ":hover": {
+                    backgroundColor: "#5090D3",
+                    cursor: "pointer",
+                  },
+                }}
+              // hover
+              // onClick={() => {
+              //     navigateToBoard(board_id);
+              //     open create modal board
+              // }}
+              >
+                {/* <p variant="h1" component="h2" className="add--text">
+                        ساخت بورد جدید
+                      </p> */}
+                <CreateBoard />
+              </Paper>
+            </Grid>
+          </Grid>
+          {/* <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
           <p variant="h1" component="h2" className="text paragraph">
             <MessageTwoToneIcon sx={{ ml: 1.5 }} /> پیام ها
-          </p>
+          </p> */}
         </>
       ),
     },
@@ -897,7 +1651,7 @@ export const Dashborad = () => {
   };
 
   // const state = useSelector((state) => state);
-  // console.log("store", state);
+  // ////console.log("store", state);
   // const dispatch = useDispatch();
   // dispatch(actionObject or calling the action creator); (when an action is dispatched, all the reducers become active.)
   // onClick={() => {
@@ -906,7 +1660,9 @@ export const Dashborad = () => {
 
   if (matches) {
     return (
-      <div>
+      <div style={{
+        overflow: "auto",
+      }}>
         <Helmet>
           <title>داشبورد</title>
         </Helmet>
@@ -964,7 +1720,9 @@ export const Dashborad = () => {
   } else {
     return (
       // https://mui.com/material-ui/react-bottom-navigation/
-      <Fragment>
+      <Fragment sx={{
+        overflow: "auto",
+      }}>
         <Header />
         <Helmet>
           <title>داشبورد</title>
@@ -1009,11 +1767,11 @@ export const Dashborad = () => {
               value="home"
               icon={<HomeTwoToneIcon />}
             />
-            {/* <BottomNavigationAction
-                            label="تمپلیت ها"
-                            value="templates"
-                            icon={<ContentPasteTwoToneIcon />}
-                        /> */}
+            <BottomNavigationAction
+              label="تمپلیت ها"
+              value="templates"
+              icon={<ContentPasteTwoToneIcon />}
+            />
             <BottomNavigationAction
               label="فضای کار ها"
               value="workspaces"
