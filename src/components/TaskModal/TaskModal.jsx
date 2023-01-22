@@ -144,7 +144,11 @@ export default function TaskModal(props) {
         >
           {initials.profile_pic != null ? (
             <img
-              src={initials.profile_pic}
+              src={
+                initials.profile_pic.toString().includes("http")
+                  ? initials.profile_pic
+                  : baseUrl + initials.profile_pic
+              }
               alt={initials.first_name}
               style={{ width: "100%", height: "100%", borderRadius: "50%" }}
             />
