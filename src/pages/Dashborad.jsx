@@ -1660,7 +1660,9 @@ export const Dashborad = () => {
 
   if (matches) {
     return (
-      <div>
+      <div style={{
+        overflow: "auto",
+      }}>
         <Helmet>
           <title>داشبورد</title>
         </Helmet>
@@ -1718,7 +1720,9 @@ export const Dashborad = () => {
   } else {
     return (
       // https://mui.com/material-ui/react-bottom-navigation/
-      <Fragment>
+      <Fragment sx={{
+        overflow: "auto",
+      }}>
         <Header />
         <Helmet>
           <title>داشبورد</title>

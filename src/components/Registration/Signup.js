@@ -34,7 +34,7 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="white" align="center" {...props}>
       {"Copyright © "}
-      <Link color="inherit" href="https://Projma.com/">
+      <Link color="inherit" href="https://Projma.ir/">
         Projma
       </Link>{" "}
       {new Date().getFullYear()}

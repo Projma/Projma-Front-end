@@ -33,8 +33,8 @@ const style = {
   // width: 400,
   width: "70%",
   height: "78%",
-  // bgcolor: 'background.paper',
-  bgcolor: "#001E3C", // #5090D3 #1E4976
+  // bgcolor: 'background.paper', 
+  bgcolor: "#265D97", // #5090D3 #1E4976 001E3C 007fff 265D97
   border: "2px solid #000",
   borderRadius: "10px",
   boxShadow: 24,
