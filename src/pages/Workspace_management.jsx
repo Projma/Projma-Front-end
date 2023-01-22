@@ -18,11 +18,13 @@ import "react-toastify/dist/ReactToastify.css";
 import Header from "../components/Header/Header";
 import Board from "../components/Workspace_management/Board/Board";
 import { Helmet } from "react-helmet";
+import Loading from "../components/Shared/Loading";
 import Settings from "react-multi-date-picker/plugins/settings";
 
 const Workspace_management = () => {
   const params = useParams();
   const [workspace, setWorkspace] = React.useState({});
+  const [isPost, setIsPost] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,6 +37,7 @@ const Workspace_management = () => {
 
   const submit_form = (form_data, boards, setBoards) => {
     console.log("here");
+    setIsPost(true);
     apiInstance
       .post(`/workspaces/workspaceowner/${params.id}/create-board/`, form_data)
       .then((res) => {
@@ -48,12 +51,16 @@ const Workspace_management = () => {
             fontSize: "1.2rem",
           },
         });
+      })
+      .finally(() => {
+        setIsPost(null);
       });
   };
   const matches = useMediaQuery("(min-width:984px)");
   const state_header = matches ? "23rem" : "0";
   return (
     <>
+      {isPost ? <Loading /> : null}
       <header height="80" style={{ marginRight: state_header }}>
         <ResponsiveAppBar />
       </header>
