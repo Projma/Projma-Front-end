@@ -7,6 +7,7 @@ import LabelIcon from "@mui/icons-material/Label";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Divider from "@mui/material/Divider";
 import "../../styles/TaskModal.css";
+import Loading from "../Shared/Loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Attachment.scss";
@@ -14,6 +15,7 @@ import "./Attachment.scss";
 export default function Attachments({ params, setAllAttachments }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [file, setFile] = React.useState(null);
+  const [isPost, setIsPost] = React.useState(false);
   const [binaryFile, setBinaryFile] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -36,6 +38,8 @@ export default function Attachments({ params, setAllAttachments }) {
     //console.log("create attachment$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     const formData = new FormData();
     formData.append("file", binaryFile);
+    setIsPost(true);
+    handleClose();
     apiInstance
       .patch(
         `workspaces/task/${params.task_id}/add-attachment-to-task/`,
@@ -56,6 +60,9 @@ export default function Attachments({ params, setAllAttachments }) {
         // //console.log(res.data);
         //console.log(res.data);
         setAllAttachments((prev) => [...prev, res.data]);
+      })
+      .finally(() => {
+        setIsPost(null);
       });
   };
   const open = Boolean(anchorEl);
@@ -63,6 +70,7 @@ export default function Attachments({ params, setAllAttachments }) {
 
   return (
     <div className="taskmodal-flexibale-icon">
+      {isPost ? <Loading /> : null}
       <ToastContainer />
       <Button
         className="taskmodal-smaller-button-inner"

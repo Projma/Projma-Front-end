@@ -8,6 +8,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { useEffect } from "react";
 import apiInstance from "../../utilities/axiosConfig";
 import { baseUrl } from "../../utilities/constants";
+import Loading from "../Shared/Loading";
 
 function check_username_in_list(username, userName, list) {
   for (let i = 0; i < list.length; i++) {
@@ -24,6 +25,7 @@ function check_username_in_list(username, userName, list) {
 
 export default function Members({ params, setDoers, doer }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [isPost, setIsPost] = React.useState(false);
   const [changeMemberStatus, setChangeMemberStatus] = React.useState(false);
 
   const handleClick = (event) => {
@@ -107,6 +109,7 @@ export default function Members({ params, setDoers, doer }) {
   const [member, setMember] = React.useState("");
   const add_to_doers = (member) => {
     // change the checked value of the member
+    setIsPost(true);
     apiInstance
       .patch(`/workspaces/task/${params.task_id}/add-doers-to-task/`, {
         doers: [member.id],
@@ -120,10 +123,14 @@ export default function Members({ params, setDoers, doer }) {
           profile_pic: member.image,
         };
         setDoers([...doer, new_doer]);
+      })
+      .finally(() => {
+        setIsPost(null);
       });
   };
   const delete_from_doers = (member) => {
     member.checked = !member.checked;
+    setIsPost(true);
     apiInstance
       .patch(`/workspaces/task/${params.task_id}/delete-doers-from-task/`, {
         doers: [member.id],
@@ -136,10 +143,14 @@ export default function Members({ params, setDoers, doer }) {
         );
         console.log(new_doers);
         setDoers(new_doers);
+      })
+      .finally(() => {
+        setIsPost(null);
       });
   };
   return (
     <div className="taskmodal-flexibale-icon">
+      {isPost ? <Loading /> : null}
       <Button
         className="taskmodal-smaller-button-inner"
         aria-describedby={id}
