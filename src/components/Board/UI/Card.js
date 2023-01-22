@@ -214,12 +214,12 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
               >
                 <CloseIcon sx={{ fontSize: "1.6rem" }} />
               </div>
-              <div
+              {/* <div
                 className="card_edit-icon"
                 onClick={(event) => handleEditCardName(event)}
               >
                 <EditIcon sx={{ fontSize: "1.6rem" }} />
-              </div>
+              </div> */}
             </div>
             <div className="card_body">
               {findCover() && (

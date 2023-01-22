@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import StyledTextField from "../Shared/StyledTextField";
@@ -38,8 +38,8 @@ const ResetPassword = () => {
     //console.log(getLinkInfo(baseLink));
     const data = new FormData();
     data.append("password", password);
-      apiInstance
-      .post("accounts/reset-password/?"+getLinkInfo(), data)
+    apiInstance
+      .post("accounts/reset-password/?" + getLinkInfo(), data)
       .then(() => {
         setIsFail(true);
         toast.success("رمز عبور با موفقیت تغییر کرد", {
@@ -142,7 +142,12 @@ const ResetPassword = () => {
             // backgroundColor: "var(--main-background)",
             opacity: 1,
             backgroundImage:
-              "linear-gradient(to right bottom, var(--main-background) 0%, #0059B2 130%)",
+                  "linear-gradient(to right bottom, #001E3C 0%, #0059B2 130%)",
+          }}
+          inputProps={{
+            style: {
+              fontFamily: "Vazir",
+            },
           }}
         >
           <Box
@@ -166,6 +171,11 @@ const ResetPassword = () => {
               variant="h5"
               color="#fff"
               sx={{ mb: 1, fontSize: "2rem(10)" }}
+              inputProps={{
+                style: {
+                  fontFamily: "Vazir",
+                },
+              }}
             >
               تغییر رمز عبور
             </Typography>
@@ -188,6 +198,11 @@ const ResetPassword = () => {
                     fontSize: "1.6rem",
                   },
                 }}
+                inputProps={{
+                  style: {
+                    fontFamily: "Vazir",
+                  },
+                }}
               />
               <StyledTextField
                 margin="normal"
@@ -207,6 +222,11 @@ const ResetPassword = () => {
                     fontSize: "1.6rem",
                   },
                 }}
+                inputProps={{
+                  style: {
+                    fontFamily: "Vazir",
+                  },
+                }}
               />
             </PerTextField>
 
@@ -220,6 +240,11 @@ const ResetPassword = () => {
                 backgroundColor: "#265D97",
                 fontSize: "1.6rem(10)",
               }}
+              inputProps={{
+                style: {
+                  fontFamily: "Vazir",
+                },
+              }}
             >
               تغییر رمز عبور
             </Button>
@@ -230,6 +255,11 @@ const ResetPassword = () => {
                 textAlign: "right",
                 color: "red",
                 fontWeight: "bold",
+              }}
+              inputProps={{
+                style: {
+                  fontFamily: "Vazir",
+                },
               }}
             ></Typography>
           </Box>

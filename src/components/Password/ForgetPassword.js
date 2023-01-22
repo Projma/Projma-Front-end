@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import StyledTextField from "../Shared/StyledTextField";
@@ -14,7 +14,10 @@ import { toast, ToastContainer } from "react-toastify";
 import "../../styles/ReactToastify.css";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { convertNumberToPersian, convertNumberToEnglish } from "../../utilities/helpers.js";
+import {
+  convertNumberToPersian,
+  convertNumberToEnglish,
+} from "../../utilities/helpers.js";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -34,10 +37,7 @@ const ForgetPassword = () => {
     const data = new FormData();
     data.append("email", email);
     apiInstance
-      .post(
-        "accounts/forgot-password/",
-        data
-      )
+      .post("accounts/forgot-password/", data)
       .then(() => {
         setIsFail(true);
         toast.success("ایمیل تغییر رمز عبور با موفقیت ارسال شد", {
@@ -98,9 +98,11 @@ const ForgetPassword = () => {
   return (
     <>
       {isPost ? <Loading /> : null}
-      {isFail ? <ToastContainer autoClose={5000} style={{fontSize:"1.2rem"}}/> : null}
+      {isFail ? (
+        <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
+      ) : null}
       <Container component="main" maxWidth="xs">
-      <Helmet>
+        <Helmet>
           <title>فراموشی رمز عبور</title>
         </Helmet>
         <CssBaseline />
@@ -117,7 +119,7 @@ const ForgetPassword = () => {
             // backgroundColor: "var(--main-background)",
             opacity: 1,
             backgroundImage:
-              "linear-gradient(to right bottom, var(--main-background) 0%, #0059B2 130%)",
+                  "linear-gradient(to right bottom, #001E3C 0%, #0059B2 130%)",
           }}
         >
           <Box
@@ -141,6 +143,11 @@ const ForgetPassword = () => {
               variant="h5"
               color="#fff"
               sx={{ mb: 1, fontSize: "2rem(10)" }}
+              inputProps={{
+                style: {
+                  fontFamily: "Vazir",
+                },
+              }}
             >
               فراموشی رمز عبور
             </Typography>
@@ -157,9 +164,11 @@ const ForgetPassword = () => {
                 type="email"
                 autoComplete="email"
                 InputLabelProps={{ style: { fontFamily: "Vazir" } }}
-                InputProps={{ style: { fontFamily: "Vazir", fontSize: "1.7rem" } }}
+                InputProps={{
+                  style: { fontFamily: "Vazir", fontSize: "1.7rem" },
+                }}
                 onChange={(e) => {
-                  setEmail(convertNumberToEnglish(e.target.value))
+                  setEmail(convertNumberToEnglish(e.target.value));
                   // //console.log(email)
                 }}
                 value={convertNumberToPersian(email)}
@@ -171,7 +180,11 @@ const ForgetPassword = () => {
                     fontSize: "1.6rem(10)",
                   },
                 }}
-
+                inputProps={{
+                  style: {
+                    fontFamily: "Vazir",
+                  },
+                }}
               />
             </PerTextField>
 
@@ -185,6 +198,11 @@ const ForgetPassword = () => {
                 backgroundColor: "#265D97",
                 fontSize: "1.6rem(10)",
               }}
+              inputProps={{
+                style: {
+                  fontFamily: "Vazir",
+                },
+              }}
             >
               ارسال ایمیل
             </Button>
@@ -196,6 +214,11 @@ const ForgetPassword = () => {
                 color: "red",
                 fontWeight: "bold",
                 fontSize: "1.6rem",
+              }}
+              inputProps={{
+                style: {
+                  fontFamily: "Vazir",
+                },
               }}
             ></Typography>
           </Box>
