@@ -9,7 +9,8 @@
 
 html {
   font-size: 10px;
-  overflow: hidden;
+  overflow: auto;
+  /* overflow: hidden; */
 }
 
 body {

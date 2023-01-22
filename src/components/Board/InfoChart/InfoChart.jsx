@@ -66,23 +66,44 @@ const InfoChart = (props) => {
     const params = useParams();
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [chartInfo, setChartInfo] = useState({}); 
     useEffect(() => {
-        // apiInstance.get(`/workspaces/board/${params.id}/members/`).then((res) => {
-        //     // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
-        //     // //console.log(res.data);
-        //     setMembers(res.data);  
-        // apiInstance.get(`/workspaces/chart/board-members-assign-tasks/${board_id}/`).then((res) => {
-        //     // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
-        //     // //console.log(res.data);
-        //     setMembers(res.data);
-        // }).catch((err) => {
-        //     //console.log(err);
-        // });
+        apiInstance.get(`/workspaces/chart/board-members-assign-tasks/${props.boardId}/`).then((res) => {
+            // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
+            // //console.log(res.data);
+            setChartInfo(res.data);
+            // {
+            //     "chartlabel": "تعداد کار واگذار شده به هر فرد",
+            //     "xlabel": "فرد",
+            //     "ylabel": "تعداد",
+            //     "xdata": [
+            //       [
+            //         "superuser",
+            //         "تمام کار ها"
+            //       ]
+            //     ],
+            //     "ydata": [
+            //       [
+            //         0,
+            //         0
+            //       ]
+            //     ]
+            //   }
+        }).catch((err) => {
+            //console.log(err);
+        });
 
         // apiInstance.get(`/workspaces/chart/my-assign-tasks-for-all-boards${user_id}/`).then((res) => {
         //     // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
         //     // //console.log(res.data);
         //     setMembers(res.data);
+        // {
+        //     "chartlabel": "تعداد فعالیت من برای هر برد",
+        //     "xlabel": "برد",
+        //     "ylabel": "تعداد",
+        //     "xdata": [],
+        //     "ydata": []
+        //   }
         // }).catch((err) => {
         //     //console.log(err);
         // });
@@ -361,6 +382,7 @@ const InfoChart = (props) => {
                                         type="bar"
                                         // type="line"
                                         width="500"
+                                        // width="100%"
                                     />
                                 </div>
                             </div>

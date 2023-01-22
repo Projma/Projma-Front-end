@@ -84,8 +84,8 @@ export default function CreateTemplateModal(props) {
     const on_submit = (form_data) => {
         apiInstance
             .get(
-                `/workspaces/templates/${props.template_id}/create-board-from-template/${workspaceId}/`,
-                form_data
+                `/workspaces/templates/${props.template_id}/create-board-from-template/${workspaceId}/`// ,
+                // form_data
             )
             .then((res) => {
 
@@ -134,6 +134,7 @@ export default function CreateTemplateModal(props) {
         form_data.append("name", title);
         form_data.append("description", description);
         form_data.append("type", "education");
+        form_data.append("background_pic", binaryFile);
         on_submit(form_data);
         handleClose();
         // navigate to board page that created

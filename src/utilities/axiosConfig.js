@@ -31,18 +31,18 @@ apiInstance.interceptors.response.use(
         originalConfig._retry = true;
         // axios
         // .post(`${baseUrl}/accounts/jwt/refresh`, {
-        apiInstance
-          // .post(`accounts/jwt/refresh`, {
-          .post(`accounts/login/token/refresh/`, {
-            refresh: localStorage.getItem("refresh_token"),
-          })
-          .then((res) => {
-            localStorage.setItem("access_token", res.access);
-            localStorage.setItem("refresh_token", res.refresh);
-          })
-          .catch((err) => {
-            return Promise.reject(err);
-          });
+        // apiInstance
+        //   // .post(`accounts/jwt/refresh`, {
+        //   .post(`accounts/login/token/refresh/`, {
+        //     refresh: localStorage.getItem("refresh_token"),
+        //   })
+        //   .then((res) => {
+        //     localStorage.setItem("access_token", res.access);
+        //     localStorage.setItem("refresh_token", res.refresh);
+        //   })
+        //   .catch((err) => {
+        //     return Promise.reject(err);
+        //   });
         return apiInstance(originalConfig);
       }
     }
