@@ -612,7 +612,11 @@ export default function CreateBoardModal({}) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box
+          sx={style}
+          className="createBoard-flexible"
+          style={{ height: "86%" }}
+        >
           <Typography
             variant="h6"
             id="modal-modal-title"
@@ -621,7 +625,7 @@ export default function CreateBoardModal({}) {
               textAlign: "center",
               fontFamily: "Vazir",
               color: "#fff",
-              fontSize: "109%",
+              fontSize: "183%",
             }}
             className="neonText"
           >
@@ -630,8 +634,8 @@ export default function CreateBoardModal({}) {
           <Divider
             sx={{
               backgroundColor: "#007fff",
-              marginTop: "0.5rem",
-              marginBottom: "0.75rem",
+              marginTop: "3%",
+              marginBottom: "5%",
             }}
           />
           <img src={x} className="workspace-modal--board-image" />
@@ -648,7 +652,7 @@ export default function CreateBoardModal({}) {
                 required
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir", fontSize: "75%" },
+                  style: { fontFamily: "Vazir", fontSize: "135%" },
                 }}
                 inputProps={{
                   style: {
@@ -684,6 +688,8 @@ export default function CreateBoardModal({}) {
                 sx={{
                   fontFamily: "Vazir",
                   fontSize: "1.7rem",
+                  marginTop: "3%",
+                  marginBottom: "3%",
                 }}
                 InputLabelProps={{
                   style: { fontFamily: "Vazir", fontSize: "80%" },
@@ -750,7 +756,7 @@ export default function CreateBoardModal({}) {
                 }}
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir", fontSize: "75%" },
+                  style: { fontFamily: "Vazir", fontSize: "135%" },
                 }}
                 inputProps={{
                   style: {
@@ -762,17 +768,6 @@ export default function CreateBoardModal({}) {
                 }}
               />
             </PerTextField>
-            <Avatar
-              src={file ? file : x}
-              alt="profile"
-              className="workspace-modal--board-flexible"
-              // sx={{
-              //   mt: 1,
-              //   width: "11vmin",
-              //   height: "11vmin",
-              //   borderRadius: "50%",
-              // }}
-            />
             <div
               style={{
                 display: "flex",
@@ -782,6 +777,18 @@ export default function CreateBoardModal({}) {
                 rowGap: "1rem",
               }}
             >
+              <Avatar
+                src={file ? file : x}
+                alt="profile"
+                className="workspace-modal--board-flexible"
+                sx={{
+                  mt: 1,
+                  width: "11vmin",
+                  height: "11vmin",
+                  borderRadius: "50%",
+                }}
+              />
+
               <Button
                 variant="contained"
                 component="label"
@@ -790,11 +797,10 @@ export default function CreateBoardModal({}) {
                   color: "white",
                   width: "120px",
                   mt: 2,
-                  marginRight: "1.5rem",
                   marginTop: 0,
                 }}
               >
-                <p style={{ fontSize: "1.5rem" }}>انتخاب عکس</p>
+                <p style={{ fontSize: "85%" }}>انتخاب عکس</p>
                 <input
                   type="file"
                   hidden
@@ -821,7 +827,7 @@ export default function CreateBoardModal({}) {
               value="بساز"
               className="workspace-modal--button-29"
               onClick={create_board}
-              style={{ fontFamily: "Vazir", fontSize: "101%" }}
+              style={{ fontFamily: "Vazir", fontSize: "190%" }}
             />
           </form>
           {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
