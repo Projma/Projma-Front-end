@@ -9,7 +9,7 @@ export default function PrivateRoute(props) {
     const state = useSelector((state) => state);
     const navigate = useNavigate();
     useEffect(() => {
-        //console.log("isAuthenticated", state.isAuthenticated);
+        ////console.log("isAuthenticated", state.isAuthenticated);
         if (! state.isAuthenticated) {
             navigate('/signin/');
         }

@@ -19,7 +19,7 @@ const BoardView = (props) => {
       const flag = !isStarred;
       const id = props.id;
       setIsStarred(flag);
-      //console.log(flag);
+      ////console.log(flag);
       const data = { id: id, is: flag };
       props.onStarred(data);
     });

@@ -84,7 +84,7 @@ export default function CreateBoardModal({}) {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   // const on_submit = (form_data, boards, setBoards) => {
   const on_submit = (form_data) => {
-    //console.log("here");
+    ////console.log("here");
     setIsPost(true);
     apiInstance
       .post(
@@ -92,9 +92,9 @@ export default function CreateBoardModal({}) {
         form_data
       )
       .then((res) => {
-        //console.log("here");
-        //console.log(res.data);
-        //console.log("here");
+        ////console.log("here");
+        ////console.log(res.data);
+        ////console.log("here");
         toast.success("بورد با موفقیت ساخته شد", {
           // position: toast.POSITION.BOTTOM_LEFT,
           position: toast.POSITION.BOTTOM_LEFT,
@@ -110,8 +110,8 @@ export default function CreateBoardModal({}) {
     e.preventDefault();
     let board_name = document.getElementById("board_name").value;
     let isValid = true;
-    //console.log(board_name);
-    //console.log("board name");
+    ////console.log(board_name);
+    ////console.log("board name");
     if (board_name === "") {
       setErrorBoardName(true);
       isValid = false;
@@ -125,7 +125,7 @@ export default function CreateBoardModal({}) {
       setErrorWorkspace(false);
     }
     if (isValid === false) {
-      //console.log("false");
+      ////console.log("false");
       return;
     } else {
       setDisableButton(true); // make text spinning and disable button

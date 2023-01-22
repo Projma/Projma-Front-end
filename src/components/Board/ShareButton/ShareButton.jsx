@@ -83,7 +83,7 @@ const ShareButton = (props) => {
   useEffect(() => {
     apiInstance.get(`/workspaces/board/${params.id}/members/`).then((res) => {
       // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
-      // //console.log(res.data);
+      // ////console.log(res.data);
       setMembers(res.data);
       // array of members
       // "user": {
@@ -104,7 +104,7 @@ const ShareButton = (props) => {
     apiInstance
       .get(`/workspaces/board/${params.id}/invite_link/`)
       .then((res) => {
-        // console.log(res.data);
+        // //console.log(res.data);
         setInviteToken(res.data);
       });
 
@@ -216,7 +216,7 @@ const ShareButton = (props) => {
   };
 
   const handleAddUsers = (event) => {
-    // console.log(selectedOptions);
+    // //console.log(selectedOptions);
     // [
     //     {
     //         "name": "Vahid Mohammadi",
@@ -246,8 +246,8 @@ const ShareButton = (props) => {
           // }
         )
         .then((res) => {
-          console.log("success", res);
-          // console.log(res.data);
+          //console.log("success", res);
+          // //console.log(res.data);
           apiInstance
             .get(`/workspaces/board/${params.id}/members/`)
             .then((res) => {
@@ -261,13 +261,13 @@ const ShareButton = (props) => {
         })
         .catch((error) => {
           // wasSuccessful = false;
-          console.log("error", error);
+          //console.log("error", error);
           toast.error("مشکلی پیش آمده است.", {
             position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
-          // console.log(error.response);
-          // console.log(error.response.data);
+          // //console.log(error.response);
+          // //console.log(error.response.data);
           // toast error
         })
         .finally(() => setIsPost(null));
@@ -484,9 +484,9 @@ const ShareButton = (props) => {
                 // onSubmit={() => {
                 //     let workspace_name = document.getElementById("tags-outlined").value;
                 //     // let selectted = document.getElementById("tags-outlined").ariaSelected;
-                //     console.log("*****************")
-                //     console.log("workspace_name: ", workspace_name);
-                //     // console.log("selectted: ", selectted);
+                //     //console.log("*****************")
+                //     //console.log("workspace_name: ", workspace_name);
+                //     // //console.log("selectted: ", selectted);
 
                 //     // let create_workspace_formdata = new FormData();
                 //     // create_workspace_formdata.append("name", workspace_name);
@@ -495,16 +495,16 @@ const ShareButton = (props) => {
                 //     //     navigateToWorkspace(response.data.id);
                 //     // })
                 //     //     .catch((error) => {
-                //     //         console.log(error);
+                //     //         //console.log(error);
                 //     //     });
                 // }}
                 onClick={handleAddUsers}
                 // onClick={() => {
                 //     let workspace_name = document.getElementById("tags-outlined");
                 //     // let selectted = document.getElementById("tags-outlined").ariaSelected;
-                //     console.log("*****************")
-                //     console.log("workspace_name: ", workspace_name);
-                //     // console.log("selectted: ", selectted);
+                //     //console.log("*****************")
+                //     //console.log("workspace_name: ", workspace_name);
+                //     // //console.log("selectted: ", selectted);
 
                 //     // let create_workspace_formdata = new FormData();
                 //     // create_workspace_formdata.append("name", workspace_name);
@@ -513,7 +513,7 @@ const ShareButton = (props) => {
                 //     //     navigateToWorkspace(response.data.id);
                 //     // })
                 //     //     .catch((error) => {
-                //     //         console.log(error);
+                //     //         //console.log(error);
                 //     //     });
                 // }}
               >

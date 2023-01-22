@@ -43,8 +43,8 @@ export default function CheckList({ params, setAllChecklists }) {
     apiInstance
       .post(`workspaces/task/${params.task_id}/create-checklist/`, form_data)
       .then((res) => {
-        //console.log("here2");
-        //console.log(res.data);
+        ////console.log("here2");
+        ////console.log(res.data);
         toast.success("مورد لیست کنترل اضافه شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,

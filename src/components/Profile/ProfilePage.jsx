@@ -55,7 +55,7 @@ export default function Profile() {
 
   React.useEffect(() => {
     apiInstance.get("accounts/profile/myprofile/").then((res) => {
-      // //console.log(res);
+      // ////console.log(res);
       setFirstName(res.data.user.first_name);
       setLastName(res.data.user.last_name);
       setUsername(res.data.user.username);
@@ -125,13 +125,13 @@ export default function Profile() {
       last_name: lastName,
     });
 
-    console.log(user);
+    //console.log(user);
     // formData.append("user", user);
     // formData.append("first_name", firstName);
     // formData.append("last_name", lastName);
     let birthd = "";
-    console.log("--------------");
-    console.log(birthDate);
+    //console.log("--------------");
+    //console.log(birthDate);
     if (birthDate !== "") {
       birthd = birthDate;
     }
@@ -156,19 +156,19 @@ export default function Profile() {
       bio: bio,
       // profile_pic: binaryFile,
     };
-    console.log(data);
+    //console.log(data);
     setIsPost(true);
     apiInstance
       .patch("/accounts/profile/edit-myprofile/", data)
       .then((res) => {
-        //console.log(res);
+        ////console.log(res);
         toast.success("با موفقیت بروز شد.", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
         toast.error("مشکلی پیش آمده است.", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
@@ -177,10 +177,10 @@ export default function Profile() {
     apiInstance
       .patch("/accounts/profile/edit-myprofile/", formData)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         toast.error("مشکلی پیش آمده است.", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
@@ -373,16 +373,16 @@ export default function Profile() {
                             type="file"
                             hidden
                             onChange={(e) => {
-                              // //console.log("-----");
-                              // //console.log(getImage);
-                              // //console.log("****");
+                              // ////console.log("-----");
+                              // ////console.log(getImage);
+                              // ////console.log("****");
                               setBinaryFile(e.target.files[0]);
                               setChangeImage(true);
                               const [filee] = e.target.files;
                               setFile(URL.createObjectURL(filee));
-                              // //console.log(e.target.files[0]);
-                              // //console.log(file);
-                              // //console.log("-----");
+                              // ////console.log(e.target.files[0]);
+                              // ////console.log(file);
+                              // ////console.log("-----");
                             }}
                             accept=".jpg,.jpeg,.png"
                           />

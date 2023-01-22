@@ -98,7 +98,7 @@ export default function CreateTemplateModal(props) {
                 // navigateToBoard(res.data.id);
                 delay(6000).then(() => navigateToBoard(res.data.id));
             }).catch((err) => {
-                console.log(err);
+                //console.log(err);
                 toast.error("خطا در ساخت تمپلیت", {
                     // position: toast.POSITION.BOTTOM_LEFT,
                     position: toast.POSITION.BOTTOM_LEFT,
@@ -109,8 +109,8 @@ export default function CreateTemplateModal(props) {
         e.preventDefault();
         let board_name = document.getElementById("board_name").value;
         let isValid = true;
-        //console.log(board_name);
-        //console.log("board name");
+        ////console.log(board_name);
+        ////console.log("board name");
         if (board_name === "") {
             setErrorBoardName(true);
             isValid = false;
@@ -124,7 +124,7 @@ export default function CreateTemplateModal(props) {
             setErrorWorkspace(false);
         }
         if (isValid === false) {
-            //console.log("false");
+            ////console.log("false");
             return;
         } else {
             setDisableButton(true); // make text spinning and disable button

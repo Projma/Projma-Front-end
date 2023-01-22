@@ -48,7 +48,7 @@ const ForgetPassword = () => {
           return email.split("@")[1];
         };
         const emailURL = getLinkInfo();
-        //console.log(emailURL);
+        ////console.log(emailURL);
         if (
           emailURL === "gmail.com" ||
           emailURL === "yahoo.com" ||
@@ -169,7 +169,7 @@ const ForgetPassword = () => {
                 }}
                 onChange={(e) => {
                   setEmail(convertNumberToEnglish(e.target.value));
-                  // //console.log(email)
+                  // ////console.log(email)
                 }}
                 value={convertNumberToPersian(email)}
                 error={errorEmail}

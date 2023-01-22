@@ -76,7 +76,7 @@ const InfoChart = (props) => {
     useEffect(() => {
         apiInstance.get(`/workspaces/chart/board-members-assign-tasks/${props.boardId}/`).then((res) => {
             // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
-            // //console.log(res.data);
+            // ////console.log(res.data);
             setChartInfo(res.data);
             // {
             //     "chartlabel": "تعداد کار واگذار شده به هر فرد",
@@ -131,10 +131,10 @@ const InfoChart = (props) => {
             });
             xaxix.push(res.data.xdata[0][1] ? res.data.xdata[0][1] : "بدون نام کاربری");
             yaxix.push(res.data.ydata[0][1]);
-            // console.log(res.data);
-            console.log("-----------------------");
-            console.log(xaxix);
-            console.log(yaxix);
+            // //console.log(res.data);
+            //console.log("-----------------------");
+            //console.log(xaxix);
+            //console.log(yaxix);
             setData({
                 options: {
                     chart: {
@@ -255,12 +255,12 @@ const InfoChart = (props) => {
                 }]
             })
         }).catch((err) => {
-            //console.log(err);
+            ////console.log(err);
         });
 
         // apiInstance.get(`/workspaces/chart/my-assign-tasks-for-all-boards${user_id}/`).then((res) => {
         //     // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
-        //     // //console.log(res.data);
+        //     // ////console.log(res.data);
         //     setMembers(res.data);
         // {
         //     "chartlabel": "تعداد فعالیت من برای هر برد",
@@ -270,7 +270,7 @@ const InfoChart = (props) => {
         //     "ydata": []
         //   }
         // }).catch((err) => {
-        //     //console.log(err);
+        //     ////console.log(err);
         // });
 
     }, []);

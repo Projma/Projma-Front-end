@@ -65,7 +65,7 @@ const CardTitle = (props) => {
     if (name !== props.title) {
       // props.onChangeName(name);
     }
-    //console.log('blur');
+    ////console.log('blur');
     // props.onBlurHandler();
     // setEnable(false);
   };

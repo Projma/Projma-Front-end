@@ -20,27 +20,27 @@ const BoardInvitation = () => {
     const [progress, setProgress] = useState(0);
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     useEffect(() => {
-        // //console.log(params.token);
+        // ////console.log(params.token);
         apiInstance
             .post(`workspaces/board/join-to-board/${params.token}/`)
             .then((res) => {
-                // //console.log("there");
-                // //console.log(res.data);
+                // ////console.log("there");
+                // ////console.log(res.data);
                 setResult(success);
                 // delay(4000).then(() => navigate("/dashboard"));
                 // delay(4000).then(() => navigate(`/kanban/${res.data.id}/`));
                 delay(4000).then(() => navigate(`/kanban/${params.id}/`));
             }).catch((error) => {
-                // //console.log("here");
+                // ////console.log("here");
                 // alert(error.response.data)
                 if (error.response) {
                     if (error.response.data == "User is already a member of this board") {
                         navigate(`/kanban/${params.id}/`);
                     }
                     else {
-                        // //console.log(error.response.data);
-                        // //console.log(error.response.status);
-                        // //console.log(error.response.headers);
+                        // ////console.log(error.response.data);
+                        // ////console.log(error.response.status);
+                        // ////console.log(error.response.headers);
                         setError(error.response.data);
                         setErrorRes(error.response.status);
                         setResult(failure);

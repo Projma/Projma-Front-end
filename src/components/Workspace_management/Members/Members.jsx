@@ -42,14 +42,14 @@ const Members = ({ params }) => {
             ? baseUrl + obj.profile_pic?.slice(1)
             : anonymous,
         }));
-        //console.log(baseUrl + res.data.profile_pic?.slice(1));
+        ////console.log(baseUrl + res.data.profile_pic?.slice(1));
         setMembers(members);
-        //console.log(members);
+        ////console.log(members);
       });
   }, []);
   const navigate = useNavigate();
   const copyLink = (e) => {
-    //console.log(`${baseUrl}workspaces/workspaceowner/${params.id}/invite-link`);
+    ////console.log(`${baseUrl}workspaces/workspaceowner/${params.id}/invite-link`);
     if (button_inner === "کپی لینک دعوت") {
       setIsPost(true);
       apiInstance
@@ -76,14 +76,14 @@ const Members = ({ params }) => {
   };
 
   const removeMember = (e, user_id) => {
-    //console.log(user_id);
+    ////console.log(user_id);
     apiInstance
       .delete(
         `workspaces/workspaceowner/${params.id}/remove-user-from-workspace/${user_id}/`
       )
       .then((res) => {
-        //console.log(res.status);
-        //console.log("in delete person");
+        ////console.log(res.status);
+        ////console.log("in delete person");
 
         setMembers((members) =>
           members.filter((member) => member.id !== user_id)
@@ -97,7 +97,7 @@ const Members = ({ params }) => {
   };
 
   const test = (e) => {
-    //console.log("here");
+    ////console.log("here");
     const form_data = new FormData();
     form_data.append("name", "title");
     form_data.append("description", "description");
@@ -105,7 +105,7 @@ const Members = ({ params }) => {
     apiInstance
       .post(`/workspaces/workspaceowner/${params.id}/create-board/`, form_data)
       .then((res) => {
-        //console.log(res.data);
+        ////console.log(res.data);
       });
   };
   const buttonRef = useRef(null);
