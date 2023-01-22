@@ -589,7 +589,7 @@ export default function TaskModal(props) {
                             justifyContent: "center",
                           }}
                         >
-                          {dueDate != null ? (
+                          {dueDate.toString() != "null" ? (
                             <div className="duetime-showDate">
                               {dueDate.toString().replaceAll("-", "/")}
                             </div>
