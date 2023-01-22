@@ -121,7 +121,12 @@ const Members = ({ params }) => {
             کارگاه شما بپیوندند
           </h2>
         </div>
-        <button onClick={copyLink} ref={buttonRef} class="button-9">
+        <button
+          onClick={copyLink}
+          ref={buttonRef}
+          class="button-9"
+          style={{ fontFamily: "Vazir" }}
+        >
           {button_inner}
         </button>
       </div>
