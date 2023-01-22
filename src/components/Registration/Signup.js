@@ -101,15 +101,15 @@ export default function SignUp() {
       document.getElementById("em").innerHTML = errorMessage;
     } else if (password.search(/[a-z]/i) + password.search(/[\d]/) < 0) {
       setErrorPassword(true);
-      errorMessage += `*رمز عبور جدید باید شامل کاراکتر و عدد باشد<br>`;
+      errorMessage += `*رمز عبور باید شامل کاراکتر و عدد باشد<br>`;
       document.getElementById("em").innerHTML = errorMessage;
     } else if (password.search(/[A-Z]/i) < 0) {
       setErrorPassword(true);
-      errorMessage += `*رمز عبور جدید باید حداقل شامل یک حرف بزرگ باشد<br>`;
+      errorMessage += `*رمز عبور باید حداقل شامل یک حرف بزرگ باشد<br>`;
       document.getElementById("em").innerHTML = errorMessage;
     } else if (password.search(/[!|@|#|$|%|^|&|*]/) < 0) {
       setErrorPassword(true);
-      errorMessage += `*رمز عبور جدید باید شامل حداقل یکی از کاراکتر های !@#$%^&* باشد<br>`;
+      errorMessage += `*رمز عبور باید شامل حداقل یکی از کاراکتر های !@#$%^&* باشد<br>`;
       document.getElementById("em").innerHTML = errorMessage;
     } else {
       const signup_form_data = new FormData();
@@ -345,6 +345,7 @@ export default function SignUp() {
                     color: "rgba(255, 0, 0, 0.837)",
                     fontWeight: "bold",
                     fontFamily: "Vazir",
+                    direction: "rtl",
                   }}
                 ></Typography>
                 <Button
