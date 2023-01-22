@@ -32,15 +32,14 @@ const ResetPassword = () => {
   }, [password]);
 
   const postreq = () => {
-    const baseLink = window.location.href;
-    const getLinkInfo = (baseLink) => {
-      return baseLink.split("reset-password?")[1];
+    const getLinkInfo = () => {
+      return window.location.href.split("reset-password?")[1];
     };
     //console.log(getLinkInfo(baseLink));
     const data = new FormData();
     data.append("password", password);
       apiInstance
-      .post("accounts/reset-password/", data)
+      .post("accounts/reset-password/?"+getLinkInfo(), data)
       .then(() => {
         setIsFail(true);
         toast.success("رمز عبور با موفقیت تغییر کرد", {
