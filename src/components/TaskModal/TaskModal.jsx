@@ -547,6 +547,7 @@ export default function TaskModal(props) {
                           display: "flex",
                           flexDirection: "row",
                           flexGrow: 1,
+                          alignItems: "flex-start",
                           gap: "3%",
                         }}
                       >
@@ -565,6 +566,7 @@ export default function TaskModal(props) {
                           display: "flex",
                           flexDirection: "row",
                           flexGrow: 1,
+                          alignItems: "flex-start",
                           gap: "3%",
                         }}
                       >
