@@ -636,6 +636,13 @@ export default function TaskModal(props) {
                               multiline
                               sx={{ fontFamily: "Vazir", color: "white" }}
                               rows={2}
+                              inputProps={{
+                                style: {
+                                  padding: "1%",
+                                  fontFamily: "Vazir",
+                                  fontSize: "152%",
+                                },
+                              }}
                             ></StyledTextField>
                             <div dir="ltr" style={{ marginTop: "3%" }}>
                               <Button
@@ -687,6 +694,7 @@ export default function TaskModal(props) {
                                     color: "white",
                                     overflow: "auto",
                                     fontFamily: "Vazir",
+                                    fontSize: "128%",
                                   }}
                                   multiline
                                   rows={2}
@@ -1120,6 +1128,13 @@ export default function TaskModal(props) {
                                   convertNumberToPersian(e.target.value)
                                 )
                               }
+                              inputProps={{
+                                style: {
+                                  padding: "1%",
+                                  fontFamily: "Vazir",
+                                  fontSize: "152%",
+                                },
+                              }}
                             ></StyledTextField>
                             <div dir="ltr" style={{ marginTop: "3%" }}>
                               <Button
@@ -1168,7 +1183,13 @@ export default function TaskModal(props) {
                           <div className="flex taskmodal-body-activity-body-icon">
                             {item.sender?.profile_pic !== null ? (
                               <img
-                                src={`${item.sender?.profile_pic}`}
+                                src={
+                                  `${item.sender?.profile_pic}`
+                                    .toString()
+                                    .includes("http")
+                                    ? `${item.sender?.profile_pic}`
+                                    : `${baseURL}${item.sender?.profile_pic}`
+                                }
                                 alt="profile"
                                 style={{
                                   borderRadius: 30,
@@ -1208,6 +1229,13 @@ export default function TaskModal(props) {
                                     );
                                   }}
                                   value={editcommentText}
+                                  inputProps={{
+                                    style: {
+                                      padding: "1%",
+                                      fontFamily: "Vazir",
+                                      fontSize: "152%",
+                                    },
+                                  }}
                                   // defaultValue={item.text}
                                 ></StyledTextField>
                                 <div dir="ltr" style={{ marginTop: "3%" }}>

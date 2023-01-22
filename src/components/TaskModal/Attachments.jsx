@@ -100,13 +100,55 @@ export default function Attachments({ params, setAllAttachments }) {
             <h2 style={{ color: "#fff" }}>اضافه کردن پیوست</h2>
           </div>
           <Divider />
-          <div className="tm_attachments-body">
-            {/* <input type="file" onChange={(e) => handleFileChange(e)} /> */}
-            <input
-              type="file"
-              id="fileUpload"
-              onChange={(e) => handleFileChange(e)}
-            />
+          <div
+            className="tm_attachments-body"
+            style={{ display: "flex", justifyContents: "space-between" }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContents: "center",
+                // marginRight: "5%",
+              }}
+            >
+              {console.log(binaryFile)}
+              {/* <input type="file" onChange={(e) => handleFileChange(e)} /> */}
+              <label
+                for="files"
+                class="btn"
+                style={{
+                  fontSize: "100%",
+                  padding: "3% 8%",
+                  display: "flex",
+                  justifyContent: "center",
+                  border: "1px solid white",
+                  borderRadius: "5px",
+                  width: "36%",
+                }}
+              >
+                انتخاب فایل
+              </label>
+              <input
+                type="file"
+                id="files"
+                name="fileUpload"
+                style={{ visibility: "hidden", width: "5%" }}
+                onChange={(e) => handleFileChange(e)}
+              />
+              <div
+                style={{
+                  display: "flex",
+                  color: "white",
+                  direction: "ltr",
+                  fontSize: "132%",
+                  overflow: "auto",
+                }}
+              >
+                {binaryFile != null ? binaryFile.name : ""}
+              </div>
+            </div>
+
             {/* <button onClick={(e) => createAttachment()}>اضافه کردن</button> */}
             <button
               class="attachment_button-33"
