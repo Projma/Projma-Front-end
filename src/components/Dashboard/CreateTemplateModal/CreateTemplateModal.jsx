@@ -337,7 +337,7 @@ export default function CreateTemplateModal(props) {
                                 }}
                             />
                         </PerTextField>
-                        <Avatar
+                        {/* <Avatar
                             src={file ? file : x}
                             alt="profile"
                             sx={{
@@ -346,9 +346,9 @@ export default function CreateTemplateModal(props) {
                                 height: "11vmin",
                                 borderRadius: "50%",
                             }}
-                        />
+                        /> */}
 
-                        <Button
+                        {/* <Button
                             variant="contained"
                             component="label"
                             sx={{
@@ -367,7 +367,7 @@ export default function CreateTemplateModal(props) {
                                 onChange={handleChange}
                                 accept=".jpg,.jpeg,.png"
                             />
-                        </Button>
+                        </Button> */}
                         {/* <input
               type="file"
               // ref="file"
