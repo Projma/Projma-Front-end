@@ -191,7 +191,7 @@ export default function CreateBoardModal({}) {
                 </h2> */}
 
         <div
-          style={{ fontSize: "87%" }}
+          style={{ fontFamily: "Vazir", fontSize: "87%" }}
           // style={{color: 'black',}}
         >
           افزودن بورد +
@@ -203,7 +203,7 @@ export default function CreateBoardModal({}) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={style} style={{ height: "83%" }}>
           <Typography
             variant="h6"
             id="modal-modal-title"
@@ -212,7 +212,7 @@ export default function CreateBoardModal({}) {
               textAlign: "center",
               fontFamily: "Vazir",
               color: "#fff",
-              fontSize: "109%",
+              fontSize: "171%",
             }}
             className="neonText"
           >
@@ -221,8 +221,8 @@ export default function CreateBoardModal({}) {
           <Divider
             sx={{
               backgroundColor: "#007fff",
-              marginTop: "0.5rem",
-              marginBottom: "0.75rem",
+              marginTop: "3%",
+              marginBottom: "5%",
             }}
           />
           <img src={x} className="workspace-modal--board-image" />
@@ -239,7 +239,7 @@ export default function CreateBoardModal({}) {
                 required
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir", fontSize: "75%" },
+                  style: { fontFamily: "Vazir", fontSize: "135%" },
                 }}
                 inputProps={{
                   style: {
@@ -277,7 +277,7 @@ export default function CreateBoardModal({}) {
                   fontSize: "1.7rem",
                 }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir", fontSize: "80%" },
+                  style: { fontFamily: "Vazir", fontSize: "75%" },
                 }}
                 inputProps={{
                   style: {
@@ -341,7 +341,7 @@ export default function CreateBoardModal({}) {
                 }}
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir", fontSize: "75%" },
+                  style: { fontFamily: "Vazir", fontSize: "135%" },
                 }}
                 inputProps={{
                   style: {
@@ -411,7 +411,7 @@ export default function CreateBoardModal({}) {
               value="بساز"
               className="workspace-modal--button-29"
               onClick={create_board}
-              style={{ fontFamily: "Vazir", fontSize: "101%" }}
+              style={{ fontFamily: "Vazir", fontSize: "169%" }}
             />
           </form>
           {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>

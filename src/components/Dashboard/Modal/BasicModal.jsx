@@ -213,6 +213,7 @@ export default function BasicModal(props) {
               color: "#E2EDF8",
               backgroundColor: "#007fff",
               borderRadius: "5px",
+              fontFamily: "Vazir",
             },
             marginTop: "8%",
             padding: "5%",
