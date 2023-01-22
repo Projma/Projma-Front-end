@@ -8,7 +8,7 @@
 }
 
 html {
-  font-size: 10px;
+  font-size: 62.5%;
   overflow: hidden;
 }
 
@@ -45,10 +45,11 @@ html,.styled-scrollbars {
 }
 ::-webkit-scrollbar-button {
   background-color: var(--minor-item-color) !important;
-  background-size: 1rem;
+  /* background-color: #fff !important; */
+  background-size: 0.5rem;
   background-repeat: no-repeat;
   width: auto;
-  height: auto;
+  height: 0.5rem;
   display: block;
   border-style: solid;
 }

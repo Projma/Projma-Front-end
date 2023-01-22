@@ -48,7 +48,6 @@ const List = (props) => {
     await apiInstance
       .post(`/workspaces/tasklist/${id}/create-task/`, data)
       .then((response) => {
-        console.log("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
         console.log(response.data);
         toast.success("کارت با موفقیت ساخته شد", {
           position: toast.POSITION.BOTTOM_LEFT,
@@ -319,7 +318,7 @@ const List = (props) => {
               </div>
             )}
           </div>
-          <Droppable droppableId={String(props.id)}>
+          <Droppable droppableId={String(props.id)} type="task">
             {(provided, snapshot) => (
               <div
                 className="list_card-container"
@@ -334,19 +333,14 @@ const List = (props) => {
                     : null
                 }
               >
-                {cards.map((card, index) => (
+                {cards.map((value, index) => (
                   <Card
-                    cardName={card.title}
-                    key={card.id}
-                    cardId={card.id}
+                    task={value}
+                    key={value.id}
+                    cardId={value.id}
                     index={index}
                     boardId={props.boardId}
                     remID={handleRemoveCard}
-                    attachments_num={card.attachments_num}
-                    doers={card.doers}
-                    checklists_num={card.checklists_num}
-                    checked_checklists_num={card.checked_checklists_num}
-                    comments_num={card.comments_num}
                   />
                 ))}
                 {provided.placeholder}

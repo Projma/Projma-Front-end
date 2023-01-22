@@ -1,9 +1,11 @@
 .mother-div {
   background-color: #0a1929;
   max-height: 100vh;
-  height: 100vh;
+  min-height: 99vh;
+  height: auto;
   display: flex;
-  /* overflow: auto; */
+  overflow-y: auto;
+  margin-bottom: 5%;
 }
 
 @media screen and (max-width: 600px) {

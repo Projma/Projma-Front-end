@@ -1,7 +1,7 @@
 .card_container {
   min-height: 1rem;
   max-width: 100%;
-  background-color: var(--main-item-color);
+  background-color: var(--minor-bg);
   border: var(--minor-item-color) solid 0.2rem;
   margin-bottom: 0.5rem;
   border-radius: 0.5rem;
@@ -96,7 +96,7 @@
 .card_footer-icon {
   display: flex;
   color: #fff;
-  /*font-size: 1.6rem;*/
+  font-size: 1rem;
   gap: 0.5rem;
 }
 
