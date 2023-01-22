@@ -111,6 +111,7 @@ export default function BasicMenu(props) {
                   color: "#E2EDF8",
                   backgroundColor: "#007fff",
                   borderRadius: "5px",
+                  fontFamily: "Vazir",
                 },
               }}
             >
@@ -122,6 +123,7 @@ export default function BasicMenu(props) {
                   color: "#E2EDF8",
                   backgroundColor: "#007fff",
                   borderRadius: "5px",
+                  fontFamily: "Vazir",
                 },
                 color: "black",
               }}

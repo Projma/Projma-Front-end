@@ -185,15 +185,17 @@ export default function CreateBoardModal({ workspace_id }) {
               textAlign: "center",
               fontFamily: "Vazir",
               color: "#fff",
+              fontSize: "185%",
             }}
+            className="neonText"
           >
             ساخت بورد جدید
           </Typography>
           <Divider
             sx={{
               backgroundColor: "#007fff",
-              marginTop: "0.5rem",
-              marginBottom: "0.75rem",
+              marginTop: "3%",
+              marginBottom: "5%",
             }}
           />
           <img src={x} className="workspace-modal--board-image" />
@@ -210,7 +212,7 @@ export default function CreateBoardModal({ workspace_id }) {
                 required
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir", fontSize: "1.6rem" },
+                  style: { fontFamily: "Vazir", fontSize: "135%" },
                 }}
                 inputProps={{
                   style: {
@@ -244,7 +246,7 @@ export default function CreateBoardModal({ workspace_id }) {
                 }}
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir", fontSize: "1.6rem" },
+                  style: { fontFamily: "Vazir", fontSize: "135%" },
                 }}
                 inputProps={{
                   style: {
@@ -256,37 +258,46 @@ export default function CreateBoardModal({ workspace_id }) {
                 }}
               />
             </PerTextField>
-            <Avatar
-              src={file ? file : x}
-              alt="profile"
-              sx={{
-                mt: 1,
-                width: "11vmin",
-                height: "11vmin",
-                borderRadius: "50%",
-              }}
-            />
-
-            <Button
-              variant="contained"
-              component="label"
-              sx={{
-                // backgroundColor: themeProps.primaryColor,
-                color: "white",
-                width: "120px",
-                mt: 2,
-                marginRight: "1.5rem",
-                marginTop: 0,
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+                rowGap: "1rem",
               }}
             >
-              <p style={{ fontSize: "1.5rem" }}>انتخاب عکس</p>
-              <input
-                type="file"
-                hidden
-                onChange={handleChange}
-                accept=".jpg,.jpeg,.png"
+              <Avatar
+                src={file ? file : x}
+                alt="profile"
+                sx={{
+                  mt: 1,
+                  width: "11vmin",
+                  height: "11vmin",
+                  borderRadius: "50%",
+                }}
               />
-            </Button>
+
+              <Button
+                variant="contained"
+                component="label"
+                sx={{
+                  // backgroundColor: themeProps.primaryColor,
+                  color: "white",
+                  width: "120px",
+                  mt: 2,
+                  marginTop: 0,
+                }}
+              >
+                <p style={{ fontSize: "84%" }}>انتخاب عکس</p>
+                <input
+                  type="file"
+                  hidden
+                  onChange={handleChange}
+                  accept=".jpg,.jpeg,.png"
+                />
+              </Button>
+            </div>
             {/* <input
               type="file"
               // ref="file"
