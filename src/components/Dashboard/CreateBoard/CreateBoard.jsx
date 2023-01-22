@@ -612,7 +612,11 @@ export default function CreateBoardModal({}) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style} style={{ padding: "2%", height: "86%" }}>
+        <Box
+          sx={style}
+          className="createBoard-flexible"
+          style={{ height: "86%" }}
+        >
           <Typography
             variant="h6"
             id="modal-modal-title"
@@ -823,7 +827,7 @@ export default function CreateBoardModal({}) {
               value="بساز"
               className="workspace-modal--button-29"
               onClick={create_board}
-              style={{ fontFamily: "Vazir", fontSize: "101%" }}
+              style={{ fontFamily: "Vazir", fontSize: "190%" }}
             />
           </form>
           {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
