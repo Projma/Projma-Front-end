@@ -33,6 +33,10 @@ const Navbar = ({ params }) => {
     toast.success("اطلاعات فضای کاری با موفقیت تغییر کرد", {
       position: toast.POSITION.TOP_CENTER,
       rtl: true,
+      style: {
+        fontFamily: "Vazir",
+        fontSize: "1.2rem",
+      },
     });
   };
 
@@ -44,6 +48,10 @@ const Navbar = ({ params }) => {
         toast.success("فضای کاری با موفقیت حذف شد", {
           position: toast.POSITION.TOP_CENTER,
           rtl: true,
+          style: {
+            fontFamily: "Vazir",
+            fontSize: "1.2rem",
+          },
         });
         new Promise((resolve) => setTimeout(resolve, 2000)).then(() => {
           navigate("/dashboard");

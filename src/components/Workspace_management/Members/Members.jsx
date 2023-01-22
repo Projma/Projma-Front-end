@@ -56,7 +56,7 @@ const Members = ({ params }) => {
         .get(`workspaces/workspaceowner/${params.id}/invite-link/`)
         .then((res) => {
           navigator.clipboard
-            .writeText(`localhost:3000/invite_page/${res.data}/`)
+            .writeText(`${baseUrl}invite_page/${res.data}/`)
             .then(
               buttonRef.current.blur(),
               setButton_inner("لینک کپی شد"),
