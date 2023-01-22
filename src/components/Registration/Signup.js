@@ -60,20 +60,20 @@ export default function SignUp() {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const [isLogin, setIsLogin] = React.useState(false);
 
-  React.useEffect(() => {
-    if (state) {
-      setEmail(convertNumberToEnglish(state.email));
-    }
-    apiInstance
-      .get("/accounts/users/myaccount/")
-      .then((response) => {
-        navigate("/");
-      })
-      .catch((error) => {
-        setIsLogin(true);
-      });
-    // state ? state.email : ""
-  }, []);
+  // React.useEffect(() => {
+  //   if (state) {
+  //     setEmail(convertNumberToEnglish(state.email));
+  //   }
+  //   apiInstance
+  //     .get("/accounts/users/myaccount/")
+  //     .then((response) => {
+  //       navigate("/");
+  //     })
+  //     .catch((error) => {
+  //       setIsLogin(true);
+  //     });
+  //   // state ? state.email : ""
+  // }, []);
 
   let navigate = useNavigate();
   const { state } = useLocation();
@@ -119,8 +119,10 @@ export default function SignUp() {
       signup_form_data.append("email", email);
       signup_form_data.append("password", password);
       setIsPost(true);
-      axios
-        .post("http://37.32.27.51/accounts/users/signup/", signup_form_data)
+      // axios
+      //   .post("http://37.32.27.51/accounts/users/signup/", signup_form_data)
+      apiInstance
+        .post("accounts/users/signup/", signup_form_data)
         .then((res) => {
           toast.success("ثبت‌نام با موفقیت انجام شد.", {
             position: toast.POSITION.BOTTOM_LEFT,
@@ -145,6 +147,7 @@ export default function SignUp() {
               rtl: true,
             });
             setErrorUsername(true);
+          } else if (res.request.response.search("email") !== -1) {
           } else if (res.request.response.search("email") !== -1) {
             toast.error("ایمیل تکراری است.", {
               position: toast.POSITION.BOTTOM_LEFT,
