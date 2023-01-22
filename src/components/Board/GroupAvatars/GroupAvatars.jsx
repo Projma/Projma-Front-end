@@ -7,6 +7,7 @@ import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { baseUrl } from "../../../utilities/constants";
 // import { Box } from "@mui/material";
 
 const GroupAvatars = (props) => {
@@ -56,7 +57,7 @@ const GroupAvatars = (props) => {
                             <Avatar
                                 key={x.id}
                                 alt={(x.user.first_name + " " + x.user.last_name).toString()}
-                                src={x.profile_pic !== null ? x.profile_pic : "none"}
+                                src={x.profile_pic !== null ? baseUrl+x.profile_pic : "none"}
                                 {...stringAvatar((x.user.first_name + " " + x.user.last_name).toString())}
                             // className="board_avatar-profile-picture"
                             />

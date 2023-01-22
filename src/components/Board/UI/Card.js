@@ -49,8 +49,8 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
   const [attachnum, setAttachnum] = useState(
     card.attachments_num == undefined ? 0 : card.comments_num
   );
-  const [label, setLabel] = useState(card.labels)
-  const [doers, setDoers] = useState(card.doers)
+  const [label, setLabel] = useState(card.labels);
+  const [doers, setDoers] = useState(card.doers);
   const [attachment, setAttachment] = useState([]);
 
   const getCard = () => {
@@ -59,16 +59,23 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
     });
   };
   const updateCard = async () => {
-    await apiInstance.get(`workspaces/task/${cardId}/get-task/`).then((response) => {
-      setAttachment(response.data.attachments);
-      setAttachnum(response.data.attachments.length);
-      setDoers(response.data.doers);
-      setChatnum(response.data.comments.length);
-    });
-    await apiInstance.get(`workspaces/task/${cardId}/get-task/`).then((response) => {
-      setLabel(response.data.labels);
-      console.log(label);
-    });
+    await apiInstance
+      .get(`workspaces/task/${cardId}/get-task/`)
+      .then((response) => {
+        setAttachment(response.data.attachments);
+        setAttachnum(response.data.attachments.length);
+        setDoers(response.data.doers);
+        setChatnum(response.data.comments.length);
+        setLabel(response.data.labels);
+      });
+    await apiInstance
+      .get(`workspaces/task/${cardId}/get-all-checklists/`)
+      .then((response) => {
+        setClnum(response.data.length);
+        const temp = response.data.filter((x) => x.is_done === true);
+        setCclnum(temp.length);
+      });
+    setUpdate(!update);
   };
   useEffect(() => {
     getCard();
@@ -89,7 +96,7 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
   const handleModalClose = () => {
     setOpen(false);
     updateCard();
-    // setUpdate(!update);    
+    // setUpdate(!update);
     // setClick(!click);
   };
   const handleEditCardName = (e) => {
@@ -235,15 +242,15 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
                   <p>{convertNumberToPersian(card.title)}</p>
                 )}
               </div>
-              {disc() !== null && (
+              {/* {disc() !== null && (
                 <div className="card_disc">
                   <p>{disc()}...</p>
                 </div>
-              )}
+              )} */}
             </div>
             {label !== [] && (
               <div className="card_label">
-                <CardLabel label={card.labels} />
+                <CardLabel label={label} />
               </div>
             )}
             <div className="card_footer">
@@ -273,7 +280,9 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
                 {attachnum !== 0 && (
                   <div className="card_icon-container">
                     <AttachFileIcon className="card_default-footer-icon" />
-                    <p className="card_icon-info">{convertNumberToPersian(attachnum)}</p>
+                    <p className="card_icon-info">
+                      {convertNumberToPersian(attachnum)}
+                    </p>
                   </div>
                 )}
                 {clnum !== 0 && (
@@ -283,7 +292,7 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
                         <CheckBoxOutlinedIcon className="card_default-footer-icon card_checklist-finish" />
                         <p className="card_icon-info ">
                           {convertNumberToPersian(cclnum)} /
-                           {convertNumberToPersian(clnum)}
+                          {convertNumberToPersian(clnum)}
                         </p>
                       </div>
                     ) : (
@@ -300,7 +309,9 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
                 {chatnum !== 0 && (
                   <div className="card_icon-container">
                     <ChatBubbleIcon className="card_default-footer-icon" />
-                    <p className="card_icon-info">{convertNumberToPersian(chatnum)}</p>
+                    <p className="card_icon-info">
+                      {convertNumberToPersian(chatnum)}
+                    </p>
                   </div>
                 )}
               </div>

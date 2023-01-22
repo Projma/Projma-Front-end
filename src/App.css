@@ -66,5 +66,5 @@ html,.styled-scrollbars {
   height: 3.5rem !important;
   font-size: 1.6rem !important;
   text-align: center !important;
-  border: 0.3rem solid var(--mui-blue) !important;
+  border: 0.2rem solid var(--minor-item-color) !important;
 }

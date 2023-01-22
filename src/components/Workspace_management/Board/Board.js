@@ -9,6 +9,7 @@ import "./Board.css";
 import BoardView from "./BoardView";
 import CreateBoardModal from "../CreateBoardModal/CreateBoard";
 import Loading from "../../Shared/Loading";
+import { baseUrl } from "../../../utilities/constants";
 // import { createGlobalStyle } from "styled-components";
 
 const Board = ({ params, on_submit }) => {
@@ -129,8 +130,7 @@ const Board = ({ params, on_submit }) => {
                       pic={
                         x.background_pic === null
                           ? null
-                          : "http://mohammadosoolian.pythonanywhere.com" +
-                            x.background_pic
+                          : baseUrl + x.background_pic
                       }
                       onLoading={() => setLoading(true)}
                       onStarred={starredHandler}
@@ -182,8 +182,7 @@ const Board = ({ params, on_submit }) => {
                   pic={
                     x.background_pic === null
                       ? null
-                      : "http://mohammadosoolian.pythonanywhere.com" +
-                        x.background_pic
+                      : baseUrl + x.background_pic
                   }
                   onStarred={starredHandler}
                   onLoading={() => setLoading(true)}
