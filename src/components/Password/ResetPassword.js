@@ -11,6 +11,7 @@ import Loading from "../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import "../../styles/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import apiInstance from "../../utilities/axiosConfig";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 
@@ -38,11 +39,8 @@ const ResetPassword = () => {
     //console.log(getLinkInfo(baseLink));
     const data = new FormData();
     data.append("password", password);
-    const url =
-      "http://mohammadosoolian.pythonanywhere.com/accounts/reset-password/?" +
-      getLinkInfo(baseLink);
-    axios
-      .post(url, data)
+      apiInstance
+      .post("accounts/reset-password/", data)
       .then(() => {
         setIsFail(true);
         toast.success("رمز عبور با موفقیت تغییر کرد", {
