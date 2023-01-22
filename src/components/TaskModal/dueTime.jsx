@@ -19,6 +19,7 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Calendar } from "react-multi-date-picker";
+import Loading from "../Shared/Loading";
 import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
 import "./calendar.css";
 export default function DueTime({ params, dueDate, setDueTime }) {
@@ -26,6 +27,7 @@ export default function DueTime({ params, dueDate, setDueTime }) {
   const [changeMemberStatus, setChangeMemberStatus] = React.useState(false);
   const [value, setValue] = React.useState(new Date());
   const [date, setDate] = React.useState(dueDate);
+  const [isPost, setIsPost] = React.useState(false);
   const [changeDate, setChangeDate] = React.useState(false);
 
   const handleClick = (event) => {
@@ -45,13 +47,21 @@ export default function DueTime({ params, dueDate, setDueTime }) {
       date = `${value.year}-${value.month.number}-${value.day}`;
     }
     setDueTime(date.replaceAll("-", "/"));
+    setIsPost(true);
     apiInstance
       .patch(`/workspaces/task/${params.task_id}/update-task/`, {
         end_date: date,
-        start_date: miladi_be_shamsi(startDate.getFullYear(),startDate.getMonth()+1,startDate.getDate()),
+        start_date: miladi_be_shamsi(
+          startDate.getFullYear(),
+          startDate.getMonth() + 1,
+          startDate.getDate()
+        ),
       })
       .then((res) => {
         //console.log(res);
+      })
+      .finally(() => {
+        setIsPost(null);
       });
   };
   useEffect(() => {
@@ -101,6 +111,7 @@ export default function DueTime({ params, dueDate, setDueTime }) {
 
   return (
     <div className="taskmodal-flexibale-icon">
+      {isPost ? <Loading /> : null}
       <Button
         className="taskmodal-smaller-button-inner"
         aria-describedby={id}
@@ -193,22 +204,29 @@ export default function DueTime({ params, dueDate, setDueTime }) {
 function miladi_be_shamsi(gy, gm, gd) {
   var g_d_m, jy, jm, jd, gy2, days;
   g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-  gy2 = (gm > 2) ? (gy + 1) : gy;
-  days = 355666 + (365 * gy) + ~~((gy2 + 3) / 4) - ~~((gy2 + 99) / 100) + ~~((gy2 + 399) / 400) + gd + g_d_m[gm - 1];
-  jy = -1595 + (33 * ~~(days / 12053));
+  gy2 = gm > 2 ? gy + 1 : gy;
+  days =
+    355666 +
+    365 * gy +
+    ~~((gy2 + 3) / 4) -
+    ~~((gy2 + 99) / 100) +
+    ~~((gy2 + 399) / 400) +
+    gd +
+    g_d_m[gm - 1];
+  jy = -1595 + 33 * ~~(days / 12053);
   days %= 12053;
   jy += 4 * ~~(days / 1461);
   days %= 1461;
   if (days > 365) {
-      jy += ~~((days - 1) / 365);
-      days = (days - 1) % 365;
+    jy += ~~((days - 1) / 365);
+    days = (days - 1) % 365;
   }
   if (days < 186) {
-      jm = 1 + ~~(days / 31);
-      jd = 1 + (days % 31);
+    jm = 1 + ~~(days / 31);
+    jd = 1 + (days % 31);
   } else {
-      jm = 7 + ~~((days - 186) / 30);
-      jd = 1 + ((days - 186) % 30);
+    jm = 7 + ~~((days - 186) / 30);
+    jd = 1 + ((days - 186) % 30);
   }
-  return jy + '-' + jm + '-' + jd;
+  return jy + "-" + jm + "-" + jd;
 }

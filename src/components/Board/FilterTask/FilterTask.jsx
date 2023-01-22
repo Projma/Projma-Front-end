@@ -58,6 +58,7 @@ export default function FilterTask({ boardId, setLists }) {
 
   const filterTaskAfterCheck = (value, type) => {
     // const labelIds =
+    setIsPost(true);
     let labels_empty = selectedLabels.length === 0;
     let members_empty = selectedMembers.length === 0;
     let url = `workspaces/task/${boardId}/filter/`;
@@ -143,6 +144,7 @@ export default function FilterTask({ boardId, setLists }) {
   };
 
   const filterTaskAfterUnCheck = (value, type) => {
+    setIsPost(true);
     let url = `workspaces/task/${boardId}/filter/`;
     let labels_empty =
       selectedLabels.length === 0 ||
@@ -203,14 +205,19 @@ export default function FilterTask({ boardId, setLists }) {
         url = url + "?end_date=" + date;
       }
     }
-    apiInstance.get(url).then((res) => {
-      //console.log("filtered tasks");
-      //console.log(res.data);
-      res.data.tasklists.map((list) => {
-        list.tasks.sort((a, b) => a.order - b.order);
+    apiInstance
+      .get(url)
+      .then((res) => {
+        //console.log("filtered tasks");
+        //console.log(res.data);
+        res.data.tasklists.map((list) => {
+          list.tasks.sort((a, b) => a.order - b.order);
+        });
+        setLists(res.data.tasklists.sort((a, b) => b.order - a.order));
+      })
+      .finally(() => {
+        setIsPost(null);
       });
-      setLists(res.data.tasklists.sort((a, b) => b.order - a.order));
-    });
   };
 
   const resetFilter = (event) => {
