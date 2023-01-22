@@ -254,10 +254,18 @@ const ShareButton = (props) => {
               setMembers(res.data);
             });
           count++;
+          toast.success("کاربر با موفقیت اضافه شد.", {
+            position: toast.POSITION.TOP_CENTER,
+            rtl: true,
+          });
         })
         .catch((error) => {
           // wasSuccessful = false;
           console.log("error", error);
+          toast.error("مشکلی پیش آمده است.", {
+            position: toast.POSITION.TOP_CENTER,
+            rtl: true,
+          });
           // console.log(error.response);
           // console.log(error.response.data);
           // toast error
@@ -271,10 +279,10 @@ const ShareButton = (props) => {
         rtl: true,
       });
     } else {
-      toast.error("مشکلی پیش آمده است.", {
-        position: toast.POSITION.TOP_CENTER,
-        rtl: true,
-      });
+      // toast.error("مشکلی پیش آمده است.", {
+      //   position: toast.POSITION.TOP_CENTER,
+      //   rtl: true,
+      // });
     }
   };
 
