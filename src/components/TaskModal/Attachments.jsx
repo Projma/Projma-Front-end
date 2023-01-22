@@ -100,13 +100,27 @@ export default function Attachments({ params, setAllAttachments }) {
             <h2 style={{ color: "#fff" }}>اضافه کردن پیوست</h2>
           </div>
           <Divider />
-          <div className="tm_attachments-body">
-            {/* <input type="file" onChange={(e) => handleFileChange(e)} /> */}
-            <input
-              type="file"
-              id="fileUpload"
-              onChange={(e) => handleFileChange(e)}
-            />
+          <div
+            className="tm_attachments-body"
+            style={{ display: "flex", justifyContents: "space-between" }}
+          >
+            <div>
+              {/* <input type="file" onChange={(e) => handleFileChange(e)} /> */}
+              <label
+                for="files"
+                class="btn"
+                style={{ fontSize: "100%", padding: "10% 5%" }}
+              >
+                انتخاب فایل
+              </label>
+              <input
+                type="file"
+                id="files"
+                name="fileUpload"
+                style={{ visibility: "hidden" }}
+                onChange={(e) => handleFileChange(e)}
+              />
+            </div>
             {/* <button onClick={(e) => createAttachment()}>اضافه کردن</button> */}
             <button
               class="attachment_button-33"

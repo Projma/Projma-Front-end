@@ -173,7 +173,7 @@ export default function Labels({ params, task_labels, set_task_labels }) {
         }}
       >
         <LabelIcon rotate="90" fontSize="large"></LabelIcon>{" "}
-        <div className="taskmodal-smaller-button">لیبل</div>
+        <div className="taskmodal-smaller-button">برچسب</div>
       </Button>
       <Popover
         id={id}
