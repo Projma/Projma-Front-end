@@ -100,7 +100,8 @@ export default function SignUp() {
       signup_form_data.append("first_name", firstName);
       signup_form_data.append("last_name", lastName);
       signup_form_data.append("username", username);
-      signup_form_data.append("email", email);
+      // signup_form_data.append("email", email);
+      signup_form_data.append("email", convertNumberToEnglish(document.getElementById("email").value));
       signup_form_data.append("password", password);
       setIsPost(true);
       // axios
@@ -274,8 +275,8 @@ export default function SignUp() {
                     id="email"
                     label="ایمیل"
                     name="email"
-                    value={convertNumberToPersian(email)}
-                    // defaultValue={state ? state.email : ""}
+                    // value={convertNumberToPersian(email)}
+                    defaultValue={state.email ? convertNumberToPersian(state.email) : ""}
                     autoComplete="email"
                     InputLabelProps={{
                       style: input_text,

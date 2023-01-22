@@ -68,7 +68,8 @@ function App() {
               <Route
                 exact
                 path="/reset-password"
-                element={<ResetPassword/>}
+                // element={<PrivateRoute children={<ResetPassword />} />}
+                element=<ResetPassword />
               />
               <Route
                 path="workspace/:id/*"
