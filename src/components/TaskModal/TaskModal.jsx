@@ -957,7 +957,7 @@ export default function TaskModal(props) {
                               </div>
                               <div className="flex-row taskmodal-body-attachment-list-item">
                                 <div className="flex-taskmodal taskmodal-body-attachment-list-item-title">
-                                  {item.file.toString().split("/")[5]}
+                                  {item?.file?.toString()?.split("/")[5]}
                                 </div>
                                 <div className="flex-row">
                                   <div className="flex-taskmodal taskmodal-body-attachment-list-item-createdTime">

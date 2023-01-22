@@ -24,8 +24,7 @@ export default function Email_verification() {
   // }, []);
   const url = "/accounts/users/active/?" + getLinkInfo(baseLink);
   //console.log(url);
-  axios
-    .get(`http://mohammadosoolian.pythonanywhere.com${url}`);
+  apiInstance.get(`${url}`);
   return (
     <Container
       component="main"

@@ -60,6 +60,7 @@ export default function CreateBoardModal({
   const [file, setFile] = React.useState(null);
   const [errorBoardName, setErrorBoardName] = React.useState(false);
   const [disableButton, setDisableButton] = React.useState(false);
+  const [isPost, setIsPost] = useState(false);
   const create_board = (e) => {
     e.preventDefault();
     let board_name = document.getElementById("board_name").value;
