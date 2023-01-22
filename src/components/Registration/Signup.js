@@ -60,20 +60,20 @@ export default function SignUp() {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const [isLogin, setIsLogin] = React.useState(false);
 
-  // React.useEffect(() => {
-  //   if (state) {
-  //     setEmail(convertNumberToEnglish(state.email));
-  //   }
-  //   apiInstance
-  //     .get("/accounts/users/myaccount/")
-  //     .then((response) => {
-  //       navigate("/");
-  //     })
-  //     .catch((error) => {
-  //       setIsLogin(true);
-  //     });
-  //   // state ? state.email : ""
-  // }, []);
+  React.useEffect(() => {
+    if (state) {
+      setEmail(convertNumberToEnglish(state.email));
+    }
+    apiInstance
+      .get("/accounts/users/myaccount/")
+      .then((response) => {
+        navigate("/");
+      })
+      .catch((error) => {
+        setIsLogin(true);
+      });
+    // state ? state.email : ""
+  }, []);
 
   let navigate = useNavigate();
   const { state } = useLocation();
@@ -120,7 +120,7 @@ export default function SignUp() {
       signup_form_data.append("password", password);
       setIsPost(true);
       // axios
-      //   .post("http://37.32.27.51/accounts/users/signup/", signup_form_data)
+      //   .post("http://127.0.0.1:8000/accounts/users/signup/", signup_form_data)
       apiInstance
         .post("accounts/users/signup/", signup_form_data)
         .then((res) => {
