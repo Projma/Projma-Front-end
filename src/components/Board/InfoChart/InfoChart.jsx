@@ -51,7 +51,7 @@ const style = {
     width: "80%",
     height: "78%",
     // bgcolor: 'background.paper',
-    bgcolor: "#CEE0F3", // #5090D3 #1E4976 #265D97
+    bgcolor: "#CEE0F3", // #5090D3 #1E4976 #265D97 CEE0F3
     border: "2px solid #000",
     borderRadius: "10px",
     boxShadow: 24,
@@ -254,6 +254,46 @@ const InfoChart = (props) => {
                     data: generateDayWiseTimeSeries(1, 18)
                 }]
             })
+
+            xaxix.push(res.data.xdata[0][1] ? res.data.xdata[0][1] : "بدون نام کاربری");
+            yaxix.push(res.data.ydata[0][1]);
+            // console.log(res.data);
+            // console.log("-----------------------");
+            // console.log(xaxix);
+            // console.log(yaxix);
+            setData({
+                options: {
+                    chart: {
+                        id: "basic-bar",
+                    },
+                    xaxis: {
+                        // categories: xaxis,
+                        categories: xaxix,
+                    },
+                    style: {
+                        fontFamily: "Vazir",
+                    },
+                },
+                series: [
+                    {
+                        // name: "series-1",
+                        name: chartInfo.ylabel,
+                        // data: [30, 40, 45, 50, 49, 60, 70, 91]
+                        // data: chartInfo.ydata
+                        // data: yaxis
+                        // data: [
+                        //     1,
+                        //     0,
+                        //     1,
+                        //     2,
+                        //     3
+                        //   ]
+                        data: yaxix
+                    }
+                ]
+            })
+
+            
         }).catch((err) => {
             ////console.log(err);
         });
@@ -344,6 +384,7 @@ const InfoChart = (props) => {
                                 marginRight: "2%",
                                 // marginLeft: "2%",
                                 // backgroundColor: "white",
+                                color: "black",
                             }}
                         >
                             <div className="chart" dir="ltr">
@@ -370,6 +411,7 @@ const InfoChart = (props) => {
                                 marginRight: "2%",
                                 // marginLeft: "2%",
                                 // backgroundColor: "white",
+                                color: "black",
                             }}
                         >
                             <div className="chart donut" dir="ltr">
@@ -392,6 +434,7 @@ const InfoChart = (props) => {
                                 // backgroundColor: "white",
                                 // right to left
                                 // ":dir": "ltr"
+                                color: "black",
                             }}
 
                         >

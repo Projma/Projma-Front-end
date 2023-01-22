@@ -17,6 +17,7 @@ import Divider from "@mui/material/Divider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../styles/TaskModal.css";
+import Loading from "../Shared/Loading";
 import "./Labels.scss";
 /// persian num
 import { convertNumberToPersian } from "../../utilities/helpers.js";
@@ -29,6 +30,7 @@ export default function Labels({ params, task_labels, set_task_labels }) {
   const [showCreate, setShowCreate] = useState(false);
   const [editedTitle, setEditedTitle] = useState("");
   const [editedColor, setEditedColor] = useState("");
+  const [isPost, setIsPost] = useState(false);
   const [editItem, setEditItem] = useState({});
   // const [taskLabels, setTaskLabels] = React.useState([]);
   const [boardLabels, setBoardLabels] = React.useState([]);
@@ -75,6 +77,7 @@ export default function Labels({ params, task_labels, set_task_labels }) {
   };
 
   const delete_label_from_task = (label_id) => {
+    setIsPost(true);
     apiInstance
       .patch(`workspaces/task/${params.task_id}/delete-labels-from-task/`, {
         labels: [label_id],
@@ -89,10 +92,14 @@ export default function Labels({ params, task_labels, set_task_labels }) {
           new_label.checked = false;
           return prevState.filter((label) => label.id !== label_id);
         });
+      })
+      .finally(() => {
+        setIsPost(null);
       });
   };
   const add_label_to_task = (inputElem, label_id) => {
-    ////console.log("add label to task");
+    //console.log("add label to task");
+    setIsPost(true);
     apiInstance
       .patch(`workspaces/task/${params.task_id}/add-labels-to-task/`, {
         labels: [label_id],
@@ -107,6 +114,9 @@ export default function Labels({ params, task_labels, set_task_labels }) {
           new_label.checked = true;
           return [...prevState, new_label];
         });
+      })
+      .finally(() => {
+        setIsPost(null);
       });
     ////console.log("task labels");
     ////console.log(task_labels);
@@ -158,6 +168,7 @@ export default function Labels({ params, task_labels, set_task_labels }) {
 
   return (
     <div className="taskmodal-flexibale-icon">
+      {isPost ? <Loading /> : null}
       <Button
         className="taskmodal-smaller-button-inner"
         aria-describedby={id}
@@ -173,7 +184,7 @@ export default function Labels({ params, task_labels, set_task_labels }) {
         }}
       >
         <LabelIcon rotate="90" fontSize="large"></LabelIcon>{" "}
-        <div className="taskmodal-smaller-button">لیبل</div>
+        <div className="taskmodal-smaller-button">برچسب</div>
       </Button>
       <Popover
         id={id}

@@ -79,7 +79,8 @@
 .taskmodal-body-larger {
   width: 80%;
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
+  max-width: 400px;
 }
 
 .taskmodal-body-smaller {
@@ -293,6 +294,7 @@
   border-radius: 35px;
   color: white;
   width: 90%;
+  overflow: auto;
 }
 
 .taskmodal-listofcomments-item {

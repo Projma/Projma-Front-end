@@ -12,6 +12,7 @@ import "../../styles/TaskModal.css";
 import "./Checklist.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "../Shared/Loading";
 import { convertNumberToPersian } from "../../utilities/helpers";
 
 const useStyles = makeStyles({
@@ -27,6 +28,7 @@ export default function CheckList({ params, setAllChecklists }) {
   const classes = useStyles();
   const [createdCheckTitle, setCreatedCheckTitle] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [isPost, setIsPost] = React.useState(false);
   const add_section_ref = useRef(null);
   const add_button_ref = useRef(null);
   const createCheckList = (e) => {
@@ -38,6 +40,7 @@ export default function CheckList({ params, setAllChecklists }) {
       });
       return;
     }
+    setIsPost(true);
     const form_data = new FormData();
     form_data.append("text", createdCheckTitle);
     apiInstance
@@ -50,6 +53,9 @@ export default function CheckList({ params, setAllChecklists }) {
           rtl: true,
         });
         setAllChecklists((prev) => [...prev, res.data]);
+      })
+      .finally(() => {
+        setIsPost(null);
       });
     handleClose();
   };
@@ -68,6 +74,7 @@ export default function CheckList({ params, setAllChecklists }) {
 
   return (
     <div className="taskmodal-flexibale-icon">
+      {isPost ? <Loading /> : null}
       <ToastContainer />
       <Button
         className="taskmodal-smaller-button-inner"

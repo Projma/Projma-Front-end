@@ -144,7 +144,11 @@ export default function TaskModal(props) {
         >
           {initials.profile_pic != null ? (
             <img
-              src={initials.profile_pic}
+              src={
+                initials.profile_pic.toString().includes("http")
+                  ? initials.profile_pic
+                  : baseUrl + initials.profile_pic
+              }
               alt={initials.first_name}
               style={{ width: "100%", height: "100%", borderRadius: "50%" }}
             />
@@ -461,10 +465,10 @@ export default function TaskModal(props) {
     apiInstance
       .get(`/workspaces/task/${params.task_id}/get-task/`)
       .then((res) => {
-        setDueDate(res.data.end_date);
-        setEstimate(res.data.estimate);
+        setDueDate(convertNumberToPersian(res.data.end_date));
+        setEstimate(convertNumberToPersian(res.data.estimate));
         setTasklistName(res.data.tasklist_name);
-        setDone(res.data.spend);
+        setDone(convertNumberToPersian(res.data.spend));
         setDescription(res.data.description);
         setTitle(res.data.title);
         const attachments = res.data.attachments.map((obj) => ({
@@ -543,6 +547,7 @@ export default function TaskModal(props) {
                           display: "flex",
                           flexDirection: "row",
                           flexGrow: 1,
+                          alignItems: "flex-start",
                           gap: "3%",
                         }}
                       >
@@ -561,6 +566,7 @@ export default function TaskModal(props) {
                           display: "flex",
                           flexDirection: "row",
                           flexGrow: 1,
+                          alignItems: "flex-start",
                           gap: "3%",
                         }}
                       >
@@ -589,7 +595,7 @@ export default function TaskModal(props) {
                             justifyContent: "center",
                           }}
                         >
-                          {dueDate != null ? (
+                          {dueDate.toString() != "null" ? (
                             <div className="duetime-showDate">
                               {dueDate.toString().replaceAll("-", "/")}
                             </div>
@@ -636,6 +642,13 @@ export default function TaskModal(props) {
                               multiline
                               sx={{ fontFamily: "Vazir", color: "white" }}
                               rows={2}
+                              inputProps={{
+                                style: {
+                                  padding: "1%",
+                                  fontFamily: "Vazir",
+                                  fontSize: "152%",
+                                },
+                              }}
                             ></StyledTextField>
                             <div dir="ltr" style={{ marginTop: "3%" }}>
                               <Button
@@ -687,6 +700,7 @@ export default function TaskModal(props) {
                                     color: "white",
                                     overflow: "auto",
                                     fontFamily: "Vazir",
+                                    fontSize: "128%",
                                   }}
                                   multiline
                                   rows={2}
@@ -1120,6 +1134,13 @@ export default function TaskModal(props) {
                                   convertNumberToPersian(e.target.value)
                                 )
                               }
+                              inputProps={{
+                                style: {
+                                  padding: "1%",
+                                  fontFamily: "Vazir",
+                                  fontSize: "152%",
+                                },
+                              }}
                             ></StyledTextField>
                             <div dir="ltr" style={{ marginTop: "3%" }}>
                               <Button
@@ -1168,7 +1189,13 @@ export default function TaskModal(props) {
                           <div className="flex taskmodal-body-activity-body-icon">
                             {item.sender?.profile_pic !== null ? (
                               <img
-                                src={`${item.sender?.profile_pic}`}
+                                src={
+                                  `${item.sender?.profile_pic}`
+                                    .toString()
+                                    .includes("http")
+                                    ? `${item.sender?.profile_pic}`
+                                    : `${baseURL}${item.sender?.profile_pic}`
+                                }
                                 alt="profile"
                                 style={{
                                   borderRadius: 30,
@@ -1208,6 +1235,13 @@ export default function TaskModal(props) {
                                     );
                                   }}
                                   value={editcommentText}
+                                  inputProps={{
+                                    style: {
+                                      padding: "1%",
+                                      fontFamily: "Vazir",
+                                      fontSize: "152%",
+                                    },
+                                  }}
                                   // defaultValue={item.text}
                                 ></StyledTextField>
                                 <div dir="ltr" style={{ marginTop: "3%" }}>
