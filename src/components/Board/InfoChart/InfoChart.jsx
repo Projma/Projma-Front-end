@@ -71,6 +71,22 @@ const InfoChart = (props) => {
         //     // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
         //     // //console.log(res.data);
         //     setMembers(res.data);  
+        // apiInstance.get(`/workspaces/chart/board-members-assign-tasks/${board_id}/`).then((res) => {
+        //     // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
+        //     // //console.log(res.data);
+        //     setMembers(res.data);
+        // }).catch((err) => {
+        //     //console.log(err);
+        // });
+
+        // apiInstance.get(`/workspaces/chart/my-assign-tasks-for-all-boards${user_id}/`).then((res) => {
+        //     // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
+        //     // //console.log(res.data);
+        //     setMembers(res.data);
+        // }).catch((err) => {
+        //     //console.log(err);
+        // });
+
     }, []);
 
     const data = {
