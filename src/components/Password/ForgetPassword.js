@@ -41,7 +41,7 @@ const ForgetPassword = () => {
       .then(() => {
         setIsFail(true);
         toast.success("ایمیل تغییر رمز عبور با موفقیت ارسال شد", {
-          position: toast.POSITION.TOP_CENTER,
+          position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
         const getLinkInfo = () => {
@@ -64,7 +64,7 @@ const ForgetPassword = () => {
           setIsFail(true);
           setErrorEmail(true);
           toast.error("ایمیل وارد شده در سایت پروجما ثبت نشده است", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
         }

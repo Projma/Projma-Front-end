@@ -31,7 +31,7 @@ const Navbar = ({ params }) => {
     setWorkspace(data);
     setName(data.name);
     toast.success("اطلاعات فضای کاری با موفقیت تغییر کرد", {
-      position: toast.POSITION.TOP_CENTER,
+      position: toast.POSITION.BOTTOM_LEFT,
       rtl: true,
       style: {
         fontFamily: "Vazir",
@@ -46,7 +46,7 @@ const Navbar = ({ params }) => {
       .then((res) => {
         //console.log(res.data);
         toast.success("فضای کاری با موفقیت حذف شد", {
-          position: toast.POSITION.TOP_CENTER,
+          position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
           style: {
             fontFamily: "Vazir",

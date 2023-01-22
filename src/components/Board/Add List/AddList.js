@@ -29,7 +29,7 @@ const AddList = (props) => {
       .post(`workspaces/board/${id}/create-tasklist/`, data)
       .then((response) => {
         toast.success("لیست با موفقیت ساخته شد", {
-          position: toast.POSITION.TOP_CENTER,
+          position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
         // console.log("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
@@ -42,7 +42,7 @@ const AddList = (props) => {
       .catch((error) => {
         if (error.response.status === 404) {
           toast.error("عملیات با خطا مواجه شد", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
         }

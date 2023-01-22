@@ -91,7 +91,7 @@ export default function CreateTemplateModal(props) {
 
                 toast.success("تمپلیت با موفقیت ساخته شد", {
                     // position: toast.POSITION.BOTTOM_LEFT,
-                    position: toast.POSITION.TOP_CENTER,
+                    position: toast.POSITION.BOTTOM_LEFT,
                     rtl: true,
                 });
 
@@ -101,7 +101,7 @@ export default function CreateTemplateModal(props) {
                 console.log(err);
                 toast.error("خطا در ساخت تمپلیت", {
                     // position: toast.POSITION.BOTTOM_LEFT,
-                    position: toast.POSITION.TOP_CENTER,
+                    position: toast.POSITION.BOTTOM_LEFT,
                     rtl: true,
             })});
     };

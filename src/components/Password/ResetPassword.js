@@ -43,7 +43,7 @@ const ResetPassword = () => {
       .then(() => {
         setIsFail(true);
         toast.success("رمز عبور با موفقیت تغییر کرد", {
-          position: toast.POSITION.TOP_CENTER,
+          position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
         delay(7000).then(() => navigate("/signin"));
@@ -53,7 +53,7 @@ const ResetPassword = () => {
         if (error.response.status === 404) {
           setIsFail(true);
           toast.error("عملیات با خطا مواجه شد ", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
           delay(7000).then(() => navigate("/forget-password"));
@@ -62,7 +62,7 @@ const ResetPassword = () => {
           setErrorconfirmPassword(true);
           setErrorPassword(true);
           toast.error("رمز وارد شده تکراری است", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
         }

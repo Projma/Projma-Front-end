@@ -88,7 +88,7 @@ export default function CreateBoardModal({ workspace_id }) {
         //console.log("here");
         toast.success("بورد با موفقیت ساخته شد", {
           // position: toast.POSITION.BOTTOM_LEFT,
-          position: toast.POSITION.TOP_CENTER,
+          position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
 

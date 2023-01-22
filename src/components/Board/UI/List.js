@@ -74,7 +74,7 @@ const List = (props) => {
       .delete(`workspaces/tasklist/${id}/delete-tasklist/`)
       .then(() => {
         toast.success("لیست با موفقیت حذف شد", {
-          position: toast.POSITION.TOP_CENTER,
+          position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
         props.remId(id);
@@ -82,7 +82,7 @@ const List = (props) => {
       .catch((error) => {
         if (error.response.status === 404) {
           toast.error("عملیات با خطا مواجه شد", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
         }
@@ -98,7 +98,7 @@ const List = (props) => {
       .patch(`workspaces/tasklist/${id}/update-tasklist/`, data)
       .then(() => {
         toast.success("اسم لیست با موفقیت عوض شد", {
-          position: toast.POSITION.TOP_CENTER,
+          position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
         setListName(name);
@@ -106,7 +106,7 @@ const List = (props) => {
       .catch((error) => {
         if (error.response.status === 404) {
           toast.error("عملیات با خطا مواجه شد", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
         }

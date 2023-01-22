@@ -142,7 +142,7 @@ const ShareButton = (props) => {
     await navigator.clipboard.writeText(inviteLink);
     // alert('Text copied');
     toast.success("لینک کپی شد.", {
-      position: toast.POSITION.TOP_CENTER,
+      position: toast.POSITION.BOTTOM_LEFT,
       rtl: true,
     });
   };
@@ -255,7 +255,7 @@ const ShareButton = (props) => {
             });
           count++;
           toast.success("کاربر با موفقیت اضافه شد.", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
         })
@@ -263,7 +263,7 @@ const ShareButton = (props) => {
           // wasSuccessful = false;
           console.log("error", error);
           toast.error("مشکلی پیش آمده است.", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
           // console.log(error.response);
@@ -275,12 +275,12 @@ const ShareButton = (props) => {
     if (count === selectedOptions.length) {
       // all requests were successful
       toast.success("کاربر(ان) با موفقیت اضافه شدند.", {
-        position: toast.POSITION.TOP_CENTER,
+        position: toast.POSITION.BOTTOM_LEFT,
         rtl: true,
       });
     } else {
       // toast.error("مشکلی پیش آمده است.", {
-      //   position: toast.POSITION.TOP_CENTER,
+      //   position: toast.POSITION.BOTTOM_LEFT,
       //   rtl: true,
       // });
     }
