@@ -10,7 +10,7 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import StyledTextField from "../StyledTextField";
+import StyledTextField from "./StyledTextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 // import { json, redirect } from "react-router-dom";
 // import { AddBox } from "@mui/icons-material";
@@ -34,7 +34,7 @@ const style = {
   width: "70%",
   height: "78%",
   // bgcolor: 'background.paper',
-  bgcolor: "#265D97", // #5090D3 #1E4976
+  bgcolor: "#001E3C", // #5090D3 #1E4976
   border: "2px solid #000",
   borderRadius: "10px",
   boxShadow: 24,
@@ -270,14 +270,22 @@ export default function BasicModal(props) {
                 component="h2"
                 sx={{
                   fontFamily: "Vazir",
-                  color: "black", // #0A1929
+                  color: "white", // #0A1929
+                  fontSize: "215%",
                 }}
+                className="neonText"
               >
-                بیا فضای کاری مونو بسازیم
+                بیا فضای کاریمون رو بسازیم
               </Typography>
               <Typography
                 id="modal-modal-description"
-                sx={{ mt: 2, fontFamily: "Vazir", color: "#E2EDF8" }}
+                sx={{
+                  mt: 2,
+                  fontFamily: "Vazir",
+                  color: "#E2EDF8",
+                  fontSize: "142%",
+                  marginBottom: "7%",
+                }}
               >
                 بهره وری خود را با آسان کردن دسترسی همه به بوردها در یک مکان
                 افزایش دهید.
@@ -298,23 +306,39 @@ export default function BasicModal(props) {
                       required
                       fullWidth
                       id="workspace_name"
-                      label="نام فضای‌کار"
-                      placeholder="نام فضای‌کار خود را وارد کنید."
+                      label="نام فضای‌کاری"
+                      // placeholder="نام فضای‌کاری خود را وارد کنید."
                       // helperText="این نام شرکت، تیم یا سازمان شما است."
                       name="workspace_name"
                       autoComplete="workspace_name"
                       autoFocus
                       sx={{ width: "60%", display: "block" }}
-                      InputLabelProps={{ style: { fontFamily: "Vazir" } }}
-                      InputProps={{ style: { fontFamily: "Vazir" } }}
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "Vazir",
+                          fontSize: "85%",
+                          color: "white",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "Vazir",
+                          color: "white",
+                          fontSize: "110%",
+                        },
+                      }}
                       FormHelperTextProps={{
-                        style: { fontFamily: "Vazir", color: "black" },
+                        style: {
+                          fontFamily: "Vazir",
+                          color: "white",
+                          fontSize: "80%",
+                        },
                       }}
                       error={errorWorkspaceName}
                       helperText={
                         errorWorkspaceName
                           ? "نام فضای کار نمی‌تواند خالی باشد."
-                          : "این نام شرکت، تیم یا سازمان شما است."
+                          : "* این نام شرکت، تیم یا سازمان شما است."
                       }
                       onChange={(e) => {
                         document.getElementById("workspace_name").value =
@@ -339,9 +363,13 @@ export default function BasicModal(props) {
                       name="workspace_type"
                       autoComplete="workspace_type"
                       autoFocus
-                      sx={{ width: "60%", display: "block" }}
-                      InputLabelProps={{ style: { fontFamily: "Vazir" } }}
-                      InputProps={{ style: { fontFamily: "Vazir" } }}
+                      sx={{ width: "60%", display: "block", marginTop: "5%" }}
+                      InputLabelProps={{
+                        style: { fontFamily: "Vazir", fontSize: "85%" },
+                      }}
+                      InputProps={{
+                        style: { fontFamily: "Vazir", fontSize: "95%" },
+                      }}
                       FormHelperTextProps={{
                         style: { fontFamily: "Vazir", color: "black" },
                       }}
@@ -360,6 +388,7 @@ export default function BasicModal(props) {
                             backgroundColor: "#265D97",
                             margin: "0%",
                             padding: "3%",
+                            fontSize: "140%",
                           }}
                         >
                           {option.label}
@@ -377,17 +406,25 @@ export default function BasicModal(props) {
                       multiline
                       maxRows={4}
                       id="workspace_description"
-                      label="شرح فضای کاری(اختیاری)  "
-                      placeholder="شرح فضای‌کاری خود را وارد کنید."
-                      helperText="اعضای خود را با چند کلمه در مورد فضای کاری خود همراه کنید."
+                      label="شرح فضای کاری (اختیاری)  "
+                      // placeholder="شرح فضای‌کاری خود را وارد کنید."
+                      helperText="* اعضای خود را با چند کلمه در مورد فضای کاری خود همراه کنید."
                       name="workspace_description"
                       autoComplete="workspace_description"
                       autoFocus
-                      sx={{ width: "60%", display: "block" }}
-                      InputLabelProps={{ style: { fontFamily: "Vazir" } }}
-                      InputProps={{ style: { fontFamily: "Vazir" } }}
+                      sx={{ width: "60%", display: "block", marginTop: "5%" }}
+                      InputLabelProps={{
+                        style: { fontFamily: "Vazir", fontSize: "85%" },
+                      }}
+                      InputProps={{
+                        style: { fontFamily: "Vazir", fontSize: "110%" },
+                      }}
                       FormHelperTextProps={{
-                        style: { fontFamily: "Vazir", color: "black" },
+                        style: {
+                          fontFamily: "Vazir",
+                          color: "white",
+                          fontSize: "77%",
+                        },
                       }}
                       onChange={(e) => {
                         document.getElementById("workspace_description").value =
@@ -403,10 +440,11 @@ export default function BasicModal(props) {
                     // height: 54,
                     // width: 150,
                     // fontSize: "90%",
-                    width: "30%",
+                    width: "60%",
                     height: "100%",
                     fontFamily: "Vazir",
                     backgroundColor: "#0A1929", // #132F4C
+                    marginTop: "5%",
                   }}
                   disabled={disableButton}
                   // onClick={this.isClicked}

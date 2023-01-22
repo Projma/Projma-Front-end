@@ -595,6 +595,7 @@ export default function CreateBoardModal({}) {
           transition: "0.3s",
           display: "flex",
           alignItems: "center",
+          color: "white",
         }}
       >
         {/* <h2 
@@ -603,7 +604,7 @@ export default function CreateBoardModal({}) {
                     افزودن بورد +
                 </h2> */}
 
-        <h3>بورد تو بساز!😁</h3>
+        <h3>بوردتو بساز!😁</h3>
       </Button>
       <Modal
         open={open}
@@ -620,7 +621,7 @@ export default function CreateBoardModal({}) {
               textAlign: "center",
               fontFamily: "Vazir",
               color: "#fff",
-              fontSize: "109px",
+              fontSize: "109%",
             }}
             className="neonText"
           >
