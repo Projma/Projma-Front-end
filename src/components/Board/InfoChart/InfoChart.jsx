@@ -76,7 +76,7 @@ const InfoChart = (props) => {
     useEffect(() => {
         apiInstance.get(`/workspaces/chart/board-members-assign-tasks/${props.boardId}/`).then((res) => {
             // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
-            // //console.log(res.data);
+            // ////console.log(res.data);
             setChartInfo(res.data);
             // {
             //     "chartlabel": "تعداد کار واگذار شده به هر فرد",
@@ -129,11 +129,43 @@ const InfoChart = (props) => {
                 // labels: ['A', 'B', 'C', 'D', 'E']
                 labels: xaxix
             });
-
-            var total = [];
-            for (var i = 0; i < xaxix.length; i++) {
-                total.push(res.data.ydata[0][1]);
-            }
+            xaxix.push(res.data.xdata[0][1] ? res.data.xdata[0][1] : "بدون نام کاربری");
+            yaxix.push(res.data.ydata[0][1]);
+            // //console.log(res.data);
+            //console.log("-----------------------");
+            //console.log(xaxix);
+            //console.log(yaxix);
+            setData({
+                options: {
+                    chart: {
+                        id: "basic-bar",
+                    },
+                    xaxis: {
+                        // categories: xaxis,
+                        categories: xaxix,
+                    },
+                    style: {
+                        fontFamily: "Vazir",
+                    },
+                },
+                series: [
+                    {
+                        // name: "series-1",
+                        name: chartInfo.ylabel,
+                        // data: [30, 40, 45, 50, 49, 60, 70, 91]
+                        // data: chartInfo.ydata
+                        // data: yaxis
+                        // data: [
+                        //     1,
+                        //     0,
+                        //     1,
+                        //     2,
+                        //     3
+                        //   ]
+                        data: yaxix
+                    }
+                ]
+            })
 
             setData3({
                 options: {
@@ -263,12 +295,12 @@ const InfoChart = (props) => {
 
             
         }).catch((err) => {
-            //console.log(err);
+            ////console.log(err);
         });
 
         // apiInstance.get(`/workspaces/chart/my-assign-tasks-for-all-boards${user_id}/`).then((res) => {
         //     // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
-        //     // //console.log(res.data);
+        //     // ////console.log(res.data);
         //     setMembers(res.data);
         // {
         //     "chartlabel": "تعداد فعالیت من برای هر برد",
@@ -278,7 +310,7 @@ const InfoChart = (props) => {
         //     "ydata": []
         //   }
         // }).catch((err) => {
-        //     //console.log(err);
+        //     ////console.log(err);
         // });
 
     }, []);

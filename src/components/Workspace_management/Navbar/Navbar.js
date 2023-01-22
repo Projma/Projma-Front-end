@@ -17,17 +17,17 @@ const Navbar = ({ params }) => {
       .then((res) => {
         setWorkspace(res.data);
         setName(res.data.name);
-        //console.log(workspace);
+        ////console.log(workspace);
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
       });
   }, []);
-  // //console.log("in nav bar", workspace);
+  // ////console.log("in nav bar", workspace);
   const update_navbar = (data) => {
-    //console.log("god damn");
-    //console.log(data);
-    //console.log(data.name);
+    ////console.log("god damn");
+    ////console.log(data);
+    ////console.log(data.name);
     setWorkspace(data);
     setName(data.name);
     toast.success("اطلاعات فضای کاری با موفقیت تغییر کرد", {
@@ -44,7 +44,7 @@ const Navbar = ({ params }) => {
     apiInstance
       .delete(`workspaces/workspaceowner/${workspace.id}/delete-workspace/`)
       .then((res) => {
-        //console.log(res.data);
+        ////console.log(res.data);
         toast.success("فضای کاری با موفقیت حذف شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,

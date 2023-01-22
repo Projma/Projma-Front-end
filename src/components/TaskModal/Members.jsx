@@ -36,8 +36,8 @@ export default function Members({ params, setDoers, doer }) {
     setAnchorEl(null);
   };
   useEffect(() => {
-    console.log("YYFYFYFYFYFYFYFY");
-    console.log(doer);
+    //console.log("YYFYFYFYFYFYFYFY");
+    //console.log(doer);
     apiInstance
       .get(`/workspaces/board/${params.board_id}/members/`)
       .then((res) => {
@@ -57,7 +57,7 @@ export default function Members({ params, setDoers, doer }) {
           }
           return member;
         });
-        console.log(members);
+        //console.log(members);
 
         setListOfMembers(members);
       });
@@ -136,12 +136,12 @@ export default function Members({ params, setDoers, doer }) {
         doers: [member.id],
       })
       .then((res) => {
-        //console.log(res);
-        console.log("in delete");
+        ////console.log(res);
+        //console.log("in delete");
         const new_doers = doer.filter(
           (item) => item.username !== member.userName
         );
-        console.log(new_doers);
+        //console.log(new_doers);
         setDoers(new_doers);
       })
       .finally(() => {
@@ -214,7 +214,7 @@ export default function Members({ params, setDoers, doer }) {
                         setListOfMembers((prevState) =>
                           prevState.map((obj) => {
                             if (obj.userName === member.userName) {
-                              console.log("in the if");
+                              //console.log("in the if");
                               obj.checked = !obj.checked;
                             }
                             return obj;

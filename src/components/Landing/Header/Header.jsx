@@ -24,13 +24,13 @@ import {
 
 // const loader = async () => {
 //   const attButton = e.target.getAttribute("button-key");
-//   //console.log(attButton);
+//   ////console.log(attButton);
 //   return redirect("/test");
 // };
 
 // isClicked = (e) => {
 //   const attButton = e.target.getAttribute("button-key");
-//   //console.log(attButton);
+//   ////console.log(attButton);
 // };
 
 const theme = createTheme({
@@ -115,7 +115,7 @@ const Header = () => {
                     InputLabelProps={{ style: { fontFamily: "Vazir", fontSize: "2rem" } }}
                     InputProps={{ style: { fontFamily: "Vazir", fontSize: "1.7rem" } }}
                     onChange={(e) => {
-                      // //console.log(e.target.value);
+                      // ////console.log(e.target.value);
                       document.getElementById("email").value =
                         convertNumberToPersian(e.target.value);
                     }}

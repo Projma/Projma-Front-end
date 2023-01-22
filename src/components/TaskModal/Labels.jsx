@@ -39,8 +39,8 @@ export default function Labels({ params, task_labels, set_task_labels }) {
     apiInstance
       .get(`workspaces/board/${params.board_id}/get-board-labels/`)
       .then((res) => {
-        //console.log("board labels");
-        //console.log(res.data);
+        ////console.log("board labels");
+        ////console.log(res.data);
         const board_labels = res.data.map((obj) => ({
           id: obj.id,
           title: obj.title,
@@ -48,15 +48,15 @@ export default function Labels({ params, task_labels, set_task_labels }) {
           checked: false,
         }));
 
-        //console.log(board_labels);
+        ////console.log(board_labels);
         const board_labels_but_not_task_labels = board_labels.filter(
           (label) =>
             !task_labels.some((task_label) => task_label.id === label.id)
         );
         task_labels.map((label) => (label.checked = true));
         setAllLabels([...task_labels, ...board_labels_but_not_task_labels]);
-        //console.log("aaaaaaaaaaaaaaaaaa");
-        //console.log(board_labels_but_not_task_labels);
+        ////console.log("aaaaaaaaaaaaaaaaaa");
+        ////console.log(board_labels_but_not_task_labels);
         setBoardLabels(board_labels_but_not_task_labels);
       });
     // setCurrent(mainPage);
@@ -65,14 +65,14 @@ export default function Labels({ params, task_labels, set_task_labels }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
-    //console.log(task_labels);
+    ////console.log(task_labels);
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setShowEdit(false);
     setShowCreate(false);
-    //console.log(task_labels);
+    ////console.log(task_labels);
     setAnchorEl(null);
   };
 
@@ -118,19 +118,19 @@ export default function Labels({ params, task_labels, set_task_labels }) {
       .finally(() => {
         setIsPost(null);
       });
-    //console.log("task labels");
-    //console.log(task_labels);
-    //console.log("board labels");
-    //console.log(boardLabels);
-    //console.log("task labels");
+    ////console.log("task labels");
+    ////console.log(task_labels);
+    ////console.log("board labels");
+    ////console.log(boardLabels);
+    ////console.log("task labels");
   };
   const change_label_checked = (label_id) => {
-    //console.log("change label checked");
-    //console.log(label_id);
-    //console.log(task_labels);
-    //console.log(boardLabels);
+    ////console.log("change label checked");
+    ////console.log(label_id);
+    ////console.log(task_labels);
+    ////console.log(boardLabels);
     const label = allLabels.find((label) => label.id === label_id);
-    //console.log(label);
+    ////console.log(label);
     if (label.checked) {
       delete_label_from_task(label_id);
     } else {

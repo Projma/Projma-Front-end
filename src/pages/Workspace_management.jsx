@@ -36,12 +36,12 @@ const Workspace_management = () => {
   }, []);
 
   const submit_form = (form_data, boards, setBoards) => {
-    console.log("here");
+    //console.log("here");
     setIsPost(true);
     apiInstance
       .post(`/workspaces/workspaceowner/${params.id}/create-board/`, form_data)
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         setBoards([...boards, res.data]);
         toast.success("بورد با موفقیت ساخته شد", {
           position: toast.POSITION.BOTTOM_LEFT,

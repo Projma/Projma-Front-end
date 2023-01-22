@@ -211,10 +211,10 @@ function ResponsiveDrawer(props) {
             ? baseUrl + obj.profile_pic?.slice(1)
             : anonymous,
         }));
-        console.log(members);
-        console.log(baseUrl + res.data.profile_pic?.slice(1));
+        //console.log(members);
+        //console.log(baseUrl + res.data.profile_pic?.slice(1));
         setMembers(members);
-        console.log(members);
+        //console.log(members);
       });
   }, []);
 

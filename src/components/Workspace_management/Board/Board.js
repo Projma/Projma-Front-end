@@ -13,7 +13,7 @@ import { baseUrl } from "../../../utilities/constants";
 // import { createGlobalStyle } from "styled-components";
 
 const Board = ({ params, on_submit }) => {
-  //console.log(params.id);
+  ////console.log(params.id);
   const [workspace, setWorkspace] = useState({});
   const [star, setStar] = useState([]);
   const [recent, setRecent] = useState([]);
@@ -30,13 +30,13 @@ const Board = ({ params, on_submit }) => {
       .get(`workspaces/workspaces/${params.id}/workspace-starred-boards/`)
       .then((res) => {
         setLoading(true);
-        // //console.log(res.data);
-        //console.log("*********************************");
-        //console.log(res.data);
+        // ////console.log(res.data);
+        ////console.log("*********************************");
+        ////console.log(res.data);
         setStar(res.data);
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
         setStar([]);
       })
       .finally(() => setLoading(false));
@@ -56,42 +56,42 @@ const Board = ({ params, on_submit }) => {
         }));
         setList(boards);
         tempdata = boards;
-        //console.log(boards);
+        ////console.log(boards);
       });
     await apiInstance
       .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
       .then((res) => {
-        // //console.log(res.data);
-        //console.log("*********************************");
-        //console.log(res.data);
+        // ////console.log(res.data);
+        ////console.log("*********************************");
+        ////console.log(res.data);
         setWorkspace(res.data);
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
       });
     await apiInstance
       .get(`workspaces/workspaces/${params.id}/workspace-starred-boards/`)
       .then((res) => {
-        // //console.log(res.data);
-        //console.log("*********************************");
-        //console.log(res.data);
+        // ////console.log(res.data);
+        ////console.log("*********************************");
+        ////console.log(res.data);
         setStar(res.data);
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
         // setStar([]);
       });
     await apiInstance
       .get(`workspaces/dashboard/myrecent-boards/`)
       .then((res) => {
-        // //console.log(res.data);
-        //console.log("*********************************");
-        //console.log(res.data);
+        // ////console.log(res.data);
+        ////console.log("*********************************");
+        ////console.log(res.data);
         setRecent(res.data.filter((x) => tempdata.find((y) => y.id === x.id)));
-        console.log(tempdata, res.data);
+        //console.log(tempdata, res.data);
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
         // setRecent([]);
       })
       .finally(() => setLoading(false));

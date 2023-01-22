@@ -35,7 +35,7 @@ const ResetPassword = () => {
     const getLinkInfo = () => {
       return window.location.href.split("reset-password?")[1];
     };
-    //console.log(getLinkInfo(baseLink));
+    ////console.log(getLinkInfo(baseLink));
     const data = new FormData();
     data.append("password", password);
     apiInstance

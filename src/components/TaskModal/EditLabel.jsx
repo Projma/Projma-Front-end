@@ -17,7 +17,7 @@ const EditLabel = ({ setShowEdit, item, set_task_labels, setAllLabels }) => {
   const [isPost, setIsPost] = React.useState(false);
 
   const editThisItem = (e) => {
-    //console.log("edit this item");
+    ////console.log("edit this item");
     if (editedTitle === "") {
       toast.error("عنوان برچسب نمیتواند خالی باشد", {
         position: toast.POSITION.BOTTOM_LEFT,
@@ -32,8 +32,8 @@ const EditLabel = ({ setShowEdit, item, set_task_labels, setAllLabels }) => {
         color: editedColor,
       })
       .then((res) => {
-        //console.log("in edit label");
-        //console.log(res.data);
+        ////console.log("in edit label");
+        ////console.log(res.data);
         let flag = 0;
         set_task_labels((prevState) =>
           prevState.map((label) => {

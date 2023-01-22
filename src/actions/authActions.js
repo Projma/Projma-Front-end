@@ -17,10 +17,10 @@ export const login = () => async (dispatch) => {
     //         'Content-Type': 'application/json',
     //     },
     // })
-    // //console.log("login action");
+    // ////console.log("login action");
     let flag = false;
     const response = await apiInstance.get(`/accounts/profile/myprofile/`).catch((err) => {
-        //console.log("Error: ", err);
+        ////console.log("Error: ", err);
         flag = true;
     });
     if (flag) {
@@ -44,7 +44,7 @@ export const login = () => async (dispatch) => {
     //     "profile_pic": null,
     //     "telegram_id": null
     // }
-    // //console.log("userData: ", userData);
+    // ////console.log("userData: ", userData);
     return dispatch({
         type: LOGIN,
         payload: userData

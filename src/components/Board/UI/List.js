@@ -48,7 +48,7 @@ const List = (props) => {
     await apiInstance
       .post(`/workspaces/tasklist/${id}/create-task/`, data)
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         toast.success("کارت با موفقیت ساخته شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
@@ -66,7 +66,7 @@ const List = (props) => {
       })
       .finally(() => {
         setReq(null);
-        //console.log("reqCreateCard Done");
+        ////console.log("reqCreateCard Done");
       });
 
   const reqDeleteList = async (id) =>
@@ -89,7 +89,7 @@ const List = (props) => {
       })
       .finally(() => {
         setReq(null);
-        //console.log("reqDeleteList Done");
+        ////console.log("reqDeleteList Done");
       });
 
   const reqEditListName = async (data, id, name) => {

@@ -32,11 +32,11 @@ const AddList = (props) => {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        // console.log("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
-        // console.log(response.data);
+        // //console.log("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+        // //console.log(response.data);
         // setList(response.data);
         list = response.data;
-        // console.log(list);
+        // //console.log(list);
         props.onCreateList(list);
       })
       .catch((error) => {

@@ -17,9 +17,9 @@ const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
   const [isPost, setIsPost] = useState(false);
 
   const createThisItem = (e) => {
-    //console.log("create this item");
-    //console.log(createdTitle);
-    //console.log(createdColor);
+    ////console.log("create this item");
+    ////console.log(createdTitle);
+    ////console.log(createdColor);
     setIsPost(true);
     if (createdTitle === "") {
       toast.error("عنوان برچسب نمیتواند خالی باشد", {
@@ -34,7 +34,7 @@ const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
         color: createdColor,
       })
       .then((res) => {
-        //console.log(res.data);
+        ////console.log(res.data);
         const new_label = { ...res.data, checked: false };
         setAllLabels((prev) => [...prev, new_label]);
         toast.success("برچسب جدید با موفقیت ایجاد شد", {
@@ -139,7 +139,7 @@ const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
                 value={createdColor}
                 onChange={(e) => setCreatedColor(e.target.value)}
                 onClick={(e) => {
-                  //console.log("$$$$$$$$$$$$$$$$$$$$$$$$$");
+                  ////console.log("$$$$$$$$$$$$$$$$$$$$$$$$$");
                 }}
               />
             </div>

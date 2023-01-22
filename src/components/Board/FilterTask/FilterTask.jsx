@@ -22,27 +22,27 @@ export default function FilterTask({ boardId, setLists }) {
   const [value, setValue] = React.useState(new Date());
   const [date, setDate] = React.useState("");
   useEffect(() => {
-    //console.log("hereeeeeeeeeeeeeeeeee");
+    ////console.log("hereeeeeeeeeeeeeeeeee");
     apiInstance
       .get(`workspaces/board/${boardId}/get-board-labels/`)
       .then((res) => {
-        //console.log("board labels");
-        //console.log(res.data);
+        ////console.log("board labels");
+        ////console.log(res.data);
         const board_labels = res.data.map((obj) => ({
           id: obj.id,
           title: obj.title,
           color: obj.color,
           checked: false,
         }));
-        //console.log(board_labels);
+        ////console.log(board_labels);
         setBoardLabels(board_labels);
       });
   }, []);
 
   useEffect(() => {
     apiInstance.get(`workspaces/board/${boardId}/members/`).then((res) => {
-      //console.log("sinasssssssssssssssssssssss");
-      //console.log(res.data);
+      ////console.log("sinasssssssssssssssssssssss");
+      ////console.log(res.data);
       const board_members = res.data.map((obj) => ({
         id: obj.user.id,
         full_name: obj.user.first_name + " " + obj.user.last_name,
@@ -51,7 +51,7 @@ export default function FilterTask({ boardId, setLists }) {
         profile_pic: obj.profile_pic,
         checked: false,
       }));
-      //console.log(board_members);
+      ////console.log(board_members);
       setBoardMembers(board_members);
     });
   }, []);
@@ -103,18 +103,18 @@ export default function FilterTask({ boardId, setLists }) {
       url = url + value;
     }
     let datee = "";
-    console.log("hamid");
-    console.log(value);
+    //console.log("hamid");
+    //console.log(value);
     try {
       if (!value.toString().includes("Standard")) {
         datee = `${value.year}-${value.month.number}-${value.day}`;
       }
     } catch {}
 
-    console.log("navid");
-    console.log(datee);
+    //console.log("navid");
+    //console.log(datee);
     if (type === "date") {
-      console.log("sina");
+      //console.log("sina");
       setDate(datee);
       if (datee !== "") {
         if (!labels_empty || !members_empty) {
@@ -125,17 +125,17 @@ export default function FilterTask({ boardId, setLists }) {
         }
       }
     } else {
-      console.log("alinejad");
-      console.log(datee);
+      //console.log("alinejad");
+      //console.log(datee);
       if (date !== "") {
-        console.log("alinejad2");
+        //console.log("alinejad2");
         url = url + "&end_date=" + date;
       }
     }
-    console.log(url);
+    //console.log(url);
     apiInstance.get(url).then((res) => {
-      //console.log("filtered tasks");
-      //console.log(res.data);
+      ////console.log("filtered tasks");
+      ////console.log(res.data);
       res.data.tasklists.map((list) => {
         list.tasks.sort((a, b) => a.order - b.order);
       });
@@ -237,8 +237,8 @@ export default function FilterTask({ boardId, setLists }) {
     apiInstance
       .get(url)
       .then((res) => {
-        //console.log("filtered tasks");
-        //console.log(res.data);
+        ////console.log("filtered tasks");
+        ////console.log(res.data);
         res.data.tasklists.map((list) => {
           list.tasks.sort((a, b) => a.order - b.order);
         });
@@ -350,7 +350,7 @@ export default function FilterTask({ boardId, setLists }) {
               <h2 style={{ color: "white", marginBottom: "5%" }}>برچسب</h2>
               {boardLabels.map(
                 (label) => (
-                  console.log(label),
+                  //console.log(label),
                   (
                     <div
                       style={{
@@ -370,7 +370,7 @@ export default function FilterTask({ boardId, setLists }) {
                         value={label.id}
                         checked={label.checked}
                         onChange={(e) => {
-                          console.log("nvdi");
+                          //console.log("nvdi");
                           if (e.target.checked) {
                             setSelectedLabels([
                               ...selectedLabels,

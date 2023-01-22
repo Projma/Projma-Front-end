@@ -114,15 +114,15 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
   const findCover = () => {
     if (attachment !== undefined) {
       attachment.every((x) => {
-        //console.log(x);
+        ////console.log(x);
         let file = x.file.split("attachments/")[1];
         file = file.split(".")[1];
         if (file === "png" || file === "jpeg" || file === "jpg") {
-          //console.log(file);
+          ////console.log(file);
           setCover(x.file);
           return false;
         }
-        //console.log(cover);
+        ////console.log(cover);
       });
     }
     return cover !== "";
@@ -166,7 +166,7 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
       })
       .finally(() => {
         // setIsPost(null);
-        //console.log("reqDeleteCard Done");
+        ////console.log("reqDeleteCard Done");
         remID(cardId);
         // props.onPost(true);
       });
