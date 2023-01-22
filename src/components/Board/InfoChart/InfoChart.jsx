@@ -66,7 +66,13 @@ const InfoChart = (props) => {
     const params = useParams();
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [chartInfo, setChartInfo] = useState({}); 
+    const [chartInfo, setChartInfo] = useState({});
+    const [xaxis, setXaxis] = useState([]);
+    const [yaxis, setYaxis] = useState([]);
+    const [data, setData] = useState({});
+    const [data2, setData2] = useState({});
+    const [data3, setData3] = useState({});
+
     useEffect(() => {
         apiInstance.get(`/workspaces/chart/board-members-assign-tasks/${props.boardId}/`).then((res) => {
             // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
@@ -89,6 +95,165 @@ const InfoChart = (props) => {
             //       ]
             //     ]
             //   }
+            // [
+            //     [
+            //       "mohammad",
+            //       "تمام کار ها"
+            //     ],
+            //     [
+            //       null,
+            //       "تمام کار ها"
+            //     ],
+            //     [
+            //       "navid",
+            //       "تمام کار ها"
+            //     ],
+            //     [
+            //       "string",
+            //       "تمام کار ها"
+            //     ]
+            //   ]
+            var xaxix = [];
+            var yaxix = [];
+            res.data.xdata.map((item) => {
+                xaxix.push(item[0] ? item[0] : "بدون نام کاربری");
+            });
+            setXaxis(xaxix);
+            res.data.ydata.map((item) => {
+                yaxix.push(item[0]);
+            });
+            setYaxis(yaxix);
+            setData2({
+                options: {},
+                series: yaxix,
+                // labels: ['A', 'B', 'C', 'D', 'E']
+                labels: xaxix
+            });
+            xaxix.push(res.data.xdata[0][1] ? res.data.xdata[0][1] : "بدون نام کاربری");
+            yaxix.push(res.data.ydata[0][1]);
+            // console.log(res.data);
+            console.log("-----------------------");
+            console.log(xaxix);
+            console.log(yaxix);
+            setData({
+                options: {
+                    chart: {
+                        id: "basic-bar",
+                    },
+                    xaxis: {
+                        // categories: xaxis,
+                        categories: xaxix,
+                    },
+                    style: {
+                        fontFamily: "Vazir",
+                    },
+                },
+                series: [
+                    {
+                        // name: "series-1",
+                        name: chartInfo.ylabel,
+                        // data: [30, 40, 45, 50, 49, 60, 70, 91]
+                        // data: chartInfo.ydata
+                        // data: yaxis
+                        // data: [
+                        //     1,
+                        //     0,
+                        //     1,
+                        //     2,
+                        //     3
+                        //   ]
+                        data: yaxix
+                    }
+                ]
+            })
+
+            setData3({
+                options: {
+                    chart: {
+                        type: "area",
+                        height: 300,
+                        foreColor: "#999",
+                        stacked: true,
+                        dropShadow: {
+                            enabled: true,
+                            enabledSeries: [0],
+                            top: -2,
+                            left: 2,
+                            blur: 5,
+                            opacity: 0.06
+                        }
+                    },
+                    colors: ['#00E396', '#0090FF'],
+                    stroke: {
+                        curve: "smooth",
+                        width: 3
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    series: [{
+                        name: 'Total Views',
+                        data: generateDayWiseTimeSeries(0, 18)
+                    }, {
+                        name: 'Unique Views',
+                        data: generateDayWiseTimeSeries(1, 18)
+                    }],
+                    markers: {
+                        size: 0,
+                        strokeColor: "#fff",
+                        strokeWidth: 3,
+                        strokeOpacity: 1,
+                        fillOpacity: 1,
+                        hover: {
+                            size: 6
+                        }
+                    },
+                    xaxis: {
+                        type: "datetime",
+                        axisBorder: {
+                            show: false
+                        },
+                        axisTicks: {
+                            show: false
+                        }
+                    },
+                    yaxis: {
+                        labels: {
+                            offsetX: 14,
+                            offsetY: -5
+                        },
+                        tooltip: {
+                            enabled: true
+                        }
+                    },
+                    grid: {
+                        padding: {
+                            left: -5,
+                            right: 5
+                        }
+                    },
+                    tooltip: {
+                        x: {
+                            format: "dd MMM yyyy"
+                        },
+                    },
+                    legend: {
+                        position: 'top',
+                        horizontalAlign: 'left'
+                    },
+                    fill: {
+                        type: "solid",
+                        fillOpacity: 0.7
+                    }
+                },
+                series: [{
+                    name: 'Total Views',
+                    data: generateDayWiseTimeSeries(0, 18)
+                }, {
+                    name: 'Unique Views',
+                    data: generateDayWiseTimeSeries(1, 18)
+                }]
+            })
         }).catch((err) => {
             //console.log(err);
         });
@@ -110,201 +275,8 @@ const InfoChart = (props) => {
 
     }, []);
 
-    const data = {
-        options: {
-            chart: {
-                id: "basic-bar"
-            },
-            xaxis: {
-                categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
-            }
-        },
-        series: [
-            {
-                name: "series-1",
-                data: [30, 40, 45, 50, 49, 60, 70, 91]
-            }
-        ]
-    };
-
-    const data2 = {
-        options: {},
-        series: [44, 55, 41, 17, 15],
-        labels: ['A', 'B', 'C', 'D', 'E']
-    }
-
-    const data3 = {
-        options: {
-            chart: {
-                type: "area",
-                height: 300,
-                foreColor: "#999",
-                stacked: true,
-                dropShadow: {
-                    enabled: true,
-                    enabledSeries: [0],
-                    top: -2,
-                    left: 2,
-                    blur: 5,
-                    opacity: 0.06
-                }
-            },
-            colors: ['#00E396', '#0090FF'],
-            stroke: {
-                curve: "smooth",
-                width: 3
-            },
-            dataLabels: {
-                enabled: false
-            },
-            series: [{
-                name: 'Total Views',
-                data: generateDayWiseTimeSeries(0, 18)
-            }, {
-                name: 'Unique Views',
-                data: generateDayWiseTimeSeries(1, 18)
-            }],
-            markers: {
-                size: 0,
-                strokeColor: "#fff",
-                strokeWidth: 3,
-                strokeOpacity: 1,
-                fillOpacity: 1,
-                hover: {
-                    size: 6
-                }
-            },
-            xaxis: {
-                type: "datetime",
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false
-                }
-            },
-            yaxis: {
-                labels: {
-                    offsetX: 14,
-                    offsetY: -5
-                },
-                tooltip: {
-                    enabled: true
-                }
-            },
-            grid: {
-                padding: {
-                    left: -5,
-                    right: 5
-                }
-            },
-            tooltip: {
-                x: {
-                    format: "dd MMM yyyy"
-                },
-            },
-            legend: {
-                position: 'top',
-                horizontalAlign: 'left'
-            },
-            fill: {
-                type: "solid",
-                fillOpacity: 0.7
-            }
-        },
-        series: [{
-            name: 'Total Views',
-            data: generateDayWiseTimeSeries(0, 18)
-        }, {
-            name: 'Unique Views',
-            data: generateDayWiseTimeSeries(1, 18)
-        }]
-    };
-
-    var data3_options = {
-        chart: {
-            type: "area",
-            height: 300,
-            foreColor: "#999",
-            stacked: true,
-            dropShadow: {
-                enabled: true,
-                enabledSeries: [0],
-                top: -2,
-                left: 2,
-                blur: 5,
-                opacity: 0.06
-            }
-        },
-        colors: ['#00E396', '#0090FF'],
-        stroke: {
-            curve: "smooth",
-            width: 3
-        },
-        dataLabels: {
-            enabled: false
-        },
-        series: [{
-            name: 'Total Views',
-            data: generateDayWiseTimeSeries(0, 18)
-        }, {
-            name: 'Unique Views',
-            data: generateDayWiseTimeSeries(1, 18)
-        }],
-        markers: {
-            size: 0,
-            strokeColor: "#fff",
-            strokeWidth: 3,
-            strokeOpacity: 1,
-            fillOpacity: 1,
-            hover: {
-                size: 6
-            }
-        },
-        xaxis: {
-            type: "datetime",
-            axisBorder: {
-                show: false
-            },
-            axisTicks: {
-                show: false
-            }
-        },
-        yaxis: {
-            labels: {
-                offsetX: 14,
-                offsetY: -5
-            },
-            tooltip: {
-                enabled: true
-            }
-        },
-        grid: {
-            padding: {
-                left: -5,
-                right: 5
-            }
-        },
-        tooltip: {
-            x: {
-                format: "dd MMM yyyy"
-            },
-        },
-        legend: {
-            position: 'top',
-            horizontalAlign: 'left'
-        },
-        fill: {
-            type: "solid",
-            fillOpacity: 0.7
-        }
-    };
-
-
     return (
         <>
-            <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-            <script src="https://cdn.jsdelivr.net/npm/react-apexcharts"></script>
             {isPost ? <Loading /> : null}
             <Button
                 variant="contained"
@@ -382,7 +354,7 @@ const InfoChart = (props) => {
                                         type="bar"
                                         // type="line"
                                         width="500"
-                                        // width="100%"
+                                    // width="100%"
                                     />
                                 </div>
                             </div>
