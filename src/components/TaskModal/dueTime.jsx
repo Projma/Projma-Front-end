@@ -114,7 +114,9 @@ export default function DueTime({ params, dueDate, setDueTime }) {
         }}
       >
         <AccessTimeIcon rotate="90" fontSize="large"></AccessTimeIcon>{" "}
-        <div className="taskmodal-smaller-button">زمان اتمام</div>
+        <div style={{ fontSize: "124%" }} className="taskmodal-smaller-button">
+          زمان اتمام
+        </div>
       </Button>
       <Popover
         id={id}
@@ -158,7 +160,7 @@ export default function DueTime({ params, dueDate, setDueTime }) {
               </div>
             ) : (
               <div className="duetime-showDate" style={{ padding: "6%" }}>
-                {dueDate !== null ? (
+                {dueDate.toString() != "null" ? (
                   <div>{dueDate.toString().replaceAll("-", "/")}</div>
                 ) : (
                   <div></div>
