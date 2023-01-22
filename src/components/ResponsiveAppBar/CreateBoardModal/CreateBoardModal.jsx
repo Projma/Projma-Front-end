@@ -215,7 +215,7 @@ export default function CreateBoardModal({}) {
               textAlign: "center",
               fontFamily: "Vazir",
               color: "#fff",
-              fontSize: "119%",
+              fontSize: "185%",
             }}
             className="neonText"
           >
@@ -242,7 +242,7 @@ export default function CreateBoardModal({}) {
                 required
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir", fontSize: "85%" },
+                  style: { fontFamily: "Vazir", fontSize: "135%" },
                 }}
                 inputProps={{
                   style: {
@@ -348,7 +348,7 @@ export default function CreateBoardModal({}) {
                 }}
                 sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir", fontSize: "85%" },
+                  style: { fontFamily: "Vazir", fontSize: "135%" },
                 }}
                 inputProps={{
                   style: {
@@ -418,7 +418,7 @@ export default function CreateBoardModal({}) {
               value="بساز"
               className="workspace-modal--button-29"
               onClick={create_board}
-              style={{ fontFamily: "Vazir", fontSize: "114%" }}
+              style={{ fontFamily: "Vazir", fontSize: "185%" }}
             />
           </form>
           {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
