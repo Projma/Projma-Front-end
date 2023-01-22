@@ -24,31 +24,31 @@ apiInstance.interceptors.response.use(
   (res) => {
     return res; // response
   },
-  async (error) => {
-    if (error.response) {
-      const originalConfig = error.config;
-      if (error.response.status === 401 && !originalConfig._retry) {
-        originalConfig._retry = true;
-        // axios
-        // .post(`${baseUrl}/accounts/jwt/refresh`, {
-        // apiInstance
-        //   // .post(`accounts/jwt/refresh`, {
-        //   .post(`accounts/login/token/refresh/`, {
-        //     refresh: localStorage.getItem("refresh_token"),
-        //   })
-        //   .then((res) => {
-        //     localStorage.setItem("access_token", res.access);
-        //     localStorage.setItem("refresh_token", res.refresh);
-        //   })
-        //   .catch((err) => {
-        //     return Promise.reject(err);
-        //   });
-        return apiInstance(originalConfig);
-      }
-    }
+  // async (error) => {
+  //   if (error.response) {
+  //     const originalConfig = error.config;
+  //     if (error.response.status === 401 && !originalConfig._retry) {
+  //       originalConfig._retry = true;
+  //       // axios
+  //       // .post(`${baseUrl}/accounts/jwt/refresh`, {
+  //       apiInstance
+  //         // .post(`accounts/jwt/refresh`, {
+  //         .post(`accounts/login/token/refresh/`, {
+  //           refresh: localStorage.getItem("refresh_token"),
+  //         })
+  //         .then((res) => {
+  //           localStorage.setItem("access_token", res.access);
+  //           localStorage.setItem("refresh_token", res.refresh);
+  //         })
+  //         .catch((err) => {
+  //           return Promise.reject(err);
+  //         });
+  //       return apiInstance(originalConfig);
+  //     }
+  //   }
 
-    return Promise.reject(error);
-  }
+  //   return Promise.reject(error);
+  // }
 );
 
 export default apiInstance;
