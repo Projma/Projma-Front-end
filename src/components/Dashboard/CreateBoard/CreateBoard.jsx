@@ -162,6 +162,7 @@ export default function CreateBoardModal({}) {
                     <p className="workspace-modal--add-button-title">+ افزودن بورد</p>
                 </button>
             </div> */}
+      {isPost ? <Loading /> : null}
       <Button
         onClick={handleOpen}
         sx={{
