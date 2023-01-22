@@ -461,10 +461,10 @@ export default function TaskModal(props) {
     apiInstance
       .get(`/workspaces/task/${params.task_id}/get-task/`)
       .then((res) => {
-        setDueDate(res.data.end_date);
-        setEstimate(res.data.estimate);
+        setDueDate(convertNumberToPersian(res.data.end_date));
+        setEstimate(convertNumberToPersian(res.data.estimate));
         setTasklistName(res.data.tasklist_name);
-        setDone(res.data.spend);
+        setDone(convertNumberToPersian(res.data.spend));
         setDescription(res.data.description);
         setTitle(res.data.title);
         const attachments = res.data.attachments.map((obj) => ({
