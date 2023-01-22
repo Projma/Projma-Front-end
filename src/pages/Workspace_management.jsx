@@ -43,6 +43,10 @@ const Workspace_management = () => {
         toast.success("بورد با موفقیت ساخته شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
+          style: {
+            fontFamily: "Vazir",
+            fontSize: "1.2rem",
+          },
         });
       });
   };
