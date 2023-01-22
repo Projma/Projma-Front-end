@@ -33,11 +33,6 @@ const ForgetPassword = () => {
   const postreq = () => {
     const data = new FormData();
     data.append("email", email);
-    // axios
-    //   .post(
-    //     "http://mohammadosoolian.pythonanywhere.com/accounts/forgot-password/",
-    //     data
-    //   )
     apiInstance
       .post(
         "accounts/forgot-password/",
