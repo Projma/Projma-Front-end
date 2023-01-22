@@ -54,16 +54,16 @@ export default function SignIn() {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   let navigate = useNavigate();
   const dispatch = useDispatch();
-  React.useEffect(() => {
-    apiInstance
-      .get("/accounts/users/myaccount/")
-      .then((response) => {
-        navigate("/");
-      })
-      .catch((error) => {
-        setIsLogin(true);
-      });
-  }, []);
+  // React.useEffect(() => {
+  //   apiInstance
+  //     .get("/accounts/users/myaccount/")
+  //     .then((response) => {
+  //       navigate("/");
+  //     })
+  //     .catch((error) => {
+  //       setIsLogin(true);
+  //     });
+  // }, []);
   const handleSubmit = (event) => {
     //console.log("handleSubmit");
     event.preventDefault();
