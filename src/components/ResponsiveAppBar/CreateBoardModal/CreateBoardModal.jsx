@@ -134,7 +134,8 @@ export default function CreateBoardModal({}) {
     const form_data = new FormData();
     form_data.append("name", title);
     form_data.append("description", description);
-    form_data.append("type", "education");
+    // form_data.append("type", "education");
+    form_data.append("background_pic", binaryFile);
     on_submit(form_data);
     handleClose();
     // navigate to board page that created
