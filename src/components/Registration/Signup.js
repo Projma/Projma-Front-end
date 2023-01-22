@@ -276,7 +276,7 @@ export default function SignUp() {
                     label="ایمیل"
                     name="email"
                     // value={convertNumberToPersian(email)}
-                    defaultValue={state.email ? convertNumberToPersian(state.email) : ""}
+                    defaultValue={state?.email ? convertNumberToPersian(state?.email) : ""}
                     autoComplete="email"
                     InputLabelProps={{
                       style: input_text,
