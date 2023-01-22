@@ -33,7 +33,7 @@ apiInstance.interceptors.response.use(
         // .post(`${baseUrl}/accounts/jwt/refresh`, {
         apiInstance
           // .post(`accounts/jwt/refresh`, {
-          .post(`accounts/login/token/refresh`, {
+          .post(`accounts/login/token/refresh/`, {
             refresh: localStorage.getItem("refresh_token"),
           })
           .then((res) => {
