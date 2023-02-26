@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./Styles/List.css";
-import Card from "./Card";
+import "./List.css";
+import Card from "./Card/Card";
 import PerTextField from "../../Shared/PerTextField";
 import StyledTextField from "../../Shared/StyledTextField";
 import Popover from "@mui/material/Popover";

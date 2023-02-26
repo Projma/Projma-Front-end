@@ -3,7 +3,7 @@ import React from "react";
 import "./InvitationHeader.scss";
 import GroupAvatars from "../GroupAvatars/GroupAvatars";
 import ShareButton from "../ShareButton/ShareButton";
-import AddList from "../Add List/AddList";
+import AddList from "../../Add List/AddList";
 import { Filter } from "@mui/icons-material";
 import FilterTask from "../FilterTask/FilterTask";
 import InfoChart from "../InfoChart/InfoChart";
