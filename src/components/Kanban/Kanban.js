@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../Header/Header";
-import Board from "../Board/UI/Board";
+import Board from "../Board/Board";
 import Footer from "../Shared/Footer";
 import { Helmet } from "react-helmet";
 

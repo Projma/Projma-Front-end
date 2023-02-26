@@ -15,9 +15,9 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import StyledTextField from "../../Dashboard/StyledTextField";
+import StyledTextField from "../../../Dashboard/StyledTextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import apiInstance from "../../../utilities/axiosConfig";
+import apiInstance from "../../../../utilities/axiosConfig";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -33,11 +33,11 @@ import "react-toastify/dist/ReactToastify.css";
 import "./InfoChart.scss";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
-import Loading from "../../Shared/Loading";
+import Loading from "../../../Shared/Loading";
 import {
     convertNumberToEnglish,
     convertNumberToPersian,
-} from "../../../utilities/helpers.js";
+} from "../../../../utilities/helpers.js";
 // import React, { Component } from "react";
 import Chart from "react-apexcharts";
 
@@ -293,7 +293,7 @@ const InfoChart = (props) => {
                 ]
             })
 
-            
+
         }).catch((err) => {
             ////console.log(err);
         });
