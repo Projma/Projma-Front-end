@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Styles/Card.css";
+import "./Card.css";
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
@@ -16,16 +16,16 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import Loading from "../../Shared/Loading";
+import Loading from "../../../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
-import apiInstance from "../../../utilities/axiosConfig";
-import TaskModal from "../../TaskModal/TaskModal";
+import apiInstance from "../../../../utilities/axiosConfig";
+import TaskModal from "../../../TaskModal/TaskModal";
 import { Modal, responsiveFontSizes } from "@mui/material";
-import CardCover from "../Cards Item/CardCover";
-import CardTitle from "../Cards Item/CardTitle";
-import CardLabel from "../Cards Item/CardLabel";
-import { convertNumberToPersian } from "../../../utilities/helpers";
+import CardCover from "./Content/Body/CardCover";
+import CardTitle from "./Content/Header/CardTitle";
+import CardLabel from "./Content/Body/CardLabel";
+import { convertNumberToPersian } from "../../../../utilities/helpers";
 
 const Card = ({ task, key, cardId, index, boardId, remID }) => {
   const [card, setCard] = useState(task);

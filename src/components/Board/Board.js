@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
-import List from "./List";
-import "./Styles/Board.css";
-import PerTextField from "../../Shared/PerTextField";
-import StyledTextField from "../../Shared/StyledTextField";
+import List from "./List/List";
+import "./Board.css";
+import PerTextField from "../Shared/PerTextField";
+import StyledTextField from "../Shared/StyledTextField";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import apiInstance from "../../../utilities/axiosConfig";
-import InvitationHeader from "../InvitationHeader/InvitationHeader";
+import apiInstance from "../../utilities/axiosConfig";
+import InvitationHeader from "./temp/InvitationHeader/InvitationHeader";
 import { v4 as uuid } from "uuid";
 import axios from "axios";
-import Loading from "../../Shared/Loading";
+import Loading from "../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
-import "../../../styles/ReactToastify.css";
+import "../../styles/ReactToastify.css";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
-} from "../../../utilities/helpers.js";
+} from "../../utilities/helpers.js";
 
 const Board = (props) => {
   const [lists, setLists] = useState([]);
