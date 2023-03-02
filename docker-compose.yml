@@ -2,15 +2,15 @@
 version: '4'
 services:
   web:
-    build: .
+    build: . # find Dockerfile in current directory
     ports:
-      - "8080:8080"
-  # db:
-  #   image: "mysql"
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD= password
-  #   volumes:
-  #     - db-data:/foo
+      - "8080:8080" # map port 8080 on host to port 8080 in container (port forwarding)
+  db:
+    image: "mysql" # use mysql image from docker hub
+    environment: # set environment variables
+      - MYSQL_ROOT_PASSWORD= password
+    volumes: # create a volume called db-data 
+      - db-data:/foo
 
-# volumes:
-#   db-data:
+# volumes: # create a volume called db-data (can be used by multiple containers) (store databse data across multiple containers)
+#   db-data: 
