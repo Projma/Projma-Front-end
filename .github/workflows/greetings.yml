@@ -1,0 +1,16 @@
+name: Greetings
+
+on: [pull_request_target, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: "Thank you for bringing your first issue to our attention. We apologize for any inconvenience this has caused to our team's workflow.' first issue"
+        pr-message: "Thank you for submitting your pull request for the greeting workflow in our Github repository. We appreciate your contribution to our team's workflow.\nAfter reviewing your changes, we can confirm that they have been merged successfully into the repository. The changes you have made to the greeting workflow have improved its functionality and consistency, and we are grateful for your efforts.' first pull request"
