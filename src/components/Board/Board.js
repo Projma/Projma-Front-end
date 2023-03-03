@@ -1,57 +1,51 @@
 import React, { useState, useEffect } from "react";
 import List from "./List/List";
 import "./Board.css";
-import PerTextField from "../Shared/PerTextField";
-import StyledTextField from "../Shared/StyledTextField";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import apiInstance from "../../utilities/axiosConfig";
 import InvitationHeader from "./temp/InvitationHeader/InvitationHeader";
 import { v4 as uuid } from "uuid";
-import axios from "axios";
-import Loading from "../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import "../../styles/ReactToastify.css";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
 } from "../../utilities/helpers.js";
+import apiInstance from "../../utilities/axiosConfig";
+import useBoard from "../../hooks/useBoard";
 
 const Board = (props) => {
-  const [lists, setLists] = useState([]);
-  const [req, setReq] = useState(false);
+  const { list, setList, getBoard } = useBoard();
 
   useEffect(() => {
-    const getBoard = async () =>
-      await apiInstance
-        .get(`workspaces/board/${props.boardId}/get-board-overview/`)
-        .then((response) => {
-          response.data.tasklists.map((list) => {
-            list.tasks.sort((a, b) => a.order - b.order);
-          });
-          setLists(response.data.tasklists.sort((a, b) => b.order - a.order));
-        })
-        .finally(() => {
-          setReq(null);
-        });
     getBoard();
-    setReq(null);
-  }, []);
+  }, [getBoard]);
 
-  const handleReq = () => {
-    setReq(!req);
+  const rederList = () => {
+    return list.map((list, index) => (
+      <List
+        name={list.title}
+        key={list.id}
+        id={list.id}
+        index={index}
+        card={list.tasks}
+        boardId={props.boardId}
+        remId={handleRemoveList}
+        addCardToList={handleAddCardToList}
+      />
+    ));
   };
 
   const handleCreateList = (data) => {
-    setLists((pervlists) => [data, ...pervlists]);
+    setList((pervlist) => [data, ...pervlist]);
   };
 
   const handleRemoveList = (id) => {
-    setLists(lists.filter((lists) => lists.id !== id));
+    setList(list.filter((list) => list.id !== id));
   };
 
   const handleAddCardToList = (card, list_id) => {
-    setLists(
-      lists.map((list) => {
+    setList(
+      list.map((list) => {
         if (list.id === list_id) {
           return {
             ...list,
@@ -71,15 +65,15 @@ const Board = (props) => {
       return;
     }
     if (result.type === "list") {
-      const newList = Array.from(lists);
+      const newList = Array.from(list);
       const [removed] = newList.splice(source.index, 1);
       newList.splice(destination.index, 0, removed);
       apiInstance
-        .put(`workspaces/board/${props.boardId}/reorder-tasklists/`, {
+        .put(`workspaces/board/${props.boardId}/reorder-tasklist/`, {
           order: newList.map((list) => list.id).reverse(),
         })
         .then((response) => {
-          setLists(newList);
+          setList(newList);
         });
       return;
     }
@@ -91,7 +85,7 @@ const Board = (props) => {
       return;
     }
     if (result.type === "task") {
-      const list = Array.from(lists);
+      const list = Array.from(list);
       const tasklist = list.find((x) => x.id == source.droppableId);
       const task = tasklist.tasks.find((x) => x.id == draggableId);
       list.forEach((value) => {
@@ -102,12 +96,11 @@ const Board = (props) => {
           value.tasks.splice(destination.index, 0, task);
         }
       });
-      setLists(list);
-      apiInstance
-        .patch(`workspaces/task/${result.draggableId}/move-task/`, {
-          tasklist: destination.droppableId,
-          order: destination.index + 1,
-        });
+      setList(list);
+      apiInstance.patch(`workspaces/task/${result.draggableId}/move-task/`, {
+        tasklist: destination.droppableId,
+        order: destination.index + 1,
+      });
     }
   };
 
@@ -116,13 +109,9 @@ const Board = (props) => {
       <InvitationHeader
         board_id={props.boardId}
         onCreateList={handleCreateList}
-        setLists={setLists}
+        setList={setList}
       />
       <div className="styled-scrollbars">
-        {/* {isPost ? <Loading /> : null} */}
-        {/* {isFail ? ( */}
-        {/*   <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} /> */}
-        {/* ) : null} */}
         <Droppable
           droppableId={uuid().toString()}
           type="list"
@@ -134,31 +123,19 @@ const Board = (props) => {
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {lists.map((list, index) => (
-                <div
-                  className="board_list-container-box"
-                  style={
-                    snapshot.draggingOverWith
-                      ? {
-                          backgroundColor: "var(--main-bg)",
-                          borderRadius: "0.5rem",
-                        }
-                      : null
-                  }
-                >
-                  <List
-                    name={list.title}
-                    key={list.id}
-                    id={list.id}
-                    index={index}
-                    card={list.tasks}
-                    boardId={props.boardId}
-                    onReq={handleReq}
-                    remId={handleRemoveList}
-                    addCardToList={handleAddCardToList}
-                  />
-                </div>
-              ))}
+              {/* <div
+                className="board_list-container-box"
+                style={
+                  snapshot.draggingOverWith
+                    ? {
+                        backgroundColor: "var(--main-bg)",
+                        borderRadius: "0.5rem",
+                      }
+                    : null
+                }
+              > */}
+                {rederList}
+              {/* </div> */}
               {provided.placeholder}
             </div>
           )}
