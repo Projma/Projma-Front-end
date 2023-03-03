@@ -37,5 +37,3 @@ function Provider({ children, boardId }) {
 
 export { Provider };
 export default BoardContext;
-
-export default BoardContext;
