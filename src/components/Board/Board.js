@@ -14,7 +14,7 @@ import apiInstance from "../../utilities/axiosConfig";
 import useBoard from "../../hooks/useBoard";
 
 const Board = (props) => {
-  const { list, setList, getBoard } = useBoard();
+  const { list, setList, getBoard, boardId } = useBoard();
 
   useEffect(() => {
     getBoard();
@@ -69,7 +69,7 @@ const Board = (props) => {
       const [removed] = newList.splice(source.index, 1);
       newList.splice(destination.index, 0, removed);
       apiInstance
-        .put(`workspaces/board/${props.boardId}/reorder-tasklist/`, {
+        .put(`workspaces/board/${boardId}/reorder-tasklist/`, {
           order: newList.map((list) => list.id).reverse(),
         })
         .then((response) => {
@@ -85,18 +85,18 @@ const Board = (props) => {
       return;
     }
     if (result.type === "task") {
-      const list = Array.from(list);
-      const tasklist = list.find((x) => x.id == source.droppableId);
-      const task = tasklist.tasks.find((x) => x.id == draggableId);
+      const newlist = Array.from(list);
+      const tasklist = newlist.find((x) => x.id === source.droppableId);
+      const task = tasklist.tasks.find((x) => x.id === draggableId);
       list.forEach((value) => {
-        if (value.id == source.droppableId) {
+        if (value.id === source.droppableId) {
           value.tasks.splice(source.index, 1);
         }
-        if (value.id == destination.droppableId) {
+        if (value.id === destination.droppableId) {
           value.tasks.splice(destination.index, 0, task);
         }
       });
-      setList(list);
+      setList(newlist);
       apiInstance.patch(`workspaces/task/${result.draggableId}/move-task/`, {
         tasklist: destination.droppableId,
         order: destination.index + 1,

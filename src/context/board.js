@@ -7,7 +7,6 @@ const BoardContext = createContext();
 function Provider({ children, boardId }) {
   const [list, setList] = useState([]);
   const [isReq, setIsReq] = useState(false);
-  const BOARD_ID = boardId;
 
   const getBoard = useCallback(async () => {
     setIsReq(true);
@@ -20,7 +19,7 @@ function Provider({ children, boardId }) {
   }, [boardId]);
 
   const board = {
-    boardId: BOARD_ID,
+    boardId,
     list,
     setList,
     getBoard,
