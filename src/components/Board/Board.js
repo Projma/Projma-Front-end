@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import List from "./List/List";
 import "./Board.css";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import InvitationHeader from "./temp/InvitationHeader/InvitationHeader";
 import { v4 as uuid } from "uuid";
-import { toast, ToastContainer } from "react-toastify";
 import "../../styles/ReactToastify.css";
-import {
-  convertNumberToPersian,
-  convertNumberToEnglish,
-} from "../../utilities/helpers.js";
 import apiInstance from "../../utilities/axiosConfig";
 import useBoard from "../../hooks/useBoard";
 
@@ -28,33 +23,13 @@ const Board = (props) => {
         id={list.id}
         index={index}
         card={list.tasks}
-        boardId={props.boardId}
-        remId={handleRemoveList}
-        addCardToList={handleAddCardToList}
+        boardId={boardId}
       />
     ));
   };
 
   const handleCreateList = (data) => {
     setList((pervlist) => [data, ...pervlist]);
-  };
-
-  const handleRemoveList = (id) => {
-    setList(list.filter((list) => list.id !== id));
-  };
-
-  const handleAddCardToList = (card, list_id) => {
-    setList(
-      list.map((list) => {
-        if (list.id === list_id) {
-          return {
-            ...list,
-            tasks: [...list.tasks, card],
-          };
-        }
-        return list;
-      })
-    );
   };
 
   const dragHandler = (result) => {
@@ -107,7 +82,7 @@ const Board = (props) => {
   return (
     <DragDropContext onDragEnd={dragHandler}>
       <InvitationHeader
-        board_id={props.boardId}
+        board_id={boardId}
         onCreateList={handleCreateList}
         setList={setList}
       />
@@ -123,7 +98,7 @@ const Board = (props) => {
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {/* <div
+              <div
                 className="board_list-container-box"
                 style={
                   snapshot.draggingOverWith
@@ -133,9 +108,9 @@ const Board = (props) => {
                       }
                     : null
                 }
-              > */}
-                {rederList}
-              {/* </div> */}
+              >
+                {rederList()}
+              </div>
               {provided.placeholder}
             </div>
           )}
