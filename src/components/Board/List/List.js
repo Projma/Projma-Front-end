@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
 import "./List.css";
+import React, { useState, useEffect } from "react";
+import useBoard from "../../../hooks/useBoard";
 import Card from "./Card/Card";
 import PerTextField from "../../Shared/PerTextField";
 import StyledTextField from "../../Shared/StyledTextField";
 import Popover from "@mui/material/Popover";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { v4 as uuid } from "uuid";
-import axios from "axios";
-import Loading from "../../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import "../../../styles/ReactToastify.css";
 import Dialog from "@mui/material/Dialog";
@@ -25,25 +24,31 @@ import {
   convertNumberToEnglish,
 } from "../../../utilities/helpers.js";
 
-const List = (props) => {
-  const [cards, setCards] = useState(props.card);
+const List = (
+  {
+    card,
+    name,
+    id,
+    index,
+    boardId
+  }
+) => {
+  const {addCardToList, removeList} = useBoard();
+  const [cards, setCards] = useState(card);
   const [addCard, setAddCard] = useState(false);
   const [cardName, setCardName] = useState("");
-  const [listName, setListName] = useState(props.name);
+  const [listName, setListName] = useState(name);
   const [anchorEl, setAnchorEl] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [req, setReq] = useState(false);
 
   const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const popover_id = open ? "simple-popover" : undefined;
 
   useEffect(() => {
-    setCards(props.card);
-  }, []);
+    setCards(card);
+  }, [card]);
 
-  useEffect(() => {
-    setCards(props.card);
-  }, [props]);
   const reqCreateCard = async (data, id) =>
     await apiInstance
       .post(`/workspaces/tasklist/${id}/create-task/`, data)
@@ -53,7 +58,7 @@ const List = (props) => {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        props.addCardToList(response.data, props.id);
+        addCardToList(response.data, id);
         // setCards((pervCards) => [...pervCards, response.data]);
       })
       .catch((error) => {
@@ -77,7 +82,7 @@ const List = (props) => {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        props.remId(id);
+        removeList(id);
       })
       .catch((error) => {
         if (error.response.status === 404) {
@@ -133,7 +138,7 @@ const List = (props) => {
     setReq(true);
     const data = new FormData();
     data.append("title", cardName);
-    reqCreateCard(data, props.id);
+    reqCreateCard(data, id);
     setCardName("");
   };
 
@@ -144,12 +149,12 @@ const List = (props) => {
     const data = new FormData();
     data.append("title", name);
     setReq(true);
-    reqEditListName(data, props.id, name);
+    reqEditListName(data, id, name);
   };
 
   const handleDeleteList = () => {
     setReq(true);
-    reqDeleteList(props.id);
+    reqDeleteList(id);
     handleClose();
   };
 
@@ -162,7 +167,7 @@ const List = (props) => {
   };
 
   return (
-    <Draggable draggableId={String(props.id) + props.name} index={props.index}>
+    <Draggable draggableId={String(id) + name} index={index}>
       {(provided) => (
         <div
           className="list_container"
@@ -170,7 +175,6 @@ const List = (props) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          {req ? <Loading /> : null}
           <ToastContainer autoClose={3000} style={{ fontSize: "1.2rem" }} />
           <Popover
             id={id}
@@ -318,7 +322,7 @@ const List = (props) => {
               </div>
             )}
           </div>
-          <Droppable droppableId={String(props.id)} type="task">
+          <Droppable droppableId={String(id)} type="task">
             {(provided, snapshot) => (
               <div
                 className="list_card-container"
@@ -339,7 +343,7 @@ const List = (props) => {
                     key={value.id}
                     cardId={value.id}
                     index={index}
-                    boardId={props.boardId}
+                    boardId={boardId}
                     remID={handleRemoveCard}
                   />
                 ))}
