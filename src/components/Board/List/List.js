@@ -32,15 +32,13 @@ const List = (
     boardId
   }
 ) => {
-  const {addCardToList, removeList, editListName} = useBoard();
+  const {addCardToList, removeList, editListName, setIsReq} = useBoard();
   const [cards, setCards] = useState(card);
   const [addCard, setAddCard] = useState(false);
   const [cardName, setCardName] = useState("");
   const [listName, setListName] = useState(name);
   const [anchorEl, setAnchorEl] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [req, setReq] = useState(false);
-
   const open = Boolean(anchorEl);
   const popover_id = open ? "simple-popover" : undefined;
 
@@ -69,7 +67,7 @@ const List = (
         }
       })
       .finally(() => {
-        setReq(null);
+        setIsReq(null);
         ////console.log("reqCreateCard Done");
       });
 
@@ -92,7 +90,7 @@ const List = (
         }
       })
       .finally(() => {
-        setReq(null);
+        setIsReq(null);
         ////console.log("reqDeleteList Done");
       });
 
@@ -116,7 +114,7 @@ const List = (
         }
       })
       .finally(() => {
-        setReq(null);
+        setIsReq(null);
       });
   };
 
@@ -134,7 +132,7 @@ const List = (
   const handleAddCardSubmit = (e) => {
     e.preventDefault();
     setAddCard(!addCard);
-    setReq(true);
+    setIsReq(true);
     const data = new FormData();
     data.append("title", cardName);
     reqCreateCard(data, id);
@@ -147,12 +145,12 @@ const List = (
     setListName(name);
     const data = new FormData();
     data.append("title", name);
-    setReq(true);
+    setIsReq(true);
     reqEditListName(data, id, name);
   };
 
   const handleDeleteList = () => {
-    setReq(true);
+    setIsReq(true);
     reqDeleteList(id);
     handleClose();
   };
