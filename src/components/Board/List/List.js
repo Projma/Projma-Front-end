@@ -6,8 +6,7 @@ import PerTextField from "../../Shared/PerTextField";
 import StyledTextField from "../../Shared/StyledTextField";
 import Popover from "@mui/material/Popover";
 import { Droppable, Draggable } from "react-beautiful-dnd";
-import { v4 as uuid } from "uuid";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -18,21 +17,10 @@ import apiInstance from "../../../utilities/axiosConfig";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
-import {
-  convertNumberToPersian,
-  convertNumberToEnglish,
-} from "../../../utilities/helpers.js";
+import { convertNumberToPersian } from "../../../utilities/helpers.js";
 
-const List = (
-  {
-    card,
-    name,
-    id,
-    index,
-    boardId
-  }
-) => {
-  const {addCardToList, removeList, editListName, setIsReq} = useBoard();
+const List = ({ card, name, id, index, boardId }) => {
+  const { addCardToList, removeList, editListName, setIsReq } = useBoard();
   const [cards, setCards] = useState(card);
   const [addCard, setAddCard] = useState(false);
   const [cardName, setCardName] = useState("");
@@ -40,11 +28,24 @@ const List = (
   const [anchorEl, setAnchorEl] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const open = Boolean(anchorEl);
-  const popover_id = open ? "simple-popover" : undefined;
+  //const popover_id = open ? "simple-popover" : undefined;
 
   useEffect(() => {
     setCards(card);
   }, [card]);
+
+  const renderCard = () => {
+    return cards.map((value, index) => (
+      <Card
+        task={value}
+        key={value.id}
+        cardId={value.id}
+        index={index}
+        boardId={boardId}
+        remID={handleRemoveCard}
+      />
+    ));
+  };
 
   const reqCreateCard = async (data, id) =>
     await apiInstance
@@ -103,7 +104,7 @@ const List = (
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        editListName(id,name);
+        editListName(id, name);
       })
       .catch((error) => {
         if (error.response.status === 404) {
@@ -121,6 +122,7 @@ const List = (
   const addCardClickHandler = () => {
     setAddCard(!addCard);
   };
+
   const optionClickHandler = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -141,7 +143,6 @@ const List = (
 
   const handleChangeListName = (name) => {
     name = convertNumberToPersian(name);
-    // alert(name);
     setListName(name);
     const data = new FormData();
     data.append("title", name);
@@ -172,7 +173,6 @@ const List = (
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          {/* <ToastContainer autoClose={3000} style={{ fontSize: "1.2rem" }} /> */}
           <Popover
             id={id}
             open={open}
@@ -252,7 +252,6 @@ const List = (
               <div className="list_header-title">
                 <InputName
                   name={convertNumberToPersian(listName)}
-                  // value={listName}
                   onChangeName={handleChangeListName}
                 />
               </div>
@@ -288,23 +287,18 @@ const List = (
                       InputProps={{
                         disableUnderline: true,
                         style: {
-                          // height: "50px",
-                          // padding: "0 14px",
                           fontFamily: "Vazir",
-                          // fontSize: "1.7rem",
                         },
                       }}
                       InputLabelProps={{
                         style: {
                           fontFamily: "Vazir",
-                          // fontSize: "1.6rem",
                         },
                       }}
                       sx={{
                         backgroundColor: "var(--main-item-color)",
                         borderBottom: "0.2rem solid var(--minor-item-color)",
                         borderRadius: "0.5rem",
-                        // borderRadius: "0.5rem",
                         "& input::placeholder": {
                           fontSize: "1.2rem",
                         },
@@ -334,16 +328,7 @@ const List = (
                     : null
                 }
               >
-                {cards.map((value, index) => (
-                  <Card
-                    task={value}
-                    key={value.id}
-                    cardId={value.id}
-                    index={index}
-                    boardId={boardId}
-                    remID={handleRemoveCard}
-                  />
-                ))}
+                {renderCard()}
                 {provided.placeholder}
               </div>
             )}
