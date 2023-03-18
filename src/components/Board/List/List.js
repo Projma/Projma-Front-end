@@ -8,7 +8,6 @@ import Popover from "@mui/material/Popover";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { v4 as uuid } from "uuid";
 import { toast, ToastContainer } from "react-toastify";
-import "../../../styles/ReactToastify.css";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -33,7 +32,7 @@ const List = (
     boardId
   }
 ) => {
-  const {addCardToList, removeList} = useBoard();
+  const {addCardToList, removeList, editListName} = useBoard();
   const [cards, setCards] = useState(card);
   const [addCard, setAddCard] = useState(false);
   const [cardName, setCardName] = useState("");
@@ -106,7 +105,7 @@ const List = (
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        setListName(name);
+        editListName(id,name);
       })
       .catch((error) => {
         if (error.response.status === 404) {
@@ -175,7 +174,7 @@ const List = (
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <ToastContainer autoClose={3000} style={{ fontSize: "1.2rem" }} />
+          {/* <ToastContainer autoClose={3000} style={{ fontSize: "1.2rem" }} /> */}
           <Popover
             id={id}
             open={open}
