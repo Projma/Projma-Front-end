@@ -100,12 +100,12 @@ export default function SignUp() {
       signup_form_data.append("first_name", firstName);
       signup_form_data.append("last_name", lastName);
       signup_form_data.append("username", username);
-      // signup_form_data.append("email", email);
-      signup_form_data.append("email", convertNumberToEnglish(document.getElementById("email").value));
+      signup_form_data.append(
+        "email",
+        convertNumberToEnglish(document.getElementById("email").value)
+      );
       signup_form_data.append("password", password);
       setIsPost(true);
-      // axios
-      //   .post("http://127.0.0.1:8000/accounts/users/signup/", signup_form_data)
       apiInstance
         .post("accounts/users/signup/", signup_form_data)
         .then((res) => {
@@ -162,32 +162,22 @@ export default function SignUp() {
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 3,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: "#001E3C" }}>
+          <Box className="Signup--Box">
+            <Avatar className="Signup--Box-Avatar">
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h1" variant="h5" style={style_of_fields}>
+            <Typography
+              className="Signup--Box-Type"
+              component="h1"
+              variant="h5"
+            >
               صفحه ثبت‌نام
             </Typography>
             <Box
               component="form"
               noValidate
               onSubmit={handleSubmit}
-              sx={{
-                mt: 3,
-                borderRadius: 3,
-                border: "1px solid none",
-                backgroundImage:
-                  "linear-gradient(to right bottom, #001E3C 0%, #0059B2 130%)",
-              }}
-              className="shadow registration-form"
+              className="shadow Signup-form"
             >
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
@@ -198,20 +188,14 @@ export default function SignUp() {
                     name="firstName"
                     autoComplete="family-name"
                     inputProps={{
-                      style: {
-                        height: "50px",
-                        padding: "0 14px",
-                        fontFamily: "Vazir",
-                        fontSize: "1.7rem",
-                      },
+                      className: "Signup--StyledTextField-inputProps",
                     }}
                     InputLabelProps={{
-                      style: input_text,
+                      className: "Signup--StyledTextField-InputText",
                     }}
                     value={convertNumberToPersian(firstName)}
                     onChange={(e) => {
                       setFirstName(convertNumberToEnglish(e.target.value));
-                      // ////console.log(firstName)
                     }}
                     error={errorFirstName}
                   />
@@ -225,15 +209,10 @@ export default function SignUp() {
                     label="نام خانوادگی"
                     autoFocus
                     inputProps={{
-                      style: {
-                        height: "50px",
-                        padding: "0 14px",
-                        fontFamily: "Vazir",
-                        fontSize: "1.7rem",
-                      },
+                      className: "Signup--StyledTextField-inputProps",
                     }}
                     InputLabelProps={{
-                      style: input_text,
+                      className: "Signup--StyledTextField-InputText",
                     }}
                     value={convertNumberToPersian(lastName)}
                     onChange={(e) =>
@@ -251,15 +230,10 @@ export default function SignUp() {
                     name="username"
                     autoComplete="username"
                     InputLabelProps={{
-                      style: input_text,
+                      className: "Signup--StyledTextField-InputText",
                     }}
                     inputProps={{
-                      style: {
-                        height: "50px",
-                        padding: "0 14px",
-                        fontFamily: "Vazir",
-                        fontSize: "1.7rem",
-                      },
+                      className: "Signup--StyledTextField-inputProps",
                     }}
                     value={convertNumberToPersian(username)}
                     onChange={(e) =>
@@ -276,18 +250,15 @@ export default function SignUp() {
                     label="ایمیل"
                     name="email"
                     // value={convertNumberToPersian(email)}
-                    defaultValue={state?.email ? convertNumberToPersian(state?.email) : ""}
+                    defaultValue={
+                      state?.email ? convertNumberToPersian(state?.email) : ""
+                    }
                     autoComplete="email"
                     InputLabelProps={{
-                      style: input_text,
+                      className: "Signup--StyledTextField-InputText",
                     }}
                     inputProps={{
-                      style: {
-                        height: "50px",
-                        padding: "0 14px",
-                        fontFamily: "Vazir",
-                        fontSize: "1.7rem",
-                      },
+                      className: "Signup--StyledTextField-inputProps",
                     }}
                     onChange={(e) => {
                       // ////console.log(email)
@@ -306,15 +277,10 @@ export default function SignUp() {
                     id="password"
                     autoComplete="new-password"
                     InputLabelProps={{
-                      style: input_text,
+                      className: "Signup--StyledTextField-InputText",
                     }}
                     inputProps={{
-                      style: {
-                        height: "50px",
-                        padding: "0 14px",
-                        fontFamily: "Vazir",
-                        fontSize: "1.7rem",
-                      },
+                      className: "Signup--StyledTextField-inputProps",
                     }}
                     onChange={(e) => setPassword(e.target.value)}
                     error={errorPassword}
@@ -323,21 +289,14 @@ export default function SignUp() {
               </Grid>
               <Typography
                 id="em"
-                sx={{
-                  mt: 1,
-                  textAlign: "right",
-                  color: "rgba(255, 0, 0, 0.837)",
-                  fontWeight: "bold",
-                  fontFamily: "Vazir",
-                  direction: "rtl",
-                }}
+                className="Signup--ShowError-type"
               ></Typography>
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                style={input_text}
+                className="Signup--StyledTextField-InputText"
               >
                 ثبت‌نام
               </Button>
@@ -346,16 +305,7 @@ export default function SignUp() {
                   <Link
                     href="/signin"
                     variant="body2"
-                    style={{
-                      width: "100%",
-                      fontFamily: "Vazir",
-                      fontSize: "100%",
-                      fontWeight: "bold",
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      marginBottom: "10%",
-                      color: "#e1e4e8",
-                    }}
+                    className="Signup--LinkToSignin"
                   >
                     اکانت دارید؟ وارد شوید
                   </Link>
@@ -369,15 +319,3 @@ export default function SignUp() {
     </CacheProvider>
   );
 }
-
-const input_text = {
-  color: "#fff",
-  fontFamily: "Vazir",
-  fontSize: "1.3rem",
-};
-
-const style_of_fields = {
-  textAlign: "right",
-  color: "white",
-  fontFamily: "Vazir",
-};
