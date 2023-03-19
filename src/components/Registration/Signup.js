@@ -162,12 +162,12 @@ export default function SignUp() {
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
-          <Box className="Signup--Box">
-            <Avatar className="Signup--Box-Avatar">
+          <Box className="Registration--Box">
+            <Avatar className="Registration--Box-Avatar">
               <LockOutlinedIcon />
             </Avatar>
             <Typography
-              className="Signup--Box-Type"
+              className="Registration--Box-Type"
               component="h1"
               variant="h5"
             >
@@ -177,7 +177,7 @@ export default function SignUp() {
               component="form"
               noValidate
               onSubmit={handleSubmit}
-              className="shadow Signup-form"
+              className="shadow Registration-form"
             >
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
@@ -188,10 +188,10 @@ export default function SignUp() {
                     name="firstName"
                     autoComplete="family-name"
                     inputProps={{
-                      className: "Signup--StyledTextField-inputProps",
+                      className: "Registration--StyledTextField-inputProps",
                     }}
                     InputLabelProps={{
-                      className: "Signup--StyledTextField-InputText",
+                      className: "Registration--StyledTextField-InputText",
                     }}
                     value={convertNumberToPersian(firstName)}
                     onChange={(e) => {
@@ -209,10 +209,10 @@ export default function SignUp() {
                     label="نام خانوادگی"
                     autoFocus
                     inputProps={{
-                      className: "Signup--StyledTextField-inputProps",
+                      className: "Registration--StyledTextField-inputProps",
                     }}
                     InputLabelProps={{
-                      className: "Signup--StyledTextField-InputText",
+                      className: "Registration--StyledTextField-InputText",
                     }}
                     value={convertNumberToPersian(lastName)}
                     onChange={(e) =>
@@ -230,10 +230,10 @@ export default function SignUp() {
                     name="username"
                     autoComplete="username"
                     InputLabelProps={{
-                      className: "Signup--StyledTextField-InputText",
+                      className: "Registration--StyledTextField-InputText",
                     }}
                     inputProps={{
-                      className: "Signup--StyledTextField-inputProps",
+                      className: "Registration--StyledTextField-inputProps",
                     }}
                     value={convertNumberToPersian(username)}
                     onChange={(e) =>
@@ -255,10 +255,10 @@ export default function SignUp() {
                     }
                     autoComplete="email"
                     InputLabelProps={{
-                      className: "Signup--StyledTextField-InputText",
+                      className: "Registration--StyledTextField-InputText",
                     }}
                     inputProps={{
-                      className: "Signup--StyledTextField-inputProps",
+                      className: "Registration--StyledTextField-inputProps",
                     }}
                     onChange={(e) => {
                       // ////console.log(email)
@@ -277,10 +277,10 @@ export default function SignUp() {
                     id="password"
                     autoComplete="new-password"
                     InputLabelProps={{
-                      className: "Signup--StyledTextField-InputText",
+                      className: "Registration--StyledTextField-InputText",
                     }}
                     inputProps={{
-                      className: "Signup--StyledTextField-inputProps",
+                      className: "Registration--StyledTextField-inputProps",
                     }}
                     onChange={(e) => setPassword(e.target.value)}
                     error={errorPassword}
@@ -289,14 +289,14 @@ export default function SignUp() {
               </Grid>
               <Typography
                 id="em"
-                className="Signup--ShowError-type"
+                className="Registration--ShowError-type"
               ></Typography>
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                className="Signup--StyledTextField-InputText"
+                className="Registration--StyledTextField-InputText"
               >
                 ثبت‌نام
               </Button>
@@ -305,7 +305,7 @@ export default function SignUp() {
                   <Link
                     href="/signin"
                     variant="body2"
-                    className="Signup--LinkToSignin"
+                    className="Registration--LinkToSignin"
                   >
                     اکانت دارید؟ وارد شوید
                   </Link>
