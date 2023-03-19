@@ -25,13 +25,13 @@
   cursor: pointer;
   text-transform: capitalize;
 }
-.Signup--Box-Avatar {
+.Registration--Box-Avatar {
   align-items: center;
   justify-content: center;
   background-color: #001e3c !important;
 }
 
-.Signup--Box {
+.Registration--Box {
   margin-top: 3;
   display: flex;
   flex-direction: column;
@@ -84,7 +84,13 @@ h2 {
   font-weight: 300;
 }
 
-.Signup--LinkToSignin {
+.Signin--Link {
+  font-family: "Vazir" !important;
+  font-size: 110% !important;
+  color: white;
+}
+
+.Registration--LinkToSignin {
   width: 100%;
   font-family: "Vazir" !important;
   font-size: 100% !important;
@@ -95,7 +101,7 @@ h2 {
   color: #e1e4e8;
 }
 
-.Signup--ShowError-type {
+.Registration--ShowError-type {
   margin-top: 5px !important;
   text-align: right;
   color: rgba(255, 0, 0, 0.837);
@@ -104,20 +110,20 @@ h2 {
   direction: rtl;
 }
 
-.Signup--StyledTextField-InputText {
+.Registration--StyledTextField-InputText {
   color: #fff;
   font-family: "Vazir" !important;
   font-size: 1.3rem !important;
 }
 
-.Signup--StyledTextField-inputProps {
+.Registration--StyledTextField-inputProps {
   height: 50px !important;
   padding: 0 14px !important;
   font-family: "Vazir" !important;
   font-size: 1.7rem !important;
 }
 
-.Signup-form {
+.Registration-form {
   display: inline-block;
   border: 1px solid;
   border-radius: 9px;
@@ -156,10 +162,18 @@ form span {
   margin-bottom: 10px;
 }
 
-.Signup--Box-Type {
+.Registration--Box-Type {
   text-align: right;
   color: white;
   font-family: "Vazir" !important;
+}
+
+.Signin--Box-Type {
+  font-family: "Vazir" !important;
+  font-size: 150% !important;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 4%;
 }
 
 .button_submit {
