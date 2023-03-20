@@ -131,14 +131,12 @@ export default function ChangePassword() {
       apiInstance
         .post("/accounts/profile/change-password/", change_password_form_data)
         .then((res) => {
-          ////console.log(res);
           toast.success("رمز عبور با موفقیت تغییر کرد", {
             position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
         })
         .catch((err) => {
-          ////console.log(err);
           toast.error("رمز عبور قبلی اشتباه است", {
             position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
@@ -159,59 +157,26 @@ export default function ChangePassword() {
       <ToastContainer />
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
-          <div className="profile-container profile-page" sty>
-            <div className="profile-information row-gap-8 profile-information-media">
-              <div className="profile-box-body-profile-container">
+          <div className="profile--container profile--page">
+            <div className="profile--information row-gap-8">
+              <div className="profile--box-body-profile-container">
                 <Avatar
-                  className="Avatar"
+                  className="Avatar profile--pictureView"
                   src={getImage !== null ? `${baseURL}${getImage}` : file}
                   alt="profile"
-                  sx={{
-                    mt: 1,
-                    width: "15vmin",
-                    height: "15vmin",
-                    borderRadius: "50%",
-                  }}
                 />
               </div>
               <div
                 className="flex-col row-gap-8 align-center"
                 style={{ width: "100%", marginTop: "20%" }}
               >
-                <h3
-                  style={{
-                    fontWeight: "400",
-                    fontSize: "90%",
-                    color: "white",
-                    justifyContent: "center",
-                    width: "100%",
-                    height: "100%",
-                  }}
-                  className="flex profile-information-fname-lname vazir"
-                >
+                <h3 className="flex profile--information-fname-lname profile--leftMenu-text">
                   {convertNumberToPersian(firstName)}
                 </h3>
-                <h3
-                  style={{
-                    fontWeight: "400",
-                    fontSize: "90%",
-                    color: "white",
-                    justifyContent: "center",
-                    width: "100%",
-                    height: "100%",
-                  }}
-                  className="flex profile-information-fname-lname vazir"
-                >
+                <h3 className="flex profile--information-fname-lname profile--leftMenu-text">
                   {convertNumberToPersian(lastName)}
                 </h3>
-                <h4
-                  style={{
-                    fontWeight: "400",
-                    fontSize: "90%",
-                    color: "white",
-                  }}
-                  className="neonText"
-                >
+                <h4 className="neonText profile--leftMenu-text">
                   {`${convertNumberToPersian(username)}@`}
                 </h4>
               </div>
@@ -222,21 +187,8 @@ export default function ChangePassword() {
                       className="flex-row-information"
                       style={{ alignItems: "center" }}
                     >
-                      <PersonIcon
-                        style={{
-                          color: "white",
-                          fontSize: "170%",
-                          marginLeft: "10%",
-                        }}
-                      ></PersonIcon>
-                      <h4
-                        style={{
-                          fontWeight: "400",
-                          fontSize: "90%",
-                          color: "white",
-                        }}
-                        className="neonText vazir"
-                      >
+                      <PersonIcon className="profile--rightMenu-icon"></PersonIcon>
+                      <h4 className="neonText profile--leftMenu-text">
                         اطلاعات حساب
                       </h4>
                     </div>
@@ -249,21 +201,8 @@ export default function ChangePassword() {
                         className="flex-row-information"
                         style={{ alignItems: "center" }}
                       >
-                        <PasswordIcon
-                          style={{
-                            color: "white",
-                            fontSize: "170%",
-                            marginLeft: "10%",
-                          }}
-                        ></PasswordIcon>
-                        <h4
-                          style={{
-                            fontWeight: "400",
-                            fontSize: "90%",
-                            color: "white",
-                          }}
-                          className="neonText vazir"
-                        >
+                        <PasswordIcon className="profile--rightMenu-icon"></PasswordIcon>
+                        <h4 className="neonText profile--leftMenu-text">
                           تغییر رمز عبور
                         </h4>
                       </div>
@@ -274,16 +213,14 @@ export default function ChangePassword() {
             </div>
 
             <Box
-              className="profile-box-changePassword"
+              className="profile--box-changePassword"
               component="form"
               onSubmit={handleSubmit}
             >
-              <div className="profile-box-header flex justify-between">
-                <h3 style={{ color: "white" }} className="neonText">
-                  تغییر رمز عبور
-                </h3>
+              <div className="profile--box-header flex justify-between">
+                <h3 className="neonText">تغییر رمز عبور</h3>
               </div>
-              <div className="profile-box-body">
+              <div className="profile--box-body">
                 <div
                   style={{
                     display: "flex",
@@ -300,7 +237,7 @@ export default function ChangePassword() {
                       name="password1"
                       type="password"
                       InputLabelProps={{
-                        style: input_text,
+                        className: "profile--styleTextField-labelText",
                       }}
                       onChange={(e) => setPassword(e.target.value)}
                       autoComplete="password"
@@ -324,7 +261,7 @@ export default function ChangePassword() {
                       name="password2"
                       type="password"
                       InputLabelProps={{
-                        style: input_text,
+                        className: "profile--styleTextField-labelText",
                       }}
                       onChange={(e) => setPassword2(e.target.value)}
                       autoComplete="password"
@@ -348,7 +285,7 @@ export default function ChangePassword() {
                       name="password3"
                       type="password"
                       InputLabelProps={{
-                        style: input_text,
+                        className: "profile--styleTextField-labelText",
                       }}
                       onChange={(e) => setPassword3(e.target.value)}
                       autoComplete="password"
@@ -369,7 +306,7 @@ export default function ChangePassword() {
                       fullWidth
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
-                      style={style_of_fields}
+                      className="profile--submitButton"
                     >
                       اعمال تغییرات
                     </Button>
@@ -393,16 +330,3 @@ export default function ChangePassword() {
     </div>
   );
 }
-
-const input_text = {
-  color: "#fff",
-  fontFamily: "Vazir",
-  height: "100px",
-};
-
-const style_of_fields = {
-  textAlign: "right",
-  color: "white",
-  fontFamily: "Vazir",
-  fontSize: "100%",
-};
