@@ -2,7 +2,7 @@
   font-family: Vazir;
 }
 
-.profile-container {
+.profile--container {
   width: 100% !important;
   height: 96vh;
   display: flex !important;
@@ -18,7 +18,7 @@
   place-items: center;
 }
 
-.profile-box {
+.profile--box {
   width: 28%;
   height: 90%;
   background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
@@ -56,46 +56,36 @@
 .row-gap-16 {
   row-gap: 50px;
 }
-.profile-box-header img {
+.profile--box-header img {
   width: 16px;
   height: 16px;
 }
 
-.profile-box-body {
+.profile--box-body {
   display: flex;
   flex-direction: column;
   margin-top: 16px;
   margin-bottom: 2%;
 }
 
-.profile-page {
+.profile--page {
   display: flex;
   flex-direction: row;
   column-gap: 15px;
   justify-content: center;
 }
 
-.profile-box-body-profile-container {
+.profile--box-body-profile-container {
   display: flex;
   column-gap: 16px;
 }
-.profile-box-body-profile-container img {
+.profile--box-body-profile-container img {
   width: 82px;
   height: 82px;
   border-radius: 50px;
 }
 
-.w-50 {
-  width: 50%;
-}
-
-.not-bold {
-  font-weight: 400;
-  font-size: 100%;
-  color: darkgrey;
-}
-
-.profile-information {
+.profile--information {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -135,6 +125,19 @@
 }
 .avatar-container:hover .Avatar {
   opacity: 0.3;
+}
+
+.profile--rightMenu-icon {
+  color: white;
+  font-size: 170% !important;
+  margin-left: 10%;
+}
+
+.profile--pictureView {
+  margin-top: 1;
+  width: 15vmin !important;
+  height: 15vmin !important;
+  border-radius: 50%;
 }
 
 @font-face {
@@ -211,7 +214,7 @@
   width: 100% !important;
 }
 
-.birthday-border-media {
+.profile--birthday-border {
   direction: "rtl";
   margin-top: 4%;
   margin-bottom: 4%;
@@ -223,13 +226,26 @@
   width: 100%;
 }
 
-.profile-information-fname-lname {
+.profile--information-fname-lname {
   max-width: 100%;
-  width: fit-content;
   overflow-x: auto;
+  width: 100%;
+  height: 40px;
 }
 
-.profile-information-fname-lname::-webkit-scrollbar {
+.profile--styleTextField-labelText {
+  color: #fff;
+  font-family: "Vazir" !important;
+  height: 100px;
+}
+
+.profile--leftMenu-text {
+  font-weight: 400 !important;
+  font-size: 90% !important;
+  color: white;
+}
+
+.profile--information-fname-lname::-webkit-scrollbar {
   background-color: rgb(36, 80, 174);
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
@@ -270,7 +286,7 @@
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
-.profile-view-show-box {
+.profile--view-show-box {
   row-gap: 7;
   width: 50%;
   height: fit-content;
@@ -291,7 +307,30 @@
   margin-top: 5%;
 }
 
-.profile-box-changePassword {
+.profile--submitButton {
+  text-align: right;
+  color: white;
+  font-family: "Vazir" !important;
+  font-size: 100% !important;
+}
+
+.profile--birthday-label {
+  margin-left: 2%;
+  color: #fff;
+  font-size: 14px !important;
+  font-family: "Vazir" !important;
+}
+
+.profile--errorText {
+  margin-top: 1;
+  text-align: right;
+  color: rgba(255, 0, 0, 0.837);
+  font-weight: bold;
+  font-family: "Vazir" !important;
+  margin-top: 5%;
+}
+
+.profile--box-changePassword {
   width: 25%;
   height: 90%;
   background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
@@ -301,7 +340,7 @@
   font-size: 16.5729px;
 }
 
-.profile-information-pro {
+.profile--information-pro {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -325,10 +364,8 @@
     justify-content: center;
     align-items: center;
   }
-  .profile-view-show-box {
+  .profile--view-show-box {
     margin-top: 10px;
-    height: fit-content;
-    width: 50%;
   }
   .profile-total-page {
     height: 100%;
@@ -352,16 +389,13 @@
     width: 100px !important;
     height: 100px !important;
   }
-  .profile-box {
+  .profile--box {
     width: 65% !important;
     padding: 0%;
     height: fit-content;
     padding-top: 5%;
   }
-  .otherStyledTextField-media {
-    width: 100% !important;
-  }
-  .profile-container {
+  .profile--container {
     height: 828px;
     width: 150%;
     margin-top: -35px;
@@ -369,19 +403,16 @@
     justify-content: center;
   }
   .flex-row-information {
-    /* width: 100px; */
     font-size: 10px;
     justify-content: flex-end;
-    /* margin-top: 20px; */
-    /* margin-right: -70px; */
   }
-  .birthday-border-media {
+  .profile--birthday-border {
     padding-left: 100%;
   }
   .rmdp-input {
     width: 212px !important;
   }
-  .birthday-media {
+  .profile--birthday-media {
     width: 100px;
   }
   .show-box-media {
@@ -392,29 +423,26 @@
   .email-font-size {
     font-size: 12px;
   }
-  .bio-media {
+  .profile--bio-media {
     height: 300px;
     width: 100%;
   }
-  .profile-information {
+
+  .profile--information {
     height: 656px;
     width: 25% !important;
-    align-items: center;
-    display: flex;
     padding-top: 10px;
     justify-content: flex-start;
-    flex-direction: column;
   }
-  .profile-information-pro {
+
+  .profile--information-pro {
     height: 757px;
     width: 28% !important;
     padding-top: 5%;
     align-items: center;
-    display: flex;
     justify-content: flex-start;
-    flex-direction: column;
   }
-  .profile-box-body {
+  .profile--box-body {
     width: 90%;
     padding-right: 5%;
     padding-left: 0%;
@@ -427,20 +455,20 @@
     color: rgba(255, 255, 255, 0);
     border-radius: 0px;
   }
-  .profile-box-header {
+  .profile--box-header {
     padding-top: 5%;
     justify-content: center;
   }
-  .profile-box-profile-view {
+  .profile--box-profile-view {
     width: 100%;
     padding: 0% !important;
   }
-  .profile-information-fname-lname {
+  .profile--information-fname-lname {
     justify-content: center;
     align-items: center;
     width: 200px;
   }
-  .profile-box-changePassword {
+  .profile--box-changePassword {
     width: 65% !important;
     padding: 0%;
     padding-top: 5%;
@@ -448,11 +476,7 @@
   }
 }
 
-.vazir {
-  font-family: Vazir;
-}
-
-.profile-box-profile-view {
+.profile--box-profile-view {
   background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
   border-radius: 53px;
   width: 50%;
