@@ -14,41 +14,15 @@ import TaskModal_Activity from "./Taskmodal-Activity";
 import Attachments from "./Attachments";
 import CheckList from "./Checklist";
 import "../../styles/TaskModal.css";
-import profile_preview from "../../static/images/profile/profile-preview.png";
-import userEvent from "@testing-library/user-event";
-import { fontWeight } from "@mui/system";
 import { useState, useCallback } from "react";
-import axios from "axios";
-import StyledTextField from "../Shared/StyledTextField";
 import { CacheProvider } from "@emotion/react";
-import { useParams } from "react-router";
-import { red } from "@mui/material/colors";
-import { useDispatch, useSelector } from "react-redux";
-import { Calendar } from "react-multi-date-picker";
-import DatePicker from "react-multi-date-picker";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
 import { Button } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
-import TextField from "@mui/material/TextField";
 import apiInstance from "../../utilities/axiosConfig";
 import PersonIcon from "@mui/icons-material/Person";
-import PasswordIcon from "@mui/icons-material/Password";
-import { Box } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import { FormControl } from "@mui/material";
-
-import ContentPasteIcon from "@mui/icons-material/ContentPaste";
-import DehazeIcon from "@mui/icons-material/Dehaze";
-import LabelIcon from "@mui/icons-material/Label";
-import Checkbox from "@mui/material/Checkbox";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Calendarr } from "react-multi-date-picker";
-import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
 import { convertNumberToPersian } from "../../utilities/helpers";
 import Loading from "../Shared/Loading";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const theme = createTheme({
@@ -177,12 +151,8 @@ export default function TaskModal(props) {
     );
   };
 
-  const [show, setShow] = useState(false);
-
   const [ListOfComments, setListOfComments] = useState([]);
-
   const [ListOfDoers, setListOfDoers] = useState([]);
-
   const [user, setUser] = useState({});
   const [allChecklists, setAllChecklists] = useState([]);
   const [ListOfLabels, setListOfLabels] = useState([]);
@@ -190,14 +160,10 @@ export default function TaskModal(props) {
   const [estimate, setEstimate] = useState("");
   const [tasklistName, setTasklistName] = useState("");
   const [done, setDone] = useState("");
-
   const [dueDate, setDueDate] = useState("");
-
   const [isPost, setIsPost] = useState(false);
   const [allAttachments, setAllAttachments] = useState([]);
-
   const [description, setDescription] = useState("");
-
   const [title, setTitle] = useState("");
 
   useEffect(() => {
@@ -271,11 +237,11 @@ export default function TaskModal(props) {
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
           <div
-            className="taskmodal-page"
+            className="taskmodal--page"
             style={{ width: "50vw", marginTop: 0 }}
           >
-            <div className="taskmodal-container" style={{ width: "100%" }}>
-              <div className="taskmodal-header flex-row flex-column-gap-2">
+            <div className="taskmodal--container" style={{ width: "100%" }}>
+              <div className="taskmodal--header flex-row flex-column-gap-2">
                 <div className="flex-taskmodal" style={{ marginTop: "3px" }}>
                   <PersonIcon
                     fontSize="large"
@@ -286,31 +252,21 @@ export default function TaskModal(props) {
                   className="flex-column"
                   style={{ gap: "9%", width: "100%" }}
                 >
-                  <div className="neonText taskmodal-title">{title}</div>
-                  <div className="neonText taskmodal-subtitle">
+                  <div className="neonText taskmodal--title">{title}</div>
+                  <div className="neonText taskmodal--subtitle">
                     در لیست {tasklistName}
                   </div>
                 </div>
               </div>
               <div
-                className="taskmodal-larger_smaller"
+                className="taskmodal--larger_smaller"
                 style={{ height: "80%", marginRight: "2%" }}
               >
-                <div className="taskmodal-body-larger">
-                  <div className="flex-row taskmodal-body-options flex-gap">
-                    <div className="taskmodal-body-members">
-                      <div className="taskmodel-body-members-title">اعضا</div>
-                      <div
-                        className="flex-gap"
-                        style={{
-                          width: "100%",
-                          display: "flex",
-                          flexDirection: "row",
-                          flexGrow: 1,
-                          alignItems: "flex-start",
-                          gap: "3%",
-                        }}
-                      >
+                <div className="taskmodal--body-larger">
+                  <div className="flex-row taskmodal--body-options flex-gap">
+                    <div className="taskmodal--body-members">
+                      <div className="taskmodel--body-members-title">اعضا</div>
+                      <div className="flex-gap Taskmodal--body-members-icons">
                         {ListOfDoers.map((doer) => (
                           <InitialIconcircle
                             initials={doer}
@@ -318,26 +274,17 @@ export default function TaskModal(props) {
                         ))}
                       </div>
                     </div>
-                    <div className="taskmodal-body-labels">
-                      <div className="taskmodel-body-members-title">برچسب</div>
-                      <div
-                        className="flex-gap"
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          flexGrow: 1,
-                          alignItems: "flex-start",
-                          gap: "3%",
-                        }}
-                      >
+                    <div className="taskmodal--body-labels">
+                      <div className="taskmodel--body-members-title">برچسب</div>
+                      <div className="flex-gap Taskmodal--body-labels-icons">
                         {ListOfLabels.map((label) => (
                           <InitialIcon initials={label}></InitialIcon>
                         ))}
                       </div>
                     </div>
-                    <div className="taskmodal-body-duetime">
+                    <div className="taskmodal--body-duetime">
                       <div
-                        className="flex-taskmodal taskmodel-body-members-title"
+                        className="flex-taskmodal taskmodel--body-members-title"
                         style={{ marginBottom: "0px" }}
                       >
                         تاریخ اتمام
@@ -346,17 +293,9 @@ export default function TaskModal(props) {
                         className="flex-taskmodal"
                         style={{ display: "flex", justifyContent: "center" }}
                       >
-                        <div
-                          style={{
-                            width: "47%",
-                            height: "37px",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
+                        <div className="Taskmodal--body-dueDate">
                           {dueDate.toString() != "null" ? (
-                            <div className="duetime-showDate">
+                            <div className="taskmodal--duetime-showDate">
                               {dueDate.toString().replaceAll("-", "/")}
                             </div>
                           ) : (
@@ -392,7 +331,7 @@ export default function TaskModal(props) {
                     setEstimate={setEstimate}
                   />
                 </div>
-                <div className="flex-column taskmodal-body-smaller">
+                <div className="flex-column taskmodal--body-smaller">
                   <Members
                     params={params}
                     setDoers={setListOfDoers}
