@@ -111,19 +111,22 @@ export default function Taskmodal_CheckList({
   };
   return (
     <div>
-      <div className="flex-row taskmodal-body-checklist">
-        <div className="flex-taskmodal taskmodal-body-checklist-icon">
+      <div className="flex-row taskmodal--body-checklist">
+        <div className="flex-taskmodal taskmodal--body-checklist-icon">
           <ContentPasteIcon
             fontSize="large"
             sx={{ color: "white" }}
           ></ContentPasteIcon>
         </div>
-        <div className="taskmodal-body-checklist-body" style={{ width: "90%" }}>
-          <div className="flex-taskmodal taskmodal-body-checklist-title">
-            <div className="neonText taskmodal-description-title">
+        <div
+          className="taskmodal--body-checklist-body"
+          style={{ width: "90%" }}
+        >
+          <div className="flex-taskmodal taskmodal--body-checklist-title">
+            <div className="neonText taskmodal--description-title">
               لیست کنترل
             </div>
-            <div className="taskmodal-body-checklist-title-icons"></div>
+            <div className="taskmodal--body-checklist-title-icons"></div>
           </div>
 
           {allChecklists.map((item) => (
@@ -155,23 +158,19 @@ export default function Taskmodal_CheckList({
                         }
                       }}
                       variant="contained"
-                      className="taskmodal-button-setting"
-                      style={{ fontFamily: "Vazir" }}
+                      className="taskmodal--button-setting"
                     >
                       ذخیره
                     </Button>
                     <Button
                       variant="outlined"
-                      className="taskmodal-button-setting"
+                      className="taskmodal--button-setting"
                       onClick={() => {
                         setEditCheckList((oldState) => {
                           const newState = [...oldState];
                           newState[item.id] = false;
                           return newState;
                         });
-                      }}
-                      style={{
-                        fontFamily: "Vazir",
                       }}
                     >
                       لغو
@@ -198,14 +197,7 @@ export default function Taskmodal_CheckList({
                   />
                   {item.is_done ? (
                     <Button
-                      className="taskmodal-checklist-showList Vazir"
-                      style={{
-                        textDecoration: "line-through",
-                        fontSize: "12px",
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        color: "white",
-                      }}
+                      className="taskmodal--checklist-showList Vazir"
                       onClick={() => {
                         setEditCheckList((oldState) => {
                           const newState = [...oldState];
@@ -219,13 +211,7 @@ export default function Taskmodal_CheckList({
                     </Button>
                   ) : (
                     <Button
-                      className="taskmodal-checklist-showList Vazir"
-                      style={{
-                        fontSize: "12px",
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        color: "white",
-                      }}
+                      className="taskmodal--checklist-showList Vazir"
                       onClick={() => {
                         setEditCheckList((oldState) => {
                           const newState = [...oldState];
@@ -241,14 +227,8 @@ export default function Taskmodal_CheckList({
                   <div className="flex-row">
                     <Button
                       onClick={() => handleRemoveChecklist(item.id)}
-                      sx={{
-                        fontFamily: "Vazir",
-                        fontSize: "10px",
-                        paddingLeft: "0px",
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        color: "white",
-                      }}
+                      className="taskmodal--button-setting Vazir"
+                      style={{ color: "white" }}
                     >
                       حذف
                     </Button>
@@ -260,7 +240,7 @@ export default function Taskmodal_CheckList({
           <Box
             component="form"
             onSubmit={AddCheckList}
-            className="taskmodal-body-larger-description-textbox"
+            className="taskmodal--body-larger-description-textbox"
           >
             {showChecklist ? (
               <div>
@@ -272,17 +252,15 @@ export default function Taskmodal_CheckList({
                   <Button
                     type="submit"
                     variant="contained"
-                    className="taskmodal-button-setting"
-                    style={{ fontFamily: "Vazir" }}
+                    className="taskmodal--button-setting"
                   >
                     ذخیره
                   </Button>
                   <Button
                     variant="outlined"
-                    className="taskmodal-button-setting"
+                    className="taskmodal--button-setting"
                     onClick={() => setShowChecklist(false)}
                     style={{
-                      fontFamily: "Vazir",
                       marginLeft: "2%",
                     }}
                   >
