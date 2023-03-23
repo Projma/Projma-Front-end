@@ -1,32 +1,23 @@
 import * as React from "react";
 import Popover from "@mui/material/Popover";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import LabelIcon from "@mui/icons-material/Label";
 import Divider from "@mui/material/Divider";
 import "../../styles/TaskModal.css";
 import "./DueTime.scss";
 import "./Members.scss";
-import { CheckBox } from "@mui/icons-material";
-import { waitFor } from "@testing-library/react";
-import PersonIcon from "@mui/icons-material/Person";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { useEffect } from "react";
 import apiInstance from "../../utilities/axiosConfig";
 import { baseUrl } from "../../utilities/constants";
-import { DatePicker } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Calendar } from "react-multi-date-picker";
 import Loading from "../Shared/Loading";
-import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
 import "./calendar.css";
+
 export default function DueTime({ params, dueDate, setDueTime }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [changeMemberStatus, setChangeMemberStatus] = React.useState(false);
   const [value, setValue] = React.useState(new Date());
-  const [date, setDate] = React.useState(dueDate);
   const [isPost, setIsPost] = React.useState(false);
   const [changeDate, setChangeDate] = React.useState(false);
 
@@ -40,7 +31,6 @@ export default function DueTime({ params, dueDate, setDueTime }) {
 
   const submitDate = () => {
     handleClose();
-    ////console.log(value);
     const startDate = new Date();
     let date = "";
     if (!value.toString().includes("Standard")) {
@@ -110,10 +100,10 @@ export default function DueTime({ params, dueDate, setDueTime }) {
   };
 
   return (
-    <div className="taskmodal-flexibale-icon">
+    <div className="taskmodal--flexibale-icon">
       {isPost ? <Loading /> : null}
       <Button
-        className="taskmodal-smaller-button-inner"
+        className="taskmodal--smaller-button-inner"
         aria-describedby={id}
         variant="contained"
         onClick={handleClick}
@@ -127,7 +117,7 @@ export default function DueTime({ params, dueDate, setDueTime }) {
         }}
       >
         <AccessTimeIcon rotate="90" fontSize="large"></AccessTimeIcon>{" "}
-        <div style={{ fontSize: "124%" }} className="taskmodal-smaller-button">
+        <div style={{ fontSize: "124%" }} className="taskmodal--smaller-button">
           زمان اتمام
         </div>
       </Button>
@@ -150,7 +140,7 @@ export default function DueTime({ params, dueDate, setDueTime }) {
             <h2 className="tm-duetime-header-title ">زمان اتمام</h2>
             <Divider sx={{ backgroundColor: "black" }} />
           </header>
-          <div className="taskmodal-duetime-body">
+          <div className="taskmodal--duetime-body">
             <Calendar
               className="background-blue"
               value={value}
@@ -163,16 +153,22 @@ export default function DueTime({ params, dueDate, setDueTime }) {
               calendarPosition="bottom-right"
             />
           </div>
-          <div className="duetime-text">
+          <div className="taskmodal--duetime-text">
             <div>زمان اتمام</div>
             {!value.toString().includes("Standard") ? (
-              <div className="duetime-showDate" style={{ padding: "6%" }}>
+              <div
+                className="taskmodal--duetime-showDate"
+                style={{ padding: "6%" }}
+              >
                 <div>
                   {value?.year + "/" + value?.month?.number + "/" + value?.day}
                 </div>
               </div>
             ) : (
-              <div className="duetime-showDate" style={{ padding: "6%" }}>
+              <div
+                className="taskmodal--duetime-showDate"
+                style={{ padding: "6%" }}
+              >
                 {dueDate.toString() != "null" ? (
                   <div>{dueDate.toString().replaceAll("-", "/")}</div>
                 ) : (
