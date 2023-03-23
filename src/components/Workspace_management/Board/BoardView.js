@@ -10,19 +10,22 @@ const BoardView = (props) => {
   const [isStarred, setIsStarred] = useState();
   React.useEffect(() => {
     setIsStarred(props.is);
-    return () => {setIsStarred(false);};
+    return () => {
+      setIsStarred(false);
+    };
   }, [props.is]);
   const clickHandler = (e) => {
     e.stopPropagation();
     props.onLoading();
-    apiInstance.post(`workspaces/board/${props.id}/toggle-myboard-star/`).then(() => {
-      const flag = !isStarred;
-      const id = props.id;
-      setIsStarred(flag);
-      ////console.log(flag);
-      const data = { id: id, is: flag };
-      props.onStarred(data);
-    });
+    apiInstance
+      .post(`workspaces/board/${props.id}/toggle-myboard-star/`)
+      .then(() => {
+        const flag = !isStarred;
+        const id = props.id;
+        setIsStarred(flag);
+        const data = { id: id, is: flag };
+        props.onStarred(data);
+      });
   };
 
   return (
@@ -32,7 +35,9 @@ const BoardView = (props) => {
         e.stopPropagation();
         navigate(`/kanban/${props.id}`);
       }}
-      style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(${props.pic})`}}
+      style={{
+        backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(${props.pic})`,
+      }}
     >
       <button
         className="workspace--view"
@@ -63,7 +68,7 @@ const BoardView = (props) => {
             >
               <StarIcon
                 className="workspace--board-icon"
-                sx={{ "& :hover": { color: "yellow" },"&": { color: "#fff" } }}
+                sx={{ "& :hover": { color: "yellow" }, "&": { color: "#fff" } }}
                 style={{ fontSize: "1.6rem" }}
               />
             </button>
