@@ -50,7 +50,7 @@ export default function Description({ params, description, setDescription }) {
   return (
     <div>
       <div
-        className="flex-row taskmodal-body-larger-description"
+        className="flex-row taskmodal--body-larger-description"
         style={{ gap: "3%", fontFamily: "Vazir" }}
       >
         <div className="flex-taskmodal">
@@ -58,7 +58,7 @@ export default function Description({ params, description, setDescription }) {
         </div>
         <div className="flex-column" style={{ width: "90%" }}>
           <div
-            className="neonText taskmodal-description-title"
+            className="neonText taskmodal--description-title"
             style={{ marginBottom: "2%" }}
           >
             توضیحات
@@ -66,7 +66,7 @@ export default function Description({ params, description, setDescription }) {
           <Box
             component="form"
             onSubmit={handleSubmit}
-            className="taskmodal-body-larger-description-textbox"
+            className="taskmodal--body-larger-description-textbox"
           >
             {showdescription ? (
               <div>
@@ -92,17 +92,15 @@ export default function Description({ params, description, setDescription }) {
                   <Button
                     type="submit"
                     variant="contained"
-                    className="taskmodal-button-setting"
-                    style={{ fontFamily: "Vazir" }}
+                    className="taskmodal--button-setting"
                   >
                     ذخیره
                   </Button>
                   <Button
                     variant="outlined"
-                    className="taskmodal-button-setting"
+                    className="taskmodal--button-setting"
                     onClick={() => setShowDescription(false)}
                     style={{
-                      fontFamily: "Vazir",
                       marginLeft: "2%",
                     }}
                   >
@@ -114,59 +112,30 @@ export default function Description({ params, description, setDescription }) {
               <div style={{ marginBottom: "2px" }}>
                 {description == "" || description == null ? (
                   <Button
-                    className="taskmodal-closeButton"
+                    className="taskmodal--closeButton"
                     onClick={() => setShowDescription(true)}
-                    sx={{
-                      fontFamily: "Vazir",
-                      color: "white",
-                      fontSize: "100%",
-                      bgcolor: "#1d4b7a",
-                    }}
                   >
                     اضافه کردن جزئیات بیشتر
                   </Button>
                 ) : (
                   <div>
                     <Typography
-                      className="taskmodal-comment-showList-comment"
-                      style={{
-                        height: "70px",
-                        // width: "100%",
-                        padding: "5%",
-                        borderRadius: "10px",
-                        marginRight: "0px",
-                        color: "white",
-                        overflow: "auto",
-                        fontFamily: "Vazir",
-                        fontSize: "128%",
-                      }}
+                      className="taskmodal--description-showList-comment"
                       multiline
                       rows={2}
                       // defalutValue={description}
                     >
                       {description}
                     </Typography>
-                    <div className="taskmodal-comment-button">
+                    <div className="taskmodal--comment-button">
                       <Button
                         onClick={handleDeleteDescription}
-                        sx={{
-                          fontFamily: "Vazir",
-                          color: "white",
-                          fontSize: "10px",
-                          paddingRight: "0px",
-                          textDecoration: "underline",
-                        }}
+                        className="taskmodal--comment-button-remove"
                       >
                         حذف
                       </Button>
                       <Button
-                        sx={{
-                          fontFamily: "Vazir",
-                          color: "white",
-                          fontSize: "10px",
-                          paddingLeft: "0px",
-                          textDecoration: "underline",
-                        }}
+                        className="taskmodal--comment-button-remove"
                         onClick={() => {
                           setShowDescription(true);
                         }}
