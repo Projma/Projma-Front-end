@@ -25,18 +25,20 @@ export default function Taskmodal_Attachment({
 
   return (
     <div>
-      <div className="taskmodal-body-attachment">
-        <div className="flex-row taskmodal-body-attachment-header">
-          <div className="flex-taskmodal taskmodal-body-attachment-icon">
+      <div className="taskmodal--body-attachment">
+        <div className="flex-row taskmodal--body-attachment-header">
+          <div className="flex-taskmodal taskmodal--body-attachment-icon">
             <AttachFileIcon
               fontSize="large"
               sx={{ color: "white" }}
             ></AttachFileIcon>
           </div>
-          <div className="flex neonText taskmodal-description-title">پیوست</div>
+          <div className="flex neonText taskmodal--description-title">
+            پیوست
+          </div>
         </div>
         <div>
-          <div className="taskmodal-body-attachment-list">
+          <div className="taskmodal--body-attachment-list">
             {allAttachments.map((item, i) => (
               <div
                 style={{
@@ -48,19 +50,19 @@ export default function Taskmodal_Attachment({
                 <Button
                   // component={Link}
                   href={`${item.file}`}
-                  className="taskmodal-attachment-link-btn"
+                  className="taskmodal--attachment-link-btn"
                 >
-                  <div className="flex-taskmodal taskmodal-body-attachment-list-item-icon">
+                  <div className="flex-taskmodal taskmodal--body-attachment-list-item-icon">
                     <AttachFileIcon
                       sx={{ color: "white", fontSize: "46px" }}
                     ></AttachFileIcon>
                   </div>
-                  <div className="flex-row taskmodal-body-attachment-list-item">
-                    <div className="flex-taskmodal taskmodal-body-attachment-list-item-title">
+                  <div className="flex-row taskmodal--body-attachment-list-item">
+                    <div className="flex-taskmodal taskmodal--body-attachment-list-item-title">
                       {item?.file?.toString()?.split("/")[5]}
                     </div>
                     <div className="flex-row">
-                      <div className="flex-taskmodal taskmodal-body-attachment-list-item-createdTime">
+                      <div className="flex-taskmodal taskmodal--body-attachment-list-item-createdTime">
                         <div style={{ width: "72px" }}>{item.created_at}</div>
                       </div>
                     </div>
@@ -68,15 +70,7 @@ export default function Taskmodal_Attachment({
                 </Button>
                 <Button
                   onClick={() => handleRemoveAttachment(item.id)}
-                  sx={{
-                    fontFamily: "Vazir",
-                    fontSize: "10px",
-                    display: "flex",
-                    paddingTop: "0px",
-                    marginLeft: "2%",
-                    justifyContent: "center",
-                    color: "white",
-                  }}
+                  className="taskmodal--attachment-remove-btn"
                 >
                   حذف
                 </Button>
