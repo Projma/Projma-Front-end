@@ -5,8 +5,6 @@ import StyledTextField from "../Shared/StyledTextField";
 import { Button } from "@mui/material";
 import apiInstance from "../../utilities/axiosConfig";
 import { Box } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import DehazeIcon from "@mui/icons-material/Dehaze";
 import { convertNumberToPersian } from "../../utilities/helpers";
 import { toast } from "react-toastify";
 import CommentIcon from "@mui/icons-material/Comment";
@@ -25,17 +23,14 @@ export default function TaskModal_Activity({
   setEstimate,
 }) {
   const baseURL = baseUrl.substring(0, baseUrl.length - 1);
-  const [taskdoner, setTaskDoner] = useState("");
   const [EditCommentList, setEditCommentList] = useState(
     Array(1000).fill(false)
   );
   const [changePlus, setChangePlus] = useState(false);
   const [Comment, setComment] = useState("");
-  const [editcomment, setEditComment] = useState(false);
   const [editcommentText, setEditCommentText] = useState("");
   const [showComment, setShowComment] = useState(false);
   const [isPost, setIsPost] = useState(false);
-  const [listOfCheckboxes, setListOfCheckboxes] = useState([]);
 
   const randColor = () => {
     return (
@@ -95,9 +90,7 @@ export default function TaskModal_Activity({
                 color: "white",
                 fontSize: "12px",
               }}
-            >
-              {/* {initials.first_name[0] + "‌" + initials.last_name[0]} */}
-            </div>
+            ></div>
           )}
         </div>
       </Button>
@@ -213,16 +206,16 @@ export default function TaskModal_Activity({
 
   return (
     <div>
-      <div className="taskmodal-body-activity">
-        <div className="flex-row taskmodal-body-activity-header">
-          <div className="flex-taskmodal taskmodal-body-activity-icon">
+      <div className="taskmodal--body-activity">
+        <div className="flex-row taskmodal--body-activity-header">
+          <div className="flex-taskmodal taskmodal--body-activity-icon">
             <CommentIcon fontSize="large" sx={{ color: "white" }}></CommentIcon>
           </div>
-          <div className="flex neonText taskmodal-description-title">
+          <div className="flex neonText taskmodal--description-title">
             فعالیت
           </div>
         </div>
-        <div className="taskmodal-plusforprojma">
+        <div className="taskmodal--plusforprojma">
           <Box
             onSubmit={plusforprojma}
             component="form"
@@ -231,12 +224,7 @@ export default function TaskModal_Activity({
             <StyledTextField
               size="small"
               variant="outlined"
-              sx={{
-                width: "20%",
-                color: "white",
-                paddingLeft: "0px",
-                paddingRight: "0px",
-              }}
+              className="taskmodal--activity-StyledTextField"
               label="تخمین"
               name="estimate"
               id="estimate"
@@ -256,11 +244,8 @@ export default function TaskModal_Activity({
             <StyledTextField
               size="small"
               variant="outlined"
+              className="taskmodal--activity-StyledTextField"
               sx={{
-                width: "20%",
-                color: "white",
-                paddingLeft: "0px",
-                paddingRight: "0px",
                 marginLeft: "3%",
               }}
               label="عملی"
@@ -281,17 +266,7 @@ export default function TaskModal_Activity({
             />
             {changePlus ? (
               <Button
-                style={{
-                  marginRight: "13%",
-                  borderRadius: "6px",
-                  borderColor: "white",
-                  display: "flex",
-                  alignItems: "center",
-                  color: "white",
-                  fontFamily: "Vazir",
-                  fontSize: "10px",
-                  height: "30%",
-                }}
+                className="taskmodal--activity-plusforprojma-button"
                 // type="submit"
                 onClick={plusforprojma}
                 variant="contained"
@@ -303,9 +278,9 @@ export default function TaskModal_Activity({
             )}
           </Box>
         </div>
-        <div className="flex-row taskmodal-body-activity-body">
-          <div className="flex taskmodal-body-activity-body-icon">
-            <div className="flex taskmodal-body-activity-body-icon">
+        <div className="flex-row taskmodal--body-activity-body">
+          <div className="flex taskmodal--body-activity-body-icon">
+            <div className="flex taskmodal--body-activity-body-icon">
               {user.profile_pic !== null ? (
                 <img
                   src={`${baseURL}${user.profile_pic}`}
@@ -328,7 +303,7 @@ export default function TaskModal_Activity({
           <Box
             component="form"
             onSubmit={handleCommentSubmit}
-            className="flex-column taskmodal-body-activity-box"
+            className="flex-column taskmodal--body-activity-box"
           >
             {showComment ? (
               <div>
@@ -350,17 +325,15 @@ export default function TaskModal_Activity({
                   <Button
                     type="submit"
                     variant="contained"
-                    className="taskmodal-button-setting"
-                    style={{ fontFamily: "Vazir" }}
+                    className="taskmodal--button-setting"
                   >
                     ذخیره
                   </Button>
                   <Button
                     variant="outlined"
-                    className="taskmodal-button-setting"
+                    className="taskmodal--button-setting"
                     onClick={() => setShowComment(false)}
                     style={{
-                      fontFamily: "Vazir",
                       marginLeft: "2%",
                     }}
                   >
@@ -370,27 +343,21 @@ export default function TaskModal_Activity({
               </div>
             ) : (
               <Button
-                className="taskmodal-closeButton"
+                className="taskmodal--closeButton"
                 onClick={() => setShowComment(true)}
-                sx={{
-                  fontFamily: "Vazir",
-                  color: "white",
-                  fontSize: "100%",
-                  bgcolor: "#1d4b7a",
-                }}
               >
                 نوشتن کامنت
               </Button>
             )}
           </Box>
         </div>
-        <div className="taskmodal-body-listofcomments">
+        <div className="taskmodal--body-listofcomments">
           {ListOfComments.map((item, index) => (
             <div
-              className="flex-row taskmodal-listofcomments-item"
+              className="flex-row taskmodal--listofcomments-item"
               style={{ justifyContent: "space-between" }}
             >
-              <div className="flex taskmodal-body-activity-body-icon">
+              <div className="flex taskmodal--body-activity-body-icon">
                 {item.sender?.profile_pic !== null ? (
                   <img
                     src={
@@ -415,12 +382,12 @@ export default function TaskModal_Activity({
                   ></InitialIconcircle>
                 )}
               </div>
-              <div className="taskmodal-comment-showList">
-                <div className="flex-row taskmodal-comment-showList-auther">
-                  <div className="taskmodal-comment-showList-auther-name">
+              <div className="taskmodal--comment-showList">
+                <div className="flex-row taskmodal--comment-showList-auther">
+                  <div className="taskmodal-comment--showList-auther-name">
                     {item.sender?.first_name + " " + item.sender?.last_name}
                   </div>
-                  <div className="taskmodal-comment-showList-auther-time">
+                  <div className="taskmodal--comment-showList-auther-time">
                     {item.updated}
                   </div>
                 </div>
@@ -458,14 +425,13 @@ export default function TaskModal_Activity({
                           );
                         }}
                         variant="contained"
-                        className="taskmodal-button-setting"
-                        style={{ fontFamily: "Vazir" }}
+                        className="taskmodal--button-setting"
                       >
                         ذخیره
                       </Button>
                       <Button
                         variant="outlined"
-                        className="taskmodal-button-setting"
+                        className="taskmodal--button-setting"
                         onClick={() => {
                           setEditCommentList((oldState) => {
                             const newState = [...oldState];
@@ -474,7 +440,6 @@ export default function TaskModal_Activity({
                           });
                         }}
                         style={{
-                          fontFamily: "Vazir",
                           marginLeft: "2%",
                         }}
                       >
@@ -484,31 +449,19 @@ export default function TaskModal_Activity({
                   </div>
                 ) : (
                   <div>
-                    <div className="taskmodal-comment-showList-comment">
+                    <div className="taskmodal--comment-showList-comment">
                       {item.text}
                     </div>
                     {item.sender?.username === user?.user.username ? (
-                      <div className="taskmodal-comment-button">
+                      <div className="taskmodal--comment-button">
                         <Button
                           onClick={() => handleRemoveOfComment(item.id)}
-                          sx={{
-                            fontFamily: "Vazir",
-                            color: "white",
-                            fontSize: "10px",
-                            paddingRight: "0px",
-                            textDecoration: "underline",
-                          }}
+                          className="taskmodal--comment-button-remove"
                         >
                           حذف
                         </Button>
                         <Button
-                          sx={{
-                            fontFamily: "Vazir",
-                            color: "white",
-                            fontSize: "10px",
-                            paddingLeft: "0px",
-                            textDecoration: "underline",
-                          }}
+                          className="taskmodal--comment-button-remove"
                           onClick={() => {
                             setEditCommentList((oldState) => {
                               const newState = [...oldState];
