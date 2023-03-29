@@ -6,21 +6,23 @@ import { Modal } from "@mui/material";
 import CardHeader from "./Content/Header/CardHeader";
 import CardFooter from "./Content/Footer/CardFooter";
 import CardBody from "./Content/Body/CardBody";
+import useBoard from "../../../../hooks/useBoard";
+import apiInstance from "../../../../utilities/axiosConfig";
 
-const Card = ({ task, key, cardId, index, boardId, remID }) => {
+const Card = ({ task, key, cardId, index, boardId }) => {
+  const {getBoard} = useBoard();
   const [card, setCard] = useState(task);
   const [open, setOpen] = useState(false);
   const [click, setClick] = useState(false);
-
-  useEffect(() => {}, []);
 
   const handleModalOpen = (event) => {
     event.preventDefault();
     setOpen(true);
   };
-  const handleModalClose = () => {
-    setOpen(false);
 
+  const handleModalClose = () => {
+    getBoard();
+    setOpen(false);
   };
 
   useEffect(() => {

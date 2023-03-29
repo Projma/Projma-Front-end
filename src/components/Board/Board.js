@@ -8,7 +8,7 @@ import "../../styles/ReactToastify.css";
 import apiInstance from "../../utilities/axiosConfig";
 import useBoard from "../../hooks/useBoard";
 
-const Board = (props) => {
+const Board = () => {
   const { list, setList, getBoard, boardId } = useBoard();
 
   useEffect(() => {
