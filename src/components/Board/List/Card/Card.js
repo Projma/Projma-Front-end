@@ -4,8 +4,6 @@ import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import { Navigate, useNavigate } from "react-router-dom";
-import EditIcon from "@mui/icons-material/Edit";
-import CloseIcon from "@mui/icons-material/Close";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
@@ -18,13 +16,12 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Loading from "../../../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
-import axios from "axios";
-import apiInstance from "../../../../utilities/axiosConfig";
 import TaskModal from "../../../TaskModal/TaskModal";
 import { Modal, responsiveFontSizes } from "@mui/material";
-import CardCover from "./Content/Body/CardCover";
-import CardTitle from "./Content/Header/CardTitle";
-import CardLabel from "./Content/Body/CardLabel";
+import CardCover from "./Content/Body/Content/CardCover";
+import CardTitle from "./Content/Body/Content/CardTitle";
+import CardLabel from "./Content/Body/Content/CardLabel";
+import CardHeader from "./Content/Header/CardHeader";
 import { convertNumberToPersian } from "../../../../utilities/helpers";
 
 const Card = ({ task, key, cardId, index, boardId, remID }) => {
@@ -38,8 +35,7 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
   // const [cover, setCover] = useState(card.cover);
   const [update, setUpdate] = useState(false);
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
   // useEffect(() => {
   //   updateCard();
   // }, [update]);
@@ -64,12 +60,6 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
     setEnable(!enable);
   };
 
-  const handleDeleteCard = (e) => {
-    e.stopPropagation();
-    reqDeleteCard(cardId);
-  };
-
-
   const disc = () => {
     let description = null;
     if (card.description == null) return null;
@@ -88,30 +78,6 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
   // },[enable])
 
   // useEffect(() => {setOpen(false);}, [insideButton]);
-
-  const reqDeleteCard = (id) =>
-    apiInstance
-      .delete(`workspaces/task/${id}/`)
-      .then(() => {
-        toast.success("کارت با موفقیت حذف شد", {
-          position: toast.POSITION.BOTTOM_LEFT,
-          rtl: true,
-        });
-      })
-      .catch((error) => {
-        if (error.response.status === 404) {
-          toast.error("عملیات با خطا مواجه شد", {
-            position: toast.POSITION.BOTTOM_LEFT,
-            rtl: true,
-          });
-        }
-      })
-      .finally(() => {
-        // setIsPost(null);
-        ////console.log("reqDeleteCard Done");
-        remID(cardId);
-        // props.onPost(true);
-      });
 
   return (
     <>
@@ -149,20 +115,7 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
             >
               <TaskModal cardId={cardId} boardId={boardId} />
             </Modal> */}
-            <div className="card_header">
-              <div
-                className="card_close-icon"
-                onClick={(event) => handleDeleteCard(event)}
-              >
-                <CloseIcon sx={{ fontSize: "1.6rem" }} />
-              </div>
-              {/* <div
-                className="card_edit-icon"
-                onClick={(event) => handleEditCardName(event)}
-              >
-                <EditIcon sx={{ fontSize: "1.6rem" }} />
-              </div> */}
-            </div>
+            <CardHeader cardId={cardId} />
             <div className="card_body">
               {card.cover !== "" && card.cover !== undefined && (
                 <div className="card_cover">
@@ -219,14 +172,15 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
                 )}
               </div>
               <div className="card_footer-icon">
-                {card.attachments_num !== 0 && card.attachments_num !== undefined && (
-                  <div className="card_icon-container">
-                    <AttachFileIcon className="card_default-footer-icon" />
-                    <p className="card_icon-info">
-                      {convertNumberToPersian(card.attachments_num)}
-                    </p>
-                  </div>
-                )}
+                {card.attachments_num !== 0 &&
+                  card.attachments_num !== undefined && (
+                    <div className="card_icon-container">
+                      <AttachFileIcon className="card_default-footer-icon" />
+                      <p className="card_icon-info">
+                        {convertNumberToPersian(card.attachments_num)}
+                      </p>
+                    </div>
+                  )}
                 {/* {card.checklists_num !== 0 && (
                   <div>
                     {card.checked_checklists_num === card.checklists_num ? (
