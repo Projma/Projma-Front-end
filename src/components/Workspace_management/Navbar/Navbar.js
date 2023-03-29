@@ -49,7 +49,7 @@ const Navbar = ({ params, workspace, setWorkspace }) => {
       <div className="ws_navbar-ws-name">
         <ToastContainer />
         <div transition-style className="ws_navbar-symbol --in-custom">
-          <h3>{name?.charAt(0).toUpperCase()}</h3>
+          <h3>{navWorkspace?.name?.charAt(0).toUpperCase()}</h3>
         </div>
         <div className="ws_navbar-ws-name-text">{navWorkspace?.name}</div>
       </div>
