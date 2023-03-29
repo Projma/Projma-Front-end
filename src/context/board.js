@@ -19,7 +19,6 @@ function Provider({ children, boardId }) {
       .then((response) => {
         // setList(response.data.tasklists.sort((a, b) => b.order - a.order));
         data = response.data.tasklists.sort((a, b) => b.order - a.order);
-        console.log("before \n",data);
         data = data.map((tasklists) => {
           tasklists.tasks = tasklists.tasks.map((task) => {
             const addInfo = async () => {
@@ -30,7 +29,6 @@ function Provider({ children, boardId }) {
                     let cover = "";
                     if (attach !== undefined) {
                       attach.every((x) => {
-                        console.log(x);
                         let file = x.file.split("attachments/")[1];
                         file = file.split(".")[1];
                         if (file === "png" || file === "jpeg" || file === "jpg") {
@@ -48,7 +46,6 @@ function Provider({ children, boardId }) {
           });
           return tasklists;
         });
-        console.log("after \n",data);
         setList(data);
         setMember(response.data.members);
       })
@@ -56,7 +53,6 @@ function Provider({ children, boardId }) {
   }, [boardId]);
 
   const addCardToList = (card, list_id) => {
-    console.log("sdfffff\n",card);
     setList(
       list.map((tasklist) => {
         if (tasklist.id === list_id) {
@@ -83,6 +79,13 @@ function Provider({ children, boardId }) {
     );
   };
 
+  const removeCard = (id) => {
+    setList(list.map(l => {
+      l.tasks = l.tasks.filter(t => t.id !== id);
+      return l;
+    }));
+  };
+
   const board = {
     boardId,
     list,
@@ -92,6 +95,7 @@ function Provider({ children, boardId }) {
     addCardToList,
     removeList,
     editListName,
+    removeCard,
     setIsReq,
   };
 
