@@ -19,9 +19,9 @@ import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
 import { convertNumberToPersian } from "../../../utilities/helpers.js";
 
-const List = ({ card, name, id, index, boardId }) => {
+const List = ({ task, name, id, index, boardId }) => {
   const { addCardToList, removeList, editListName, setIsReq } = useBoard();
-  const [cards, setCards] = useState(card);
+  const [card, setCard] = useState(task);
   const [addCard, setAddCard] = useState(false);
   const [cardName, setCardName] = useState("");
   const [listName, setListName] = useState(name);
@@ -31,18 +31,17 @@ const List = ({ card, name, id, index, boardId }) => {
   //const popover_id = open ? "simple-popover" : undefined;
 
   useEffect(() => {
-    setCards(card);
-  }, [card]);
+    setCard(task);
+  }, [task]);
 
   const renderCard = () => {
-    return cards.map((value, index) => (
+    return card.map((value, index) => (
       <Card
         task={value}
         key={value.id}
         cardId={value.id}
         index={index}
         boardId={boardId}
-        remID={handleRemoveCard}
       />
     ));
   };
@@ -128,7 +127,7 @@ const List = ({ card, name, id, index, boardId }) => {
   };
 
   const handleRemoveCard = (id) => {
-    setCards(cards.filter((card) => card.id !== id));
+    setCard(card.filter((task) => task.id !== id));
   };
 
   const handleAddCardSubmit = (e) => {
@@ -256,7 +255,7 @@ const List = ({ card, name, id, index, boardId }) => {
                 />
               </div>
               <div
-                className="list_header-add-card"
+                className="list_header-add-task"
                 onClick={addCardClickHandler}
               >
                 <AddIcon o sx={{ fontSize: "2.2rem" }} />
@@ -266,9 +265,9 @@ const List = ({ card, name, id, index, boardId }) => {
               </div>
             </div>
             {addCard && (
-              <div className="list_add-card">
+              <div className="list_add-task">
                 <form
-                  className="list_add-card-form"
+                  className="list_add-task-form"
                   onSubmit={(e) => handleAddCardSubmit(e)}
                 >
                   <PerTextField>
