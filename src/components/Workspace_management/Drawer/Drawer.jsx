@@ -76,11 +76,9 @@ function ResponsiveDrawer(props) {
   const sidebarButton = [
     { nameFa: "بورد‌ها", nameEn: "Boards" },
     { nameFa: "اعضا", nameEn: "members" },
-    // { nameFa: "تنظیمات", nameEn: "setting" },
   ];
   const drawer = (
     <div className="drawer" style={{ overflow: "auto" }}>
-      {/* <Toolbar /> */}
       {matches ? "" : right_arrow}
       <Divider />
       <List>
@@ -91,11 +89,6 @@ function ResponsiveDrawer(props) {
             key={obj.nameFa}
             disablePadding
             className={classes.list_item}
-            sx={
-              {
-                // backgroundColor: "#0A1929",
-              }
-            }
           >
             <Link
               to={obj.nameEn}
@@ -211,33 +204,16 @@ function ResponsiveDrawer(props) {
             ? baseUrl + obj.profile_pic?.slice(1)
             : anonymous,
         }));
-        //console.log(members);
-        //console.log(baseUrl + res.data.profile_pic?.slice(1));
         setMembers(members);
-        //console.log(members);
       });
   }, []);
 
   return (
-    <div style={{ height: "5%" }}>
-      {/* <DehazeIcon
-        onClick={handleDrawerToggle}
-        sx={{
-          fontSize: "3rem",
-          // backgroundColor: "#B0ACB1",
-          // backgroundColor: "#6d88e3",
-          color: "#B0ACB1",
-          borderRadius: "50%",
-          marginTop: "10px",
-          marginRight: "10px",
-        }}
-      /> */}
+    <div>
       <KeyboardDoubleArrowLeftIcon
         onClick={handleDrawerToggle}
         sx={{
           fontSize: "3rem",
-          // backgroundColor: "#B0ACB1",
-          // backgroundColor: "#6d88e3",
           color: "#B0ACB1",
           borderRadius: "50%",
           marginTop: "10px",
@@ -249,8 +225,6 @@ function ResponsiveDrawer(props) {
           sx={{
             display: "flex",
             width: props.width,
-            // display: mobileOpen ? "none" : "block",
-            // ...(mobileOpen === true && { display: "none" }),
           }}
         >
           <CssBaseline />
@@ -263,7 +237,6 @@ function ResponsiveDrawer(props) {
             }}
             aria-label="mailbox folders"
           >
-            {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
             <Drawer
               container={container}
               variant="temporary"
@@ -304,13 +277,5 @@ function ResponsiveDrawer(props) {
     </div>
   );
 }
-
-ResponsiveDrawer.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
 
 export default ResponsiveDrawer;

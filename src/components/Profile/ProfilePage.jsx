@@ -30,9 +30,8 @@ import {
 } from "../../utilities/helpers.js";
 
 const theme = createTheme({
-  direction: "rtl", // Both here and <body dir="rtl">
+  direction: "rtl",
 });
-// Create rtl cache
 const cacheRtl = createCache({
   key: "muirtl",
   stylisPlugins: [prefixer, rtlPlugin],
@@ -104,42 +103,19 @@ export default function Profile() {
     event.preventDefault();
     errormessage = "";
     document.getElementById("em").innerHTML = errormessage;
-
-    // if (firstName === "") {
-    //   setErrorFirstName(true);
-    //   errormessage += "*فیلد نام نمیتواد خالی باشد.";
-    //   sign += 1;
-    // }
-    // if (lastName === "") {
-    //   errormessage += "*فیلد نام خانوادگی نمیتواد خالی باشد.<br>";
-    //   setErrorLastName(true);
-    //   sign += 1;
-    // }
-    // if (sign !== 0) {
-    //   document.getElementById("em").innerHTML = errormessage;
-    //   return;
-    // }
     const formData = new FormData();
     const user = JSON.stringify({
       first_name: firstName,
       last_name: lastName,
     });
 
-    //console.log(user);
-    // formData.append("user", user);
-    // formData.append("first_name", firstName);
-    // formData.append("last_name", lastName);
     let birthd = "";
-    //console.log("--------------");
-    //console.log(birthDate);
     if (birthDate !== "") {
       birthd = birthDate;
     }
     if (typeof birthDate !== "string" && birthDate !== null) {
       birthd = `${birthDate.year}-${birthDate.month.number}-${birthDate.day}`;
-      // formData.append("birth_date", birthd);
     }
-    // formData.append("bio", bio);
     if (binaryFile !== null) {
       formData.append("profile_pic", binaryFile);
     }
@@ -154,21 +130,17 @@ export default function Profile() {
       },
       birth_date: birthd,
       bio: bio,
-      // profile_pic: binaryFile,
     };
-    //console.log(data);
     setIsPost(true);
     apiInstance
       .patch("/accounts/profile/edit-myprofile/", data)
       .then((res) => {
-        ////console.log(res);
         toast.success("با موفقیت بروز شد.", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
       })
       .catch((err) => {
-        ////console.log(err);
         toast.error("مشکلی پیش آمده است.", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
@@ -176,11 +148,8 @@ export default function Profile() {
       });
     apiInstance
       .patch("/accounts/profile/edit-myprofile/", formData)
-      .then((res) => {
-        //console.log(res);
-      })
+      .then((res) => {})
       .catch((err) => {
-        //console.log(err);
         toast.error("مشکلی پیش آمده است.", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
@@ -201,63 +170,30 @@ export default function Profile() {
             <title>حساب کاربری</title>
           </Helmet>
           <ThemeProvider theme={theme}>
-            <div className="profile-container profile-page">
-              <div className="profile-information-pro row-gap-8 profile-information-media">
-                <div className="profile-box-body-profile-container">
+            <div className="profile--container profile--page">
+              <div className="profile--information-pro row-gap-8">
+                <div className="profile--box-body-profile-container">
                   <Avatar
-                    className="Avatar"
+                    className="Avatar profile--pictureView"
                     src={getImage !== null ? `${baseURL}${getImage}` : file}
                     alt="profile"
-                    sx={{
-                      mt: 1,
-                      width: "15vmin",
-                      height: "15vmin",
-                      borderRadius: "50%",
-                    }}
                   />
                 </div>
                 <div
                   className="flex-col align-center"
                   style={{
                     width: "100%",
-                    marginTop: "30%",
+                    marginTop: "20%",
                     justifyContent: "flex-start",
                   }}
                 >
-                  <h3
-                    style={{
-                      fontWeight: "400",
-                      fontSize: "90%",
-                      color: "white",
-                      justifyContent: "center",
-                      width: "100%",
-                      height: "40px",
-                    }}
-                    className="flex profile-information-fname-lname vazir"
-                  >
+                  <h3 className="flex profile--information-fname-lname profile--leftMenu-text">
                     {convertNumberToPersian(firstName)}
                   </h3>
-                  <h3
-                    style={{
-                      fontWeight: "400",
-                      fontSize: "90%",
-                      color: "white",
-                      justifyContent: "center",
-                      width: "100%",
-                      height: "40px",
-                    }}
-                    className="flex profile-information-fname-lname vazir"
-                  >
+                  <h3 className="flex profile--information-fname-lname profile--leftMenu-text">
                     {convertNumberToPersian(lastName)}
                   </h3>
-                  <h4
-                    style={{
-                      fontWeight: "400",
-                      fontSize: "90%",
-                      color: "white",
-                    }}
-                    className="neonText"
-                  >
+                  <h4 className="neonText profile--leftMenu-text">
                     {`${convertNumberToPersian(username)}@`}
                   </h4>
                 </div>
@@ -268,21 +204,8 @@ export default function Profile() {
                         className="flex-row-information"
                         style={{ alignItems: "center" }}
                       >
-                        <PersonIcon
-                          style={{
-                            color: "white",
-                            fontSize: "170%",
-                            marginLeft: "10%",
-                          }}
-                        ></PersonIcon>
-                        <h4
-                          style={{
-                            fontWeight: "400",
-                            fontSize: "90%",
-                            color: "white",
-                          }}
-                          className="neonText vazir"
-                        >
+                        <PersonIcon className="profile--rightMenu-icon"></PersonIcon>
+                        <h4 className="neonText profile--leftMenu-text">
                           اطلاعات حساب
                         </h4>
                       </div>
@@ -295,21 +218,8 @@ export default function Profile() {
                           className="flex-row-information"
                           style={{ alignItems: "center" }}
                         >
-                          <PasswordIcon
-                            style={{
-                              color: "white",
-                              fontSize: "170%",
-                              marginLeft: "10%",
-                            }}
-                          ></PasswordIcon>
-                          <h4
-                            style={{
-                              fontWeight: "400",
-                              fontSize: "90%",
-                              color: "white",
-                            }}
-                            className="neonText vazir"
-                          >
+                          <PasswordIcon className="profile--rightMenu-icon"></PasswordIcon>
+                          <h4 className="neonText profile--leftMenu-text">
                             تغییر رمز عبور
                           </h4>
                         </div>
@@ -318,17 +228,14 @@ export default function Profile() {
                   </div>
                 </div>
               </div>
-              <div className="profile-box">
-                <div className="profile-box-header flex justify-between">
-                  <h3
-                    style={{ color: "white", marginBottom: "8%" }}
-                    className="neonText vazir"
-                  >
+              <div className="profile--box">
+                <div className="profile--box-header flex justify-between">
+                  <h3 style={{ marginBottom: "8%" }} className="neonText">
                     اطلاعات فردی
                   </h3>
                 </div>
                 <Box
-                  className="profile-box-body"
+                  className="profile--box-body"
                   component="form"
                   onSubmit={handleSubmit}
                 >
@@ -341,19 +248,13 @@ export default function Profile() {
                       style={{ marginTop: "-50px" }}
                     >
                       <Avatar
-                        className="Avatar"
+                        className="Avatar profile--pictureView"
                         src={
                           getImage !== null && !changeImage
                             ? `${baseURL}${getImage}`
                             : file
                         }
                         alt="profile"
-                        sx={{
-                          mt: 1,
-                          width: "15vmin",
-                          height: "15vmin",
-                          borderRadius: "50%",
-                        }}
                       />
                       <div className="button-container">
                         <Button
@@ -373,16 +274,10 @@ export default function Profile() {
                             type="file"
                             hidden
                             onChange={(e) => {
-                              // ////console.log("-----");
-                              // ////console.log(getImage);
-                              // ////console.log("****");
                               setBinaryFile(e.target.files[0]);
                               setChangeImage(true);
                               const [filee] = e.target.files;
                               setFile(URL.createObjectURL(filee));
-                              // ////console.log(e.target.files[0]);
-                              // ////console.log(file);
-                              // ////console.log("-----");
                             }}
                             accept=".jpg,.jpeg,.png"
                           />
@@ -411,7 +306,7 @@ export default function Profile() {
                       style={{ width: "100%", marginTop: "10%" }}
                     >
                       <StyledTextField
-                        className="otherStyledTextField-media otherStyledTextField"
+                        className="otherStyledTextField"
                         margin="normal"
                         id="firstName"
                         fullWidth
@@ -419,7 +314,7 @@ export default function Profile() {
                         label="نام"
                         name="firstName"
                         InputLabelProps={{
-                          style: input_text,
+                          className: "profile--styleTextField-labelText",
                         }}
                         InputProps={{ style: { fontFamily: "Vazir" } }}
                         onChange={(e) =>
@@ -430,7 +325,7 @@ export default function Profile() {
                         autoFocus
                       />
                       <StyledTextField
-                        className="otherStyledTextField-media otherStyledTextField"
+                        className="otherStyledTextField"
                         margin="normal"
                         id="lastname"
                         fullWidth
@@ -438,7 +333,7 @@ export default function Profile() {
                         label="نام خانوادگی"
                         name="lastname"
                         InputLabelProps={{
-                          style: input_text,
+                          className: "profile--styleTextField-labelText",
                         }}
                         InputProps={{ style: { fontFamily: "Vazir" } }}
                         onChange={(e) =>
@@ -471,16 +366,9 @@ export default function Profile() {
                       </h3>
                     </div>
                   </div>
-                  <div className="birthday-border-media">
-                    <div className="birthday-media flex">
-                      <label
-                        style={{
-                          marginLeft: "2%",
-                          color: "#fff",
-                          fontSize: "14px",
-                          fontFamily: "Vazir",
-                        }}
-                      >
+                  <div className="profile--birthday-border">
+                    <div className="profile--birthday-media flex">
+                      <label className="profile--birthday-label">
                         تاریخ تولد
                       </label>
                     </div>
@@ -491,7 +379,6 @@ export default function Profile() {
                       value={birthDate}
                       onChange={(val) => setBirthDate(val)}
                       calendarPosition="bottom-right"
-                      // backgroundColor="#000"
                       style={{ width: "100%" }}
                     />
                   </div>
@@ -511,7 +398,7 @@ export default function Profile() {
                       rows={2}
                       InputProps={{ style: { fontFamily: "Vazir" } }}
                       InputLabelProps={{
-                        style: input_text,
+                        className: "profile--styleTextField-labelText",
                       }}
                       autoComplete="bio"
                       autoFocus
@@ -519,14 +406,7 @@ export default function Profile() {
                   </div>
                   <Typography
                     id="em"
-                    sx={{
-                      mt: 1,
-                      textAlign: "right",
-                      color: "rgba(255, 0, 0, 0.837)",
-                      fontWeight: "bold",
-                      fontFamily: "Vazir",
-                      marginTop: "5%",
-                    }}
+                    className="profile--errorText"
                   ></Typography>
                   <div>
                     <Button
@@ -534,7 +414,7 @@ export default function Profile() {
                       fullWidth
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
-                      style={style_of_fields}
+                      className="profile--submitButton"
                     >
                       اعمال تغییرات
                     </Button>
@@ -550,16 +430,3 @@ export default function Profile() {
     return <div></div>;
   }
 }
-
-const input_text = {
-  color: "#fff",
-  fontFamily: "Vazir",
-  height: "100px",
-};
-
-const style_of_fields = {
-  textAlign: "right",
-  color: "white",
-  fontFamily: "Vazir",
-  fontSize: "100%",
-};
