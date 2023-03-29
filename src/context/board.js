@@ -56,15 +56,16 @@ function Provider({ children, boardId }) {
   }, [boardId]);
 
   const addCardToList = (card, list_id) => {
+    console.log("sdfffff\n",card);
     setList(
-      list.map((list) => {
-        if (list.id === list_id) {
+      list.map((tasklist) => {
+        if (tasklist.id === list_id) {
           return {
-            ...list,
-            tasks: [...list.tasks, card],
+            ...tasklist,
+            tasks: [...tasklist.tasks, card],
           };
         }
-        return list;
+        return tasklist;
       })
     );
   };

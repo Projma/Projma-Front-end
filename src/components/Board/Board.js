@@ -21,7 +21,7 @@ const Board = (props) => {
         <List
           name={list.title}
           key={list.id}
-          id={list.id}
+          listId={list.id}
           index={index}
           task={list.tasks}
           boardId={boardId}

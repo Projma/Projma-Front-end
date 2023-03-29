@@ -219,7 +219,7 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
                 )}
               </div>
               <div className="card_footer-icon">
-                {card.attachments_num !== 0 && (
+                {card.attachments_num !== 0 && card.attachments_num !== undefined && (
                   <div className="card_icon-container">
                     <AttachFileIcon className="card_default-footer-icon" />
                     <p className="card_icon-info">
@@ -248,7 +248,7 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
                     )}
                   </div>
                 )} */}
-                {card.comments_num !== 0 && (
+                {card.comments_num !== 0 && card.comments_num !== undefined && (
                   <div className="card_icon-container">
                     <ChatBubbleIcon className="card_default-footer-icon" />
                     <p className="card_icon-info">

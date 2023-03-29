@@ -19,7 +19,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
 import { convertNumberToPersian } from "../../../utilities/helpers.js";
 
-const List = ({ task, name, id, index, boardId }) => {
+const List = ({ task, name, listId, index, boardId }) => {
   const { addCardToList, removeList, editListName, setIsReq } = useBoard();
   const [card, setCard] = useState(task);
   const [addCard, setAddCard] = useState(false);
@@ -46,16 +46,16 @@ const List = ({ task, name, id, index, boardId }) => {
     ));
   };
 
-  const reqCreateCard = async (data, id) =>
+  const reqCreateCard = async (data) =>
     await apiInstance
-      .post(`/workspaces/tasklist/${id}/create-task/`, data)
+      .post(`/workspaces/tasklist/${listId}/create-task/`, data)
       .then((response) => {
         //console.log(response.data);
         toast.success("کارت با موفقیت ساخته شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        addCardToList(response.data, id);
+        addCardToList(response.data, listId);
         // setCards((pervCards) => [...pervCards, response.data]);
       })
       .catch((error) => {
@@ -71,15 +71,15 @@ const List = ({ task, name, id, index, boardId }) => {
         ////console.log("reqCreateCard Done");
       });
 
-  const reqDeleteList = async (id) =>
+  const reqDeleteList = async () =>
     await apiInstance
-      .delete(`workspaces/tasklist/${id}/delete-tasklist/`)
+      .delete(`workspaces/tasklist/${listId}/delete-tasklist/`)
       .then(() => {
         toast.success("لیست با موفقیت حذف شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        removeList(id);
+        removeList(listId);
       })
       .catch((error) => {
         if (error.response.status === 404) {
@@ -94,16 +94,16 @@ const List = ({ task, name, id, index, boardId }) => {
         ////console.log("reqDeleteList Done");
       });
 
-  const reqEditListName = async (data, id, name) => {
+  const reqEditListName = async (data, name) => {
     name = convertNumberToPersian(name);
     await apiInstance
-      .patch(`workspaces/tasklist/${id}/update-tasklist/`, data)
+      .patch(`workspaces/tasklist/${listId}/update-tasklist/`, data)
       .then(() => {
         toast.success("اسم لیست با موفقیت عوض شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        editListName(id, name);
+        editListName(listId, name);
       })
       .catch((error) => {
         if (error.response.status === 404) {
@@ -136,7 +136,7 @@ const List = ({ task, name, id, index, boardId }) => {
     setIsReq(true);
     const data = new FormData();
     data.append("title", cardName);
-    reqCreateCard(data, id);
+    reqCreateCard(data);
     setCardName("");
   };
 
@@ -146,12 +146,12 @@ const List = ({ task, name, id, index, boardId }) => {
     const data = new FormData();
     data.append("title", name);
     setIsReq(true);
-    reqEditListName(data, id, name);
+    reqEditListName(data, name);
   };
 
   const handleDeleteList = () => {
     setIsReq(true);
-    reqDeleteList(id);
+    reqDeleteList();
     handleClose();
   };
 
@@ -164,7 +164,7 @@ const List = ({ task, name, id, index, boardId }) => {
   };
 
   return (
-    <Draggable draggableId={String(id) + name} index={index}>
+    <Draggable draggableId={crypto.randomUUID()} index={index}>
       {(provided) => (
         <div
           className="list_container"
@@ -173,7 +173,7 @@ const List = ({ task, name, id, index, boardId }) => {
           {...provided.dragHandleProps}
         >
           <Popover
-            id={id}
+            id={listId}
             open={open}
             anchorEl={anchorEl}
             onClose={handleOption}
@@ -251,11 +251,12 @@ const List = ({ task, name, id, index, boardId }) => {
               <div className="list_header-title">
                 <InputName
                   name={convertNumberToPersian(listName)}
+                  // value={listName}
                   onChangeName={handleChangeListName}
                 />
               </div>
               <div
-                className="list_header-add-task"
+                className="list_header-add-card"
                 onClick={addCardClickHandler}
               >
                 <AddIcon o sx={{ fontSize: "2.2rem" }} />
@@ -265,9 +266,9 @@ const List = ({ task, name, id, index, boardId }) => {
               </div>
             </div>
             {addCard && (
-              <div className="list_add-task">
+              <div className="list_add-card">
                 <form
-                  className="list_add-task-form"
+                  className="list_add-card-form"
                   onSubmit={(e) => handleAddCardSubmit(e)}
                 >
                   <PerTextField>
@@ -286,18 +287,23 @@ const List = ({ task, name, id, index, boardId }) => {
                       InputProps={{
                         disableUnderline: true,
                         style: {
+                          // height: "50px",
+                          // padding: "0 14px",
                           fontFamily: "Vazir",
+                          // fontSize: "1.7rem",
                         },
                       }}
                       InputLabelProps={{
                         style: {
                           fontFamily: "Vazir",
+                          // fontSize: "1.6rem",
                         },
                       }}
                       sx={{
                         backgroundColor: "var(--main-item-color)",
                         borderBottom: "0.2rem solid var(--minor-item-color)",
                         borderRadius: "0.5rem",
+                        // borderRadius: "0.5rem",
                         "& input::placeholder": {
                           fontSize: "1.2rem",
                         },
@@ -312,7 +318,7 @@ const List = ({ task, name, id, index, boardId }) => {
               </div>
             )}
           </div>
-          <Droppable droppableId={String(id)} type="task">
+          <Droppable droppableId={crypto.randomUUID()} type="task">
             {(provided, snapshot) => (
               <div
                 className="list_card-container"
