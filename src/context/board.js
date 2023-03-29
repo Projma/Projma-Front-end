@@ -8,15 +8,48 @@ const BoardContext = createContext();
 
 function Provider({ children, boardId }) {
   const [list, setList] = useState([]);
-  const [member, setMember] = useState([])
+  const [member, setMember] = useState([]);
   const [isReq, setIsReq] = useState(false);
 
   const getBoard = useCallback(async () => {
     setIsReq(true);
+    let data;
     await apiInstance
       .get(`workspaces/board/${boardId}/get-board-overview/`)
       .then((response) => {
-        setList(response.data.tasklists.sort((a, b) => b.order - a.order));
+        // setList(response.data.tasklists.sort((a, b) => b.order - a.order));
+        data = response.data.tasklists.sort((a, b) => b.order - a.order);
+        console.log("before \n",data);
+        data = data.map((tasklists) => {
+          tasklists.tasks = tasklists.tasks.map((task) => {
+            const addInfo = async () => {
+              await apiInstance
+              .get(`workspaces/task/${task.id}/get-task/`)
+              .then((response) => {
+                    let attach = response.data.attachments;
+                    let cover = "";
+                    if (attach !== undefined) {
+                      attach.every((x) => {
+                        console.log(x);
+                        let file = x.file.split("attachments/")[1];
+                        file = file.split(".")[1];
+                        if (file === "png" || file === "jpeg" || file === "jpg") {
+                          cover = x.file;
+                          return true;
+                        }
+                        return false;
+                      });
+                      task.cover = cover;
+                    }
+                });
+            };
+            addInfo();
+            return task;
+          });
+          return tasklists;
+        });
+        console.log("after \n",data);
+        setList(data);
         setMember(response.data.members);
       })
       .finally(() => setIsReq(false));
@@ -41,11 +74,12 @@ function Provider({ children, boardId }) {
   };
 
   const editListName = (id, name) => {
-    setList(list.map((list) => {
-      if(list.id === id) 
-        list.title = name;
-      return list;
-    }))
+    setList(
+      list.map((list) => {
+        if (list.id === id) list.title = name;
+        return list;
+      })
+    );
   };
 
   const board = {
