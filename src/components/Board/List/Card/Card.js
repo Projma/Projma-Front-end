@@ -35,51 +35,10 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
   const [enable, setEnable] = useState(false);
   const [insideButton, setInsideButton] = useState(false);
   const [req, setReq] = useState(false);
-  const [cover, setCover] = useState("");
+  // const [cover, setCover] = useState(card.cover);
   const [update, setUpdate] = useState(false);
-  const [chatnum, setChatnum] = useState(
-    card.comments_num == undefined ? 0 : card.comments_num
-  );
-  const [clnum, setClnum] = useState(
-    card.checklists_num == undefined ? 0 : card.checklists_num
-  );
-  const [cclnum, setCclnum] = useState(
-    card.checked_checklists_num == undefined ? 0 : card.checked_checklists_num
-  );
-  const [attachnum, setAttachnum] = useState(
-    card.attachments_num == undefined ? 0 : card.comments_num
-  );
-  const [label, setLabel] = useState(card.labels);
-  const [doers, setDoers] = useState(card.doers);
-  const [attachment, setAttachment] = useState([]);
 
-  const getCard = () => {
-    apiInstance.get(`workspaces/task/${cardId}/get-task/`).then((response) => {
-      setAttachment(response.data.attachments);
-    });
-  };
-  const updateCard = async () => {
-    await apiInstance
-      .get(`workspaces/task/${cardId}/get-task/`)
-      .then((response) => {
-        setAttachment(response.data.attachments);
-        setAttachnum(response.data.attachments.length);
-        setDoers(response.data.doers);
-        setChatnum(response.data.comments.length);
-        setLabel(response.data.labels);
-      });
-    await apiInstance
-      .get(`workspaces/task/${cardId}/get-all-checklists/`)
-      .then((response) => {
-        setClnum(response.data.length);
-        const temp = response.data.filter((x) => x.is_done === true);
-        setCclnum(temp.length);
-      });
-    setUpdate(!update);
-  };
   useEffect(() => {
-    getCard();
-    return () => {};
   }, []);
   // useEffect(() => {
   //   updateCard();
@@ -95,7 +54,6 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
   };
   const handleModalClose = () => {
     setOpen(false);
-    updateCard();
     // setUpdate(!update);
     // setClick(!click);
   };
@@ -111,22 +69,6 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
     reqDeleteCard(cardId);
   };
 
-  const findCover = () => {
-    if (attachment !== undefined) {
-      attachment.every((x) => {
-        ////console.log(x);
-        let file = x.file.split("attachments/")[1];
-        file = file.split(".")[1];
-        if (file === "png" || file === "jpeg" || file === "jpg") {
-          ////console.log(file);
-          setCover(x.file);
-          return false;
-        }
-        ////console.log(cover);
-      });
-    }
-    return cover !== "";
-  };
 
   const disc = () => {
     let description = null;
@@ -222,9 +164,9 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
               </div> */}
             </div>
             <div className="card_body">
-              {findCover() && (
+              {card.cover !== "" && card.cover !== undefined && (
                 <div className="card_cover">
-                  <CardCover src={cover} />
+                  <CardCover src={card.cover} />
                 </div>
               )}
               <div
@@ -248,21 +190,21 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
                 </div>
               )} */}
             </div>
-            {label !== [] && (
+            {card.labels !== [] && (
               <div className="card_label">
-                <CardLabel label={label} />
+                <CardLabel label={card.labels} />
               </div>
             )}
             <div className="card_footer">
               <div className="card_card-avatar">
-                {doers !== [] && (
+                {card.doers !== [] && (
                   <AvatarGroup
                     max={5}
                     spacing="-1"
                     sx={{ direction: "ltr", border: "none" }}
                     className="card_avatar-container"
                   >
-                    {doers.map((x) => (
+                    {card.doers.map((x) => (
                       <Tooltip title={x.first_name + " " + x.last_name}>
                         <Avatar
                           key={uuid()}
@@ -277,40 +219,40 @@ const Card = ({ task, key, cardId, index, boardId, remID }) => {
                 )}
               </div>
               <div className="card_footer-icon">
-                {attachnum !== 0 && (
+                {card.attachments_num !== 0 && (
                   <div className="card_icon-container">
                     <AttachFileIcon className="card_default-footer-icon" />
                     <p className="card_icon-info">
-                      {convertNumberToPersian(attachnum)}
+                      {convertNumberToPersian(card.attachments_num)}
                     </p>
                   </div>
                 )}
-                {clnum !== 0 && (
+                {/* {card.checklists_num !== 0 && (
                   <div>
-                    {cclnum === clnum ? (
+                    {card.checked_checklists_num === card.checklists_num ? (
                       <div className="card_icon-container">
                         <CheckBoxOutlinedIcon className="card_default-footer-icon card_checklist-finish" />
                         <p className="card_icon-info ">
-                          {convertNumberToPersian(cclnum)} /
-                          {convertNumberToPersian(clnum)}
+                          {convertNumberToPersian(card.checked_checklists_num)} /
+                          {convertNumberToPersian(card.checklists_num)}
                         </p>
                       </div>
                     ) : (
                       <div className="card_icon-container">
                         <CheckBoxOutlinedIcon className="card_default-footer-icon" />
                         <p className="card_icon-info">
-                          {convertNumberToPersian(cclnum)}/
-                          {convertNumberToPersian(clnum)}
+                          {convertNumberToPersian(card.checked_checklists_num)}/
+                          {convertNumberToPersian(card.checklists_num)}
                         </p>
                       </div>
                     )}
                   </div>
-                )}
-                {chatnum !== 0 && (
+                )} */}
+                {card.comments_num !== 0 && (
                   <div className="card_icon-container">
                     <ChatBubbleIcon className="card_default-footer-icon" />
                     <p className="card_icon-info">
-                      {convertNumberToPersian(chatnum)}
+                      {convertNumberToPersian(card.comments_num)}
                     </p>
                   </div>
                 )}
