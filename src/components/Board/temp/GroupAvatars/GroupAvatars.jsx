@@ -4,10 +4,10 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
-import apiInstance from "../../../utilities/axiosConfig";
+import apiInstance from "../../../../utilities/axiosConfig";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { baseUrl } from "../../../utilities/constants";
+import { baseUrl } from "../../../../utilities/constants";
 // import { Box } from "@mui/material";
 
 const GroupAvatars = (props) => {
@@ -104,7 +104,7 @@ function stringAvatar(name) {
         sx: {
             bgcolor: stringToColor(name),
             // width: 56,
-            // height: 56 
+            // height: 56
         },
         children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
     };

@@ -1,15 +1,12 @@
+import "./List.css";
 import React, { useState, useEffect } from "react";
-import "./Styles/List.css";
-import Card from "./Card";
+import useBoard from "../../../hooks/useBoard";
+import Card from "./Card/Card";
 import PerTextField from "../../Shared/PerTextField";
 import StyledTextField from "../../Shared/StyledTextField";
 import Popover from "@mui/material/Popover";
 import { Droppable, Draggable } from "react-beautiful-dnd";
-import { v4 as uuid } from "uuid";
-import axios from "axios";
-import Loading from "../../Shared/Loading";
-import { toast, ToastContainer } from "react-toastify";
-import "../../../styles/ReactToastify.css";
+import { toast } from "react-toastify";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -20,40 +17,45 @@ import apiInstance from "../../../utilities/axiosConfig";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
-import {
-  convertNumberToPersian,
-  convertNumberToEnglish,
-} from "../../../utilities/helpers.js";
+import { convertNumberToPersian } from "../../../utilities/helpers.js";
 
-const List = (props) => {
-  const [cards, setCards] = useState(props.card);
+const List = ({ task, name, listId, index, boardId }) => {
+  const { addCardToList, removeList, editListName, setIsReq } = useBoard();
+  const [card, setCard] = useState(task);
   const [addCard, setAddCard] = useState(false);
   const [cardName, setCardName] = useState("");
-  const [listName, setListName] = useState(props.name);
+  const [listName, setListName] = useState(name);
   const [anchorEl, setAnchorEl] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [req, setReq] = useState(false);
-
   const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  //const popover_id = open ? "simple-popover" : undefined;
 
   useEffect(() => {
-    setCards(props.card);
-  }, []);
+    setCard(task);
+  }, [task]);
 
-  useEffect(() => {
-    setCards(props.card);
-  }, [props]);
-  const reqCreateCard = async (data, id) =>
+  const renderCard = () => {
+    return card.map((value, index) => (
+      <Card
+        task={value}
+        key={value.id}
+        cardId={value.id}
+        index={index}
+        boardId={boardId}
+      />
+    ));
+  };
+
+  const reqCreateCard = async (data) =>
     await apiInstance
-      .post(`/workspaces/tasklist/${id}/create-task/`, data)
+      .post(`/workspaces/tasklist/${listId}/create-task/`, data)
       .then((response) => {
         //console.log(response.data);
         toast.success("کارت با موفقیت ساخته شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        props.addCardToList(response.data, props.id);
+        addCardToList(response.data, listId);
         // setCards((pervCards) => [...pervCards, response.data]);
       })
       .catch((error) => {
@@ -65,19 +67,19 @@ const List = (props) => {
         }
       })
       .finally(() => {
-        setReq(null);
+        setIsReq(null);
         ////console.log("reqCreateCard Done");
       });
 
-  const reqDeleteList = async (id) =>
+  const reqDeleteList = async () =>
     await apiInstance
-      .delete(`workspaces/tasklist/${id}/delete-tasklist/`)
+      .delete(`workspaces/tasklist/${listId}/delete-tasklist/`)
       .then(() => {
         toast.success("لیست با موفقیت حذف شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        props.remId(id);
+        removeList(listId);
       })
       .catch((error) => {
         if (error.response.status === 404) {
@@ -88,20 +90,20 @@ const List = (props) => {
         }
       })
       .finally(() => {
-        setReq(null);
+        setIsReq(null);
         ////console.log("reqDeleteList Done");
       });
 
-  const reqEditListName = async (data, id, name) => {
+  const reqEditListName = async (data, name) => {
     name = convertNumberToPersian(name);
     await apiInstance
-      .patch(`workspaces/tasklist/${id}/update-tasklist/`, data)
+      .patch(`workspaces/tasklist/${listId}/update-tasklist/`, data)
       .then(() => {
         toast.success("اسم لیست با موفقیت عوض شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        setListName(name);
+        editListName(listId, name);
       })
       .catch((error) => {
         if (error.response.status === 404) {
@@ -112,44 +114,44 @@ const List = (props) => {
         }
       })
       .finally(() => {
-        setReq(null);
+        setIsReq(null);
       });
   };
 
   const addCardClickHandler = () => {
     setAddCard(!addCard);
   };
+
   const optionClickHandler = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleRemoveCard = (id) => {
-    setCards(cards.filter((card) => card.id !== id));
+    setCard(card.filter((task) => task.id !== id));
   };
 
   const handleAddCardSubmit = (e) => {
     e.preventDefault();
     setAddCard(!addCard);
-    setReq(true);
+    setIsReq(true);
     const data = new FormData();
     data.append("title", cardName);
-    reqCreateCard(data, props.id);
+    reqCreateCard(data);
     setCardName("");
   };
 
   const handleChangeListName = (name) => {
     name = convertNumberToPersian(name);
-    // alert(name);
     setListName(name);
     const data = new FormData();
     data.append("title", name);
-    setReq(true);
-    reqEditListName(data, props.id, name);
+    setIsReq(true);
+    reqEditListName(data, name);
   };
 
   const handleDeleteList = () => {
-    setReq(true);
-    reqDeleteList(props.id);
+    setIsReq(true);
+    reqDeleteList();
     handleClose();
   };
 
@@ -162,7 +164,7 @@ const List = (props) => {
   };
 
   return (
-    <Draggable draggableId={String(props.id) + props.name} index={props.index}>
+    <Draggable draggableId={crypto.randomUUID()} index={index}>
       {(provided) => (
         <div
           className="list_container"
@@ -170,10 +172,8 @@ const List = (props) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          {req ? <Loading /> : null}
-          <ToastContainer autoClose={3000} style={{ fontSize: "1.2rem" }} />
           <Popover
-            id={id}
+            id={listId}
             open={open}
             anchorEl={anchorEl}
             onClose={handleOption}
@@ -318,7 +318,7 @@ const List = (props) => {
               </div>
             )}
           </div>
-          <Droppable droppableId={String(props.id)} type="task">
+          <Droppable droppableId={crypto.randomUUID()} type="task">
             {(provided, snapshot) => (
               <div
                 className="list_card-container"
@@ -333,16 +333,7 @@ const List = (props) => {
                     : null
                 }
               >
-                {cards.map((value, index) => (
-                  <Card
-                    task={value}
-                    key={value.id}
-                    cardId={value.id}
-                    index={index}
-                    boardId={props.boardId}
-                    remID={handleRemoveCard}
-                  />
-                ))}
+                {renderCard()}
                 {provided.placeholder}
               </div>
             )}
