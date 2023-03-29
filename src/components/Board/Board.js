@@ -17,14 +17,16 @@ const Board = (props) => {
 
   const rederList = () => {
     return list.map((list, index) => (
-      <List
-        name={list.title}
-        key={list.id}
-        id={list.id}
-        index={index}
-        card={list.tasks}
-        boardId={boardId}
-      />
+      <div className="board_list-container-box">
+        <List
+          name={list.title}
+          key={list.id}
+          id={list.id}
+          index={index}
+          task={list.tasks}
+          boardId={boardId}
+        />
+      </div>
     ));
   };
 
@@ -61,7 +63,7 @@ const Board = (props) => {
     }
     if (result.type === "task") {
       const newlist = Array.from(list);
-      const tasklist = newlist.find((x) => x.id === source.droppableId);
+      const tasklist = list.find((x) => x.id === source.droppableId);
       const task = tasklist.tasks.find((x) => x.id === draggableId);
       list.forEach((value) => {
         if (value.id === source.droppableId) {
@@ -93,13 +95,9 @@ const Board = (props) => {
           direction="horizontal"
         >
           {(provided, snapshot) => (
-            <div
-              className="board_list-container"
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
+            <div {...provided.droppableProps} ref={provided.innerRef}>
               <div
-                className="board_list-container-box"
+                className="board_list-container"
                 style={
                   snapshot.draggingOverWith
                     ? {
