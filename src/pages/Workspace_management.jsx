@@ -6,7 +6,6 @@ import ResponsiveAppBar from "../components/ResponsiveAppBar/ResponsiveAppBar";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import apiInstance from "../utilities/axiosConfig";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
 import { Navigate, useNavigate } from "react-router-dom";
 import Members from "../components/Workspace_management/Members/Members";
 import WorkspaceSettings from "../components/Workspace_management/Settings/WorkspaceSettings";
@@ -36,12 +35,10 @@ const Workspace_management = () => {
   }, []);
 
   const submit_form = (form_data, boards, setBoards) => {
-    //console.log("here");
     setIsPost(true);
     apiInstance
       .post(`/workspaces/workspaceowner/${params.id}/create-board/`, form_data)
       .then((res) => {
-        //console.log(res.data);
         setBoards([...boards, res.data]);
         toast.success("بورد با موفقیت ساخته شد", {
           position: toast.POSITION.BOTTOM_LEFT,
@@ -68,15 +65,8 @@ const Workspace_management = () => {
         <Helmet>
           <title>فضای کاری</title>
         </Helmet>
-        {/* <div> */}
         <ToastContainer />
-        {/* <div style={{ marginTop: "20px" }}> */}
         <ResponsiveDrawerRight width={"249px"} params={params} />
-        {/* </div> */}
-        {/* <WS_AppBar /> */}
-        {/* </div> */}
-        {/* <Link to="workspace/members">Members</Link> */}
-        {/* <h1 style={{ color: "white", backgroundColor: "white" }}>Members</h1> */}
         <Routes>
           <Route
             path="members"
@@ -88,10 +78,6 @@ const Workspace_management = () => {
               />
             }
           />
-          {/* <Route
-          path="create_board"
-          element={<BasicModal params={params} on_submit={submit_form} />}
-        /> */}
           <Route
             path="boards"
             element={
@@ -103,19 +89,7 @@ const Workspace_management = () => {
               />
             }
           />
-
-          <Route
-            path="setting"
-            element={
-              <WorkspaceSettings
-                params={params}
-                workspace={workspace}
-                setWorkspace={setWorkspace}
-              />
-            }
-          />
         </Routes>
-        {/* <Link to="create_board">Create Board</Link> */}
       </div>
     </>
   );
