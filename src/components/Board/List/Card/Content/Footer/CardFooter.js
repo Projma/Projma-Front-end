@@ -47,7 +47,7 @@ const CardFooter = ({
               </p>
             </div>
           )}
-          {checklists_num !== 0 && (
+          {checklists_num !== 0 && checklists_num !== undefined && (
             <div>
               {checked_checklists_num === checklists_num ? (
                 <div className="card_icon-container">
