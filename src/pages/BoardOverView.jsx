@@ -1,10 +1,10 @@
 import React from "react";
-import Header from "../Header/Header";
-import Board from "../Board/Board";
+import Header from "../components/Header/Header";
+import Board from "../components/Board/Board";
 import { Helmet } from "react-helmet";
-import { Provider } from "../../context/board";
+import { Provider } from "../context/board";
 
-const Kanban = () => {
+const BoardOverView = () => {
   const baseLink = window.location.href;
   const getLinkInfo = (baseLink) => {
     return baseLink.split("kanban/")[1];
@@ -23,4 +23,4 @@ const Kanban = () => {
   );
 };
 
-export default Kanban;
+export default BoardOverView;
