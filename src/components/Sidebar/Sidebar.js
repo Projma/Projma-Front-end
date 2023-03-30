@@ -1,7 +1,7 @@
+import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 
-
-const Sidebar = () => {
+const ProSidebar = () => {
   return ( <></> );
 }
  
-export default Sidebar;
+export default ProSidebar;
