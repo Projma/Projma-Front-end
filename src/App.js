@@ -15,7 +15,7 @@ import ForgetPassword from "./components/Password/ForgetPassword";
 import ProfileView from "./components/Profile/ProfilePageView";
 import ChangePassword from "./components/Profile/ChangePassword";
 import InvitePage from "./pages/InvitePage";
-import Kanban from "./components/Kanban/Kanban";
+import BoardOverView from "./pages/BoardOverView";
 import Email_verification_2 from "./components/Registration/EmailVerification";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { faIR } from "@mui/material/locale";
@@ -93,7 +93,7 @@ function App() {
                 path="/kanban/:id"
                 element={
                   <PrivateRoute
-                    children={<PrivateRoute children={<Kanban />} />}
+                    children={<PrivateRoute children={<BoardOverView />} />}
                   />
                 }
               />
