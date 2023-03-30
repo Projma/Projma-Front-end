@@ -190,6 +190,7 @@ export default function EditModal({
                 style={{ fontFamily: "Vazir", fontSize: "101%", width: "100%" }}
                 type="submit"
                 value="ذخیره"
+                role="save_button"
                 className="edit_workspace-modal-button-29"
                 onClick={edit_workspace}
               />
