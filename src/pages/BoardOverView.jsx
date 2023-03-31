@@ -1,22 +1,30 @@
 import React from "react";
 import Header from "../components/Header/Header";
 import Board from "../components/Board/Board";
+import { useParams, Outlet } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { Provider } from "../context/board";
-
+import BoardSidebar from "../components/BoardSidebar/BoardSidebar";
+import "../styles/BoardOverView.css";
 const BoardOverView = () => {
-  const baseLink = window.location.href;
-  const getLinkInfo = (baseLink) => {
-    return baseLink.split("kanban/")[1];
-  };
+  let params = useParams();
   return (
-    <div className="Kanban_main-page">
+    <div>
       <Helmet>
         <title>بورد</title>
       </Helmet>
-      <Header />
-      <Provider boardId={getLinkInfo(baseLink)}>
-        <Board />
+      <Provider boardId={params.boardId}>
+        <div className="boardoverview--container">
+          <div className="boardoverview--sidebar">
+            <BoardSidebar />
+          </div>
+          <div className="boardoverview--header">
+            <Header />
+          </div>
+          <div className="boardoverview--section">
+            <Outlet/>
+          </div>
+        </div>
       </Provider>
       {/* <Footer /> */}
     </div>
