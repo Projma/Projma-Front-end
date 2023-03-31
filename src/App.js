@@ -23,6 +23,7 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import BoardInvitation from "./pages/BoardInvitation";
 import { Navigate } from "react-router-dom";
 import NotFound from "./pages/NotFound";
+import Board from "./components/Board/Board";
 
 const theme = createTheme(
   {
@@ -90,13 +91,24 @@ function App() {
               />
               <Route
                 exact
-                path="/kanban/:id"
+                path="kanban/:boardId"
                 element={
                   <PrivateRoute
                     children={<PrivateRoute children={<BoardOverView />} />}
                   />
                 }
-              />
+              >
+                <Route exact path="board" element={
+                  <PrivateRoute
+                    children={<PrivateRoute children={<Board />} />}
+                  />
+                }/>
+                <Route exact path="calendar" element={
+                  <PrivateRoute
+                    children={<PrivateRoute children={<></>} />}
+                  />
+                }/>
+              </Route>
               <Route
                 exact
                 path="/invite_page/:token"
@@ -114,9 +126,9 @@ function App() {
               />
 
               {/* has to be last  */}
-            {/* <Route path='*' exact={true} component={My404Component} /> */}
-            <Route path="/404" element={<NotFound />} />
-            <Route path="*" element={<Navigate replace to="/404" />} />
+              {/* <Route path='*' exact={true} component={My404Component} /> */}
+              <Route path="/404" element={<NotFound />} />
+              <Route path="*" element={<Navigate replace to="/404" />} />
             </Routes>
           </Router>
         </Provider>
