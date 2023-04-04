@@ -1,8 +1,8 @@
 import React from "react";
 import Header from "../Header/Header";
-import Board from "../Board/UI/Board";
-import Footer from "../Shared/Footer";
+import Board from "../Board/Board";
 import { Helmet } from "react-helmet";
+import { Provider } from "../../context/board";
 
 const Kanban = () => {
   const baseLink = window.location.href;
@@ -15,7 +15,9 @@ const Kanban = () => {
         <title>بورد</title>
       </Helmet>
       <Header />
-      <Board boardId={getLinkInfo(baseLink)} />
+      <Provider boardId={getLinkInfo(baseLink)}>
+        <Board />
+      </Provider>
       {/* <Footer /> */}
     </div>
   );

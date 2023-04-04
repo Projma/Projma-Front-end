@@ -7,30 +7,15 @@ import DeleteWorkspace from "./DeleteWorkspace";
 import "react-toastify/dist/ReactToastify.css";
 // import "transition-style";
 import "./Navbar.css";
-const Navbar = ({ params }) => {
-  const [workspace, setWorkspace] = React.useState({});
+const Navbar = ({ params, workspace, setWorkspace }) => {
+  const [navWorkspace, setNavWorkspace] = React.useState({});
   const [name, setName] = React.useState("");
   const navigate = useNavigate();
   useEffect(() => {
-    apiInstance
-      .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
-      .then((res) => {
-        setWorkspace(res.data);
-        setName(res.data.name);
-        ////console.log(workspace);
-      })
-      .catch((err) => {
-        ////console.log(err);
-      });
-  }, []);
-  // ////console.log("in nav bar", workspace);
-  const update_navbar = (data) => {
-    ////console.log("god damn");
-    ////console.log(data);
-    ////console.log(data.name);
-    setWorkspace(data);
-    setName(data.name);
-    toast.success("اطلاعات فضای کاری با موفقیت تغییر کرد", {
+    setNavWorkspace(workspace);
+  }, [workspace]);
+  const showToast = (text) => {
+    toast.success(text, {
       position: toast.POSITION.BOTTOM_LEFT,
       rtl: true,
       style: {
@@ -64,13 +49,18 @@ const Navbar = ({ params }) => {
       <div className="ws_navbar-ws-name">
         <ToastContainer />
         <div transition-style className="ws_navbar-symbol --in-custom">
-          <h3>{name?.charAt(0).toUpperCase()}</h3>
+          <h3>{navWorkspace?.name?.charAt(0).toUpperCase()}</h3>
         </div>
-        <div className="ws_navbar-ws-name-text">{workspace.name}</div>
+        <div className="ws_navbar-ws-name-text">{navWorkspace?.name}</div>
       </div>
       <div className="ws_navbar-edit">
         <button className="ws_navbar-edit-button">
-          <EditModal params={params} update_navbar={update_navbar} />
+          <EditModal
+            params={params}
+            showToast={showToast}
+            workspace={workspace}
+            setWorkspace={setWorkspace}
+          />
         </button>
       </div>
       <div className="ws_navbar-delete-div">

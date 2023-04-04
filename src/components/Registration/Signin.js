@@ -54,7 +54,6 @@ export default function SignIn() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const handleSubmit = (event) => {
-    ////console.log("handleSubmit");
     event.preventDefault();
     setErrorUsername(false);
     setErrorPassword(false);
@@ -122,42 +121,27 @@ export default function SignIn() {
           >
             <CssBaseline />
             <Box
+              className="Registration--Box"
               sx={{
                 marginTop: 8,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: "#001E3C" }}>
+              <Avatar className="Registration--Box-Avatar">
                 <LockOutlinedIcon />
               </Avatar>
               <Typography
                 component="h1"
                 variant="h5"
-                style={{
-                  fontFamily: "Vazir",
-                  fontSize: "150%",
-                  color: "white",
-                  fontWeight: "bold",
-                  marginBottom: "4%",
-                }}
+                className="Signin--Box-Type"
               >
                 صفحه ورود
               </Typography>
               <Box
                 component="form"
-                className="registration-form shadow"
+                className="Registration-form shadow"
                 onSubmit={handleSubmit}
                 noValidate
                 error
-                sx={{
-                  mt: 1,
-                  backgroundImage:
-                    "linear-gradient(to right bottom, #001E3C 0%, #0059B2 130%)",
-                  borderRadius: 3,
-                  backgroundColor: "red",
-                }}
               >
                 <StyledTextField
                   margin="normal"
@@ -167,15 +151,10 @@ export default function SignIn() {
                   label="نام کاربری"
                   name="username"
                   InputLabelProps={{
-                    style: input_text,
+                    className: "Registration--StyledTextField-InputText",
                   }}
                   inputProps={{
-                    style: {
-                      height: "50px",
-                      padding: "0 14px",
-                      fontFamily: "Vazir",
-                      fontSize: "1.7rem",
-                    },
+                    className: "Registration--StyledTextField-inputProps",
                   }}
                   onChange={(e) =>
                     setUsername(convertNumberToEnglish(e.target.value))
@@ -194,31 +173,21 @@ export default function SignIn() {
                   type="password"
                   id="password"
                   InputLabelProps={{
-                    style: input_text,
+                    className: "Registration--StyledTextField-InputText",
                   }}
                   inputProps={{
-                    style: {
-                      height: "50px",
-                      padding: "0 14px",
-                      fontFamily: "Vazir",
-                      fontSize: "1.7rem",
-                    },
+                    className: "Registration--StyledTextField-inputProps",
                   }}
                   onChange={(e) => setPassword(e.target.value)}
                   error={errorPassword}
                   autoComplete="current-password"
-                  style={{ fontFamily: "Vazir" }}
                 />
                 <Button
                   type="submit"
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
-                  style={{
-                    fontFamily: "Vazir",
-                    fontSize: "120%",
-                    fontWeight: "bold",
-                  }}
+                  className="Registration--StyledTextField-InputText"
                 >
                   ورود
                 </Button>
@@ -228,11 +197,7 @@ export default function SignIn() {
                     <Link
                       href="/forget-password"
                       variant="body2"
-                      style={{
-                        fontFamily: "Vazir",
-                        fontSize: "110%",
-                        color: "white",
-                      }}
+                      className="Signin--Link"
                     >
                       فراموشی رمز عبور
                     </Link>
@@ -241,11 +206,7 @@ export default function SignIn() {
                     <Link
                       href="/signup"
                       variant="body2"
-                      style={{
-                        fontFamily: "Vazir",
-                        fontSize: "110%",
-                        color: "white",
-                      }}
+                      className="Signin--Link"
                     >
                       {"اکانت ندارید؟ ثبت‌نام کنید"}
                     </Link>
@@ -260,9 +221,3 @@ export default function SignIn() {
     </div>
   );
 }
-
-const input_text = {
-  color: "#fff",
-  fontFamily: "Vazir",
-  fontSize: "1.3rem",
-};

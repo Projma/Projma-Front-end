@@ -3,7 +3,7 @@
   src: url(../fonts/Vazir.ttf);
 }
 
-.taskmodal-page {
+.taskmodal--page {
   display: flex;
   flex-direction: row;
   column-gap: 15px;
@@ -14,7 +14,50 @@
   height: 90vh;
 }
 
-.taskmodal-container {
+.Taskmodal--body-labels-icons {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  align-items: flex-start;
+  gap: 3%;
+}
+
+.taskmodal--attachment-remove-btn {
+  font-family: "Vazir" !important;
+  font-size: 10px !important;
+  display: flex;
+  padding-top: 0px;
+  margin-left: 2%;
+  justify-content: center;
+  color: white !important;
+}
+
+.taskmodal--comment-button-remove {
+  font-family: "Vazir" !important;
+  color: white !important;
+  font-size: 10px !important;
+  padding-right: 0px !important;
+  text-decoration: underline !important;
+}
+
+.Taskmodal--body-dueDate {
+  width: 47%;
+  height: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Taskmodal--body-members-icons {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  align-items: flex-start;
+  gap: 3%;
+}
+
+.taskmodal--container {
   width: 70%;
   /* height: 120vh; */
   /* display: flex; */
@@ -29,14 +72,14 @@
   height: 100%;
 }
 
-.taskmodal-box {
+.taskmodal--box {
   background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
   border-radius: 53px;
   padding: 60px 80px;
   font-size: 16.5729px;
 }
 
-.taskmodal-header {
+.taskmodal--header {
   margin-right: 2%;
   margin-top: 2%;
   height: 15%;
@@ -62,41 +105,41 @@
 .flex-column-gap-2 {
   gap: 2%;
 }
-.taskmodal-title {
+.taskmodal--title {
   width: 100%;
   font-size: 19px;
   font-weight: 600;
   margin-bottom: 3%;
 }
 
-.taskmodal-subtitle {
+.taskmodal--subtitle {
   color: #5e6c84;
   font-size: 13px;
   font-weight: 600;
   margin-bottom: 2%;
 }
 
-.taskmodal-body-larger {
+.taskmodal--body-larger {
   width: 80%;
   height: 100%;
   overflow-y: auto;
   max-width: 400px;
 }
 
-.taskmodal-body-smaller {
+.taskmodal--body-smaller {
   width: 25%;
   height: 100%;
   justify-content: flex-start;
   align-items: center;
 }
 
-.taskmodal-body-members {
+.taskmodal--body-members {
   margin-left: 8px;
   width: 100% !important;
   margin-left: 5%;
 }
 
-.taskmodal-body-options {
+.taskmodal--body-options {
   height: fit-content;
   width: fit-content;
   align-items: center;
@@ -104,49 +147,46 @@
   width: 80%;
 }
 
-.taskmodal-body-activity-body-icon {
+.taskmodal--body-activity-body-icon {
   align-items: flex-start !important;
 }
 
-.taskmodal-body-attachment {
+.taskmodal--body-attachment {
   margin-top: 8%;
 }
 
-.taskmodal-body-attachment-header {
+.taskmodal--body-attachment-header {
   column-gap: 3%;
 }
 
-.taskmodal-body-attachment-list-item {
+.taskmodal--body-attachment-list-item {
   column-gap: 2%;
   flex-direction: column;
   width: 100%;
 }
 
-.taskmodal-body-attachment-list {
+.taskmodal--body-attachment-list {
   margin-top: 3%;
   padding: 3%;
 }
 
-.taskmodal-body-attachment-list-item-createdTime {
+.taskmodal--body-attachment-list-item-createdTime {
   margin-top: 2%;
   font-size: 12px;
   color: white;
 }
 
-.taskmodal-body-attachment-list-item-title {
+.taskmodal--body-attachment-list-item-title {
   font-weight: bold;
   font-size: 14px;
   color: white;
 }
 
-.taskmodal-body-attachment-list-item-icon {
-}
-
-.taskmodal-body-labels {
+.taskmodal--body-labels {
   width: 100%;
 }
 
-.taskmodel-body-members-title {
+.taskmodel--body-members-title {
   color: var(--ds-text-subtle, #5e6c84);
   display: block;
   font-size: 13px;
@@ -163,11 +203,11 @@
   margin-top: 6px;
 }
 
-.taskmodal-body-larger-description {
+.taskmodal--body-larger-description {
   margin-top: 4%;
 }
 
-.taskmodal-body-larger-description-textbox {
+.taskmodal--body-larger-description-textbox {
   /* margin-top: 6%; */
   margin-top: 1%;
   margin-right: 0%;
@@ -175,29 +215,29 @@
   padding-right: 0%;
 }
 
-.taskmodal-body-checklist {
+.taskmodal--body-checklist {
   margin-top: 6%;
   column-gap: 3%;
   margin-bottom: 3%;
 }
 
-.taskmodal-body-checklist-header {
+.taskmodal--body-checklist-header {
   column-gap: 3%;
 }
 
-.taskmodal-body-checklist-title {
+.taskmodal--body-checklist-title {
   width: 100%;
   /* background-color: red; */
   justify-content: space-between;
   margin-bottom: 3%;
 }
 
-.taskmodal-iconhide {
+.taskmodal--iconhide {
   width: 100%;
   justify-content: flex-end;
 }
 
-.taskmodal-body-checklist-body {
+.taskmodal--body-checklist-body {
   /* margin-top: 2%; */
   width: 100%;
 }
@@ -206,14 +246,18 @@
   font-family: vazir !important;
 }
 
-.taskmodal-checklist-showList {
+.taskmodal--checklist-showList {
   margin-right: 2%;
   width: 100%;
-  font-size: 14px;
+  font-size: 12px !important;
   direction: rtl !important;
+  text-decoration: line-through;
+  display: flex;
+  justify-content: flex-start;
+  color: white !important;
 }
 
-.taskmodal-body-activity-box {
+.taskmodal--body-activity-box {
   padding: 0%;
   margin: 0%;
   width: 86%;
@@ -226,56 +270,55 @@
     0 0 92px #5271ff, 0 0 102px #5271ff, 0 0 151px #5271ff;
 }
 
-.taskmodal-description-title {
+.taskmodal--description-title {
   font-size: 14px;
   /* font-weight: 600; */
   color: #fff;
 }
 
-.taskmodal-attachment-link-btn {
+.taskmodal--attachment-link-btn {
   display: flex;
   flex-direction: row;
   margin-top: 2%;
   width: 100%;
 }
 
-/* .taskmodal-attachment-link-btn:hover {
-  background-color: #5271ff !important;
-} */
-.taskmodal-button-setting {
+.taskmodal--button-setting {
   color: white;
-  font-family: vazir;
-  font-size: 10px;
+  font-family: "Vazir" !important;
+  font-size: 10px !important;
 }
 
-.taskmodal-closeButton {
+.taskmodal--closeButton {
   width: 100%;
-  color: white;
-  font-family: vazir;
+  color: white !important;
+  font-family: "Vazir" !important;
+  font-size: 100% !important;
+  background-color: #1d4b7a !important;
 }
 
-.taskmodal-body-activity {
+.taskmodal--body-activity {
   margin-top: 3%;
 }
-.taskmodal-body-activity-header {
+.taskmodal--body-activity-header {
   column-gap: 3%;
 }
 
-.taskmodal-body-activity-body {
+.taskmodal--body-activity-body {
   margin-top: 5%;
   column-gap: 2%;
 }
 
-.taskmodal-body-listofcomments {
+.taskmodal--body-listofcomments {
   margin-top: 3%;
 }
 
-.taskmodal-comment-showList {
+.taskmodal--comment-showList {
   width: 100%;
   margin-top: 2%;
 }
 
-.taskmodal-comment-showList-auther {
+.taskmodal--comment-showList-auther {
   font-family: vazir;
   font-size: 15px;
   margin-right: 2%;
@@ -283,7 +326,19 @@
   color: rgba(255, 255, 255, 0.885);
 }
 
-.taskmodal-comment-showList-comment {
+.taskmodal--description-showList-comment {
+  height: 70px;
+  padding: 5%;
+  border-radius: 10px;
+  margin-right: 0px;
+  color: white !important;
+  background-color: #557ea9c3;
+  overflow: auto;
+  font-family: "Vazir" !important;
+  font-size: 128% !important;
+}
+
+.taskmodal--comment-showList-comment {
   font-family: vazir;
   font-size: 13px;
   margin-top: 2%;
@@ -297,20 +352,20 @@
   overflow: auto;
 }
 
-.taskmodal-listofcomments-item {
+.taskmodal--listofcomments-item {
   margin-top: 2%;
 }
 
-.taskmodal-comment-button {
+.taskmodal--comment-button {
   margin-top: 1%;
 }
 
-.taskmodal-smaller-button {
+.taskmodal--smaller-button {
   margin-right: 5%;
   font-size: 11px;
 }
 
-.taskmodal-smaller-button-inner {
+.taskmodal--smaller-button-inner {
   width: 90%;
   height: 60%;
   padding-bottom: 3px;
@@ -319,19 +374,19 @@
   align-items: left;
   border-radius: 60px;
 }
-.taskmodal-larger_smaller {
+.taskmodal--larger_smaller {
   display: flex;
   flex-direction: row;
 }
 
-.taskmodal-comment-showList-auther {
+.taskmodal--comment-showList-auther {
   font-family: vazir;
   font-size: 12px;
   margin-right: 2%;
   font-weight: bold;
 }
 
-.taskmodal-comment-showList-auther-time {
+.taskmodal--comment-showList-auther-time {
   margin-right: 2%;
 }
 
@@ -340,7 +395,7 @@
   /*font-size: 13px !important;*/
 }
 
-.taskmodal-plusforprojma {
+.taskmodal--plusforprojma {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -349,7 +404,7 @@
   margin-top: 6%;
 }
 
-.taskmodal-plusforprojma-input {
+.taskmodal--plusforprojma-input {
   background-color: #7498bec3;
   display: flex;
   justify-content: center;
@@ -359,7 +414,7 @@
   height: 20px;
 }
 
-.taskmodal-plusforprojma-input::placeholder {
+.taskmodal--plusforprojma-input::placeholder {
   font-family: vazir !important;
   font-size: 9px !important;
   display: flex;
@@ -368,7 +423,7 @@
   color: white;
 }
 
-.taskmodal-body-duetime {
+.taskmodal--body-duetime {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -382,38 +437,55 @@
   width: 100%;
 }
 
+.taskmodal--activity-plusforprojma-button {
+  margin-right: 13% !important;
+  border-radius: 6px;
+  border-color: white;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-family: "Vazir" !important;
+  font-size: 10px !important;
+  height: 30%;
+}
+
+.taskmodal--activity-StyledTextField {
+  width: 20%;
+  color: white !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
 @media screen and (max-width: 600px) {
-  .taskmodal-title {
+  .taskmodal--title {
     font-size: 24px;
     margin-bottom: 0px;
   }
 
-  .taskmodal-subtitle {
+  .taskmodal--subtitle {
     font-size: 14px;
     margin-bottom: 10%;
   }
 
-  .taskmodal-flexibale-icon {
+  .taskmodal--flexibale-icon {
     width: 28%;
   }
 
-  .taskmodal-smaller-button-inner {
+  .taskmodal--smaller-button-inner {
     width: 120% !important;
   }
 
-  .taskmodal-body-larger-description-textbox {
+  .taskmodal--body-larger-description-textbox {
     margin-top: 5%;
     width: 100%;
     padding-top: 5%;
     padding-left: 0%;
   }
-  .taskmodal-closeButton {
+  .taskmodal--closeButton {
     width: 100%;
-  }
-  .taskmodal-closeButton {
     font-size: 90% !important;
   }
-  .taskmodal-body-smaller {
+  .taskmodal--body-smaller {
     flex-direction: row;
     width: 100% !important;
     display: flex;
@@ -421,23 +493,23 @@
     height: auto;
     justify-content: center;
   }
-  .taskmodal-container {
+  .taskmodal--container {
     width: 90% !important;
   }
-  .taskmodal-larger_smaller {
+  .taskmodal--larger_smaller {
     flex-direction: column-reverse;
   }
-  .taskmodal-page {
+  .taskmodal--page {
     width: 100% !important;
   }
-  .taskmodal-body-larger {
+  .taskmodal--body-larger {
     width: 99%;
     padding-top: 6%;
   }
-  .taskmodal-body-checklist {
+  .taskmodal--body-checklist {
     margin-bottom: 0px;
   }
-  .taskmodal-body-attachment {
+  .taskmodal--body-attachment {
     margin-top: 1%;
   }
 }

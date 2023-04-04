@@ -15,9 +15,8 @@ import apiInstance from "../../utilities/axiosConfig";
 import { baseUrl } from "../../utilities/constants";
 
 const theme = createTheme({
-  direction: "rtl", // Both here and <body dir="rtl">
+  direction: "rtl",
 });
-// Create rtl cache
 const cacheRtl = createCache({
   key: "muirtl",
   stylisPlugins: [prefixer, rtlPlugin],
@@ -33,19 +32,16 @@ export default function ProfileView() {
 
   const [bio, setBio] = React.useState("");
   const temp = useParams();
-  // ////console.log(temp.username);
   React.useEffect(() => {
     apiInstance
       .get(`/accounts/profile/public-profile/${temp.username}/`)
       .then((res) => {
-        ////console.log(res.data);
         setFirstName(res.data.user.first_name);
         setLastName(res.data.user.last_name);
         setUsername(res.data.user.username);
         setEmail(res.data.user.email);
         setGetImage(res.data.profile_pic);
         setBio(res.data.bio);
-        ////console.log(res.data.user.firstName);
       });
   });
   return (
@@ -55,13 +51,13 @@ export default function ProfileView() {
       </Helmet>
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
-          <div className="profile-container profile-page">
-            <div className="profile-box-profile-view">
+          <div className="profile--container profile--page">
+            <div className="profile--box-profile-view">
               <div
                 className="box-profile-view"
                 style={{ alignItems: "center" }}
               >
-                <div className="profile-box-header flex justify-between">
+                <div className="profile--box-header flex justify-between">
                   <h3 style={{ color: "white" }} className="neonText">
                     اطلاعات فردی
                   </h3>
@@ -75,19 +71,13 @@ export default function ProfileView() {
                     style={{ marginTop: "-50px" }}
                   >
                     <Avatar
-                      className="Avatar"
+                      className="Avatar profile--pictureView"
                       src={
                         getImage !== null
                           ? `${baseURL}${getImage}`
                           : profile_preview
                       }
                       alt="profile"
-                      sx={{
-                        mt: 1,
-                        width: "15vmin",
-                        height: "15vmin",
-                        borderRadius: "50%",
-                      }}
                     />
                   </div>
                 </div>
@@ -99,7 +89,7 @@ export default function ProfileView() {
                     className="profile-view-box"
                     style={{ width: "100%", marginTop: "5%" }}
                   >
-                    <div className="flex-col profile-view-show-box profile-view-show-box-media">
+                    <div className="flex-col profile--view-show-box">
                       <label
                         for="first_name"
                         className="title-css"
@@ -109,7 +99,7 @@ export default function ProfileView() {
                       </label>
                       <h3 className="profile-detail-css">{firstName}</h3>
                     </div>
-                    <div className="flex-col profile-view-show-box profile-view-show-box-media">
+                    <div className="flex-col profile--view-show-box">
                       <label
                         for="last_name"
                         className="title-css"
@@ -126,7 +116,7 @@ export default function ProfileView() {
                   style={{ marginTop: "10%", width: "100%" }}
                 >
                   <div className="profile-view-box" style={{ width: "100%" }}>
-                    <div className="flex-col profile-view-show-box profile-view-show-box-media">
+                    <div className="flex-col profile--view-show-box">
                       <label
                         for="first_name"
                         className="title-css"
@@ -136,7 +126,7 @@ export default function ProfileView() {
                       </label>
                       <h3 className="profile-detail-css">{email}</h3>
                     </div>
-                    <div className="flex-col profile-view-show-box profile-view-show-box-media">
+                    <div className="flex-col profile--view-show-box">
                       <label
                         for="last_name"
                         className="title-css"
@@ -149,7 +139,7 @@ export default function ProfileView() {
                   </div>
                 </div>
                 <div style={{ marginTop: "10%" }}>
-                  <div className="flex-col profile-view-show-box profile-view-show-box-media bio-media">
+                  <div className="flex-col profile--view-show-box profile--bio-media">
                     <label
                       for="bio"
                       className="title-css"

@@ -10,14 +10,11 @@ import BoardView from "./BoardView";
 import CreateBoardModal from "../CreateBoardModal/CreateBoard";
 import Loading from "../../Shared/Loading";
 import { baseUrl } from "../../../utilities/constants";
-// import { createGlobalStyle } from "styled-components";
 
-const Board = ({ params, on_submit }) => {
-  ////console.log(params.id);
-  const [workspace, setWorkspace] = useState({});
+const Board = ({ params, on_submit, workspace, setWorkspace }) => {
   const [star, setStar] = useState([]);
   const [recent, setRecent] = useState([]);
-  const [list, setList] = useState([]);
+  const [boards, setBoards] = useState([]);
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(true);
   let tempdata;
@@ -30,19 +27,12 @@ const Board = ({ params, on_submit }) => {
       .get(`workspaces/workspaces/${params.id}/workspace-starred-boards/`)
       .then((res) => {
         setLoading(true);
-        // ////console.log(res.data);
-        ////console.log("*********************************");
-        ////console.log(res.data);
         setStar(res.data);
       })
       .catch((err) => {
-        ////console.log(err);
         setStar([]);
       })
       .finally(() => setLoading(false));
-    // return () => {
-    //   setList(list);
-    // };
   }, [update]);
 
   const fetchData = async () => {
@@ -54,45 +44,18 @@ const Board = ({ params, on_submit }) => {
           name: obj.name,
           background_pic: obj.background_pic,
         }));
-        setList(boards);
+        setBoards(boards);
         tempdata = boards;
-        ////console.log(boards);
-      });
-    await apiInstance
-      .get(`workspaces/workspaceowner/${params.id}/get-workspace/`)
-      .then((res) => {
-        // ////console.log(res.data);
-        ////console.log("*********************************");
-        ////console.log(res.data);
-        setWorkspace(res.data);
-      })
-      .catch((err) => {
-        ////console.log(err);
       });
     await apiInstance
       .get(`workspaces/workspaces/${params.id}/workspace-starred-boards/`)
       .then((res) => {
-        // ////console.log(res.data);
-        ////console.log("*********************************");
-        ////console.log(res.data);
         setStar(res.data);
-      })
-      .catch((err) => {
-        ////console.log(err);
-        // setStar([]);
       });
     await apiInstance
       .get(`workspaces/dashboard/myrecent-boards/`)
       .then((res) => {
-        // ////console.log(res.data);
-        ////console.log("*********************************");
-        ////console.log(res.data);
         setRecent(res.data.filter((x) => tempdata.find((y) => y.id === x.id)));
-        //console.log(tempdata, res.data);
-      })
-      .catch((err) => {
-        ////console.log(err);
-        // setRecent([]);
       })
       .finally(() => setLoading(false));
   };
@@ -107,10 +70,15 @@ const Board = ({ params, on_submit }) => {
     );
     setUpdate(!update);
   };
+
   return (
     <div className="workspace-board-main" style={{ width: "100vw" }}>
       {loading && <Loading />}
-      <Navbar params={params} />
+      <Navbar
+        params={params}
+        workspace={workspace}
+        setWorkspace={setWorkspace}
+      />
       <div className="workspace-board-section">
         {recent.length > 0 && (
           <div>
@@ -120,7 +88,7 @@ const Board = ({ params, on_submit }) => {
                 <p className="workspace--board-header-title">آخرین بورد ها</p>
               </div>
               <div className="workspace--board-body">
-                <div className="workspace--board-body-list">
+                <div className="workspace--board-body-boards">
                   {recent.map((x) => (
                     <BoardView
                       name={x.name}
@@ -149,7 +117,7 @@ const Board = ({ params, on_submit }) => {
                 <p className="workspace--board-header-title">بورد های مهم</p>
               </div>
               <div className="workspace--board-body">
-                <div className="workspace--board-body-list">
+                <div className="workspace--board-body-boards">
                   {star.map((x) => (
                     <BoardView
                       name={x.name}
@@ -172,8 +140,8 @@ const Board = ({ params, on_submit }) => {
             <p className="workspace--board-header-title">بورد ها</p>
           </div>
           <div className="workspace--board-body">
-            <div className="workspace--board-body-list">
-              {list.map((x) => (
+            <div className="workspace--board-body-boards">
+              {boards.map((x) => (
                 <BoardView
                   name={x.name}
                   key={x.id}
@@ -191,8 +159,8 @@ const Board = ({ params, on_submit }) => {
               <CreateBoardModal
                 params={params}
                 on_submit={on_submit}
-                boards={list}
-                setBoards={setList}
+                boards={boards}
+                setBoards={setBoards}
               />
             </div>
           </div>

@@ -7,42 +7,32 @@ import apiInstance from "../../../utilities/axiosConfig";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-export default function BasicSelect({ type, setWorkspaceType, workspace }) {
-  ////console.log(type);
+export default function BasicSelect({
+  editModalWorkspace,
+  setEditModalWorkspace,
+}) {
   const [types, setTypes] = React.useState([]);
-  const [typeInp, setTypeInp] = React.useState("");
   useEffect(() => {
-    ////console.log("useEffect");
-    ////console.log(type);
     apiInstance.get(`workspaces/workspaces/type/`).then((res) => {
-      const typee = Object.entries(res.data).filter((item) => {
-        return item[0] === type;
-      });
-      ////console.log(typee[0][1]);
-      setTypeInp(typee[0][1]);
       setTypes(res.data);
     });
   }, []);
 
   const handleChange = (event) => {
     event.preventDefault();
-    setWorkspaceType(event.target.value);
-    ////console.log(event.target.value);
-    const inp = Object.entries(types).filter((item) => {
-      return item[0] === event.target.value;
-    });
-    setTypeInp(inp[0][1]);
+    setEditModalWorkspace({ ...editModalWorkspace, type: event.target.value });
   };
 
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
         <Select
-          renderValue={(p) => p}
+          renderValue={(p) => types[p]}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={workspace.type}
+          value={editModalWorkspace?.type}
           onChange={handleChange}
+          role="select_ws_type"
           sx={{
             border: "1px solid #66B2FF",
             color: "#fff",

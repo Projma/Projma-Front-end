@@ -19,7 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "../../styles/TaskModal.css";
 import Loading from "../Shared/Loading";
 import "./Labels.scss";
-/// persian num
+// // persian num
 import { convertNumberToPersian } from "../../utilities/helpers.js";
 
 export default function Labels({ params, task_labels, set_task_labels }) {

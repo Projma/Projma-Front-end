@@ -23,7 +23,7 @@ apiInstance.interceptors.request.use(
 apiInstance.interceptors.response.use(
   (res) => {
     return res; // response
-  },
+  }
   // async (error) => {
   //   if (error.response) {
   //     const originalConfig = error.config;
