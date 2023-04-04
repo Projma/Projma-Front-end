@@ -12,8 +12,8 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
-#    runs-on: ubuntu-latest
+#   runs-on: windows-latest
+    runs-on: ubuntu-latest
 
 #     strategy:
 #       matrix:
@@ -36,6 +36,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Build project
-      run: CI="" npm run build --if-present
+      # run: CI="" npm run build --if-present
+      run: CI=false npm run build --if-present
       # CI=false (treating warnings as errors because process.env.ci = true.)
 #     - run: npm test
