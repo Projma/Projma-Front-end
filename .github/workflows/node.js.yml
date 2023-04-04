@@ -12,23 +12,23 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
-#    runs-on: ubuntu-latest
+#   runs-on: windows-latest
+    runs-on: ubuntu-latest
 
-#     strategy:
-#       matrix:
-#         node-version: [14.x, 16.x, 18.x]
-#         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+#    strategy:
+#      matrix:
+#        node-version: [14.x, 16.x, 18.x]
+#        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
     - uses: actions/checkout@v3
-#     - name: Use Node.js ${{ matrix.node-version }}
+#    - name: Use Node.js ${{ matrix.node-version }}
 #    - name: Use Node.js 16
-    - name: Use Node.js 14
+    - name: Use Node.js 14.x # 14.17.4
       uses: actions/setup-node@v3
       with:
-#         node-version: ${{ matrix.node-version }}
-        node-version: 14.17.4
+#        node-version: ${{ matrix.node-version }}
+        node-version: 14.x
         cache: 'npm'
     # - name: Upgrade NPM
     #   run: npm install -g npm
@@ -36,6 +36,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Build project
-      run: CI="" npm run build --if-present
+      run: CI=false npm run build --if-present
       # CI=false (treating warnings as errors because process.env.ci = true.)
+#     - name: Test project
 #     - run: npm test
