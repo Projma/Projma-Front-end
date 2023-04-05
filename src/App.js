@@ -24,6 +24,7 @@ import BoardInvitation from "./pages/BoardInvitation";
 import { Navigate } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import Board from "./components/Board/Board";
+import Calendar from "./components/Calendar/Calendar";
 
 const theme = createTheme(
   {
@@ -105,7 +106,7 @@ function App() {
                 }/>
                 <Route exact path="calendar" element={
                   <PrivateRoute
-                    children={<PrivateRoute children={<></>} />}
+                    children={<PrivateRoute children={<Calendar/>} />}
                   />
                 }/>
               </Route>
