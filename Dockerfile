@@ -18,7 +18,7 @@ RUN npm install react-scripts@3.4.1 -g --silent
 # add app
 COPY . .
 
-# port was exported in ngingx.conf (docker run -d -p 3000:81 image_id)
+# port was exported in ngingx.conf (docker run -d -p 3000:80 image_id)
 
 # build app
 RUN npm run build --max-old-space-size=2048 # increase memory to 2GB
