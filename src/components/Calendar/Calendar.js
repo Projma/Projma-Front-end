@@ -52,6 +52,7 @@ const Calendar = () => {
         }}
         windowResize={() => {}}
         nowIndicator
+        navLinks
       />
     </dir>
   );
