@@ -68,6 +68,6 @@ jobs:
         with:
           context: .
           push: true
-          # tags: farzanrahmani/projmafrontend:$(date +%s)
-          tags: farzanrahmani/projmafrontend:latest
+          tags: farzanrahmani/projmafrontend:$(date +%s)
+          # tags: farzanrahmani/projmafrontend:latest
 
