@@ -54,6 +54,7 @@ const Calendar = () => {
         nowIndicator
         navLinks
         weekNumbers
+        weekText=""
       />
     </dir>
   );
