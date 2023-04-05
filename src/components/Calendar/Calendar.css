@@ -8,6 +8,12 @@
   --fc-today-bg-color: #007fff33;
   --fc-neutral-bg-color: #265D97;
   --fc-neutral-text-color: #CEE0F3;
+  --fc-button-bg-color: #0A1929;
+  --fc-button-border-color: #0A1929;
+  --fc-button-hover-bg-color: var(--hover-color);
+  --fc-button-hover-border-color: var(--hover-color);
+  --fc-button-active-bg-color: #007fff;
+  --fc-button-active-border-color: #007fff;
 }
 
 .fc-list-day-text {
