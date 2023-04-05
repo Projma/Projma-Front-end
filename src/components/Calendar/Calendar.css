@@ -6,4 +6,14 @@
   padding: 1rem 2rem;
   color: #fff;
   --fc-today-bg-color: #007fff33;
+  --fc-neutral-bg-color: #CEE0F3;
+  --fc-neutral-text-color: #0A1929;
+}
+
+.fc-list-day-text {
+  color: #CEE0F3;
+}
+
+.fc-list-day-cushion {
+  background-color: #0A1929 !important;
 }
