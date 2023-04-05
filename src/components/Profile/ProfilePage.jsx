@@ -23,7 +23,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Shared/Loading";
 import { baseUrl } from "../../utilities/constants";
-import Header from "../Header/Header";
+// import Header from "../Header/Header";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
@@ -159,274 +159,268 @@ export default function Profile() {
         setIsPost(null);
       });
   };
-  if (!loading) {
-    return (
-      <div className="profile-total-page">
-        {isPost ? <Loading /> : null}
-        <Header></Header>
-        <ToastContainer />
-        <CacheProvider value={cacheRtl}>
-          <Helmet>
-            <title>حساب کاربری</title>
-          </Helmet>
-          <ThemeProvider theme={theme}>
-            <div className="profile--container profile--page">
-              <div className="profile--information-pro row-gap-8">
-                <div className="profile--box-body-profile-container">
-                  <Avatar
-                    className="Avatar profile--pictureView"
-                    src={getImage !== null ? `${baseURL}${getImage}` : file}
-                    alt="profile"
-                  />
-                </div>
-                <div
-                  className="flex-col align-center"
-                  style={{
-                    width: "100%",
-                    marginTop: "20%",
-                    justifyContent: "flex-start",
-                  }}
-                >
-                  <h3 className="flex profile--information-fname-lname profile--leftMenu-text">
-                    {convertNumberToPersian(firstName)}
-                  </h3>
-                  <h3 className="flex profile--information-fname-lname profile--leftMenu-text">
-                    {convertNumberToPersian(lastName)}
-                  </h3>
-                  <h4 className="neonText profile--leftMenu-text">
-                    {`${convertNumberToPersian(username)}@`}
-                  </h4>
-                </div>
-                <div style={{ marginTop: "20%", width: "100%" }}>
+  return (
+    <div className="profile-total-page">
+      {isPost ? <Loading /> : null}
+      {/* <Header></Header> */}
+      <ToastContainer />
+      <CacheProvider value={cacheRtl}>
+        <Helmet>
+          <title>حساب کاربری</title>
+        </Helmet>
+        <ThemeProvider theme={theme}>
+          <div className="profile--container profile--page">
+            <div className="profile--information-pro row-gap-8">
+              <div className="profile--box-body-profile-container">
+                <Avatar
+                  className="Avatar profile--pictureView"
+                  src={getImage !== null ? `${baseURL}${getImage}` : file}
+                  alt="profile"
+                />
+              </div>
+              <div
+                className="flex-col align-center"
+                style={{
+                  width: "100%",
+                  marginTop: "20%",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <h3 className="flex profile--information-fname-lname profile--leftMenu-text">
+                  {convertNumberToPersian(firstName)}
+                </h3>
+                <h3 className="flex profile--information-fname-lname profile--leftMenu-text">
+                  {convertNumberToPersian(lastName)}
+                </h3>
+                <h4 className="neonText profile--leftMenu-text">
+                  {`${convertNumberToPersian(username)}@`}
+                </h4>
+              </div>
+              <div style={{ marginTop: "20%", width: "100%" }}>
+                <button className="btn">
+                  <a href="/profile">
+                    <div
+                      className="flex-row-information"
+                      style={{ alignItems: "center" }}
+                    >
+                      <PersonIcon className="profile--rightMenu-icon"></PersonIcon>
+                      <h4 className="neonText profile--leftMenu-text">
+                        اطلاعات حساب
+                      </h4>
+                    </div>
+                  </a>
+                </button>
+                <div>
                   <button className="btn">
-                    <a href="/profile">
+                    <a href="/changepassword">
                       <div
                         className="flex-row-information"
                         style={{ alignItems: "center" }}
                       >
-                        <PersonIcon className="profile--rightMenu-icon"></PersonIcon>
+                        <PasswordIcon className="profile--rightMenu-icon"></PasswordIcon>
                         <h4 className="neonText profile--leftMenu-text">
-                          اطلاعات حساب
+                          تغییر رمز عبور
                         </h4>
                       </div>
                     </a>
                   </button>
-                  <div>
-                    <button className="btn">
-                      <a href="/changepassword">
-                        <div
-                          className="flex-row-information"
-                          style={{ alignItems: "center" }}
-                        >
-                          <PasswordIcon className="profile--rightMenu-icon"></PasswordIcon>
-                          <h4 className="neonText profile--leftMenu-text">
-                            تغییر رمز عبور
-                          </h4>
-                        </div>
-                      </a>
-                    </button>
-                  </div>
                 </div>
               </div>
-              <div className="profile--box">
-                <div className="profile--box-header flex justify-between">
-                  <h3 style={{ marginBottom: "8%" }} className="neonText">
-                    اطلاعات فردی
-                  </h3>
-                </div>
-                <Box
-                  className="profile--box-body"
-                  component="form"
-                  onSubmit={handleSubmit}
+            </div>
+            <div className="profile--box">
+              <div className="profile--box-header flex justify-between">
+                <h3 style={{ marginBottom: "8%" }} className="neonText">
+                  اطلاعات فردی
+                </h3>
+              </div>
+              <Box
+                className="profile--box-body"
+                component="form"
+                onSubmit={handleSubmit}
+              >
+                <div
+                  className="flex margin-top col-gap-8"
+                  style={{ justifyContent: "center", marginBottom: "1%" }}
                 >
                   <div
-                    className="flex margin-top col-gap-8"
-                    style={{ justifyContent: "center", marginBottom: "1%" }}
+                    className="avatar-container"
+                    style={{ marginTop: "-50px" }}
                   >
-                    <div
-                      className="avatar-container"
-                      style={{ marginTop: "-50px" }}
-                    >
-                      <Avatar
-                        className="Avatar profile--pictureView"
-                        src={
-                          getImage !== null && !changeImage
-                            ? `${baseURL}${getImage}`
-                            : file
-                        }
-                        alt="profile"
-                      />
-                      <div className="button-container">
-                        <Button
-                          variant="contained"
-                          component="label"
-                          color="info"
-                        >
-                          <p
-                            style={{
-                              fontSize: "0.8rem",
-                              fontFamily: "Vazir",
-                            }}
-                          >
-                            انتخاب عکس
-                          </p>
-                          <input
-                            type="file"
-                            hidden
-                            onChange={(e) => {
-                              setBinaryFile(e.target.files[0]);
-                              setChangeImage(true);
-                              const [filee] = e.target.files;
-                              setFile(URL.createObjectURL(filee));
-                            }}
-                            accept=".jpg,.jpeg,.png"
-                          />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                  {getImage !== null ? (
-                    <div className="profile-delete-image">
+                    <Avatar
+                      className="Avatar profile--pictureView"
+                      src={
+                        getImage !== null && !changeImage
+                          ? `${baseURL}${getImage}`
+                          : file
+                      }
+                      alt="profile"
+                    />
+                    <div className="button-container">
                       <Button
-                        style={{ fontFamily: "Vazir" }}
                         variant="contained"
-                        onClick={handleDeleteProfileImage}
+                        component="label"
+                        color="info"
                       >
-                        {" "}
-                        حذف{" "}
+                        <p
+                          style={{
+                            fontSize: "0.8rem",
+                            fontFamily: "Vazir",
+                          }}
+                        >
+                          انتخاب عکس
+                        </p>
+                        <input
+                          type="file"
+                          hidden
+                          onChange={(e) => {
+                            setBinaryFile(e.target.files[0]);
+                            setChangeImage(true);
+                            const [filee] = e.target.files;
+                            setFile(URL.createObjectURL(filee));
+                          }}
+                          accept=".jpg,.jpeg,.png"
+                        />
                       </Button>
                     </div>
-                  ) : (
-                    <div></div>
-                  )}
+                  </div>
+                </div>
+                {getImage !== null ? (
+                  <div className="profile-delete-image">
+                    <Button
+                      style={{ fontFamily: "Vazir" }}
+                      variant="contained"
+                      onClick={handleDeleteProfileImage}
+                    >
+                      {" "}
+                      حذف{" "}
+                    </Button>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
 
-                  <div className="flex">
-                    <div
-                      className="flex-col col-gap-16"
-                      style={{ width: "100%", marginTop: "10%" }}
-                    >
-                      <StyledTextField
-                        className="otherStyledTextField"
-                        margin="normal"
-                        id="firstName"
-                        fullWidth
-                        value={convertNumberToPersian(firstName)}
-                        label="نام"
-                        name="firstName"
-                        InputLabelProps={{
-                          className: "profile--styleTextField-labelText",
-                        }}
-                        InputProps={{ style: { fontFamily: "Vazir" } }}
-                        onChange={(e) =>
-                          setFirstName(convertNumberToEnglish(e.target.value))
-                        }
-                        autoComplete="firstname"
-                        error={errorFirstName}
-                        autoFocus
-                      />
-                      <StyledTextField
-                        className="otherStyledTextField"
-                        margin="normal"
-                        id="lastname"
-                        fullWidth
-                        value={convertNumberToPersian(lastName)}
-                        label="نام خانوادگی"
-                        name="lastname"
-                        InputLabelProps={{
-                          className: "profile--styleTextField-labelText",
-                        }}
-                        InputProps={{ style: { fontFamily: "Vazir" } }}
-                        onChange={(e) =>
-                          setLastName(convertNumberToEnglish(e.target.value))
-                        }
-                        autoComplete="lastname"
-                        error={errorLastName}
-                        autoFocus
-                      />
-                    </div>
-                  </div>
-                  <div className="flex-col" style={{ width: "100%" }}>
-                    <div className="flex-col show-box show-box-media, row-gap-8">
-                      <label for="email" className="title-css">
-                        ایمیل
-                      </label>
-                      <h3 className="email-text-box email-font-size">
-                        {convertNumberToPersian(email)}
-                      </h3>
-                    </div>
-                    <div
-                      className="flex-col show-box show-box-media row-gap-8"
-                      style={{ marginTop: "2%" }}
-                    >
-                      <label for="username" className="title-css">
-                        نام کاربری
-                      </label>
-                      <h3 className="email-text-box">
-                        {convertNumberToPersian(username)}
-                      </h3>
-                    </div>
-                  </div>
-                  <div className="profile--birthday-border">
-                    <div className="profile--birthday-media flex">
-                      <label className="profile--birthday-label">
-                        تاریخ تولد
-                      </label>
-                    </div>
-                    <DatePicker
-                      className="rmdp-input-media"
-                      calendar={persian}
-                      locale={persian_fa}
-                      value={birthDate}
-                      onChange={(val) => setBirthDate(val)}
-                      calendarPosition="bottom-right"
-                      style={{ width: "100%" }}
-                    />
-                  </div>
-                  <div>
+                <div className="flex">
+                  <div
+                    className="flex-col col-gap-16"
+                    style={{ width: "100%", marginTop: "10%" }}
+                  >
                     <StyledTextField
                       className="otherStyledTextField"
                       margin="normal"
-                      id="bio"
-                      label="درباره"
+                      id="firstName"
                       fullWidth
-                      name="bio"
-                      multiline
-                      onChange={(e) =>
-                        setBio(convertNumberToPersian(e.target.value))
-                      }
-                      value={bio}
-                      rows={2}
-                      InputProps={{ style: { fontFamily: "Vazir" } }}
+                      value={convertNumberToPersian(firstName)}
+                      label="نام"
+                      name="firstName"
                       InputLabelProps={{
                         className: "profile--styleTextField-labelText",
                       }}
-                      autoComplete="bio"
+                      InputProps={{ style: { fontFamily: "Vazir" } }}
+                      onChange={(e) =>
+                        setFirstName(convertNumberToEnglish(e.target.value))
+                      }
+                      autoComplete="firstname"
+                      error={errorFirstName}
+                      autoFocus
+                    />
+                    <StyledTextField
+                      className="otherStyledTextField"
+                      margin="normal"
+                      id="lastname"
+                      fullWidth
+                      value={convertNumberToPersian(lastName)}
+                      label="نام خانوادگی"
+                      name="lastname"
+                      InputLabelProps={{
+                        className: "profile--styleTextField-labelText",
+                      }}
+                      InputProps={{ style: { fontFamily: "Vazir" } }}
+                      onChange={(e) =>
+                        setLastName(convertNumberToEnglish(e.target.value))
+                      }
+                      autoComplete="lastname"
+                      error={errorLastName}
                       autoFocus
                     />
                   </div>
-                  <Typography
-                    id="em"
-                    className="profile--errorText"
-                  ></Typography>
-                  <div>
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
-                      className="profile--submitButton"
-                    >
-                      اعمال تغییرات
-                    </Button>
+                </div>
+                <div className="flex-col" style={{ width: "100%" }}>
+                  <div className="flex-col show-box show-box-media, row-gap-8">
+                    <label for="email" className="title-css">
+                      ایمیل
+                    </label>
+                    <h3 className="email-text-box email-font-size">
+                      {convertNumberToPersian(email)}
+                    </h3>
                   </div>
-                </Box>
-              </div>
+                  <div
+                    className="flex-col show-box show-box-media row-gap-8"
+                    style={{ marginTop: "2%" }}
+                  >
+                    <label for="username" className="title-css">
+                      نام کاربری
+                    </label>
+                    <h3 className="email-text-box">
+                      {convertNumberToPersian(username)}
+                    </h3>
+                  </div>
+                </div>
+                <div className="profile--birthday-border">
+                  <div className="profile--birthday-media flex">
+                    <label className="profile--birthday-label">
+                      تاریخ تولد
+                    </label>
+                  </div>
+                  <DatePicker
+                    className="rmdp-input-media"
+                    calendar={persian}
+                    locale={persian_fa}
+                    value={birthDate}
+                    onChange={(val) => setBirthDate(val)}
+                    calendarPosition="bottom-right"
+                    style={{ width: "100%" }}
+                  />
+                </div>
+                <div>
+                  <StyledTextField
+                    className="otherStyledTextField"
+                    margin="normal"
+                    id="bio"
+                    label="درباره"
+                    fullWidth
+                    name="bio"
+                    multiline
+                    onChange={(e) =>
+                      setBio(convertNumberToPersian(e.target.value))
+                    }
+                    value={bio}
+                    rows={2}
+                    InputProps={{ style: { fontFamily: "Vazir" } }}
+                    InputLabelProps={{
+                      className: "profile--styleTextField-labelText",
+                    }}
+                    autoComplete="bio"
+                    autoFocus
+                  />
+                </div>
+                <Typography id="em" className="profile--errorText"></Typography>
+                <div>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    role="submit-btn"
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                    className="profile--submitButton"
+                  >
+                    اعمال تغییرات
+                  </Button>
+                </div>
+              </Box>
             </div>
-          </ThemeProvider>
-        </CacheProvider>
-      </div>
-    );
-  } else {
-    return <div></div>;
-  }
+          </div>
+        </ThemeProvider>
+      </CacheProvider>
+    </div>
+  );
 }
