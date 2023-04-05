@@ -13,12 +13,15 @@ import { wait } from "@testing-library/user-event/dist/utils";
 
 const Calendar = () => {
   const { collapsed } = useProSidebar();
+  const calendar = useRef();
   useEffect(() => {
-    
+    // if(calendar !== null)
+      // calendar.updateSize();
   }, [collapsed]);
   return (
     <dir className="calendar--container">
       <FullCalendar
+        ref={calendar}
         height={"87vh"}
         locale={faLocale}
         plugins={[dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin]}
@@ -48,6 +51,7 @@ const Calendar = () => {
           right: "dayGridMonth,dayGridWeek,timeGridDay,listMonth",
         }}
         windowResize={() => {}}
+        nowIndicator
       />
     </dir>
   );
