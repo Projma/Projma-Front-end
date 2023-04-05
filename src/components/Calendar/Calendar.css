@@ -5,4 +5,5 @@
   overflow: auto;
   padding: 1rem 2rem;
   color: #fff;
+  --fc-today-bg-color: #007fff33;
 }
