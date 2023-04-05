@@ -32,6 +32,7 @@ export default function BasicSelect({
           id="demo-simple-select"
           value={editModalWorkspace?.type}
           onChange={handleChange}
+          role="select_ws_type"
           sx={{
             border: "1px solid #66B2FF",
             color: "#fff",

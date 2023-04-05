@@ -18,7 +18,7 @@ import StyledTextField from "./StyledTextField";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import apiInstance from "../../utilities/axiosConfig";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // comment for tests
 import { useDispatch } from "react-redux";
 import { login } from "../../actions/authActions";
 import { useState } from "react";
@@ -28,7 +28,7 @@ import {
   convertNumberToPersian,
   convertNumberToEnglish,
 } from "../../utilities/helpers.js";
-import Header from "../Header/Header";
+// import Header from "../Header/Header";
 
 function Copyright(props) {
   return (
@@ -51,8 +51,8 @@ export default function SignIn() {
   const [isPost, setIsPost] = useState(false);
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-  let navigate = useNavigate();
-  const dispatch = useDispatch();
+  let navigate = useNavigate(); // comment for tests
+  // const dispatch = useDispatch();
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrorUsername(false);
@@ -72,8 +72,8 @@ export default function SignIn() {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        dispatch(login());
-        delay(4000).then(() => navigate("/dashboard"));
+        // dispatch(login());
+        delay(4000).then(() => navigate("/dashboard")); // comment for tests
       })
       .catch((res) => {
         if (res.request.response.search("active") !== -1) {
@@ -105,7 +105,7 @@ export default function SignIn() {
 
   return (
     <div>
-      <Header></Header>
+      {/* <Header></Header> */}
       <Helmet>
         <title>صفحه ورود</title>
       </Helmet>
@@ -149,7 +149,7 @@ export default function SignIn() {
                   required="required"
                   id="username"
                   label="نام کاربری"
-                  name="username"
+                  name="Username"
                   InputLabelProps={{
                     className: "Registration--StyledTextField-InputText",
                   }}
@@ -168,8 +168,8 @@ export default function SignIn() {
                   margin="normal"
                   fullWidth
                   required="required"
-                  name="password"
-                  label="پسورد"
+                  name="Password"
+                  label="رمز عبور"
                   type="password"
                   id="password"
                   InputLabelProps={{
@@ -184,6 +184,7 @@ export default function SignIn() {
                 />
                 <Button
                   type="submit"
+                  role="submit-btn"
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}

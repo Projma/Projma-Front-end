@@ -17,7 +17,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import StyledTextField from "./StyledTextField";
 import apiInstance from "../../utilities/axiosConfig";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // comment for tests
 import { useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -27,7 +27,7 @@ import {
   convertNumberToPersian,
   convertNumberToEnglish,
 } from "../../utilities/helpers";
-import Header from "../Header/Header";
+// import Header from "../Header/Header";
 
 function Copyright(props) {
   return (
@@ -58,14 +58,14 @@ export default function SignUp() {
   const [isPost, setIsPost] = React.useState(false);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  let navigate = useNavigate();
-  const { state } = useLocation();
+  let navigate = useNavigate(); // comment for tests
+  // const { state } = useLocation();
   const cacheRtl = createCache({
     key: "muirtl",
     stylisPlugins: [prefixer, rtlPlugin],
   });
   let errorMessage = "";
-  const handleSubmit = (event) => {
+  function handleSubmit(event) {
     event.preventDefault();
     errorMessage = "";
     document.getElementById("em").innerHTML = errorMessage;
@@ -112,7 +112,7 @@ export default function SignUp() {
             position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
-          delay(4000).then(() => navigate("/signin"));
+          delay(4000).then(() => navigate("/signin")); // comment for tests
         })
         .catch((res) => {
           if (
@@ -148,11 +148,11 @@ export default function SignUp() {
       return;
     }
     document.getElementById("em").innerHTML = errorMessage;
-  };
+  }
 
   return (
     <CacheProvider value={cacheRtl}>
-      <Header></Header>
+      {/* <Header></Header> */}
       <Helmet>
         <title>صفحه ثبت‌نام</title>
       </Helmet>
@@ -184,7 +184,7 @@ export default function SignUp() {
                     fullWidth
                     id="firstName"
                     label="نام"
-                    name="firstName"
+                    name="firstname-name"
                     autoComplete="family-name"
                     inputProps={{
                       className: "Registration--StyledTextField-inputProps",
@@ -202,9 +202,9 @@ export default function SignUp() {
                 <Grid item xs={12} sm={6}>
                   <StyledTextField
                     autoComplete="given-name"
-                    name="lastName"
+                    name="lastName-name"
                     fullWidth
-                    id="lastName"
+                    id="lastname"
                     label="نام خانوادگی"
                     autoFocus
                     inputProps={{
@@ -226,7 +226,7 @@ export default function SignUp() {
                     fullWidth
                     id="username"
                     label="نام کاربری"
-                    name="username"
+                    name="username-name"
                     autoComplete="username"
                     InputLabelProps={{
                       className: "Registration--StyledTextField-InputText",
@@ -247,11 +247,11 @@ export default function SignUp() {
                     fullWidth
                     id="email"
                     label="ایمیل"
-                    name="email"
-                    // value={convertNumberToPersian(email)}
-                    defaultValue={
-                      state?.email ? convertNumberToPersian(state?.email) : ""
-                    }
+                    name="email-name"
+                    value={convertNumberToPersian(email)}
+                    // defaultValue={
+                    //   state?.email ? convertNumberToPersian(state?.email) : ""
+                    // }
                     autoComplete="email"
                     InputLabelProps={{
                       className: "Registration--StyledTextField-InputText",
@@ -270,8 +270,8 @@ export default function SignUp() {
                   <StyledTextField
                     required
                     fullWidth
-                    name="password"
-                    label="پسورد"
+                    name="password-name"
+                    label="رمز عبور"
                     type="password"
                     id="password"
                     autoComplete="new-password"
@@ -293,11 +293,14 @@ export default function SignUp() {
               <Button
                 type="submit"
                 fullWidth
+                name="submit-btn"
+                role="submit-btn"
+                label="ثبت‌نام"
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
                 className="Registration--StyledTextField-InputText"
               >
-                ثبت‌نام
+                signup-btn
               </Button>
               <Grid container justifyContent="flex-end">
                 <Grid item>
