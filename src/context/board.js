@@ -3,13 +3,17 @@ import React, { createContext, useState, useCallback } from "react";
 import apiInstance from "../utilities/axiosConfig";
 import Loading from "../components/Shared/Loading";
 import { ToastContainer } from "react-toastify";
+import { baseUrl } from "../utilities/constants";
 
 const BoardContext = createContext();
 
 function Provider({ children, boardId }) {
   const [list, setList] = useState([]);
   const [member, setMember] = useState([]);
+  const [boardCover, setBoardCover] = useState("");
   const [isReq, setIsReq] = useState(false);
+  const [workspaceId, setWorkspaceId] = useState(undefined);
+  const [wsBoard, setWsBoard] = useState([]);
 
   const getBoard = useCallback(async () => {
     setIsReq(true);
@@ -23,22 +27,22 @@ function Provider({ children, boardId }) {
           tasklists.tasks = tasklists.tasks.map((task) => {
             const addInfo = async () => {
               await apiInstance
-              .get(`workspaces/task/${task.id}/get-task/`)
-              .then((response) => {
-                    let attach = response.data.attachments;
-                    let cover = "";
-                    if (attach !== undefined) {
-                      attach.every((x) => {
-                        let file = x.file.split("attachments/")[1];
-                        file = file.split(".")[1];
-                        if (file === "png" || file === "jpeg" || file === "jpg") {
-                          cover = x.file;
-                          return true;
-                        }
-                        return false;
-                      });
-                      task.cover = cover;
-                    }
+                .get(`workspaces/task/${task.id}/get-task/`)
+                .then((response) => {
+                  let attach = response.data.attachments;
+                  let cover = "";
+                  if (attach !== undefined) {
+                    attach.every((x) => {
+                      let file = x.file.split("attachments/")[1];
+                      file = file.split(".")[1];
+                      if (file === "png" || file === "jpeg" || file === "jpg") {
+                        cover = x.file;
+                        return true;
+                      }
+                      return false;
+                    });
+                    task.cover = cover;
+                  }
                 });
             };
             addInfo();
@@ -46,11 +50,27 @@ function Provider({ children, boardId }) {
           });
           return tasklists;
         });
+        setWorkspaceId(response.data.workspace);
+        const getWorkspaceBoard = async () => {
+          await apiInstance
+            .get(`workspaces/workspaceowner/${workspaceId}/workspace-boards/`)
+            .then((res) => {
+              const boards = res.data.map((obj) => ({
+                id: obj.id,
+                name: obj.name,
+                cover: `http://127.0.0.1:8000` + obj.background_pic,
+              }));
+              console.log(boards);
+              setWsBoard(boards);
+            });
+        };
+        getWorkspaceBoard();
         setList(data);
         setMember(response.data.members);
+        setBoardCover(response.data.background_pic);
       })
       .finally(() => setIsReq(false));
-  }, [boardId]);
+  }, [boardId, workspaceId]);
 
   const addCardToList = (card, list_id) => {
     setList(
@@ -80,16 +100,20 @@ function Provider({ children, boardId }) {
   };
 
   const removeCard = (id) => {
-    setList(list.map(l => {
-      l.tasks = l.tasks.filter(t => t.id !== id);
-      return l;
-    }));
+    setList(
+      list.map((l) => {
+        l.tasks = l.tasks.filter((t) => t.id !== id);
+        return l;
+      })
+    );
   };
 
   const board = {
     boardId,
+    wsBoard,
     list,
     member,
+    boardCover,
     setList,
     getBoard,
     addCardToList,
