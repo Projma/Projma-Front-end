@@ -34,7 +34,8 @@ jobs:
     #   run: npm install -g npm
     - run: npm i fsevents@latest -f --save-optional
     - name: Install dependencies
-      run: npm ci
+      # run: npm ci
+      run: npm install --force
     - name: Build project
       run: CI=false npm run build --if-present
       # CI=false (treating warnings as errors because process.env.ci = true.)
