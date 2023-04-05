@@ -55,6 +55,7 @@ const Calendar = () => {
         navLinks
         weekNumbers
         weekText=""
+        selectable
       />
     </dir>
   );
