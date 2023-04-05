@@ -28,7 +28,7 @@ import {
   convertNumberToPersian,
   convertNumberToEnglish,
 } from "../../utilities/helpers.js";
-import Header from "../Header/Header";
+// import Header from "../Header/Header";
 
 function Copyright(props) {
   return (
@@ -52,7 +52,7 @@ export default function SignIn() {
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   let navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrorUsername(false);
@@ -72,7 +72,7 @@ export default function SignIn() {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        dispatch(login());
+        // dispatch(login());
         delay(4000).then(() => navigate("/dashboard"));
       })
       .catch((res) => {
@@ -105,7 +105,7 @@ export default function SignIn() {
 
   return (
     <div>
-      <Header></Header>
+      {/* <Header></Header> */}
       <Helmet>
         <title>صفحه ورود</title>
       </Helmet>
@@ -149,7 +149,7 @@ export default function SignIn() {
                   required="required"
                   id="username"
                   label="نام کاربری"
-                  name="username"
+                  name="Username"
                   InputLabelProps={{
                     className: "Registration--StyledTextField-InputText",
                   }}
@@ -168,8 +168,8 @@ export default function SignIn() {
                   margin="normal"
                   fullWidth
                   required="required"
-                  name="password"
-                  label="پسورد"
+                  name="Password"
+                  label="رمز عبور"
                   type="password"
                   id="password"
                   InputLabelProps={{
@@ -184,6 +184,7 @@ export default function SignIn() {
                 />
                 <Button
                   type="submit"
+                  role="submit-btn"
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
