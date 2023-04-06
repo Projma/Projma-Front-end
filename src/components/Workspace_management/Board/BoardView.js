@@ -33,7 +33,7 @@ const BoardView = (props) => {
       className="workspace--board-view"
       onClick={(e) => {
         e.stopPropagation();
-        navigate(`/kanban/${props.id}`);
+        navigate(`/kanban/${props.id}/board`);
       }}
       style={{
         backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(${props.pic})`,

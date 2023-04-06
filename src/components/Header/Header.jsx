@@ -19,7 +19,7 @@ const cacheRtl = createCache({
 const Header = () => {
     return (
         <header>
-            <ResponsiveAppBar />;
+            <ResponsiveAppBar />
             {/* <div className="top-section">
             </div> */}
         </header>

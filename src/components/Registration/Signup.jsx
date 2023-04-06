@@ -17,7 +17,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import StyledTextField from "./StyledTextField";
 import apiInstance from "../../utilities/axiosConfig";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // comment for tests
 import { useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -58,7 +58,7 @@ export default function SignUp() {
   const [isPost, setIsPost] = React.useState(false);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  let navigate = useNavigate();
+  let navigate = useNavigate(); // comment for tests
   // const { state } = useLocation();
   const cacheRtl = createCache({
     key: "muirtl",
@@ -112,7 +112,7 @@ export default function SignUp() {
             position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
-          delay(4000).then(() => navigate("/signin"));
+          delay(4000).then(() => navigate("/signin")); // comment for tests
         })
         .catch((res) => {
           if (

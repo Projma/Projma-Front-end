@@ -15,7 +15,7 @@ import ForgetPassword from "./components/Password/ForgetPassword";
 import ProfileView from "./components/Profile/ProfilePageView";
 import ChangePassword from "./components/Profile/ChangePassword";
 import InvitePage from "./pages/InvitePage";
-import Kanban from "./components/Kanban/Kanban";
+import BoardOverView from "./pages/BoardOverView";
 import Email_verification_2 from "./components/Registration/EmailVerification";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { faIR } from "@mui/material/locale";
@@ -23,6 +23,8 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import BoardInvitation from "./pages/BoardInvitation";
 import { Navigate } from "react-router-dom";
 import NotFound from "./pages/NotFound";
+import Board from "./components/Board/Board";
+import Calendar from "./components/Calendar/Calendar";
 
 const theme = createTheme(
   {
@@ -90,13 +92,24 @@ function App() {
               />
               <Route
                 exact
-                path="/kanban/:id"
+                path="kanban/:boardId"
                 element={
                   <PrivateRoute
-                    children={<PrivateRoute children={<Kanban />} />}
+                    children={<PrivateRoute children={<BoardOverView />} />}
                   />
                 }
-              />
+              >
+                <Route exact path="board" element={
+                  <PrivateRoute
+                    children={<PrivateRoute children={<Board />} />}
+                  />
+                }/>
+                <Route exact path="calendar" element={
+                  <PrivateRoute
+                    children={<PrivateRoute children={<Calendar/>} />}
+                  />
+                }/>
+              </Route>
               <Route
                 exact
                 path="/invite_page/:token"
@@ -114,9 +127,9 @@ function App() {
               />
 
               {/* has to be last  */}
-            {/* <Route path='*' exact={true} component={My404Component} /> */}
-            <Route path="/404" element={<NotFound />} />
-            <Route path="*" element={<Navigate replace to="/404" />} />
+              {/* <Route path='*' exact={true} component={My404Component} /> */}
+              <Route path="/404" element={<NotFound />} />
+              <Route path="*" element={<Navigate replace to="/404" />} />
             </Routes>
           </Router>
         </Provider>
