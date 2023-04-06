@@ -1,3 +1,4 @@
+# node.js.yml
 name: CI/CD
 
 on:
@@ -47,7 +48,7 @@ jobs:
 
   publish:
 
-    needs: build
+    needs: build_and_test
     
     runs-on: ubuntu-latest
     steps:
