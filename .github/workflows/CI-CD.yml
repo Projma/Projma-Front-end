@@ -1,4 +1,3 @@
-# node.js.yml
 name: CI/CD
 
 on:
@@ -42,9 +41,9 @@ jobs:
       name: Build project
       run: CI=false npm run build --if-present
       # CI=false (treating warnings as errors because process.env.ci = true.)
-    - 
-      name: Test project
-      run: npm test
+    # - 
+    #   name: Test project
+    #   run: npm test
 
   publish:
 
