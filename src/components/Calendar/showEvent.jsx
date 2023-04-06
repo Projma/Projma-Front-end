@@ -17,7 +17,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Button from "@material-ui/core/Button";
 import EditIcon from "@material-ui/icons/Edit";
 
-export default function OnlyShowEvent_NotEdit() {
+export default function showEvent() {
   const { id } = useParams();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [event, setEvent] = React.useState(null);
