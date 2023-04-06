@@ -1,7 +1,4 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
-name: Node.js CI
+name: CI/CD
 
 on:
   push:
@@ -10,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build and test:
 
     runs-on: ubuntu-latest
 #   runs-on: windows-latest
@@ -44,9 +41,9 @@ jobs:
       name: Build project
       run: CI=false npm run build --if-present
       # CI=false (treating warnings as errors because process.env.ci = true.)
-    # - 
-    #   name: Test project
-    #   run: npm test
+    - 
+      name: Test project
+      run: npm test
 
   publish:
 
@@ -83,7 +80,6 @@ jobs:
     needs: publish
     
     runs-on: ubuntu-latest
-
     steps:
       -
         name: Checkout
@@ -97,13 +93,11 @@ jobs:
         name: Set up on server
         run: |
           ssh -o StrictHostKeyChecking=no -i ${{ env.SSH_AUTH_SOCK }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "sudo docker ps -q | xargs sudo docker stop | xargs sudo docker rm && sudo docker pull farzanrahmani/projmafrontend:latest && sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest"
-        # ssh -o StrictHostKeyChecking=no -i '${{ secrets.SSH_KEY }}' ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "sudo docker ps -q | xargs sudo docker stop | xargs sudo docker rm && sudo docker pull farzanrahmani/projmafrontend:latest && sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest"
-        # ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd /home/${{ secrets.SERVER_USER }}/projma-frontend && git pull && docker-compose up -d --build"
         
-        # script:
-        #   - ssh -o StrictHostKeyChecking=no -i "${{ secrets.SSH_KEY }}" ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "
-        #     # docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }} && 
-        #     sudo docker ps -q | xargs sudo docker stop | xargs sudo docker rm &&
-        #     sudo docker pull  farzanrahmani/projmafrontend:latest &&
-        #     sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest"
-
+        # shell: bash
+        # env:
+        #   SSH_AUTH_SOCK: /tmp/ssh_agent.sock # Default ssh-agent socket
+        #   SSH_AUTH_SOCK: ${{ secrets.SSH_KEY }}
+        #   SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+        #   SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
+        #   SSH_KEY_PATH: ${{ github.workspace }}/../private.key
