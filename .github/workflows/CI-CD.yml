@@ -1,0 +1,104 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build_and_test:
+
+    runs-on: ubuntu-latest
+#   runs-on: windows-latest
+
+#    strategy:
+#      matrix:
+#        node-version: [14.x, 16.x, 18.x]
+#        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - 
+      uses: actions/checkout@v3
+    - 
+#     name: Use Node.js ${{ matrix.node-version }}
+      name: Use Node.js 14.x # 14.17.4
+      uses: actions/setup-node@v3
+      with:
+#        node-version: ${{ matrix.node-version }}
+        node-version: 14.x
+        cache: 'npm'
+    # - 
+    #   name: Upgrade NPM
+    #   run: npm install -g npm
+    - 
+      run: npm i fsevents@latest -f --save-optional
+    - 
+      name: Install dependencies
+      # run: npm ci
+      run: npm install --force
+    - 
+      name: Build project
+      run: CI=false npm run build --if-present
+      # CI=false (treating warnings as errors because process.env.ci = true.)
+    # - 
+    #   name: Test project
+    #   run: npm test
+
+  publish:
+
+    needs: build_and_test
+    
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          # tags: farzanrahmani/projmafrontend:$(date +%s)
+          tags: farzanrahmani/projmafrontend:latest
+
+  deploy:
+
+    needs: publish
+    
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+      -
+        name: Set up on server
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ${{ env.SSH_AUTH_SOCK }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "sudo docker ps | sudo grep "farzanrahmani/projmafrontend" | sudo awk '{print $1}' | xargs -I {} sudo docker stop {} | xargs sudo docker rm && sudo docker pull farzanrahmani/projmafrontend:latest && sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest"
+        # ssh -o StrictHostKeyChecking=no -i ${{ env.SSH_AUTH_SOCK }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "sudo docker ps -q | xargs sudo docker stop | xargs sudo docker rm && sudo docker pull farzanrahmani/projmafrontend:latest && sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest"
+        
+        # shell: bash
+        # env:
+        #   SSH_AUTH_SOCK: /tmp/ssh_agent.sock # Default ssh-agent socket
+        #   SSH_AUTH_SOCK: ${{ secrets.SSH_KEY }}
+        #   SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+        #   SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
+        #   SSH_KEY_PATH: ${{ github.workspace }}/../private.key

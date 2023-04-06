@@ -1,0 +1,137 @@
+.neonText {
+  color: #fff;
+  text-shadow: 0 0 7px rgb(193, 180, 180), 0 0 10px rgb(193, 180, 180),
+    0 0 21px rgb(193, 180, 180), 0 0 42px #5271ff, 0 0 82px #5271ff,
+    0 0 92px #5271ff, 0 0 102px #5271ff, 0 0 151px #5271ff;
+}
+
+.calendar--showEvent-page {
+  display: flex;
+  flex-direction: column;
+  column-gap: 15px;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+.calendar--showEvent-container {
+  width: 32% !important;
+  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
+  border-radius: 30px;
+  justify-content: center;
+  align-items: center;
+  padding-right: 4%;
+  padding-left: 4%;
+  padding-bottom: 2%;
+  padding-top: 1%;
+  height: 56%;
+}
+
+.calendar--showEvent-container--header {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.calendar--showEvent-container--header--circleColor {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.calendar--showEvent-container--header--title {
+  color: white;
+  font-size: 22px;
+}
+
+.calendar--showEvent-container--body {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 23px;
+}
+
+.calendar--showEvent-container--body--time {
+  display: flex;
+  align-items: center;
+  column-gap: 8%;
+}
+
+.calendar--showEvent-container--body--time--text--date {
+  font-size: 15px;
+  color: white;
+}
+
+.calendar--showEvent-container--body--time--text {
+  font-size: 15px;
+  color: white;
+}
+
+.calendar--showEvent-container--body--time--text--time {
+  font-size: 15px;
+  color: white;
+}
+
+.calendar--showEvent-container--body--time--icon {
+  color: white;
+}
+
+.calendar--showEvent-container--body--eventType {
+  display: flex;
+  align-items: center;
+  column-gap: 8%;
+}
+
+.calendar--showEvent-container--body--eventType--text {
+  font-size: 15px;
+  color: white;
+}
+
+.calendar--showEvent-container--body--eventType--icon {
+  color: white;
+}
+
+.calendar--showEvent-container--body--repeat {
+  color: white;
+  display: flex;
+  align-items: center;
+  column-gap: 8%;
+}
+
+.calendar--showEvent-container--body--repeat--text {
+  font-size: 15px;
+}
+
+.calendar--showEvent-container--body--repeat--icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar--showEvent-container--body--description {
+  display: flex;
+  column-gap: 8%;
+  align-items: center;
+  color: white;
+}
+
+.calendar--showEvent-container--body--description--text {
+  font-size: 15px;
+  overflow-x: auto;
+}
+
+.calendar--styleTextField-labelText {
+  color: #fff;
+  font-family: "Vazir" !important;
+  height: 100px;
+}
+
+.calendar--mainIcon {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-end;
+  column-gap: 3%;
+  color: #fff;
+  margin-right: 8%;
+}
