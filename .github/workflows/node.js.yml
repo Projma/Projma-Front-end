@@ -72,25 +72,26 @@ jobs:
           # tags: farzanrahmani/projmafrontend:$(date +%s)
           tags: farzanrahmani/projmafrontend:latest
 
-  # deploy:
+  deploy:
 
-  #   needs: publish
+    needs: publish
     
-  #   runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     -
-  #       name: Checkout
-  #       uses: actions/checkout@v3
-  #     -
-  #       name: Set up on server
-  #       script:
-  #         - ssh -o StrictHostKeyChecking=no -i "${{ secrets.SSH_KEY }}" ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "
-  #           # docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }} && 
-  #           sudo docker ps -q | xargs sudo docker stop | xargs sudo docker rm &&
-  #           sudo docker pull  farzanrahmani/projmafrontend:latest &&
-  #           sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest"
-  #       # run: |
-  #       #   ssh -o StrictHostKeyChecking=no -i "${{ secrets.SSH_KEY }}" ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd /home/${{ secrets.SERVER_USER }}/projma-frontend && git pull && docker-compose up -d --build"
-  #       #   # ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd /home/${{ secrets.SERVER_USER }}/projma-frontend && git pull && docker-compose up -d --build"
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Set up on server
+        run: |
+          ssh -o StrictHostKeyChecking=no -i "${{ secrets.SSH_KEY }}" ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "sudo docker ps -q | xargs sudo docker stop | xargs sudo docker rm && sudo docker pull farzanrahmani/projmafrontend:latest && sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest"
+        # ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd /home/${{ secrets.SERVER_USER }}/projma-frontend && git pull && docker-compose up -d --build"
+        
+        # script:
+        #   - ssh -o StrictHostKeyChecking=no -i "${{ secrets.SSH_KEY }}" ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "
+        #     # docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }} && 
+        #     sudo docker ps -q | xargs sudo docker stop | xargs sudo docker rm &&
+        #     sudo docker pull  farzanrahmani/projmafrontend:latest &&
+        #     sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest"
 
