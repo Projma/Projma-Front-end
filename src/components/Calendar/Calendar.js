@@ -13,15 +13,13 @@ import { wait } from "@testing-library/user-event/dist/utils";
 
 const Calendar = () => {
   const { collapsed } = useProSidebar();
-  const calendar = useRef();
-  useEffect(() => {
-    // if(calendar !== null)
-      // calendar.updateSize();
-  }, [collapsed]);
+  useEffect(() => {}, [collapsed]);
+  const handleAddEvent = (e) => {
+    console.log(e);
+  };
   return (
     <dir className="calendar--container">
       <FullCalendar
-        ref={calendar}
         height={"87vh"}
         locale={faLocale}
         plugins={[dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin]}
@@ -30,6 +28,11 @@ const Calendar = () => {
           {
             title: "ex",
             start: "2023-04-02",
+          },
+          {
+            title: "exox",
+            start: "2023-04-10",
+            end: "2023-04-13"
           },
           {
             title: "Meeting",
@@ -46,16 +49,21 @@ const Calendar = () => {
           },
         ]}
         headerToolbar={{
-          left: "prev,next today",
+          left: "addEvent prev,next today",
           center: "title",
           right: "dayGridMonth,dayGridWeek,timeGridDay,listMonth",
         }}
+        handleWindowResize
         windowResize={() => {}}
         nowIndicator
         navLinks
         weekNumbers
         weekText=""
         selectable
+        customButtons={{addEvent: {
+          text: "افزودن رویداد",
+          click: handleAddEvent,
+        }}}
       />
     </dir>
   );
