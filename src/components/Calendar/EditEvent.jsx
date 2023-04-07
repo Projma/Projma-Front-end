@@ -96,9 +96,9 @@ export default function EditEvent({
     form_data.append("repeat_duration", editEvent.repeat_duration);
     form_data.append("event_color", editEvent.event_color);
     if (editEvent.event_type === "")
-      form_data.append("custom_event_type", customType);
+      form_data.append("custom_event_type", editEvent.custom_event_type);
     if (editEvent.custom_event_type === "")
-      form_data.append("event_type", eventType);
+      form_data.append("event_type", editEvent.event_type);
     form_data.append("calendar", calendarId);
     console.log(form_data);
     apiInstance
