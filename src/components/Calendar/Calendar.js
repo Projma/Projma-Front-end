@@ -57,7 +57,7 @@ const Calendar = () => {
     const getEvent = async () => {
       await apiInstance
         .get(
-          `/calendar/simple-calendar/${boardId}/events/?start=2000-01-01 00:00:00&end=2099-12-30 00:00:00`
+          `/calendar/simple-calendar/${calendar}/events/?start=2000-01-01 00:00:00&end=2099-12-30 00:00:00`
         )
         .then((res) => {
           const ev = res.data.map((x) => {
