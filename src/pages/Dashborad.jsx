@@ -174,6 +174,9 @@ export const Dashborad = () => {
   const navigateToBoard = (boardId) => {
     navigate(`/kanban/${boardId}/board`);
   };
+  // const navigateToBoard = (boardId, workspaceId) => {
+  //   navigate(`/workspace/${workspaceId}/kanban/${boardId}/board`);
+  // };
 
   useEffect(() => {
     apiInstance

@@ -21,7 +21,7 @@ export default function BasicMenu(props) {
   const navigate = useNavigate();
   const navigateToWorkspace = (workspaceId) => {
     handleClose();
-    navigate(`/workspace/${workspaceId}/dashboard/boards`);
+    navigate(`/workspace/${workspaceId}/dashboard/Boards`);
   };
   const navigateToBoard = (boardId) => {
     navigate(`/kanban/${boardId}`);
