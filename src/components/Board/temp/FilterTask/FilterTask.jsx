@@ -24,7 +24,7 @@ export default function FilterTask({ boardId, setLists }) {
   useEffect(() => {
     ////console.log("hereeeeeeeeeeeeeeeeee");
     apiInstance
-      .get(`workspaces/board/${boardId}/get-board-labels/`)
+      .get(`board/${boardId}/get-board-labels/`)
       .then((res) => {
         ////console.log("board labels");
         ////console.log(res.data);
@@ -40,7 +40,7 @@ export default function FilterTask({ boardId, setLists }) {
   }, []);
 
   useEffect(() => {
-    apiInstance.get(`workspaces/board/${boardId}/members/`).then((res) => {
+    apiInstance.get(`board/${boardId}/members/`).then((res) => {
       ////console.log("sinasssssssssssssssssssssss");
       ////console.log(res.data);
       const board_members = res.data.map((obj) => ({

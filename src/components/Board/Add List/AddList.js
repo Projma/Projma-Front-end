@@ -26,7 +26,7 @@ const AddList = (props) => {
   };
   const postCreateList = async (data, id) =>
     await apiInstance
-      .post(`workspaces/board/${id}/create-tasklist/`, data)
+      .post(`board/tasklist/${id}/create-tasklist/`, data)
       .then((response) => {
         toast.success("لیست با موفقیت ساخته شد", {
           position: toast.POSITION.BOTTOM_LEFT,
