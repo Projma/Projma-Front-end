@@ -7,13 +7,11 @@ import { baseUrl } from "../utilities/constants";
 
 const BoardContext = createContext();
 
-function Provider({ children, boardId }) {
+function Provider({ children, boardId, workspaceId }) {
   const [list, setList] = useState([]);
   const [member, setMember] = useState([]);
   const [boardCover, setBoardCover] = useState("");
   const [isReq, setIsReq] = useState(false);
-  const [workspaceId, setWorkspaceId] = useState(undefined);
-  const [wsBoard, setWsBoard] = useState([]);
 
   const getBoard = useCallback(async () => {
     setIsReq(true);
@@ -50,21 +48,6 @@ function Provider({ children, boardId }) {
           });
           return tasklists;
         });
-        setWorkspaceId(response.data.workspace);
-        const getWorkspaceBoard = async () => {
-          await apiInstance
-            .get(`workspaces/workspaceowner/${workspaceId}/workspace-boards/`)
-            .then((res) => {
-              const boards = res.data.map((obj) => ({
-                id: obj.id,
-                name: obj.name,
-                cover: `http://127.0.0.1:8000` + obj.background_pic,
-              }));
-              console.log(boards);
-              setWsBoard(boards);
-            });
-        };
-        getWorkspaceBoard();
         setList(data);
         setMember(response.data.members);
         setBoardCover(response.data.background_pic);
@@ -110,7 +93,7 @@ function Provider({ children, boardId }) {
 
   const board = {
     boardId,
-    wsBoard,
+    workspaceId,
     list,
     member,
     boardCover,

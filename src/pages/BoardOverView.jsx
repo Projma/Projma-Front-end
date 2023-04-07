@@ -13,7 +13,7 @@ const BoardOverView = () => {
       <Helmet>
         <title>بورد</title>
       </Helmet>
-      <Provider boardId={params.boardId}>
+      <Provider boardId={params.boardId} workspaceId={params.workspaceId}>
         <div className="boardoverview--container">
           <div className="boardoverview--sidebar">
             <BoardSidebar />
