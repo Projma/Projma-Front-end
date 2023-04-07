@@ -14,7 +14,7 @@ const GroupAvatars = (props) => {
     const [members, setMembers] = React.useState([]);
     const params = useParams();
     useEffect(() => {
-        apiInstance.get(`/workspaces/board/${params.id}/members/`).then((res) => {
+        apiInstance.get(`board/${params.boardId}/members/`).then((res) => {
             // apiInstance.get(`/workspaces/board/${props.boardId}/members/`).then((res) => {
             // ////console.log(res.data);
             setMembers(res.data);

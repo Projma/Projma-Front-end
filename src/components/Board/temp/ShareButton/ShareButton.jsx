@@ -81,7 +81,7 @@ const ShareButton = (props) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   useEffect(() => {
-    apiInstance.get(`/workspaces/board/${params.id}/members/`).then((res) => {
+    apiInstance.get(`board/${params.boardId}/members/`).then((res) => {
       // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
       // ////console.log(res.data);
       setMembers(res.data);
@@ -102,7 +102,7 @@ const ShareButton = (props) => {
       // }
     });
     apiInstance
-      .get(`/workspaces/board/${params.id}/invite_link/`)
+      .get(`board/${params.boardId}/invite_link/`)
       .then((res) => {
         // //console.log(res.data);
         setInviteToken(res.data);
@@ -233,7 +233,7 @@ const ShareButton = (props) => {
       let member_id = element.id;
       apiInstance
         .post(
-          "/workspaces/board/" +
+          "board/" +
             params.id +
             "/add-user-to-board/" +
             member_id +
@@ -249,7 +249,7 @@ const ShareButton = (props) => {
           //console.log("success", res);
           // //console.log(res.data);
           apiInstance
-            .get(`/workspaces/board/${params.id}/members/`)
+            .get(`board/${params.id}/members/`)
             .then((res) => {
               setMembers(res.data);
             });

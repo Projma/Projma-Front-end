@@ -48,7 +48,7 @@ const List = ({ task, name, listId, index, boardId }) => {
 
   const reqCreateCard = async (data) =>
     await apiInstance
-      .post(`/workspaces/tasklist/${listId}/create-task/`, data)
+      .post(`task/${listId}/create-task/`, data)
       .then((response) => {
         //console.log(response.data);
         toast.success("کارت با موفقیت ساخته شد", {
@@ -73,7 +73,7 @@ const List = ({ task, name, listId, index, boardId }) => {
 
   const reqDeleteList = async () =>
     await apiInstance
-      .delete(`workspaces/tasklist/${listId}/delete-tasklist/`)
+      .delete(`board/tasklist/${listId}/delete-tasklist/`)
       .then(() => {
         toast.success("لیست با موفقیت حذف شد", {
           position: toast.POSITION.BOTTOM_LEFT,
@@ -97,7 +97,7 @@ const List = ({ task, name, listId, index, boardId }) => {
   const reqEditListName = async (data, name) => {
     name = convertNumberToPersian(name);
     await apiInstance
-      .patch(`workspaces/tasklist/${listId}/update-tasklist/`, data)
+      .patch(`board/tasklist/${listId}/update-tasklist/`, data)
       .then(() => {
         toast.success("اسم لیست با موفقیت عوض شد", {
           position: toast.POSITION.BOTTOM_LEFT,

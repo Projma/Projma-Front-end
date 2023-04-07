@@ -17,7 +17,7 @@ function Provider({ children, boardId, workspaceId }) {
     setIsReq(true);
     let data;
     await apiInstance
-      .get(`workspaces/board/${boardId}/get-board-overview/`)
+      .get(`board/${boardId}/get-board-overview/`)
       .then((response) => {
         // setList(response.data.tasklists.sort((a, b) => b.order - a.order));
         data = response.data.tasklists.sort((a, b) => b.order - a.order);
@@ -25,7 +25,7 @@ function Provider({ children, boardId, workspaceId }) {
           tasklists.tasks = tasklists.tasks.map((task) => {
             const addInfo = async () => {
               await apiInstance
-                .get(`workspaces/task/${task.id}/get-task/`)
+                .get(`task/${task.id}/get-task/`)
                 .then((response) => {
                   let attach = response.data.attachments;
                   let cover = "";

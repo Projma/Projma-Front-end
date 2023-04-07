@@ -10,7 +10,7 @@ const CardHeader = ({ cardId }) => {
   const reqDeleteCard = () => {
     setIsReq(true);
     apiInstance
-      .delete(`workspaces/task/${cardId}/`)
+      .delete(`task/delete-task/${cardId}/`)
       .then(() => {
         toast.success("کارت با موفقیت حذف شد", {
           position: toast.POSITION.BOTTOM_LEFT,
