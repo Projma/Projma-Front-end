@@ -30,7 +30,7 @@ const style = {
   p: 4,
 };
 
-export default function CreateEvent({ calendarId, handleCloseAddEvent }) {
+export default function CreateEvent({ calendarId, handleClose, showToast }) {
   const [isPost, setIsPost] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [eventTitle, setEventTitle] = useState("");
@@ -83,8 +83,8 @@ export default function CreateEvent({ calendarId, handleCloseAddEvent }) {
     apiInstance
       .post(`calendar/event/`, form_data)
       .then((res) => {
-        // showToast("رویداد جدید با موفقیت اضافه شد");
-        handleCloseAddEvent();
+        showToast("رویداد جدید با موفقیت اضافه شد");
+        handleClose();
       })
       .finally(() => {
         setIsPost(null);

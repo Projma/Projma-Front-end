@@ -9,7 +9,7 @@ import apiInstance from "../../utilities/axiosConfig";
 import useBoard from "../../hooks/useBoard";
 
 const Board = () => {
-  const { list, setList, getBoard, boardId } = useBoard();
+  const { list, setList, getBoard, boardId, calendar } = useBoard();
 
   useEffect(() => {
     getBoard();
@@ -31,6 +31,8 @@ const Board = () => {
   };
 
   const handleCreateList = (data) => {
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaffffffffffffffffffffffffff");
+    console.log(calendar);
     setList((pervlist) => [data, ...pervlist]);
   };
 
@@ -84,11 +86,11 @@ const Board = () => {
   return (
     <DragDropContext onDragEnd={dragHandler}>
       <div className="styled-scrollbars">
-      <InvitationHeader
-        board_id={boardId}
-        onCreateList={handleCreateList}
-        setList={setList}
-      />
+        <InvitationHeader
+          board_id={boardId}
+          onCreateList={handleCreateList}
+          setList={setList}
+        />
         <Droppable
           droppableId={uuid().toString()}
           type="list"

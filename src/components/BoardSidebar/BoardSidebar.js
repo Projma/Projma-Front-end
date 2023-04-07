@@ -24,7 +24,7 @@ const BoardSidebar = () => {
   const [wsBoard, setWsBoard] = useState([]);
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
     useProSidebar();
-  const { boardCover, boardId, workspaceId } = useBoard();
+  const { boardCover, boardId, workspaceId, calendar } = useBoard();
   // const [isCollapsed, setIsCollapsed] = useState(false);
   // const cover = boardCover === "" ? undefined : boardCover;
   const navigate = useNavigate();
