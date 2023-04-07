@@ -40,6 +40,8 @@ const Workspace_management = () => {
       .post(`/workspaces/workspaceowner/${params.id}/create-board/`, form_data)
       .then((res) => {
         setBoards([...boards, res.data]);
+        console.log(res);
+        apiInstance.post(`/calendar/simple-calendar/`, {board: res.data.id});
         toast.success("بورد با موفقیت ساخته شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
@@ -79,7 +81,7 @@ const Workspace_management = () => {
             }
           />
           <Route
-            path="boards"
+             path="boards"
             element={
               <Board
                 params={params}
