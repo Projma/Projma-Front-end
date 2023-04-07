@@ -1,11 +1,16 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import user from "@testing-library/user-event";
 import SignUp from "./Signup";
 
 test("inputs", () => {
-  render(<SignUp />);
+  render(
+    <Router>
+      <SignUp />
+    </Router>
+  );
   const firstNameInput = screen.getAllByLabelText(/نام/i);
   const lastNameInput = screen.getByLabelText(/نام خانوادگی/i);
   const emailInput = screen.getByLabelText(/ایمیل/i);
@@ -20,7 +25,11 @@ test("inputs", () => {
 });
 
 test("test number of textfield", () => {
-  render(<SignUp />);
+  render(
+    <Router>
+      <SignUp />
+    </Router>
+  );
   const spanElement = screen.getByLabelText(/رمز عبور/i);
   const inputs = screen.getAllByRole("textbox");
   expect(spanElement).toBeInTheDocument();
@@ -29,7 +38,11 @@ test("test number of textfield", () => {
 });
 
 test("should allow users to signup", () => {
-  render(<SignUp />);
+  render(
+    <Router>
+      <SignUp />
+    </Router>
+  );
   const firstNameInput = screen.getAllByLabelText(/نام/i);
   const lastNameInput = screen.getByLabelText(/نام خانوادگی/i);
   const emailInput = screen.getByLabelText(/ایمیل/i);
@@ -47,7 +60,11 @@ test("should allow users to signup", () => {
 });
 
 test("password must be at least 8 characters", () => {
-  const { getByText } = render(<SignUp />);
+  const { getByText } = render(
+    <Router>
+      <SignUp />
+    </Router>
+  );
   const passwordInput = screen.getByLabelText(/رمز عبور/i);
   const submitButton = screen.getByRole("submit-btn");
   fireEvent.change(passwordInput, { target: { value: "pass" } });
@@ -56,7 +73,11 @@ test("password must be at least 8 characters", () => {
 });
 
 test("password must be have number and letter", () => {
-  const { getByText } = render(<SignUp />);
+  const { getByText } = render(
+    <Router>
+      <SignUp />
+    </Router>
+  );
   const passwordInput = screen.getByLabelText(/رمز عبور/i);
   const submitButton = screen.getByRole("submit-btn");
   fireEvent.change(passwordInput, { target: { value: "navidebrahimi" } });
@@ -67,7 +88,11 @@ test("password must be have number and letter", () => {
 });
 
 test("password must be have number and letter and !@#$%^&*", () => {
-  const { getByText } = render(<SignUp />);
+  const { getByText } = render(
+    <Router>
+      <SignUp />
+    </Router>
+  );
   const passwordInput = screen.getByLabelText(/رمز عبور/i);
   const submitButton = screen.getByRole("submit-btn");
   fireEvent.change(passwordInput, { target: { value: "navidebrahimi123" } });
@@ -78,7 +103,11 @@ test("password must be have number and letter and !@#$%^&*", () => {
 });
 
 test("email must be valid", () => {
-  const { getByText } = render(<SignUp />);
+  const { getByText } = render(
+    <Router>
+      <SignUp />
+    </Router>
+  );
   const emailInput = screen.getByLabelText(/ایمیل/i);
   const submitButton = screen.getByRole("submit-btn");
   fireEvent.change(emailInput, { target: { value: "john.doe" } });
@@ -87,7 +116,11 @@ test("email must be valid", () => {
 });
 
 test("have link to login page", () => {
-  const { getByText } = render(<SignUp />);
+  const { getByText } = render(
+    <Router>
+      <SignUp />
+    </Router>
+  );
   const linkElement = getByText(/اکانت دارید؟ وارد شوید/i);
   expect(linkElement).toBeInTheDocument();
   expect(linkElement.tagName).toBe("A");

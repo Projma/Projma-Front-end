@@ -1,10 +1,15 @@
 import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import { render, screen, fireEvent, getByRole } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import SignIn from "./Signin";
 
 test("have input for inputs", () => {
-  render(<SignIn />);
+  render(
+    <Router>
+      <SignIn />
+    </Router>
+  );
   const usernameInput = screen.getByLabelText(/نام کاربری/i);
   const passwordInput = screen.getByLabelText(/رمز عبور/i);
   expect(usernameInput).toBeInTheDocument();
@@ -12,19 +17,31 @@ test("have input for inputs", () => {
 });
 
 test("test number of textfield", () => {
-  render(<SignIn />);
+  render(
+    <Router>
+      <SignIn />
+    </Router>
+  );
   const inputs = screen.getAllByRole("textbox");
   expect(inputs).toHaveLength(1);
 });
 
 test("have submit button", () => {
-  render(<SignIn />);
+  render(
+    <Router>
+      <SignIn />
+    </Router>
+  );
   const submitButton = screen.getByRole("submit-btn");
   expect(submitButton).toBeInTheDocument();
 });
 
 test("have link to signup", () => {
-  const { getByText } = render(<SignIn />);
+  const { getByText } = render(
+    <Router>
+      <SignIn />
+    </Router>
+  );
   const linkElement = getByText(/فراموشی رمز عبور/i);
   const linkElement2 = getByText(/اکانت ندارید؟ ثبت‌نام کنید/i);
   expect(linkElement).toBeInTheDocument();
