@@ -12,6 +12,7 @@ function Provider({ children, boardId, workspaceId }) {
   const [member, setMember] = useState([]);
   const [boardCover, setBoardCover] = useState("");
   const [isReq, setIsReq] = useState(false);
+  const [calendar, setCalendar] = useState(0);
 
   const getBoard = useCallback(async () => {
     setIsReq(true);
@@ -20,6 +21,7 @@ function Provider({ children, boardId, workspaceId }) {
       .get(`board/${boardId}/get-board-overview/`)
       .then((response) => {
         // setList(response.data.tasklists.sort((a, b) => b.order - a.order));
+        setCalendar(response.data.calendar);
         data = response.data.tasklists.sort((a, b) => b.order - a.order);
         data = data.map((tasklists) => {
           tasklists.tasks = tasklists.tasks.map((task) => {
@@ -94,6 +96,7 @@ function Provider({ children, boardId, workspaceId }) {
   const board = {
     boardId,
     workspaceId,
+    calendar,
     list,
     member,
     boardCover,
