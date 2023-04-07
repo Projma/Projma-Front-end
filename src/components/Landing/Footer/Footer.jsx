@@ -21,21 +21,9 @@ const Footer = () => {
           marginTop: "10%",
         }}
       >
-        {/* <Box
-          sx={{
-            backgroundColor: "#91B9E3",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "10%",
-          }}
-        > */}
         <Grid item xs={2} sm={4} md={4}>
           <Box
             sx={{
-              // marginRight: "20%",
-              // marginTop: "5%",
-              // marginLeft: "35%",
               backgroundColor: "#91B9E3",
               display: "flex",
               alignItems: "flex-start",
@@ -114,7 +102,6 @@ const Footer = () => {
             </h3>
           </Box>
         </Grid>
-        {/* </Box> */}
       </Grid>
       <Divider />
       <Box
