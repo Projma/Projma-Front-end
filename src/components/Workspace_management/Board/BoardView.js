@@ -3,9 +3,11 @@ import StarIcon from "@mui/icons-material/Star";
 import "./BoardView.css";
 import { Navigate, useNavigate } from "react-router-dom";
 import apiInstance from "../../../utilities/axiosConfig";
+import { useParams } from "react-router-dom";
 
 const BoardView = (props) => {
   let navigate = useNavigate();
+  let params = useParams();
   const [hover, setHover] = useState(false);
   const [isStarred, setIsStarred] = useState();
   React.useEffect(() => {
@@ -33,7 +35,7 @@ const BoardView = (props) => {
       className="workspace--board-view"
       onClick={(e) => {
         e.stopPropagation();
-        navigate(`/kanban/${props.id}/board`);
+        navigate(`/workspace/${params.id}/kanban/${props.id}/board`);
       }}
       style={{
         backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(${props.pic})`,
