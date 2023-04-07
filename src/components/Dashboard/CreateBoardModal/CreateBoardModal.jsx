@@ -9,7 +9,6 @@ import Modal from "@mui/material/Modal";
 import StyledTextField from "../../Shared/StyledTextField";
 import PerTextField from "../../Shared/PerTextField.js";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
-// import file from "../../../static/images/workspace_management/create_board/board.jpeg";
 import "./CreateBoardModal.scss";
 import { ToastContainer, toast } from "react-toastify";
 import apiInstance from "../../../utilities/axiosConfig";
@@ -22,14 +21,10 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  // width: "38rem",
   width: "42rem",
-  // height: "55rem",
   height: "62rem",
   backgroundColor: "#001E3C",
-  // bgcolor: "background.paper",
   border: "2px solid #000",
-  // borderRadius: "1rem",
   borderRadius: "10px",
   boxShadow: 50,
   p: 4,
@@ -41,7 +36,6 @@ const style = {
 export default function CreateBoardModal({ workspace_id }) {
   const navigate = useNavigate();
   const navigateToBoard = (boardId) => {
-    // navigate(`/board/`);
     navigate(`/kanban/${boardId}`);
   };
   const handleChange = (e) => {
@@ -73,9 +67,7 @@ export default function CreateBoardModal({ workspace_id }) {
   const [isPost, setIsPost] = useState(false);
   const [disableButton, setDisableButton] = React.useState(false);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-  // const on_submit = (form_data, boards, setBoards) => {
   const on_submit = (form_data) => {
-    ////console.log("here");
     setIsPost(true);
     apiInstance
       .post(
@@ -83,16 +75,11 @@ export default function CreateBoardModal({ workspace_id }) {
         form_data
       )
       .then((res) => {
-        ////console.log("here");
-        ////console.log(res.data);
-        ////console.log("here");
         toast.success("بورد با موفقیت ساخته شد", {
-          // position: toast.POSITION.BOTTOM_LEFT,
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
 
-        // navigateToBoard(res.data.id);
         delay(6000).then(() => navigateToBoard(res.data.id));
       })
       .finally(() => setIsPost(null));
@@ -101,8 +88,6 @@ export default function CreateBoardModal({ workspace_id }) {
     e.preventDefault();
     let board_name = document.getElementById("board_name").value;
     let isValid = true;
-    ////console.log(board_name);
-    ////console.log("board name");
     if (board_name === "") {
       setErrorBoardName(true);
       isValid = false;
@@ -110,7 +95,6 @@ export default function CreateBoardModal({ workspace_id }) {
       setErrorBoardName(false);
     }
     if (isValid === false) {
-      ////console.log("false");
       return;
     } else {
       setDisableButton(true); // make text spinning and disable button
@@ -130,11 +114,6 @@ export default function CreateBoardModal({ workspace_id }) {
   return (
     <div>
       {isPost ? <Loading /> : null}
-      {/* <div className="workspace-modal--add-button-container">
-                <button className="workspace-modal--add-button" onClick={handleOpen}>
-                    <p className="workspace-modal--add-button-title">+ افزودن بورد</p>
-                </button>
-            </div> */}
       <Button
         onClick={handleOpen}
         sx={{
@@ -162,13 +141,7 @@ export default function CreateBoardModal({ workspace_id }) {
           alignItems: "center",
         }}
       >
-        {/* <h2 
-                // style={{color: 'black',}}
-                >
-                    افزودن بورد +
-                </h2> */}
         <h3
-        // style={{color: 'black',}}
         >
           افزودن بورد
         </h3>
@@ -301,19 +274,6 @@ export default function CreateBoardModal({ workspace_id }) {
                 />
               </Button>
             </div>
-            {/* <input
-              type="file"
-              // ref="file"
-              onChange={handleChange}
-              // name="user[image]"
-              // multiple="true"
-              // name="img"
-              // id="img"
-            /> */}
-            {/* <img src={this.state.imgSrc} alt="img" /> */}
-            {/* <label id="title">عنوان بورد</label>
-            <input type="text" id="title" className="workspace-modal--title-inp" /> */}
-            {/* <button onClick={create_board}>submit</button> */}
             <input
               type="submit"
               value="بساز"
@@ -322,9 +282,6 @@ export default function CreateBoardModal({ workspace_id }) {
               style={{ fontFamily: "Vazir" }}
             />
           </form>
-          {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography> */}
         </Box>
       </Modal>
     </div>
