@@ -300,7 +300,7 @@ export default function SignUp() {
                 sx={{ mt: 3, mb: 2 }}
                 className="Registration--StyledTextField-InputText"
               >
-                signup-btn
+                ثبت‌نام
               </Button>
               <Grid container justifyContent="flex-end">
                 <Grid item>
