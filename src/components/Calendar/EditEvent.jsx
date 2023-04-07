@@ -8,7 +8,6 @@ import Divider from "@mui/material/Divider";
 import EditIcon from "@mui/icons-material/Edit";
 import apiInstance from "../../utilities/axiosConfig";
 import Avatar from "@mui/material/Avatar";
-import Modal from "@mui/material/Modal";
 import StyledTextField from "../Shared/StyledTextField";
 import PerTextField from "../Shared/PerTextField.js";
 import Loading from "../Shared/Loading";
@@ -31,7 +30,11 @@ const style = {
   p: 4,
 };
 
-export default function EditEvent({ eventId, calendarId }) {
+export default function EditEvent({
+  eventId,
+  calendarId,
+  handleCloseEditEvent,
+}) {
   const [isPost, setIsPost] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [eventTitle, setEventTitle] = useState("");
@@ -61,16 +64,6 @@ export default function EditEvent({ eventId, calendarId }) {
     setEditEvent(calEvent);
   }, [calEvent]);
   useEffect(() => {
-    setCalEvent({
-      id: 1,
-      title: "جهت تست",
-      description: "جهت توضیح",
-      event_time: "2022-04-17T15:30",
-      repeat_duration: 7,
-      event_type: "",
-      custom_event_type: "تولد",
-      event_color: "#f54242",
-    });
     apiInstance.get(`calendar/event/${eventId}/`).then((res) => {
       setCalEvent(res.data);
     });
@@ -113,7 +106,7 @@ export default function EditEvent({ eventId, calendarId }) {
       .then((res) => {
         // showToast("رویداد با موفقیت ویرایش شد");
         setCalEvent(res.data);
-        handleClose();
+        handleCloseEditEvent();
       })
       .finally(() => {
         setIsPost(null);
@@ -198,241 +191,183 @@ export default function EditEvent({ eventId, calendarId }) {
       <div>
         <EditIcon onClick={handleOpen} />
       </div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography
-            variant="h6"
-            id="modal-modal-title"
-            component="h2"
-            sx={{
-              textAlign: "center",
-              fontFamily: "Vazir",
-              color: "#fff",
-              fontSize: "109%",
-            }}
-            className="neonText"
-          >
-            ویرایش رویداد
-          </Typography>
-          <Divider
-            sx={{
-              backgroundColor: "#007fff",
-              marginTop: "5%",
-              marginBottom: "8%",
-            }}
-          />
-          <form className="board-form">
-            <PerTextField>
-              <div className="calendar_create_event-inputs">
-                <StyledTextField
-                  className="calendar_create_event-input"
-                  label="عنوان رویداد"
-                  InputLabelProps={{
-                    style: { fontFamily: "Vazir", fontSize: "75%" },
-                  }}
-                  inputProps={{
-                    style: {
-                      height: "50px",
-                      padding: "0 14px",
-                      fontFamily: "Vazir",
-                      fontSize: "1.5rem",
-                    },
-                  }}
-                  sx={{ textAlign: "center", fontFamily: "Vazir" }}
-                  value={editEvent?.title}
-                  onChange={(e) => {
-                    setEditEvent({
-                      ...editEvent,
-                      title: e.target.value,
-                    });
-                  }}
-                />
-                <br></br>
-                <div className="calendar_create_event-check-inputs">
-                  <div class="checkbox-wrapper-47">
-                    <input
-                      type="checkbox"
-                      name="cb"
-                      id="daily"
-                      ref={dailyRef}
-                      checked={editEvent?.repeat_duration == 1 ? true : false}
-                      onChange={handleChange}
-                    />
-                    <label
-                      for="daily"
-                      class="calendar_create_event-check-input-label"
-                    >
-                      روزانه
-                    </label>
-                  </div>
-
-                  <div class="checkbox-wrapper-47">
-                    <input
-                      type="checkbox"
-                      name="cb"
-                      id="weekly"
-                      ref={weeklyRef}
-                      checked={editEvent?.repeat_duration == 7 ? true : false}
-                      onChange={handleChange}
-                    />
-                    <label
-                      for="weekly"
-                      class="calendar_create_event-check-input-label"
-                    >
-                      هفتگی
-                    </label>
-                  </div>
-
-                  <div class="checkbox-wrapper-47">
-                    <input
-                      type="checkbox"
-                      name="cb"
-                      id="monthly"
-                      ref={monthlyRef}
-                      checked={editEvent?.repeat_duration == 30 ? true : false}
-                      onChange={handleChange}
-                    />
-                    <label
-                      for="monthly"
-                      class="calendar_create_event-check-input-label"
-                    >
-                      ماهانه
-                    </label>
-                  </div>
+      <Box sx={style}>
+        <Typography
+          variant="h6"
+          id="modal-modal-title"
+          component="h2"
+          sx={{
+            textAlign: "center",
+            fontFamily: "Vazir",
+            color: "#fff",
+            fontSize: "109%",
+          }}
+          className="neonText"
+        >
+          ویرایش رویداد
+        </Typography>
+        <Divider
+          sx={{
+            backgroundColor: "#007fff",
+            marginTop: "5%",
+            marginBottom: "8%",
+          }}
+        />
+        <form className="board-form">
+          <PerTextField>
+            <div className="calendar_create_event-inputs">
+              <StyledTextField
+                className="calendar_create_event-input"
+                label="عنوان رویداد"
+                InputLabelProps={{
+                  style: { fontFamily: "Vazir", fontSize: "75%" },
+                }}
+                inputProps={{
+                  style: {
+                    height: "50px",
+                    padding: "0 14px",
+                    fontFamily: "Vazir",
+                    fontSize: "1.5rem",
+                  },
+                }}
+                sx={{ textAlign: "center", fontFamily: "Vazir" }}
+                value={editEvent?.title}
+                onChange={(e) => {
+                  setEditEvent({
+                    ...editEvent,
+                    title: e.target.value,
+                  });
+                }}
+              />
+              <br></br>
+              <div className="calendar_create_event-check-inputs">
+                <div class="checkbox-wrapper-47">
                   <input
-                    type="number"
-                    className="calendar_create_event-custom-repeat-input"
-                    id="custom_repeat"
-                    onChange={(e) => {
-                      handleChange(e);
-                    }}
-                    renderValue={(p) => {
-                      convertNumberToPersian(Number.toString(p));
-                    }}
-                    value={editEvent?.repeat_duration}
+                    type="checkbox"
+                    name="cb"
+                    id="daily"
+                    ref={dailyRef}
+                    checked={editEvent?.repeat_duration == 1 ? true : false}
+                    onChange={handleChange}
                   />
-                </div>
-                <br></br>
-
-                <div className="calendar_create_event-check-inputs">
-                  <div class="checkbox-wrapper-47">
-                    <input
-                      type="checkbox"
-                      name="cb"
-                      id="meeting"
-                      ref={meetingRef}
-                      checked={
-                        editEvent?.event_type == "meeting" ? true : false
-                      }
-                      onChange={handleEventTypeChange}
-                    />
-                    <label
-                      for="meeting"
-                      class="calendar_create_event-check-input-label"
-                    >
-                      جلسه
-                    </label>
-                  </div>
-
-                  <div class="checkbox-wrapper-47">
-                    <input
-                      type="checkbox"
-                      name="cb"
-                      id="holidays"
-                      ref={holidayRef}
-                      checked={
-                        editEvent?.event_type == "holidays" ? true : false
-                      }
-                      onChange={handleEventTypeChange}
-                    />
-                    <label
-                      for="holidays"
-                      class="calendar_create_event-check-input-label"
-                    >
-                      تعطیلات
-                    </label>
-                  </div>
-
-                  <div class="checkbox-wrapper-47">
-                    <input
-                      type="checkbox"
-                      name="cb"
-                      id="task"
-                      ref={taskRef}
-                      checked={editEvent?.event_type == "task" ? true : false}
-                      onChange={handleEventTypeChange}
-                    />
-                    <label
-                      for="task"
-                      class="calendar_create_event-check-input-label"
-                    >
-                      فعالیت
-                    </label>
-                  </div>
-                  <StyledTextField
-                    className="calendar_create_event-custom-type-input"
-                    label="نوع رویداد"
-                    value={convertNumberToPersian(editEvent?.custom_event_type)}
-                    onChange={(e) => {
-                      handleEventTypeChange(e);
-                    }}
-                    id="custom_type"
-                    sx={{
-                      textAlign: "center",
-                      fontFamily: "Vazir",
-                    }}
-                    InputLabelProps={{
-                      style: { fontFamily: "Vazir", fontSize: "75%" },
-                    }}
-                    inputProps={{
-                      style: {
-                        height: "50px",
-                        padding: "0 14px",
-                        fontFamily: "Vazir",
-                        fontSize: "1.5rem",
-                      },
-                    }}
-                  />
+                  <label
+                    for="daily"
+                    class="calendar_create_event-check-input-label"
+                  >
+                    روزانه
+                  </label>
                 </div>
 
-                <br></br>
-                <label class="calendar_create_event-check-input-label">
-                  رنگ رویداد
-                </label>
+                <div class="checkbox-wrapper-47">
+                  <input
+                    type="checkbox"
+                    name="cb"
+                    id="weekly"
+                    ref={weeklyRef}
+                    checked={editEvent?.repeat_duration == 7 ? true : false}
+                    onChange={handleChange}
+                  />
+                  <label
+                    for="weekly"
+                    class="calendar_create_event-check-input-label"
+                  >
+                    هفتگی
+                  </label>
+                </div>
+
+                <div class="checkbox-wrapper-47">
+                  <input
+                    type="checkbox"
+                    name="cb"
+                    id="monthly"
+                    ref={monthlyRef}
+                    checked={editEvent?.repeat_duration == 30 ? true : false}
+                    onChange={handleChange}
+                  />
+                  <label
+                    for="monthly"
+                    class="calendar_create_event-check-input-label"
+                  >
+                    ماهانه
+                  </label>
+                </div>
                 <input
-                  type="color"
-                  value={editEvent?.event_color}
-                  onChange={(e) =>
-                    setEditEvent({
-                      ...editEvent,
-                      event_color: e.target.value,
-                    })
-                  }
+                  type="number"
+                  className="calendar_create_event-custom-repeat-input"
+                  id="custom_repeat"
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                  renderValue={(p) => {
+                    convertNumberToPersian(Number.toString(p));
+                  }}
+                  value={editEvent?.repeat_duration}
                 />
-                <br></br>
-                <br></br>
-                <DateTimePickerValue
-                  value={dayjs(editEvent?.event_time)}
-                  setValue={(val) =>
-                    setEditEvent({
-                      ...editEvent,
-                      event_time: convertDateToString(val),
-                    })
-                  }
-                />
+              </div>
+              <br></br>
 
+              <div className="calendar_create_event-check-inputs">
+                <div class="checkbox-wrapper-47">
+                  <input
+                    type="checkbox"
+                    name="cb"
+                    id="meeting"
+                    ref={meetingRef}
+                    checked={editEvent?.event_type == "meeting" ? true : false}
+                    onChange={handleEventTypeChange}
+                  />
+                  <label
+                    for="meeting"
+                    class="calendar_create_event-check-input-label"
+                  >
+                    جلسه
+                  </label>
+                </div>
+
+                <div class="checkbox-wrapper-47">
+                  <input
+                    type="checkbox"
+                    name="cb"
+                    id="holidays"
+                    ref={holidayRef}
+                    checked={editEvent?.event_type == "holidays" ? true : false}
+                    onChange={handleEventTypeChange}
+                  />
+                  <label
+                    for="holidays"
+                    class="calendar_create_event-check-input-label"
+                  >
+                    تعطیلات
+                  </label>
+                </div>
+
+                <div class="checkbox-wrapper-47">
+                  <input
+                    type="checkbox"
+                    name="cb"
+                    id="task"
+                    ref={taskRef}
+                    checked={editEvent?.event_type == "task" ? true : false}
+                    onChange={handleEventTypeChange}
+                  />
+                  <label
+                    for="task"
+                    class="calendar_create_event-check-input-label"
+                  >
+                    فعالیت
+                  </label>
+                </div>
                 <StyledTextField
-                  className="calendar_create_event-input"
-                  label="توضیحات"
+                  className="calendar_create_event-custom-type-input"
+                  label="نوع رویداد"
+                  value={convertNumberToPersian(editEvent?.custom_event_type)}
+                  onChange={(e) => {
+                    handleEventTypeChange(e);
+                  }}
+                  id="custom_type"
                   sx={{
                     textAlign: "center",
                     fontFamily: "Vazir",
-                    marginTop: "10%",
                   }}
                   InputLabelProps={{
                     style: { fontFamily: "Vazir", fontSize: "75%" },
@@ -445,32 +380,79 @@ export default function EditEvent({ eventId, calendarId }) {
                       fontSize: "1.5rem",
                     },
                   }}
-                  value={convertNumberToPersian(editEvent?.description)}
-                  onChange={(e) =>
-                    setEditEvent({
-                      ...editEvent,
-                      description: e.target.value,
-                    })
-                  }
                 />
-                <br></br>
-                <div className="calendar_create_event-button-div">
-                  <input
-                    style={{
-                      fontFamily: "Vazir",
-                    }}
-                    type="submit"
-                    value="ذخیره"
-                    role="save_button"
-                    className="calendar_create_event-button-29"
-                    onClick={edit_event}
-                  />
-                </div>
               </div>
-            </PerTextField>
-          </form>
-        </Box>
-      </Modal>
+
+              <br></br>
+              <label class="calendar_create_event-check-input-label">
+                رنگ رویداد
+              </label>
+              <input
+                type="color"
+                value={editEvent?.event_color}
+                onChange={(e) =>
+                  setEditEvent({
+                    ...editEvent,
+                    event_color: e.target.value,
+                  })
+                }
+              />
+              <br></br>
+              <br></br>
+              <DateTimePickerValue
+                value={dayjs(editEvent?.event_time)}
+                setValue={(val) =>
+                  setEditEvent({
+                    ...editEvent,
+                    event_time: convertDateToString(val),
+                  })
+                }
+              />
+
+              <StyledTextField
+                className="calendar_create_event-input"
+                label="توضیحات"
+                sx={{
+                  textAlign: "center",
+                  fontFamily: "Vazir",
+                  marginTop: "10%",
+                }}
+                InputLabelProps={{
+                  style: { fontFamily: "Vazir", fontSize: "75%" },
+                }}
+                inputProps={{
+                  style: {
+                    height: "50px",
+                    padding: "0 14px",
+                    fontFamily: "Vazir",
+                    fontSize: "1.5rem",
+                  },
+                }}
+                value={convertNumberToPersian(editEvent?.description)}
+                onChange={(e) =>
+                  setEditEvent({
+                    ...editEvent,
+                    description: e.target.value,
+                  })
+                }
+              />
+              <br></br>
+              <div className="calendar_create_event-button-div">
+                <input
+                  style={{
+                    fontFamily: "Vazir",
+                  }}
+                  type="submit"
+                  value="ذخیره"
+                  role="save_button"
+                  className="calendar_create_event-button-29"
+                  onClick={edit_event}
+                />
+              </div>
+            </div>
+          </PerTextField>
+        </form>
+      </Box>
     </div>
   );
 }
