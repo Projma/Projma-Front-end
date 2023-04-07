@@ -19,7 +19,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import apiInstance from "../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom"; // comment for tests
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { login } from "../../actions/authActions";
 import { useState } from "react";
 import Loading from "../Shared/Loading";
@@ -52,7 +52,7 @@ export default function SignIn() {
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   let navigate = useNavigate(); // comment for tests
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrorUsername(false);
@@ -72,7 +72,7 @@ export default function SignIn() {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        dispatch(login());
+        // dispatch(login());
         delay(4000).then(() => navigate("/dashboard")); // comment for tests
       })
       .catch((res) => {
