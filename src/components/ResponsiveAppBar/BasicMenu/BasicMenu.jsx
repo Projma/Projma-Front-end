@@ -3,14 +3,9 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
-// import Typography from '@mui/material/Typography';
 import BasicModal from "../../Dashboard/Modal/BasicModal";
-import { color } from "@mui/system";
-// import BasicModal from "../components/Workspace_management/BasicModal/CreateBoard"; create board modal
-// import { BasicModal as CreateBoard } from '../../Workspace_management/BasicModal/CreateBoard';
 import apiInstance from "../../../utilities/axiosConfig";
 import { useParams } from "react-router-dom";
-// import CreateBoardModal from '../../Dashboard/CreateBoardModal/CreateBoardModal';
 import CreateBoardModal from "../CreateBoardModal/CreateBoardModal";
 
 export default function BasicMenu(props) {
@@ -26,7 +21,7 @@ export default function BasicMenu(props) {
   const navigate = useNavigate();
   const navigateToWorkspace = (workspaceId) => {
     handleClose();
-    navigate(`/workspace/${workspaceId}`);
+    navigate(`/workspace/${workspaceId}/dashboard/Boards`);
   };
   const navigateToBoard = (boardId) => {
     navigate(`/kanban/${boardId}`);
@@ -34,7 +29,6 @@ export default function BasicMenu(props) {
 
   const params = useParams();
   const submit_form = (form_data) => {
-    ////console.log("here");
     apiInstance
       .post(`/workspaces/workspaceowner/${params.id}/create-board/`, form_data)
       .then((res) => {
@@ -52,7 +46,6 @@ export default function BasicMenu(props) {
         onClick={handleClick}
         sx={{ fontFamily: "Vazir", color: "inherit", textDecoration: "none" }}
       >
-        {/* Dashboard */}
         {props.name}
       </Button>
       <Menu
@@ -80,7 +73,6 @@ export default function BasicMenu(props) {
                 }}
               >
                 <div style={{ fontSize: "88%" }}>{props.workspaces[key]}</div>
-                {/* {props.workspaces[key]} */}
               </MenuItem>
             );
           })}
@@ -128,28 +120,11 @@ export default function BasicMenu(props) {
                 color: "black",
               }}
             >
-              {/* <BasicModal text="ایجاد بورد جدید" />  */}
               <CreateBoardModal />
-              {/* create board modal (correct text) */}
-              {/* <CreateBoard params={params} on_submit={submit_form} /> */}
             </MenuItem>{" "}
           </>
         )}
-        {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem> */}
       </Menu>
-
-      {/* 
-            <DropDownMenu 
-                value={this.state.selection} 
-                onChange={this.handleChange}   
-                >
-                <MenuItem value={1} primaryText="English"  />
-                <MenuItem value={2} primaryText="Spanish" />
-                <MenuItem value={3} primaryText="French" />
-
-        </DropDownMenu> */}
     </div>
   );
 }

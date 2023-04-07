@@ -24,7 +24,7 @@ const Board = ({ params, on_submit, workspace, setWorkspace }) => {
 
   useEffect(() => {
     apiInstance
-      .get(`workspaces/workspaces/${params.id}/workspace-starred-boards/`)
+      .get(`workspaces/${params.id}/workspace-starred-boards/`)
       .then((res) => {
         setLoading(true);
         setStar(res.data);
@@ -48,7 +48,7 @@ const Board = ({ params, on_submit, workspace, setWorkspace }) => {
         tempdata = boards;
       });
     await apiInstance
-      .get(`workspaces/workspaces/${params.id}/workspace-starred-boards/`)
+      .get(`workspaces/${params.id}/workspace-starred-boards/`)
       .then((res) => {
         setStar(res.data);
       });

@@ -19,7 +19,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import apiInstance from "../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom"; // comment for tests
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { login } from "../../actions/authActions";
 import { useState } from "react";
 import Loading from "../Shared/Loading";

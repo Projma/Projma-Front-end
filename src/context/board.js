@@ -7,27 +7,27 @@ import { baseUrl } from "../utilities/constants";
 
 const BoardContext = createContext();
 
-function Provider({ children, boardId }) {
+function Provider({ children, boardId, workspaceId }) {
   const [list, setList] = useState([]);
   const [member, setMember] = useState([]);
   const [boardCover, setBoardCover] = useState("");
   const [isReq, setIsReq] = useState(false);
-  const [workspaceId, setWorkspaceId] = useState(undefined);
-  const [wsBoard, setWsBoard] = useState([]);
+  const [calendar, setCalendar] = useState(0);
 
   const getBoard = useCallback(async () => {
     setIsReq(true);
     let data;
     await apiInstance
-      .get(`workspaces/board/${boardId}/get-board-overview/`)
+      .get(`board/${boardId}/get-board-overview/`)
       .then((response) => {
         // setList(response.data.tasklists.sort((a, b) => b.order - a.order));
+        setCalendar(response.data.calendar);
         data = response.data.tasklists.sort((a, b) => b.order - a.order);
         data = data.map((tasklists) => {
           tasklists.tasks = tasklists.tasks.map((task) => {
             const addInfo = async () => {
               await apiInstance
-                .get(`workspaces/task/${task.id}/get-task/`)
+                .get(`task/${task.id}/get-task/`)
                 .then((response) => {
                   let attach = response.data.attachments;
                   let cover = "";
@@ -50,21 +50,6 @@ function Provider({ children, boardId }) {
           });
           return tasklists;
         });
-        setWorkspaceId(response.data.workspace);
-        const getWorkspaceBoard = async () => {
-          await apiInstance
-            .get(`workspaces/workspaceowner/${workspaceId}/workspace-boards/`)
-            .then((res) => {
-              const boards = res.data.map((obj) => ({
-                id: obj.id,
-                name: obj.name,
-                cover: `http://127.0.0.1:8000` + obj.background_pic,
-              }));
-              console.log(boards);
-              setWsBoard(boards);
-            });
-        };
-        getWorkspaceBoard();
         setList(data);
         setMember(response.data.members);
         setBoardCover(response.data.background_pic);
@@ -110,7 +95,8 @@ function Provider({ children, boardId }) {
 
   const board = {
     boardId,
-    wsBoard,
+    workspaceId,
+    calendar,
     list,
     member,
     boardCover,

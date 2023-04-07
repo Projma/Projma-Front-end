@@ -71,7 +71,7 @@ function App() {
                 element=<ResetPassword />
               />
               <Route
-                path="workspace/:id/*"
+                path="workspace/:id/dashboard/*"
                 element={
                   <PrivateRoute
                     children={
@@ -82,6 +82,34 @@ function App() {
               />
               <Route
                 exact
+                path="workspace/:workspaceId/kanban/:boardId"
+                element={
+                  <PrivateRoute
+                    children={<PrivateRoute children={<BoardOverView />} />}
+                  />
+                }
+              >
+                <Route
+                  exact
+                  path="board"
+                  element={
+                    <PrivateRoute
+                      children={<PrivateRoute children={<Board />} />}
+                    />
+                  }
+                />
+                <Route
+                  exact
+                  path="calendar"
+                  element={
+                    <PrivateRoute
+                      children={<PrivateRoute children={<Calendar />} />}
+                    />
+                  }
+                />
+              </Route>
+              <Route
+                exact
                 path="/profileview/:username"
                 element={<ProfileView />}
               />
@@ -90,26 +118,6 @@ function App() {
                 path="/changepassword"
                 element={<PrivateRoute children={<ChangePassword />} />}
               />
-              <Route
-                exact
-                path="kanban/:boardId"
-                element={
-                  <PrivateRoute
-                    children={<PrivateRoute children={<BoardOverView />} />}
-                  />
-                }
-              >
-                <Route exact path="board" element={
-                  <PrivateRoute
-                    children={<PrivateRoute children={<Board />} />}
-                  />
-                }/>
-                <Route exact path="calendar" element={
-                  <PrivateRoute
-                    children={<PrivateRoute children={<Calendar/>} />}
-                  />
-                }/>
-              </Route>
               <Route
                 exact
                 path="/invite_page/:token"
@@ -128,8 +136,8 @@ function App() {
 
               {/* has to be last  */}
               {/* <Route path='*' exact={true} component={My404Component} /> */}
-              <Route path="/404" element={<NotFound />} />
-              <Route path="*" element={<Navigate replace to="/404" />} />
+              {/* <Route path="/404" element={<NotFound />} />
+              <Route path="*" element={<Navigate replace to="/404" />} /> */}
             </Routes>
           </Router>
         </Provider>

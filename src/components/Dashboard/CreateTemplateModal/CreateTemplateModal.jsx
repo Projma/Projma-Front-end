@@ -26,36 +26,22 @@ const style = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    // width: "38rem",
     width: "42rem",
-    // height: "55rem",
     height: "62rem",
     backgroundColor: "#001E3C",
-    // bgcolor: "background.paper",
     border: "2px solid #000",
-    // borderRadius: "1rem",
     borderRadius: "10px",
     boxShadow: 50,
     p: 4,
     fontFamily: "Vazir",
-    // overflow: 'hidden', scroll
     overflow: "auto",
 };
 
 export default function CreateTemplateModal(props) {
     const navigate = useNavigate();
     const navigateToBoard = (boardId) => {
-        // navigate(`/board/`);
         navigate(`/kanban/${boardId}`);
     };
-    const handleChange = (e) => {
-        const [file] = e.target.files;
-        setBinaryFile(e.target.files[0]);
-        if (file) {
-            setFile(URL.createObjectURL(file));
-        }
-    };
-    const [result, setResult] = useState("");
     const [binaryFile, setBinaryFile] = useState(null);
     const [open, setOpen] = React.useState(false);
     const [workspaceId, setWorkspaceId] = React.useState(-1);
@@ -80,27 +66,22 @@ export default function CreateTemplateModal(props) {
     const [errorWorkspace, setErrorWorkspace] = React.useState(false);
     const [disableButton, setDisableButton] = React.useState(false);
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-    // const on_submit = (form_data, boards, setBoards) => {
     const on_submit = (form_data) => {
         apiInstance
             .get(
                 `/workspaces/templates/${props.template_id}/create-board-from-template/${workspaceId}/`// ,
-                // form_data
             )
             .then((res) => {
 
                 toast.success("تمپلیت با موفقیت ساخته شد", {
-                    // position: toast.POSITION.BOTTOM_LEFT,
                     position: toast.POSITION.BOTTOM_LEFT,
                     rtl: true,
                 });
 
-                // navigateToBoard(res.data.id);
                 delay(6000).then(() => navigateToBoard(res.data.id));
             }).catch((err) => {
-                //console.log(err);
+                console.log(err);
                 toast.error("خطا در ساخت تمپلیت", {
-                    // position: toast.POSITION.BOTTOM_LEFT,
                     position: toast.POSITION.BOTTOM_LEFT,
                     rtl: true,
             })});
@@ -109,8 +90,6 @@ export default function CreateTemplateModal(props) {
         e.preventDefault();
         let board_name = document.getElementById("board_name").value;
         let isValid = true;
-        ////console.log(board_name);
-        ////console.log("board name");
         if (board_name === "") {
             setErrorBoardName(true);
             isValid = false;
@@ -124,7 +103,6 @@ export default function CreateTemplateModal(props) {
             setErrorWorkspace(false);
         }
         if (isValid === false) {
-            ////console.log("false");
             return;
         } else {
             setDisableButton(true); // make text spinning and disable button
@@ -146,7 +124,9 @@ export default function CreateTemplateModal(props) {
             .then((response) => {
                 setWorkspaces(response.data);
             })
-            .catch((error) => { });
+            .catch((error) => {
+                console.log(error);
+            });
     }, []);
 
     return (
@@ -161,14 +141,7 @@ export default function CreateTemplateModal(props) {
                         backgroundColor: "#007fff",
                         borderRadius: "5px",
                     },
-                    // marginTop: '8%',
-                    // padding: '10%',
-                    // paddingTop: '1%',
-                    // paddingBottom: '1%',
                     margin: '0%',
-                    // padding: '5%',
-                    // paddingTop: '5%',
-                    // marginTop: '5%',
 
                     fontFamily: "Vazir",
                     textDecoration: "none",
@@ -347,40 +320,6 @@ export default function CreateTemplateModal(props) {
                                 borderRadius: "50%",
                             }}
                         /> */}
-
-                        {/* <Button
-                            variant="contained"
-                            component="label"
-                            sx={{
-                                // backgroundColor: themeProps.primaryColor,
-                                color: "white",
-                                width: "120px",
-                                mt: 2,
-                                marginRight: "1.5rem",
-                                marginTop: 0,
-                            }}
-                        >
-                            <p style={{ fontSize: "1.5rem" }}>انتخاب عکس</p>
-                            <input
-                                type="file"
-                                hidden
-                                onChange={handleChange}
-                                accept=".jpg,.jpeg,.png"
-                            />
-                        </Button> */}
-                        {/* <input
-              type="file"
-              // ref="file"
-              onChange={handleChange}
-              // name="user[image]"
-              // multiple="true"
-              // name="img"
-              // id="img"
-            /> */}
-                        {/* <img src={this.state.imgSrc} alt="img" /> */}
-                        {/* <label id="title">عنوان تمپلیت</label>
-            <input type="text" id="title" className="workspace-modal--title-inp" /> */}
-                        {/* <button onClick={create_board}>submit</button> */}
                         <input
                             type="submit"
                             value="بساز"
@@ -389,9 +328,6 @@ export default function CreateTemplateModal(props) {
                             style={{ fontFamily: "Vazir" }}
                         />
                     </form>
-                    {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography> */}
                 </Box>
             </Modal>
         </div>

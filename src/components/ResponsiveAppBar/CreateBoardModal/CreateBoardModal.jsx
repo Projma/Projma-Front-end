@@ -9,7 +9,6 @@ import Modal from "@mui/material/Modal";
 import StyledTextField from "../../Shared/StyledTextField";
 import PerTextField from "../../Shared/PerTextField.js";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
-// import file from "../../../static/images/workspace_management/create_board/board.jpeg";
 import "./CreateBoardModal.scss";
 import { ToastContainer, toast } from "react-toastify";
 import apiInstance from "../../../utilities/axiosConfig";
@@ -27,14 +26,11 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  // width: "38rem",
   width: "42rem",
-  // height: "55rem",
   height: "62rem",
   backgroundColor: "#001E3C",
   // bgcolor: "background.paper",
   border: "2px solid #000",
-  // borderRadius: "1rem",
   borderRadius: "10px",
   boxShadow: 50,
   p: 4,
@@ -46,7 +42,6 @@ const style = {
 export default function CreateBoardModal({}) {
   const navigate = useNavigate();
   const navigateToBoard = (boardId) => {
-    // navigate(`/board/`);
     navigate(`/kanban/${boardId}`);
   };
   const handleChange = (e) => {
@@ -56,7 +51,6 @@ export default function CreateBoardModal({}) {
       setFile(URL.createObjectURL(file));
     }
   };
-  const [result, setResult] = useState("");
   const [binaryFile, setBinaryFile] = useState(null);
   const [open, setOpen] = React.useState(false);
   const [workspaceId, setWorkspaceId] = React.useState(-1);
@@ -82,9 +76,7 @@ export default function CreateBoardModal({}) {
   const [disableButton, setDisableButton] = React.useState(false);
   const [isPost, setIsPost] = useState(false);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-  // const on_submit = (form_data, boards, setBoards) => {
   const on_submit = (form_data) => {
-    ////console.log("here");
     setIsPost(true);
     apiInstance
       .post(
@@ -92,16 +84,11 @@ export default function CreateBoardModal({}) {
         form_data
       )
       .then((res) => {
-        ////console.log("here");
-        ////console.log(res.data);
-        ////console.log("here");
         toast.success("بورد با موفقیت ساخته شد", {
-          // position: toast.POSITION.BOTTOM_LEFT,
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
 
-        // navigateToBoard(res.data.id);
         delay(6000).then(() => navigateToBoard(res.data.id));
       })
       .finally(() => setIsPost(null));
@@ -110,8 +97,6 @@ export default function CreateBoardModal({}) {
     e.preventDefault();
     let board_name = document.getElementById("board_name").value;
     let isValid = true;
-    ////console.log(board_name);
-    ////console.log("board name");
     if (board_name === "") {
       setErrorBoardName(true);
       isValid = false;
@@ -125,7 +110,6 @@ export default function CreateBoardModal({}) {
       setErrorWorkspace(false);
     }
     if (isValid === false) {
-      ////console.log("false");
       return;
     } else {
       setDisableButton(true); // make text spinning and disable button
@@ -134,7 +118,6 @@ export default function CreateBoardModal({}) {
     const form_data = new FormData();
     form_data.append("name", title);
     form_data.append("description", description);
-    // form_data.append("type", "education");
     if (binaryFile !== null) {
       form_data.append("background_pic", binaryFile);
     }
@@ -149,7 +132,9 @@ export default function CreateBoardModal({}) {
       .then((response) => {
         setWorkspaces(response.data);
       })
-      .catch((error) => {});
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
@@ -170,14 +155,6 @@ export default function CreateBoardModal({}) {
             backgroundColor: "#007fff",
             borderRadius: "5px",
           },
-          // marginTop: '8%',
-          // padding: '10%',
-          // paddingTop: '1%',
-          // paddingBottom: '1%',
-          // margin: '10%',
-          // padding: '10%',
-          // paddingTop: '5%',
-          // marginTop: '5%',
 
           fontFamily: "Vazir",
           textDecoration: "none",
@@ -187,11 +164,6 @@ export default function CreateBoardModal({}) {
           alignItems: "center",
         }}
       >
-        {/* <h2 
-                // style={{color: 'black',}}
-                >
-                    افزودن بورد +
-                </h2> */}
 
         <div
           style={{ fontFamily: "Vazir", fontSize: "87%" }}
@@ -400,19 +372,6 @@ export default function CreateBoardModal({}) {
                 />
               </Button>
             </div>
-            {/* <input
-              type="file"
-              // ref="file"
-              onChange={handleChange}
-              // name="user[image]"
-              // multiple="true"
-              // name="img"
-              // id="img"
-            /> */}
-            {/* <img src={this.state.imgSrc} alt="img" /> */}
-            {/* <label id="title">عنوان بورد</label>
-            <input type="text" id="title" className="workspace-modal--title-inp" /> */}
-            {/* <button onClick={create_board}>submit</button> */}
             <input
               type="submit"
               value="بساز"
@@ -421,9 +380,6 @@ export default function CreateBoardModal({}) {
               style={{ fontFamily: "Vazir", fontSize: "185%" }}
             />
           </form>
-          {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography> */}
         </Box>
       </Modal>
     </div>

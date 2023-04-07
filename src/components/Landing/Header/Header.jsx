@@ -1,10 +1,8 @@
 import React from "react";
 import Nav from "../Nav/Nav";
 import "./Header.css";
-import TextField from "@mui/material/TextField";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
-// import x from "../../../static/images/landing/landing1.jpg";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
@@ -12,8 +10,6 @@ import createCache from "@emotion/cache";
 import StyledTextField from "../StyledTextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Grid from "@mui/material/Grid"; // Grid version 1
-import { redirect } from "react-router-dom";
-import { AddBox } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import conversation from "../../../static/images/landing/conversation.svg";
 import { useNavigate } from "react-router-dom";
@@ -21,17 +17,6 @@ import {
   convertNumberToPersian,
   convertNumberToEnglish,
 } from "../../../utilities/helpers.js";
-
-// const loader = async () => {
-//   const attButton = e.target.getAttribute("button-key");
-//   ////console.log(attButton);
-//   return redirect("/test");
-// };
-
-// isClicked = (e) => {
-//   const attButton = e.target.getAttribute("button-key");
-//   ////console.log(attButton);
-// };
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -81,7 +66,6 @@ const Header = () => {
             alignItems: "center",
           }}
           >
-            {/* <div className="top-el top-el-2"> */}
             <Box
               sx={{
                 padding: "10%",
@@ -90,10 +74,8 @@ const Header = () => {
                 flexDirection: "column",
                 justifyContent: "center",
                 // alignItems: "center",
-
               }}
             >
-              {/* <h1 className="responsive--font--size--2"> */}
               <h2>
                 <b className="black--text">
                   با پروجما کیفیت کار تیمی خود را ارتقا دهید
@@ -124,9 +106,6 @@ const Header = () => {
               </CacheProvider>
               <Button
                 variant="contained"
-                // button-key="buttonAttribute"
-                // onClick={() => navigate("/signup/")}
-                // navifate with email address
                 onClick={() =>
                   navigate("/signup/", {
                     state: {
@@ -149,7 +128,6 @@ const Header = () => {
                 ثبت نام کنید
               </Button>
             </Box>
-            {/* </div> */}
           </Grid>
           <Grid
             item xs={2} sm={4} md={2}
@@ -164,15 +142,11 @@ const Header = () => {
               padding: "0%",
               }}
           >
-            {/* <div className="top-el top-el-1 top-el-img"> */}
-            {/* <Grid> */}
 
               <img src={conversation} className="top-img" style={{
                 // background: "transparent",
                 // backgroundColor: "black",
               }}/>
-            {/* </Grid> */}
-            {/* </div> */}
           </Grid>
         </Grid>
       </div>

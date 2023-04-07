@@ -41,9 +41,9 @@ jobs:
       name: Build project
       run: CI=false npm run build --if-present
       # CI=false (treating warnings as errors because process.env.ci = true.)
-    # - 
-    #   name: Test project
-    #   run: npm test
+    - 
+      name: Test project
+      run: npm test
 
   publish:
 
@@ -93,6 +93,7 @@ jobs:
         name: Set up on server
         run: |
           ssh -o StrictHostKeyChecking=no -i ${{ env.SSH_AUTH_SOCK }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "sudo docker ps -q | xargs sudo docker stop | xargs sudo docker rm && sudo docker pull farzanrahmani/projmafrontend:latest && sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest"
+        #ssh -o StrictHostKeyChecking=no -i ${{ env.SSH_AUTH_SOCK }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "sudo docker ps | sudo grep "farzanrahmani/projmafrontend" | sudo awk '{print $1}' | xargs -I {} sudo docker stop {} | xargs sudo docker rm && sudo docker pull farzanrahmani/projmafrontend:latest && sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest"
         
         # shell: bash
         # env:

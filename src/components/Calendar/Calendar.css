@@ -6,14 +6,25 @@
   padding: 1rem 2rem;
   color: #fff;
   --fc-today-bg-color: #007fff33;
-  --fc-neutral-bg-color: #265D97;
-  --fc-neutral-text-color: #CEE0F3;
+  --fc-neutral-bg-color: #265d97;
+  --fc-neutral-text-color: #cee0f3;
+  --fc-button-bg-color: #0a1929;
+  --fc-button-border-color: #0a1929;
+  --fc-button-hover-bg-color: var(--hover-color);
+  --fc-button-hover-border-color: var(--hover-color);
+  --fc-button-active-bg-color: #007fff;
+  --fc-button-active-border-color: #007fff;
+  --fc-border-color: #cee0f3;
 }
 
 .fc-list-day-text {
-  color: #CEE0F3;
+  color: #cee0f3;
 }
 
 .fc-list-day-cushion {
-  background-color: #0A1929 !important;
+  background-color: #0a1929 !important;
+}
+
+.fc-event-title-container {
+  text-align: center;
 }
