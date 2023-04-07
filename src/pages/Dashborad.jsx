@@ -189,305 +189,307 @@ export const Dashborad = () => {
   const navigate = useNavigate();
 
   const navigateToWorkspace = (workspaceId) => {
-    navigate(`/workspace/${workspaceId}/Boards`);
+    navigate(`/workspace/${workspaceId}/dashboard/Boards`);
   };
 
   const navigateToBoard = (boardId) => {
     // navigate(`/board/`);
-    navigate(`/kanban/${boardId}`);
+    navigate(`/kanban/${boardId}/board`);
   };
 
   useEffect(() => {
-    apiInstance.get("/workspaces/templates/").then((response) => {
-      ////console.log(response.data);
-      // [
-      //   {
-      //     "id": 21,
-      //     "name": "Agile Board",
-      //     "description": "Agile Board Template",
-      //     "background_pic": null,
-      //     "created_at": "2023-01-21T11:15:24.581576Z",
-      //     "updated_at": "2023-01-21",
-      //     "tasklists": [
-      //       {
-      //         "id": 9,
-      //         "title": "Done",
-      //         "board": 21,
-      //         "order": 9,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 10,
-      //         "title": "Current Sprint",
-      //         "board": 21,
-      //         "order": 10,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 11,
-      //         "title": "In Progress",
-      //         "board": 21,
-      //         "order": 11,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 12,
-      //         "title": "On Hold",
-      //         "board": 21,
-      //         "order": 12,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 13,
-      //         "title": "Next Up",
-      //         "board": 21,
-      //         "order": 13,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 14,
-      //         "title": "Questions",
-      //         "board": 21,
-      //         "order": 14,
-      //         "tasks": []
-      //       }
-      //     ],
-      //     "labels": [
-      //       {
-      //         "id": 9,
-      //         "title": "Demand Marketing",
-      //         "color": "#E221FF96",
-      //         "board": 21
-      //       },
-      //       {
-      //         "id": 10,
-      //         "title": "Planning",
-      //         "color": "#5EFF96",
-      //         "board": 21
-      //       },
-      //       {
-      //         "id": 11,
-      //         "title": "Happiness",
-      //         "color": "#FF396",
-      //         "board": 21
-      //       },
-      //       {
-      //         "id": 12,
-      //         "title": "Government",
-      //         "color": "#14FF96",
-      //         "board": 21
-      //       },
-      //       {
-      //         "id": 13,
-      //         "title": "Partners",
-      //         "color": "#1C9F96",
-      //         "board": 21
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "id": 22,
-      //     "name": "Kanban",
-      //     "description": "Kanban Template",
-      //     "background_pic": null,
-      //     "created_at": "2023-01-21T11:15:37.576353Z",
-      //     "updated_at": "2023-01-21",
-      //     "tasklists": [
-      //       {
-      //         "id": 15,
-      //         "title": "Backlog",
-      //         "board": 22,
-      //         "order": 15,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 16,
-      //         "title": "Design",
-      //         "board": 22,
-      //         "order": 16,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 17,
-      //         "title": "To Do",
-      //         "board": 22,
-      //         "order": 17,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 18,
-      //         "title": "Doing",
-      //         "board": 22,
-      //         "order": 18,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 19,
-      //         "title": "Code Review",
-      //         "board": 22,
-      //         "order": 19,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 20,
-      //         "title": "Testing",
-      //         "board": 22,
-      //         "order": 20,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 21,
-      //         "title": "Done",
-      //         "board": 22,
-      //         "order": 21,
-      //         "tasks": []
-      //       }
-      //     ],
-      //     "labels": [
-      //       {
-      //         "id": 14,
-      //         "title": "In Queue",
-      //         "color": "#FF7896",
-      //         "board": 22
-      //       },
-      //       {
-      //         "id": 15,
-      //         "title": "In Progress",
-      //         "color": "#FFCD26",
-      //         "board": 22
-      //       },
-      //       {
-      //         "id": 16,
-      //         "title": "Completed",
-      //         "color": "#66FF96",
-      //         "board": 22
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "id": 23,
-      //     "name": "Project Management",
-      //     "description": "Project Management Template",
-      //     "background_pic": null,
-      //     "created_at": "2023-01-21T11:15:46.661086Z",
-      //     "updated_at": "2023-01-21",
-      //     "tasklists": [
-      //       {
-      //         "id": 22,
-      //         "title": "Project Resources",
-      //         "board": 23,
-      //         "order": 22,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 23,
-      //         "title": "Questions For Next Meeting",
-      //         "board": 23,
-      //         "order": 23,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 24,
-      //         "title": "Project Progress",
-      //         "board": 23,
-      //         "order": 24,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 25,
-      //         "title": "To Do",
-      //         "board": 23,
-      //         "order": 25,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 26,
-      //         "title": "Pending",
-      //         "board": 23,
-      //         "order": 26,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 27,
-      //         "title": "Blocked",
-      //         "board": 23,
-      //         "order": 27,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 28,
-      //         "title": "Done",
-      //         "board": 23,
-      //         "order": 28,
-      //         "tasks": []
-      //       }
-      //     ],
-      //     "labels": [
-      //       {
-      //         "id": 17,
-      //         "title": "Copy Request",
-      //         "color": "#D6FF36",
-      //         "board": 23
-      //       },
-      //       {
-      //         "id": 18,
-      //         "title": "Priority",
-      //         "color": "#FF8980",
-      //         "board": 23
-      //       },
-      //       {
-      //         "id": 19,
-      //         "title": "Design Team",
-      //         "color": "#C71287",
-      //         "board": 23
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     "id": 24,
-      //     "name": "Simple Template",
-      //     "description": "Simple Board Template",
-      //     "background_pic": null,
-      //     "created_at": "2023-01-21T11:15:54.468111Z",
-      //     "updated_at": "2023-01-21",
-      //     "tasklists": [
-      //       {
-      //         "id": 29,
-      //         "title": "Brainstorm",
-      //         "board": 24,
-      //         "order": 29,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 30,
-      //         "title": "To Do",
-      //         "board": 24,
-      //         "order": 30,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 31,
-      //         "title": "Doing",
-      //         "board": 24,
-      //         "order": 31,
-      //         "tasks": []
-      //       },
-      //       {
-      //         "id": 32,
-      //         "title": "Done",
-      //         "board": 24,
-      //         "order": 32,
-      //         "tasks": []
-      //       }
-      //     ],
-      //     "labels": []
-      //   }
-      // ]
-      setTemplates(response.data);
-    }).catch((error) => {
-      ////console.log(error);
-    });
-
+    apiInstance
+      .get("/workspaces/templates/")
+      .then((response) => {
+        ////console.log(response.data);
+        // [
+        //   {
+        //     "id": 21,
+        //     "name": "Agile Board",
+        //     "description": "Agile Board Template",
+        //     "background_pic": null,
+        //     "created_at": "2023-01-21T11:15:24.581576Z",
+        //     "updated_at": "2023-01-21",
+        //     "tasklists": [
+        //       {
+        //         "id": 9,
+        //         "title": "Done",
+        //         "board": 21,
+        //         "order": 9,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 10,
+        //         "title": "Current Sprint",
+        //         "board": 21,
+        //         "order": 10,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 11,
+        //         "title": "In Progress",
+        //         "board": 21,
+        //         "order": 11,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 12,
+        //         "title": "On Hold",
+        //         "board": 21,
+        //         "order": 12,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 13,
+        //         "title": "Next Up",
+        //         "board": 21,
+        //         "order": 13,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 14,
+        //         "title": "Questions",
+        //         "board": 21,
+        //         "order": 14,
+        //         "tasks": []
+        //       }
+        //     ],
+        //     "labels": [
+        //       {
+        //         "id": 9,
+        //         "title": "Demand Marketing",
+        //         "color": "#E221FF96",
+        //         "board": 21
+        //       },
+        //       {
+        //         "id": 10,
+        //         "title": "Planning",
+        //         "color": "#5EFF96",
+        //         "board": 21
+        //       },
+        //       {
+        //         "id": 11,
+        //         "title": "Happiness",
+        //         "color": "#FF396",
+        //         "board": 21
+        //       },
+        //       {
+        //         "id": 12,
+        //         "title": "Government",
+        //         "color": "#14FF96",
+        //         "board": 21
+        //       },
+        //       {
+        //         "id": 13,
+        //         "title": "Partners",
+        //         "color": "#1C9F96",
+        //         "board": 21
+        //       }
+        //     ]
+        //   },
+        //   {
+        //     "id": 22,
+        //     "name": "Kanban",
+        //     "description": "Kanban Template",
+        //     "background_pic": null,
+        //     "created_at": "2023-01-21T11:15:37.576353Z",
+        //     "updated_at": "2023-01-21",
+        //     "tasklists": [
+        //       {
+        //         "id": 15,
+        //         "title": "Backlog",
+        //         "board": 22,
+        //         "order": 15,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 16,
+        //         "title": "Design",
+        //         "board": 22,
+        //         "order": 16,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 17,
+        //         "title": "To Do",
+        //         "board": 22,
+        //         "order": 17,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 18,
+        //         "title": "Doing",
+        //         "board": 22,
+        //         "order": 18,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 19,
+        //         "title": "Code Review",
+        //         "board": 22,
+        //         "order": 19,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 20,
+        //         "title": "Testing",
+        //         "board": 22,
+        //         "order": 20,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 21,
+        //         "title": "Done",
+        //         "board": 22,
+        //         "order": 21,
+        //         "tasks": []
+        //       }
+        //     ],
+        //     "labels": [
+        //       {
+        //         "id": 14,
+        //         "title": "In Queue",
+        //         "color": "#FF7896",
+        //         "board": 22
+        //       },
+        //       {
+        //         "id": 15,
+        //         "title": "In Progress",
+        //         "color": "#FFCD26",
+        //         "board": 22
+        //       },
+        //       {
+        //         "id": 16,
+        //         "title": "Completed",
+        //         "color": "#66FF96",
+        //         "board": 22
+        //       }
+        //     ]
+        //   },
+        //   {
+        //     "id": 23,
+        //     "name": "Project Management",
+        //     "description": "Project Management Template",
+        //     "background_pic": null,
+        //     "created_at": "2023-01-21T11:15:46.661086Z",
+        //     "updated_at": "2023-01-21",
+        //     "tasklists": [
+        //       {
+        //         "id": 22,
+        //         "title": "Project Resources",
+        //         "board": 23,
+        //         "order": 22,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 23,
+        //         "title": "Questions For Next Meeting",
+        //         "board": 23,
+        //         "order": 23,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 24,
+        //         "title": "Project Progress",
+        //         "board": 23,
+        //         "order": 24,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 25,
+        //         "title": "To Do",
+        //         "board": 23,
+        //         "order": 25,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 26,
+        //         "title": "Pending",
+        //         "board": 23,
+        //         "order": 26,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 27,
+        //         "title": "Blocked",
+        //         "board": 23,
+        //         "order": 27,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 28,
+        //         "title": "Done",
+        //         "board": 23,
+        //         "order": 28,
+        //         "tasks": []
+        //       }
+        //     ],
+        //     "labels": [
+        //       {
+        //         "id": 17,
+        //         "title": "Copy Request",
+        //         "color": "#D6FF36",
+        //         "board": 23
+        //       },
+        //       {
+        //         "id": 18,
+        //         "title": "Priority",
+        //         "color": "#FF8980",
+        //         "board": 23
+        //       },
+        //       {
+        //         "id": 19,
+        //         "title": "Design Team",
+        //         "color": "#C71287",
+        //         "board": 23
+        //       }
+        //     ]
+        //   },
+        //   {
+        //     "id": 24,
+        //     "name": "Simple Template",
+        //     "description": "Simple Board Template",
+        //     "background_pic": null,
+        //     "created_at": "2023-01-21T11:15:54.468111Z",
+        //     "updated_at": "2023-01-21",
+        //     "tasklists": [
+        //       {
+        //         "id": 29,
+        //         "title": "Brainstorm",
+        //         "board": 24,
+        //         "order": 29,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 30,
+        //         "title": "To Do",
+        //         "board": 24,
+        //         "order": 30,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 31,
+        //         "title": "Doing",
+        //         "board": 24,
+        //         "order": 31,
+        //         "tasks": []
+        //       },
+        //       {
+        //         "id": 32,
+        //         "title": "Done",
+        //         "board": 24,
+        //         "order": 32,
+        //         "tasks": []
+        //       }
+        //     ],
+        //     "labels": []
+        //   }
+        // ]
+        setTemplates(response.data);
+      })
+      .catch((error) => {
+        ////console.log(error);
+      });
   }, []);
 
   const computer_tabs = {
@@ -544,21 +546,11 @@ export const Dashborad = () => {
                     }}
                   >
                     {/* `/workspaces/boardsmemberapi/${board_id}/get-board/` */}
-                    <p
-                      variant="h1"
-                      component="h2"
-                      className="text paragraph"
-                    >
+                    <p variant="h1" component="h2" className="text paragraph">
                       {/* check that is null or not */}
-                      {board["name"]
-                        ? board["name"]
-                        : "بی‌نام"}
+                      {board["name"] ? board["name"] : "بی‌نام"}
                     </p>
-                    <p
-                      variant="h1"
-                      component="h2"
-                      className="text paragraph"
-                    >
+                    <p variant="h1" component="h2" className="text paragraph">
                       {board["description"]
                         ? board["description"]
                         : "بدون توضیحات"}
@@ -753,11 +745,11 @@ export const Dashborad = () => {
                           cursor: "pointer",
                         },
                       }}
-                    // hover
-                    // onClick={() => {
-                    //     navigateToBoard(board_id);
-                    //     open create modal board
-                    // }}
+                      // hover
+                      // onClick={() => {
+                      //     navigateToBoard(board_id);
+                      //     open create modal board
+                      // }}
                     >
                       {/* <p variant="h1" component="h2" className="add--text"> */}
                       {/* ساخت بورد جدید */}
@@ -786,7 +778,7 @@ export const Dashborad = () => {
         </>
       ),
     },
-    "templates": {
+    templates: {
       title: "تمپلیت ها",
       icon: <ContentPasteTwoToneIcon sx={{ ml: 1.5 }} />,
       content: (
@@ -851,27 +843,15 @@ export const Dashborad = () => {
                       //   // openCreateTemplateModal(template.id, template.name, template.description, template.background_pic);
                       // }}
                     >
-                      <p
-                        variant="h1"
-                        component="h2"
-                        className="text paragraph"
-                      >
-                        نام تمپلیت: 
-                        <br/>
-                        {template.name
-                          ? template.name
-                          : "بی‌نام"}
+                      <p variant="h1" component="h2" className="text paragraph">
+                        نام تمپلیت:
+                        <br />
+                        {template.name ? template.name : "بی‌نام"}
                       </p>
-                      <p
-                        variant="h1"
-                        component="h2"
-                        className="text paragraph"
-                      >
-                        توضیحات: 
-                        <br/>
-                        {template
-                          ? template.description
-                          : "بدون توضیحات"}
+                      <p variant="h1" component="h2" className="text paragraph">
+                        توضیحات:
+                        <br />
+                        {template ? template.description : "بدون توضیحات"}
                       </p>
                       {/* <CreateTemplateModal
                           template_id={template.id}
@@ -881,7 +861,14 @@ export const Dashborad = () => {
                         /> */}
                     </Paper>
                   </Grid>
-                  <Grid item xs={2} sm={2} md={2} key={template.id*template.id+2} sx={{}}>
+                  <Grid
+                    item
+                    xs={2}
+                    sm={2}
+                    md={2}
+                    key={template.id * template.id + 2}
+                    sx={{}}
+                  >
                     <Paper
                       sx={{
                         padding: "3%",
@@ -930,11 +917,11 @@ export const Dashborad = () => {
                           : "بدون توضیحات"}
                       </p> */}
                       <CreateTemplateModal
-                          template_id={template.id}
-                          template_name={template.name}
-                          template_description={template.description}
-                          template_background_pic={template.background_pic}
-                        />
+                        template_id={template.id}
+                        template_name={template.name}
+                        template_description={template.description}
+                        template_background_pic={template.background_pic}
+                      />
                     </Paper>
                   </Grid>
                 </Grid>
@@ -943,7 +930,7 @@ export const Dashborad = () => {
             );
           })}
         </>
-      )
+      ),
     },
     home: {
       title: "خانه",
@@ -1003,20 +990,10 @@ export const Dashborad = () => {
                       navigateToBoard(board["id"]);
                     }}
                   >
-                    <p
-                      variant="h1"
-                      component="h2"
-                      className="text paragraph"
-                    >
-                      {board["name"]
-                        ? board["name"]
-                        : "بی‌نام"}
+                    <p variant="h1" component="h2" className="text paragraph">
+                      {board["name"] ? board["name"] : "بی‌نام"}
                     </p>
-                    <p
-                      variant="h1"
-                      component="h2"
-                      className="text paragraph"
-                    >
+                    <p variant="h1" component="h2" className="text paragraph">
                       {board["description"]
                         ? board["description"]
                         : "بدون توضیحات"}
@@ -1138,21 +1115,11 @@ export const Dashborad = () => {
                         navigateToBoard(board["id"]);
                       }}
                     >
-                      <p
-                        variant="h1"
-                        component="h2"
-                        className="text paragraph"
-                      >
+                      <p variant="h1" component="h2" className="text paragraph">
                         {/* check that is null or not */}
-                        {board["name"]
-                          ? board["name"]
-                          : "بی‌نام"}
+                        {board["name"] ? board["name"] : "بی‌نام"}
                       </p>
-                      <p
-                        variant="h1"
-                        component="h2"
-                        className="text paragraph"
-                      >
+                      <p variant="h1" component="h2" className="text paragraph">
                         {board["description"]
                           ? board["description"]
                           : "بدون توضیحات"}
@@ -1277,11 +1244,11 @@ export const Dashborad = () => {
                           cursor: "pointer",
                         },
                       }}
-                    // hover
-                    // onClick={() => {
-                    //     navigateToBoard(board_id);
-                    //     open create modal board
-                    // }}
+                      // hover
+                      // onClick={() => {
+                      //     navigateToBoard(board_id);
+                      //     open create modal board
+                      // }}
                     >
                       {/* <p variant="h1" component="h2" className="add--text">
                         ساخت بورد جدید
@@ -1303,7 +1270,7 @@ export const Dashborad = () => {
         </>
       ),
     },
-    "templates": {
+    templates: {
       title: "تمپلیت ها",
       icon: <ContentPasteTwoToneIcon sx={{ ml: 1.5 }} />,
       content: (
@@ -1337,7 +1304,14 @@ export const Dashborad = () => {
                     // backgroundColor: "#f5f5f5",
                   }}
                 >
-                  <Grid item xs={2} sm={2} md={2} key={template.id*template.id+1} sx={{}}>
+                  <Grid
+                    item
+                    xs={2}
+                    sm={2}
+                    md={2}
+                    key={template.id * template.id + 1}
+                    sx={{}}
+                  >
                     <div>
                       <Paper
                         sx={{
@@ -1375,10 +1349,8 @@ export const Dashborad = () => {
                           className="text paragraph"
                         >
                           نام تمپلیت:
-                          <br/>
-                          {template.name
-                            ? template.name
-                            : "بی‌نام"}
+                          <br />
+                          {template.name ? template.name : "بی‌نام"}
                         </p>
                         <p
                           variant="h1"
@@ -1464,7 +1436,7 @@ export const Dashborad = () => {
             );
           })}
         </>
-      )
+      ),
     },
     home: {
       title: "خانه",
@@ -1525,20 +1497,10 @@ export const Dashborad = () => {
                         navigateToBoard(board["id"]);
                       }}
                     >
-                      <p
-                        variant="h1"
-                        component="h2"
-                        className="text paragraph"
-                      >
-                        {board["name"]
-                          ? board["name"]
-                          : "بی‌نام"}
+                      <p variant="h1" component="h2" className="text paragraph">
+                        {board["name"] ? board["name"] : "بی‌نام"}
                       </p>
-                      <p
-                        variant="h1"
-                        component="h2"
-                        className="text paragraph"
-                      >
+                      <p variant="h1" component="h2" className="text paragraph">
                         {board["description"]
                           ? board["description"]
                           : "بدون توضیحات"}
@@ -1589,11 +1551,11 @@ export const Dashborad = () => {
                     cursor: "pointer",
                   },
                 }}
-              // hover
-              // onClick={() => {
-              //     navigateToBoard(board_id);
-              //     open create modal board
-              // }}
+                // hover
+                // onClick={() => {
+                //     navigateToBoard(board_id);
+                //     open create modal board
+                // }}
               >
                 {/* <p variant="h1" component="h2" className="add--text">
                         ساخت بورد جدید
@@ -1660,9 +1622,11 @@ export const Dashborad = () => {
 
   if (matches) {
     return (
-      <div style={{
-        overflow: "auto",
-      }}>
+      <div
+        style={{
+          overflow: "auto",
+        }}
+      >
         <Helmet>
           <title>داشبورد</title>
         </Helmet>
@@ -1720,9 +1684,11 @@ export const Dashborad = () => {
   } else {
     return (
       // https://mui.com/material-ui/react-bottom-navigation/
-      <Fragment sx={{
-        overflow: "auto",
-      }}>
+      <Fragment
+        sx={{
+          overflow: "auto",
+        }}
+      >
         <Header />
         <Helmet>
           <title>داشبورد</title>
