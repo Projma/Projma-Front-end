@@ -12,14 +12,9 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import StyledTextField from "./StyledTextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import { json, redirect } from "react-router-dom";
-// import { AddBox } from "@mui/icons-material";
-// import useMediaQuery from "@mui/material/useMediaQuery";
-// import conversation from "../../../static/images/landing/conversation.svg";
 import apiInstance from "../../../utilities/axiosConfig";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
-// import {redirect} from 'react-router-dom';
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
@@ -30,7 +25,6 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  // width: 400,
   width: "70%",
   height: "78%",
   // bgcolor: 'background.paper',
@@ -40,17 +34,9 @@ const style = {
   boxShadow: 24,
   p: 4,
   fontFamily: "Vazir",
-  // overflow: 'hidden', scroll
   overflow: "auto",
 };
 
-// const theme = createTheme({
-//     direction: "rtl", // Both here and <body dir="rtl">
-//     typography: {
-//         fontFamily: "Vazir",
-//         fontSize: '10px',
-//     },
-// });
 // Create rtl cache
 const cacheRtl = createCache({
   key: "muirtl",
@@ -301,7 +287,6 @@ export default function BasicModal(props) {
               >
                 <CacheProvider value={cacheRtl}>
                   <ThemeProvider>
-                    {/* <ThemeProvider theme={theme}> */}
                     <StyledTextField
                       margin="normal"
                       required
@@ -350,7 +335,6 @@ export default function BasicModal(props) {
                 </CacheProvider>
                 <CacheProvider value={cacheRtl}>
                   <ThemeProvider>
-                    {/* <ThemeProvider theme={theme}> */}
                     <StyledTextField
                       margin="normal"
                       required
@@ -436,7 +420,6 @@ export default function BasicModal(props) {
                 </CacheProvider>
                 <Button
                   variant="contained"
-                  // button-key="buttonAttribute"
                   sx={{
                     // height: 54,
                     // width: 150,
@@ -486,24 +469,6 @@ export default function BasicModal(props) {
                         create_workspace_formdata
                       )
                       .then((response) => {
-                        ////console.log(response);
-                        // ////console.log(response.data);
-                        // {
-                        //     "id": 11,
-                        //     "name": "تست 11",
-                        //     "description": "",
-                        //     "type": "other",
-                        //     "created_at": "2022-12-01T11:36:41.755515Z",
-                        //     "updated_at": "2022-12-01",
-                        //     "owner": 11,
-                        //     "members": [],
-                        //     "boards": []
-                        // }
-                        // ////console.log(response.data.id);
-                        // navigate to the new workspace
-                        // navigate(`/workspace/${response.data.id}`); // workspace/:id/*
-                        // useNavigate(`/workspace/${response.data.id}`);
-                        // return <Redirect to={`/workspace/${response.data.id}`} />;
                         navigateToWorkspace(response.data.id);
                       })
                       .catch((error) => {
