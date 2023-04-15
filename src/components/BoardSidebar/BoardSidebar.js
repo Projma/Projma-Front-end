@@ -5,6 +5,7 @@ import {
   GridViewOutlined,
   MenuOutlined,
   ViewKanbanOutlined,
+  BallotOutlined
 } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 import {
@@ -134,6 +135,12 @@ const BoardSidebar = () => {
             onClick={() => handleClick(boardId, "calendar")}
           >
             تقویم
+          </MenuItem>
+          <MenuItem
+            icon={<BallotOutlined />}
+            onClick={() => handleClick(boardId, "poll")}
+          >
+            نظرسنجی
           </MenuItem>
 
           {wsBoard !== [] && (
