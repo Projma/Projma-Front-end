@@ -12,7 +12,7 @@ import { CleaningServices } from "@mui/icons-material";
 import { wait } from "@testing-library/user-event/dist/utils";
 import CreateEvent from "./CreateEvent";
 import Modal from "@mui/material/Modal";
-import EditEvent from "./EditEvent";
+import ShowEvent from "./ShowEvent";
 import useBoard from "../../hooks/useBoard";
 import apiInstance from "../../utilities/axiosConfig";
 import "react-toastify/dist/ReactToastify.css";
@@ -22,7 +22,7 @@ const Calendar = () => {
   const { collapsed } = useProSidebar();
   const { boardId, calendar } = useBoard();
   const [openAddEvent, setOpenAddEvent] = useState(false);
-  const [openEditEvent, setOpenEditEvent] = useState(false);
+  const [openShowEvent, setOpenShowEvent] = useState(false);
   const [event, setEvent] = useState([]);
   const [eventId, setEventId] = useState(0);
   useEffect(() => {}, [collapsed]);
@@ -33,13 +33,13 @@ const Calendar = () => {
     setOpenAddEvent(false);
     console.log(calendar);
   };
-  const handleEditEvent = (e) => {
+  const handleShowEvent = (e) => {
     console.log(e.event._def.publicId);
     setEventId(e.event._def.publicId);
-    setOpenEditEvent(!openEditEvent);
+    setOpenShowEvent(!openShowEvent);
   };
-  const handleCloseEditEvent = () => {
-    setOpenEditEvent(false);
+  const handleCloseShowEvent = () => {
+    setOpenShowEvent(false);
   };
 
   const showToast = (text) => {
@@ -76,7 +76,7 @@ const Calendar = () => {
         });
     };
     getEvent();
-  }, [openAddEvent, openEditEvent]);
+  }, [openAddEvent, openShowEvent]);
   return (
     <dir className="calendar--container">
       <Modal
@@ -92,14 +92,14 @@ const Calendar = () => {
         />
       </Modal>
       <Modal
-        open={openEditEvent}
-        onClose={handleCloseEditEvent}
+        open={openShowEvent}
+        onClose={handleCloseShowEvent}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <EditEvent
-          handleClose={handleCloseEditEvent}
-          calendarId={boardId}
+        <ShowEvent
+          handleClose={handleCloseShowEvent}
+          calendarId={calendar}
           eventId={eventId}
         />
       </Modal>
@@ -127,7 +127,7 @@ const Calendar = () => {
             click: handleAddEvent,
           },
         }}
-        eventClick={handleEditEvent}
+        eventClick={handleShowEvent}
       />
     </dir>
   );
