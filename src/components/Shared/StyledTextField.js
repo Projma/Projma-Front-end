@@ -42,18 +42,17 @@ const StyledTextField = styled(TextField)({
   },
   [`& .${inputLabelClasses.filled}.${inputLabelClasses.focused}`]: {
     color: "#fff",
-    fontSize: "1.5rem",
+    fontSize: "1.2rem",
   },
   [`& .${filledInputClasses.root}.${filledInputClasses.focused} .${filledInputClasses.input}`]:
     {
       color: "#fff",
-      fontSize: "1.6rem",
+      fontSize: "1rem",
     },
-  [`& .${filledInputClasses.root} .${filledInputClasses.input}`]:
-    {
-      color: "#fff",
-      fontSize: "1.2rem",
-    },
+  [`& .${filledInputClasses.root} .${filledInputClasses.input}`]: {
+    color: "#fff",
+    fontSize: "1.2rem",
+  },
 });
 
 export default StyledTextField;

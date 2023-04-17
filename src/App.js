@@ -25,6 +25,7 @@ import { Navigate } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import Board from "./components/Board/Board";
 import Calendar from "./components/Calendar/Calendar";
+import Poll from "./components/Poll/Poll";
 
 const theme = createTheme(
   {
@@ -104,6 +105,15 @@ function App() {
                   element={
                     <PrivateRoute
                       children={<PrivateRoute children={<Calendar />} />}
+                    />
+                  }
+                />
+                <Route
+                  exact
+                  path="poll"
+                  element={
+                    <PrivateRoute
+                      children={<PrivateRoute children={<Poll />} />}
                     />
                   }
                 />
