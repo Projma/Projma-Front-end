@@ -14,7 +14,7 @@ import React, { useState } from "react";
 import PollOptions from "./PollOptions";
 import AddIcon from "@mui/icons-material/Add";
 
-const AddPoll = () => {
+const AddPoll = ({handleClose}) => {
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState([
     { option: "", id: crypto.randomUUID() },
@@ -57,7 +57,7 @@ const AddPoll = () => {
     ));
   };
   return (
-    <div className="poll_addpoll-container poll_default">
+    <div className="poll_addpoll-container">
       <div className="poll_addpoll-question poll_default">
         <Typography>عنوان نظرسنجی</Typography>
         <PerTextField>
@@ -148,9 +148,9 @@ const AddPoll = () => {
       </div>
       <div className="poll_addpoll-button">
         <Button type="button" variant="contained" >
-          ایجاد نظرسنجی
+          ایجاد
         </Button>
-        <Button type="button" variant="contained" >
+        <Button type="button" variant="contained" onClick={handleClose}>
           لغو
         </Button>
       </div>
