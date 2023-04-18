@@ -12,7 +12,7 @@ import { CleaningServices } from "@mui/icons-material";
 import { wait } from "@testing-library/user-event/dist/utils";
 import CreateEvent from "./CreateEvent";
 import Modal from "@mui/material/Modal";
-import ShowEvent from "./ShowEvent";
+import ShowEvent from "./showEvent";
 import useBoard from "../../hooks/useBoard";
 import apiInstance from "../../utilities/axiosConfig";
 import "react-toastify/dist/ReactToastify.css";
