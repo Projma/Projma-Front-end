@@ -85,7 +85,7 @@ const Board = () => {
 
   return (
     <DragDropContext onDragEnd={dragHandler}>
-      <div className="styled-scrollbars">
+      <div className="board_container styled-scrollbars">
         <InvitationHeader
           board_id={boardId}
           onCreateList={handleCreateList}
