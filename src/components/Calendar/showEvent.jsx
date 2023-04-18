@@ -3,6 +3,7 @@ import apiInstance from "../../utilities/axiosConfig";
 import { prefixer } from "stylis";
 import { ToastContainer, toast } from "react-toastify";
 import "./showEvent.scss";
+import EditEvent from "./EditEvent";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
 import { convertNumberToPersian } from "../../utilities/helpers";
@@ -98,10 +99,6 @@ export default function ShowEvent({
     } else {
       return eventType;
     }
-  };
-
-  const editEvent = () => {
-    window.location.href = `/calendar/edit/${eventId}`;
   };
 
   const partitionDateAndTime = (time) => {
