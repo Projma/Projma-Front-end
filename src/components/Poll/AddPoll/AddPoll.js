@@ -10,8 +10,9 @@ import {
 import PerTextField from "../../Shared/PerTextField";
 import StyledTextField from "../../Shared/StyledTextField";
 import "./AddPoll.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import PollOptions from "./PollOptions";
+import AddIcon from "@mui/icons-material/Add";
 
 const AddPoll = () => {
   const [question, setQuestion] = useState("");
@@ -19,7 +20,7 @@ const AddPoll = () => {
     { option: "", id: crypto.randomUUID() },
   ]);
   const [state, setState] = useState({
-    anonymous: false,
+    anonymous: true,
     multiVote: false,
   });
 
@@ -98,7 +99,9 @@ const AddPoll = () => {
       </div>
       <div className="poll_addpoll-options poll_default">
         <Typography>گزینه ها</Typography>
-        <Stack spacing={1}>{renderOptions()}</Stack>
+        <div className="poll_addpoll-options-container">
+          <Stack spacing={1}>{renderOptions()}</Stack>
+        </div>
       </div>
       <div className="poll_addpoll-setting poll_default">
         <Typography>تنظیمات</Typography>
@@ -142,6 +145,14 @@ const AddPoll = () => {
             />
           </FormGroup>
         </FormControl>
+      </div>
+      <div className="poll_addpoll-button">
+        <Button type="button" variant="contained" >
+          ایجاد نظرسنجی
+        </Button>
+        <Button type="button" variant="contained" >
+          لغو
+        </Button>
       </div>
     </div>
   );
