@@ -21,6 +21,17 @@
 }
 
 .poll_addpoll-options {
-  max-height: 20rem;
+  max-height: 40rem;
+}
+
+.poll_addpoll-options-container {
   overflow: auto;
+}
+
+.poll_addpoll-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
 }
