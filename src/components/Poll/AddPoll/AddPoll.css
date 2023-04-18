@@ -7,11 +7,13 @@
 .poll_addpoll-container {
   width: 40rem;
   padding: 2rem 2rem;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   background-color: var(--minor-bg);
   color: #fff;
-  align-items: center;
-  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .poll_addpoll-options, .poll_addpoll-question, .poll_addpoll-setting {
@@ -21,6 +23,17 @@
 }
 
 .poll_addpoll-options {
-  max-height: 20rem;
+  max-height: 40rem;
+}
+
+.poll_addpoll-options-container {
   overflow: auto;
+}
+
+.poll_addpoll-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
 }
