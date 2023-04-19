@@ -10,4 +10,13 @@
   justify-content: center;
   /*background-color: #0A1929;*/
   color: #fff;
+  position: relative;
+}
+
+.poll_button {
+  position: absolute;
+  left: 0;
+  top: 90%;
+  right: 1%;
+  bottom: 0;
 }
