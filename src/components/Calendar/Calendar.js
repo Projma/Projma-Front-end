@@ -29,6 +29,7 @@ const Calendar = () => {
   const [openShowEvent, setOpenShowEvent] = useState(false);
   const [openShowMeeting, setOpenShowMeeting] = useState(false);
   const [event, setEvent] = useState([]);
+  const [meeting, setMeeting] = useState([]);
   const [eventId, setEventId] = useState(0);
   const [meetingId, setMeetingId] = useState(0);
   useEffect(() => {}, [collapsed]);
@@ -46,14 +47,12 @@ const Calendar = () => {
     setOpenCreateMeeting(false);
   };
   const handleShowEvent = (e) => {
-    console.log(e.event._def.extendedProps.eventId);
     setEventId(e.event._def.extendedProps.eventId);
     setOpenShowEvent(!openShowEvent);
   };
   const handleShowMeeting = (e) => {
-    console.log(e.event);
+    setMeetingId(e.event._def.extendedProps.eventId);
     setOpenShowMeeting(!openShowMeeting);
-    setMeetingId(e.event._def.publicId);
   };
   const handleCloseShowEvent = () => {
     setOpenShowEvent(false);
@@ -79,7 +78,7 @@ const Calendar = () => {
         setCalendarId(response.data.calendar);
         apiInstance
         .get(
-          `/calendar/simple-calendar/${response.data.calendar}/events/?start=2000-01-01 00:00:00&end=2099-12-30 00:00:00`
+          `/calendar/simple-calendar/${response.data.calendar}/events/?start=2000-01-01 00:00:00&end=2040-12-30 00:00:00`
         )
         .then((res) => {
           const ev = res.data.map((x) => {
@@ -97,30 +96,35 @@ const Calendar = () => {
             };
             return x;
           });
-          console.log(res.data);
-          console.log(calendarId);
+          console.log(ev);
+          // console.log(calendarId);
           setEvent(ev);
         });
-      });
-      
-      await apiInstance
+        apiInstance
         .get(
-          `/calendar/meeting/${calendar}/calendar-meetings/?from_date=2000-01-01&until_date=2099-12-30`
+          `/calendar/meeting/${response.data.calendar}/calendar-meetings/?from_date=2000-01-01&until_date=2099-12-30`
         )
         .then((res) => {
           const ev = res.data.map((x) => {
             x = {
-              id: x.id,
+              id: crypto.randomUUID(),
               title: x.title,
-              start: x.from_date,
+              start: x.from_date+"T"+x.start,
+              end: x.until_date+"T"+x.end,
               color: x.color !== "" || x.color !== undefined ? x.color : "",
+              extendedProps: {
+                eventId: x.id,
+              },
             };
             return x;
           });
-          setEvent((prev) => [...prev, ...ev]);
+          console.log("dad",ev);
+          setMeeting(ev);
         });
+      });
     };
     getEvent();
+    console.log(event);
   }, [openAddEvent, openShowEvent, openCreateMeeting, openShowMeeting]);
   return (
     <dir className="calendar--container">
@@ -168,7 +172,7 @@ const Calendar = () => {
       >
         <ShowMeeting
           handleClose={handleCloseShowMeeting}
-          calendarId={calendar}
+          calendarId={calendarId}
           meetingId={meetingId}
         />
       </Modal>
@@ -177,7 +181,8 @@ const Calendar = () => {
         locale={faLocale}
         plugins={[dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin]}
         initialView="dayGridMonth"
-        events={event}
+        // events={event}
+        eventSources={[event,meeting]}
         headerToolbar={{
           left: "addMeeting addEvent prev,next today",
           center: "title",
