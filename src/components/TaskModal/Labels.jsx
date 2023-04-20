@@ -18,6 +18,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../styles/TaskModal.css";
 import Loading from "../Shared/Loading";
+import ShowListOfLabels from "./ShowListOfLabels";
 import "./Labels.scss";
 // // persian num
 import { convertNumberToPersian } from "../../utilities/helpers.js";
@@ -36,7 +37,7 @@ export default function Labels({ params, task_labels, set_task_labels }) {
   const [allLabels, setAllLabels] = React.useState([]);
   useEffect(() => {
     apiInstance
-      .get(`workspaces/board/${params.board_id}/get-board-labels/`)
+      .get(`board/${params.board_id}/get-board-labels/`)
       .then((res) => {
         ////console.log("board labels");
         ////console.log(res.data);
@@ -47,31 +48,25 @@ export default function Labels({ params, task_labels, set_task_labels }) {
           checked: false,
         }));
 
-        ////console.log(board_labels);
         const board_labels_but_not_task_labels = board_labels.filter(
           (label) =>
             !task_labels.some((task_label) => task_label.id === label.id)
         );
         task_labels.map((label) => (label.checked = true));
         setAllLabels([...task_labels, ...board_labels_but_not_task_labels]);
-        ////console.log("aaaaaaaaaaaaaaaaaa");
-        ////console.log(board_labels_but_not_task_labels);
+
         setBoardLabels(board_labels_but_not_task_labels);
       });
-    // setCurrent(mainPage);
-    // setTaskLabels(task_labels);
   }, [task_labels]);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
-    ////console.log(task_labels);
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setShowEdit(false);
     setShowCreate(false);
-    ////console.log(task_labels);
     setAnchorEl(null);
   };
 
@@ -227,40 +222,11 @@ export default function Labels({ params, task_labels, set_task_labels }) {
                   </h2>
                   <Divider sx={{ backgroundColor: "black" }} />
                 </header>
-                <ul className="tm_labels-ul">
-                  {allLabels.map((label, idx) => (
-                    <li className="tm_labels-li">
-                      <div className="tm_labels-li-div">
-                        <input
-                          type="checkbox"
-                          className="tm_labels-li-div-input"
-                          checked={label.checked}
-                          onChange={(e) => {
-                            change_label_checked(label.id);
-                          }}
-                        />
-                        <span className="tm_labels-li-div-span">
-                          <div
-                            className="tm_labels-li-color-box"
-                            style={{ backgroundColor: label.color + "55" }}
-                          >
-                            <div
-                              className="tm_labels-labels-symbol"
-                              style={{ backgroundColor: label.color }}
-                            ></div>
-                            <p className="tm_labels-labels-title">
-                              {label.title}
-                            </p>
-                          </div>
-                          <EditIcon
-                            className="tm_labels-labels-edit-icon"
-                            onClick={() => handleEditPage(allLabels, label.id)}
-                          />
-                        </span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+                <ShowListOfLabels
+                  allLabels={allLabels}
+                  change_label_checked={change_label_checked}
+                  handleEditPage={handleEditPage}
+                />
                 <div
                   className="flex"
                   style={{ marginTop: "2rem", marginBottom: "2rem" }}
