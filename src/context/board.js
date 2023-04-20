@@ -15,7 +15,7 @@ function Provider({ children, boardId, workspaceId }) {
   const [calendar, setCalendar] = useState(0);
 
   const getBoard = useCallback(async () => {
-    setIsReq(true);
+    // setIsReq(true);
     let data;
     await apiInstance
       .get(`board/${boardId}/get-board-overview/`)

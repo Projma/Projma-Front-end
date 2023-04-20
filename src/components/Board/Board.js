@@ -31,8 +31,6 @@ const Board = () => {
   };
 
   const handleCreateList = (data) => {
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaffffffffffffffffffffffffff");
-    console.log(calendar);
     setList((pervlist) => [data, ...pervlist]);
   };
 

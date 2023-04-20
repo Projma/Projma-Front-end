@@ -22,7 +22,8 @@ import ShowMeeting from "./showMeeting";
 
 const Calendar = () => {
   const { collapsed } = useProSidebar();
-  const { boardId, calendar } = useBoard();
+  const { boardId, getBoard, calendar } = useBoard();
+  const [calendarId, setCalendarId] = useState(calendar);
   const [openAddEvent, setOpenAddEvent] = useState(false);
   const [openCreateMeeting, setOpenCreateMeeting] = useState(false);
   const [openShowEvent, setOpenShowEvent] = useState(false);
@@ -39,14 +40,14 @@ const Calendar = () => {
   };
   const handleCloseAddEvent = () => {
     setOpenAddEvent(false);
-    console.log(calendar);
+    console.log(calendarId);
   };
   const handleCloseCreateMeeting = () => {
     setOpenCreateMeeting(false);
   };
   const handleShowEvent = (e) => {
-    console.log(e.event._def.publicId);
-    setEventId(e.event._def.publicId);
+    console.log(e.event._def.extendedProps.eventId);
+    setEventId(e.event._def.extendedProps.eventId);
     setOpenShowEvent(!openShowEvent);
   };
   const handleShowMeeting = (e) => {
@@ -74,25 +75,34 @@ const Calendar = () => {
 
   useEffect(() => {
     const getEvent = async () => {
-      await apiInstance
+      await apiInstance.get(`board/${boardId}/get-board-overview/`).then((response) => {
+        setCalendarId(response.data.calendar);
+        apiInstance
         .get(
-          `/calendar/simple-calendar/${calendar}/events/?start=2000-01-01 00:00:00&end=2099-12-30 00:00:00`
+          `/calendar/simple-calendar/${response.data.calendar}/events/?start=2000-01-01 00:00:00&end=2099-12-30 00:00:00`
         )
         .then((res) => {
           const ev = res.data.map((x) => {
             x = {
-              id: x.id,
+              id: crypto.randomUUID(),
               title: x.title,
               start: x.event_time.split("T")[0],
               color:
                 x.event_color !== "" || x.event_color !== undefined
                   ? x.event_color
                   : "",
+              extendedProps: {
+                eventId: x.id,
+              },
             };
             return x;
           });
+          console.log(res.data);
+          console.log(calendarId);
           setEvent(ev);
         });
+      });
+      
       await apiInstance
         .get(
           `/calendar/meeting/${calendar}/calendar-meetings/?from_date=2000-01-01&until_date=2099-12-30`
@@ -122,7 +132,7 @@ const Calendar = () => {
       >
         <CreateEvent
           handleClose={handleCloseAddEvent}
-          calendarId={calendar}
+          calendarId={calendarId}
           showToast={showToast}
         />
       </Modal>
@@ -134,7 +144,7 @@ const Calendar = () => {
       >
         <CreateMeeting
           handleClose={handleCloseCreateMeeting}
-          calendarId={calendar}
+          calendarId={calendarId}
           showToast={showToast}
         />
       </Modal>
@@ -146,7 +156,7 @@ const Calendar = () => {
       >
         <ShowEvent
           handleClose={handleCloseShowEvent}
-          calendarId={calendar}
+          calendarId={calendarId}
           eventId={eventId}
         />
       </Modal>
