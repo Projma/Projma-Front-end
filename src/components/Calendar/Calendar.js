@@ -18,6 +18,7 @@ import apiInstance from "../../utilities/axiosConfig";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import CreateMeeting from "./CreateMeeting";
+import ShowMeeting from "./showMeeting";
 
 const Calendar = () => {
   const { collapsed } = useProSidebar();
@@ -25,8 +26,10 @@ const Calendar = () => {
   const [openAddEvent, setOpenAddEvent] = useState(false);
   const [openCreateMeeting, setOpenCreateMeeting] = useState(false);
   const [openShowEvent, setOpenShowEvent] = useState(false);
+  const [openShowMeeting, setOpenShowMeeting] = useState(false);
   const [event, setEvent] = useState([]);
   const [eventId, setEventId] = useState(0);
+  const [meetingId, setMeetingId] = useState(0);
   useEffect(() => {}, [collapsed]);
   const handleAddEvent = (e) => {
     setOpenAddEvent(!openAddEvent);
@@ -46,8 +49,16 @@ const Calendar = () => {
     setEventId(e.event._def.publicId);
     setOpenShowEvent(!openShowEvent);
   };
+  const handleShowMeeting = (e) => {
+    console.log(e.event);
+    setOpenShowMeeting(!openShowMeeting);
+    setMeetingId(e.event._def.publicId);
+  };
   const handleCloseShowEvent = () => {
     setOpenShowEvent(false);
+  };
+  const handleCloseShowMeeting = () => {
+    setOpenShowMeeting(false);
   };
 
   const showToast = (text) => {
@@ -82,9 +93,25 @@ const Calendar = () => {
           });
           setEvent(ev);
         });
+      await apiInstance
+        .get(
+          `/calendar/meeting/${calendar}/calendar-meetings/?from_date=2000-01-01&until_date=2099-12-30`
+        )
+        .then((res) => {
+          const ev = res.data.map((x) => {
+            x = {
+              id: x.id,
+              title: x.title,
+              start: x.from_date,
+              color: x.color !== "" || x.color !== undefined ? x.color : "",
+            };
+            return x;
+          });
+          setEvent((prev) => [...prev, ...ev]);
+        });
     };
     getEvent();
-  }, [openAddEvent, openShowEvent]);
+  }, [openAddEvent, openShowEvent, openCreateMeeting, openShowMeeting]);
   return (
     <dir className="calendar--container">
       <Modal
@@ -123,6 +150,18 @@ const Calendar = () => {
           eventId={eventId}
         />
       </Modal>
+      <Modal
+        open={openShowMeeting}
+        onClose={handleCloseShowMeeting}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <ShowMeeting
+          handleClose={handleCloseShowMeeting}
+          calendarId={calendar}
+          meetingId={meetingId}
+        />
+      </Modal>
       <FullCalendar
         height={"87vh"}
         locale={faLocale}
@@ -151,7 +190,7 @@ const Calendar = () => {
             click: handleCreateMeeting,
           },
         }}
-        eventClick={handleShowEvent}
+        eventClick={(handleShowEvent, handleShowMeeting)}
       />
     </dir>
   );

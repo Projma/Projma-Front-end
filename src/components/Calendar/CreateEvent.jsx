@@ -78,7 +78,7 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
     if (eventType === "") form_data.append("custom_type", customType);
     else form_data.append("custom_type", "");
     if (customType === "") form_data.append("event_type", eventType);
-    form_data.append("calendar", calendarId);
+    form_data.append("calendar", 7);
     console.log(form_data);
     apiInstance
       .post(`calendar/event/`, form_data)
