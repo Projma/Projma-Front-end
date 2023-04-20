@@ -17,11 +17,13 @@ import useBoard from "../../hooks/useBoard";
 import apiInstance from "../../utilities/axiosConfig";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import CreateMeeting from "./CreateMeeting";
 
 const Calendar = () => {
   const { collapsed } = useProSidebar();
   const { boardId, calendar } = useBoard();
   const [openAddEvent, setOpenAddEvent] = useState(false);
+  const [openCreateMeeting, setOpenCreateMeeting] = useState(false);
   const [openShowEvent, setOpenShowEvent] = useState(false);
   const [event, setEvent] = useState([]);
   const [eventId, setEventId] = useState(0);
@@ -29,9 +31,15 @@ const Calendar = () => {
   const handleAddEvent = (e) => {
     setOpenAddEvent(!openAddEvent);
   };
+  const handleCreateMeeting = (e) => {
+    setOpenCreateMeeting(!openCreateMeeting);
+  };
   const handleCloseAddEvent = () => {
     setOpenAddEvent(false);
     console.log(calendar);
+  };
+  const handleCloseCreateMeeting = () => {
+    setOpenCreateMeeting(false);
   };
   const handleShowEvent = (e) => {
     console.log(e.event._def.publicId);
@@ -92,6 +100,18 @@ const Calendar = () => {
         />
       </Modal>
       <Modal
+        open={openCreateMeeting}
+        onClose={handleCloseCreateMeeting}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <CreateMeeting
+          handleClose={handleCloseCreateMeeting}
+          calendarId={calendar}
+          showToast={showToast}
+        />
+      </Modal>
+      <Modal
         open={openShowEvent}
         onClose={handleCloseShowEvent}
         aria-labelledby="modal-modal-title"
@@ -110,7 +130,7 @@ const Calendar = () => {
         initialView="dayGridMonth"
         events={event}
         headerToolbar={{
-          left: "addEvent prev,next today",
+          left: "addMeeting addEvent prev,next today",
           center: "title",
           right: "dayGridMonth,dayGridWeek,timeGridDay,listMonth",
         }}
@@ -125,6 +145,10 @@ const Calendar = () => {
           addEvent: {
             text: "افزودن رویداد",
             click: handleAddEvent,
+          },
+          addMeeting: {
+            text: "افزودن جلسه",
+            click: handleCreateMeeting,
           },
         }}
         eventClick={handleShowEvent}
