@@ -188,47 +188,45 @@ export default function TaskModal(props) {
     apiInstance.get(`/accounts/profile/myprofile/`).then((res) => {
       setUser(res.data);
     });
-    apiInstance
-      .get(`/workspaces/task/${params.task_id}/get-task/`)
-      .then((res) => {
-        setDueDate(convertNumberToPersian(res.data.end_date));
-        setEstimate(convertNumberToPersian(res.data.estimate));
-        setTasklistName(res.data.tasklist_name);
-        setDone(convertNumberToPersian(res.data.spend));
-        setDescription(res.data.description);
-        setTitle(res.data.title);
-        const attachments = res.data.attachments.map((obj) => ({
-          id: obj.id,
-          file: obj.file,
-          created_at: obj.created_at,
-        }));
-        setAllAttachments(attachments);
-        const labels = res.data.labels.map((item) => ({
-          id: item.id,
-          title: item.title,
-          color: item.color,
-        }));
-        setListOfLabels(labels);
-        const doer = res.data.doers.map((item) => ({
-          // id: item.id,
-          email: item.email,
-          username: item.username,
-          first_name: item.first_name,
-          last_name: item.last_name,
-          profile_pic: item.profile_pic,
-        }));
-        setListOfDoers(doer);
-        const comments = res.data.comments.map((obj) => ({
-          text: obj.text,
-          created: obj.created_at,
-          sender: obj.sender,
-          updated: obj.updated_at,
-          task: obj.task,
-          reply: obj.reply_to,
-          id: obj.id,
-        }));
-        setListOfComments(comments);
-      });
+    apiInstance.get(`task/${params.task_id}/get-task/`).then((res) => {
+      setDueDate(convertNumberToPersian(res.data.end_date));
+      setEstimate(convertNumberToPersian(res.data.estimate));
+      setTasklistName(res.data.tasklist_name);
+      setDone(convertNumberToPersian(res.data.spend));
+      setDescription(res.data.description);
+      setTitle(res.data.title);
+      const attachments = res.data.attachments.map((obj) => ({
+        id: obj.id,
+        file: obj.file,
+        created_at: obj.created_at,
+      }));
+      setAllAttachments(attachments);
+      const labels = res.data.labels.map((item) => ({
+        id: item.id,
+        title: item.title,
+        color: item.color,
+      }));
+      setListOfLabels(labels);
+      const doer = res.data.doers.map((item) => ({
+        // id: item.id,
+        email: item.email,
+        username: item.username,
+        first_name: item.first_name,
+        last_name: item.last_name,
+        profile_pic: item.profile_pic,
+      }));
+      setListOfDoers(doer);
+      const comments = res.data.comments.map((obj) => ({
+        text: obj.text,
+        created: obj.created_at,
+        sender: obj.sender,
+        updated: obj.updated_at,
+        task: obj.task,
+        reply: obj.reply_to,
+        id: obj.id,
+      }));
+      setListOfComments(comments);
+    });
   }, []);
 
   return (
