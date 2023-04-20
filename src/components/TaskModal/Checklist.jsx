@@ -44,7 +44,7 @@ export default function CheckList({ params, setAllChecklists }) {
     const form_data = new FormData();
     form_data.append("text", createdCheckTitle);
     apiInstance
-      .post(`workspaces/task/${params.task_id}/create-checklist/`, form_data)
+      .post(`task/checklist/${params.task_id}/create-checklist/`, form_data)
       .then((res) => {
         ////console.log("here2");
         ////console.log(res.data);
