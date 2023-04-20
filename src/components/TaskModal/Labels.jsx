@@ -32,7 +32,6 @@ export default function Labels({ params, task_labels, set_task_labels }) {
   const [editedColor, setEditedColor] = useState("");
   const [isPost, setIsPost] = useState(false);
   const [editItem, setEditItem] = useState({});
-  // const [taskLabels, setTaskLabels] = React.useState([]);
   const [boardLabels, setBoardLabels] = React.useState([]);
   const [allLabels, setAllLabels] = React.useState([]);
   useEffect(() => {
@@ -79,7 +78,7 @@ export default function Labels({ params, task_labels, set_task_labels }) {
   const delete_label_from_task = (label_id) => {
     setIsPost(true);
     apiInstance
-      .patch(`workspaces/task/${params.task_id}/delete-labels-from-task/`, {
+      .patch(`task/${params.task_id}/delete-labels-from-task/`, {
         labels: [label_id],
       })
       .then((res) => {
@@ -101,7 +100,7 @@ export default function Labels({ params, task_labels, set_task_labels }) {
     //console.log("add label to task");
     setIsPost(true);
     apiInstance
-      .patch(`workspaces/task/${params.task_id}/add-labels-to-task/`, {
+      .patch(`task/${params.task_id}/add-labels-to-task/`, {
         labels: [label_id],
       })
       .then((res) => {

@@ -27,7 +27,7 @@ const EditLabel = ({ setShowEdit, item, set_task_labels, setAllLabels }) => {
     }
     setIsPost(true);
     apiInstance
-      .patch(`workspaces/label/${item.id}/update-label/`, {
+      .patch(`board/label/${item.id}/update-label/`, {
         title: editedTitle,
         color: editedColor,
       })
