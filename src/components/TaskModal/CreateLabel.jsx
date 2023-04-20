@@ -29,7 +29,7 @@ const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
       return;
     }
     apiInstance
-      .post(`workspaces/board/${params.board_id}/create-label/`, {
+      .post(`board/label/${params.board_id}/create-label/`, {
         title: createdTitle,
         color: createdColor,
       })
