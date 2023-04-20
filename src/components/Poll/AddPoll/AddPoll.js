@@ -13,6 +13,7 @@ import "./AddPoll.css";
 import React, { useState } from "react";
 import PollOptions from "./PollOptions";
 import AddIcon from "@mui/icons-material/Add";
+import apiInstance from "../../../utilities/axiosConfig";
 
 const AddPoll = ({handleClose}) => {
   const [question, setQuestion] = useState("");

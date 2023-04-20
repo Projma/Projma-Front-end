@@ -1,5 +1,6 @@
 import "./Poll.css";
 import AddPoll from "./AddPoll/AddPoll";
+import PollView from "./PollView";
 import {
   Typography,Button,Fab,Modal
 } from "@mui/material";
@@ -28,16 +29,12 @@ const Poll = () => {
         />
       </Modal>
        {/*<AddPoll />*/}
-      <div className="poll_label">
-        <Typography>awdwd</Typography>
+      <div className="poll_view">
+        <div className="poll_open">
+          <PollView/>
+        </div>
+        <div className="poll_closed"></div>
       </div>
-      <div className="poll_attendents">
-        {/*<Typography>Anonymous Poll</Typography>*/}
-      </div>
-      <div className="poll_options">
-
-      </div>
-      <div className="poll_results"></div>
       <div className="poll_button">
         <Fab color="primary" aria-label="add" onClick={openAddPoll}>
           <AddIcon />
