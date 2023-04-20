@@ -47,31 +47,25 @@ export default function Labels({ params, task_labels, set_task_labels }) {
           checked: false,
         }));
 
-        ////console.log(board_labels);
         const board_labels_but_not_task_labels = board_labels.filter(
           (label) =>
             !task_labels.some((task_label) => task_label.id === label.id)
         );
         task_labels.map((label) => (label.checked = true));
         setAllLabels([...task_labels, ...board_labels_but_not_task_labels]);
-        ////console.log("aaaaaaaaaaaaaaaaaa");
-        ////console.log(board_labels_but_not_task_labels);
+
         setBoardLabels(board_labels_but_not_task_labels);
       });
-    // setCurrent(mainPage);
-    // setTaskLabels(task_labels);
   }, [task_labels]);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
-    ////console.log(task_labels);
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setShowEdit(false);
     setShowCreate(false);
-    ////console.log(task_labels);
     setAnchorEl(null);
   };
 
