@@ -228,6 +228,7 @@ const InfoChart = (props) => {
 
     // }, []);
 
+
     return (
         <>
             {isPost ? <Loading /> : null}
@@ -312,7 +313,6 @@ const InfoChart = (props) => {
                                     />
                                 </div>
                             </div> */}
-                            {/* <ResponsiveContainer width="100%" height="100%"> */}
                             <BarChart
                                 width={900}
                                 height={500}
@@ -324,14 +324,14 @@ const InfoChart = (props) => {
                                     left: 20,
                                     bottom: 5,
                                 }}
-                                label={"ccc"}
+                                // label={"renderLabel"}
                             >
                                 <CartesianGrid
                                     strokeDasharray="3 3"
                                     stroke="#000000"
                                     // fill="#000000"
                                 />
-                                <XAxis dataKey="name" label={chart1_xaxis_label} />
+                                <XAxis dataKey="name" label={chart1_xaxis_label} dy={13} />
                                 <YAxis label={chart1_yaxis_label} />
                                 <Tooltip />
                                 <Legend />
@@ -339,7 +339,6 @@ const InfoChart = (props) => {
                                 <Bar dataKey="زمان انجام شده" fill="#82ca9d" />
                                 <Bar dataKey="خارج از زمان تخمین" fill="#ffc658" />
                             </BarChart>
-                            {/* </ResponsiveContainer> */}
                         </Box>
                         <Box
                             sx={{
