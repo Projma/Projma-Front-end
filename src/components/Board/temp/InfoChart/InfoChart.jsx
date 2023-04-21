@@ -66,15 +66,17 @@ const InfoChart = (props) => {
     const params = useParams();
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [chartInfo, setChartInfo] = useState({});
+    const [chart1_label, setChart1_label] = useState('');
     const [chart1_xaxis_label, setChart1_xaxis_label] = useState('');
     const [chart1_yaxis_label, setChart1_yaxis_label] = useState('');
+    const [chart2_label, setChart2_label] = useState('');
     const [chart2_xaxis_label, setChart2_xaxis_label] = useState('');
     const [chart2_yaxis_label, setChart2_yaxis_label] = useState('');
-    const [yaxis, setYaxis] = useState([]);
     const [data_chart1, setData_chart1] = useState([]);
     const [data_chart2, setData_chart2] = useState([]);
-    const [data2, setData2] = useState({});
+    // const [chartInfo, setChartInfo] = useState({});
+    // const [yaxis, setYaxis] = useState([]);
+    // const [data2, setData2] = useState({});
 
 
     useEffect(() => {
@@ -89,6 +91,7 @@ const InfoChart = (props) => {
             var out_of_estimates = yData[2]["out_of_estimates"] // [0, 2.5]
             setChart1_xaxis_label(xLabel)
             setChart1_yaxis_label(yLabel)
+            setChart1_label(chartLabel)
 
             var tmp = []
             for (let index = 0; index < xData.length; index++) {
@@ -122,14 +125,7 @@ const InfoChart = (props) => {
             var estimates = yData[0]["estimates"] // [0, 2.5]
             var dons = yData[1]["dons"] // [0, 2.5]
             var out_of_estimates = yData[2]["out_of_estimates"] // [0, 2.5]
-            // console.log("######")
-            // console.log(chartLabel)
-            // console.log(xLabel)
-            // console.log(yLabel)
-            // console.log(xData)
-            // console.log(yData)
-            // console.log(estimates)
-            // console.log(dons)
+            setChart2_label(chartLabel)
             setChart2_xaxis_label(xLabel)
             setChart2_yaxis_label(yLabel)
 
@@ -147,23 +143,7 @@ const InfoChart = (props) => {
                 }
                 tmp.push(element)
             }
-            // console.log("****");
-            // console.log(tmp);
             setData_chart2(tmp)
-            
-
-            // setChartInfo(res.data);
-
-            // var xaxix = [];
-            // var yaxix = [];
-            // res.data.xdata.map((item) => {
-            //     xaxix.push(item[0] ? item[0] : "بدون نام کاربری");
-            // });
-            // setXaxis(xaxix);
-            // res.data.ydata.map((item) => {
-            //     yaxix.push(item[0]);
-            // });
-
 
         }).catch((err) => {
             console.log(err);
@@ -298,118 +278,115 @@ const InfoChart = (props) => {
                         >
                             اطلاعات نموداری
                         </Typography>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                // marginBottom: "0%",
-                                // marginTop: "2%",
-                                marginRight: "2%",
-                                // marginLeft: "2%",
-                                // backgroundColor: "white",
-                                color: "black",
-                            }}
-                        >
-                            {/* <div className="chart" dir="ltr">
-                                <div className="timeline-chart">
-                                    <Chart
-                                        options={data.options}
-                                        series={data.series}
-                                        type="bar"
-                                        // type="line"
-                                        width="500"
-                                    // width="100%"
+                        <Box sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            // justifyContent: "center",
+                            alignItems: "center",
+                            // marginBottom: "0%",
+                            // marginTop: "2%",
+                            // marginRight: "2%",
+                            // marginLeft: "2%",
+                            // backgroundColor: "white",
+                            // color: "black",
+                        }}>
+                            <Typography
+                                id="spring-modal-title"
+                                variant="h6"
+                                component="h2"
+                                sx={{ color: "black", marginBottom: "2%", marginRight: "2%" }}
+                            >
+                                {chart1_label}
+                            </Typography>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    // marginBottom: "0%",
+                                    // marginTop: "2%",
+                                    marginRight: "2%",
+                                    // marginLeft: "2%",
+                                    // backgroundColor: "white",
+                                    color: "black",
+                                }}
+                            >
+                                <BarChart
+                                    width={900}
+                                    height={500}
+                                    data={data_chart1}
+                                    margin={{
+                                        top: 5,
+                                        right: 30,
+                                        left: 20,
+                                        bottom: 5,
+                                    }}
+                                // label={"renderLabel"}
+                                >
+                                    <CartesianGrid
+                                        strokeDasharray="3 3"
+                                        stroke="#000000"
+                                    // fill="#000000"
                                     />
-                                </div>
-                            </div> */}
-                            <BarChart
-                                width={900}
-                                height={500}
-                                // bgColor={"black"}
-                                data={data_chart1}
-                                margin={{
-                                    top: 5,
-                                    right: 30,
-                                    left: 20,
-                                    bottom: 5,
-                                }}
-                                // label={"renderLabel"}
+                                    <XAxis dataKey="name" label={chart1_xaxis_label} dy={13} />
+                                    <YAxis label={chart1_yaxis_label} />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar dataKey="زمان تخمین زده شده" fill="#8884d8" />
+                                    <Bar dataKey="زمان انجام شده" fill="#82ca9d" />
+                                    <Bar dataKey="خارج از زمان تخمین" fill="#ffc658" />
+                                </BarChart>
+                            </Box>
+                            <Typography
+                                id="spring-modal-title"
+                                variant="h6"
+                                component="h2"
+                                sx={{ color: "black", marginBottom: "2%", marginRight: "2%", marginTop: "5%" }}
                             >
-                                <CartesianGrid
-                                    strokeDasharray="3 3"
-                                    stroke="#000000"
-                                    // fill="#000000"
-                                />
-                                <XAxis dataKey="name" label={chart1_xaxis_label} dy={13} />
-                                <YAxis label={chart1_yaxis_label} />
-                                <Tooltip />
-                                <Legend />
-                                <Bar dataKey="زمان تخمین زده شده" fill="#8884d8" />
-                                <Bar dataKey="زمان انجام شده" fill="#82ca9d" />
-                                <Bar dataKey="خارج از زمان تخمین" fill="#ffc658" />
-                            </BarChart>
-                        </Box>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                // marginBottom: "0%",
-                                // marginTop: "2%",
-                                marginRight: "2%",
-                                // marginLeft: "2%",
-                                // backgroundColor: "white",
-                                color: "black",
-                            }}
-                        >
-                            <BarChart
-                                width={900}
-                                height={500}
-                                // bgColor={"black"}
-                                data={data_chart2}
-                                margin={{
-                                    top: 5,
-                                    right: 30,
-                                    left: 20,
-                                    bottom: 5,
+                                {chart2_label}
+                            </Typography>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    // marginBottom: "0%",
+                                    // marginTop: "2%",
+                                    marginRight: "2%",
+                                    // marginLeft: "2%",
+                                    // backgroundColor: "white",
+                                    color: "black",
                                 }}
-                                // label={"renderLabel"}
                             >
-                                <CartesianGrid
-                                    strokeDasharray="3 3"
-                                    stroke="#000000"
+                                <BarChart
+                                    width={900}
+                                    height={500}
+                                    data={data_chart2}
+                                    margin={{
+                                        top: 5,
+                                        right: 30,
+                                        left: 20,
+                                        bottom: 5,
+                                    }}
+                                // label={"renderLabel"}
+                                >
+                                    <CartesianGrid
+                                        strokeDasharray="3 3"
+                                        stroke="#000000"
                                     // fill="#000000"
-                                />
-                                <XAxis dataKey="name" label={chart2_xaxis_label} dy={13} />
-                                <YAxis label={chart2_yaxis_label} />
-                                <Tooltip />
-                                <Legend />
-                                <Bar dataKey="زمان تخمین زده شده" fill="#8884d8" />
-                                <Bar dataKey="زمان انجام شده" fill="#82ca9d" />
-                                <Bar dataKey="خارج از زمان تخمین" fill="#ffc658" />
-                            </BarChart>
+                                    />
+                                    <XAxis dataKey="name" label={chart2_xaxis_label} dy={13} />
+                                    <YAxis label={chart2_yaxis_label} />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar dataKey="زمان تخمین زده شده" fill="#8884d8" />
+                                    <Bar dataKey="زمان انجام شده" fill="#82ca9d" />
+                                    <Bar dataKey="خارج از زمان تخمین" fill="#ffc658" />
+                                </BarChart>
 
-                        </Box>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                // justifyContent: "space-between",
-                                alignItems: "center",
-                                // marginBottom: "0%",
-                                // marginTop: "2%",
-                                marginRight: "2%",
-                                // marginLeft: "2%",
-                                // backgroundColor: "white",
-                                // right to left
-                                // ":dir": "ltr"
-                                color: "black",
-                            }}
-
-                        >
+                            </Box>
                         </Box>
                     </Box>
                 </Fade>
@@ -419,23 +396,3 @@ const InfoChart = (props) => {
 };
 
 export default InfoChart;
-
-function generateDayWiseTimeSeries(s, count) {
-    var values = [
-        [
-            4, 3, 10, 9, 29, 19, 25, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5
-        ],
-        [
-            2, 3, 8, 7, 22, 16, 23, 7, 11, 5, 12, 5, 10, 4, 15, 2, 6, 2
-        ]
-    ];
-    var i = 0;
-    var series = [];
-    var x = new Date("11 Nov 2012").getTime();
-    while (i < count) {
-        series.push([x, values[s][i]]);
-        x += 86400000;
-        i++;
-    }
-    return series;
-}
