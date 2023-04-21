@@ -35,7 +35,6 @@ export default function Attachments({ params, setAllAttachments }) {
     }
   };
   const createAttachment = () => {
-    ////console.log("create attachment$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     const formData = new FormData();
     formData.append("file", binaryFile);
     setIsPost(true);
@@ -71,6 +70,7 @@ export default function Attachments({ params, setAllAttachments }) {
       <Button
         className="taskmodal-smaller-button-inner"
         aria-describedby={id}
+        role="open_attachment"
         variant="contained"
         onClick={handleClick}
         sx={{
