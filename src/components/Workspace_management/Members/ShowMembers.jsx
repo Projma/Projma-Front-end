@@ -27,10 +27,12 @@ const ShowMembers = ({ members, go_to_profile, removeMember }) => {
               <td className="list-item-prop hide-when-small">
                 <img src={member.image} className="member-image" />
               </td>
-              <td className="list-item-prop">
+              <td className="list-item-prop" role="fullname">
                 {member.firstName} {member.lastName}
               </td>
-              <td className="list-item-prop hide-when-small">{member.email}</td>
+              <td className="list-item-prop hide-when-small" role="email_input">
+                {member.email}
+              </td>
               <td className="list-item-prop for-button">
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <button
