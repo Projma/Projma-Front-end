@@ -63,9 +63,9 @@ html,.styled-scrollbars {
 
 .MuiAvatarGroup-root .MuiAvatarGroup-avatar {
   /*background-color: var(--minor-item-color) !important;*/
-  width: 3.5rem !important;
-  height: 3.5rem !important;
-  font-size: 1.6rem !important;
-  text-align: center !important;
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: 1.6rem;
+  text-align: center;
   border: 0.2rem solid var(--minor-item-color) !important;
 }
