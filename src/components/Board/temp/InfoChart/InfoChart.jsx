@@ -24,7 +24,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
-import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+// import Tooltip as muiTooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import { deepOrange, green } from "@mui/material/colors";
 import LinkSharpIcon from "@mui/icons-material/LinkSharp";
 import { useState } from "react";
@@ -40,7 +40,7 @@ import {
 } from "../../../../utilities/helpers.js";
 // import React, { Component } from "react";
 import Chart from "react-apexcharts";
-
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const style = {
     position: "absolute",
@@ -67,10 +67,59 @@ const InfoChart = (props) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [chartInfo, setChartInfo] = useState({});
-    const [xaxis, setXaxis] = useState([]);
+    const [chart1_xaxis_label, setChart1_xaxis_label] = useState('');
+    const [chart1_yaxis_label, setChart1_yaxis_label] = useState('');
+    const [chart2_xaxis_label, setChart2_xaxis_label] = useState('');
+    const [chart2_yaxis_label, setChart2_yaxis_label] = useState('');
     const [yaxis, setYaxis] = useState([]);
-    const [data, setData] = useState({});
+    const [data_chart1, setData_chart1] = useState([]);
     const [data2, setData2] = useState({});
+
+
+    useEffect(() => {
+        apiInstance.get(`/board/chart/${props.boardId}/board-members-activity/`).then((res) => {
+            var chartLabel = res.data.chartlabel; // فعالیت اعضا
+            var xLabel = res.data.xlabel; // فرد
+            var yLabel = res.data.ylabel; // فعالیت
+            var xData = res.data.xdata; // ['ali', 'mmd']
+            var yData = res.data.ydata;
+            var estimates = yData[0]["estimates"] // [0, 2.5]
+            var dons = yData[1]["dons"] // [0, 2.5]
+            var out_of_estimates = yData[2]["out_of_estimates"] // [0, 2.5]
+            // console.log("****")
+            // console.log(chartLabel)
+            // console.log(xLabel)
+            // console.log(yLabel)
+            // console.log(xData)
+            // console.log(yData)
+            setChart1_xaxis_label(xLabel)
+            setChart1_yaxis_label(yLabel)
+
+            var tmp = []
+            for (let index = 0; index < xData.length; index++) {
+                const person = xData[index];
+                const ets_time = estimates[index];
+                const d_time = dons[index];
+                const out_of_ets_t = out_of_estimates[index];
+                var element = {
+                    name: person,
+                    "زمان تخمین زده شده": ets_time,
+                    "زمان انجام شده": d_time,
+                    "خارج از زمان تخمین": out_of_ets_t
+                }
+                tmp.push(element)
+            }
+            // console.log("****");
+            // console.log(tmp);
+            setData_chart1(tmp)
+            // setChartInfo(res.data);
+
+
+        }).catch((err) => {
+            console.log(err);
+        });
+
+    }, []);
 
     useEffect(() => {
         apiInstance.get(`/board/chart/${props.boardId}/board-tasklists-activity/`).then((res) => {
@@ -92,7 +141,7 @@ const InfoChart = (props) => {
             // console.log(dons)
 
             // setChartInfo(res.data);
-            
+
             // var xaxix = [];
             // var yaxix = [];
             // res.data.xdata.map((item) => {
@@ -111,41 +160,6 @@ const InfoChart = (props) => {
 
     }, []);
 
-    useEffect(() => {
-        apiInstance.get(`/board/chart/${props.boardId}/board-members-activity/`).then((res) => {
-            var chartLabel = res.data.chartlabel; // فعالیت اعضا
-            var xLabel = res.data.xlabel; // فرد
-            var yLabel = res.data.ylabel; // فعالیت
-            var xData = res.data.xdata; // ['ali', 'mmd']
-            var yData = res.data.ydata;
-            var estimates = yData[0]["estimates"] // [0, 2.5]
-            var dons = yData[1]["dons"] // [0, 2.5]
-            var out_of_estimates = yData[2]["out_of_estimates"] // [0, 2.5]
-            // console.log("****")
-            // console.log(chartLabel)
-            // console.log(xLabel)
-            // console.log(yLabel)
-            // console.log(xData)
-            // console.log(yData)
-
-            // setChartInfo(res.data);
-            
-            // var xaxix = [];
-            // var yaxix = [];
-            // res.data.xdata.map((item) => {
-            //     xaxix.push(item[0] ? item[0] : "بدون نام کاربری");
-            // });
-            // setXaxis(xaxix);
-            // res.data.ydata.map((item) => {
-            //     yaxix.push(item[0]);
-            // });
-            // setYaxis(yaxix);
-
-        }).catch((err) => {
-            console.log(err);
-        });
-
-    }, []);
 
     // useEffect(() => {
     //     apiInstance.get(`/board/chart/${1}/board-members-activity/`).then((res) => {
@@ -156,7 +170,7 @@ const InfoChart = (props) => {
     //         yData = res.data.ydata;
 
     //         // setChartInfo(res.data);
-            
+
     //         // var xaxix = [];
     //         // var yaxix = [];
     //         // res.data.xdata.map((item) => {
@@ -276,7 +290,7 @@ const InfoChart = (props) => {
                             sx={{
                                 display: "flex",
                                 flexDirection: "row",
-                                // justifyContent: "space-between",
+                                justifyContent: "center",
                                 alignItems: "center",
                                 // marginBottom: "0%",
                                 // marginTop: "2%",
@@ -298,6 +312,34 @@ const InfoChart = (props) => {
                                     />
                                 </div>
                             </div> */}
+                            {/* <ResponsiveContainer width="100%" height="100%"> */}
+                            <BarChart
+                                width={900}
+                                height={500}
+                                // bgColor={"black"}
+                                data={data_chart1}
+                                margin={{
+                                    top: 5,
+                                    right: 30,
+                                    left: 20,
+                                    bottom: 5,
+                                }}
+                                label={"ccc"}
+                            >
+                                <CartesianGrid
+                                    strokeDasharray="3 3"
+                                    stroke="#000000"
+                                    // fill="#000000"
+                                />
+                                <XAxis dataKey="name" label={chart1_xaxis_label} />
+                                <YAxis label={chart1_yaxis_label} />
+                                <Tooltip />
+                                <Legend />
+                                <Bar dataKey="زمان تخمین زده شده" fill="#8884d8" />
+                                <Bar dataKey="زمان انجام شده" fill="#82ca9d" />
+                                <Bar dataKey="خارج از زمان تخمین" fill="#ffc658" />
+                            </BarChart>
+                            {/* </ResponsiveContainer> */}
                         </Box>
                         <Box
                             sx={{
