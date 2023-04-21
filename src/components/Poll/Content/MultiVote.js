@@ -90,7 +90,7 @@ const MultiVoteResult = ({ vote, op, userVote }) => {
       {op.map((v, i) => (
         <div className="multi-vote_result-container">
           <div className="multi-vote_result-icon">
-            {userVote === v && (
+            {userVote.includes(v) && (
               <TaskAltOutlined
                 sx={{ width: "1.5rem", height: "1.5rem", color: "#5090d3" }}
               />
