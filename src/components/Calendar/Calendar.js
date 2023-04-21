@@ -19,6 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import CreateMeeting from "./CreateMeeting";
 import ShowMeeting from "./showMeeting";
+import EditEvent from "./EditEvent";
 
 const Calendar = () => {
   const { collapsed } = useProSidebar();
@@ -28,6 +29,7 @@ const Calendar = () => {
   const [openCreateMeeting, setOpenCreateMeeting] = useState(false);
   const [openShowEvent, setOpenShowEvent] = useState(false);
   const [openShowMeeting, setOpenShowMeeting] = useState(false);
+  const [openEditEvent, setOpenEditEvent] = useState(false);
   const [event, setEvent] = useState([]);
   const [meeting, setMeeting] = useState([]);
   const [eventId, setEventId] = useState(0);
@@ -61,6 +63,16 @@ const Calendar = () => {
     setOpenShowMeeting(false);
   };
 
+  const handleCloseEditEvent = () => {
+    setOpenEditEvent(false);
+    setOpenShowEvent(true);
+  };
+
+  const handleOpenEditEvent = () => {
+    setOpenEditEvent(true);
+    setOpenShowEvent(false);
+  };
+
   const showToast = (text) => {
     toast.success(text, {
       position: toast.POSITION.BOTTOM_LEFT,
@@ -74,54 +86,56 @@ const Calendar = () => {
 
   useEffect(() => {
     const getEvent = async () => {
-      await apiInstance.get(`board/${boardId}/get-board-overview/`).then((response) => {
-        setCalendarId(response.data.calendar);
-        apiInstance
-        .get(
-          `/calendar/simple-calendar/${response.data.calendar}/events/?start=2000-01-01 00:00:00&end=2040-12-30 00:00:00`
-        )
-        .then((res) => {
-          const ev = res.data.map((x) => {
-            x = {
-              id: crypto.randomUUID(),
-              title: x.title,
-              start: x.event_time.split("T")[0],
-              color:
-                x.event_color !== "" || x.event_color !== undefined
-                  ? x.event_color
-                  : "",
-              extendedProps: {
-                eventId: x.id,
-              },
-            };
-            return x;
-          });
-          console.log(ev);
-          // console.log(calendarId);
-          setEvent(ev);
+      await apiInstance
+        .get(`board/${boardId}/get-board-overview/`)
+        .then((response) => {
+          setCalendarId(response.data.calendar);
+          apiInstance
+            .get(
+              `/calendar/simple-calendar/${response.data.calendar}/events/?start=2000-01-01 00:00:00&end=2040-12-30 00:00:00`
+            )
+            .then((res) => {
+              const ev = res.data.map((x) => {
+                x = {
+                  id: crypto.randomUUID(),
+                  title: x.title,
+                  start: x.event_time.split("T")[0],
+                  color:
+                    x.event_color !== "" || x.event_color !== undefined
+                      ? x.event_color
+                      : "",
+                  extendedProps: {
+                    eventId: x.id,
+                  },
+                };
+                return x;
+              });
+              console.log(ev);
+              // console.log(calendarId);
+              setEvent(ev);
+            });
+          apiInstance
+            .get(
+              `/calendar/meeting/${response.data.calendar}/calendar-meetings/?from_date=2000-01-01&until_date=2099-12-30`
+            )
+            .then((res) => {
+              const ev = res.data.map((x) => {
+                x = {
+                  id: crypto.randomUUID(),
+                  title: x.title,
+                  start: x.from_date + "T" + x.start,
+                  end: x.until_date + "T" + x.end,
+                  color: x.color !== "" || x.color !== undefined ? x.color : "",
+                  extendedProps: {
+                    eventId: x.id,
+                  },
+                };
+                return x;
+              });
+              console.log("dad", ev);
+              setMeeting(ev);
+            });
         });
-        apiInstance
-        .get(
-          `/calendar/meeting/${response.data.calendar}/calendar-meetings/?from_date=2000-01-01&until_date=2099-12-30`
-        )
-        .then((res) => {
-          const ev = res.data.map((x) => {
-            x = {
-              id: crypto.randomUUID(),
-              title: x.title,
-              start: x.from_date+"T"+x.start,
-              end: x.until_date+"T"+x.end,
-              color: x.color !== "" || x.color !== undefined ? x.color : "",
-              extendedProps: {
-                eventId: x.id,
-              },
-            };
-            return x;
-          });
-          console.log("dad",ev);
-          setMeeting(ev);
-        });
-      });
     };
     getEvent();
     console.log(event);
@@ -159,7 +173,20 @@ const Calendar = () => {
         aria-describedby="modal-modal-description"
       >
         <ShowEvent
-          handleClose={handleCloseShowEvent}
+          handleShowEvent={handleCloseShowEvent}
+          handleOpenEditEvent={handleOpenEditEvent}
+          calendarId={calendarId}
+          eventId={eventId}
+        />
+      </Modal>
+      <Modal
+        open={openEditEvent}
+        onClose={handleCloseEditEvent}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <EditEvent
+          handleClose={handleCloseEditEvent}
           calendarId={calendarId}
           eventId={eventId}
         />
@@ -182,7 +209,7 @@ const Calendar = () => {
         plugins={[dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         // events={event}
-        eventSources={[event,meeting]}
+        eventSources={[event, meeting]}
         headerToolbar={{
           left: "addMeeting addEvent prev,next today",
           center: "title",
@@ -205,7 +232,7 @@ const Calendar = () => {
             click: handleCreateMeeting,
           },
         }}
-        eventClick={(handleShowEvent, handleShowMeeting)}
+        eventClick={handleShowEvent}
       />
     </dir>
   );
