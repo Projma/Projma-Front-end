@@ -73,6 +73,7 @@ const InfoChart = (props) => {
     const [chart2_yaxis_label, setChart2_yaxis_label] = useState('');
     const [yaxis, setYaxis] = useState([]);
     const [data_chart1, setData_chart1] = useState([]);
+    const [data_chart2, setData_chart2] = useState([]);
     const [data2, setData2] = useState({});
 
 
@@ -86,12 +87,6 @@ const InfoChart = (props) => {
             var estimates = yData[0]["estimates"] // [0, 2.5]
             var dons = yData[1]["dons"] // [0, 2.5]
             var out_of_estimates = yData[2]["out_of_estimates"] // [0, 2.5]
-            // console.log("****")
-            // console.log(chartLabel)
-            // console.log(xLabel)
-            // console.log(yLabel)
-            // console.log(xData)
-            // console.log(yData)
             setChart1_xaxis_label(xLabel)
             setChart1_yaxis_label(yLabel)
 
@@ -109,11 +104,7 @@ const InfoChart = (props) => {
                 }
                 tmp.push(element)
             }
-            // console.log("****");
-            // console.log(tmp);
             setData_chart1(tmp)
-            // setChartInfo(res.data);
-
 
         }).catch((err) => {
             console.log(err);
@@ -139,6 +130,27 @@ const InfoChart = (props) => {
             // console.log(yData)
             // console.log(estimates)
             // console.log(dons)
+            setChart2_xaxis_label(xLabel)
+            setChart2_yaxis_label(yLabel)
+
+            var tmp = []
+            for (let index = 0; index < xData.length; index++) {
+                const tesklist = xData[index];
+                const ets_time = estimates[index];
+                const d_time = dons[index];
+                const out_of_ets_t = out_of_estimates[index];
+                var element = {
+                    name: tesklist,
+                    "زمان تخمین زده شده": ets_time,
+                    "زمان انجام شده": d_time,
+                    "خارج از زمان تخمین": out_of_ets_t
+                }
+                tmp.push(element)
+            }
+            // console.log("****");
+            // console.log(tmp);
+            setData_chart2(tmp)
+            
 
             // setChartInfo(res.data);
 
@@ -154,7 +166,6 @@ const InfoChart = (props) => {
 
 
         }).catch((err) => {
-            console.log("#####")
             console.log(err);
         });
 
@@ -344,7 +355,7 @@ const InfoChart = (props) => {
                             sx={{
                                 display: "flex",
                                 flexDirection: "row",
-                                // justifyContent: "space-between",
+                                justifyContent: "center",
                                 alignItems: "center",
                                 // marginBottom: "0%",
                                 // marginTop: "2%",
@@ -354,11 +365,32 @@ const InfoChart = (props) => {
                                 color: "black",
                             }}
                         >
-                            {/* <div className="chart donut" dir="ltr">
-                                <div className="timeline-chart">
-                                    <Chart options={data2.options} series={data2.series} type="donut" width="380" />
-                                </div>
-                            </div> */}
+                            <BarChart
+                                width={900}
+                                height={500}
+                                // bgColor={"black"}
+                                data={data_chart2}
+                                margin={{
+                                    top: 5,
+                                    right: 30,
+                                    left: 20,
+                                    bottom: 5,
+                                }}
+                                // label={"renderLabel"}
+                            >
+                                <CartesianGrid
+                                    strokeDasharray="3 3"
+                                    stroke="#000000"
+                                    // fill="#000000"
+                                />
+                                <XAxis dataKey="name" label={chart2_xaxis_label} dy={13} />
+                                <YAxis label={chart2_yaxis_label} />
+                                <Tooltip />
+                                <Legend />
+                                <Bar dataKey="زمان تخمین زده شده" fill="#8884d8" />
+                                <Bar dataKey="زمان انجام شده" fill="#82ca9d" />
+                                <Bar dataKey="خارج از زمان تخمین" fill="#ffc658" />
+                            </BarChart>
 
                         </Box>
                         <Box
