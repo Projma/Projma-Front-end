@@ -17,29 +17,31 @@ import RepeatIcon from "@mui/icons-material/Repeat";
 import CloseIcon from "@mui/icons-material/Close";
 import Button from "@material-ui/core/Button";
 import EditIcon from "@material-ui/icons/Edit";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import "./ShowMeeting.scss";
 
 export default function ShowMeeting({
   meetingId,
   calendarId,
-  handleCloseShowEvent,
+  handleShowMeeting,
+  handleOpenEditMeeting,
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [event, setEvent] = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
-  const [title, setTitle] = React.useState("");
-  const [description, setDescription] = React.useState("");
   const [color, setColor] = React.useState("");
-  const [time, setTime] = React.useState("");
-  const [repeat, setRepeat] = React.useState("");
-  const [eventType, setEventType] = React.useState("");
-  const [customEventTypes, setCustomEventTypes] = React.useState("");
-  const [startMeetingTime, setStartMeetingTime] = React.useState("");
-  const [endMeetingTime, setEndMeetingTime] = React.useState("");
   const [meetingLink, setMeetingLink] = React.useState("");
   const [startMeetingDate, setStartMeetingDate] = React.useState("");
   const [endMeetingDate, setEndMeetingDate] = React.useState("");
+  const [meeting, setMeeting] = React.useState({});
+  const [changeStatus, setChangeStatus] = React.useState(false);
+  const [Loading, setLoading] = React.useState(false);
+  const [skyroomMeeting, setSkyroomMeeting] = React.useState({});
+  const [currentTime, setCurrentTime] = React.useState(
+    new Date().toLocaleTimeString()
+  );
+  const [currentDate, setCurrentDate] = React.useState(
+    new Date().toLocaleDateString()
+  );
 
   const style = {
     position: "absolute",
@@ -70,7 +72,7 @@ export default function ShowMeeting({
   };
 
   const handleClose = (e) => {
-    handleCloseShowEvent();
+    // handleCloseShowEvent();
     console.log("close");
     setAnchorEl(null);
   };
@@ -80,112 +82,96 @@ export default function ShowMeeting({
     apiInstance
       .get(`/calendar/meeting/${meetingId}/get-meeting/`)
       .then((res) => {
-        // console.log(res);
-        setEvent(res.data);
-        setTitle(res.data.title);
-        setDescription(res.data.description);
-        setColor(res.data.event_color);
-        // setDate(res.data.date);
-        setTime(res.data.event_time);
-        setRepeat(res.data.repeat_duration);
-        setEventType(res.data.event_type);
-        setCustomEventTypes(res.data.custom_event_type);
+        setMeeting(res.data);
+        setMeetingLink(res.data.link);
+        setStartMeetingDate(res.data.from_date);
+        setEndMeetingDate(res.data.until_date);
+        console.log(meeting);
       })
       .catch((err) => {
-        ////console.log(err);
+        console.log(err);
       })
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [changeStatus]);
 
   const handleExistMeeting = () => {
+    console.log("handleExistMeeting");
     apiInstance
       .get(`/calendar/meeting/${meetingId}/start-meeting/`)
       .then((res) => {
-        // console.log(res);
-        setStartMeetingTime(res.data.start);
-        setEndMeetingTime(res.data.end);
-        setMeetingLink(res.data.meeting_link);
-        setStartMeetingDate(res.data.from_date);
-        setEndMeetingDate(res.data.until_date);
+        console.log(res);
+        setSkyroomMeeting(res.data);
+        setChangeStatus(!changeStatus);
       })
       .catch((err) => {
-        //console.log(err);
+        console.log(err);
       });
   };
-  const navigate = useNavigate();
+
   const handleCreateSkyroom = () => {
     handleExistMeeting();
-    if (meetingLink != "") {
-      navigate(`${meetingLink}`);
+  };
+
+  const handleButtonClick = (site) => {
+    window.location.href = site;
+  };
+
+  const checkAccess = () => {
+    console.log("checkAccess");
+    if (meeting.start != null) {
+      console.log(currentDate);
+      console.log(meeting.from_date);
+      console.log(meeting.from_date.split("-")[1]);
+      console.log(currentDate.split("/")[0]);
+      if (
+        parseInt(meeting.from_date.split("-")[2]) ==
+          parseInt(currentDate.split("/")[1]) &&
+        parseInt(meeting.from_date.split("-")[0]) ==
+          parseInt(currentDate.split("/")[2]) &&
+        parseInt(meeting.from_date.split("-")[1]) ==
+          parseInt(currentDate.split("/")[0]) &&
+        parseInt(meeting.start.split(":")[0]) <=
+          parseInt(currentTime.split(":")[0])
+      ) {
+        return true;
+      }
     }
+    return false;
   };
 
   const handleOpenSkyroom = () => {
+    console.log("handleOpenSkyroom");
+    console.log(meeting);
     if (meetingLink != "") {
-      navigate(`${meetingLink}`);
+      handleButtonClick(meeting.link);
     }
   };
 
   const handleDeleteSkyroom = () => {
     apiInstance
-      .delete(`/calendar/meeting/${meetingId}/end-meeting/`)
+      .get(`/calendar/meeting/${meetingId}/end-meeting/`)
       .then((res) => {
         toast.success("حذف جلسه با موفقیت انجام شد");
-        window.location.href = "/calendar";
+        setChangeStatus(!changeStatus);
       })
       .catch((err) => {
         toast.error("خطا در حذف جلسه");
       });
   };
 
-  const selectEventType = () => {
-    if (customEventTypes) {
-      return customEventTypes;
-    } else {
-      return eventType;
-    }
-  };
-
-  const partitionDateAndTime = (time) => {
-    if (time) {
-      const date = time.split("T")[0];
-      const timeWithoutSeconds = time
-        .split("T")[1]
-        .split(":")
-        .slice(0, 2)
-        .join(":");
-      return [date, timeWithoutSeconds];
-    } else {
-      return ["", ""];
-    }
-  };
-
-  const deleteEvent = () => {
-    apiInstance
-      .delete(`/calendar/event/${meetingId}/`)
-      .then((res) => {
-        toast.success("حذف رویداد با موفقیت انجام شد");
-        window.location.href = "/calendar";
-      })
-      .catch((err) => {
-        toast.error("خطا در حذف رویداد");
-      });
-  };
-
-  // if repeat=1 => return روزانه else if repeat=7 => return هفتگی else if repeat=30 => return ماهانه else return "هر repeat رروز یکبار"
   const selectRepeat = () => {
-    if (repeat == 1) {
+    if (meeting.repeat == 1) {
       return "روزانه";
-    } else if (repeat == 7) {
+    } else if (meeting.repeat == 7) {
       return "هفتگی";
-    } else if (repeat == 30) {
+    } else if (meeting.repeat == 30) {
       return "ماهانه";
-    } else if (repeat == 365) {
+    } else if (meeting.repeat == 365) {
       return "سالانه";
     }
-    return `هر ${repeat} روز یکبار`;
+    return `هر ${meeting.repeat} روز یکبار`;
   };
 
   const buttonStyle = {
@@ -207,7 +193,7 @@ export default function ShowMeeting({
                 variant="contained"
                 color="primary"
                 startIcon={<EditIcon />}
-                // onClick={onClick}
+                onClick={handleOpenEditMeeting}
                 style={buttonStyle}
               />
             </i>
@@ -216,7 +202,7 @@ export default function ShowMeeting({
                 variant="contained"
                 color="primary"
                 startIcon={<CloseIcon />}
-                onClick={(e) => handleClose(e)}
+                onClick={handleShowMeeting}
                 style={buttonStyle}
               />
             </i>
@@ -227,7 +213,7 @@ export default function ShowMeeting({
               style={{ backgroundColor: color }}
             ></div>
             <div className="calendar--showEvent-container--header--title neonText">
-              {title}
+              {meeting.title}
             </div>
           </div>
           <div className="calendar--showEvent-container--body">
@@ -235,27 +221,34 @@ export default function ShowMeeting({
               <div className="calendar--showEvent-container--body--time--icon">
                 <CalendarTodayIcon style={{ fontSize: "26px" }} />
               </div>
-              <div className="calendar--showEvent-container--body--time--text">
-                تاریخ
+              <div className="calendar--showMeeting-container--body--time--text">
+                از تاریخ
               </div>
               <div className="calendar--showEvent-container--body--time--text--date">
-                {convertNumberToPersian(partitionDateAndTime(time)[0])}
+                {convertNumberToPersian(meeting.from_date)}
               </div>
               <div className="calendar--showEvent-container--body--time--text">
                 ساعت
               </div>
               <div className="calendar--showEvent-container--body--time--text--time">
-                {convertNumberToPersian(partitionDateAndTime(time)[1])}
+                {convertNumberToPersian(meeting.start)}
               </div>
             </div>
-            <div className="calendar--showEvent-container--body--eventType">
-              <div className="calendar--showEvent-container--body--eventType--icon">
-                <EventIcon style={{ fontSize: "26px" }} />
+            <div className="calendar--showEvent-container--body--time">
+              <div
+                className="calendar--showMeeting-container--body--time--text"
+                style={{ marginRight: "14%" }}
+              >
+                تا تاریخ
               </div>
-              <div className="calendar--showEvent-container--body--eventType--text">
-                {/* handle time is null */}
-
-                {convertNumberToPersian(selectEventType())}
+              <div className="calendar--showEvent-container--body--time--text--date">
+                {convertNumberToPersian(meeting.until_date)}
+              </div>
+              <div className="calendar--showEvent-container--body--time--text">
+                ساعت
+              </div>
+              <div className="calendar--showEvent-container--body--time--text--time">
+                {convertNumberToPersian(meeting.end)}
               </div>
             </div>
             <div className="calendar--showEvent-container--body--repeat">
@@ -271,47 +264,66 @@ export default function ShowMeeting({
                 <DescriptionIcon style={{ fontSize: "26px" }} />
               </div>
               <div className="calendar--showEvent-container--body--description--text">
-                {description}
+                {meeting.description}
               </div>
             </div>
             {/* add mui button for start meeting room */}
           </div>
           <div>
-            {meetingLink == "" ? (
-              <div className="calendar_create_meeting-button-div">
-                <input
-                  style={{
-                    fontFamily: "Vazir",
-                  }}
-                  type="submit"
-                  value="ایجاد"
-                  role="save_button"
-                  className="calendar_create_event-button-29"
-                  onClick={handleCreateSkyroom}
-                />
+            {checkAccess() ? (
+              <div>
+                {meeting.status == "NOTSTARTED" ? (
+                  <div className="calendar_create_meeting-button-div">
+                    <input
+                      style={{
+                        fontFamily: "Vazir",
+                      }}
+                      type="submit"
+                      value="ایجاد"
+                      role="save_button"
+                      className="calendar_create_event-button-29"
+                      onClick={handleCreateSkyroom}
+                    />
+                  </div>
+                ) : (
+                  <div>
+                    {meeting.status == "HOLDONG" ? (
+                      <div className="calendar_create_event-button-div">
+                        <input
+                          style={{
+                            fontFamily: "Vazir",
+                          }}
+                          type="submit"
+                          value="ورود"
+                          role="save_button"
+                          className="calendar_create_event-button-29"
+                          onClick={handleOpenSkyroom}
+                        />
+                        <input
+                          style={{
+                            fontFamily: "Vazir",
+                          }}
+                          type="submit"
+                          value="حذف"
+                          role="save_button"
+                          className="calendar_create_event-button-29"
+                          onClick={handleDeleteSkyroom}
+                        />
+                      </div>
+                    ) : (
+                      <Typography
+                        variant="h6"
+                        className="calendar--showMeeting-Finished"
+                      >
+                        این جلسه به پایان رسیده است
+                      </Typography>
+                    )}
+                  </div>
+                )}
               </div>
             ) : (
-              <div className="calendar_create_event-button-div">
-                <input
-                  style={{
-                    fontFamily: "Vazir",
-                  }}
-                  type="submit"
-                  value="ورود"
-                  role="save_button"
-                  className="calendar_create_event-button-29"
-                  onClick={handleOpenSkyroom}
-                />
-                <input
-                  style={{
-                    fontFamily: "Vazir",
-                  }}
-                  type="submit"
-                  value="حذف"
-                  role="save_button"
-                  className="calendar_create_event-button-29"
-                  onClick={handleDeleteSkyroom}
-                />
+              <div className="calendar--showMeeting-Finished">
+                جلسه 5 دقیقه قبل از زمان شروع باز می‌شود
               </div>
             )}
           </div>
