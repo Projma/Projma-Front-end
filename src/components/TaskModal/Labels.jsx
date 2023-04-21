@@ -70,6 +70,55 @@ export default function Labels({ params, task_labels, set_task_labels }) {
     setAnchorEl(null);
   };
 
+  const editThisItem = (editedTitle, editedColor, editedId) => {
+    ////console.log("edit this item");
+    if (editedTitle === "") {
+      toast.error("عنوان برچسب نمیتواند خالی باشد", {
+        position: toast.POSITION.BOTTOM_LEFT,
+        rtl: true,
+      });
+      return;
+    }
+    setIsPost(true);
+    apiInstance
+      .patch(`board/label/${editedId}/update-label/`, {
+        title: editedTitle,
+        color: editedColor,
+      })
+      .then((res) => {
+        ////console.log("in edit label");
+        ////console.log(res.data);
+        let flag = 0;
+        set_task_labels((prevState) =>
+          prevState.map((label) => {
+            if (label.id === editedId) {
+              return { ...label, title: res.data.title, color: res.data.color };
+            } else {
+              return label;
+            }
+          })
+        );
+        setAllLabels((prevState) =>
+          prevState.map((label) => {
+            if (label.id === editedId) {
+              flag = 1;
+              return { ...label, title: res.data.title, color: res.data.color };
+            } else {
+              return label;
+            }
+          })
+        );
+        toast.success("ویرایش برچسب با موفقیت انجام شد", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      })
+      .finally(() => {
+        setIsPost(null);
+      });
+    setShowEdit(false);
+  };
+
   const delete_label_from_task = (label_id) => {
     setIsPost(true);
     apiInstance
@@ -194,8 +243,7 @@ export default function Labels({ params, task_labels, set_task_labels }) {
             <EditLabel
               setShowEdit={setShowEdit}
               item={editItem}
-              setAllLabels={setAllLabels}
-              set_task_labels={set_task_labels}
+              editThisItem={editThisItem}
             />
           )}
           {showCreate && (
