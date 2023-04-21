@@ -34,6 +34,7 @@ import anonymous from "../../../static/images/workspace_management/members/anony
 import { baseUrl } from "../../../utilities/constants";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useState } from "react";
+import ShowMembersInDrawer from "./ShowMembersInDrawer";
 
 const drawerWidth = 250;
 
@@ -132,59 +133,7 @@ function ResponsiveDrawer(props) {
         ))}
       </List>
       <Divider sx={{ backgroundColor: "#9499a8" }} />
-      <List>
-        {members.map((member, index) => (
-          <ListItem
-            button
-            href="#"
-            key={member.name}
-            disablePadding
-            className={classes.list_item}
-          >
-            <Link
-              to={"/profileview/" + member.userName}
-              className={classes.list_item}
-              style={{
-                textDecoration: "none",
-                color: "#000",
-                display: "block",
-                width: "100%",
-              }}
-            >
-              <ListItemButton sx={{}}>
-                <ListItemIcon>
-                  <img
-                    src={member.image}
-                    style={{
-                      border: "1px solid #ddd",
-                      "border-radius": "4px",
-                      padding: "5px",
-                      width: "4rem",
-                      height: "4rem",
-                    }}
-                  />
-                </ListItemIcon>
-                <ListItemText
-                  disableTypography
-                  primary={
-                    <Typography
-                      type="body2"
-                      style={{ color: "#fff", fontFamily: "Vazir" }}
-                    >
-                      {member.name}
-                    </Typography>
-                  }
-                  sx={{
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    fontSize: "1.3rem",
-                  }}
-                />
-              </ListItemButton>
-            </Link>
-          </ListItem>
-        ))}
-      </List>
+      <ShowMembersInDrawer members={members} />
     </div>
   );
 
