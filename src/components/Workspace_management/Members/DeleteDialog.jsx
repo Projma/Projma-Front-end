@@ -34,6 +34,7 @@ export default function DeleteDialog({ user_id, removeMember }) {
       <button
         key={user_id}
         // id={member.userName}
+        id="open_remove_dialog"
         className="ws_members-person-remove-button"
         onClick={handleClickOpen}
       >

@@ -162,3 +162,88 @@ test("it goes to member profile after clicking the profile button", async () => 
   user.click(profile_button);
   expect(go_to_profile).toHaveBeenCalled();
 });
+
+test("it opens a Delete Dialog for removing specified member", async () => {
+  const members = [
+    {
+      id: 1,
+      firstName: "John",
+      lastName: "Doe",
+      userName: "JohnDoe",
+      email: "JohnDoe@gmail.com",
+      image: anonymous,
+    },
+    {
+      id: 2,
+      firstName: "Sina",
+      lastName: "Alinejad",
+      userName: "SinaAlinejad",
+      email: "sinaalinejad4@gmail.com",
+      image: anonymous,
+    },
+    {
+      id: 3,
+      firstName: "Mohammad",
+      lastName: "Osoolian",
+      userName: "dsoolian",
+      email: "dsoolian@gmail.com",
+      image: anonymous,
+    },
+  ];
+  const go_to_profile = jest.fn();
+  const removeMember = jest.fn();
+  render(
+    <ShowMembers
+      members={members}
+      go_to_profile={go_to_profile}
+      removeMember={removeMember}
+    />
+  );
+  const open_remove_dialog = document.querySelector("#open_remove_dialog");
+  user.click(open_remove_dialog);
+  expect(screen.getByText("بله")).toBeInTheDocument();
+  expect(screen.getByText("خیر")).toBeInTheDocument();
+});
+
+test("it opens a Delete Dialog for removing specified member", async () => {
+  const members = [
+    {
+      id: 1,
+      firstName: "John",
+      lastName: "Doe",
+      userName: "JohnDoe",
+      email: "JohnDoe@gmail.com",
+      image: anonymous,
+    },
+    {
+      id: 2,
+      firstName: "Sina",
+      lastName: "Alinejad",
+      userName: "SinaAlinejad",
+      email: "sinaalinejad4@gmail.com",
+      image: anonymous,
+    },
+    {
+      id: 3,
+      firstName: "Mohammad",
+      lastName: "Osoolian",
+      userName: "dsoolian",
+      email: "dsoolian@gmail.com",
+      image: anonymous,
+    },
+  ];
+  const go_to_profile = jest.fn();
+  const removeMember = jest.fn();
+  render(
+    <ShowMembers
+      members={members}
+      go_to_profile={go_to_profile}
+      removeMember={removeMember}
+    />
+  );
+  const open_remove_dialog = document.querySelector("#open_remove_dialog");
+  user.click(open_remove_dialog);
+  const yes_button = screen.getByText("بله");
+  user.click(yes_button);
+  expect(removeMember).toHaveBeenCalled();
+});
