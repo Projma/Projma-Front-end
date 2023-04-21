@@ -104,7 +104,7 @@ const SingleVoteResult = ({ vote, op, userVote }) => {
   );
 };
 
-const SingleVote = ({ op, setTVote }) => {
+const SingleVote = ({ op }) => {
   // const [isVote, setIsVote] = useState(false);
   const [vote, setVote] = useState(undefined);
   const [allVote, setAllVote] = useState([
@@ -114,7 +114,6 @@ const SingleVote = ({ op, setTVote }) => {
   ]);
   useEffect(() => {
     if (vote !== undefined) setAllVote([...allVote, { id: 4, vote }]);
-    setTVote(allVote.length);
   }, [vote]);
   return (
     <div className="single-vote_container">

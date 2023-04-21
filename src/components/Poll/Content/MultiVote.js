@@ -127,7 +127,7 @@ const MultiVoteResult = ({ vote, op, userVote }) => {
   );
 };
 
-const MultiVote = ({ op, setTVote }) => {
+const MultiVote = ({ op }) => {
   const [vote, setVote] = useState(undefined);
   const [allVote, setAllVote] = useState([
     { id: 1, vote: ["Yes", "No"] },
@@ -136,7 +136,6 @@ const MultiVote = ({ op, setTVote }) => {
   ]);
   useEffect(() => {
     if (vote !== undefined) setAllVote([...allVote, { id: 4, vote }]);
-    setTVote(allVote.length);
   }, [vote]);
   console.log(vote);
   return (
