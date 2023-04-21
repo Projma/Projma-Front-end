@@ -5,6 +5,7 @@ import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Typography from "@mui/material/Typography";
+import { TaskAltOutlined } from "@mui/icons-material";
 
 const SingleVoted = ({ op, setVote }) => {
   return (
@@ -67,8 +68,8 @@ const SingleVoteResult = ({ vote, op, userVote }) => {
         <div className="single-vote_result-container">
           <div className="single-vote_result-icon">
             {userVote === v && (
-              <CheckCircleIcon
-                sx={{ width: "1.5rem", height: "1.5rem", color: "#0059B2" }}
+              <TaskAltOutlined
+                sx={{ width: "1.5rem", height: "1.5rem", color: "#5090d3" }}
               />
             )}
           </div>
