@@ -20,6 +20,7 @@ import { ToastContainer, toast } from "react-toastify";
 import CreateMeeting from "./CreateMeeting";
 import ShowMeeting from "./showMeeting";
 import EditEvent from "./EditEvent";
+import EditMeeting from "./EditMeeting";
 
 const Calendar = () => {
   const { collapsed } = useProSidebar();
@@ -30,6 +31,7 @@ const Calendar = () => {
   const [openShowEvent, setOpenShowEvent] = useState(false);
   const [openShowMeeting, setOpenShowMeeting] = useState(false);
   const [openEditEvent, setOpenEditEvent] = useState(false);
+  const [openEditMeeting, setOpenEditMeeting] = useState(false);
   const [event, setEvent] = useState([]);
   const [meeting, setMeeting] = useState([]);
   const [eventId, setEventId] = useState(0);
@@ -53,7 +55,7 @@ const Calendar = () => {
     setOpenShowEvent(!openShowEvent);
   };
   const handleShowMeeting = (e) => {
-    setMeetingId(e.event._def.extendedProps.eventId);
+    setMeetingId(e.event._def.extendedProps.meetingId);
     setOpenShowMeeting(!openShowMeeting);
   };
   const handleCloseShowEvent = () => {
@@ -71,6 +73,16 @@ const Calendar = () => {
   const handleOpenEditEvent = () => {
     setOpenEditEvent(true);
     setOpenShowEvent(false);
+  };
+
+  const handleCloseEditMeeting = () => {
+    setOpenEditMeeting(false);
+    setOpenShowMeeting(true);
+  };
+
+  const handleOpenEditMeeting = () => {
+    setOpenEditMeeting(true);
+    setOpenShowMeeting(false);
   };
 
   const showToast = (text) => {
@@ -202,7 +214,20 @@ const Calendar = () => {
         aria-describedby="modal-modal-description"
       >
         <ShowMeeting
-          handleClose={handleCloseShowMeeting}
+          handleShowMeeting={handleCloseShowMeeting}
+          handleOpenEditMeeting={handleOpenEditMeeting}
+          calendarId={calendarId}
+          meetingId={meetingId}
+        />
+      </Modal>
+      <Modal
+        open={openEditMeeting}
+        onClose={handleCloseEditMeeting}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <EditMeeting
+          handleClose={handleCloseEditMeeting}
           calendarId={calendarId}
           meetingId={meetingId}
         />
