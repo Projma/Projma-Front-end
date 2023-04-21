@@ -121,8 +121,8 @@ const Poll = () => {
               {contexmenu.is_creator && (
                 <>
                   <Button
-                    onClick={() => {
-                      setIsOpen(true);
+                    onClick={async () => {
+                      apiInstance.patch(`board/poll/${contexmenu.id}/close/`);
                     }}
                     sx={{ color: "#fff", width: "100%", height: "3rem" }}
                   >
