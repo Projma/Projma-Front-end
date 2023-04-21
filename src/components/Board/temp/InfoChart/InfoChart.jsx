@@ -74,11 +74,22 @@ const InfoChart = (props) => {
 
     useEffect(() => {
         apiInstance.get(`/board/chart/${props.boardId}/board-tasklists-activity/`).then((res) => {
-            chartLabel = res.data.chartlable;
-            xLabel = res.data.xlabel;
-            yLabel = res.data.ylabel;
-            xData = res.data.xdata;
-            yData = res.data.ydata;
+            var chartLabel = res.data.chartlabel;
+            var xLabel = res.data.xlabel;
+            var yLabel = res.data.ylabel;
+            var xData = res.data.xdata;
+            var yData = res.data.ydata;
+            var estimates = yData[0]["estimates"]
+            var dons = yData[1]["dons"]
+            var out_of_estimates = yData[2]["out_of_estimates"]
+            console.log("######")
+            console.log(chartLabel)
+            console.log(xLabel)
+            console.log(yLabel)
+            console.log(xData)
+            console.log(yData)
+            console.log(estimates)
+            console.log(dons)
 
             // setChartInfo(res.data);
             
@@ -94,6 +105,7 @@ const InfoChart = (props) => {
 
 
         }).catch((err) => {
+            console.log("#####")
             console.log(err);
         });
 
@@ -101,11 +113,20 @@ const InfoChart = (props) => {
 
     useEffect(() => {
         apiInstance.get(`/board/chart/${props.boardId}/board-members-activity/`).then((res) => {
-            chartLabel = res.data.chartlable;
-            xLabel = res.data.xlabel;
-            yLabel = res.data.ylabel;
-            xData = res.data.xdata;
-            yData = res.data.ydata;
+            var chartLabel = res.data.chartlabel;
+            var xLabel = res.data.xlabel;
+            var yLabel = res.data.ylabel;
+            var xData = res.data.xdata;
+            var yData = res.data.ydata;
+            var estimates = yData[0]["estimates"]
+            var dons = yData[1]["dons"]
+            var out_of_estimates = yData[2]["out_of_estimates"]
+            console.log("****")
+            console.log(chartLabel)
+            console.log(xLabel)
+            console.log(yLabel)
+            console.log(xData)
+            console.log(yData)
 
             // setChartInfo(res.data);
             
