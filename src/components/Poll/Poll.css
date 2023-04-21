@@ -38,3 +38,20 @@
   right: 1%;
   bottom: 0;
 }
+
+.poll_option {
+  background-color: #001e3c55;
+  width: 15rem;
+  display: flex;
+  flex-flow: column;
+  gap: 0.5rem;
+}
+
+.poll_option-in-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1.3rem !important;
+  width: 100%;
+  gap: 1rem;
+}
