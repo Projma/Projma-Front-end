@@ -79,6 +79,7 @@ export default function CheckList({ params, setAllChecklists }) {
       <Button
         className="taskmodal-smaller-button-inner"
         aria-describedby={id}
+        role="open_checklist"
         variant="contained"
         onClick={handleClick}
         sx={{
