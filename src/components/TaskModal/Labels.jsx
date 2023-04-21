@@ -119,12 +119,7 @@ export default function Labels({ params, task_labels, set_task_labels }) {
     ////console.log("task labels");
   };
   const change_label_checked = (label_id) => {
-    ////console.log("change label checked");
-    ////console.log(label_id);
-    ////console.log(task_labels);
-    ////console.log(boardLabels);
     const label = allLabels.find((label) => label.id === label_id);
-    ////console.log(label);
     if (label.checked) {
       delete_label_from_task(label_id);
     } else {

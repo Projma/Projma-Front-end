@@ -15,6 +15,7 @@ const ShowListOfLabels = ({
             <div className="tm_labels-li-div">
               <input
                 type="checkbox"
+                id={label.id}
                 className="tm_labels-li-div-input"
                 checked={label.checked}
                 onChange={(e) => {
@@ -27,6 +28,7 @@ const ShowListOfLabels = ({
                   style={{ backgroundColor: label.color + "55" }}
                 >
                   <div
+                    role="color_box"
                     className="tm_labels-labels-symbol"
                     style={{ backgroundColor: label.color }}
                   ></div>
