@@ -6,16 +6,18 @@ import AnonymousVoter from "./Content/AnonymousVoter";
 import SingleVote from "./Content/SingleVote";
 import MultiVote from "./Content/MultiVote";
 import { HowToRegOutlined } from "@mui/icons-material";
+import useBoard from "../../hooks/useBoard";
+import KnownVoter from "./Content/KnownVoter";
 
 const PollView = ({Multi, question, isOpen, Anonymous, pollId}) => {
-
+  const {member} = useBoard();
   return (
     <div className="poll_pollview-container">
       <div className="poll_pollview-label">
         <Typography>{question}</Typography>
       </div>
       <div className="poll_pollview-attendents">
-        <AnonymousVoter />
+        {!Anonymous ? <AnonymousVoter /> : <KnownVoter voters={member}/>}
       </div>
       <div className="poll_pollview-options">
         {Multi ? <MultiVote op={["Yes","No"]} /> : <SingleVote op={["Yes","No"]} />}
