@@ -24,7 +24,7 @@ const Poll = () => {
   const openPopover = Boolean(anchorEl);
   const [openPolls, setOpenPolls] = useState(undefined);
   const [closePolls, setClosePolls] = useState(undefined);
-  const [isCreator, setIsCreator] = useState(false);
+  const [contexmenu, setContexmenu] = useState({});
   const openAddPoll = () => {
     setOpen(true);
   };
@@ -32,11 +32,11 @@ const Poll = () => {
     setOpen(false);
   };
 
-  const handlClick = (e,isCreator) => {
+  const handlClick = (e,contexmenu) => {
     e.preventDefault();
     if (e.type === "contextmenu") {
       console.log("Right click");
-      setIsCreator(isCreator);
+      setContexmenu(contexmenu);
       optionClickHandler(e);
     }
   };
@@ -118,7 +118,7 @@ const Poll = () => {
                   <div>برداشتن رای</div>
                 </div>
               </Button>
-              {isCreator && (
+              {contexmenu.is_creator && (
                 <>
                   <Button
                     onClick={() => {
@@ -134,8 +134,8 @@ const Poll = () => {
                     </div>
                   </Button>
                   <Button
-                    onClick={() => {
-                      setIsOpen(true);
+                    onClick={async () => {
+                      apiInstance.delete(`board/poll/${contexmenu.id}/`);
                     }}
                     sx={{ color: "#fff", width: "100%", height: "3rem" }}
                   >
@@ -157,7 +157,7 @@ const Poll = () => {
           {polls.map((x) => {
             if (x.is_open) {
               return (
-                <div onContextMenu={(event) => handlClick(event, true)}>
+                <div onContextMenu={(event) => handlClick(event, x)}>
                   <PollView
                     pollId={x.id}
                     Multi={x.is_multianswer}
