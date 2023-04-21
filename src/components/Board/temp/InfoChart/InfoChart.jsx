@@ -74,22 +74,22 @@ const InfoChart = (props) => {
 
     useEffect(() => {
         apiInstance.get(`/board/chart/${props.boardId}/board-tasklists-activity/`).then((res) => {
-            var chartLabel = res.data.chartlabel;
-            var xLabel = res.data.xlabel;
-            var yLabel = res.data.ylabel;
-            var xData = res.data.xdata;
+            var chartLabel = res.data.chartlabel; // نتایج فعالیت ها
+            var xLabel = res.data.xlabel; // لیست فعالیت ها
+            var yLabel = res.data.ylabel; // فعالیت
+            var xData = res.data.xdata; // [tasklist1, tasklist2]
             var yData = res.data.ydata;
-            var estimates = yData[0]["estimates"]
-            var dons = yData[1]["dons"]
-            var out_of_estimates = yData[2]["out_of_estimates"]
-            console.log("######")
-            console.log(chartLabel)
-            console.log(xLabel)
-            console.log(yLabel)
-            console.log(xData)
-            console.log(yData)
-            console.log(estimates)
-            console.log(dons)
+            var estimates = yData[0]["estimates"] // [0, 2.5]
+            var dons = yData[1]["dons"] // [0, 2.5]
+            var out_of_estimates = yData[2]["out_of_estimates"] // [0, 2.5]
+            // console.log("######")
+            // console.log(chartLabel)
+            // console.log(xLabel)
+            // console.log(yLabel)
+            // console.log(xData)
+            // console.log(yData)
+            // console.log(estimates)
+            // console.log(dons)
 
             // setChartInfo(res.data);
             
@@ -113,20 +113,20 @@ const InfoChart = (props) => {
 
     useEffect(() => {
         apiInstance.get(`/board/chart/${props.boardId}/board-members-activity/`).then((res) => {
-            var chartLabel = res.data.chartlabel;
-            var xLabel = res.data.xlabel;
-            var yLabel = res.data.ylabel;
-            var xData = res.data.xdata;
+            var chartLabel = res.data.chartlabel; // فعالیت اعضا
+            var xLabel = res.data.xlabel; // فرد
+            var yLabel = res.data.ylabel; // فعالیت
+            var xData = res.data.xdata; // ['ali', 'mmd']
             var yData = res.data.ydata;
-            var estimates = yData[0]["estimates"]
-            var dons = yData[1]["dons"]
-            var out_of_estimates = yData[2]["out_of_estimates"]
-            console.log("****")
-            console.log(chartLabel)
-            console.log(xLabel)
-            console.log(yLabel)
-            console.log(xData)
-            console.log(yData)
+            var estimates = yData[0]["estimates"] // [0, 2.5]
+            var dons = yData[1]["dons"] // [0, 2.5]
+            var out_of_estimates = yData[2]["out_of_estimates"] // [0, 2.5]
+            // console.log("****")
+            // console.log(chartLabel)
+            // console.log(xLabel)
+            // console.log(yLabel)
+            // console.log(xData)
+            // console.log(yData)
 
             // setChartInfo(res.data);
             
