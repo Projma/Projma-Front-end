@@ -1,20 +1,30 @@
 import "./Poll.css";
 import AddPoll from "./AddPoll/AddPoll";
 import PollView from "./PollView";
-import {Button, Fab, Modal, Popover} from "@mui/material";
+import { Button, Fab, Modal, Popover } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import apiInstance from "../../utilities/axiosConfig";
+import {
+  DeleteOutline,
+  RemoveCircleOutlineOutlined,
+  ReplayOutlined,
+} from "@mui/icons-material";
+import { useParams } from "react-router-dom";
 import useBoard from "../../hooks/useBoard";
-import {DeleteOutline, RemoveCircleOutlineOutlined, ReplayOutlined} from "@mui/icons-material";
 
 const Poll = () => {
-  const {boardId, poll, getBoard} = useBoard();
+  const { getBoard } = useBoard();
+  const param = useParams();
   const [open, setOpen] = useState(false);
   const [polls, setPolls] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [render, setRender] = useState(false);
   const openPopover = Boolean(anchorEl);
+  const [openPolls, setOpenPolls] = useState(undefined);
+  const [closePolls, setClosePolls] = useState(undefined);
+  const [isCreator, setIsCreator] = useState(false);
   const openAddPoll = () => {
     setOpen(true);
   };
@@ -22,13 +32,14 @@ const Poll = () => {
     setOpen(false);
   };
 
-  const handlClick = (e) => {
+  const handlClick = (e,isCreator) => {
     e.preventDefault();
-    if (e.type === 'contextmenu') {
-      console.log('Right click');
+    if (e.type === "contextmenu") {
+      console.log("Right click");
+      setIsCreator(isCreator);
       optionClickHandler(e);
     }
-  }
+  };
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -36,29 +47,32 @@ const Poll = () => {
     setAnchorEl(null);
   };
   const optionClickHandler = (event) => {
-    console.log("fusda");
+    console.log("fusda", event.currentTarget);
     setAnchorEl(event.currentTarget);
   };
 
   useEffect(() => {
-    getBoard();
-  }, [getBoard]);
-
-  useEffect(() => {
     const getPoll = async (id) => {
       await apiInstance.get(`board/poll/${id}/`).then((res) => {
-        setPolls([...polls, res.data]);
-        console.log("asdada", res);
+        setPolls((perv) => [...perv, res.data]);
       });
     };
-    poll.forEach((x) => {
-      getPoll(x);
-    });
+    const getPolls = async () => {
+      await apiInstance
+        .get(`board/${param.boardId}/get-board-overview/`)
+        .then((response) => {
+          response.data.polls.forEach((x) => {
+            getPoll(x);
+          });
+          console.log("logs", response.data.polls);
+        });
+    };
+    getBoard();
+    getPolls();
     return () => {
       setPolls([]);
     };
-  }, [poll]);
-
+  }, []);
   return (
     <div className="poll_container">
       <Modal
@@ -67,7 +81,7 @@ const Poll = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <AddPoll handleClose={closeAddPoll}/>
+        <AddPoll handleClose={closeAddPoll} />
       </Modal>
       <div onContextMenu={(e) => e.preventDefault()}>
         <Popover
@@ -76,17 +90,17 @@ const Poll = () => {
           anchorEl={anchorEl}
           onClose={handleOption}
           anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
+            vertical: "top",
+            horizontal: "left",
           }}
           transformOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
+            vertical: "top",
+            horizontal: "left",
           }}
           sx={{
             [".MuiPopover-paper"]: {
               backgroundColor: "#001e3c55",
-            }
+            },
           }}
         >
           <div className="poll_option">
@@ -95,35 +109,45 @@ const Poll = () => {
                 onClick={() => {
                   setIsOpen(true);
                 }}
-                sx={{color: "#fff", width: "100%", height: "3rem"}}
+                sx={{ color: "#fff", width: "100%", height: "3rem" }}
               >
                 <div className="poll_option-in-button">
-                  <ReplayOutlined  sx={{fill:"#1976d2", fontSize: "1.5rem"}}/>
+                  <ReplayOutlined
+                    sx={{ fill: "#1976d2", fontSize: "1.5rem" }}
+                  />
                   <div>برداشتن رای</div>
                 </div>
               </Button>
-              <Button
-                onClick={() => {
-                  setIsOpen(true);
-                }}
-                sx={{color: "#fff", width: "100%", height: "3rem"}}
-              >
-                <div className="poll_option-in-button">
-                  <RemoveCircleOutlineOutlined sx={{fill:"#1976d2", fontSize: "1.5rem"}}/>
-                  <div>اتمام رای گیری</div>
-                </div>
-              </Button>
-              <Button
-              onClick={() => {
-                setIsOpen(true);
-              }}
-              sx={{color: "#fff", width: "100%", height: "3rem"}}
-            >
-              <div className="poll_option-in-button">
-                <DeleteOutline  sx={{fill:"#1976d2", fontSize: "1.5rem"}}/>
-                <div>پاک کردن رای گیری</div>
-              </div>
-            </Button>
+              {isCreator && (
+                <>
+                  <Button
+                    onClick={() => {
+                      setIsOpen(true);
+                    }}
+                    sx={{ color: "#fff", width: "100%", height: "3rem" }}
+                  >
+                    <div className="poll_option-in-button">
+                      <RemoveCircleOutlineOutlined
+                        sx={{ fill: "#1976d2", fontSize: "1.5rem" }}
+                      />
+                      <div>اتمام رای گیری</div>
+                    </div>
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setIsOpen(true);
+                    }}
+                    sx={{ color: "#fff", width: "100%", height: "3rem" }}
+                  >
+                    <div className="poll_option-in-button">
+                      <DeleteOutline
+                        sx={{ fill: "#1976d2", fontSize: "1.5rem" }}
+                      />
+                      <div>پاک کردن رای گیری</div>
+                    </div>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </Popover>
@@ -132,15 +156,15 @@ const Poll = () => {
         <div className="poll_open">
           {polls.map((x) => {
             if (x.is_open) {
-              console.log(poll);
               return (
-                <div onContextMenu={handlClick}>
+                <div onContextMenu={(event) => handlClick(event, true)}>
                   <PollView
                     pollId={x.id}
                     Multi={x.is_multianswer}
                     Anonymous={x.is_known}
                     isOpen
                     question={x.question}
+                    key={crypto.randomUUID()}
                   />
                 </div>
               );
@@ -158,6 +182,7 @@ const Poll = () => {
                   Anonymous={x.is_known}
                   isOpen={false}
                   question={x.question}
+                  key={crypto.randomUUID()}
                 />
               );
             }
@@ -167,7 +192,7 @@ const Poll = () => {
       </div>
       <div className="poll_button">
         <Fab color="primary" aria-label="add" onClick={openAddPoll}>
-          <AddIcon/>
+          <AddIcon />
         </Fab>
       </div>
     </div>
