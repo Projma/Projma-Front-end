@@ -71,247 +71,65 @@ const InfoChart = (props) => {
     const [yaxis, setYaxis] = useState([]);
     const [data, setData] = useState({});
     const [data2, setData2] = useState({});
-    const [data3, setData3] = useState({});
 
     useEffect(() => {
-        apiInstance.get(`/workspaces/chart/board-members-assign-tasks/${props.boardId}/`).then((res) => {
-            // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
-            // ////console.log(res.data);
-            setChartInfo(res.data);
-            // {
-            //     "chartlabel": "تعداد کار واگذار شده به هر فرد",
-            //     "xlabel": "فرد",
-            //     "ylabel": "تعداد",
-            //     "xdata": [
-            //       [
-            //         "superuser",
-            //         "تمام کار ها"
-            //       ]
-            //     ],
-            //     "ydata": [
-            //       [
-            //         0,
-            //         0
-            //       ]
-            //     ]
-            //   }
-            // [
-            //     [
-            //       "mohammad",
-            //       "تمام کار ها"
-            //     ],
-            //     [
-            //       null,
-            //       "تمام کار ها"
-            //     ],
-            //     [
-            //       "navid",
-            //       "تمام کار ها"
-            //     ],
-            //     [
-            //       "string",
-            //       "تمام کار ها"
-            //     ]
-            //   ]
-            var xaxix = [];
-            var yaxix = [];
-            res.data.xdata.map((item) => {
-                xaxix.push(item[0] ? item[0] : "بدون نام کاربری");
-            });
-            setXaxis(xaxix);
-            res.data.ydata.map((item) => {
-                yaxix.push(item[0]);
-            });
-            setYaxis(yaxix);
-            setData2({
-                options: {},
-                series: yaxix,
-                // labels: ['A', 'B', 'C', 'D', 'E']
-                labels: xaxix
-            });
-            xaxix.push(res.data.xdata[0][1] ? res.data.xdata[0][1] : "بدون نام کاربری");
-            yaxix.push(res.data.ydata[0][1]);
-            // //console.log(res.data);
-            //console.log("-----------------------");
-            //console.log(xaxix);
-            //console.log(yaxix);
-            setData({
-                options: {
-                    chart: {
-                        id: "basic-bar",
-                    },
-                    xaxis: {
-                        // categories: xaxis,
-                        categories: xaxix,
-                    },
-                    style: {
-                        fontFamily: "Vazir",
-                    },
-                },
-                series: [
-                    {
-                        // name: "series-1",
-                        name: chartInfo.ylabel,
-                        // data: [30, 40, 45, 50, 49, 60, 70, 91]
-                        // data: chartInfo.ydata
-                        // data: yaxis
-                        // data: [
-                        //     1,
-                        //     0,
-                        //     1,
-                        //     2,
-                        //     3
-                        //   ]
-                        data: yaxix
-                    }
-                ]
-            })
+        apiInstance.get(`/board/chart/${1}/board-members-activity/`).then((res) => {
+            // setChartInfo(res.data);
+            
+            // var xaxix = [];
+            // var yaxix = [];
+            // res.data.xdata.map((item) => {
+            //     xaxix.push(item[0] ? item[0] : "بدون نام کاربری");
+            // });
+            // setXaxis(xaxix);
+            // res.data.ydata.map((item) => {
+            //     yaxix.push(item[0]);
+            // });
+            // setYaxis(yaxix);
+            // setData2({
+            //     options: {},
+            //     series: yaxix,
+            //     // labels: ['A', 'B', 'C', 'D', 'E']
+            //     labels: xaxix
+            // });
 
-            setData3({
-                options: {
-                    chart: {
-                        type: "area",
-                        height: 300,
-                        foreColor: "#999",
-                        stacked: true,
-                        dropShadow: {
-                            enabled: true,
-                            enabledSeries: [0],
-                            top: -2,
-                            left: 2,
-                            blur: 5,
-                            opacity: 0.06
-                        }
-                    },
-                    colors: ['#00E396', '#0090FF'],
-                    stroke: {
-                        curve: "smooth",
-                        width: 3
-                    },
-                    dataLabels: {
-                        enabled: false
-                    },
-                    series: [{
-                        name: 'Total Views',
-                        data: generateDayWiseTimeSeries(0, 18)
-                    }, {
-                        name: 'Unique Views',
-                        data: generateDayWiseTimeSeries(1, 18)
-                    }],
-                    markers: {
-                        size: 0,
-                        strokeColor: "#fff",
-                        strokeWidth: 3,
-                        strokeOpacity: 1,
-                        fillOpacity: 1,
-                        hover: {
-                            size: 6
-                        }
-                    },
-                    xaxis: {
-                        type: "datetime",
-                        axisBorder: {
-                            show: false
-                        },
-                        axisTicks: {
-                            show: false
-                        }
-                    },
-                    yaxis: {
-                        labels: {
-                            offsetX: 14,
-                            offsetY: -5
-                        },
-                        tooltip: {
-                            enabled: true
-                        }
-                    },
-                    grid: {
-                        padding: {
-                            left: -5,
-                            right: 5
-                        }
-                    },
-                    tooltip: {
-                        x: {
-                            format: "dd MMM yyyy"
-                        },
-                    },
-                    legend: {
-                        position: 'top',
-                        horizontalAlign: 'left'
-                    },
-                    fill: {
-                        type: "solid",
-                        fillOpacity: 0.7
-                    }
-                },
-                series: [{
-                    name: 'Total Views',
-                    data: generateDayWiseTimeSeries(0, 18)
-                }, {
-                    name: 'Unique Views',
-                    data: generateDayWiseTimeSeries(1, 18)
-                }]
-            })
 
-            xaxix.push(res.data.xdata[0][1] ? res.data.xdata[0][1] : "بدون نام کاربری");
-            yaxix.push(res.data.ydata[0][1]);
-            // console.log(res.data);
-            // console.log("-----------------------");
-            // console.log(xaxix);
-            // console.log(yaxix);
-            setData({
-                options: {
-                    chart: {
-                        id: "basic-bar",
-                    },
-                    xaxis: {
-                        // categories: xaxis,
-                        categories: xaxix,
-                    },
-                    style: {
-                        fontFamily: "Vazir",
-                    },
-                },
-                series: [
-                    {
-                        // name: "series-1",
-                        name: chartInfo.ylabel,
-                        // data: [30, 40, 45, 50, 49, 60, 70, 91]
-                        // data: chartInfo.ydata
-                        // data: yaxis
-                        // data: [
-                        //     1,
-                        //     0,
-                        //     1,
-                        //     2,
-                        //     3
-                        //   ]
-                        data: yaxix
-                    }
-                ]
-            })
+            // setData({
+            //     options: {
+            //         chart: {
+            //             id: "basic-bar",
+            //         },
+            //         xaxis: {
+            //             // categories: xaxis,
+            //             categories: xaxix,
+            //         },
+            //         style: {
+            //             fontFamily: "Vazir",
+            //         },
+            //     },
+            //     series: [
+            //         {
+            //             // name: "series-1",
+            //             name: chartInfo.ylabel,
+            //             // data: [30, 40, 45, 50, 49, 60, 70, 91]
+            //             // data: chartInfo.ydata
+            //             // data: yaxis
+            //             // data: [
+            //             //     1,
+            //             //     0,
+            //             //     1,
+            //             //     2,
+            //             //     3
+            //             //   ]
+            //             data: yaxix
+            //         }
+            //     ]
+            // })
 
 
         }).catch((err) => {
-            ////console.log(err);
+            console.log(err);
         });
-
-        // apiInstance.get(`/workspaces/chart/my-assign-tasks-for-all-boards${user_id}/`).then((res) => {
-        //     // apiInstance.get(`/workspaces/board/${2}/members/`).then((res) => {
-        //     // ////console.log(res.data);
-        //     setMembers(res.data);
-        // {
-        //     "chartlabel": "تعداد فعالیت من برای هر برد",
-        //     "xlabel": "برد",
-        //     "ylabel": "تعداد",
-        //     "xdata": [],
-        //     "ydata": []
-        //   }
-        // }).catch((err) => {
-        //     ////console.log(err);
-        // });
 
     }, []);
 
@@ -387,7 +205,7 @@ const InfoChart = (props) => {
                                 color: "black",
                             }}
                         >
-                            <div className="chart" dir="ltr">
+                            {/* <div className="chart" dir="ltr">
                                 <div className="timeline-chart">
                                     <Chart
                                         options={data.options}
@@ -398,7 +216,7 @@ const InfoChart = (props) => {
                                     // width="100%"
                                     />
                                 </div>
-                            </div>
+                            </div> */}
                         </Box>
                         <Box
                             sx={{
@@ -414,11 +232,11 @@ const InfoChart = (props) => {
                                 color: "black",
                             }}
                         >
-                            <div className="chart donut" dir="ltr">
+                            {/* <div className="chart donut" dir="ltr">
                                 <div className="timeline-chart">
                                     <Chart options={data2.options} series={data2.series} type="donut" width="380" />
                                 </div>
-                            </div>
+                            </div> */}
 
                         </Box>
                         <Box
@@ -438,16 +256,6 @@ const InfoChart = (props) => {
                             }}
 
                         >
-                            <div className="chart" dir="ltr">
-                                <div className="timeline-chart">
-                                    <Chart
-                                        options={data3.options}
-                                        series={data3.series}
-                                        type="area"
-                                        width="500"
-                                    />
-                                </div>
-                            </div>
                         </Box>
                     </Box>
                 </Fade>
@@ -476,40 +284,4 @@ function generateDayWiseTimeSeries(s, count) {
         i++;
     }
     return series;
-}
-
-function stringToColor(string) {
-    let hash = 0;
-    let i;
-
-    /* eslint-disable no-bitwise */
-    for (i = 0; i < string.length; i += 1) {
-        hash = string.charCodeAt(i) + ((hash << 5) - hash);
-    }
-
-    let color = "#";
-
-    for (i = 0; i < 3; i += 1) {
-        const value = (hash >> (i * 8)) & 0xff;
-        color += `00${value.toString(16)}`.slice(-2);
-    }
-    /* eslint-enable no-bitwise */
-
-    return color;
-}
-
-function stringAvatar(name) {
-    return {
-        sx: {
-            bgcolor: stringToColor(name),
-            width: 56,
-            height: 56,
-        },
-        children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
-    };
-    // return {
-    //     children: `${name.split(" ")[0][0].toUpperCase()}${name
-    //         .split(" ")[1][0]
-    //         .toUpperCase()}`,
-    // };
 }
