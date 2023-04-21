@@ -73,7 +73,40 @@ const InfoChart = (props) => {
     const [data2, setData2] = useState({});
 
     useEffect(() => {
-        apiInstance.get(`/board/chart/${1}/board-members-activity/`).then((res) => {
+        apiInstance.get(`/board/chart/${props.boardId}/board-tasklists-activity/`).then((res) => {
+            chartLabel = res.data.chartlable;
+            xLabel = res.data.xlabel;
+            yLabel = res.data.ylabel;
+            xData = res.data.xdata;
+            yData = res.data.ydata;
+
+            // setChartInfo(res.data);
+            
+            // var xaxix = [];
+            // var yaxix = [];
+            // res.data.xdata.map((item) => {
+            //     xaxix.push(item[0] ? item[0] : "بدون نام کاربری");
+            // });
+            // setXaxis(xaxix);
+            // res.data.ydata.map((item) => {
+            //     yaxix.push(item[0]);
+            // });
+
+
+        }).catch((err) => {
+            console.log(err);
+        });
+
+    }, []);
+
+    useEffect(() => {
+        apiInstance.get(`/board/chart/${props.boardId}/board-members-activity/`).then((res) => {
+            chartLabel = res.data.chartlable;
+            xLabel = res.data.xlabel;
+            yLabel = res.data.ylabel;
+            xData = res.data.xdata;
+            yData = res.data.ydata;
+
             // setChartInfo(res.data);
             
             // var xaxix = [];
@@ -86,52 +119,79 @@ const InfoChart = (props) => {
             //     yaxix.push(item[0]);
             // });
             // setYaxis(yaxix);
-            // setData2({
-            //     options: {},
-            //     series: yaxix,
-            //     // labels: ['A', 'B', 'C', 'D', 'E']
-            //     labels: xaxix
-            // });
-
-
-            // setData({
-            //     options: {
-            //         chart: {
-            //             id: "basic-bar",
-            //         },
-            //         xaxis: {
-            //             // categories: xaxis,
-            //             categories: xaxix,
-            //         },
-            //         style: {
-            //             fontFamily: "Vazir",
-            //         },
-            //     },
-            //     series: [
-            //         {
-            //             // name: "series-1",
-            //             name: chartInfo.ylabel,
-            //             // data: [30, 40, 45, 50, 49, 60, 70, 91]
-            //             // data: chartInfo.ydata
-            //             // data: yaxis
-            //             // data: [
-            //             //     1,
-            //             //     0,
-            //             //     1,
-            //             //     2,
-            //             //     3
-            //             //   ]
-            //             data: yaxix
-            //         }
-            //     ]
-            // })
-
 
         }).catch((err) => {
             console.log(err);
         });
 
     }, []);
+
+    // useEffect(() => {
+    //     apiInstance.get(`/board/chart/${1}/board-members-activity/`).then((res) => {
+    //         chartLabel = res.data.chartlable;
+    //         xLabel = res.data.xlabel;
+    //         yLabel = res.data.ylabel;
+    //         xData = res.data.xdata;
+    //         yData = res.data.ydata;
+
+    //         // setChartInfo(res.data);
+            
+    //         // var xaxix = [];
+    //         // var yaxix = [];
+    //         // res.data.xdata.map((item) => {
+    //         //     xaxix.push(item[0] ? item[0] : "بدون نام کاربری");
+    //         // });
+    //         // setXaxis(xaxix);
+    //         // res.data.ydata.map((item) => {
+    //         //     yaxix.push(item[0]);
+    //         // });
+    //         // setYaxis(yaxix);
+    //         // setData2({
+    //         //     options: {},
+    //         //     series: yaxix,
+    //         //     // labels: ['A', 'B', 'C', 'D', 'E']
+    //         //     labels: xaxix
+    //         // });
+
+
+    //         // setData({
+    //         //     options: {
+    //         //         chart: {
+    //         //             id: "basic-bar",
+    //         //         },
+    //         //         xaxis: {
+    //         //             // categories: xaxis,
+    //         //             categories: xaxix,
+    //         //         },
+    //         //         style: {
+    //         //             fontFamily: "Vazir",
+    //         //         },
+    //         //     },
+    //         //     series: [
+    //         //         {
+    //         //             // name: "series-1",
+    //         //             name: chartInfo.ylabel,
+    //         //             // data: [30, 40, 45, 50, 49, 60, 70, 91]
+    //         //             // data: chartInfo.ydata
+    //         //             // data: yaxis
+    //         //             // data: [
+    //         //             //     1,
+    //         //             //     0,
+    //         //             //     1,
+    //         //             //     2,
+    //         //             //     3
+    //         //             //   ]
+    //         //             data: yaxix
+    //         //         }
+    //         //     ]
+    //         // })
+
+
+    //     }).catch((err) => {
+    //         console.log(err);
+    //     });
+
+    // }, []);
 
     return (
         <>
