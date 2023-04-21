@@ -14,8 +14,10 @@ import React, { useState } from "react";
 import PollOptions from "./PollOptions";
 import AddIcon from "@mui/icons-material/Add";
 import apiInstance from "../../../utilities/axiosConfig";
+import useBoard from "../../../hooks/useBoard";
 
 const AddPoll = ({handleClose}) => {
+  const {boardId} = useBoard();
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState([
     { option: "", id: crypto.randomUUID() },
@@ -57,6 +59,27 @@ const AddPoll = ({handleClose}) => {
       </div>
     ));
   };
+
+  const handleClick = async() => {
+    await apiInstance.post("board/poll/",{
+      "board": boardId,
+      "question": question,
+      "is_open": true,
+      "is_multianswer": state["multiVote"],
+      "is_known": state["is_known"],
+    }).then((res) => {
+      const pollId = res.data.id;
+      options.forEach(x => {
+        if(x.option !== "")
+          apiInstance.post("board/poll-answers/",{
+            "text": x.option,
+            "poll": pollId
+          });
+      });
+      handleClose();
+    });
+  };
+
   return (
     <div className="poll_addpoll-container">
       <div className="poll_addpoll-question poll_default">
@@ -148,7 +171,7 @@ const AddPoll = ({handleClose}) => {
         </FormControl>
       </div>
       <div className="poll_addpoll-button">
-        <Button type="button" variant="contained" >
+        <Button type="button" variant="contained" onClick={handleClick}>
           ایجاد
         </Button>
         <Button type="button" variant="contained" onClick={handleClose}>
