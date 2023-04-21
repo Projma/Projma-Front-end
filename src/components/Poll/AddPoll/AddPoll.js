@@ -66,7 +66,7 @@ const AddPoll = ({handleClose}) => {
       "question": question,
       "is_open": true,
       "is_multianswer": state["multiVote"],
-      "is_known": state["is_known"],
+      "is_known": !state["anonymous"],
     }).then((res) => {
       const pollId = res.data.id;
       options.forEach(x => {
