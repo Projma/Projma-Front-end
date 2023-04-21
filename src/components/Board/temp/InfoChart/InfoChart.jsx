@@ -22,8 +22,6 @@ import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Avatar from "@mui/material/Avatar";
-import AvatarGroup from "@mui/material/AvatarGroup";
 // import Tooltip as muiTooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import { deepOrange, green } from "@mui/material/colors";
 import LinkSharpIcon from "@mui/icons-material/LinkSharp";
@@ -38,8 +36,7 @@ import {
     convertNumberToEnglish,
     convertNumberToPersian,
 } from "../../../../utilities/helpers.js";
-// import React, { Component } from "react";
-import Chart from "react-apexcharts";
+// import Chart from "react-apexcharts";
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const style = {
@@ -77,7 +74,6 @@ const InfoChart = (props) => {
     // const [chartInfo, setChartInfo] = useState({});
     // const [yaxis, setYaxis] = useState([]);
     // const [data2, setData2] = useState({});
-
 
     useEffect(() => {
         apiInstance.get(`/board/chart/${props.boardId}/board-members-activity/`).then((res) => {
@@ -322,6 +318,7 @@ const InfoChart = (props) => {
                                         left: 20,
                                         bottom: 5,
                                     }}
+                                    ref={ref}
                                 // label={"renderLabel"}
                                 >
                                     <CartesianGrid
@@ -331,7 +328,7 @@ const InfoChart = (props) => {
                                     />
                                     <XAxis dataKey="name" label={chart1_xaxis_label} dy={13} />
                                     <YAxis label={chart1_yaxis_label} />
-                                    <Tooltip />
+                                    <Tooltip wrapperStyle={{ backgroundColor: '#000', border: '1px solid #000', borderRadius: 3 }} />
                                     <Legend />
                                     <Bar dataKey="زمان تخمین زده شده" fill="#8884d8" />
                                     <Bar dataKey="زمان انجام شده" fill="#82ca9d" />
@@ -379,7 +376,7 @@ const InfoChart = (props) => {
                                     />
                                     <XAxis dataKey="name" label={chart2_xaxis_label} dy={13} />
                                     <YAxis label={chart2_yaxis_label} />
-                                    <Tooltip />
+                                    <Tooltip wrapperStyle={{ backgroundColor: '#000', border: '1px solid #000', borderRadius: 3 }} />
                                     <Legend />
                                     <Bar dataKey="زمان تخمین زده شده" fill="#8884d8" />
                                     <Bar dataKey="زمان انجام شده" fill="#82ca9d" />
