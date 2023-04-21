@@ -106,8 +106,8 @@ const Poll = () => {
           <div className="poll_option">
             <div className="poll_option-button-container">
               <Button
-                onClick={() => {
-                  setIsOpen(true);
+                onClick={async () => {
+                  apiInstance.delete(`board/poll/${contexmenu.id}/retract-all-votes/`);
                 }}
                 sx={{ color: "#fff", width: "100%", height: "3rem" }}
               >
