@@ -234,7 +234,7 @@ const ShareButton = (props) => {
       apiInstance
         .post(
           "board/" +
-            params.id +
+            params.boardId +
             "/add-user-to-board/" +
             member_id +
             "/"
@@ -249,7 +249,7 @@ const ShareButton = (props) => {
           //console.log("success", res);
           // //console.log(res.data);
           apiInstance
-            .get(`board/${params.id}/members/`)
+            .get(`board/${params.boardId}/members/`)
             .then((res) => {
               setMembers(res.data);
             });

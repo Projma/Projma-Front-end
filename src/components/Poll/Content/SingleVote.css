@@ -45,6 +45,7 @@
 
 .single-vote_result-icon {
   grid-area: single-vote_result-icon;
+  align-self: start;
 }
 
 .single-vote_result-progressbar {

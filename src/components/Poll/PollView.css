@@ -40,5 +40,12 @@
   align-items: center;
   justify-content: center;
   color: #ffffff55;
-  gap: 0.5rem;
+  gap: 0.3rem;
+}
+
+.MuiAvatarGroup-root .MuiAvatarGroup-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1rem;
+
 }

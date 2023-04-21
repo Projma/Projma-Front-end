@@ -1,32 +1,33 @@
-import {Typography} from "@mui/material";
-import HowToVoteIcon from '@mui/icons-material/HowToVote';
+import { Typography } from "@mui/material";
+import HowToVoteIcon from "@mui/icons-material/HowToVote";
 import "./PollView.css";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import AnonymousVoter from "./Content/AnonymousVoter";
 import SingleVote from "./Content/SingleVote";
+import MultiVote from "./Content/MultiVote";
+import { HowToRegOutlined } from "@mui/icons-material";
+import useBoard from "../../hooks/useBoard";
+import KnownVoter from "./Content/KnownVoter";
 
-const PollView = () => {
-  const data = {question: "Are you Gay",options: ["Yes","No"]};
-  const [tVote, setTVote] = useState(0);
-  useEffect(() => {
-  }, [tVote]);
+const PollView = ({Multi, question, isOpen, Anonymous, pollId}) => {
+  const {member} = useBoard();
   return (
     <div className="poll_pollview-container">
       <div className="poll_pollview-label">
-        <Typography>{data.question}</Typography>
+        <Typography>{question}</Typography>
       </div>
       <div className="poll_pollview-attendents">
-        <AnonymousVoter/>
+        {!Anonymous ? <AnonymousVoter /> : <KnownVoter voters={member}/>}
       </div>
       <div className="poll_pollview-options">
-        <SingleVote op={data.options} setTVote={setTVote}/>
+        {Multi ? <MultiVote op={["Yes","No"]} /> : <SingleVote op={["Yes","No"]} />}
       </div>
       <div className="poll_pollview-results">
-        <Typography fontSize="1.1rem">{tVote}</Typography>
-        <HowToVoteIcon sx={{width:"1.5rem",height:"1.5rem"}}/>
+        <Typography fontSize="1.1rem">x</Typography>
+        <HowToRegOutlined sx={{ width: "1.5rem", height: "1.5rem" }} />
       </div>
     </div>
   );
-}
+};
 
 export default PollView;
