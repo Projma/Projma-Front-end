@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 import {
   CalendarMonthOutlined,
   DashboardOutlined,
-  GridViewOutlined,
   MenuOutlined,
   ViewKanbanOutlined,
-  BallotOutlined
+  TaskAltOutlined
 } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 import {
@@ -137,7 +136,7 @@ const BoardSidebar = () => {
             تقویم
           </MenuItem>
           <MenuItem
-            icon={<BallotOutlined />}
+            icon={<TaskAltOutlined/>}
             onClick={() => handleClick(boardId, "poll")}
           >
             نظرسنجی
