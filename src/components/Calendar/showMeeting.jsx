@@ -78,7 +78,7 @@ export default function ShowMeeting({
   React.useEffect(() => {
     setLoading(true);
     apiInstance
-      .get(`/calendar/meeting/${meetingId}/calendar-meetings/`)
+      .get(`/calendar/meeting/${meetingId}/get-meeting/`)
       .then((res) => {
         // console.log(res);
         setEvent(res.data);

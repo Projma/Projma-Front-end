@@ -84,6 +84,14 @@ const Calendar = () => {
     });
   };
 
+  const handleShow = (e) => {
+    if (e.event._def.extendedProps.eventId !== undefined) {
+      handleShowEvent(e);
+    } else {
+      handleShowMeeting(e);
+    }
+  };
+
   useEffect(() => {
     const getEvent = async () => {
       await apiInstance
@@ -110,8 +118,6 @@ const Calendar = () => {
                 };
                 return x;
               });
-              console.log(ev);
-              // console.log(calendarId);
               setEvent(ev);
             });
           apiInstance
@@ -127,18 +133,16 @@ const Calendar = () => {
                   end: x.until_date + "T" + x.end,
                   color: x.color !== "" || x.color !== undefined ? x.color : "",
                   extendedProps: {
-                    eventId: x.id,
+                    meetingId: x.id,
                   },
                 };
                 return x;
               });
-              console.log("dad", ev);
               setMeeting(ev);
             });
         });
     };
     getEvent();
-    console.log(event);
   }, [openAddEvent, openShowEvent, openCreateMeeting, openShowMeeting]);
   return (
     <dir className="calendar--container">
@@ -232,7 +236,7 @@ const Calendar = () => {
             click: handleCreateMeeting,
           },
         }}
-        eventClick={handleShowEvent}
+        eventClick={(e) => handleShow(e)}
       />
     </dir>
   );

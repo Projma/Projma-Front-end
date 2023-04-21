@@ -60,19 +60,6 @@ export default function CreateMeeting({ calendarId, handleClose, showToast }) {
   const createEvent = (event) => {
     setIsPost(true);
     event.preventDefault();
-    // var start_event_time =
-    //   eventDate.$y +
-    //   "-" +
-    //   (eventDate.$M + 1) +
-    //   "-" +
-    //   eventDate.$D +
-    //   "T" +
-    //   eventDate.$H +
-    //   ":" +
-    //   eventDate.$m +
-    //   ":" +
-    //   eventDate.$s +
-    //   "Z";
     var startMeetingTime = startMeetingDate.format("HH:mm:ss");
     var endMeetingTime = endMeetingDate.format("HH:mm:ss");
     var startMeetingDatee = startMeetingDate.format("YYYY-MM-DD");
