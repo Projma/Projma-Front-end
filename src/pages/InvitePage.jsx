@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
 import apiInstance from "../utilities/axiosConfig";
 
@@ -18,7 +18,7 @@ const InvitePage = () => {
     ////console.log(params.token);
     try {
       apiInstance
-        .get(`workspaces/workspaces/join-to-workspace/${params.token}/`)
+        .get(`workspaces/join-to-workspace/${params.token}/`)
         .then((res) => {
           ////console.log("there");
           ////console.log(res.data);
