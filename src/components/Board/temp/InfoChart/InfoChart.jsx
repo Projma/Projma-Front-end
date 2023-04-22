@@ -11,6 +11,7 @@ import Fade from "@mui/material/Fade";
 import ClearTwoToneIcon from "@mui/icons-material/ClearTwoTone";
 // chart icon
 import { AddchartTwoTone } from "@mui/icons-material";
+import { Divider } from "@mui/material";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
@@ -66,11 +67,15 @@ const InfoChart = (props) => {
     const [chart1_label, setChart1_label] = useState('');
     const [chart1_xaxis_label, setChart1_xaxis_label] = useState('');
     const [chart1_yaxis_label, setChart1_yaxis_label] = useState('');
+    const [data_chart1, setData_chart1] = useState([]);
     const [chart2_label, setChart2_label] = useState('');
     const [chart2_xaxis_label, setChart2_xaxis_label] = useState('');
     const [chart2_yaxis_label, setChart2_yaxis_label] = useState('');
-    const [data_chart1, setData_chart1] = useState([]);
     const [data_chart2, setData_chart2] = useState([]);
+    const [chart3_label, setChart3_label] = useState('');
+    const [chart3_xaxis_label, setChart3_xaxis_label] = useState('');
+    const [chart3_yaxis_label, setChart3_yaxis_label] = useState('');
+    const [data_chart3, setData_chart3] = useState([]);
     // const [chartInfo, setChartInfo] = useState({});
     // const [yaxis, setYaxis] = useState([]);
     // const [data2, setData2] = useState({});
@@ -140,6 +145,35 @@ const InfoChart = (props) => {
                 tmp.push(element)
             }
             setData_chart2(tmp)
+
+        }).catch((err) => {
+            console.log(err);
+        });
+
+    }, []);
+
+    useEffect(() => {
+        apiInstance.get(`/board/chart/${props.boardId}/board-label-activity/`).then((res) => {
+            var chartLabel = res.data.chartlabel; // میزان فعالیت برحسب برچسب
+            var xLabel = res.data.xlabel; // برچسب
+            var yLabel = res.data.ylabel; // تعداد ساعات تسک ها
+            var xData = res.data.xdata; // [label1, label2]
+            var yData = res.data.ydata; // [3, 2.5]
+            setChart3_label(chartLabel)
+            setChart3_xaxis_label(xLabel)
+            setChart3_yaxis_label(yLabel)
+
+            var tmp = []
+            for (let index = 0; index < xData.length; index++) {
+                const label = xData[index];
+                const hour = yData[index];
+                var element = {
+                    name: label,
+                    "زمان اختصاص داده شده به برچسب": hour,
+                }
+                tmp.push(element)
+            }
+            setData_chart3(tmp)
 
         }).catch((err) => {
             console.log(err);
@@ -318,7 +352,6 @@ const InfoChart = (props) => {
                                         left: 20,
                                         bottom: 5,
                                     }}
-                                    ref={ref}
                                 // label={"renderLabel"}
                                 >
                                     <CartesianGrid
@@ -335,6 +368,7 @@ const InfoChart = (props) => {
                                     <Bar dataKey="خارج از زمان تخمین" fill="#ffc658" />
                                 </BarChart>
                             </Box>
+                            <Divider sx={{ width: "100%", marginTop: "5%", bgcolor: "#0059B2" }} />
                             <Typography
                                 id="spring-modal-title"
                                 variant="h6"
@@ -381,6 +415,54 @@ const InfoChart = (props) => {
                                     <Bar dataKey="زمان تخمین زده شده" fill="#8884d8" />
                                     <Bar dataKey="زمان انجام شده" fill="#82ca9d" />
                                     <Bar dataKey="خارج از زمان تخمین" fill="#ffc658" />
+                                </BarChart>
+
+                            </Box>
+                            <Divider sx={{ width: "100%", marginTop: "5%", bgcolor: "#0059B2" }} />
+                            <Typography
+                                id="spring-modal-title"
+                                variant="h6"
+                                component="h2"
+                                sx={{ color: "black", marginBottom: "2%", marginRight: "2%", marginTop: "5%" }}
+                            >
+                                {chart3_label}
+                            </Typography>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    // marginBottom: "0%",
+                                    // marginTop: "2%",
+                                    marginRight: "2%",
+                                    // marginLeft: "2%",
+                                    // backgroundColor: "white",
+                                    color: "black",
+                                }}
+                            >
+                                <BarChart
+                                    width={900}
+                                    height={500}
+                                    data={data_chart3}
+                                    margin={{
+                                        top: 5,
+                                        right: 30,
+                                        left: 20,
+                                        bottom: 5,
+                                    }}
+                                // label={"renderLabel"}
+                                >
+                                    <CartesianGrid
+                                        strokeDasharray="3 3"
+                                        stroke="#000000"
+                                    // fill="#000000"
+                                    />
+                                    <XAxis dataKey="name" label={chart3_xaxis_label} dy={13} />
+                                    <YAxis label={chart3_yaxis_label} />
+                                    <Tooltip wrapperStyle={{ backgroundColor: '#000', border: '1px solid #000', borderRadius: 3 }} />
+                                    <Legend />
+                                    <Bar dataKey="زمان اختصاص داده شده به برچسب" fill="#8884d8" />
                                 </BarChart>
 
                             </Box>
