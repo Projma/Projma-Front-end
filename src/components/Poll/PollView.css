@@ -34,7 +34,7 @@
   overflow: auto;
 }
 
-.poll_pollview-results {
+.poll_pollview-results-anonymous {
   display: flex;
   width: 100%;
   align-items: center;
@@ -43,9 +43,16 @@
   gap: 0.3rem;
 }
 
+.poll_pollview-results-known {
+  width: 100%;
+  /*margin: 0.5rem 0.5rem;*/
+  /*display: flex;*/
+  /*align-items: center;*/
+  /*justify-content: center;*/
+}
+
 .MuiAvatarGroup-root .MuiAvatarGroup-avatar {
   width: 2.5rem;
   height: 2.5rem;
-  font-size: 1rem;
-
+  font-size: 1.3rem !important;
 }
