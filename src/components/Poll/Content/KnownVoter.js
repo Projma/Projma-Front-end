@@ -1,9 +1,10 @@
 import AvatarGroup from '@mui/material/AvatarGroup';
 import Tooltip from '@mui/material/Tooltip';
 import Avatar from '@mui/material/Avatar';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import apiInstance from '../../../utilities/axiosConfig';
 import {useParams} from 'react-router-dom';
+import {Typography} from '@mui/material';
 
 const KnownVoter = ({voters}) => {
   // const [member, setMember] = useState([]);
@@ -25,31 +26,34 @@ const KnownVoter = ({voters}) => {
           });
           return {first_name: fn, last_name: ln, profile_pic: pp};
         }));
-        // console.log('member', res.data);
+        // console.log('member', voters);
       });
     };
     getMember();
   }, [voters]);
   // console.log(voter,voters);
   return (<>
-    <AvatarGroup
-      max={5}
-      spacing="6"
-      sx={{direction: 'ltr', border: 'none'}}
-      className="card_avatar-container"
-    >
-      {voter.map((x) => (
-        <Tooltip title={x.first_name + ' ' + x.last_name}>
-          <Avatar
-            key={crypto.randomUUID()}
-            alt={x.first_name + ' ' + x.last_name}
-            src={x.profile_pic !== null ? x.profile_pic : 'none'}
-            {...stringAvatar(x.first_name + ' ' + x.last_name)}
-            className="card_avatar-profile-picture"
-          />
-        </Tooltip>
-      ))}
-    </AvatarGroup>
+    {voters.length === 0  ?
+      (<Typography fontSize="1.1rem">رای گیری شناس</Typography>) :
+      <AvatarGroup
+        max={5}
+        spacing="6"
+        sx={{direction: 'ltr', border: 'none'}}
+        className="card_avatar-container"
+      >
+        {voter.map((x) => (
+          <Tooltip title={x.first_name + ' ' + x.last_name}>
+            <Avatar
+              key={crypto.randomUUID()}
+              alt={x.first_name + ' ' + x.last_name}
+              src={x.profile_pic !== null ? x.profile_pic : 'none'}
+              {...stringAvatar(x.first_name + ' ' + x.last_name)}
+              className="card_avatar-profile-picture"
+            />
+          </Tooltip>
+        ))}
+      </AvatarGroup>
+    }
   </>);
 };
 
