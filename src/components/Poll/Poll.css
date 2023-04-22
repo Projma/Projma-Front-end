@@ -43,7 +43,9 @@
 
 .poll_open ,.poll_closed {
   display: flex;
+  flex-flow: column;
   align-items: flex-start;
+  flex-wrap: wrap;
   justify-content: flex-start;
   overflow: auto;
   gap: 1rem;
