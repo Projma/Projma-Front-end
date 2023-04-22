@@ -25,13 +25,17 @@ const Poll = () => {
   const [openPolls, setOpenPolls] = useState(undefined);
   const [closePolls, setClosePolls] = useState(undefined);
   const [contexmenu, setContexmenu] = useState({});
+  const [reRender, setReRender] = useState(false);
   const openAddPoll = () => {
     setOpen(true);
   };
   const closeAddPoll = () => {
     setOpen(false);
+    setReRender(!reRender);
   };
-
+  const handleReRender = () => {
+    setReRender(!reRender);
+  }
   const handlClick = (e, contexmenu) => {
     e.preventDefault();
     if (e.type === "contextmenu") {
@@ -73,7 +77,7 @@ const Poll = () => {
     return () => {
       setPolls([]);
     };
-  }, []);
+  }, [reRender]);
   // console.log('pooool', polls);
   return (
     <div className="poll_container">
@@ -83,7 +87,7 @@ const Poll = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <AddPoll handleClose={closeAddPoll} />
+        <AddPoll closeAddPoll={closeAddPoll} />
       </Modal>
       <div onContextMenu={(e) => e.preventDefault()}>
         <Popover
@@ -107,12 +111,14 @@ const Poll = () => {
         >
           <div className="poll_option">
             <div className="poll_option-button-container">
-              {contexmenu.isOpen && (
+              {contexmenu.is_open && (
                 <Button
                   onClick={async () => {
                     apiInstance.delete(
                       `board/poll/${contexmenu.id}/retract-all-votes/`
                     );
+                    handleOption();
+                    setReRender(!reRender);
                   }}
                   sx={{ color: "#fff", width: "100%", height: "3rem" }}
                 >
@@ -126,10 +132,12 @@ const Poll = () => {
               )}
               {contexmenu.is_creator && (
                 <>
-                  {contexmenu.isOpen && (
+                  {contexmenu.is_open && (
                     <Button
                       onClick={async () => {
                         apiInstance.patch(`board/poll/${contexmenu.id}/close/`);
+                        handleOption();
+                        setReRender(!reRender);
                       }}
                       sx={{ color: "#fff", width: "100%", height: "3rem" }}
                     >
@@ -144,6 +152,8 @@ const Poll = () => {
                   <Button
                     onClick={async () => {
                       apiInstance.delete(`board/poll/${contexmenu.id}/`);
+                      handleOption();
+                      setReRender(!reRender);
                     }}
                     sx={{ color: "#fff", width: "100%", height: "3rem" }}
                   >
@@ -177,6 +187,7 @@ const Poll = () => {
                       Anonymous={!x.is_known}
                       isOpen
                       question={x.question}
+                      handleReRender={handleReRender}
                       key={crypto.randomUUID()}
                     />
                   </div>
@@ -194,7 +205,7 @@ const Poll = () => {
             <div>رای گیری های بسته شده</div>
           </div>
           <div className="poll_closed">
-            {polls.map((x) => {
+            {polls.sort((a,b) => a.id - b.id).map((x) => {
               if (!x.is_open) {
                 return (
                   <div onContextMenu={(event) => handlClick(event, x)}>
@@ -204,6 +215,7 @@ const Poll = () => {
                       Anonymous={!x.is_known}
                       isOpen={false}
                       question={x.question}
+                      handleReRender={handleReRender}
                       key={crypto.randomUUID()}
                     />
                   </div>

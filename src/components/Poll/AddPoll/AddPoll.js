@@ -16,7 +16,7 @@ import AddIcon from "@mui/icons-material/Add";
 import apiInstance from "../../../utilities/axiosConfig";
 import useBoard from "../../../hooks/useBoard";
 
-const AddPoll = ({handleClose}) => {
+const AddPoll = ({closeAddPoll}) => {
   const {boardId} = useBoard();
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState([
@@ -76,7 +76,7 @@ const AddPoll = ({handleClose}) => {
             "poll": pollId
           });
       });
-      handleClose();
+      closeAddPoll();
     });
   };
 
@@ -174,7 +174,7 @@ const AddPoll = ({handleClose}) => {
         <Button type="button" variant="contained" onClick={handleClick}>
           ایجاد
         </Button>
-        <Button type="button" variant="contained" onClick={handleClose}>
+        <Button type="button" variant="contained" onClick={closeAddPoll}>
           لغو
         </Button>
       </div>
