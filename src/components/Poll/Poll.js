@@ -1,16 +1,21 @@
-import './Poll.css';
-import AddPoll from './AddPoll/AddPoll';
-import PollView from './PollView';
-import {Button, Fab, Modal, Popover} from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import React, {useEffect, useState} from 'react';
-import apiInstance from '../../utilities/axiosConfig';
-import {DeleteOutline, RemoveCircleOutlineOutlined, ReplayOutlined, HowToVoteOutlined} from '@mui/icons-material';
-import {useParams} from 'react-router-dom';
-import useBoard from '../../hooks/useBoard';
+import "./Poll.css";
+import AddPoll from "./AddPoll/AddPoll";
+import PollView from "./PollView";
+import { Button, Fab, Modal, Popover } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import React, { useEffect, useState } from "react";
+import apiInstance from "../../utilities/axiosConfig";
+import {
+  DeleteOutline,
+  RemoveCircleOutlineOutlined,
+  ReplayOutlined,
+  HowToVoteOutlined,
+} from "@mui/icons-material";
+import { useParams } from "react-router-dom";
+import useBoard from "../../hooks/useBoard";
 
 const Poll = () => {
-  const {getBoard} = useBoard();
+  const { getBoard } = useBoard();
   const param = useParams();
   const [open, setOpen] = useState(false);
   const [polls, setPolls] = useState([]);
@@ -20,16 +25,20 @@ const Poll = () => {
   const [openPolls, setOpenPolls] = useState(undefined);
   const [closePolls, setClosePolls] = useState(undefined);
   const [contexmenu, setContexmenu] = useState({});
+  const [reRender, setReRender] = useState(false);
   const openAddPoll = () => {
     setOpen(true);
   };
   const closeAddPoll = () => {
     setOpen(false);
+    setReRender(!reRender);
   };
-
+  const handleReRender = () => {
+    setReRender(!reRender);
+  }
   const handlClick = (e, contexmenu) => {
     e.preventDefault();
-    if (e.type === 'contextmenu') {
+    if (e.type === "contextmenu") {
       // console.log("Right click");
       setContexmenu(contexmenu);
       optionClickHandler(e);
@@ -54,28 +63,31 @@ const Poll = () => {
       });
     };
     const getPolls = async () => {
-      await apiInstance.get(`board/${param.boardId}/get-board-overview/`).then((response) => {
-        response.data.polls.forEach((x) => {
-          getPoll(x);
+      await apiInstance
+        .get(`board/${param.boardId}/get-board-overview/`)
+        .then((response) => {
+          response.data.polls.forEach((x) => {
+            getPoll(x);
+          });
+          // console.log("logs", response.data.polls);
         });
-        // console.log("logs", response.data.polls);
-      });
     };
     getBoard();
     getPolls();
     return () => {
       setPolls([]);
     };
-  }, []);
+  }, [reRender]);
   // console.log('pooool', polls);
-  return (<div className="poll_container">
+  return (
+    <div className="poll_container">
       <Modal
         open={open}
         onClose={closeAddPoll}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <AddPoll handleClose={closeAddPoll}/>
+        <AddPoll closeAddPoll={closeAddPoll} />
       </Modal>
       <div onContextMenu={(e) => e.preventDefault()}>
         <Popover
@@ -84,62 +96,76 @@ const Poll = () => {
           anchorEl={anchorEl}
           onClose={handleOption}
           anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
+            vertical: "top",
+            horizontal: "left",
           }}
           transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
+            vertical: "top",
+            horizontal: "right",
           }}
           sx={{
-            ['.MuiPopover-paper']: {
-              backgroundColor: '#00000077',
+            [".MuiPopover-paper"]: {
+              backgroundColor: "#00000077",
             },
           }}
         >
           <div className="poll_option">
             <div className="poll_option-button-container">
-              <Button
-                onClick={async () => {
-                  apiInstance.delete(`board/poll/${contexmenu.id}/retract-all-votes/`);
-                }}
-                sx={{color: '#fff', width: '100%', height: '3rem'}}
-              >
-                <div className="poll_option-in-button">
-                  <ReplayOutlined
-                    sx={{fill: '#1976d2', fontSize: '1.5rem'}}
-                  />
-                  <div>برداشتن رای</div>
-                </div>
-              </Button>
-              {contexmenu.is_creator && (<>
-                  <Button
-                    onClick={async () => {
-                      apiInstance.patch(`board/poll/${contexmenu.id}/close/`);
-                    }}
-                    sx={{color: '#fff', width: '100%', height: '3rem'}}
-                  >
-                    <div className="poll_option-in-button">
-                      <RemoveCircleOutlineOutlined
-                        sx={{fill: '#1976d2', fontSize: '1.5rem'}}
-                      />
-                      <div>اتمام رای گیری</div>
-                    </div>
-                  </Button>
+              {contexmenu.is_open && (
+                <Button
+                  onClick={async () => {
+                    apiInstance.delete(
+                      `board/poll/${contexmenu.id}/retract-all-votes/`
+                    );
+                    handleOption();
+                    setReRender(!reRender);
+                  }}
+                  sx={{ color: "#fff", width: "100%", height: "3rem" }}
+                >
+                  <div className="poll_option-in-button">
+                    <ReplayOutlined
+                      sx={{ fill: "#1976d2", fontSize: "1.5rem" }}
+                    />
+                    <div>برداشتن رای</div>
+                  </div>
+                </Button>
+              )}
+              {contexmenu.is_creator && (
+                <>
+                  {contexmenu.is_open && (
+                    <Button
+                      onClick={async () => {
+                        apiInstance.patch(`board/poll/${contexmenu.id}/close/`);
+                        handleOption();
+                        setReRender(!reRender);
+                      }}
+                      sx={{ color: "#fff", width: "100%", height: "3rem" }}
+                    >
+                      <div className="poll_option-in-button">
+                        <RemoveCircleOutlineOutlined
+                          sx={{ fill: "#1976d2", fontSize: "1.5rem" }}
+                        />
+                        <div>اتمام رای گیری</div>
+                      </div>
+                    </Button>
+                  )}
                   <Button
                     onClick={async () => {
                       apiInstance.delete(`board/poll/${contexmenu.id}/`);
+                      handleOption();
+                      setReRender(!reRender);
                     }}
-                    sx={{color: '#fff', width: '100%', height: '3rem'}}
+                    sx={{ color: "#fff", width: "100%", height: "3rem" }}
                   >
                     <div className="poll_option-in-button">
                       <DeleteOutline
-                        sx={{fill: '#1976d2', fontSize: '1.5rem'}}
+                        sx={{ fill: "#1976d2", fontSize: "1.5rem" }}
                       />
                       <div>پاک کردن رای گیری</div>
                     </div>
                   </Button>
-                </>)}
+                </>
+              )}
             </div>
           </div>
         </Popover>
@@ -147,24 +173,25 @@ const Poll = () => {
       <div className="poll_view">
         <div className="poll_view-section-open">
           <div className="poll_view-label">
-            <HowToVoteOutlined
-              sx={{fill: '#fff', fontSize: '1.5rem'}}
-            />
+            <HowToVoteOutlined sx={{ fill: "#fff", fontSize: "1.5rem" }} />
             <div>رای گیری های در حال انجام</div>
           </div>
           <div className="poll_open">
             {polls.map((x) => {
               if (x.is_open) {
-                return (<div onContextMenu={(event) => handlClick(event, x)}>
+                return (
+                  <div onContextMenu={(event) => handlClick(event, x)}>
                     <PollView
                       pollId={x.id}
                       Multi={x.is_multianswer}
-                      Anonymous={!(x.is_known)}
+                      Anonymous={!x.is_known}
                       isOpen
                       question={x.question}
+                      handleReRender={handleReRender}
                       key={crypto.randomUUID()}
                     />
-                  </div>);
+                  </div>
+                );
               }
               return null;
             })}
@@ -173,21 +200,26 @@ const Poll = () => {
         <div className="poll_view-section-closed">
           <div className="poll_view-label">
             <RemoveCircleOutlineOutlined
-              sx={{fill: '#fff', fontSize: '1.5rem'}}
+              sx={{ fill: "#fff", fontSize: "1.5rem" }}
             />
             <div>رای گیری های بسته شده</div>
           </div>
           <div className="poll_closed">
-            {polls.map((x) => {
+            {polls.sort((a,b) => a.id - b.id).map((x) => {
               if (!x.is_open) {
-                return (<PollView
-                    pollId={x.id}
-                    Multi={x.is_multianswer}
-                    Anonymous={!(x.is_known)}
-                    isOpen={false}
-                    question={x.question}
-                    key={crypto.randomUUID()}
-                  />);
+                return (
+                  <div onContextMenu={(event) => handlClick(event, x)}>
+                    <PollView
+                      pollId={x.id}
+                      Multi={x.is_multianswer}
+                      Anonymous={!x.is_known}
+                      isOpen={false}
+                      question={x.question}
+                      handleReRender={handleReRender}
+                      key={crypto.randomUUID()}
+                    />
+                  </div>
+                );
               }
               return null;
             })}
@@ -196,10 +228,11 @@ const Poll = () => {
       </div>
       <div className="poll_button">
         <Fab color="primary" aria-label="add" onClick={openAddPoll}>
-          <AddIcon/>
+          <AddIcon />
         </Fab>
       </div>
-    </div>);
+    </div>
+  );
 };
 
 export default Poll;

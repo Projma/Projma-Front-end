@@ -1,22 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import './SingleVote.css';
-import FormControl from '@mui/material/FormControl';
-import {FormControlLabel, Radio, RadioGroup} from '@mui/material';
-import LinearProgress from '@mui/material/LinearProgress';
-import Typography from '@mui/material/Typography';
-import {TaskAltOutlined} from '@mui/icons-material';
-import apiInstance from '../../../utilities/axiosConfig';
+import React, { useEffect, useState } from "react";
+import "./SingleVote.css";
+import FormControl from "@mui/material/FormControl";
+import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import LinearProgress from "@mui/material/LinearProgress";
+import Typography from "@mui/material/Typography";
+import { TaskAltOutlined } from "@mui/icons-material";
+import apiInstance from "../../../utilities/axiosConfig";
 
-const SingleVoted = ({options, setVote}) => {
+const SingleVoted = ({ options, handleReRender }) => {
   return (
     <div className="single-vote_voted">
       <FormControl
         sx={{
-          '.MuiFormControlLabel-label': {
-            fontSize: '1rem',
+          ".MuiFormControlLabel-label": {
+            fontSize: "1rem",
           },
-          '.MuiFormControlLabel-root': {
-            margin: '0 0',
+          ".MuiFormControlLabel-root": {
+            margin: "0 0",
           },
         }}
         variant="standard"
@@ -25,31 +25,35 @@ const SingleVoted = ({options, setVote}) => {
           aria-labelledby="demo-error-radios"
           name="vote"
           onChange={async (event) => {
-            const id = event.target.id.split('|');
-            await apiInstance.post(`board/poll-answers/${id[0]}/vote/`, {
-              text: event.target.value,
-              poll: id[1] / 1,
-            }).then((res) => setVote(event.target.value));
+            const id = event.target.id.split("|");
+            await apiInstance
+              .post(`board/poll-answers/${id[0]}/vote/`, {
+                text: event.target.value,
+                poll: id[1] / 1,
+              })
+              .then((res) => {
+                handleReRender();
+              });
           }}
         >
-          {options.map((o) => (
+          {options.sort((a,b) => a.id - b.id).map((o) => (
             <FormControlLabel
               value={o.text}
               control={
                 <Radio
-                  id={o.id + '|' + o.poll}
+                  id={o.id + "|" + o.poll}
                   sx={{
-                    color: '#5090D3',
-                    fontSize: '1rem',
-                    '& .MuiSvgIcon-root': {
-                      height: '1.5rem',
-                      width: '1.5rem',
+                    color: "#5090D3",
+                    fontSize: "1rem",
+                    "& .MuiSvgIcon-root": {
+                      height: "1.5rem",
+                      width: "1.5rem",
                     },
                   }}
                 />
               }
-              label={<Typography fontSize={'1.2rem'}>{o.text}</Typography>}
-              sx={{height: '4rem', width: '100%', padding: '0.5rem'}}
+              label={<Typography fontSize={"1.2rem"}>{o.text}</Typography>}
+              sx={{ height: "4rem", width: "100%", padding: "0.5rem" }}
             />
           ))}
         </RadioGroup>
@@ -62,7 +66,7 @@ const getPercent = (vote, total) => {
   return Math.trunc((vote / total) * 100);
 };
 
-const SingleVoteResult = ({options,totalVotes}) => {
+const SingleVoteResult = ({ options, totalVotes }) => {
   return (
     <div className="single-vote_result">
       {options.map((v, i) => (
@@ -70,7 +74,7 @@ const SingleVoteResult = ({options,totalVotes}) => {
           <div className="single-vote_result-icon">
             {v.is_user_voted === true && (
               <TaskAltOutlined
-                sx={{width: '1.5rem', height: '1.5rem', color: '#5090d3'}}
+                sx={{ width: "1.5rem", height: "1.5rem", color: "#5090d3" }}
               />
             )}
           </div>
@@ -81,16 +85,16 @@ const SingleVoteResult = ({options,totalVotes}) => {
               valueBuffer={100}
               sx={{
                 height: 6,
-                width: '100%',
-                maxWidth: '100%',
-                rotate: '180deg',
+                width: "100%",
+                maxWidth: "100%",
+                rotate: "180deg",
                 borderRadius: 5,
                 [`&.linearProgressClasses`]: {
-                  backgroundColor: '#5090D3',
+                  backgroundColor: "#5090D3",
                 },
                 [`& .linearProgressClasses.bar`]: {
                   borderRadius: 5,
-                  backgroundColor: '#0059B2',
+                  backgroundColor: "#0059B2",
                 },
               }}
             />
@@ -105,7 +109,13 @@ const SingleVoteResult = ({options,totalVotes}) => {
   );
 };
 
-const SingleVote = ({options, isOpen,isVoted,totalVotes}) => {
+const SingleVote = ({
+  options,
+  isOpen,
+  isVoted,
+  totalVotes,
+  handleReRender,
+}) => {
   // console.log('options', options);
 
   // console.log("total votes",totalVotes);
@@ -115,6 +125,7 @@ const SingleVote = ({options, isOpen,isVoted,totalVotes}) => {
         <SingleVoted
           key={crypto.randomUUID()}
           options={options}
+          handleReRender={handleReRender}
           // setVote={setVote}
         />
       ) : (

@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import {TaskAltOutlined} from '@mui/icons-material';
 import apiInstance from '../../../utilities/axiosConfig';
 
-const MultiVoted = ({options}) => {
+const MultiVoted = ({options,handleReRender}) => {
   const [state, setState] = React.useState(options.map((x, i) => {
     return {'text': x.text, 'optionId': x.id, 'pollId': x.poll, 'checked': false};
   }));
@@ -25,7 +25,7 @@ const MultiVoted = ({options}) => {
         await apiInstance.post(`board/poll-answers/${x.optionId}/vote/`, {
           text: x.text,
           poll: x.pollId / 1,
-        });
+        }).then(res => handleReRender());
     });
   };
   return (
@@ -42,7 +42,7 @@ const MultiVoted = ({options}) => {
         variant="standard"
       >
         <FormGroup name="vote">
-          {options.map((o) => (
+          {options.sort((a,b) => a.id - b.id).map((o) => (
             <FormControlLabel
               value={o.text}
               control={
@@ -127,12 +127,12 @@ const MultiVoteResult = ({options, totalVotes}) => {
   );
 };
 
-const MultiVote = ({options, isOpen, isVoted, totalVotes}) => {
+const MultiVote = ({options, isOpen, isVoted, totalVotes,handleReRender}) => {
   // const [vote, setVote] = useState(undefined);
   return (
     <div className="multi-vote_container">
       {isOpen === true && isVoted !== true ? (
-        <MultiVoted key={crypto.randomUUID()} options={options}/>
+        <MultiVoted key={crypto.randomUUID()} options={options} handleReRender={handleReRender}/>
       ) : (
         <MultiVoteResult
           key={crypto.randomUUID()}
