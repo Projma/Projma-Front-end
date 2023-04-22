@@ -174,9 +174,9 @@ export const Dashborad = () => {
   const navigateToBoard = (boardId) => {
     navigate(`/kanban/${boardId}/board`);
   };
-  // const navigateToBoard = (boardId, workspaceId) => {
-  //   navigate(`/workspace/${workspaceId}/kanban/${boardId}/board`);
-  // };
+  const navigateToBoard2 = (boardId, workspaceId) => {
+    navigate(`/workspace/${workspaceId}/kanban/${boardId}/board`);
+  };
 
   useEffect(() => {
     apiInstance
@@ -406,7 +406,6 @@ export const Dashborad = () => {
                     }}
                     // hover
                     onClick={() => {
-                      // history.push(`/board/${board_id}`);
                       navigateToBoard(board["id"]);
                     }}
                   >
@@ -492,7 +491,8 @@ export const Dashborad = () => {
                           }}
                           // hover
                           onClick={() => {
-                            navigateToBoard(board_id);
+                            // navigateToBoard(board_id);
+                            navigateToBoard2(board_id, workspace.id);
                           }}
                         >
                           <p
@@ -785,7 +785,6 @@ export const Dashborad = () => {
                     }}
                     // hover
                     onClick={() => {
-                      // history.push(`/board/${board_id}`);
                       navigateToBoard(board["id"]);
                     }}
                   >
@@ -910,7 +909,6 @@ export const Dashborad = () => {
                       }}
                       // hover
                       onClick={() => {
-                        // history.push(`/board/${board_id}`);
                         navigateToBoard(board["id"]);
                       }}
                     >
@@ -990,8 +988,8 @@ export const Dashborad = () => {
                             }}
                             // hover
                             onClick={() => {
-                              // history.push(`/board/${board_id}`);
-                              navigateToBoard(board_id);
+                              // navigateToBoard(board_id);
+                              navigateToBoard2(board_id, workspace.id);
                             }}
                           >
                             <p
