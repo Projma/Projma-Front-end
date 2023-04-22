@@ -35,14 +35,13 @@ export default function Attachments({ params, setAllAttachments }) {
     }
   };
   const createAttachment = () => {
-    ////console.log("create attachment$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     const formData = new FormData();
     formData.append("file", binaryFile);
     setIsPost(true);
     handleClose();
     apiInstance
       .patch(
-        `workspaces/task/${params.task_id}/add-attachment-to-task/`,
+        `task/attachment/${params.task_id}/add-attachment-to-task/`,
         formData,
         {
           headers: {
@@ -51,14 +50,10 @@ export default function Attachments({ params, setAllAttachments }) {
         }
       )
       .then((res) => {
-        ////console.log(res.data);
         toast.success("پیوست جدید اضافه شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        ////console.log("##############333333333333333333333333333333333333333");
-        // ////console.log(res.data);
-        ////console.log(res.data);
         setAllAttachments((prev) => [...prev, res.data]);
       })
       .finally(() => {
@@ -75,6 +70,7 @@ export default function Attachments({ params, setAllAttachments }) {
       <Button
         className="taskmodal-smaller-button-inner"
         aria-describedby={id}
+        role="open_attachment"
         variant="contained"
         onClick={handleClick}
         sx={{

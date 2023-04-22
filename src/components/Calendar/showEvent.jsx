@@ -22,7 +22,8 @@ import { Box } from "@mui/material";
 export default function ShowEvent({
   eventId,
   calendarId,
-  handleCloseShowEvent,
+  handleShowEvent,
+  handleOpenEditEvent,
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [event, setEvent] = React.useState(null);
@@ -34,6 +35,7 @@ export default function ShowEvent({
   const [repeat, setRepeat] = React.useState("");
   const [eventType, setEventType] = React.useState("");
   const [customEventTypes, setCustomEventTypes] = React.useState("");
+  const [openEditEvent, setOpenEditEvent] = React.useState("");
 
   const style = {
     position: "absolute",
@@ -63,11 +65,11 @@ export default function ShowEvent({
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = (e) => {
-    handleCloseShowEvent();
-    console.log("close");
-    setAnchorEl(null);
-  };
+  // const handleClose = (e) => {
+  //   setOpenShowEvent;
+  //   console.log("close");
+  //   setAnchorEl(null);
+  // };
 
   React.useEffect(() => {
     setLoading(true);
@@ -147,6 +149,11 @@ export default function ShowEvent({
     justifyContent: "center",
   };
 
+  // const handleCloseEditEvent = () => {
+  //   setOpenEditEvent(false);
+  //   setOpenShowEvent(true);
+  // };
+
   return (
     <Box style={style}>
       <div className="calendar--showEvent-page">
@@ -160,7 +167,7 @@ export default function ShowEvent({
                 variant="contained"
                 color="primary"
                 startIcon={<EditIcon />}
-                // onClick={onClick}
+                onClick={handleOpenEditEvent}
                 style={buttonStyle}
               />
             </i>
@@ -169,7 +176,7 @@ export default function ShowEvent({
                 variant="contained"
                 color="primary"
                 startIcon={<CloseIcon />}
-                onClick={(e) => handleClose(e)}
+                onClick={handleShowEvent}
                 style={buttonStyle}
               />
             </i>

@@ -13,8 +13,9 @@ import PerTextField from "../Shared/PerTextField.js";
 import Loading from "../Shared/Loading";
 import DateTimePickerValue from "../Shared/DateTimePicker";
 import dayjs from "dayjs";
-import "./CreateEvent.css";
+import "./CreateMeeting.scss";
 import { convertNumberToPersian } from "../../utilities/helpers.js";
+import { InputLabel } from "@material-ui/core";
 
 const style = {
   position: "absolute",
@@ -30,14 +31,17 @@ const style = {
   p: 4,
 };
 
-export default function CreateEvent({ calendarId, handleClose, showToast }) {
+export default function CreateMeeting({ calendarId, handleClose, showToast }) {
   const [isPost, setIsPost] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [eventTitle, setEventTitle] = useState("");
   const [eventDescription, setEventDescription] = useState("");
   const [eventColor, setEventColor] = React.useState("#265D97");
   const date = new Date();
-  const [eventDate, setEventDate] = React.useState(
+  const [startMeetingDate, setStartMeetingDate] = React.useState(
+    dayjs(date.toISOString().split("T")[0] + `T00:00`)
+  );
+  const [endMeetingDate, setEndMeetingDate] = React.useState(
     dayjs(date.toISOString().split("T")[0] + `T00:00`)
   );
   const dailyRef = React.useRef();
@@ -56,32 +60,23 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
   const createEvent = (event) => {
     setIsPost(true);
     event.preventDefault();
-    var event_time =
-      eventDate.$y +
-      "-" +
-      (eventDate.$M + 1) +
-      "-" +
-      eventDate.$D +
-      "T" +
-      eventDate.$H +
-      ":" +
-      eventDate.$m +
-      ":" +
-      eventDate.$s +
-      "Z";
+    var startMeetingTime = startMeetingDate.format("HH:mm:ss");
+    var endMeetingTime = endMeetingDate.format("HH:mm:ss");
+    var startMeetingDatee = startMeetingDate.format("YYYY-MM-DD");
+    var endMeetingDatee = endMeetingDate.format("YYYY-MM-DD");
     const form_data = new FormData();
     form_data.append("title", eventTitle);
     form_data.append("description", eventDescription);
-    form_data.append("event_time", event_time);
-    form_data.append("repeat_duration", repeatDuration);
-    form_data.append("event_color", eventColor);
-    if (eventType === "") form_data.append("custom_type", customType);
-    else form_data.append("custom_type", "");
-    if (customType === "") form_data.append("event_type", eventType);
-    form_data.append("calendar", calendarId / 1);
+    form_data.append("start", startMeetingTime);
+    form_data.append("end", endMeetingTime);
+    form_data.append("from_date", startMeetingDatee);
+    form_data.append("until_date", endMeetingDatee);
+    form_data.append("repeat", repeatDuration);
+    form_data.append("color", eventColor);
+    // form_data.append("calendar", calendarId);
     console.log(form_data);
     apiInstance
-      .post(`calendar/event/`, form_data)
+      .post(`calendar/meeting/${calendarId}/create-meeting/`, form_data)
       .then((res) => {
         showToast("رویداد جدید با موفقیت اضافه شد");
         handleClose();
@@ -149,7 +144,7 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
   };
 
   return (
-    <div className="calendar_create_event-main-div">
+    <div className="calendar_create_meeting-main-div">
       {isPost ? <Loading /> : null}
       {/* <div>
         <EditIcon onClick={handleOpen} />
@@ -159,15 +154,9 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
           variant="h6"
           id="modal-modal-title"
           component="h2"
-          sx={{
-            textAlign: "center",
-            fontFamily: "Vazir",
-            color: "#fff",
-            fontSize: "109%",
-          }}
-          className="neonText"
+          className="neonText calendar_create_meeting-title"
         >
-          ساخت رویداد جدید
+          ساخت جلسه جدید
         </Typography>
         <Divider
           sx={{
@@ -178,12 +167,12 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
         />
         <form className="board-form">
           <PerTextField>
-            <div className="calendar_create_event-inputs">
+            <div className="calendar_create_meeting-inputs">
               <StyledTextField
-                className="calendar_create_event-input"
+                className="calendar_create_meeting-input"
                 label="عنوان رویداد"
                 InputLabelProps={{
-                  style: { fontFamily: "Vazir", fontSize: "75%" },
+                  style: { fontFamily: "Vazir", fontSize: "100%" },
                 }}
                 inputProps={{
                   style: {
@@ -198,59 +187,61 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
                 onChange={(e) => setEventTitle(e.target.value)}
               />
               <br></br>
-              <div className="calendar_create_event-check-inputs">
-                <div class="checkbox-wrapper-47">
-                  <input
-                    type="checkbox"
-                    name="cb"
-                    id="daily"
-                    ref={dailyRef}
-                    // value={isSubscribed}
-                    onChange={handleChange}
-                  />
-                  <label
-                    for="daily"
-                    class="calendar_create_event-check-input-label"
-                  >
-                    روزانه
-                  </label>
-                </div>
+              <div className="calendar_create_meeting-check-inputs">
+                <div className="flex">
+                  <div class="checkbox-wrapper-47">
+                    <input
+                      type="checkbox"
+                      name="cb"
+                      id="daily"
+                      ref={dailyRef}
+                      // value={isSubscribed}
+                      onChange={handleChange}
+                    />
+                    <label
+                      for="daily"
+                      class="calendar_create_meeting-check-input-label"
+                    >
+                      روزانه
+                    </label>
+                  </div>
 
-                <div class="checkbox-wrapper-47">
-                  <input
-                    type="checkbox"
-                    name="cb"
-                    id="weekly"
-                    ref={weeklyRef}
-                    onChange={handleChange}
-                  />
-                  <label
-                    for="weekly"
-                    class="calendar_create_event-check-input-label"
-                  >
-                    هفتگی
-                  </label>
-                </div>
+                  <div class="checkbox-wrapper-47">
+                    <input
+                      type="checkbox"
+                      name="cb"
+                      id="weekly"
+                      ref={weeklyRef}
+                      onChange={handleChange}
+                    />
+                    <label
+                      for="weekly"
+                      class="calendar_create_meeting-check-input-label"
+                    >
+                      هفتگی
+                    </label>
+                  </div>
 
-                <div class="checkbox-wrapper-47">
-                  <input
-                    type="checkbox"
-                    name="cb"
-                    id="monthly"
-                    ref={monthlyRef}
-                    onChange={handleChange}
-                  />
-                  <label
-                    for="monthly"
-                    class="calendar_create_event-check-input-label"
-                  >
-                    ماهانه
-                  </label>
+                  <div class="checkbox-wrapper-47">
+                    <input
+                      type="checkbox"
+                      name="cb"
+                      id="monthly"
+                      ref={monthlyRef}
+                      onChange={handleChange}
+                    />
+                    <label
+                      for="monthly"
+                      class="calendar_create_meeting-check-input-label"
+                    >
+                      ماهانه
+                    </label>
+                  </div>
                 </div>
-                <input
+                <StyledTextField
                   type="number"
-                  className="calendar_create_event-custom-repeat-input"
                   id="custom_repeat"
+                  className="calendar--CreateMeeting-repeat-inputbox"
                   onChange={(e) => {
                     handleChange(e);
                   }}
@@ -262,96 +253,31 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
               </div>
               <br></br>
 
-              <div className="calendar_create_event-check-inputs">
-                <div class="checkbox-wrapper-47">
-                  <input
-                    type="checkbox"
-                    name="cb"
-                    id="meeting"
-                    ref={meetingRef}
-                    // value={isSubscribed}
-                    onChange={handleEventTypeChange}
-                  />
-                  <label
-                    for="meeting"
-                    class="calendar_create_event-check-input-label"
-                  >
-                    جلسه
-                  </label>
-                </div>
-
-                <div class="checkbox-wrapper-47">
-                  <input
-                    type="checkbox"
-                    name="cb"
-                    id="holidays"
-                    ref={holidayRef}
-                    onChange={handleEventTypeChange}
-                  />
-                  <label
-                    for="holidays"
-                    class="calendar_create_event-check-input-label"
-                  >
-                    تعطیلات
-                  </label>
-                </div>
-
-                <div class="checkbox-wrapper-47">
-                  <input
-                    type="checkbox"
-                    name="cb"
-                    id="task"
-                    ref={taskRef}
-                    onChange={handleEventTypeChange}
-                  />
-                  <label
-                    for="task"
-                    class="calendar_create_event-check-input-label"
-                  >
-                    فعالیت
-                  </label>
-                </div>
-                <StyledTextField
-                  className="calendar_create_event-custom-type-input"
-                  label="نوع رویداد"
-                  value={convertNumberToPersian(customType)}
-                  onChange={(e) => {
-                    handleEventTypeChange(e);
-                  }}
-                  id="custom_type"
-                  sx={{
-                    textAlign: "center",
-                    fontFamily: "Vazir",
-                  }}
-                  InputLabelProps={{
-                    style: { fontFamily: "Vazir", fontSize: "75%" },
-                  }}
-                  inputProps={{
-                    style: {
-                      height: "50px",
-                      padding: "0 14px",
-                      fontFamily: "Vazir",
-                      fontSize: "1.5rem",
-                    },
-                  }}
+              <br></br>
+              <div className="calendar_create_meeting-check-inputs">
+                <label class="calendar_create_meeting-check-input-label flex">
+                  رنگ رویداد
+                </label>
+                <input
+                  type="color"
+                  className="flex"
+                  value={eventColor}
+                  onChange={(e) => setEventColor(e.target.value)}
                 />
               </div>
-
               <br></br>
-              <label class="calendar_create_event-check-input-label">
-                رنگ رویداد
-              </label>
-              <input
-                type="color"
-                value={eventColor}
-                onChange={(e) => setEventColor(e.target.value)}
+              <br></br>
+              <DateTimePickerValue
+                value={startMeetingDate}
+                setValue={setStartMeetingDate}
               />
-              <br></br>
-              <br></br>
-              <DateTimePickerValue value={eventDate} setValue={setEventDate} />
+              <DateTimePickerValue
+                value={endMeetingDate}
+                setValue={setEndMeetingDate}
+              />
 
               <StyledTextField
-                className="calendar_create_event-input"
+                className="calendar_create_meeting-input"
                 label="توضیحات"
                 sx={{
                   textAlign: "center",
@@ -373,7 +299,7 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
                 onChange={(e) => setEventDescription(e.target.value)}
               />
               <br></br>
-              <div className="calendar_create_event-button-div">
+              <div className="calendar_create_meeting-button-div">
                 <input
                   style={{
                     fontFamily: "Vazir",
@@ -381,7 +307,7 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
                   type="submit"
                   value="ایجاد"
                   role="save_button"
-                  className="calendar_create_event-button-29"
+                  className="calendar_create_meeting-button-29"
                   onClick={createEvent}
                 />
               </div>

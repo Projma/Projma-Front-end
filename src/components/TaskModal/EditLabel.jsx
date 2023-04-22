@@ -11,59 +11,10 @@ import Loading from "../Shared/Loading";
 import "../../styles/TaskModal.css";
 import { convertNumberToPersian } from "../../utilities/helpers";
 
-const EditLabel = ({ setShowEdit, item, set_task_labels, setAllLabels }) => {
+const EditLabel = ({ setShowEdit, item, editThisItem }) => {
   const [editedTitle, setEditedTitle] = useState(item.title);
   const [editedColor, setEditedColor] = useState(item.color);
   const [isPost, setIsPost] = React.useState(false);
-
-  const editThisItem = (e) => {
-    ////console.log("edit this item");
-    if (editedTitle === "") {
-      toast.error("عنوان برچسب نمیتواند خالی باشد", {
-        position: toast.POSITION.BOTTOM_LEFT,
-        rtl: true,
-      });
-      return;
-    }
-    setIsPost(true);
-    apiInstance
-      .patch(`workspaces/label/${item.id}/update-label/`, {
-        title: editedTitle,
-        color: editedColor,
-      })
-      .then((res) => {
-        ////console.log("in edit label");
-        ////console.log(res.data);
-        let flag = 0;
-        set_task_labels((prevState) =>
-          prevState.map((label) => {
-            if (label.id === item.id) {
-              return { ...label, title: res.data.title, color: res.data.color };
-            } else {
-              return label;
-            }
-          })
-        );
-        setAllLabels((prevState) =>
-          prevState.map((label) => {
-            if (label.id === item.id) {
-              flag = 1;
-              return { ...label, title: res.data.title, color: res.data.color };
-            } else {
-              return label;
-            }
-          })
-        );
-        toast.success("ویرایش برچسب با موفقیت انجام شد", {
-          position: toast.POSITION.BOTTOM_LEFT,
-          rtl: true,
-        });
-      })
-      .finally(() => {
-        setIsPost(null);
-      });
-    setShowEdit(false);
-  };
 
   return (
     <>
@@ -168,8 +119,9 @@ const EditLabel = ({ setShowEdit, item, set_task_labels, setAllLabels }) => {
       </div>
       <div className="flex" style={{ marginTop: "2rem" }}>
         <button
-          onClick={(e) => editThisItem(e)}
+          onClick={(e) => editThisItem(editedTitle, editedColor, item.id)}
           className="tm_labels-edit-button"
+          id="edit_label_button"
         >
           ویرایش
         </button>

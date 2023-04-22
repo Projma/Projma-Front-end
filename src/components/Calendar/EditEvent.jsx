@@ -30,11 +30,7 @@ const style = {
   p: 4,
 };
 
-export default function EditEvent({
-  eventId,
-  calendarId,
-  handleCloseEditEvent,
-}) {
+export default function EditEvent({ eventId, calendarId, handleClose }) {
   const [isPost, setIsPost] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [eventTitle, setEventTitle] = useState("");
@@ -57,9 +53,9 @@ export default function EditEvent({
     setEditEvent(calEvent);
     setOpen(true);
   };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
   useEffect(() => {
     setEditEvent(calEvent);
   }, [calEvent]);
@@ -106,7 +102,7 @@ export default function EditEvent({
       .then((res) => {
         // showToast("رویداد با موفقیت ویرایش شد");
         setCalEvent(res.data);
-        handleCloseEditEvent();
+        handleClose();
       })
       .finally(() => {
         setIsPost(null);

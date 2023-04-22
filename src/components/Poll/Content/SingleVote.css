@@ -1,0 +1,61 @@
+.single-vote_container {
+  width: 100%;
+}
+
+.single-vote_voted {
+  display: flex;
+  flex-flow: column;
+  gap: 0.5rem;
+}
+
+.single-vote_result {
+  display: flex;
+  flex-flow: column;
+  gap: 0.5rem;
+}
+
+.single-vote_lable-text {
+  font-size: 1.5rem;
+}
+
+.single-vote_label {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.single-vote_input {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+}
+
+.single-vote_result-container {
+  display: grid;
+  grid-template-columns: 0.4fr 1fr 1fr 1fr 1fr 1fr 1fr 0.6fr;
+  grid-template-rows: 0.5fr 1.5fr;
+  gap: 0.5rem 0.5rem;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "single-vote_result-icon single-vote_result-title single-vote_result-title single-vote_result-title single-vote_result-title single-vote_result-title single-vote_result-title single-vote_result-percentage"
+    "single-vote_result-icon single-vote_result-progressbar single-vote_result-progressbar single-vote_result-progressbar single-vote_result-progressbar single-vote_result-progressbar single-vote_result-progressbar single-vote_result-percentage";
+  /*align-content: center;*/
+  /*justify-items: start;*/
+  align-items: center;
+}
+
+.single-vote_result-icon {
+  grid-area: single-vote_result-icon;
+  align-self: start;
+}
+
+.single-vote_result-progressbar {
+  grid-area: single-vote_result-progressbar;
+}
+
+.single-vote_result-title {
+  grid-area: single-vote_result-title;
+}
+
+.single-vote_result-percentage {
+  grid-area: single-vote_result-percentage;
+}

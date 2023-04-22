@@ -10,11 +10,11 @@ import { ProSidebarProvider } from "react-pro-sidebar";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const app = (
-  <React.StrictMode>
+  // <React.StrictMode>
     <ProSidebarProvider>
       <App />
     </ProSidebarProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 let token = localStorage.getItem("access_token");
