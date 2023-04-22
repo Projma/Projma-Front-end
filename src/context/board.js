@@ -13,15 +13,17 @@ function Provider({ children, boardId, workspaceId }) {
   const [boardCover, setBoardCover] = useState("");
   const [isReq, setIsReq] = useState(false);
   const [calendar, setCalendar] = useState(0);
+  const [poll, setPoll] = useState([]);
 
   const getBoard = useCallback(async () => {
-    setIsReq(true);
+    // setIsReq(true);
     let data;
     await apiInstance
       .get(`board/${boardId}/get-board-overview/`)
       .then((response) => {
         // setList(response.data.tasklists.sort((a, b) => b.order - a.order));
         setCalendar(response.data.calendar);
+        setPoll(response.data.polls);
         data = response.data.tasklists.sort((a, b) => b.order - a.order);
         data = data.map((tasklists) => {
           tasklists.tasks = tasklists.tasks.map((task) => {
@@ -97,6 +99,7 @@ function Provider({ children, boardId, workspaceId }) {
     boardId,
     workspaceId,
     calendar,
+    poll,
     list,
     member,
     boardCover,

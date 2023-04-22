@@ -24,39 +24,29 @@ test("it shows two textbox inputs for workspace name and description and one sel
   expect(button).toBeInTheDocument();
 });
 
-// test("it shows the information of workspace correctly", async () => {
-//   const workspace = {
-//     id: 1,
-//     name: "Test Workspace",
-//     description: "This is a test workspace",
-//     type: "education",
-//   };
-//   render(
-//     <EditModal
-//       params={{ id: workspace.id }}
-//       showToast={() => {}}
-//       workspace={workspace}
-//       setWorkspace={() => {}}
-//     />
-//   );
-//   const editIcon = screen.getByTestId("EditIcon");
-//   user.click(editIcon);
-//   screen.logTestingPlaygroundURL();
-//   const nameInput = screen.getByLabelText("نام فضای کاری");
-//   const descriptionInput = screen.getByLabelText("توضیحات");
-//   const typeInput = screen.getByRole("select_ws_type");
-//   expect(nameInput).toHaveValue(workspace.name);
-//   expect(descriptionInput).toHaveValue(workspace.description);
-//   // setTimeout(() => {
-//   //   console.log("Timeout has elapsed");
-//   // }, 2000);
-//   await waitFor(
-//     () => {
-//       expect(typeInput).toHaveValue("آموزشی");
-//     },
-//     { timeout: 5000 }
-//   );
-// });
+test("it shows the information of workspace correctly", async () => {
+  const workspace = {
+    id: 1,
+    name: "Test Workspace",
+    description: "This is a test workspace",
+    type: "education",
+  };
+  render(
+    <EditModal
+      params={{ id: workspace.id }}
+      showToast={() => {}}
+      workspace={workspace}
+      setWorkspace={() => {}}
+    />
+  );
+  const editIcon = screen.getByTestId("EditIcon");
+  user.click(editIcon);
+  const nameInput = screen.getByLabelText("نام فضای کاری");
+  const descriptionInput = screen.getByLabelText("توضیحات");
+  // const typeInput = screen.getByRole("select_ws_type");
+  expect(nameInput).toHaveValue(workspace.name);
+  expect(descriptionInput).toHaveValue(workspace.description);
+});
 
 // test("gggggggggggggggggg", async () => {
 //   const spy = jest.spyOn(EditModal.prototype, "edit_workspace");

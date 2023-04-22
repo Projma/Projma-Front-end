@@ -9,7 +9,7 @@ import "../styles/BoardOverView.css";
 const BoardOverView = () => {
   let params = useParams();
   return (
-    <div>
+    <div className="boardoverview--main">
       <Helmet>
         <title>بورد</title>
       </Helmet>

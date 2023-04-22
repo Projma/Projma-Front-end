@@ -17,9 +17,6 @@ const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
   const [isPost, setIsPost] = useState(false);
 
   const createThisItem = (e) => {
-    ////console.log("create this item");
-    ////console.log(createdTitle);
-    ////console.log(createdColor);
     setIsPost(true);
     if (createdTitle === "") {
       toast.error("عنوان برچسب نمیتواند خالی باشد", {
@@ -29,7 +26,7 @@ const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
       return;
     }
     apiInstance
-      .post(`workspaces/board/${params.board_id}/create-label/`, {
+      .post(`board/label/${params.board_id}/create-label/`, {
         title: createdTitle,
         color: createdColor,
       })
@@ -138,9 +135,6 @@ const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
                 type="color"
                 value={createdColor}
                 onChange={(e) => setCreatedColor(e.target.value)}
-                onClick={(e) => {
-                  ////console.log("$$$$$$$$$$$$$$$$$$$$$$$$$");
-                }}
               />
             </div>
           </div>
@@ -150,6 +144,7 @@ const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
             class="labels_button-33"
             role="button"
             onClick={(e) => createThisItem(e)}
+            id="create_label_button"
           >
             بساز
           </button>

@@ -34,6 +34,7 @@ export default function DeleteWorkspace({ workspace_id, removeWorkspace }) {
       <button
         key={workspace_id}
         // id={member.userName}
+        role="delete_button"
         className="ws_workspace-remove-button"
         onClick={handleClickOpen}
       >
@@ -59,6 +60,7 @@ export default function DeleteWorkspace({ workspace_id, removeWorkspace }) {
           </Button>
           <Button
             onClick={(e) => handleRemoveWorkspace(e, workspace_id)}
+            role="yes_to_delete_button"
             autoFocus
           >
             بله
