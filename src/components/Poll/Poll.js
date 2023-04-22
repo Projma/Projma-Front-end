@@ -16,7 +16,6 @@ const Poll = () => {
   const [polls, setPolls] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [render, setRender] = useState(false);
   const openPopover = Boolean(anchorEl);
   const [openPolls, setOpenPolls] = useState(undefined);
   const [closePolls, setClosePolls] = useState(undefined);
@@ -68,7 +67,7 @@ const Poll = () => {
       setPolls([]);
     };
   }, []);
-  console.log('pooool', polls);
+  // console.log('pooool', polls);
   return (<div className="poll_container">
       <Modal
         open={open}
@@ -85,14 +84,16 @@ const Poll = () => {
           anchorEl={anchorEl}
           onClose={handleOption}
           anchorOrigin={{
-            vertical: 'top', horizontal: 'left',
+            vertical: 'top',
+            horizontal: 'left',
           }}
           transformOrigin={{
-            vertical: 'top', horizontal: 'left',
+            vertical: 'top',
+            horizontal: 'right',
           }}
           sx={{
             ['.MuiPopover-paper']: {
-              backgroundColor: '#001e3c55',
+              backgroundColor: '#00000077',
             },
           }}
         >
