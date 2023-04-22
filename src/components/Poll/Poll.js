@@ -35,7 +35,7 @@ const Poll = () => {
   const handlClick = (e,contexmenu) => {
     e.preventDefault();
     if (e.type === "contextmenu") {
-      console.log("Right click");
+      // console.log("Right click");
       setContexmenu(contexmenu);
       optionClickHandler(e);
     }
@@ -47,7 +47,7 @@ const Poll = () => {
     setAnchorEl(null);
   };
   const optionClickHandler = (event) => {
-    console.log("fusda", event.currentTarget);
+    // console.log("fusda", event.currentTarget);
     setAnchorEl(event.currentTarget);
   };
 
@@ -55,6 +55,7 @@ const Poll = () => {
     const getPoll = async (id) => {
       await apiInstance.get(`board/poll/${id}/`).then((res) => {
         setPolls((perv) => [...perv, res.data]);
+        // console.log(res.data);
       });
     };
     const getPolls = async () => {
@@ -64,7 +65,7 @@ const Poll = () => {
           response.data.polls.forEach((x) => {
             getPoll(x);
           });
-          console.log("logs", response.data.polls);
+          // console.log("logs", response.data.polls);
         });
     };
     getBoard();
@@ -73,6 +74,7 @@ const Poll = () => {
       setPolls([]);
     };
   }, []);
+  console.log("pooool",polls);
   return (
     <div className="poll_container">
       <Modal
@@ -161,7 +163,7 @@ const Poll = () => {
                   <PollView
                     pollId={x.id}
                     Multi={x.is_multianswer}
-                    Anonymous={x.is_known}
+                    Anonymous={!(x.is_known)}
                     isOpen
                     question={x.question}
                     key={crypto.randomUUID()}
@@ -179,7 +181,7 @@ const Poll = () => {
                 <PollView
                   pollId={x.id}
                   Multi={x.is_multianswer}
-                  Anonymous={x.is_known}
+                  Anonymous={!(x.is_known)}
                   isOpen={false}
                   question={x.question}
                   key={crypto.randomUUID()}
