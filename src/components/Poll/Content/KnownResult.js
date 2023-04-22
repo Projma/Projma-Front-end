@@ -88,7 +88,7 @@ const KnownResult = ({ voters, options, question, totalVotes }) => {
                                 )}
                               />
                               <div className="known-result_modal-options-voter-name">
-                                {user.first_name + "" + user.last_name}
+                                {user.first_name + " " + user.last_name}
                               </div>
                             </>
                           )}
