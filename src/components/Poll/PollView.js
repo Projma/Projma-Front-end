@@ -4,44 +4,50 @@ import React, {useEffect, useState} from 'react';
 import AnonymousVoter from './Content/AnonymousVoter';
 import SingleVote from './Content/SingleVote';
 import MultiVote from './Content/MultiVote';
-import {HowToRegOutlined} from '@mui/icons-material';
 import KnownVoter from './Content/KnownVoter';
 import apiInstance from '../../utilities/axiosConfig';
+import AnonymousResult from './Content/AnonymousResult';
+import KnownResult from './Content/KnownResult';
 
 const PollView = ({Multi, question, isOpen, Anonymous, pollId}) => {
   const [poll, setPoll] = useState([]);
   const [isVoted, setIsVoted] = useState(false);
   const [voters, setVoters] = useState([]);
-  const [totalVotes,setTotalVotes] = useState(0);
+  const [totalVotes, setTotalVotes] = useState(0);
   // const [totalVotes, setTotalVotes] = useState(1);
   useEffect(() => {
     const getPoll = async () => {
       await apiInstance.get(`board/poll/${pollId}/show-result/`).then((res) => {
         let data = res.data.answers;
-        let sum = 0;
         setPoll(data);
+        let v = [];
         data.forEach((x) => {
           if (x.is_user_voted) {
             setIsVoted(true);
           }
-          sum += x.count;
-          setVoters((perv) => {
-            let v = [];
-            if (x.voters !== undefined) {
-              x.voters.forEach((y) => {
-                if (!voters.includes(y))
-                  v.push(y);
-              });
-            }
-            return [...perv, ...v];
+          x.voters.forEach(x => {
+            v.push(x);
           });
         });
-        setTotalVotes(sum);
+        setVoters(v.reduce((unique, o) => {
+          if (!unique.some(obj => obj.user__pk === o.user__pk)) {
+            unique.push(o);
+          }
+          return unique;
+        }, []));
+        console.log('voters', voters);
       });
     };
     getPoll();
+
   }, [pollId]);
-  console.log('poll', pollId, poll, voters,totalVotes);
+
+  const getSum = () => {
+    let sum = 0;
+    poll.forEach(x => sum = sum + x.count);
+    return sum;
+  };
+  console.log('poll', pollId, poll, voters, voters.length, totalVotes);
   return (
     <div className="poll_pollview-container">
       <div className="poll_pollview-label">
@@ -56,7 +62,7 @@ const PollView = ({Multi, question, isOpen, Anonymous, pollId}) => {
             options={poll}
             isOpen={isOpen}
             isVoted={isVoted}
-            totalVotes={voters.length === 0 ? totalVotes : voters.length}
+            totalVotes={voters.length !== 0 ? voters.length : getSum()}
             key={crypto.randomUUID()}
           />
         ) : (
@@ -64,14 +70,20 @@ const PollView = ({Multi, question, isOpen, Anonymous, pollId}) => {
             options={poll}
             isOpen={isOpen}
             isVoted={isVoted}
-            totalVotes={voters.length === 0 ? totalVotes : voters.length}
+            totalVotes={voters.length !== 0 ? voters.length : getSum()}
             key={crypto.randomUUID()}
           />
         )}
       </div>
-      <div className="poll_pollview-results">
-        <Typography fontSize="1.1rem">{voters.length === 0 ? totalVotes : voters.length}</Typography>
-        <HowToRegOutlined sx={{width: '1.5rem', height: '1.5rem'}}/>
+      <div className={Anonymous ? 'poll_pollview-results-anonymous' : 'poll_pollview-results-known'}>
+        {Anonymous ? (
+          <AnonymousResult
+            totalVotes={voters.length !== 0 ? voters.length : getSum()}
+          />
+        ) : (
+          <KnownResult voters={voters} options={poll} question={question}
+                       totalVotes={voters.length}/>
+        )}
       </div>
     </div>
   );
