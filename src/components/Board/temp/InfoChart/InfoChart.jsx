@@ -12,6 +12,7 @@ import ClearTwoToneIcon from "@mui/icons-material/ClearTwoTone";
 // chart icon
 import { AddchartTwoTone } from "@mui/icons-material";
 import { Divider } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
@@ -156,7 +157,8 @@ const InfoChart = (props) => {
         apiInstance.get(`/board/chart/${props.boardId}/board-label-activity/`).then((res) => {
             var chartLabel = res.data.chartlabel; // میزان فعالیت برحسب برچسب
             var xLabel = res.data.xlabel; // برچسب
-            var yLabel = res.data.ylabel; // تعداد ساعات تسک ها
+            // var yLabel = res.data.ylabel; // تعداد ساعات تسک ها
+            var yLabel = "ساعت"; // تعداد ساعات تسک ها
             var xData = res.data.xdata; // [label1, label2]
             var yData = res.data.ydata; // [3, 2.5]
             setChart3_label(chartLabel)
@@ -249,6 +251,8 @@ const InfoChart = (props) => {
 
     // }, []);
 
+    const matches_min = useMediaQuery("(min-width:450px)");
+    const matches_mid = useMediaQuery("(min-width:8000px)");
 
     return (
         <>
@@ -343,7 +347,7 @@ const InfoChart = (props) => {
                                 }}
                             >
                                 <BarChart
-                                    width={900}
+                                    width={matches_min ? 900 : matches_mid ? 600 : 400}
                                     height={500}
                                     data={data_chart1}
                                     margin={{
@@ -392,7 +396,7 @@ const InfoChart = (props) => {
                                 }}
                             >
                                 <BarChart
-                                    width={900}
+                                    width={matches_min ? 900 : matches_mid ? 600 : 400}
                                     height={500}
                                     data={data_chart2}
                                     margin={{
@@ -442,13 +446,13 @@ const InfoChart = (props) => {
                                 }}
                             >
                                 <BarChart
-                                    width={900}
+                                    width={matches_min ? 900 : matches_mid ? 600 : 400}
                                     height={500}
                                     data={data_chart3}
                                     margin={{
                                         top: 5,
                                         right: 30,
-                                        left: 20,
+                                        left:0,
                                         bottom: 5,
                                     }}
                                 // label={"renderLabel"}
@@ -459,7 +463,7 @@ const InfoChart = (props) => {
                                     // fill="#000000"
                                     />
                                     <XAxis dataKey="name" label={chart3_xaxis_label} dy={13} />
-                                    <YAxis label={chart3_yaxis_label} />
+                                    <YAxis label={chart3_yaxis_label} dx={0} />
                                     <Tooltip wrapperStyle={{ backgroundColor: '#000', border: '1px solid #000', borderRadius: 3 }} />
                                     <Legend />
                                     <Bar dataKey="زمان اختصاص داده شده به برچسب" fill="#8884d8" />
