@@ -79,10 +79,19 @@ export default function EditMeeting({
   const handleEditEvent = (event) => {
     setIsPost(true);
     event.preventDefault();
-    const startMeetingTime = startMeetingDate.format("HH:mm");
-    const endMeetingTime = endMeetingDate.format("HH:mm");
-    const startMeetingDatee = startMeetingDate.format("YYYY-MM-DD");
-    const endMeetingDatee = endMeetingDate.format("YYYY-MM-DD");
+    console.log("$$$$$$$$$$$$$$$$$$$$");
+    console.log(startMeetingDate);
+    console.log("$$$$$$$$$$$$$$$$$$$$");
+    const startMeetingDatee = startMeetingDate
+      ? startMeetingDate.format("YYYY-MM-DD")
+      : "";
+    const endMeetingDatee = endMeetingDate
+      ? endMeetingDate.format("YYYY-MM-DD")
+      : "";
+    const startMeetingTime = startMeetingDate
+      ? startMeetingDate.format("HH:mm")
+      : "";
+    const endMeetingTime = endMeetingDate ? endMeetingDate.format("HH:mm") : "";
     const form_data = new FormData();
     form_data.append("title", editMeeting.title);
     form_data.append("description", editMeeting.description);
@@ -107,7 +116,6 @@ export default function EditMeeting({
     if (parseInt(EditMeeting.repeat) == 1) {
       weeklyRef.current.checked = false;
       monthlyRef.current.checked = false;
-      // convert meeting.repeat to integer
       const repeat = parseInt(EditMeeting.repeat) ? 1 : 0;
       setRepeatDuration(repeat);
     } else if (parseInt(EditMeeting.repeat) == 7) {
@@ -272,15 +280,19 @@ export default function EditMeeting({
               <br></br>
               <br></br>
               <DateTimePickerValue
-                value={startMeetingDate}
-                setValue={(val) =>
-                  setStartMeetingDate(val.format("YYYY-MM-DDTHH:mm"))
+                value={dayjs(startMeetingDate)}
+                setValue={(e) =>
+                  setStartMeetingDate(
+                    dayjs(`${e.format("YYYY-MM-DD")}T${e.$H}:${e.$m}`)
+                  )
                 }
               />
               <DateTimePickerValue
-                value={endMeetingDate}
-                setValue={(val) =>
-                  setEndMeetingDate(val.format("YYYY-MM-DDTHH:mm"))
+                value={dayjs(endMeetingDate)}
+                setValue={(e) =>
+                  setEndMeetingDate(
+                    dayjs(`${e.format("YYYY-MM-DD")}T${e.$H}:${e.$m}`)
+                  )
                 }
               />
 
@@ -318,7 +330,7 @@ export default function EditMeeting({
                     fontFamily: "Vazir",
                   }}
                   type="submit"
-                  value="ایجاد"
+                  value="ویرایش"
                   role="save_button"
                   className="calendar_create_meeting-button-29"
                   onClick={handleEditEvent}
