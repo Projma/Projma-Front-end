@@ -4,7 +4,7 @@
 
 .known-result_modal-container {
   width: 25rem;
-  height: 30rem;
+  min-height: 30rem;
   max-width: 35rem;
   max-height: 60rem;
   background-color: #001e3ccc;
@@ -43,6 +43,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   width: 100%;
+  overflow: auto;
   /*padding: 0.5rem 0.5rem;*/
   /*background-color: #001e3c;*/
 }
