@@ -22,7 +22,7 @@
   grid-template-rows: 1fr 1fr;
 }
 
-.poll_open {
+.poll_open ,.poll_closed {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
