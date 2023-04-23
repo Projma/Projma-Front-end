@@ -4,7 +4,8 @@ import {
   DashboardOutlined,
   MenuOutlined,
   ViewKanbanOutlined,
-  TaskAltOutlined
+  TaskAltOutlined,
+  GroupWorkOutlined
 } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 import {
@@ -139,7 +140,13 @@ const BoardSidebar = () => {
             icon={<TaskAltOutlined/>}
             onClick={() => handleClick(boardId, "poll")}
           >
-            نظرسنجی
+            رای گیری
+          </MenuItem>
+          <MenuItem
+            icon={<GroupWorkOutlined/>}
+            onClick={() => handleClick(boardId, "retro")}
+          >
+            رترو
           </MenuItem>
 
           {wsBoard !== [] && (
