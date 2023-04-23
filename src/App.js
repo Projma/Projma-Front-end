@@ -26,6 +26,7 @@ import NotFound from "./pages/NotFound";
 import Board from "./components/Board/Board";
 import Calendar from "./components/Calendar/Calendar";
 import Poll from "./components/Poll/Poll";
+import Retro from "./components/Retro/Retro";
 
 const theme = createTheme(
   {
@@ -114,6 +115,15 @@ function App() {
                   element={
                     <PrivateRoute
                       children={<PrivateRoute children={<Poll />} />}
+                    />
+                  }
+                />
+                <Route
+                  exact
+                  path="retro"
+                  element={
+                    <PrivateRoute
+                      children={<PrivateRoute children={<Retro />} />}
                     />
                   }
                 />
