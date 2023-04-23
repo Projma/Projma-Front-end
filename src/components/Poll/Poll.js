@@ -177,7 +177,7 @@ const Poll = () => {
             <div>رای گیری های در حال انجام</div>
           </div>
           <div className="poll_open">
-            {polls.map((x) => {
+            {polls.sort((a,b) => a.id - b.id).map((x) => {
               if (x.is_open) {
                 return (
                   <div onContextMenu={(event) => handlClick(event, x)}>
