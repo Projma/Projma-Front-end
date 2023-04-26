@@ -25,9 +25,35 @@
 }
 
 .RetroReflect-list-title {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 1rem;
   color: #d7d3d3;
 }
+
+.RetroReflect-list-card{
+  width: 100%;
+  /* margin: 0.2rem 0; */
+  /* padding: 1rem 1rem; */
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: auto;
+}
+
+.RetroReflect-list-card-container {
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  width: 100%;
+  flex-flow: column;
+  align-items: center;
+  /* justify-content: center; */
+  gap: 0.5rem;
+  overflow: auto;
+  max-height: 100%;
+} 

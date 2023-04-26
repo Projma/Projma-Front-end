@@ -1,8 +1,25 @@
+import { useState, useEffect } from "react";
 import { Typography } from "@mui/material";
 import RetroList from "./content/RetroList";
+import RetroCard from "./content/RetroCard";
 import "./RetroReflect.css";
-import { Circle } from "@mui/icons-material";
+import StyledTextField from "../Shared/StyledTextField";
+import PerTextField from "../Shared/PerTextField";
 const RetroReflect = () => {
+  const [greenList, setGreenList] = useState([]);
+  const [redList, setRedList] = useState([]);
+  const handleKeyDown = (event, color) => {
+    console.log(event);
+    if (event.key === "Enter" && event.target.value != "") {
+      if (color === "red") {
+        setRedList((perv) => [...perv, event.target.value]);
+        event.target.value = "";
+      } else if (color === "green") {
+        setGreenList((perv) => [...perv, event.target.value]);
+        event.target.value = "";
+      }
+    }
+  };
   return (
     <div className="RetroReflect-container">
       <div className="RetroReflect-list">
@@ -19,6 +36,49 @@ const RetroReflect = () => {
               ></div>
               <Typography>چه چیز هایی کار میکند؟</Typography>
             </div>
+            <div className="RetroReflect-list-textfield">
+              <PerTextField>
+                <StyledTextField
+                  margin="normal"
+                  variant="filled"
+                  required
+                  fullWidth
+                  placeholder="بازتاب افکار خورد را بنویسید"
+                  defaultValue={""}
+                  onKeyDown={(e) => handleKeyDown(e, "green")}
+                  InputProps={{
+                    disableUnderline: true,
+                    style: {
+                      fontFamily: "Vazir",
+                      backgroundColor: "var(--main-item-color)",
+                    },
+                  }}
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "Vazir",
+                      // fontSize: "1.6rem",
+                    },
+                  }}
+                  hiddenLabel
+                  sx={{
+                    border: "none",
+                    borderRadius: "0.5rem",
+                    // borderRadius: "0.5rem",
+                    "& input::placeholder": {
+                      fontSize: "1rem",
+                    },
+                    margin: 0,
+                  }}
+                />
+              </PerTextField>
+            </div>
+            <div className="RetroReflect-list-card">
+              <div className="RetroReflect-list-card-container">
+                {greenList.map((x) => (
+                  <RetroCard>{x}</RetroCard>
+                ))}
+              </div>
+            </div>
           </RetroList>
         </div>
         <div className="RetroReflect-red">
@@ -33,6 +93,49 @@ const RetroReflect = () => {
                 }}
               ></div>
               <Typography>در کجا ها به مشکل خوردید؟</Typography>
+            </div>
+            <div className="RetroReflect-list-textfield">
+              <PerTextField>
+                <StyledTextField
+                  margin="normal"
+                  variant="filled"
+                  required
+                  fullWidth
+                  placeholder="بازتاب افکار خورد را بنویسید"
+                  defaultValue={""}
+                  onKeyDown={(e) => handleKeyDown(e, "red")}
+                  InputProps={{
+                    disableUnderline: true,
+                    style: {
+                      fontFamily: "Vazir",
+                      backgroundColor: "var(--main-item-color)",
+                    },
+                  }}
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "Vazir",
+                      // fontSize: "1.6rem",
+                    },
+                  }}
+                  hiddenLabel
+                  sx={{
+                    border: "none",
+                    borderRadius: "0.5rem",
+                    // borderRadius: "0.5rem",
+                    "& input::placeholder": {
+                      fontSize: "1rem",
+                    },
+                    margin: 0,
+                  }}
+                />
+              </PerTextField>
+            </div>
+            <div className="RetroReflect-list-card">
+              <div className="RetroReflect-list-card-container">
+                {redList.map((x) => (
+                  <RetroCard>{x}</RetroCard>
+                ))}
+              </div>
             </div>
           </RetroList>
         </div>
