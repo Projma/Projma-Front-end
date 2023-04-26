@@ -1,5 +1,7 @@
+import { Outlet } from "react-router-dom";
+
 const Retro = () => {
-  return ( <></> );
-}
- 
+  return <Outlet/>;
+};
+
 export default Retro;

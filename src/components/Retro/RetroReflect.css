@@ -1,0 +1,59 @@
+.RetroReflect-container {
+  width: 100%;
+  height: 100%;
+  /* padding: 2rem 30%; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+}
+
+.RetroReflect-list{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 2rem 20%;
+  gap: 1rem;
+}
+
+.RetroReflect-green, .RetroReflect-red {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+}
+
+.RetroReflect-list-title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  color: #d7d3d3;
+}
+
+.RetroReflect-list-card{
+  width: 100%;
+  /* margin: 0.2rem 0; */
+  /* padding: 1rem 1rem; */
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow: auto;
+}
+
+.RetroReflect-list-card-container {
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  width: 100%;
+  flex-flow: column;
+  align-items: center;
+  /* justify-content: center; */
+  gap: 0.5rem;
+  overflow: auto;
+  max-height: 100%;
+} 

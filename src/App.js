@@ -27,6 +27,7 @@ import Board from "./components/Board/Board";
 import Calendar from "./components/Calendar/Calendar";
 import Poll from "./components/Poll/Poll";
 import Retro from "./components/Retro/Retro";
+import RetroReflect from "./components/Retro/RetroReflect";
 
 const theme = createTheme(
   {
@@ -132,7 +133,7 @@ function App() {
                     path="reflect"
                     element={
                       <PrivateRoute
-                        children={<PrivateRoute children={<Retro />} />}
+                        children={<PrivateRoute children={<RetroReflect />} />}
                       />
                     }
                   />
