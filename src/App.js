@@ -126,7 +126,44 @@ function App() {
                       children={<PrivateRoute children={<Retro />} />}
                     />
                   }
-                />
+                >
+                  <Route
+                    exact
+                    path="reflect"
+                    element={
+                      <PrivateRoute
+                        children={<PrivateRoute children={<Retro />} />}
+                      />
+                    }
+                  />
+                  <Route
+                    exact
+                    path="group"
+                    element={
+                      <PrivateRoute
+                        children={<PrivateRoute children={<Retro />} />}
+                      />
+                    }
+                  />
+                  <Route
+                    exact
+                    path="vote"
+                    element={
+                      <PrivateRoute
+                        children={<PrivateRoute children={<Retro />} />}
+                      />
+                    }
+                  />
+                  <Route
+                    exact
+                    path="discuss"
+                    element={
+                      <PrivateRoute
+                        children={<PrivateRoute children={<Retro />} />}
+                      />
+                    }
+                  />
+                </Route>
               </Route>
               <Route
                 exact
