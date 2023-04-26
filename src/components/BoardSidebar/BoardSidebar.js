@@ -5,7 +5,12 @@ import {
   MenuOutlined,
   ViewKanbanOutlined,
   TaskAltOutlined,
-  GroupWorkOutlined
+  GroupWorkOutlined,
+  FlareOutlined,
+  Diversity2,
+  ThumbsUpDown,
+  ThumbsUpDownOutlined,
+  ChatOutlined,
 } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 import {
@@ -137,17 +142,42 @@ const BoardSidebar = () => {
             تقویم
           </MenuItem>
           <MenuItem
-            icon={<TaskAltOutlined/>}
+            icon={<TaskAltOutlined />}
             onClick={() => handleClick(boardId, "poll")}
           >
             رای گیری
           </MenuItem>
-          <MenuItem
-            icon={<GroupWorkOutlined/>}
+
+          <SubMenu
+            label="رترو"
+            icon={<GroupWorkOutlined />}
             onClick={() => handleClick(boardId, "retro")}
           >
-            رترو
-          </MenuItem>
+            <MenuItem
+              onClick={() => handleClick(boardId, "retro/reflect")}
+              icon={<FlareOutlined />}
+            >
+              بازتاب
+            </MenuItem>
+            <MenuItem
+              onClick={() => handleClick(boardId, "retro/group")}
+              icon={<Diversity2 />}
+            >
+              گروه
+            </MenuItem>
+            <MenuItem
+              onClick={() => handleClick(boardId, "retro/vote")}
+              icon={<ThumbsUpDownOutlined />}
+            >
+              رای 
+            </MenuItem>
+            <MenuItem
+              onClick={() => handleClick(boardId, "retro/discuss")}
+              icon={<ChatOutlined />}
+            >
+              بحث
+            </MenuItem>
+          </SubMenu>
 
           {wsBoard !== [] && (
             <SubMenu label="بورد های فضای کاری" icon={<DashboardOutlined />}>
@@ -158,14 +188,15 @@ const BoardSidebar = () => {
                     ["." + menuClasses.button]: {
                       padding: "0 !important",
                       textAlign: "center",
+                      backgroundColor: "#0a1929",
+                      backgroundImage: `linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url(${b.cover})`,
+                      backgroundSize: "100% 100%",
+                      backgroundPosition: "center",
+                      backgroundRepeat: "no-repeat",
+                      width: "100%",
+                      height: "100%",
                     },
-                    ["." + menuClasses.menuItemRoot]: {},
-                    backgroundColor: "#0a1929",
-                    backgroundImage: `url(${b.cover})`,
-                    // width: "auto",
-                    // height: "auto",
-                    objectFit: "cover",
-                    border: "0.2rem solid var(--minor-item-color)",
+                    height: "100%",
                   }}
                 >
                   {b.name}
