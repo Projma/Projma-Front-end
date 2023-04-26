@@ -6,18 +6,16 @@ import "./RetroReflect.css";
 import StyledTextField from "../Shared/StyledTextField";
 import PerTextField from "../Shared/PerTextField";
 const RetroReflect = () => {
-  const [greenList, setGreenList] = useState([]);
-  const [redList, setRedList] = useState([]);
+  const [greenList, setGreenList] = useState(["1","2","3","4","5"]);
+  const [redList, setRedList] = useState(["1","2","3","4","5"]);
   const handleKeyDown = (event, color) => {
-    console.log(event);
     if (event.key === "Enter" && event.target.value != "") {
       if (color === "red") {
         setRedList((perv) => [...perv, event.target.value]);
-        event.target.value = "";
       } else if (color === "green") {
         setGreenList((perv) => [...perv, event.target.value]);
-        event.target.value = "";
       }
+      event.target.value = "";
     }
   };
   return (
