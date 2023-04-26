@@ -84,7 +84,7 @@ const BoardSidebar = () => {
   }, []);
 
   return (
-    <div style={{ display: "flex", minHeight: "100%" }}>
+    <div style={{ display: "flex", minHeight: "100%", maxHeight: "100%" }}>
       <Sidebar
         rtl
         backgroundColor={"#0a1929"}
