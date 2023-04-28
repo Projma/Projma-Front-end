@@ -28,6 +28,7 @@ import Calendar from "./components/Calendar/Calendar";
 import Poll from "./components/Poll/Poll";
 import Retro from "./components/Retro/Retro";
 import RetroReflect from "./components/Retro/RetroReflect";
+import DiscussPage from "./pages/DiscussPage";
 
 const theme = createTheme(
   {
@@ -175,7 +176,7 @@ function App() {
               <Route
                 exact
                 path="/retro/discuss/:number"
-                element={<PrivateRoute children={<BoardInvitation />} />}
+                element={<PrivateRoute children={<DiscussPage />} />}
               />
 
               {/* has to be last  */}
