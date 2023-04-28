@@ -70,45 +70,26 @@ function App() {
               <Route
                 exact
                 path="/reset-password"
-                // element={<PrivateRoute children={<ResetPassword />} />}
                 element=<ResetPassword />
               />
               <Route
                 path="workspace/:id/dashboard/*"
-                element={
-                  <PrivateRoute
-                    children={
-                      <PrivateRoute children={<Workspace_management />} />
-                    }
-                  />
-                }
+                element={<PrivateRoute children={<Workspace_management />} />}
               />
               <Route
                 exact
                 path="workspace/:workspaceId/kanban/:boardId"
-                element={
-                  <PrivateRoute
-                    children={<PrivateRoute children={<BoardOverView />} />}
-                  />
-                }
+                element={<PrivateRoute children={<BoardOverView />} />}
               >
                 <Route
                   exact
                   path="board"
-                  element={
-                    <PrivateRoute
-                      children={<PrivateRoute children={<Board />} />}
-                    />
-                  }
+                  element={<PrivateRoute children={<Board />} />}
                 />
                 <Route
                   exact
                   path="calendar"
-                  element={
-                    <PrivateRoute
-                      children={<PrivateRoute children={<Calendar />} />}
-                    />
-                  }
+                  element={<PrivateRoute children={<Calendar />} />}
                 />
                 <Route
                   exact
@@ -169,7 +150,7 @@ function App() {
               <Route
                 exact
                 path="/profileview/:username"
-                element={<ProfileView />}
+                element={<PrivateRoute children={<ProfileView />} />}
               />
               <Route
                 exact
@@ -191,11 +172,15 @@ function App() {
                 path="/email-verification"
                 element={<Email_verification_2 />}
               />
+              <Route
+                exact
+                path="/retro/discuss/:number"
+                element={<PrivateRoute children={<BoardInvitation />} />}
+              />
 
               {/* has to be last  */}
-              {/* <Route path='*' exact={true} component={My404Component} /> */}
-              {/* <Route path="/404" element={<NotFound />} />
-              <Route path="*" element={<Navigate replace to="/404" />} /> */}
+              <Route path="/404" element={<NotFound />} />
+              <Route path="*" element={<Navigate replace to="/404" />} />
             </Routes>
           </Router>
         </Provider>

@@ -50,94 +50,6 @@ export default function BasicModal(props) {
 
   let width = window.innerWidth;
   let isMatch = width > 900 ? true : false;
-  // const config = isMatch
-  //     ? {
-  //         background: "#076585" /* fallback for old browsers */,
-  //         background: "-webkit-linear-gradient(to left, #076585, #fff)",
-  //         background: "linear-gradient(to left, #076585, #fff)",
-  //     }
-  //     : {
-  //         background: "#076585" /* fallback for old browsers */,
-  //         background: "-webkit-linear-gradient(to top, #076585, #fff)",
-  //         background: "linear-gradient(to top, #076585, #fff)",
-  //     };
-  // const matches = useMediaQuery("(max-width:900px)");
-
-  // const [workspaceTypes, setWorkspaceTypes] = React.useState({});
-  // const [types, setTypes] = React.useState([]);
-  // apiInstance.get('/workspaces/workspaces/type/').then((res) => {
-  //     // workspaceTypes = res.data
-  //     // workspaceTypes = await res.data.json()
-  //     // const boards = res.data.map((obj) => (
-  //     // //     {
-  //     // //     // id: obj.id,
-  //     // //     // name: obj.name,
-  //     // // }
-  //     //     types.push(obj)
-  //     // ));
-  //     ////console.log(res.data)
-  //     // ////console.log(res.data.keys())
-  //     // res.data.length
-  // }).catch((err) => {
-  //     ////console.log(err)
-  // })
-  // ////console.log(workspaceTypes)
-  // let response = await apiInstance.fetch('/workspaces/workspaces/type/')
-  // workspaceTypes = await response.json()
-  // ////console.log(workspaceTypes)
-  // const [workspaceType, setWorkspaceType] = React.useState(workspaceTypes[0]);
-  // ////console.log(workspaceTypes["education"])
-  // ////console.log(workspaceTypes.length)
-  // const map1 = new Map(workspaceTypes);
-  // ////console.log(map1)
-  // for (const [key, value] of workspaceTypes[0]) {
-  //     types.push(
-  //         {
-  //             'value': key,
-  //             'label': value,
-  //         }
-  //     )
-  //     ////console.log(key)
-  //     ////console.log(value)
-  //     ////console.log("----------------")
-  //     ////console.log(types)
-  // }
-
-  // setWorkspaceTypes({
-  //     "education": "آموزشی",
-  //     "marketing": "بازاریابی",
-  //     "small business": "سرمایه گذاری کوچک",
-  //     "operations": "عملیاتی",
-  //     "engineering-it": "مهندسی و IT",
-  //     "finance": "مالی",
-  //     "human resources": "منابع انسانی",
-  //     "other": "سایر"
-  // })
-
-  // for (const [key, value] of Object.entries(workspaceTypes)) {
-  //     // types.push(
-  //     //     {
-  //     //         'value': key,
-  //     //         'label': value,
-  //     //     }
-  //     // )
-  //     setTypes([...types, {
-  //         'value': key,
-  //         'label': value,
-  //     }])
-  // }
-  // workspaceTypes.forEach((value, key) => {
-  //     // types.push(
-  //     //     {
-  //     //         'value': key,
-  //     //         'label': value,
-  //     //     }
-  //     // )
-  //     setTypes([...types, {
-  //         'value': key,
-  //         'label': value,
-  //     }])
-  // })
   const types = [
     {
       value: "education",
@@ -185,7 +97,7 @@ export default function BasicModal(props) {
   const navigate = useNavigate();
 
   const navigateToWorkspace = (workspaceId) => {
-    navigate(`/workspace/${workspaceId}/Boards`);
+    navigate(`/workspace/${workspaceId}/dashboard/Boards`);
   };
 
   return (
