@@ -7,10 +7,32 @@ import { Box } from "@mui/system";
 import { Divider } from "@mui/material";
 import ThumbUpTwoToneIcon from '@mui/icons-material/ThumbUpTwoTone';
 import { convertNumberToPersian, convertNumberToEnglish } from "../../../utilities/helpers.js";
+import GroupAvatars from "../../Board/temp/GroupAvatars/GroupAvatars";
+import { useParams } from "react-router-dom";
 
 const Discuss = () => {
+
+    const { boardId } = useParams();
+
     return (
         <div>
+            <div className="discuss-header">
+                <div className="discuss-header-right">
+                <div>
+                    <span className="discuss-header-right-title">نام بورد:</span>
+                    <span className="discuss-header-right-title"> </span>
+                    {/* <span className="discuss-header-right-title">{ boardName }</span> */}
+                </div>
+                <div>
+                    <span className="discuss-header-right-subtitle">توضیحات بورد:</span>
+                    <span className="discuss-header-right-subtitle"> </span>
+                    {/* <span className="discuss-header-right-subtitle"> {BoardDescription}</span> */}
+                </div>
+                </div>
+                <div className="discuss-header-left">
+                    <GroupAvatars boardId={boardId} />
+                </div>
+            </div>
             <p className="header_text">
             بحث و گفت‌و‌گو
             </p>
