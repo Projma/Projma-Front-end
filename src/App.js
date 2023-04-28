@@ -84,11 +84,7 @@ function App() {
                 <Route
                   exact
                   path="board"
-                  element={
-                    <PrivateRoute
-                      children={<PrivateRoute children={<Board />} />}
-                    />
-                  }
+                  element={<PrivateRoute children={<Board />} />}
                 />
                 <Route
                   exact
