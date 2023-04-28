@@ -74,13 +74,14 @@ function App() {
               />
               <Route
                 path="workspace/:id/dashboard/*"
-                element={
-                  <PrivateRoute
-                    children={
-                      <PrivateRoute children={<Workspace_management />} />
-                    }
-                  />
-                }
+                // element={
+                //   <PrivateRoute
+                //     children={
+                //       <PrivateRoute children={<Workspace_management />} />
+                //     }
+                //   />
+                // }
+                element={<PrivateRoute children={<Dashborad />} />}
               />
               <Route
                 exact
