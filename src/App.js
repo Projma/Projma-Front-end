@@ -137,7 +137,6 @@ function App() {
               />
 
               {/* has to be last  */}
-              {/* <Route path='*' exact={true} component={My404Component} /> */}
               <Route path="/404" element={<NotFound />} />
               <Route path="*" element={<Navigate replace to="/404" />} />
             </Routes>
