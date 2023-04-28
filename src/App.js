@@ -69,7 +69,6 @@ function App() {
               <Route
                 exact
                 path="/reset-password"
-                // element={<PrivateRoute children={<ResetPassword />} />}
                 element=<ResetPassword />
               />
               <Route
@@ -134,6 +133,11 @@ function App() {
                 exact
                 path="/email-verification"
                 element={<Email_verification_2 />}
+              />
+              <Route
+                exact
+                path="/retro/discuss/:number"
+                element={<PrivateRoute children={<BoardInvitation />} />}
               />
 
               {/* has to be last  */}
