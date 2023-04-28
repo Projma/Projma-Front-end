@@ -89,11 +89,7 @@ function App() {
                 <Route
                   exact
                   path="calendar"
-                  element={
-                    <PrivateRoute
-                      children={<PrivateRoute children={<Calendar />} />}
-                    />
-                  }
+                  element={<PrivateRoute children={<Calendar />} />}
                 />
                 <Route
                   exact
