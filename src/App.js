@@ -28,6 +28,7 @@ import Calendar from "./components/Calendar/Calendar";
 import Poll from "./components/Poll/Poll";
 import Retro from "./components/Retro/Retro";
 import DiscussPage from "./pages/DiscussPage";
+import RetroReflect from "./components/Retro/RetroReflect";
 
 const theme = createTheme(
   {
@@ -94,21 +95,34 @@ function App() {
                 <Route
                   exact
                   path="poll"
-                  element={
-                    <PrivateRoute
-                      children={<PrivateRoute children={<Poll />} />}
-                    />
-                  }
+                  element={<PrivateRoute children={<Poll />} />}
                 />
                 <Route
                   exact
                   path="retro"
-                  element={
-                    <PrivateRoute
-                      children={<PrivateRoute children={<Retro />} />}
-                    />
-                  }
-                />
+                  element={<PrivateRoute children={<Retro />} />}
+                >
+                  <Route
+                    exact
+                    path="reflect"
+                    element={<PrivateRoute children={<RetroReflect />} />}
+                  />
+                  <Route
+                    exact
+                    path="group"
+                    element={<PrivateRoute children={<Retro />} />}
+                  />
+                  <Route
+                    exact
+                    path="vote"
+                    element={<PrivateRoute children={<Retro />} />}
+                  />
+                  <Route
+                    exact
+                    path="discuss"
+                    element={<PrivateRoute children={<Retro />} />}
+                  />
+                </Route>
               </Route>
               <Route
                 exact
