@@ -131,7 +131,7 @@ function App() {
               <Route
                 exact
                 path="/profileview/:username"
-                element={<ProfileView />}
+                element={<PrivateRoute children={<ProfileView />} />}
               />
               <Route
                 exact
