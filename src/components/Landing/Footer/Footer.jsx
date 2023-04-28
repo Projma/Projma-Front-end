@@ -8,7 +8,10 @@ import Grid from "@mui/material/Grid"; // Grid version 1
 
 const Footer = () => {
   return (
-    <>
+    <div style={{
+      position: "absolute",
+      bottom: "0",
+    }}>
       <Grid
         container
         // spacing={{ xs: 2, md: 3 }}
@@ -117,7 +120,7 @@ const Footer = () => {
       >
         <p className="margin--top--bottom">All Rights Reserved © Projma.ir</p>
       </Box>
-    </>
+    </div>
   );
 };
 
