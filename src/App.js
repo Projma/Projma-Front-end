@@ -175,7 +175,8 @@ function App() {
               />
               <Route
                 exact
-                path="/retro/discuss/:number"
+                path="/retro/discuss/*"
+                // path="/retro/discuss/:id"
                 element={<PrivateRoute children={<DiscussPage />} />}
               />
 
