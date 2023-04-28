@@ -16,6 +16,17 @@ const Discuss = () => {
             <p className="paragraph">
             برای ثبت گام‌های بعدی، کارت‌های کاری آماده تهیه کنید.
             </p>
+            <div className="discuss-topic">
+
+                <div className="discuss-topic-text">
+                    <span className="discuss-topic-text-item">
+                        <span className="discuss-topic-text-item-title">"</span>
+                        <span className="discuss-topic-text-item-title">کم کاری ممد</span>
+                        <span className="discuss-topic-text-item-title">"</span>
+
+                    </span>
+                </div>
+            </div>
             <Container>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
