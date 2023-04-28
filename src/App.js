@@ -79,11 +79,7 @@ function App() {
               <Route
                 exact
                 path="workspace/:workspaceId/kanban/:boardId"
-                element={
-                  <PrivateRoute
-                    children={<PrivateRoute children={<BoardOverView />} />}
-                  />
-                }
+                element={<PrivateRoute children={<BoardOverView />} />}
               >
                 <Route
                   exact
