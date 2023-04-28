@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid"; // Grid version 1
 import Container from "@mui/material/Container";
 import { Box } from "@mui/system";
 import { Divider } from "@mui/material";
+import ThumbUpTwoToneIcon from '@mui/icons-material/ThumbUpTwoTone';
 import { convertNumberToPersian, convertNumberToEnglish } from "../../../utilities/helpers.js";
 
 const Discuss = () => {
@@ -17,15 +18,18 @@ const Discuss = () => {
             برای ثبت گام‌های بعدی، کارت‌های کاری آماده تهیه کنید.
             </p>
             <div className="discuss-topic">
-
-                <div className="discuss-topic-text">
+                {/* <div className="discuss-topic-text"> */}
                     <span className="discuss-topic-text-item">
                         <span className="discuss-topic-text-item-title">"</span>
                         <span className="discuss-topic-text-item-title">کم کاری ممد</span>
                         <span className="discuss-topic-text-item-title">"</span>
-
+                        <span className="discuss-topic-text-item-title"> </span>
+                        <span className="discuss-topic-text-item-like">
+                            <ThumbUpTwoToneIcon className="discuss-topic-text-item-like-icon" />
+                            <span className="discuss-topic-text-item-like-number">{convertNumberToPersian(10)}</span>
+                        </span>
                     </span>
-                </div>
+                {/* </div> */}
             </div>
             <Container>
                 <Grid container spacing={2}>
