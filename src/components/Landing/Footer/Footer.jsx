@@ -9,7 +9,7 @@ import Grid from "@mui/material/Grid"; // Grid version 1
 const Footer = () => {
   return (
     <div style={{
-      position: "absolute",
+      position: "relative",
       bottom: "0",
     }}>
       <Grid
