@@ -121,19 +121,17 @@ export default function ShowMeeting({
   const checkAccess = () => {
     console.log("checkAccess");
     if (meeting.start != null) {
-      console.log(currentDate);
-      console.log(meeting.from_date);
-      console.log(meeting.from_date.split("-")[1]);
-      console.log(currentDate.split("/")[0]);
+      // console.log(currentDate);
+      // console.log(meeting.from_date);
+      console.log(currentTime.split(":")[0]);
+      console.log(meeting.start.split(":")[0]);
       if (
         parseInt(meeting.from_date.split("-")[2]) ==
           parseInt(currentDate.split("/")[1]) &&
         parseInt(meeting.from_date.split("-")[0]) ==
           parseInt(currentDate.split("/")[2]) &&
         parseInt(meeting.from_date.split("-")[1]) ==
-          parseInt(currentDate.split("/")[0]) &&
-        parseInt(meeting.start.split(":")[0]) <=
-          parseInt(currentTime.split(":")[0])
+          parseInt(currentDate.split("/")[0])
       ) {
         return true;
       }
