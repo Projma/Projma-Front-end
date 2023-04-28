@@ -10,60 +10,60 @@ import { convertNumberToPersian, convertNumberToEnglish } from "../../../utiliti
 const Discuss = () => {
     return (
         <div>
-
-            <Container maxWidth="lg" sx={{ marginTop: "2rem" }}>
-                <Grid container xs={12} md={12} lg={12} >
-                    <Grid item xs={12} md={12} lg={12} 
-                    // sx={{
-                    //     display: "flex",
-                    //     justifyContent: "center",
-                    //     alignItems: "center",
-                    // }}
-                    >
-                        <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+            <p className="header_text">
+            بحث و گفت‌و‌گو
+            </p>
+            <p className="paragraph">
+            برای ثبت گام‌های بعدی، کارت‌های کاری آماده تهیه کنید.
+            </p>
+            <Container>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} md={6}>
+                        <Paper elevation={3} className="discuss-paper">
+                            <Box className="discuss-box">
+                                <h3 className="discuss-title">نظرات کاربران</h3>
+                                <Divider className="discuss-divider" />
+                                <div className="discuss-content">
+                                    <div className="discuss-content-item">
+                                        <div className="discuss-content-item-title">
+                                            <span>نظر کاربر</span>
+                                            <span>تاریخ</span>
+                                            <span>امتیاز</span>
+                                        </div>
+                                    </div>
+                                    <div className="discuss-content-item-content">
+                                        <span>متن نظر کاربر</span>
+                                        <span>تاریخ</span>
+                                        <span>امتیاز</span>
+                                    </div>
+                                </div>
+                            </Box>
+                        </Paper>
                     </Grid>
-                    <Grid item xs={12} md={12} lg={12} sx={{
-                        // marginTop: "5%",
-                    }}>
-                        <Paper
-                            sx={{
-                                p: 2,
-                                display: "flex",
-                                flexDirection: "column",
-                                height: 240,
-                            }}
-                        >
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                }}
-                            >
-                                <h1>صفحه مورد نظر یافت نشد</h1>
-                            </Box>
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                }}
-                            >
-                                <h1>
-                                {convertNumberToPersian("ارور 404")}
-                                </h1>
-                            </Box>
-                            <Divider />
-                            <Box sx={{ pt: 1 }}>
-                                <p className="my_paragraph">
-                                    صفحه مورد نظر شما یافت نشد. لطفا آدرس صفحه را
-                                    بررسی کنید.
-                                </p>
-                                {/* <img src={page_not_found} className="top-img" /> */}
+                    <Grid item xs={12} md={6}>
+                        <Paper elevation={3} className="discuss-paper">
+                            <Box className="discuss-box">
+                                <h3 className="discuss-title">ثبت نظر</h3>
+                                <Divider className="discuss-divider" />
+                                <div className="discuss-content">
+                                    <div className="discuss-content-item">
+                                        <div className="discuss-content-item-title">
+                                            <span>نام</span>
+                                            <span>ایمیل</span>
+                                            <span>امتیاز</span>
+                                        </div>
+                                        <div className="discuss-content-item-content">
+                                            <input type="text" placeholder="نام" />
+                                            <input type="email" placeholder="ایمیل" />
+                                            <input type="number" placeholder="امتیاز" />
+                                        </div>
+                                    </div>
+                                </div>
                             </Box>
                         </Paper>
                     </Grid>
                 </Grid>
             </Container>
-
         </div>
     );
 };
