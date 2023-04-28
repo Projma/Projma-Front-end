@@ -1,0 +1,89 @@
+.paragraph {
+    color: white;
+    font-family: 'Vazir';
+    margin-top: 1%;
+    margin-right: 3%;
+    margin-bottom: 1%;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    // justify-content: center;
+}
+
+.header_text {
+    color: white;
+    font-family: 'Vazir';
+    margin-top: 3%;
+    margin-right: 3%;
+    font-size: 22px;
+}
+
+.discuss-topic-text {
+    color: white;
+    font-family: 'Vazir';
+    // margin-top: 3%;
+    margin-bottom: 5%;
+    // margin-right: 3%;
+    font-size: 25px;
+}
+
+.discuss-topic {
+    color: white;
+    font-family: 'Vazir';
+    // margin-top: 3%;
+    // margin-right: 3%;
+    margin-bottom: 5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+
+.discuss-topic-item-like {
+    color: white;
+    background-color: #173A5E;
+    font-family: 'Vazir';
+    border-radius: 10%;
+    display: flex;
+    // flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.discuss-topic-item-like-icon {
+    margin-left: 5%;
+    margin-right: 5%;
+    // margin-top: 2%;
+}
+
+.discuss-topic-item-like-number {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.discuss-header {
+    color: white;
+    font-family: 'Vazir';
+    margin-top: 2%;
+    margin-right: 3%;
+    // margin-bottom: 3%;
+    display: flex;
+    flex-direction: row;
+    // align-items: center;
+    // justify-content: center;
+    font-size: 16px;
+}
+
+.discuss-header-left {
+    position: absolute;
+    // right: 50;
+    left: 5%;
+
+}
+
+.discuss-header-right {
+    // margin-top: 3%;
+    margin-left: 5%;
+
+}

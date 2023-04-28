@@ -24,8 +24,6 @@ const NotFound = () => {
                     <Grid item xs={12} md={12} lg={12} 
                     // sx={{
                     //     display: "flex",
-                    //     justifyContent: "center",
-                    //     alignItems: "center",
                     // }}
                     >
                         <img src={page_not_found} className="top-img" />
@@ -66,7 +64,6 @@ const NotFound = () => {
                                     صفحه مورد نظر شما یافت نشد. لطفا آدرس صفحه را
                                     بررسی کنید.
                                 </p>
-                                {/* <img src={page_not_found} className="top-img" /> */}
                             </Box>
                         </Paper>
                     </Grid>

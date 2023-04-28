@@ -27,6 +27,7 @@ import Board from "./components/Board/Board";
 import Calendar from "./components/Calendar/Calendar";
 import Poll from "./components/Poll/Poll";
 import Retro from "./components/Retro/Retro";
+import DiscussPage from "./pages/DiscussPage";
 import RetroReflect from "./components/Retro/RetroReflect";
 
 const theme = createTheme(
@@ -94,56 +95,32 @@ function App() {
                 <Route
                   exact
                   path="poll"
-                  element={
-                    <PrivateRoute
-                      children={<PrivateRoute children={<Poll />} />}
-                    />
-                  }
+                  element={<PrivateRoute children={<Poll />} />}
                 />
                 <Route
                   exact
                   path="retro"
-                  element={
-                    <PrivateRoute
-                      children={<PrivateRoute children={<Retro />} />}
-                    />
-                  }
+                  element={<PrivateRoute children={<Retro />} />}
                 >
                   <Route
                     exact
                     path="reflect"
-                    element={
-                      <PrivateRoute
-                        children={<PrivateRoute children={<RetroReflect />} />}
-                      />
-                    }
+                    element={<PrivateRoute children={<RetroReflect />} />}
                   />
                   <Route
                     exact
                     path="group"
-                    element={
-                      <PrivateRoute
-                        children={<PrivateRoute children={<Retro />} />}
-                      />
-                    }
+                    element={<PrivateRoute children={<Retro />} />}
                   />
                   <Route
                     exact
                     path="vote"
-                    element={
-                      <PrivateRoute
-                        children={<PrivateRoute children={<Retro />} />}
-                      />
-                    }
+                    element={<PrivateRoute children={<Retro />} />}
                   />
                   <Route
                     exact
                     path="discuss"
-                    element={
-                      <PrivateRoute
-                        children={<PrivateRoute children={<Retro />} />}
-                      />
-                    }
+                    element={<PrivateRoute children={<Retro />} />}
                   />
                 </Route>
               </Route>
@@ -174,8 +151,9 @@ function App() {
               />
               <Route
                 exact
-                path="/retro/discuss/:number"
-                element={<PrivateRoute children={<BoardInvitation />} />}
+                path="/:boardId/retro/discuss/*"
+                // path="/:boardId/retro/discuss/:id"
+                element={<PrivateRoute children={<DiscussPage />} />}
               />
 
               {/* has to be last  */}
