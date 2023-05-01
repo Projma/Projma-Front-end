@@ -71,7 +71,7 @@ function App() {
               <Route
                 exact
                 path="/reset-password"
-                element=<ResetPassword />
+                element={<ResetPassword />}
               />
               <Route
                 path="workspace/:id/dashboard/*"

@@ -4,7 +4,7 @@
 import {
     LOGIN,
     LOGOUT
-} from "../actionTypes/actionTypes.js";
+} from "../actionTypes/actionTypes";
 
 const initialAuthState = {
     isAuthenticated: false,

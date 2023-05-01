@@ -9,7 +9,7 @@ import Container from "@mui/material/Container";
 import { Box } from "@mui/system";
 import { Divider } from "@mui/material";
 import page_not_found from "../static/images/not found/page_not_found.svg"
-import { convertNumberToPersian, convertNumberToEnglish } from "../utilities/helpers.js";
+import { convertNumberToPersian, convertNumberToEnglish } from "../utilities/helpers";
 
 const NotFound = () => {
     return (
