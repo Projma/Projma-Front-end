@@ -12,11 +12,11 @@ import BasicSelect from "./SelectType";
 import Avatar from "@mui/material/Avatar";
 import Modal from "@mui/material/Modal";
 import StyledTextField from "../../Shared/StyledTextField";
-import PerTextField from "../../Shared/PerTextField.js";
+import PerTextField from "../../Shared/PerTextField";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 import Loading from "../../Shared/Loading";
 import "./EditModal.css";
-import { convertNumberToPersian } from "../../../utilities/helpers.js";
+import { convertNumberToPersian } from "../../../utilities/helpers";
 
 const style = {
   position: "absolute",

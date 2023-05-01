@@ -27,7 +27,7 @@ import { baseUrl } from "../../utilities/constants";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
-} from "../../utilities/helpers.js";
+} from "../../utilities/helpers";
 
 const theme = createTheme({
   direction: "rtl",

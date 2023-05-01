@@ -3,7 +3,7 @@ import PerTextField from "./PerTextField";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { convertNumberToPersian, convertNumberToEnglish } from "../../utilities/helpers.js";
+import { convertNumberToPersian, convertNumberToEnglish } from "../../utilities/helpers";
 
 const theme = createTheme({
   components: {

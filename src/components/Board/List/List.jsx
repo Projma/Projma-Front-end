@@ -17,7 +17,7 @@ import apiInstance from "../../../utilities/axiosConfig";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
-import { convertNumberToPersian } from "../../../utilities/helpers.js";
+import { convertNumberToPersian } from "../../../utilities/helpers";
 
 const List = ({ task, name, listId, index, boardId }) => {
   const { addCardToList, removeList, editListName, setIsReq } = useBoard();

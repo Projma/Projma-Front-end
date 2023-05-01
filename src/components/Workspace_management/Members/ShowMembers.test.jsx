@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import "@testing-library/jest-dom";
+
 import user from "@testing-library/user-event";
 import anonymous from "../../../static/images/workspace_management/members/anonymous.png";
 import ShowMembers from "./ShowMembers";
@@ -29,8 +29,8 @@ test("it shows one row for each member", async () => {
       image: anonymous,
     },
   ];
-  const go_to_profile = jest.fn();
-  const removeMember = jest.fn();
+  const go_to_profile = vi.fn();
+  const removeMember = vi.fn();
   render(
     <ShowMembers
       members={members}
@@ -66,8 +66,8 @@ test("it shows one image for each member", async () => {
       image: anonymous,
     },
   ];
-  const go_to_profile = jest.fn();
-  const removeMember = jest.fn();
+  const go_to_profile = vi.fn();
+  const removeMember = vi.fn();
   render(
     <ShowMembers
       members={members}
@@ -103,8 +103,8 @@ test("it shows email and names of the members correctly", async () => {
       image: anonymous,
     },
   ];
-  const go_to_profile = jest.fn();
-  const removeMember = jest.fn();
+  const go_to_profile = vi.fn();
+  const removeMember = vi.fn();
   render(
     <ShowMembers
       members={members}
@@ -149,8 +149,8 @@ test("it goes to member profile after clicking the profile button", async () => 
       image: anonymous,
     },
   ];
-  const go_to_profile = jest.fn();
-  const removeMember = jest.fn();
+  const go_to_profile = vi.fn();
+  const removeMember = vi.fn();
   render(
     <ShowMembers
       members={members}
@@ -190,8 +190,8 @@ test("it opens a Delete Dialog for removing specified member", async () => {
       image: anonymous,
     },
   ];
-  const go_to_profile = jest.fn();
-  const removeMember = jest.fn();
+  const go_to_profile = vi.fn();
+  const removeMember = vi.fn();
   render(
     <ShowMembers
       members={members}
@@ -232,8 +232,8 @@ test("it opens a Delete Dialog for removing specified member", async () => {
       image: anonymous,
     },
   ];
-  const go_to_profile = jest.fn();
-  const removeMember = jest.fn();
+  const go_to_profile = vi.fn();
+  const removeMember = vi.fn();
   render(
     <ShowMembers
       members={members}

@@ -34,7 +34,7 @@ import Header from "../Header/Header";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
-} from "../../utilities/helpers.js";
+} from "../../utilities/helpers";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">

@@ -1,10 +1,10 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import "@testing-library/jest-dom";
+
 import user from "@testing-library/user-event";
 import CreateEvent from "./CreateEvent";
 
-jest.mock("../Shared/DateTimePicker", () => () => (
+vi.mock("../Shared/DateTimePicker", () => () => (
   <div data-testid="mocked-child-component" />
 ));
 

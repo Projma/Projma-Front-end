@@ -9,12 +9,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import apiInstance from "../../utilities/axiosConfig";
 import Avatar from "@mui/material/Avatar";
 import StyledTextField from "../Shared/StyledTextField";
-import PerTextField from "../Shared/PerTextField.js";
+import PerTextField from "../Shared/PerTextField";
 import Loading from "../Shared/Loading";
 import DateTimePickerValue from "../Shared/DateTimePicker";
 import dayjs from "dayjs";
 import "./CreateMeeting.scss";
-import { convertNumberToPersian } from "../../utilities/helpers.js";
+import { convertNumberToPersian } from "../../utilities/helpers";
 import { InputLabel } from "@material-ui/core";
 import CloseIcon from "@mui/icons-material/Close";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import "@testing-library/jest-dom";
+
 import user from "@testing-library/user-event";
 import EditModal from "./EditModal";
 
@@ -49,7 +49,7 @@ test("it shows the information of workspace correctly", async () => {
 });
 
 // test("gggggggggggggggggg", async () => {
-//   const spy = jest.spyOn(EditModal.prototype, "edit_workspace");
+//   const spy = vi.spyOn(EditModal.prototype, "edit_workspace");
 //   const { getByRole } = render(
 //     <EditModal
 //       params={{ id: 5 }}

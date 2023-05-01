@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import "@testing-library/jest-dom";
+
 import user from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import anonymous from "../../../static/images/workspace_management/members/anonymous.png";

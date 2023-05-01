@@ -9,7 +9,6 @@ import {
   GroupWorkOutlined,
   FlareOutlined,
   Diversity2,
-  ThumbsUpDown,
   ThumbsUpDownOutlined,
   ChatOutlined,
   HomeOutlined,
@@ -22,17 +21,16 @@ import {
   useProSidebar,
   SubMenu,
   menuClasses,
-  MenuItemStyles,
 } from "react-pro-sidebar";
 import apiInstance from "../../utilities/axiosConfig";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useBoard from "../../hooks/useBoard";
 
 const BoardSidebar = () => {
   const [wsBoard, setWsBoard] = useState([]);
-  const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
+  const { collapseSidebar, collapsed} =
     useProSidebar();
-  const { boardCover, boardId, workspaceId, calendar } = useBoard();
+  const { boardId, workspaceId } = useBoard();
   const menuStyle = {
     ["." + menuClasses.button]: {
       color: "#fff",
@@ -183,6 +181,7 @@ const BoardSidebar = () => {
                 >
                   {wsBoard.map((b) => (
                     <MenuItem
+                      key={crypto.randomUUID()}
                       onClick={() => handleClick(b.id, "board")}
                       rootStyles={{
                         ["." + menuClasses.button]: {

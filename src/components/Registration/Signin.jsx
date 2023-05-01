@@ -27,7 +27,7 @@ import { Helmet } from "react-helmet";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
-} from "../../utilities/helpers.js";
+} from "../../utilities/helpers";
 // import Header from "../Header/Header";
 
 function Copyright(props) {
