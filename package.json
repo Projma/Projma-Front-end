@@ -55,6 +55,7 @@
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.2",
     "sass": "^1.55.0",
+    "socket.io": "^4.6.1",
     "source-map-loader": "^4.0.1",
     "stylis-plugin-rtl": "^2.1.1",
     "transition-style": "^0.1.3",
