@@ -1,4 +1,3 @@
-import * as React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import { Dashborad } from "./pages/Dashborad";
@@ -45,124 +44,188 @@ function App() {
   // const state = useSelector((state) => state);
   return (
     <div className="styled-scrollbars">
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          {/* https://www.freecodecamp.org/news/how-to-build-a-redux-powered-react-app/ */}
-          <Router>
-            <Routes>
-              <Route exact path="/" element={<Landing />} />
-              <Route
-                exact
-                path="/dashboard"
-                element={<PrivateRoute children={<Dashborad />} />}
-              />
-              <Route exact path="/signin" element={<SignIn />} />
-              <Route exact path="/signup" element={<SignUp />} />
-              <Route
-                exact
-                path="/profile"
-                element={<PrivateRoute children={<Profile />} />}
-              />
-              <Route
-                exact
-                path="/forget-password"
-                element={<ForgetPassword />}
-              />
-              <Route
-                exact
-                path="/reset-password"
-                element={<ResetPassword />}
-              />
-              <Route
-                path="workspace/:id/dashboard/*"
-                element={<PrivateRoute children={<Workspace_management />} />}
-              />
-              <Route
-                exact
-                path="workspace/:workspaceId/kanban/:boardId"
-                element={<PrivateRoute children={<BoardOverView />} />}
-              >
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
+            {/* https://www.freecodecamp.org/news/how-to-build-a-redux-powered-react-app/ */}
+            <Router>
+              <Routes>
+                <Route exact path="/" element={<Landing />} />
                 <Route
                   exact
-                  path="board"
-                  element={<PrivateRoute children={<Board />} />}
+                  path="/dashboard"
+                  element={
+                    <PrivateRoute>
+                      <Dashborad />
+                    </PrivateRoute>
+                  }
+                />
+                <Route exact path="/signin" element={<SignIn />} />
+                <Route exact path="/signup" element={<SignUp />} />
+                <Route
+                  exact
+                  path="/profile"
+                  element={
+                    <PrivateRoute>
+                      <Profile />
+                    </PrivateRoute>
+                  }
                 />
                 <Route
                   exact
-                  path="calendar"
-                  element={<PrivateRoute children={<Calendar />} />}
+                  path="/forget-password"
+                  element={<ForgetPassword />}
                 />
                 <Route
                   exact
-                  path="poll"
-                  element={<PrivateRoute children={<Poll />} />}
+                  path="/reset-password"
+                  element={<ResetPassword />}
+                />
+                <Route
+                  path="workspace/:id/dashboard/*"
+                  element={
+                    <PrivateRoute>
+                      <Workspace_management />
+                    </PrivateRoute>
+                  }
                 />
                 <Route
                   exact
-                  path="retro"
-                  element={<PrivateRoute children={<Retro />} />}
+                  path="workspace/:workspaceId/kanban/:boardId"
+                  element={
+                    <PrivateRoute>
+                      <BoardOverView />
+                    </PrivateRoute>
+                  }
                 >
                   <Route
                     exact
-                    path="reflect"
-                    element={<PrivateRoute children={<RetroReflect />} />}
+                    path="board"
+                    element={
+                      <PrivateRoute>
+                        <Board />
+                      </PrivateRoute>
+                    }
                   />
                   <Route
                     exact
-                    path="group"
-                    element={<PrivateRoute children={<Retro />} />}
+                    path="calendar"
+                    element={
+                      <PrivateRoute>
+                        <Calendar />
+                      </PrivateRoute>
+                    }
                   />
                   <Route
                     exact
-                    path="vote"
-                    element={<PrivateRoute children={<Retro />} />}
+                    path="poll"
+                    element={
+                      <PrivateRoute>
+                        <Poll />
+                      </PrivateRoute>
+                    }
                   />
                   <Route
                     exact
-                    path="discuss"
-                    element={<PrivateRoute children={<Retro />} />}
-                  />
+                    path="retro"
+                    element={
+                      <PrivateRoute>
+                        <Retro />
+                      </PrivateRoute>
+                    }
+                  >
+                    <Route
+                      exact
+                      path="reflect"
+                      element={
+                        <PrivateRoute>
+                          <RetroReflect />
+                        </PrivateRoute>
+                      }
+                    />
+                    <Route
+                      exact
+                      path="group"
+                      element={
+                        <PrivateRoute>
+                          <Retro />
+                        </PrivateRoute>
+                      }
+                    />
+                    <Route
+                      exact
+                      path="vote"
+                      element={
+                        <PrivateRoute>
+                          <Retro />
+                        </PrivateRoute>
+                      }
+                    />
+                    <Route
+                      exact
+                      path="discuss"
+                      element={
+                        <PrivateRoute>
+                          <Retro />
+                        </PrivateRoute>
+                      }
+                    />
+                  </Route>
                 </Route>
-              </Route>
-              <Route
-                exact
-                path="/profileview/:username"
-                element={<PrivateRoute children={<ProfileView />} />}
-              />
-              <Route
-                exact
-                path="/changepassword"
-                element={<PrivateRoute children={<ChangePassword />} />}
-              />
-              <Route
-                exact
-                path="/invite_page/:token"
-                element={<InvitePage />}
-              />
-              <Route
-                exact
-                path="/borad_invitation/:id/:token"
-                element={<PrivateRoute children={<BoardInvitation />} />}
-              />
-              <Route
-                exact
-                path="/email-verification"
-                element={<Email_verification_2 />}
-              />
-              <Route
-                exact
-                path="/:boardId/retro/discuss/*"
-                // path="/:boardId/retro/discuss/:id"
-                element={<PrivateRoute children={<DiscussPage />} />}
-              />
+                <Route
+                  exact
+                  path="/profileview/:username"
+                  element={
+                    <PrivateRoute>
+                      <ProfileView />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  exact
+                  path="/changepassword"
+                  element={
+                    <PrivateRoute>
+                      <ChangePassword />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  exact
+                  path="/invite_page/:token"
+                  element={<InvitePage />}
+                />
+                <Route
+                  exact
+                  path="/borad_invitation/:id/:token"
+                  element={
+                    <PrivateRoute>
+                      <BoardInvitation />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  exact
+                  path="/email-verification"
+                  element={<Email_verification_2 />}
+                />
+                <Route
+                  exact
+                  path="/:boardId/retro/discuss/*"
+                  // path="/:boardId/retro/discuss/:id"
+                  element={
+                    <PrivateRoute>
+                      <DiscussPage />
+                    </PrivateRoute>
+                  }
+                />
 
-              {/* has to be last  */}
-              <Route path="/404" element={<NotFound />} />
-              <Route path="*" element={<Navigate replace to="/404" />} />
-            </Routes>
-          </Router>
-        </Provider>
-      </ThemeProvider>
+                {/* has to be last  */}
+                <Route path="/404" element={<NotFound />} />
+                <Route path="*" element={<Navigate replace to="/404" />} />
+              </Routes>
+            </Router>
+          </Provider>
+        </ThemeProvider>
     </div>
   );
 }
