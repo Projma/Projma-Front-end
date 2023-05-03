@@ -7,13 +7,13 @@ import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
 import Modal from "@mui/material/Modal";
 import StyledTextField from "../../Shared/StyledTextField";
-import PerTextField from "../../Shared/PerTextField.js";
+import PerTextField from "../../Shared/PerTextField";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 import "./CreateBoardModal.scss";
 import { ToastContainer, toast } from "react-toastify";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
-import { convertNumberToPersian } from "../../../utilities/helpers.js";
+import { convertNumberToPersian } from "../../../utilities/helpers";
 import Loading from "../../Shared/Loading";
 
 const style = {

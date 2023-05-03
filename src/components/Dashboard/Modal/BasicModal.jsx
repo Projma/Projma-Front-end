@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
-} from "../../../utilities/helpers.js";
+} from "../../../utilities/helpers";
 
 const style = {
   position: "absolute",

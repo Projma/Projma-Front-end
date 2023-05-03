@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent, getByRole } from "@testing-library/react";
-import "@testing-library/jest-dom";
+
 import Profile from "./ProfilePage";
 
 test("number of textfield", () => {

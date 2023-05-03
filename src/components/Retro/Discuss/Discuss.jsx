@@ -6,7 +6,7 @@ import Container from "@mui/material/Container";
 import { Box } from "@mui/system";
 import { Divider } from "@mui/material";
 import ThumbUpTwoToneIcon from '@mui/icons-material/ThumbUpTwoTone';
-import { convertNumberToPersian, convertNumberToEnglish } from "../../../utilities/helpers.js";
+import { convertNumberToPersian, convertNumberToEnglish } from "../../../utilities/helpers";
 import GroupAvatars from "../../Board/temp/GroupAvatars/GroupAvatars";
 import { useParams } from "react-router-dom";
 

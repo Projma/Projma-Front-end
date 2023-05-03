@@ -35,7 +35,7 @@ import Loading from "../../../Shared/Loading";
 import {
   convertNumberToEnglish,
   convertNumberToPersian,
-} from "../../../../utilities/helpers.js";
+} from "../../../../utilities/helpers";
 
 const style = {
   position: "absolute",

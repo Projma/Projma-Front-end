@@ -6,7 +6,7 @@ import CreateLabel from "./CreateLabel";
 import apiInstance from "../../utilities/axiosConfig";
 import Popover from "@mui/material/Popover";
 import StyledTextField from "../Shared/StyledTextField";
-import PerTextField from "../Shared/PerTextField.js";
+import PerTextField from "../Shared/PerTextField";
 import Typography from "@mui/material/Typography";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Button from "@mui/material/Button";
@@ -21,7 +21,7 @@ import Loading from "../Shared/Loading";
 import ShowListOfLabels from "./ShowListOfLabels";
 import "./Labels.scss";
 // // persian num
-import { convertNumberToPersian } from "../../utilities/helpers.js";
+import { convertNumberToPersian } from "../../utilities/helpers";
 
 export default function Labels({ params, task_labels, set_task_labels }) {
   const [current, setCurrent] = useState("");

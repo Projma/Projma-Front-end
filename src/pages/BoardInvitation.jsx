@@ -1,4 +1,3 @@
-import React from "react";
 import { Helmet } from "react-helmet";
 import "../styles/BoardInvitation.scss";
 import { useEffect, useState } from "react";
@@ -9,7 +8,6 @@ import LinearProgress from "@mui/material/LinearProgress";
 import apiInstance from "../utilities/axiosConfig";
 import Header from "../components/Header/Header";
 import Footer from "../components/Landing/Footer/Footer";
-import { Grid } from "@mui/system";
 
 const BoardInvitation = () => {
     const navigate = useNavigate();
@@ -17,13 +15,12 @@ const BoardInvitation = () => {
     const [error, setError] = useState("");
     const [errorRes, setErrorRes] = useState("");
     const [result, setResult] = useState("");
-    const [progress, setProgress] = useState(0);
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     useEffect(() => {
         // ////console.log(params.token);
         apiInstance
             .post(`workspaces/board/join-to-board/${params.token}/`)
-            .then((res) => {
+            .then(() => {
                 // ////console.log("there");
                 // ////console.log(res.data);
                 setResult(success);

@@ -4,7 +4,7 @@ import {
     compose
 } from 'redux';
 // import { configureStore } from "redux";
-import authReducer from "./reducers/authReducer.js";
+import authReducer from "./reducers/authReducer";
 import thunk from "redux-thunk"
 
 const composedEnhancer = compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__? window.__REDUX_DEVTOOLS_EXTENSION__(): f => f)

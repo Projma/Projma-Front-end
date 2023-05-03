@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import "@testing-library/jest-dom";
+
 import user from "@testing-library/user-event";
 import CreateLabel from "./CreateLabel";
 
@@ -17,8 +17,8 @@ test("it shows a textbox for label name and input color for label color and a bu
 });
 
 test("it closes create label popover after clicking create button", async () => {
-  const setAllLabels = jest.fn();
-  const setShowCreate = jest.fn();
+  const setAllLabels = vi.fn();
+  const setShowCreate = vi.fn();
   render(
     <CreateLabel
       setShowCreate={setShowCreate}
@@ -37,8 +37,8 @@ test("it closes create label popover after clicking create button", async () => 
 });
 
 // test("it show error toast after clicking create button withuot entering label name", async () => {
-//   const setAllLabels = jest.fn();
-//   const setShowCreate = jest.fn();
+//   const setAllLabels = vi.fn();
+//   const setShowCreate = vi.fn();
 //   render(
 //     <CreateLabel
 //       setShowCreate={setShowCreate}
