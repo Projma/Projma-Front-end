@@ -17,6 +17,8 @@ import "./CreateMeeting.scss";
 import { convertNumberToPersian } from "../../utilities/helpers";
 import { InputLabel } from "@material-ui/core";
 import CloseIcon from "@mui/icons-material/Close";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { ToastContainer, toast } from "react-toastify";
 
 const style = {
   position: "absolute",
@@ -59,6 +61,22 @@ export default function EditMeeting({
   const [repeatDuration, setRepeatDuration] = useState(0);
   const [editMeeting, setEditMeeting] = useState({});
 
+  const theme = createMuiTheme({
+    overrides: {
+      MuiPickersDateTimePicker: {
+        root: {
+          backgroundColor: "red",
+        },
+        toolbar: {
+          backgroundColor: "red",
+        },
+        toolbarBtnSelected: {
+          color: "#fff",
+        },
+      },
+    },
+  });
+
   React.useEffect(() => {
     apiInstance
       .get(`/calendar/meeting/${meetingId}/get-meeting/`)
@@ -79,9 +97,6 @@ export default function EditMeeting({
   const handleEditEvent = (event) => {
     setIsPost(true);
     event.preventDefault();
-    console.log("$$$$$$$$$$$$$$$$$$$$");
-    console.log(startMeetingDate);
-    console.log("$$$$$$$$$$$$$$$$$$$$");
     const startMeetingDatee = startMeetingDate
       ? startMeetingDate.format("YYYY-MM-DD")
       : "";
@@ -93,6 +108,14 @@ export default function EditMeeting({
       : "";
     const endMeetingTime = endMeetingDate ? endMeetingDate.format("HH:mm") : "";
     const form_data = new FormData();
+    if (editMeeting.title.length < 4) {
+      toast.error("عنوان رویداد باید حداقل 4 کاراکتر باشد", {
+        position: toast.POSITION.BOTTOM_LEFT,
+        rtl: true,
+      });
+      setIsPost(null);
+      return;
+    }
     form_data.append("title", editMeeting.title);
     form_data.append("description", editMeeting.description);
     form_data.append("start", startMeetingTime);
@@ -286,6 +309,7 @@ export default function EditMeeting({
                     dayjs(`${e.format("YYYY-MM-DD")}T${e.$H}:${e.$m}`)
                   )
                 }
+                sx={{ color: "white" }}
               />
               <DateTimePickerValue
                 value={dayjs(endMeetingDate)}

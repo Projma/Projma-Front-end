@@ -277,7 +277,7 @@ export default function ShowMeeting({
                         fontFamily: "Vazir",
                       }}
                       type="submit"
-                      value="ایجاد"
+                      value="شروع جلسه"
                       role="save_button"
                       className="calendar_create_event-button-29"
                       onClick={handleCreateSkyroom}
@@ -292,7 +292,7 @@ export default function ShowMeeting({
                             fontFamily: "Vazir",
                           }}
                           type="submit"
-                          value="ورود"
+                          value="ورود به جلسه"
                           role="save_button"
                           className="calendar_create_event-button-29"
                           onClick={handleOpenSkyroom}
@@ -302,7 +302,7 @@ export default function ShowMeeting({
                             fontFamily: "Vazir",
                           }}
                           type="submit"
-                          value="حذف"
+                          value="اتمام جلسه"
                           role="save_button"
                           className="calendar_create_event-button-29"
                           onClick={handleDeleteSkyroom}
