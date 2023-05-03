@@ -74,15 +74,9 @@ const Group = () => {
   };
 
   const handleClickHide = (group_id) => {
-    if (group_class == "good") {
-      const the_group = good_groups[group_id];
-      the_group.hide = !the_group.hide;
-      setGoodGroups({ ...good_groups, [group_id]: the_group });
-    } else {
-      const the_group = bad_groups[group_id];
-      the_group.hide = !the_group.hide;
-      setBadGroups({ ...bad_groups, [group_id]: the_group });
-    }
+    const the_group = groups[group_id];
+    the_group.hide = !the_group.hide;
+    setGroups({ ...groups, [group_id]: the_group });
   };
 
   const handleTest = () => {
