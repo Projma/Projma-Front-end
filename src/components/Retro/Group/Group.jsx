@@ -151,7 +151,6 @@ const Group = () => {
     <DragDropContext onDragEnd={handleDragEnd}>
       <div className="RetroReflect-container">
         <div className="RetroReflect-list">
-          <button onClick={handleTest}>dasfdsafdsafsdaf</button>
           <div className="RetroReflect-green">
             <RetroList id={"goods"} key={1}>
               <div className="RetroReflect-list-title">
