@@ -36,20 +36,19 @@ const Group = () => {
     { id: "card-7", content: "اینور اونورم ننداز میرم زن میگیرم" },
   ]);
 
-  const [good_groups, setGoodGroups] = useState({});
-  const [bad_groups, setBadGroups] = useState({});
+  const [groups, setGroups] = useState({});
 
   useEffect(() => {
     // write a code for setting groups
     let group_id = 0;
-    let init_good_groups = {};
-    let init_bad_groups = {};
+    let init_groups = {};
     good_cards.map((card) => {
       const group = {
         id: uuid().toString(),
         title: "Group" + group_id,
         cardIds: [card.id],
         hide: false,
+        class: "good",
       };
       init_groups[group.id] = group;
       group_id += 1;
@@ -60,12 +59,12 @@ const Group = () => {
         title: "Group" + group_id,
         cardIds: [card.id],
         hide: false,
+        class: "bad",
       };
       init_groups[group.id] = group;
       group_id += 1;
     });
-    setGoodGroups(init_good_groups);
-    setBadGroups(init_bad_groups);
+    setGroups(init_groups);
   }, []);
 
   // const [groups, setGroups] = useState({
@@ -112,7 +111,6 @@ const Group = () => {
 
   const handleDragEnd = (result) => {
     const { source, destination } = result;
-    console.log(result);
     // If dropped outside of a droppable area
     if (!destination) {
       const sourceGroup = groups[source.droppableId];
