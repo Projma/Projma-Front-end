@@ -81,11 +81,12 @@ const Group = () => {
 
   const handleTest = () => {
     console.log(groups);
-    console.log(cards);
+    // console.log(cards);
   };
 
   const handleDragEnd = (result) => {
     const { source, destination } = result;
+    console.log(result);
     // If dropped outside of a droppable area
     if (!destination) {
       const sourceGroup = groups[source.droppableId];
@@ -120,6 +121,7 @@ const Group = () => {
       // If dropped in a different droppable area
       const sourceGroup = groups[source.droppableId];
       const destGroup = groups[destination.droppableId];
+      if (sourceGroup.class != destGroup.class) return;
       const sourceCardIds = Array.from(sourceGroup.cardIds);
       const destCardIds = Array.from(destGroup.cardIds);
       const [movedCard] = sourceCardIds.splice(source.index, 1);
@@ -201,72 +203,71 @@ const Group = () => {
               <div className="RetroReflect-list-card">
                 <div className="RetroReflect-list-card-container">
                   //{" "}
-                  {Object.values(good_groups).map((group) => (
-                    <Droppable droppableId={group.id} key={group.id}>
-                      {(provided) => (
-                        <div
-                          {...provided.droppableProps}
-                          ref={provided.innerRef}
-                        >
-                          {/* <h2 className="group-title">{group.title}</h2> */}
-                          <div className="list_header-title">
-                            {group.hide && (
-                              <ArrowDropDownIcon
-                                sx={{ color: "#fff" }}
-                                onClick={() => handleClickHide(group.id)}
-                              ></ArrowDropDownIcon>
-                            )}
-                            {!group.hide && (
-                              <ArrowDropUpIcon
-                                sx={{ color: "#fff" }}
-                                onClick={() => handleClickHide(group.id)}
-                              ></ArrowDropUpIcon>
-                            )}
+                  {Object.values(groups)
+                    .filter((group) => group.class == "good")
+                    .map((group) => (
+                      <Droppable droppableId={group.id} key={group.id}>
+                        {(provided) => (
+                          <div
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                          >
+                            {/* <h2 className="group-title">{group.title}</h2> */}
+                            <div className="list_header-title">
+                              {group.hide && (
+                                <ArrowDropDownIcon
+                                  sx={{ color: "#fff" }}
+                                  onClick={() => handleClickHide(group.id)}
+                                ></ArrowDropDownIcon>
+                              )}
+                              {!group.hide && (
+                                <ArrowDropUpIcon
+                                  sx={{ color: "#fff" }}
+                                  onClick={() => handleClickHide(group.id)}
+                                ></ArrowDropUpIcon>
+                              )}
 
-                            {group.title != undefined && (
-                              <InputName
-                                name={convertNumberToPersian(group.title)}
-                                gid={group.id}
-                                // value={listName}
-                                onChangeName={handleChangeGroupName}
-                              />
+                              {group.title != undefined && (
+                                <InputName
+                                  name={convertNumberToPersian(group.title)}
+                                  gid={group.id}
+                                  // value={listName}
+                                  onChangeName={handleChangeGroupName}
+                                />
+                              )}
+                            </div>
+                            {group.hide == false && (
+                              <div>
+                                {group?.cardIds?.map((cardId, index) => (
+                                  <Draggable
+                                    draggableId={cardId}
+                                    index={index}
+                                    key={cardId}
+                                  >
+                                    {(provided) => (
+                                      <div
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        ref={provided.innerRef}
+                                      >
+                                        <RetroCard>
+                                          {
+                                            good_cards.find(
+                                              (card) => card.id === cardId
+                                            )?.content
+                                          }
+                                        </RetroCard>
+                                      </div>
+                                    )}
+                                  </Draggable>
+                                ))}
+                                {provided.placeholder}
+                              </div>
                             )}
                           </div>
-                          {group.hide == false && (
-                            <div>
-                              {group?.cardIds?.map((cardId, index) => (
-                                <Draggable
-                                  draggableId={cardId}
-                                  index={index}
-                                  key={cardId}
-                                >
-                                  {(provided) => (
-                                    <div
-                                      {...provided.draggableProps}
-                                      {...provided.dragHandleProps}
-                                      ref={provided.innerRef}
-                                    >
-                                      <RetroCard>
-                                        {
-                                          good_cards.find(
-                                            (card) => card.id === cardId
-                                          ).id
-                                        }
-                                      </RetroCard>
-                                    </div>
-                                  )}
-                                </Draggable>
-                              ))}
-                              {provided.placeholder}
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </Droppable>
-                  ))}
-                  {/* {greenList.map((x) => (
-                  <RetroCard>{x}</RetroCard>
-                ))} */}
+                        )}
+                      </Droppable>
+                    ))}
                 </div>
               </div>
             </RetroList>
@@ -284,110 +285,74 @@ const Group = () => {
                 ></div>
                 <Typography>در کجا ها به مشکل خوردید؟</Typography>
               </div>
-              <div className="RetroReflect-list-textfield">
-                <PerTextField>
-                  {/* <StyledTextField
-                  margin="normal"
-                  variant="filled"
-                  required
-                  fullWidth
-                  placeholder="بازتاب افکار خورد را بنویسید"
-                  defaultValue={""}
-                  // onKeyDown={(e) => handleKeyDown(e, "red")}
-                  InputProps={{
-                    disableUnderline: true,
-                    style: {
-                      fontFamily: "Vazir",
-                      backgroundColor: "var(--main-item-color)",
-                    },
-                  }}
-                  InputLabelProps={{
-                    style: {
-                      fontFamily: "Vazir",
-                      // fontSize: "1.6rem",
-                    },
-                  }}
-                  hiddenLabel
-                  sx={{
-                    border: "none",
-                    borderRadius: "0.5rem",
-                    // borderRadius: "0.5rem",
-                    "& input::placeholder": {
-                      fontSize: "1rem",
-                    },
-                    margin: 0,
-                  }}
-                /> */}
-                </PerTextField>
-              </div>
+              <div className="RetroReflect-list-textfield"></div>
               <div className="RetroReflect-list-card">
                 <div className="RetroReflect-list-card-container">
-                  {Object.values(bad_groups).map((group) => (
-                    <Droppable droppableId={group.id} key={group.id}>
-                      {(provided) => (
-                        <div
-                          {...provided.droppableProps}
-                          ref={provided.innerRef}
-                        >
-                          {/* <h2 className="group-title">{group.title}</h2> */}
-                          <div className="list_header-title">
-                            {group.hide && (
-                              <ArrowDropDownIcon
-                                sx={{ color: "#fff" }}
-                                onClick={() => handleClickHide(group.id)}
-                              ></ArrowDropDownIcon>
-                            )}
-                            {!group.hide && (
-                              <ArrowDropUpIcon
-                                sx={{ color: "#fff" }}
-                                onClick={() => handleClickHide(group.id)}
-                              ></ArrowDropUpIcon>
-                            )}
+                  {Object.values(groups)
+                    .filter((group) => group.class == "bad")
+                    .map((group) => (
+                      <Droppable droppableId={group.id} key={group.id}>
+                        {(provided) => (
+                          <div
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                          >
+                            {/* <h2 className="group-title">{group.title}</h2> */}
+                            <div className="list_header-title">
+                              {group.hide && (
+                                <ArrowDropDownIcon
+                                  sx={{ color: "#fff" }}
+                                  onClick={() => handleClickHide(group.id)}
+                                ></ArrowDropDownIcon>
+                              )}
+                              {!group.hide && (
+                                <ArrowDropUpIcon
+                                  sx={{ color: "#fff" }}
+                                  onClick={() => handleClickHide(group.id)}
+                                ></ArrowDropUpIcon>
+                              )}
 
-                            {group.title != undefined && (
-                              <InputName
-                                name={convertNumberToPersian(group.title)}
-                                gid={group.id}
-                                // value={listName}
-                                onChangeName={handleChangeGroupName}
-                              />
+                              {group.title != undefined && (
+                                <InputName
+                                  name={convertNumberToPersian(group.title)}
+                                  gid={group.id}
+                                  // value={listName}
+                                  onChangeName={handleChangeGroupName}
+                                />
+                              )}
+                            </div>
+                            {group.hide == false && (
+                              <div>
+                                {group?.cardIds?.map((cardId, index) => (
+                                  <Draggable
+                                    draggableId={cardId}
+                                    index={index}
+                                    key={cardId}
+                                  >
+                                    {(provided) => (
+                                      <div
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        ref={provided.innerRef}
+                                      >
+                                        <RetroCard>
+                                          {
+                                            bad_cards.find(
+                                              (card) => card.id === cardId
+                                            )?.content
+                                          }
+                                        </RetroCard>
+                                      </div>
+                                    )}
+                                  </Draggable>
+                                ))}
+                                {provided.placeholder}
+                              </div>
                             )}
                           </div>
-                          {group.hide == false && (
-                            <div>
-                              {group?.cardIds?.map((cardId, index) => (
-                                <Draggable
-                                  draggableId={cardId}
-                                  index={index}
-                                  key={cardId}
-                                >
-                                  {(provided) => (
-                                    <div
-                                      {...provided.draggableProps}
-                                      {...provided.dragHandleProps}
-                                      ref={provided.innerRef}
-                                    >
-                                      <RetroCard>
-                                        {
-                                          bad_cards.find(
-                                            (card) => card.id === cardId
-                                          ).id
-                                        }
-                                      </RetroCard>
-                                    </div>
-                                  )}
-                                </Draggable>
-                              ))}
-                              {provided.placeholder}
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </Droppable>
-                  ))}
-                  {/* {redList.map((x) => (
-                  // <RetroCard>{x}</RetroCard>
-                ))} */}
+                        )}
+                      </Droppable>
+                    ))}
                 </div>
               </div>
             </RetroList>
