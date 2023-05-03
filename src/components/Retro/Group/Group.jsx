@@ -81,10 +81,12 @@ const Group = () => {
   //   },
   // });
 
-  const handleChangeGroupName = (name, group_id) => {
-    const the_group = groups[group_id];
-    the_group.title = name;
-    setGroups({ ...groups, [group_id]: the_group });
+  const handleChangeGroupName = (name, group_id, group_class) => {
+    if (group_class == "good") {
+      const the_group = good_groups[group_id];
+      the_group.title = name;
+      setGoodGroups({ ...groups, [group_id]: the_group });
+    }
   };
 
   const handleClickHide = (group_id) => {
