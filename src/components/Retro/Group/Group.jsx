@@ -67,29 +67,10 @@ const Group = () => {
     setGroups(init_groups);
   }, []);
 
-  // const [groups, setGroups] = useState({
-  //   "group-1": {
-  //     id: "group-1",
-  //     title: "Group 1",
-  //     cardIds: ["card-1", "card-2"],
-  //   },
-  //   "group-2": {
-  //     id: "group-2",
-  //     title: "Group 2",
-  //     cardIds: ["card-3", "card-4"],
-  //   },
-  // });
-
-  const handleChangeGroupName = (name, group_id, group_class) => {
-    if (group_class == "good") {
-      const the_group = good_groups[group_id];
-      the_group.title = name;
-      setGoodGroups({ ...good_groups, [group_id]: the_group });
-    } else {
-      const the_group = bad_groups[group_id];
-      the_group.title = name;
-      setBadGroups({ ...bad_groups, [group_id]: the_group });
-    }
+  const handleChangeGroupName = (name, group_id) => {
+    const the_group = groups[group_id];
+    the_group.title = name;
+    setGroups({ ...groups, [group_id]: the_group });
   };
 
   const handleClickHide = (group_id) => {
