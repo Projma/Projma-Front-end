@@ -100,6 +100,7 @@ const Group = () => {
         title: "hello",
         cardIds: [movedCard],
         hide: false,
+        class: sourceGroup.class,
       };
       setGroups({
         ...groups,
