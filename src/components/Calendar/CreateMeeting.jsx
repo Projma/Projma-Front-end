@@ -16,6 +16,7 @@ import dayjs from "dayjs";
 import "./CreateMeeting.scss";
 import { convertNumberToPersian } from "../../utilities/helpers.js";
 import { InputLabel } from "@material-ui/core";
+import { ToastContainer, toast } from "react-toastify";
 
 const style = {
   position: "absolute",
@@ -60,6 +61,15 @@ export default function CreateMeeting({ calendarId, handleClose, showToast }) {
   const createEvent = (event) => {
     setIsPost(true);
     event.preventDefault();
+    // if eventTitle length < 4 show Error
+    if (eventTitle.length < 4) {
+      toast.error("عنوان رویداد باید حداقل 4 کاراکتر باشد", {
+        position: toast.POSITION.BOTTOM_LEFT,
+        rtl: true,
+      });
+      setIsPost(null);
+      return;
+    }
     var startMeetingTime = startMeetingDate.format("HH:mm:ss");
     var endMeetingTime = endMeetingDate.format("HH:mm:ss");
     var startMeetingDatee = startMeetingDate.format("YYYY-MM-DD");
