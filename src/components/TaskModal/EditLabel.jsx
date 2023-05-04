@@ -6,7 +6,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import apiInstance from "../../utilities/axiosConfig";
 import StyledTextField from "../Shared/StyledTextField";
 import Divider from "@mui/material/Divider";
-import PerTextField from "../Shared/PerTextField.js";
+import PerTextField from "../Shared/PerTextField";
 import Loading from "../Shared/Loading";
 import "../../styles/TaskModal.css";
 import { convertNumberToPersian } from "../../utilities/helpers";

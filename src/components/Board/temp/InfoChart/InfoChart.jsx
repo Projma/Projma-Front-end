@@ -37,7 +37,7 @@ import Loading from "../../../Shared/Loading";
 import {
     convertNumberToEnglish,
     convertNumberToPersian,
-} from "../../../../utilities/helpers.js";
+} from "../../../../utilities/helpers";
 // import Chart from "react-apexcharts";
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 

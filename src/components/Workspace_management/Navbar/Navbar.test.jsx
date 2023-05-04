@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import "@testing-library/jest-dom";
+
 import user from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import Navbar from "./Navbar";
@@ -10,7 +10,7 @@ test("it shows a logo containing the first letter of workspace name in upper cas
     id: 10,
     name: "test workspace",
   };
-  const setWorkspace = jest.fn();
+  const setWorkspace = vi.fn();
   render(
     <MemoryRouter>
       <Navbar params={{}} workspace={workspace} setWorkspace={setWorkspace} />
@@ -27,7 +27,7 @@ test("it shows a div containing the workspace name", async () => {
     id: 10,
     name: "test workspace",
   };
-  const setWorkspace = jest.fn();
+  const setWorkspace = vi.fn();
   render(
     <MemoryRouter>
       <Navbar params={{}} workspace={workspace} setWorkspace={setWorkspace} />

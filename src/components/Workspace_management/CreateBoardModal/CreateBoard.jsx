@@ -7,7 +7,7 @@ import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
 import Modal from "@mui/material/Modal";
 import StyledTextField from "../../Shared/StyledTextField";
-import PerTextField from "../../Shared/PerTextField.js";
+import PerTextField from "../../Shared/PerTextField";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 // import file from "../../../static/images/workspace_management/create_board/board.jpeg";
 import "./CreateBoard.css";

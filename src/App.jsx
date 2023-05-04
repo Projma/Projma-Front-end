@@ -1,4 +1,3 @@
-import * as React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import { Dashborad } from "./pages/Dashborad";
@@ -55,81 +54,137 @@ function App() {
               <Route
                 exact
                 path="/dashboard"
-                element={<PrivateRoute children={<Dashborad />} />}
+                element={
+                  <PrivateRoute>
+                    <Dashborad />
+                  </PrivateRoute>
+                }
               />
               <Route exact path="/signin" element={<SignIn />} />
               <Route exact path="/signup" element={<SignUp />} />
               <Route
                 exact
                 path="/profile"
-                element={<PrivateRoute children={<Profile />} />}
+                element={
+                  <PrivateRoute>
+                    <Profile />
+                  </PrivateRoute>
+                }
               />
               <Route
                 exact
                 path="/forget-password"
                 element={<ForgetPassword />}
               />
-              <Route exact path="/reset-password" element=<ResetPassword /> />
+              <Route exact path="/reset-password" element={<ResetPassword />} />
               <Route
                 path="workspace/:id/dashboard/*"
-                element={<PrivateRoute children={<Workspace_management />} />}
+                element={
+                  <PrivateRoute>
+                    <Workspace_management />
+                  </PrivateRoute>
+                }
               />
               <Route
                 exact
                 path="workspace/:workspaceId/kanban/:boardId"
-                element={<PrivateRoute children={<BoardOverView />} />}
+                element={
+                  <PrivateRoute>
+                    <BoardOverView />
+                  </PrivateRoute>
+                }
               >
                 <Route
                   exact
                   path="board"
-                  element={<PrivateRoute children={<Board />} />}
+                  element={
+                    <PrivateRoute>
+                      <Board />
+                    </PrivateRoute>
+                  }
                 />
                 <Route
                   exact
                   path="calendar"
-                  element={<PrivateRoute children={<Calendar />} />}
+                  element={
+                    <PrivateRoute>
+                      <Calendar />
+                    </PrivateRoute>
+                  }
                 />
                 <Route
                   exact
                   path="poll"
-                  element={<PrivateRoute children={<Poll />} />}
+                  element={
+                    <PrivateRoute>
+                      <Poll />
+                    </PrivateRoute>
+                  }
                 />
                 <Route
                   exact
                   path="retro"
-                  element={<PrivateRoute children={<Retro />} />}
+                  element={
+                    <PrivateRoute>
+                      <Retro />
+                    </PrivateRoute>
+                  }
                 >
                   <Route
                     exact
                     path="reflect"
-                    element={<PrivateRoute children={<RetroReflect />} />}
+                    element={
+                      <PrivateRoute>
+                        <RetroReflect />
+                      </PrivateRoute>
+                    }
                   />
                   <Route
                     exact
                     path="group"
-                    element={<PrivateRoute children={<Retro />} />}
+                    element={
+                      <PrivateRoute>
+                        <Retro />
+                      </PrivateRoute>
+                    }
                   />
                   <Route
                     exact
                     path="vote"
-                    element={<PrivateRoute children={<Vote />} />}
+                    element={
+                      <PrivateRoute>
+                        <Vote />
+                      </PrivateRoute>
+                    }
                   />
                   <Route
                     exact
                     path="discuss"
-                    element={<PrivateRoute children={<Retro />} />}
+                    element={
+                      <PrivateRoute>
+                        <Retro />
+                      </PrivateRoute>
+                    }
                   />
                 </Route>
               </Route>
               <Route
                 exact
                 path="/profileview/:username"
-                element={<PrivateRoute children={<ProfileView />} />}
+                element={
+                  <PrivateRoute>
+                    <ProfileView />
+                  </PrivateRoute>
+                }
               />
               <Route
                 exact
                 path="/changepassword"
-                element={<PrivateRoute children={<ChangePassword />} />}
+                element={
+                  <PrivateRoute>
+                    <ChangePassword />
+                  </PrivateRoute>
+                }
               />
               <Route
                 exact
@@ -139,7 +194,11 @@ function App() {
               <Route
                 exact
                 path="/borad_invitation/:id/:token"
-                element={<PrivateRoute children={<BoardInvitation />} />}
+                element={
+                  <PrivateRoute>
+                    <BoardInvitation />
+                  </PrivateRoute>
+                }
               />
               <Route
                 exact
@@ -150,7 +209,11 @@ function App() {
                 exact
                 path="/:boardId/retro/discuss/*"
                 // path="/:boardId/retro/discuss/:id"
-                element={<PrivateRoute children={<DiscussPage />} />}
+                element={
+                  <PrivateRoute>
+                    <DiscussPage />
+                  </PrivateRoute>
+                }
               />
 
               {/* has to be last  */}

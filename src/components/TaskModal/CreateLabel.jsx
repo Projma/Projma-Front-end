@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import StyledTextField from "../Shared/StyledTextField";
-import PerTextField from "../Shared/PerTextField.js";
+import PerTextField from "../Shared/PerTextField";
 import "../../styles/TaskModal.css";
 import Loading from "../Shared/Loading";
 // persian num

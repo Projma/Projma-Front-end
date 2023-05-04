@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Box } from "@mui/material";
@@ -8,16 +8,15 @@ import StyledTextField from "../Shared/StyledTextField";
 import Footer from "../Shared/Footer";
 import apiInstance from "../../utilities/axiosConfig";
 import PerTextField from "../Shared/PerTextField";
-import axios, { AxiosResponse, AxiosError } from "axios";
 import Loading from "../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import "../../styles/ReactToastify.css";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
-} from "../../utilities/helpers.js";
+} from "../../utilities/helpers";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");

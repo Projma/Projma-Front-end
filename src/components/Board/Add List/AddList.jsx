@@ -10,7 +10,7 @@ import "./AddList.css";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
-} from "../../../utilities/helpers.js";
+} from "../../../utilities/helpers";
 
 const AddList = (props) => {
   const [req, setReq] = useState(false);

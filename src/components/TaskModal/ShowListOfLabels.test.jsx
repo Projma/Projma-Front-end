@@ -1,6 +1,5 @@
-import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react";
+
 import user from "@testing-library/user-event";
 import ShowListOfLabels from "./ShowListOfLabels";
 import { prettyDOM } from "@testing-library/dom";
@@ -9,8 +8,8 @@ import { prettyDOM } from "@testing-library/dom";
 //   change_label_checked,
 //   handleEditPage,
 test("it shows all the labels in the board", async () => {
-  const change_label_checked = jest.fn();
-  const handleEditPage = jest.fn();
+  const change_label_checked = vi.fn();
+  const handleEditPage = vi.fn();
   const allLabels = [
     {
       id: 1,
@@ -55,8 +54,8 @@ test("it shows all the labels in the board", async () => {
 });
 
 test("it shows task labels with checkbox checked and other labels with checkbox unchecked", async () => {
-  const change_label_checked = jest.fn();
-  const handleEditPage = jest.fn();
+  const change_label_checked = vi.fn();
+  const handleEditPage = vi.fn();
   const allLabels = [
     {
       id: 1,
@@ -103,8 +102,8 @@ test("it shows task labels with checkbox checked and other labels with checkbox 
 });
 
 test("it shows names and colors of labels correctly", async () => {
-  const change_label_checked = jest.fn();
-  const handleEditPage = jest.fn();
+  const change_label_checked = vi.fn();
+  const handleEditPage = vi.fn();
   const allLabels = [
     {
       id: 1,

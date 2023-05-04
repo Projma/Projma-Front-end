@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import "@testing-library/jest-dom";
+
 import user from "@testing-library/user-event";
 import EditLabel from "./EditLabel";
 
@@ -31,7 +31,7 @@ test("it shows the information of editing label correctly", async () => {
     title: "test title",
     color: "#881c99",
   };
-  const editThisItem = jest.fn();
+  const editThisItem = vi.fn();
   render(
     <EditLabel
       setShowEdit={() => {}}
@@ -51,7 +51,7 @@ test("it calls setAllLabels and set_task_labels functions after modifying label 
     title: "test title",
     color: "#881c99",
   };
-  const editThisItem = jest.fn();
+  const editThisItem = vi.fn();
   render(
     <EditLabel
       setShowEdit={() => {}}

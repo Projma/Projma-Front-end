@@ -9,13 +9,14 @@ import EditIcon from "@mui/icons-material/Edit";
 import apiInstance from "../../utilities/axiosConfig";
 import Avatar from "@mui/material/Avatar";
 import StyledTextField from "../Shared/StyledTextField";
-import PerTextField from "../Shared/PerTextField.js";
+import PerTextField from "../Shared/PerTextField";
 import Loading from "../Shared/Loading";
 import DateTimePickerValue from "../Shared/DateTimePicker";
 import dayjs from "dayjs";
 import "./CreateMeeting.scss";
-import { convertNumberToPersian } from "../../utilities/helpers.js";
+import { convertNumberToPersian } from "../../utilities/helpers";
 import { InputLabel } from "@material-ui/core";
+import { ToastContainer, toast } from "react-toastify";
 
 const style = {
   position: "absolute",
@@ -60,6 +61,15 @@ export default function CreateMeeting({ calendarId, handleClose, showToast }) {
   const createEvent = (event) => {
     setIsPost(true);
     event.preventDefault();
+    // if eventTitle length < 4 show Error
+    if (eventTitle.length < 4) {
+      toast.error("عنوان رویداد باید حداقل 4 کاراکتر باشد", {
+        position: toast.POSITION.BOTTOM_LEFT,
+        rtl: true,
+      });
+      setIsPost(null);
+      return;
+    }
     var startMeetingTime = startMeetingDate.format("HH:mm:ss");
     var endMeetingTime = endMeetingDate.format("HH:mm:ss");
     var startMeetingDatee = startMeetingDate.format("YYYY-MM-DD");
