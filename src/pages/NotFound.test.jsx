@@ -35,19 +35,29 @@ describe("NotFound", () => {
     });
 
     test("renders 404 error message", () => {
-        // const { getByText } = render(<NotFound />);
+        const initialState = {user: {
+            profile_pic: null
+        }};
+        const mockStore = configureStore();
+        store = mockStore(initialState);
+        let store; 
         const { getByText } = render(<MemoryRouter>
-            <Provider >
+            <Provider store={store}>
                 <NotFound />
             </Provider>
         </MemoryRouter>);
-        expect(getByText("ارور 404")).toBeInTheDocument();
+        expect(getByText("صفحه مورد نظر شما یافت نشد. لطفا آدرس صفحه را بررسی کنید.")).toBeInTheDocument();
     });
 
     // test("renders page not found image", () => {
-    //     // const { getByAltText } = render(<NotFound />);
-    //     const { getByAltText } = render(<MemoryRouter>
-    //         <Provider >
+    //     const initialState = {user: {
+    //         profile_pic: null
+    //     }};
+    //     const mockStore = configureStore();
+    //     store = mockStore(initialState);
+    //     let store; 
+    //     const { getByText } = render(<MemoryRouter>
+    //         <Provider store={store}>
     //             <NotFound />
     //         </Provider>
     //     </MemoryRouter>);
