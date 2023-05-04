@@ -34,13 +34,6 @@ const Landing = () => {
               xs={2}
               sm={4}
               md={2}
-              sx={
-                {
-                  // background: "#076585" /* fallback for old browsers */,
-                  // background: "-webkit-linear-gradient(to right, #076585, #fff)",
-                  // background: "linear-gradient(to right, #076585, #fff)",
-                }
-              }
             >
               <Box
                 sx={{
@@ -215,13 +208,6 @@ const Landing = () => {
               xs={2}
               sm={4}
               md={2}
-              sx={
-                {
-                  // background: "#076585" /* fallback for old browsers */,
-                  // background: "-webkit-linear-gradient(to right, #076585, #fff)",
-                  // background: "linear-gradient(to right, #076585, #fff)",
-                }
-              }
             >
               <Box
                 sx={{
@@ -385,6 +371,7 @@ const Landing = () => {
 };
 
 export default Landing;
+
 const text3 = `پروجما به کمک امکانات گسترده خود، چون گزارش روزانه، دسته‌بندی کارها،
           تعیین ددلاین، ارتباطات درون تیمی مستمر و موثر به محیط کاری شما نظم
           بخشیده به تکمیل کارها و کنترل پروژه سرعت می‌بخشد. همچنین پروجما
