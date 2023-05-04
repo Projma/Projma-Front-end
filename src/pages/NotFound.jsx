@@ -69,8 +69,6 @@ const NotFound = () => {
                     </Grid>
                 </Grid>
             </Container>
-
-
             <Footer
             />
         </div>
