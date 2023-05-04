@@ -8,16 +8,9 @@ import { MemoryRouter } from "react-router-dom";
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 
-// test("renders the not found page with the correct message",async () => {
-//     render(<MemoryRouter>
-//         <NotFound />
-//     </MemoryRouter>);
-//     expect(screen.getByText(/صفحه مورد نظر یافت نشد/i)).toBeInTheDocument();
-// });
-
 
 describe("NotFound", () => {
-    test("renders page not found message", () => {
+    test("renders page not found message",async () => {
         const initialState = {user: {
             profile_pic: null
         }};
@@ -34,7 +27,7 @@ describe("NotFound", () => {
         expect(getByText("صفحه مورد نظر یافت نشد")).toBeInTheDocument();
     });
 
-    test("renders 404 error message", () => {
+    test("renders 404 error message",async () => {
         const initialState = {user: {
             profile_pic: null
         }};
@@ -49,18 +42,19 @@ describe("NotFound", () => {
         expect(getByText("صفحه مورد نظر شما یافت نشد. لطفا آدرس صفحه را بررسی کنید.")).toBeInTheDocument();
     });
 
-    // test("renders page not found image", () => {
-    //     const initialState = {user: {
-    //         profile_pic: null
-    //     }};
-    //     const mockStore = configureStore();
-    //     store = mockStore(initialState);
-    //     let store; 
-    //     const { getByText } = render(<MemoryRouter>
-    //         <Provider store={store}>
-    //             <NotFound />
-    //         </Provider>
-    //     </MemoryRouter>);
-    //     expect(getByAltText("Page Not Found")).toBeInTheDocument();
-    // });
+    test("renders page not found image",async () => {
+        const initialState = {user: {
+            profile_pic: null
+        }};
+        const mockStore = configureStore();
+        store = mockStore(initialState);
+        let store; 
+        const { getByText } = render(<MemoryRouter>
+            <Provider store={store}>
+                <NotFound />
+            </Provider>
+        </MemoryRouter>);
+
+        expect(getByText("All Rights Reserved © Projma.ir")).toBeInTheDocument();
+    });
 });
