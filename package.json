@@ -72,30 +72,6 @@
     "test": "vitest --ui",
     "coverage": "vitest run --coverage"
   },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/*.{js,jsx}",
-      "!**/node_modules/**",
-      "!**/vendor/**"
-    ],
-    "coverageReporters": [
-      "json",
-      "lcov",
-      "text",
-      "clover"
-    ],
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest"
-    },
-    "moduleNameMapper": {
-      "^.+\\.(css|scss|jpg|jpeg|png|svg)$": "<rootDir>/config/CSSStub.js"
-    },
-    "testEnvironment": "jest-environment-jsdom",
-    "setupFilesAfterEnv": [
-      "<rootDir>/src/setupTests.js"
-    ]
-  },
   "eslintConfig": {
     "extends": [
       "react-app",
