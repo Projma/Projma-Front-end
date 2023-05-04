@@ -1,0 +1,34 @@
+.RetroReflect-vote-card {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.RetroReflect-vote-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: white;
+  column-gap: 18%;
+  margin-top: 4%;
+}
+
+.RetroReflect-vote-header-myVote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  column-gap: 14%;
+  width: 100%;
+  justify-content: center;
+}
+
+.RetroReflect-vote-setting-perpar {
+  display: flex;
+  color: white;
+}
+
+.RetroReflect-vote-setting-pertopic {
+  display: flex;
+  color: white;
+}
