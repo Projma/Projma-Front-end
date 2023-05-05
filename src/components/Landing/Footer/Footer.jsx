@@ -1,7 +1,5 @@
 import React from "react";
-import TextField from "@mui/material/TextField";
 import { Box } from "@mui/system";
-import Button from "@mui/material/Button";
 import "./Footer.css";
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid"; // Grid version 1

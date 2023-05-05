@@ -29,11 +29,11 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Members from "../Members/Members";
 import "./Drawer.css";
-import { useEffect } from "react";
+import { useEffect , useState } from "react";
 import anonymous from "../../../static/images/workspace_management/members/anonymous.png";
 import { baseUrl } from "../../../utilities/constants";
 import apiInstance from "../../../utilities/axiosConfig";
-import { useState } from "react";
+
 import ShowMembersInDrawer from "./ShowMembersInDrawer";
 
 const drawerWidth = 250;

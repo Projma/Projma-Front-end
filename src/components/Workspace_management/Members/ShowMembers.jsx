@@ -7,7 +7,7 @@ import { convertNumberToPersian } from "../../../utilities/helpers";
 const ShowMembers = ({ members, go_to_profile, removeMember }) => {
   return (
     <div className="members">
-      <table class="styled-table">
+      <table className="styled-table">
         <thead>
           <tr>
             <th className="list-item-prop hide-when-small">ردیف</th>
@@ -42,7 +42,7 @@ const ShowMembers = ({ members, go_to_profile, removeMember }) => {
                     role="button"
                     onClick={go_to_profile}
                   >
-                    <span class="text">پروفایل</span>
+                    <span className="text">پروفایل</span>
                   </button>
                 </div>
               </td>

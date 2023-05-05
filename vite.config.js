@@ -12,9 +12,11 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './tests/setup.js',
-    port: 3001,
     coverage: {
-      reporter: ['text', 'json', 'html'],
+      reporter: ['html','json','text'],
+      provider: 'istanbul',
+      enabled: true,
+      all: true,
     },
   },
   plugins: [react(),reactRefresh()],
