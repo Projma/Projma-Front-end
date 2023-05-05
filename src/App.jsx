@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route , Navigate } from "react-router-dom";
 import Landing from "./pages/Landing";
 import { Dashborad } from "./pages/Dashborad";
 import "./App.css";
@@ -20,7 +20,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { faIR } from "@mui/material/locale";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import BoardInvitation from "./pages/BoardInvitation";
-import { Navigate } from "react-router-dom";
+
 import NotFound from "./pages/NotFound";
 import Board from "./components/Board/Board";
 import Calendar from "./components/Calendar/Calendar";

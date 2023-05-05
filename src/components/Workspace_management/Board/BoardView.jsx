@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import "./BoardView.css";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate , useParams } from "react-router-dom";
 import apiInstance from "../../../utilities/axiosConfig";
-import { useParams } from "react-router-dom";
+
 
 const BoardView = (props) => {
   let navigate = useNavigate();

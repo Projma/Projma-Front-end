@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "./showEvent.scss";
 import EditEvent from "./EditEvent";
 import "react-toastify/dist/ReactToastify.css";
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate } from "react-router-dom";
 import { convertNumberToPersian } from "../../utilities/helpers";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import rtlPlugin from "stylis-plugin-rtl";
@@ -18,7 +18,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Button from "@material-ui/core/Button";
 import EditIcon from "@material-ui/icons/Edit";
 import { Box, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+
 import "./ShowMeeting.scss";
 
 export default function ShowMeeting({

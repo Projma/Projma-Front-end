@@ -1,17 +1,17 @@
 // import React from 'react';
 import * as React from "react";
-import { Button } from "@mui/material";
+import { Button , Box , Divider } from "@mui/material";
 import SendTwoToneIcon from "@mui/icons-material/SendTwoTone";
 import PropTypes from "prop-types";
 import Backdrop from "@mui/material/Backdrop";
-import { Box } from "@mui/material";
+
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import Fade from "@mui/material/Fade";
 import ClearTwoToneIcon from "@mui/icons-material/ClearTwoTone";
 // chart icon
 import { AddchartTwoTone } from "@mui/icons-material";
-import { Divider } from "@mui/material";
+
 import useMediaQuery from "@mui/material/useMediaQuery";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
@@ -21,13 +21,13 @@ import StyledTextField from "../../../Dashboard/StyledTextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import apiInstance from "../../../../utilities/axiosConfig";
 import MenuItem from "@mui/material/MenuItem";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate , useParams } from "react-router-dom";
+import { useEffect , useState } from "react";
+
 // import Tooltip as muiTooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import { deepOrange, green } from "@mui/material/colors";
 import LinkSharpIcon from "@mui/icons-material/LinkSharp";
-import { useState } from "react";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./InfoChart.scss";

@@ -2,10 +2,10 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useParams } from "react-router-dom";
 import BasicModal from "../../Dashboard/Modal/BasicModal";
 import apiInstance from "../../../utilities/axiosConfig";
-import { useParams } from "react-router-dom";
+
 import CreateBoardModal from "../CreateBoardModal/CreateBoardModal";
 
 export default function BasicMenu(props) {

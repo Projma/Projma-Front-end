@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import List from "./List/List";
 import "./Board.css";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
@@ -9,7 +9,7 @@ import apiInstance from "../../utilities/axiosConfig";
 import useBoard from "../../hooks/useBoard";
 
 const Board = () => {
-  const { list, setList, getBoard, boardId, calendar } = useBoard();
+  const { list, setList, getBoard, boardId} = useBoard();
 
   useEffect(() => {
     getBoard();
@@ -17,7 +17,7 @@ const Board = () => {
 
   const rederList = () => {
     return list.map((list, index) => (
-      <div className="board_list-container-box">
+      <div className="board_list-container-box" key={crypto.randomUUID()}>
         <List
           name={list.title}
           key={list.id}
@@ -49,7 +49,7 @@ const Board = () => {
         .put(`workspaces/board/${boardId}/reorder-tasklist/`, {
           order: newList.map((list) => list.id).reverse(),
         })
-        .then((response) => {
+        .then(() => {
           setList(newList);
         });
       return;

@@ -1,5 +1,5 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import apiInstance from "../../utilities/axiosConfig";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -141,7 +141,7 @@ const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
         </PerTextField>
         <div className="flex" style={{ marginTop: "2.8rem" }}>
           <button
-            class="labels_button-33"
+            className="labels_button-33"
             role="button"
             onClick={(e) => createThisItem(e)}
             id="create_label_button"

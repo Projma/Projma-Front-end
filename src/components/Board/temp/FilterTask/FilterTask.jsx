@@ -5,10 +5,10 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import "./FilterTask.css";
-import DatePicker from "react-multi-date-picker";
+import DatePicker, { Calendar } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-import { Calendar } from "react-multi-date-picker";
+
 import Loading from "../../../Shared/Loading";
 
 export default function FilterTask({ boardId, setLists }) {

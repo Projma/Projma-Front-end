@@ -1,5 +1,5 @@
-import React from "react";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
+
 import ShowMembers from "./ShowMembers";
 import Navbar from "../Navbar/Navbar";
 import Divider from "@mui/material/Divider";
@@ -100,7 +100,7 @@ const Members = ({ params, workspace, setWorkspace }) => {
         <button
           onClick={copyLink}
           ref={buttonRef}
-          class="button-9"
+          className="button-9"
           style={{ fontFamily: "Vazir" }}
         >
           {button_inner}

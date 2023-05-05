@@ -11,12 +11,12 @@ import { CacheProvider } from "@emotion/react";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-import { Button } from "@mui/material";
+import { Button , Box } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import apiInstance from "../../utilities/axiosConfig";
 import PersonIcon from "@mui/icons-material/Person";
 import PasswordIcon from "@mui/icons-material/Password";
-import { Box } from "@mui/material";
+
 import Typography from "@mui/material/Typography";
 import { Helmet } from "react-helmet";
 import { ToastContainer, toast } from "react-toastify";
@@ -346,7 +346,7 @@ export default function Profile() {
                 </div>
                 <div className="flex-col" style={{ width: "100%" }}>
                   <div className="flex-col show-box show-box-media, row-gap-8">
-                    <label for="email" className="title-css">
+                    <label htmlFor="email" className="title-css">
                       ایمیل
                     </label>
                     <h3 className="email-text-box email-font-size">
@@ -357,7 +357,7 @@ export default function Profile() {
                     className="flex-col show-box show-box-media row-gap-8"
                     style={{ marginTop: "2%" }}
                   >
-                    <label for="username" className="title-css">
+                    <label htmlFor="username" className="title-css">
                       نام کاربری
                     </label>
                     <h3 className="email-text-box">

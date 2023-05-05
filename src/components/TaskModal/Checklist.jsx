@@ -132,7 +132,7 @@ export default function CheckList({ params, setAllChecklists }) {
                 marginBottom: "1rem",
               }}
             />
-            <button class="button-16" role="button" onClick={createCheckList}>
+            <button className="button-16" role="button" onClick={createCheckList}>
               افزودن
             </button>
           </div>
