@@ -13,8 +13,7 @@ const DiscussPage = () => {
             </Helmet>
             <Header />
             <Discuss />
-            <Footer
-            />
+            <Footer/>
         </div>
     );
 };
