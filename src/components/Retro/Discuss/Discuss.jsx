@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Discuss.scss";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid"; // Grid version 1
@@ -9,95 +9,127 @@ import ThumbUpTwoToneIcon from '@mui/icons-material/ThumbUpTwoTone';
 import { convertNumberToPersian, convertNumberToEnglish } from "../../../utilities/helpers";
 import GroupAvatars from "../../Board/temp/GroupAvatars/GroupAvatars";
 import { useParams } from "react-router-dom";
+import RetroCard from "../content/RetroCard";
+import apiInstance from "../../../utilities/axiosConfig";
 
 const Discuss = () => {
-
     const { boardId } = useParams();
+    const [boardName, setBoardName] = React.useState("");
+    const [BoardDescription, setBoardDescription] = React.useState("");
+    useEffect(() => {
+        apiInstance.
+        get(`/board/${boardId}/get-board-overview/`).then((res) => {
+            setBoardName(res.data.name);
+            setBoardDescription(res.data.description);
+        }).catch((err) => {
+            console.log(err);
+        });
+    }, []);
 
     return (
-        <div>
+        <div style={{
+            width: '100%',
+        }}>
             <div className="discuss-header">
                 <div className="discuss-header-right">
-                <div>
-                    <span className="discuss-header-right-title">نام بورد:</span>
-                    <span className="discuss-header-right-title"> </span>
-                    {/* <span className="discuss-header-right-title">{ boardName }</span> */}
-                </div>
-                <div>
-                    <span className="discuss-header-right-subtitle">توضیحات بورد:</span>
-                    <span className="discuss-header-right-subtitle"> </span>
-                    {/* <span className="discuss-header-right-subtitle"> {BoardDescription}</span> */}
-                </div>
+                    <div>
+                        <span className="discuss-header-right-title">نام بورد:</span>
+                        <span className="discuss-header-right-title"> </span>
+                        <span className="discuss-header-right-title">{ boardName }</span>
+                    </div>
+                    <div>
+                        <span className="discuss-header-right-subtitle">توضیحات بورد:</span>
+                        <span className="discuss-header-right-subtitle"> </span>
+                        <span className="discuss-header-right-subtitle"> {BoardDescription}</span>
+                    </div>
                 </div>
                 <div className="discuss-header-left">
                     <GroupAvatars boardId={boardId} />
                 </div>
             </div>
             <p className="header_text">
-            بحث و گفت‌و‌گو
+                بحث و گفت‌و‌گو
             </p>
             <p className="paragraph">
-            برای ثبت گام‌های بعدی، کارت‌های کاری آماده تهیه کنید.
+                برای ثبت گام‌های بعدی، کارت‌های کاری آماده تهیه کنید.
             </p>
             <div className="discuss-topic">
-                    <span className="discuss-topic-item">
-                        <span className="discuss-topic-item-title">"</span>
-                        <span className="discuss-topic-item-title">کم کاری ممد</span>
-                        <span className="discuss-topic-item-title">"</span>
-                        <span className="discuss-topic-item-title"> </span>
-                        <span className="discuss-topic-item-like">
-                            <ThumbUpTwoToneIcon className="discuss-topic-item-like-icon" />
-                            <span className="discuss-topic-item-like-number">{convertNumberToPersian(10)}</span>
-                        </span>
+                <span className="discuss-topic-item">
+                    <span className="discuss-topic-item-title">"</span>
+                    <span className="discuss-topic-item-title">کم کاری ممد</span>
+                    <span className="discuss-topic-item-title">"</span>
+                    <span className="discuss-topic-item-title"> </span>
+                    <span className="discuss-topic-item-like">
+                        <ThumbUpTwoToneIcon className="discuss-topic-item-like-icon" />
+                        <span className="discuss-topic-item-like-number">{convertNumberToPersian(10)}</span>
                     </span>
+                </span>
             </div>
             <Container>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} md={6}>
-                        <Paper elevation={3} className="discuss-paper">
-                            <Box className="discuss-box">
-                                <h3 className="discuss-title">نظرات کاربران</h3>
-                                <Divider className="discuss-divider" />
-                                <div className="discuss-content">
-                                    <div className="discuss-content-item">
-                                        <div className="discuss-content-item-title">
-                                            <span>نظر کاربر</span>
-                                            <span>تاریخ</span>
-                                            <span>امتیاز</span>
-                                        </div>
-                                    </div>
-                                    <div className="discuss-content-item-content">
-                                        <span>متن نظر کاربر</span>
-                                        <span>تاریخ</span>
-                                        <span>امتیاز</span>
-                                    </div>
-                                </div>
-                            </Box>
-                        </Paper>
+                {/* show all cards(<RetroCard>) here width Grid in responsible mode */}
+                <Grid
+                    container
+                    columns={{ xs: 2, sm: 4, md: 4 }}
+                    spacing={{ xs: 1, sm: 2, md: 3 }}
+                    sx={{
+                        // paddingTop: "5%",
+                        // marginTop: "10%",
+                        marginBottom: "7%",
+                        // backgroundColor: "#f5f5f5",
+                    }}
+                >
+                    <Grid item xs={2} sm={2} md={2} sx={{}} >
+                        {/* <Paper
+                            sx={{
+                                // padding: "10%",
+                                textAlign: "center",
+                                // color: "#007fff",
+                                backgroundColor: "#007fff", // 5090D3
+                                borderRadius: "10px",
+                                minHeight: "150px",
+                                margin: "10%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                // flexDirection: "column",
+                                ":hover": {
+                                    backgroundColor: "#5090D3",
+                                    cursor: "pointer",
+                                },
+                            }}
+                        >
+                            <CreateBoardModal
+                                workspace_id={workspace.id}
+                                sx={{
+                                    onclick: () => {
+                                        setFlag(!flag);
+                                        // flag++;
+                                    },
+                                }}
+                            />
+                        </Paper> */}
+                        {/*add green label to the RetroCard */}
+                        <RetroCard>
+                        مناظره هایی که در چت گروهی به جایی نمی رسد 
+                        </RetroCard>
                     </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Paper elevation={3} className="discuss-paper">
-                            <Box className="discuss-box">
-                                <h3 className="discuss-title">ثبت نظر</h3>
-                                <Divider className="discuss-divider" />
-                                <div className="discuss-content">
-                                    <div className="discuss-content-item">
-                                        <div className="discuss-content-item-title">
-                                            <span>نام</span>
-                                            <span>ایمیل</span>
-                                            <span>امتیاز</span>
-                                        </div>
-                                        <div className="discuss-content-item-content">
-                                            <input type="text" placeholder="نام" />
-                                            <input type="email" placeholder="ایمیل" />
-                                            <input type="number" placeholder="امتیاز" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </Box>
-                        </Paper>
+                    <Grid item xs={2} sm={2} md={2} sx={{}}>
+                        <RetroCard>
+                        برخی از مردم همیشه تمام وقت خود را برای پخش می گذارند. به سختی می توان ایده های من را مطرح کرد
+                        </RetroCard>
+                    </Grid>
+                    <Grid item xs={2} sm={2} md={2} sx={{}}>
+                        <RetroCard>
+                        من مایلم به کارآموزان و کارکنان جوان خود فضای بیشتری برای به اشتراک گذاشتن ایده ها و تفکر تازه خود بدهم
+                        </RetroCard>
+                    </Grid>
+                    <Grid item xs={2} sm={2} md={2} sx={{}}>
+                        <RetroCard>
+                        لعنت به این زندگی کوفتی.
+                        </RetroCard>
                     </Grid>
                 </Grid>
+
             </Container>
         </div>
     );
