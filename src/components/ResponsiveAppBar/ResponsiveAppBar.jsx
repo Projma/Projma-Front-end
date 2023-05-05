@@ -15,10 +15,10 @@ import "./ResponsiveAppBar.scss";
 import avatar_photo from "../../static/images/dashboard/scrum_board.svg";
 import { useNavigate } from "react-router-dom";
 import BasicMenu from "./BasicMenu/BasicMenu";
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import apiInstance from "../../utilities/axiosConfig";
 import { baseUrl } from "../../utilities/constants";
-import { useEffect } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../actions/authActions";
 // https://mui.com/#app-bar-with-responsive-menu

@@ -13,17 +13,17 @@ import StyledTextField from "./StyledTextField";
 import { CacheProvider } from "@emotion/react";
 import { red } from "@mui/material/colors";
 import { useDispatch, useSelector } from "react-redux";
-import { Calendar } from "react-multi-date-picker";
-import DatePicker from "react-multi-date-picker";
+import DatePicker, { Calendar } from "react-multi-date-picker";
+
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-import { Button } from "@mui/material";
+import { Button , Box } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import TextField from "@mui/material/TextField";
 import apiInstance from "../../utilities/axiosConfig";
 import PersonIcon from "@mui/icons-material/Person";
 import PasswordIcon from "@mui/icons-material/Password";
-import { Box } from "@mui/material";
+
 import Typography from "@mui/material/Typography";
 import { Helmet } from "react-helmet";
 import { ToastContainer, toast } from "react-toastify";

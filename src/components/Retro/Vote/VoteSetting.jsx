@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import "react-toastify/dist/ReactToastify.css";
+
 import "./Vote.scss";
 
 export default function VoteSetting() {

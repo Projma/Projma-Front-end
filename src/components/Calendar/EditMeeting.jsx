@@ -217,7 +217,7 @@ export default function EditMeeting({
               <br></br>
               <div className="calendar_create_meeting-check-inputs">
                 <div className="flex">
-                  <div class="checkbox-wrapper-47">
+                  <div className="checkbox-wrapper-47">
                     <input
                       type="checkbox"
                       name="cb"
@@ -227,14 +227,14 @@ export default function EditMeeting({
                       onChange={handleChange}
                     />
                     <label
-                      for="daily"
-                      class="calendar_create_meeting-check-input-label"
+                      htmlFor="daily"
+                      className="calendar_create_meeting-check-input-label"
                     >
                       روزانه
                     </label>
                   </div>
 
-                  <div class="checkbox-wrapper-47">
+                  <div className="checkbox-wrapper-47">
                     <input
                       type="checkbox"
                       name="cb"
@@ -244,14 +244,14 @@ export default function EditMeeting({
                       onChange={handleChange}
                     />
                     <label
-                      for="weekly"
-                      class="calendar_create_meeting-check-input-label"
+                      htmlFor="weekly"
+                      className="calendar_create_meeting-check-input-label"
                     >
                       هفتگی
                     </label>
                   </div>
 
-                  <div class="checkbox-wrapper-47">
+                  <div className="checkbox-wrapper-47">
                     <input
                       type="checkbox"
                       name="cb"
@@ -261,8 +261,8 @@ export default function EditMeeting({
                       onChange={handleChange}
                     />
                     <label
-                      for="monthly"
-                      class="calendar_create_meeting-check-input-label"
+                      htmlFor="monthly"
+                      className="calendar_create_meeting-check-input-label"
                     >
                       ماهانه
                     </label>
@@ -285,7 +285,7 @@ export default function EditMeeting({
 
               <br></br>
               <div className="calendar_create_meeting-check-inputs">
-                <label class="calendar_create_meeting-check-input-label flex">
+                <label className="calendar_create_meeting-check-input-label flex">
                   رنگ رویداد
                 </label>
                 <input

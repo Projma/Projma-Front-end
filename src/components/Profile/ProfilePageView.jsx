@@ -91,7 +91,7 @@ export default function ProfileView() {
                   >
                     <div className="flex-col profile--view-show-box">
                       <label
-                        for="first_name"
+                        htmlFor="first_name"
                         className="title-css"
                         style={{ marginRight: "2%" }}
                       >
@@ -101,7 +101,7 @@ export default function ProfileView() {
                     </div>
                     <div className="flex-col profile--view-show-box">
                       <label
-                        for="last_name"
+                        htmlFor="last_name"
                         className="title-css"
                         style={{ marginRight: "2%" }}
                       >
@@ -118,7 +118,7 @@ export default function ProfileView() {
                   <div className="profile-view-box" style={{ width: "100%" }}>
                     <div className="flex-col profile--view-show-box">
                       <label
-                        for="first_name"
+                        htmlFor="first_name"
                         className="title-css"
                         style={{ marginRight: "2%" }}
                       >
@@ -128,7 +128,7 @@ export default function ProfileView() {
                     </div>
                     <div className="flex-col profile--view-show-box">
                       <label
-                        for="last_name"
+                        htmlFor="last_name"
                         className="title-css"
                         style={{ marginRight: "2%" }}
                       >
@@ -141,7 +141,7 @@ export default function ProfileView() {
                 <div style={{ marginTop: "10%" }}>
                   <div className="flex-col profile--view-show-box profile--bio-media">
                     <label
-                      for="bio"
+                      htmlFor="bio"
                       className="title-css"
                       style={{ marginRight: "2%" }}
                     >

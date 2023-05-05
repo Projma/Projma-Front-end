@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useSelector } from "react";
+import { useState, useSelector , useEffect } from "react";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -14,7 +14,7 @@ import "./CreateTemplateModal.scss";
 import { ToastContainer, toast } from "react-toastify";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+
 import MenuItem from "@mui/material/MenuItem";
 import {
     convertNumberToPersian,

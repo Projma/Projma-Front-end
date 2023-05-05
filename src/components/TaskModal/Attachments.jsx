@@ -119,8 +119,8 @@ export default function Attachments({ params, setAllAttachments }) {
               {console.log(binaryFile)}
               {/* <input type="file" onChange={(e) => handleFileChange(e)} /> */}
               <label
-                for="files"
-                class="btn"
+                htmlFor="files"
+                className="btn"
                 style={{
                   fontSize: "100%",
                   padding: "3% 8%",
@@ -155,7 +155,7 @@ export default function Attachments({ params, setAllAttachments }) {
 
             {/* <button onClick={(e) => createAttachment()}>اضافه کردن</button> */}
             <button
-              class="attachment_button-33"
+              className="attachment_button-33"
               role="button"
               onClick={(e) => createAttachment()}
             >
