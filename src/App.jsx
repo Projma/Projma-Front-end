@@ -20,7 +20,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { faIR } from "@mui/material/locale";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import BoardInvitation from "./pages/BoardInvitation";
-
 import NotFound from "./pages/NotFound";
 import Board from "./components/Board/Board";
 import Calendar from "./components/Calendar/Calendar";
@@ -29,7 +28,7 @@ import Retro from "./components/Retro/Retro";
 import DiscussPage from "./pages/DiscussPage";
 import RetroReflect from "./components/Retro/RetroReflect";
 import Vote from "./components/Retro/Vote/Vote";
-import Group from "./components/Retro/Group/Group";
+import Discuss from "./components/Retro/Discuss/Discuss";
 
 const theme = createTheme(
   {
@@ -125,43 +124,28 @@ function App() {
                 <Route
                   exact
                   path="retro"
-                  element={
-                    <PrivateRoute>
-                      <Retro />
-                    </PrivateRoute>
-                  }
+                  element={<PrivateRoute><Retro /></PrivateRoute>}
                 >
                   <Route
                     exact
                     path="reflect"
-                    element={
-                      <PrivateRoute>
-                        <RetroReflect />
-                      </PrivateRoute>
-                    }
+                    element={<PrivateRoute><RetroReflect /></PrivateRoute>}
                   />
                   <Route
                     exact
                     path="group"
-                    element={<PrivateRoute children={<Group />} />}
+                    element={<PrivateRoute><Retro /></PrivateRoute>}
                   />
                   <Route
                     exact
                     path="vote"
-                    element={
-                      <PrivateRoute>
-                        <Vote />
-                      </PrivateRoute>
-                    }
+                    element={<PrivateRoute><Vote /></PrivateRoute>}
                   />
                   <Route
                     exact
                     path="discuss"
-                    element={
-                      <PrivateRoute>
-                        <Retro />
-                      </PrivateRoute>
-                    }
+                    element={<PrivateRoute><Discuss /></PrivateRoute>}
+                    // element={<PrivateRoute children={<DiscussPage />} />}
                   />
                 </Route>
               </Route>
