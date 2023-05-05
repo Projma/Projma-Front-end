@@ -15,7 +15,9 @@ const Discuss = () => {
     const { boardId } = useParams();
 
     return (
-        <div>
+        <div style={{
+            width: '100%',
+        }}>
             <div className="discuss-header">
                 <div className="discuss-header-right">
                 <div>
