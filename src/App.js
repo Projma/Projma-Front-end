@@ -30,6 +30,7 @@ import Retro from "./components/Retro/Retro";
 import DiscussPage from "./pages/DiscussPage";
 import RetroReflect from "./components/Retro/RetroReflect";
 import Vote from "./components/Retro/Vote/Vote";
+import Discuss from "./components/Retro/Discuss/Discuss";
 
 const theme = createTheme(
   {
@@ -117,7 +118,8 @@ function App() {
                   <Route
                     exact
                     path="discuss"
-                    element={<PrivateRoute children={<Retro />} />}
+                    element={<PrivateRoute children={<Discuss />} />}
+                    // element={<PrivateRoute children={<DiscussPage />} />}
                   />
                 </Route>
               </Route>
