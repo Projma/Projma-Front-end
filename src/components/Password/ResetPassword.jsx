@@ -109,6 +109,7 @@ const ResetPassword = () => {
       setIsPost(true);
       postreq();
     }
+    return errorPassword | errorConfirmPassword;
   };
 
   document.body.style.backgroundColor = "var(--minor-background)";
