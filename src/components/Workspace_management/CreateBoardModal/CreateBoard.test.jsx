@@ -22,7 +22,84 @@ test("it shows an input for name, an input for description, another input for ch
   expect(document.querySelector("input[type=submit]")).toBeInTheDocument();
 });
 
-// test("it calls the function for opening modal after clicking on add board button", async () => {
+test("it opens the modal after clicking on add board button", async () => {
+  const onSubmit = vi.fn();
+  render(
+    <CreateBoardModal
+      params={{}}
+      on_submit={onSubmit}
+      boards={{}}
+      setBoards={() => {}}
+    />
+  );
+  const add = document.querySelector("#add_button");
+  user.click(add);
+  expect(screen.getByText("ساخت بورد جدید")).toBeInTheDocument();
+});
+
+test("it calls on_submit function after entering the info and then clicking on create button", async () => {
+  const onSubmit = vi.fn();
+  render(
+    <CreateBoardModal
+      params={{}}
+      on_submit={onSubmit}
+      boards={{}}
+      setBoards={() => {}}
+    />
+  );
+  const add = document.querySelector("#add_button");
+  user.click(add);
+  const name = screen.getByLabelText("نام بورد").toBeInTheDocument();
+  const description = screen.getByLabelText("توضیحات").toBeInTheDocument();
+  const file_inp = document
+    .querySelector("input[type=file]")
+    .toBeInTheDocument();
+  const create_button = document
+    .querySelector("input[type=submit]")
+    .toBeInTheDocument();
+  user.click(name);
+  user.keyboard("test board");
+  user.click(description);
+  user.keyboard("test description");
+  user.click(create_button);
+  expect(onSubmit).toHaveBeenCalled();
+});
+
+test("it calls on_submit function with correct parameters after entering the info and then clicking on create button", async () => {
+  const onSubmit = vi.fn();
+  render(
+    <CreateBoardModal
+      params={{}}
+      on_submit={onSubmit}
+      boards={{}}
+      setBoards={() => {}}
+    />
+  );
+  const add = document.querySelector("#add_button");
+  user.click(add);
+  const name = screen.getByLabelText("نام بورد").toBeInTheDocument();
+  const description = screen.getByLabelText("توضیحات").toBeInTheDocument();
+  const file_inp = document
+    .querySelector("input[type=file]")
+    .toBeInTheDocument();
+  const create_button = document
+    .querySelector("input[type=submit]")
+    .toBeInTheDocument();
+  user.click(name);
+  user.keyboard("test board");
+  user.click(description);
+  user.keyboard("test description");
+  user.click(create_button);
+  expect(onSubmit).toHaveBeenNthCalledWith(
+    1,
+    expect.objectContaining({
+      name: "test board",
+      description: "test description",
+    })
+  );
+});
+
+// test("it gives error when trying to create a new board without specifying name for that", async () => {
 //   const onSubmit = vi.fn();
 //   render(
 //     <CreateBoardModal
@@ -32,26 +109,28 @@ test("it shows an input for name, an input for description, another input for ch
 //       setBoards={() => {}}
 //     />
 //   );
-//   const daily = document.querySelector("#daily");
-//   user.click(daily);
-//   expect(daily).toBeChecked();
-//   const weekly = document.querySelector("#weekly");
-//   user.click(weekly);
-//   expect(weekly).toBeChecked();
-//   expect(daily).not.toBeChecked();
-// });
-
-// test("it makes checkboxes for repeat duration unchecked when some number is put into repeat duration custom input", async () => {
-//   render(
-//     <CreateEvent calendarId={1} handleClose={() => {}} showToast={() => {}} />
+//   const add = document.querySelector("#add_button");
+//   user.click(add);
+//   const name = screen.getByLabelText("نام بورد").toBeInTheDocument();
+//   const description = screen.getByLabelText("توضیحات").toBeInTheDocument();
+//   const file_inp = document
+//     .querySelector("input[type=file]")
+//     .toBeInTheDocument();
+//   const create_button = document
+//     .querySelector("input[type=submit]")
+//     .toBeInTheDocument();
+//   user.click(name);
+//   user.keyboard("test board");
+//   user.click(description);
+//   user.keyboard("test description");
+//   user.click(create_button);
+//   expect(onSubmit).toHaveBeenNthCalledWith(
+//     1,
+//     expect.objectContaining({
+//       name: "test board",
+//       description: "test description",
+//     })
 //   );
-//   const daily = document.querySelector("#daily");
-//   user.click(daily);
-//   expect(daily).toBeChecked();
-//   const custom_repeat = document.querySelector("input[type=number]");
-//   user.click(custom_repeat);
-//   fireEvent.change(custom_repeat, { target: { value: 6 } });
-//   expect(daily).not.toBeChecked();
 // });
 
 // test("it puts the related number of predefined repeat durations in the custom repeat duration input", async () => {
