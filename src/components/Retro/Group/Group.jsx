@@ -79,11 +79,6 @@ const Group = () => {
     setGroups({ ...groups, [group_id]: the_group });
   };
 
-  const handleTest = () => {
-    console.log(groups);
-    // console.log(cards);
-  };
-
   const handleDragEnd = (result) => {
     const { source, destination } = result;
     console.log(result);
