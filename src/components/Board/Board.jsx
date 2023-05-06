@@ -3,7 +3,6 @@ import List from "./List/List";
 import "./Board.css";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import InvitationHeader from "./temp/InvitationHeader/InvitationHeader";
-import { v4 as uuid } from "uuid";
 import "../../styles/ReactToastify.css";
 import apiInstance from "../../utilities/axiosConfig";
 import useBoard from "../../hooks/useBoard";
@@ -90,7 +89,7 @@ const Board = () => {
           setList={setList}
         />
         <Droppable
-          droppableId={uuid().toString()}
+          droppableId={crypto.randomUUID()}
           type="list"
           direction="horizontal"
         >
