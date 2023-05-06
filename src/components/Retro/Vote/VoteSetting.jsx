@@ -12,10 +12,14 @@ import RemoveIcon from "@mui/icons-material/Remove";
 
 import "./Vote.scss";
 
-export default function VoteSetting() {
+export default function VoteSetting({
+  handleChangeVoteUserim,
+  handleChangeVoteItemim,
+  allowVotePerUser,
+  allowVotePerItem,
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [allowVotePerUser, setAllowVotePerUser] = React.useState(5);
-  const [allowVotePerItem, setAllowVotePerItem] = React.useState(5);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -26,28 +30,13 @@ export default function VoteSetting() {
 
   const handleChangeVoteUser = (type) => {
     if (type === "add") {
-      setAllowVotePerUser(allowVotePerUser + 1);
+      handleChangeVoteUserim("add");
     } else if (type === "remove") {
-      if (allowVotePerUser > 0) {
-        setAllowVotePerUser(allowVotePerUser - 1);
+      if (handleChangeVoteUserim("None") > 0) {
+        handleChangeVoteUserim(remove);
       } else {
         toast.error(
           "تعداد رای‌های مجاز برای یک کاربر نمی‌تواند کمتر از 0 باشد",
-          { position: toast.POSITION.BOTTOM_LEFT, rtl: true }
-        );
-      }
-    }
-  };
-
-  const handleChangeVoteItem = (type) => {
-    if (type === "add") {
-      setAllowVotePerItem(allowVotePerItem + 1);
-    } else if (type === "remove") {
-      if (allowVotePerItem > 0) {
-        setAllowVotePerItem(allowVotePerItem - 1);
-      } else {
-        toast.error(
-          "تعداد رای‌های مجاز برای یک آیتم نمی‌تواند کمتر از 0 باشد",
           { position: toast.POSITION.BOTTOM_LEFT, rtl: true }
         );
       }
@@ -113,7 +102,7 @@ export default function VoteSetting() {
               </div>
               <Button sx={{ display: "flex" }}>
                 <AddIcon
-                  onClick={() => handleChangeVoteUser("add")}
+                  onClick={() => handleChangeVoteUserim("add")}
                   sx={{ color: "white", fontSize: "18px" }}
                 />
               </Button>
@@ -129,7 +118,7 @@ export default function VoteSetting() {
               </Typography>
               <Button sx={{ display: "flex" }}>
                 <RemoveIcon
-                  onClick={() => handleChangeVoteUser("remove")}
+                  onClick={() => handleChangeVoteUserim("remove")}
                   sx={{ color: "white", fontSize: "18px" }}
                 />
               </Button>
@@ -140,7 +129,7 @@ export default function VoteSetting() {
               </div>
               <Button sx={{ display: "flex" }}>
                 <AddIcon
-                  onClick={() => handleChangeVoteItem("add")}
+                  onClick={() => handleChangeVoteItemim("add")}
                   sx={{ color: "white", fontSize: "18px" }}
                 />
               </Button>
@@ -156,7 +145,7 @@ export default function VoteSetting() {
               </Typography>
               <Button sx={{ display: "flex" }}>
                 <RemoveIcon
-                  onClick={() => handleChangeVoteItem("remove")}
+                  onClick={() => handleChangeVoteItemim("remove")}
                   sx={{ color: "white", fontSize: "18px" }}
                 />
               </Button>
