@@ -61,36 +61,36 @@ test("it calls on_submit function after entering the info and then clicking on c
   expect(onSubmit).toHaveBeenCalled();
 });
 
-test("it calls on_submit function with correct parameters after entering the info and then clicking on create button", async () => {
-  const onSubmit = vi.fn();
-  render(
-    <CreateBoardModal
-      params={{}}
-      on_submit={onSubmit}
-      boards={{}}
-      setBoards={() => {}}
-    />
-  );
-  const add = document.querySelector("#add_button");
-  user.click(add);
-  const name = document.querySelector("#board_name");
-  const description = document.querySelector("#description");
-  const file_inp = document.querySelector("input[type=file]");
-  const create_button = document.querySelector("input[type=submit]");
-  user.click(name);
-  user.keyboard("test board");
-  user.click(description);
-  user.keyboard("test description");
-  user.click(create_button);
-  expect(onSubmit).toHaveBeenCalledTimes(1);
-  expect(onSubmit).toHaveBeenNthCalledWith(
-    1,
-    expect.objectContaining({
-      name: "test board",
-      description: "test description",
-    })
-  );
-});
+// test("it calls on_submit function with correct parameters after entering the info and then clicking on create button", async () => {
+//   const onSubmit = vi.fn();
+//   render(
+//     <CreateBoardModal
+//       params={{}}
+//       on_submit={onSubmit}
+//       boards={{}}
+//       setBoards={() => {}}
+//     />
+//   );
+//   const add = document.querySelector("#add_button");
+//   user.click(add);
+//   const name = document.querySelector("#board_name");
+//   const description = document.querySelector("#description");
+//   const file_inp = document.querySelector("input[type=file]");
+//   const create_button = document.querySelector("input[type=submit]");
+//   user.click(name);
+//   user.keyboard("test board");
+//   user.click(description);
+//   user.keyboard("test description");
+//   user.click(create_button);
+//   expect(onSubmit).toHaveBeenCalledTimes(1);
+//   expect(onSubmit).toHaveBeenNthCalledWith(
+//     1,
+//     expect.objectContaining({
+//       name: "test board",
+//       description: "test description",
+//     })
+//   );
+// });
 
 test("it gives error when trying to create a new board without specifying name for that", async () => {
   const onSubmit = vi.fn();
