@@ -23,6 +23,7 @@ const AddList = (props) => {
     const data = new FormData();
     data.append("title", listName);
     postCreateList(data, props.boardId);
+    setClick(!click);
   };
   const postCreateList = async (data, id) =>
     await apiInstance
@@ -62,7 +63,7 @@ const AddList = (props) => {
       {click ? (
         <form
           className="baord_add-list-form"
-          onSubmit={(e) => handleAddListSubmit(e)}
+          // onSubmit={(e) => handleAddListSubmit(e)}
         >
           <PerTextField>
             <StyledTextField
@@ -75,6 +76,11 @@ const AddList = (props) => {
               onChange={(e) =>
                 setListName(convertNumberToPersian(e.target.value))
               }
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleAddListSubmit(e);
+                }
+              }}
               value={listName}
               placeholder="اسم لیست را در این بخش بنویسید"
               InputProps={{
@@ -106,11 +112,15 @@ const AddList = (props) => {
               }}
             />
           </PerTextField>
-          <Button type="submit" variant="contained">
+          <Button
+            type="submit"
+            variant="contained"
+            onClick={(e) => handleAddListSubmit(e)}
+          >
             افزودن
           </Button>
           <Button type="button" variant="contained" onClick={handleClick}>
-            لفو
+            لغو
           </Button>
         </form>
       ) : (
