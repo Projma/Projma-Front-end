@@ -1,8 +1,9 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import ResetPassword,{handleSubmit} from "./ResetPassword";
+import { BrowserRouter as Router } from "react-router-dom";
 
 test("show two password inputs", async () => {
-  render(<ResetPassword />);
+  render(<Router><ResetPassword /></Router>);
   const confirmPassword = screen.getByPlaceholderText(
     /رمز عبور خود را دوباره وارد کنید/i
   );
@@ -12,13 +13,13 @@ test("show two password inputs", async () => {
 });
 
 test("test number of textfield", () => {
-  render(<ResetPassword />);
+  render(<Router><ResetPassword /></Router>);
   const inputs = screen.getAllByPlaceholderText(/وارد کنید/i);
   expect(inputs).toHaveLength(2);
 });
 
 test("show submit button", () => {
-  render(<ResetPassword />);
+  render(<Router><ResetPassword /></Router>);
   const submitButton = screen.getByRole('button', { name: /تغییر رمز عبور/i });
   expect(submitButton).toBeInTheDocument();
 });

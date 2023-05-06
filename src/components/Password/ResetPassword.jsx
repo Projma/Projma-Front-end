@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Box } from "@mui/material";
@@ -10,7 +10,9 @@ import PerTextField from "../Shared/PerTextField";
 import Loading from "../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import "../../styles/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 import apiInstance from "../../utilities/axiosConfig";
+import axios from "axios";
 import { Helmet } from "react-helmet";
 
 const ResetPassword = () => {
@@ -22,6 +24,7 @@ const ResetPassword = () => {
   const [isFail, setIsFail] = useState(false);
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  let navigate = useNavigate();
 
   useEffect(() => {
     setErrorPassword(false);
@@ -43,6 +46,7 @@ const ResetPassword = () => {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
+        delay(7000).then(() => navigate("/signin"));
         setIsFail(true);
       })
       .catch((error) => {
@@ -52,6 +56,7 @@ const ResetPassword = () => {
             position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
+          delay(7000).then(() => navigate("/forget-password"));
         } else if (error.response.status === 400) {
           setIsFail(true);
           setErrorconfirmPassword(true);
@@ -109,7 +114,6 @@ const ResetPassword = () => {
       setIsPost(true);
       postreq();
     }
-    return errorPassword | errorConfirmPassword;
   };
 
   document.body.style.backgroundColor = "var(--minor-background)";
