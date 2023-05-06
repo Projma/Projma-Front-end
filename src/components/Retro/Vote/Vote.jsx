@@ -3,17 +3,18 @@ import { useState, useEffect } from "react";
 import { Typography } from "@mui/material";
 import RetroList from "../content/RetroList";
 import VoteCard from "./VoteCard";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
-import Button from "@mui/material/Button";
-import Popover from "@mui/material/Popover";
 import "../RetroReflect.css";
 import VoteSetting from "./VoteSetting";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Vote = () => {
+  const [allowVotePerUser, setAllowVotePerUser] = React.useState(0);
+  const [allowVotePerItem, setAllowVotePerItem] = React.useState(5);
   const [greenList, setGreenList] = useState(["1", "2", "3", "4", "5"]);
   const [redList, setRedList] = useState(["1", "2", "3", "4", "5"]);
   const [voteNumber, setVoteNumber] = useState([0, 0, 0, 0, 0]);
-  const [remainingVote, setRemainingVote] = useState(5);
+  const [remainingVote, setRemainingVote] = useState(0);
   const handleKeyDown = (event, color) => {
     if (event.key === "Enter" && event.target.value != "") {
       if (color === "red") {
@@ -28,18 +29,71 @@ const Vote = () => {
   const onVoteChange = (type, index) => {
     if (type === "add") {
       let vt = voteNumber;
-      vt[index]++;
-      setVoteNumber(vt);
-      let num = remainingVote - 1;
-      setRemainingVote(num);
+      let val = vt[index] + 1;
+      if (val > allowVotePerItem) {
+        toast.error("تعداد رای‌های یک آیتم نمی‌تواند بیشتر از این باشد", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      } else if (remainingVote - 1 < 0) {
+        toast.error("تعداد رای‌های مجاز برای یک شخص نمی‌تواند کمتر از 0 باشد", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      } else {
+        vt[index]++;
+        setVoteNumber(vt);
+        setRemainingVote(remainingVote - 1);
+      }
     } else if (type === "remove") {
       let vt = voteNumber;
-      vt[index]--;
-      setVoteNumber(vt);
-      let num = remainingVote + 1;
-      setRemainingVote(num);
+      let val = vt[index] - 1;
+      if (val < 0) {
+        toast.error("تعداد رای‌های یک آیتم نمی‌تواند صفر باشد", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      } else {
+        vt[index]--;
+        setVoteNumber(vt);
+        setRemainingVote(remainingVote + 1);
+      }
     }
     console.log(voteNumber);
+  };
+
+  const handleChangeVoteUser = (type) => {
+    if (type === "add") {
+      setAllowVotePerUser(allowVotePerUser + 1);
+      setRemainingVote(remainingVote + 1);
+      console.log(allowVotePerUser);
+    } else if (type === "remove") {
+      if (allowVotePerUser > 0) {
+        setAllowVotePerUser(allowVotePerUser - 1);
+        setRemainingVote(remainingVote - 1);
+      } else {
+        toast.error("تعداد رای‌های مجاز برای یک شخص نمی‌تواند کمتر از 0 باشد", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+      }
+    }
+  };
+
+  const handleChangeVoteItem = (type) => {
+    if (type === "add") {
+      setAllowVotePerItem(allowVotePerItem + 1);
+      console.log(allowVotePerItem);
+    } else if (type === "remove") {
+      if (allowVotePerItem > 0) {
+        setAllowVotePerItem(allowVotePerItem - 1);
+      } else {
+        toast.error(
+          "تعداد رای‌های مجاز برای یک آیتم نمی‌تواند کمتر از 0 باشد",
+          { position: toast.POSITION.BOTTOM_LEFT, rtl: true }
+        );
+      }
+    }
   };
 
   return (
@@ -54,7 +108,12 @@ const Vote = () => {
             رای‌های باقیمانده: {remainingVote}
           </div>
           <div style={{ display: "flex" }}>
-            <VoteSetting />
+            <VoteSetting
+              handleChangeVoteUserim={handleChangeVoteUser}
+              handleChangeVoteItemim={handleChangeVoteItem}
+              allowVotePerUser={allowVotePerUser}
+              allowVotePerItem={allowVotePerItem}
+            />
           </div>
         </Typography>
       </div>
