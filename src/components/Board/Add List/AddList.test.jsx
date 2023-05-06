@@ -39,18 +39,39 @@ describe("after click add list", () => {
   });
   it("show cancel button", () => {
     render(<AddList />);
-    const cancel = screen.getByRole("button", { name: /ایجاد لیست/i });
-    user.click(cancel);
+    const add = screen.getByRole("button", { name: /ایجاد لیست/i });
+    user.click(add);
     const button = screen.getByRole("button", { name: /لغو/i });
     expect(button).toBeInTheDocument();
   });
   it("click on cancel button", () => {
     render(<AddList />);
-    let cancel = screen.getByRole("button", { name: /ایجاد لیست/i });
-    user.click(cancel);
+    let add = screen.getByRole("button", { name: /ایجاد لیست/i });
+    user.click(add);
     const button = screen.getByRole("button", { name: /لغو/i });
     user.click(button);
-    cancel = screen.getByRole("button", { name: /ایجاد لیست/i });
-    expect(cancel).toBeInTheDocument();
+    add = screen.getByRole("button", { name: /ایجاد لیست/i });
+    expect(add).toBeInTheDocument();
+  });
+  it("enter on textfield", () => {
+    render(<AddList />);
+    let add = screen.getByRole("button", { name: /ایجاد لیست/i });
+    user.click(add);
+    const input = screen.getByPlaceholderText(
+      /اسم لیست را در این بخش بنویسید/i
+    );
+    fireEvent.keyDown(input, { key: 'Enter', code: 'Enter', value: 'A' });
+    add = screen.getByRole("button", { name: /ایجاد لیست/i });
+    expect(add).toBeInTheDocument();
+  });
+  it("type in textfield", () => {
+    render(<AddList />);
+    let add = screen.getByRole("button", { name: /ایجاد لیست/i });
+    user.click(add);
+    const input = screen.getByPlaceholderText(
+      /اسم لیست را در این بخش بنویسید/i
+    );
+    fireEvent.change(input, { target: { value: 'Hello, world!' } });
+    expect(input.value).toBe('Hello, world!');
   });
 });

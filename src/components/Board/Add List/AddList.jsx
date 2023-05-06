@@ -76,6 +76,11 @@ const AddList = (props) => {
               onChange={(e) =>
                 setListName(convertNumberToPersian(e.target.value))
               }
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleAddListSubmit(e);
+                }
+              }}
               value={listName}
               placeholder="اسم لیست را در این بخش بنویسید"
               InputProps={{
