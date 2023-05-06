@@ -29,6 +29,7 @@ import DiscussPage from "./pages/DiscussPage";
 import RetroReflect from "./components/Retro/RetroReflect";
 import Vote from "./components/Retro/Vote/Vote";
 import Discuss from "./components/Retro/Discuss/Discuss";
+import Group from "./components/Retro/Group/Group";
 
 const theme = createTheme(
   {
@@ -134,7 +135,7 @@ function App() {
                   <Route
                     exact
                     path="group"
-                    element={<PrivateRoute><Retro /></PrivateRoute>}
+                    element={<PrivateRoute><Group /></PrivateRoute>}
                   />
                   <Route
                     exact
