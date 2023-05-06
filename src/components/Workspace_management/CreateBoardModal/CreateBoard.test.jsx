@@ -16,8 +16,8 @@ test("it shows an input for name, an input for description, another input for ch
   );
   const add = document.querySelector("#add_button");
   user.click(add);
-  expect(screen.getByLabelText("نام بورد")).toBeInTheDocument();
-  expect(screen.getByLabelText("توضیحات")).toBeInTheDocument();
+  expect(document.querySelector("#board_name")).toBeInTheDocument();
+  expect(document.querySelector("#description")).toBeInTheDocument();
   expect(document.querySelector("input[type=file]")).toBeInTheDocument();
   expect(document.querySelector("input[type=submit]")).toBeInTheDocument();
 });
@@ -49,14 +49,10 @@ test("it calls on_submit function after entering the info and then clicking on c
   );
   const add = document.querySelector("#add_button");
   user.click(add);
-  const name = screen.getByLabelText("نام بورد").toBeInTheDocument();
-  const description = screen.getByLabelText("توضیحات").toBeInTheDocument();
-  const file_inp = document
-    .querySelector("input[type=file]")
-    .toBeInTheDocument();
-  const create_button = document
-    .querySelector("input[type=submit]")
-    .toBeInTheDocument();
+  const name = document.querySelector("#board_name");
+  const description = document.querySelector("#description");
+  const file_inp = document.querySelector("input[type=file]");
+  const create_button = document.querySelector("input[type=submit]");
   user.click(name);
   user.keyboard("test board");
   user.click(description);
@@ -77,19 +73,16 @@ test("it calls on_submit function with correct parameters after entering the inf
   );
   const add = document.querySelector("#add_button");
   user.click(add);
-  const name = screen.getByLabelText("نام بورد").toBeInTheDocument();
-  const description = screen.getByLabelText("توضیحات").toBeInTheDocument();
-  const file_inp = document
-    .querySelector("input[type=file]")
-    .toBeInTheDocument();
-  const create_button = document
-    .querySelector("input[type=submit]")
-    .toBeInTheDocument();
+  const name = document.querySelector("#board_name");
+  const description = document.querySelector("#description");
+  const file_inp = document.querySelector("input[type=file]");
+  const create_button = document.querySelector("input[type=submit]");
   user.click(name);
   user.keyboard("test board");
   user.click(description);
   user.keyboard("test description");
   user.click(create_button);
+  expect(onSubmit).toHaveBeenCalledTimes(1);
   expect(onSubmit).toHaveBeenNthCalledWith(
     1,
     expect.objectContaining({
@@ -111,14 +104,10 @@ test("it gives error when trying to create a new board without specifying name f
   );
   const add = document.querySelector("#add_button");
   user.click(add);
-  const name = screen.getByLabelText("نام بورد").toBeInTheDocument();
-  const description = screen.getByLabelText("توضیحات").toBeInTheDocument();
-  const file_inp = document
-    .querySelector("input[type=file]")
-    .toBeInTheDocument();
-  const create_button = document
-    .querySelector("input[type=submit]")
-    .toBeInTheDocument();
+  const name = document.querySelector("#board_name");
+  const description = document.querySelector("#description");
+  const file_inp = document.querySelector("input[type=file]");
+  const create_button = document.querySelector("input[type=submit]");
   user.click(create_button);
   expect(screen.getByText("نام بورد نمی تواند خالی باشد")).toBeInTheDocument();
 });
