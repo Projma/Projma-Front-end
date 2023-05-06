@@ -95,7 +95,11 @@ export default function CreateBoardModal({
   return (
     <div>
       <div className="workspace-modal--add-button-container">
-        <button className="workspace-modal--add-button" onClick={handleOpen}>
+        <button
+          className="workspace-modal--add-button"
+          id="add_button"
+          onClick={handleOpen}
+        >
           <p
             className="workspace-modal--add-button-title"
             style={{ color: "#fff" }}
