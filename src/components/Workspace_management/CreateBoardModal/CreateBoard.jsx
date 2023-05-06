@@ -184,6 +184,7 @@ export default function CreateBoardModal({
               />
               <StyledTextField
                 className="workspace-modal--board-name"
+                id="description"
                 label="توضیحات"
                 value={convertNumberToPersian(description)}
                 onChange={(e) => {
