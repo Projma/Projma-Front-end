@@ -57,14 +57,6 @@ const Vote = () => {
             <VoteSetting />
           </div>
         </Typography>
-
-        {/* <Typography
-          className="RetroReflect-vote-header-setting"
-          style={{ flexDirection: "row" }}
-          // onClick={}
-        >
-          تنظیمات
-        </Typography> */}
       </div>
       <div className="RetroReflect-list">
         <div className="RetroReflect-green">
