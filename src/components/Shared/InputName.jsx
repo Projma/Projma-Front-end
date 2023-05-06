@@ -39,7 +39,7 @@ const InputName = (props) => {
 
   const blurHandler = () => {
     if (name !== props.name) {
-      props.onChangeName(convertNumberToPersian(name));
+      props.onChangeName(convertNumberToPersian(name), props.gid);
     }
   };
 
@@ -51,7 +51,7 @@ const InputName = (props) => {
             multiline
             id="component-simple"
             value={convertNumberToPersian(name)}
-            defaultValue={(convertNumberToPersian)}
+            defaultValue={convertNumberToPersian}
             onChange={handleChange}
             onBlur={blurHandler}
             onFocus={() => {}}
