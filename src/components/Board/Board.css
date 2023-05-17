@@ -3,34 +3,38 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-flow: column;
+  max-width: 100%;
   width: 100%;
+  max-height: 100%;
+  min-height: 100%;
   height: 100%;
+  margin: 1rem;
+  gap: 0.5rem;
 }
 
 .board_list-container {
+  overflow: auto;
   max-width: 100%;
   max-height: 100%;
-  min-height: 100%;
-  margin: 0.5rem;
-  padding-bottom: 1rem;
-  overflow: auto;
+  height: 100%;
+  height: 100%;
+  padding-bottom: 2rem;
   display: flex;
   flex-direction: row;
   direction: ltr;
-  align-items: flex-start;
-  /*justify-content: flex-end;*/
-  flex: 1 1 auto;
+  /* align-items: flex-start; */
+  justify-content: flex-start;
+  gap: 0.5rem;
 }
 
 .board_list-container-box {
   direction: rtl;
   max-width: 31rem;
-  max-height: 78vh;
+  max-height: 100%;
   width: 31rem;
-  height: 78vh;
-  /*min-height: 70vh;*/
-  padding: 0.4rem 0.5rem;
-  margin: 0.4rem 0.4rem 0.4rem 0;
+  /* min-height: 70vh; */
+  margin: 0.4rem 0 0.4rem 0;
+  padding: 0.2rem 0.2rem 0 0.2rem;
   border-radius: 0.5rem;
 }
 

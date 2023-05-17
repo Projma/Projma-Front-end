@@ -38,7 +38,6 @@ const InvitationHeader = (props) => {
         alignItems: "center",
         // padding: "5%",
         // margin: "0 5% 5% 5%",
-
       }}>
         <div className="invite-box" style={{
           marginBottom: "5%",

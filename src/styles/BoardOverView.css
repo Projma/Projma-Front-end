@@ -6,8 +6,8 @@
 }
 
 .boardoverview--container {
-  width: 100%;
-  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
   max-width: 100%;
   max-height: 100%;
   display: grid;
@@ -29,10 +29,11 @@
 
 .boardoverview--section { 
   grid-area: section; 
-  margin-top: 1rem;
+  padding: 1rem;
   width: 100%;
   /*height: 100%;*/
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }

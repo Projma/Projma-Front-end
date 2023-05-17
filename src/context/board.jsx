@@ -95,6 +95,53 @@ function Provider({ children, boardId, workspaceId }) {
     );
   };
 
+  const dnd = (result) => {
+    const draggableId = result.draggableId;
+    const destination = result.destination;
+    const source = result.source;
+    if (!destination || !source) {
+      return;
+    }
+    if (result.type === "list") {
+      const newList = Array.from(list);
+      const [removed] = newList.splice(source.index, 1);
+      newList.splice(destination.index, 0, removed);
+      apiInstance
+        .put(`workspaces/board/${boardId}/reorder-tasklist/`, {
+          order: newList.map((list) => list.id).reverse(),
+        })
+        .then(() => {
+          setList(newList);
+        });
+      return;
+    }
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+    if (result.type === "task") {
+      const newlist = Array.from(list);
+      const tasklist = list.find((x) => x.id === source.droppableId);
+      const task = tasklist.tasks.find((x) => x.id === draggableId);
+      list.forEach((value) => {
+        if (value.id === source.droppableId) {
+          value.tasks.splice(source.index, 1);
+        }
+        if (value.id === destination.droppableId) {
+          value.tasks.splice(destination.index, 0, task);
+        }
+      });
+      setList(newlist);
+      apiInstance.patch(`workspaces/task/${result.draggableId}/move-task/`, {
+        tasklist: destination.droppableId,
+        order: destination.index + 1,
+      });
+    }
+  };
+
   const board = {
     boardId,
     workspaceId,
@@ -110,6 +157,7 @@ function Provider({ children, boardId, workspaceId }) {
     editListName,
     removeCard,
     setIsReq,
+    dnd,
   };
 
   return (

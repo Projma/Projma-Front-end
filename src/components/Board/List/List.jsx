@@ -164,13 +164,14 @@ const List = ({ task, name, listId, index, boardId }) => {
   };
 
   return (
-    <Draggable draggableId={crypto.randomUUID()} index={index}>
+    <Draggable draggableId={`list:${listId}`} index={index}>
       {(provided) => (
         <div
           className="list_container"
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
+          key={listId.toString()}
         >
           <Popover
             id={listId}
@@ -318,7 +319,7 @@ const List = ({ task, name, listId, index, boardId }) => {
               </div>
             )}
           </div>
-          <Droppable droppableId={crypto.randomUUID()} type="task">
+          <Droppable droppableId={`card_holder:${listId}`} type="task">
             {(provided, snapshot) => (
               <div
                 className="list_card-container"

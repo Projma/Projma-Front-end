@@ -15,69 +15,78 @@ const CardFooter = ({
 }) => {
   return (
     <>
-      <div className="card_footer">
-        <div className="card_card-avatar">
-          {doers !== [] && (
-            <AvatarGroup
-              max={5}
-              spacing="-1"
-              sx={{ direction: "ltr", border: "none" }}
-              className="card_avatar-container"
-            >
-              {doers.map((x) => (
-                <Tooltip title={x.first_name + " " + x.last_name}>
-                  <Avatar
-                    key={crypto.randomUUID()}
-                    alt={x.first_name + " " + x.last_name}
-                    src={x.profile_pic !== null ? x.profile_pic : "none"}
-                    {...stringAvatar(x.first_name + " " + x.last_name)}
-                    className="card_avatar-profile-picture"
-                  />
-                </Tooltip>
-              ))}
-            </AvatarGroup>
-          )}
-        </div>
-        <div className="card_footer-icon">
-          {attachments_num !== 0 && attachments_num !== undefined && (
-            <div className="card_icon-container">
-              <AttachFileIcon className="card_default-footer-icon" />
-              <p className="card_icon-info">
-                {convertNumberToPersian(attachments_num)}
-              </p>
+      {(attachments_num !== 0 ||
+        checklists_num !== 0 ||
+        comments_num !== 0 ||
+        doers.length !== 0) && (
+        <div className="card_footer">
+          {doers.length !== 0 && (
+            <div className="card_card-avatar">
+              <AvatarGroup
+                max={5}
+                spacing="-1"
+                sx={{ direction: "ltr", border: "none" }}
+                className="card_avatar-container"
+              >
+                {doers.map((x) => (
+                  <Tooltip title={x.first_name + " " + x.last_name}>
+                    <Avatar
+                      key={crypto.randomUUID()}
+                      alt={x.first_name + " " + x.last_name}
+                      src={x.profile_pic !== null ? x.profile_pic : "none"}
+                      {...stringAvatar(x.first_name + " " + x.last_name)}
+                      className="card_avatar-profile-picture"
+                    />
+                  </Tooltip>
+                ))}
+              </AvatarGroup>
             </div>
           )}
-          {checklists_num !== 0 && checklists_num !== undefined && (
-            <div>
-              {checked_checklists_num === checklists_num ? (
+          {(attachments_num !== 0 ||
+            checklists_num !== 0 ||
+            comments_num !== 0) && (
+            <div className="card_footer-icon">
+              {attachments_num !== 0 && attachments_num !== undefined && (
                 <div className="card_icon-container">
-                  <CheckBoxOutlinedIcon className="card_default-footer-icon card_checklist-finish" />
-                  <p className="card_icon-info ">
-                    {convertNumberToPersian(checked_checklists_num)} /
-                    {convertNumberToPersian(checklists_num)}
+                  <AttachFileIcon className="card_default-footer-icon" />
+                  <p className="card_icon-info">
+                    {convertNumberToPersian(attachments_num)}
                   </p>
                 </div>
-              ) : (
+              )}
+              {checklists_num !== 0 && checklists_num !== undefined && (
+                <div>
+                  {checked_checklists_num === checklists_num ? (
+                    <div className="card_icon-container">
+                      <CheckBoxOutlinedIcon className="card_default-footer-icon card_checklist-finish" />
+                      <p className="card_icon-info ">
+                        {convertNumberToPersian(checked_checklists_num)} /
+                        {convertNumberToPersian(checklists_num)}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="card_icon-container">
+                      <CheckBoxOutlinedIcon className="card_default-footer-icon" />
+                      <p className="card_icon-info">
+                        {convertNumberToPersian(checked_checklists_num)}/
+                        {convertNumberToPersian(checklists_num)}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+              {comments_num !== 0 && comments_num !== undefined && (
                 <div className="card_icon-container">
-                  <CheckBoxOutlinedIcon className="card_default-footer-icon" />
+                  <ChatBubbleIcon className="card_default-footer-icon" />
                   <p className="card_icon-info">
-                    {convertNumberToPersian(checked_checklists_num)}/
-                    {convertNumberToPersian(checklists_num)}
+                    {convertNumberToPersian(comments_num)}
                   </p>
                 </div>
               )}
             </div>
           )}
-          {comments_num !== 0 && comments_num !== undefined && (
-            <div className="card_icon-container">
-              <ChatBubbleIcon className="card_default-footer-icon" />
-              <p className="card_icon-info">
-                {convertNumberToPersian(comments_num)}
-              </p>
-            </div>
-          )}
         </div>
-      </div>
+      )}
     </>
   );
 };
@@ -86,7 +95,6 @@ function stringToColor(string) {
   let hash = 0;
   let i;
 
-   
   for (i = 0; i < string.length; i += 1) {
     hash = string.charCodeAt(i) + ((hash << 5) - hash);
   }
