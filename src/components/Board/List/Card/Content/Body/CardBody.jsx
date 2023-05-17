@@ -40,7 +40,7 @@ const CardBody = ({cover,title,labels}) => {
           )}
         </div>
       </div>
-      {labels !== [] && (
+      {labels.length !== 0 && (
         <div className="card_label">
           <CardLabel label={labels} />
         </div>
