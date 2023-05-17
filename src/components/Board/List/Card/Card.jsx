@@ -42,7 +42,7 @@ const Card = ({ task, key, cardId, index, boardId }) => {
       >
         <TaskModal cardId={cardId} boardId={boardId} />
       </Modal>
-      <Draggable draggableId={String(cardId)} index={index}>
+      <Draggable draggableId={`card:${cardId}`} index={index}>
         {(provided) => (
           <div
             className="card_container"

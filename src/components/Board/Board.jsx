@@ -8,7 +8,7 @@ import apiInstance from "../../utilities/axiosConfig";
 import useBoard from "../../hooks/useBoard";
 
 const Board = () => {
-  const { list, setList, getBoard, boardId} = useBoard();
+  const { list, setList, getBoard, boardId, dnd } = useBoard();
 
   useEffect(() => {
     getBoard();
@@ -34,86 +34,43 @@ const Board = () => {
   };
 
   const dragHandler = (result) => {
-    const draggableId = result.draggableId;
-    const destination = result.destination;
-    const source = result.source;
-    if (!destination || !source) {
-      return;
-    }
-    if (result.type === "list") {
-      const newList = Array.from(list);
-      const [removed] = newList.splice(source.index, 1);
-      newList.splice(destination.index, 0, removed);
-      apiInstance
-        .put(`workspaces/board/${boardId}/reorder-tasklist/`, {
-          order: newList.map((list) => list.id).reverse(),
-        })
-        .then(() => {
-          setList(newList);
-        });
-      return;
-    }
-
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return;
-    }
-    if (result.type === "task") {
-      const newlist = Array.from(list);
-      const tasklist = list.find((x) => x.id === source.droppableId);
-      const task = tasklist.tasks.find((x) => x.id === draggableId);
-      list.forEach((value) => {
-        if (value.id === source.droppableId) {
-          value.tasks.splice(source.index, 1);
-        }
-        if (value.id === destination.droppableId) {
-          value.tasks.splice(destination.index, 0, task);
-        }
-      });
-      setList(newlist);
-      apiInstance.patch(`workspaces/task/${result.draggableId}/move-task/`, {
-        tasklist: destination.droppableId,
-        order: destination.index + 1,
-      });
-    }
+    dnd(result);
   };
 
   return (
-    <DragDropContext onDragEnd={dragHandler}>
-      <div className="board_container styled-scrollbars">
-        <InvitationHeader
-          board_id={boardId}
-          onCreateList={handleCreateList}
-          setList={setList}
-        />
+    <div className="board_container styled-scrollbars">
+      <InvitationHeader
+        board_id={boardId}
+        onCreateList={handleCreateList}
+        setList={setList}
+      />
+      <DragDropContext onDragEnd={dragHandler}>
         <Droppable
-          droppableId={crypto.randomUUID()}
+          droppableId={"kanban"}
           type="list"
           direction="horizontal"
         >
           {(provided, snapshot) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              <div
-                className="board_list-container"
-                style={
-                  snapshot.draggingOverWith
-                    ? {
-                        backgroundColor: "var(--main-bg)",
-                        borderRadius: "0.5rem",
-                      }
-                    : null
-                }
-              >
-                {rederList()}
-              </div>
+            <div
+              className="board_list-container"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              style={
+                snapshot.isUsingPlaceholder
+                  ? {
+                      backgroundColor: "var(--main-bg)",
+                      borderRadius: "0.5rem",
+                    }
+                  : null
+              }
+            >
+              {rederList()}
               {provided.placeholder}
             </div>
           )}
         </Droppable>
-      </div>
-    </DragDropContext>
+      </DragDropContext>
+    </div>
   );
 };
 

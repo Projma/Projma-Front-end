@@ -300,14 +300,13 @@ const ShareButton = (props) => {
           // width: "30%",
           // height: "100%",
           ml: "0.5rem",
-          mr: "1.3rem",
           fontFamily: "Vazir",
         }}
         onClick={handleOpen}
       >
         <SendTwoToneIcon sx={{
-          ml: 1.5,
           color: "springgreen",
+          ml: 0.5,
           }} />
         اشتراک
       </Button>

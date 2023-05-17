@@ -267,14 +267,13 @@ const InfoChart = (props) => {
                     // width: "30%",
                     // height: "100%",
                     ml: "0.5rem",
-                    mr: "1.3rem",
                     fontFamily: "Vazir",
                     // color: "black",
                 }}
                 onClick={handleOpen}
             >
                 <AddchartTwoTone sx={{
-                    ml: 1.5,
+                    ml: 0.5,
                     color: "tomato"
                 }} />
                 اطلاعات نموداری
