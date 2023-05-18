@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import List from "./List/List";
 import "./Board.scss";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
@@ -7,7 +7,7 @@ import useBoard from "../../hooks/useBoard";
 import tc from "../../Theme/theme";
 
 const Board = () => {
-  const { list, setList, getBoard, boardId, dnd } = useBoard();
+  const { list, setList, getBoard, boardId, dnd, socket } = useBoard();
 
   useEffect(() => {
     getBoard();
@@ -16,24 +16,25 @@ const Board = () => {
   const rederList = () => {
     return list.map((list, index) => (
       // <div className="board_list-container-box" key={crypto.randomUUID()}>
-        <List
-          name={list.title}
-          key={list.id}
-          listId={list.id}
-          index={index}
-          task={list.tasks}
-          boardId={boardId}
-        />
+      <List
+        name={list.title}
+        key={list.id}
+        listId={list.id}
+        index={index}
+        task={list.tasks}
+        boardId={boardId}
+      />
       // </div>
     ));
   };
 
   const handleCreateList = (data) => {
+    socket.send(JSON.stringify({ type: "add_list", data }));
     setList((pervlist) => [data, ...pervlist]);
   };
 
   const dragHandler = (result) => {
-    dnd(result);
+    dnd(result, socket);
   };
 
   return (
@@ -44,7 +45,13 @@ const Board = () => {
         setList={setList}
       />
       <DragDropContext onDragEnd={dragHandler}>
-        <Droppable droppableId={"kanban"} direction="horizontal" type="COLUMN" isCombineEnabled ignoreContainerClipping>
+        <Droppable
+          droppableId={"kanban"}
+          direction="horizontal"
+          type="COLUMN"
+          isCombineEnabled
+          ignoreContainerClipping
+        >
           {(provided, snapshot) => (
             <div
               className="board_list-container"

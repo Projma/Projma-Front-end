@@ -21,7 +21,8 @@ import { convertNumberToPersian } from "../../../utilities/helpers";
 import tc from "../../../Theme/theme";
 
 const List = ({ task, name, listId, index, boardId }) => {
-  const { addCardToList, removeList, editListName, setIsReq } = useBoard();
+  const { addCardToList, removeList, editListName, setIsReq, socket } =
+    useBoard();
   const [card, setCard] = useState(task);
   const [addCard, setAddCard] = useState(false);
   const [cardName, setCardName] = useState("");
@@ -56,7 +57,7 @@ const List = ({ task, name, listId, index, boardId }) => {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        addCardToList(response.data, listId);
+        addCardToList(response.data, listId, socket);
         // setCards((pervCards) => [...pervCards, response.data]);
       })
       .catch((error) => {
