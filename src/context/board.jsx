@@ -33,7 +33,7 @@ function Provider({ children, boardId, workspaceId }) {
         "access_token"
       )}`
     );
-
+    newSocket.send({ type: "join_board_group", data: boardId });
     newSocket.onopen = () => {
       console.log("WebSocket connection opened");
     };
