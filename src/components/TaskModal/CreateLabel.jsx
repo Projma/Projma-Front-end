@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 import apiInstance from "../../utilities/axiosConfig";
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+
+import {  toast } from "react-toastify";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import StyledTextField from "../Shared/StyledTextField";
 import PerTextField from "../Shared/PerTextField";

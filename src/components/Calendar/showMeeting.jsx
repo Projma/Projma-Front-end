@@ -1,10 +1,10 @@
 import * as React from "react";
 import apiInstance from "../../utilities/axiosConfig";
 import { prefixer } from "stylis";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import "./showEvent.scss";
 import EditEvent from "./EditEvent";
-import "react-toastify/dist/ReactToastify.css";
+
 import { useParams , useNavigate } from "react-router-dom";
 import { convertNumberToPersian } from "../../utilities/helpers";
 import { createTheme, ThemeProvider } from "@mui/material/styles";

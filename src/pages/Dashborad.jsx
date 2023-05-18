@@ -29,7 +29,7 @@ import apiInstance from "../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import CreateBoardModal from "../components/Dashboard/CreateBoardModal/CreateBoardModal";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import CreateBoard from "../components/Dashboard/CreateBoard/CreateBoard";
 import CreateTemplateModal from "../components/Dashboard/CreateTemplateModal/CreateTemplateModal";
 
@@ -1428,7 +1428,6 @@ export const Dashborad = () => {
           <title>داشبورد</title>
         </Helmet>
         <Header />
-        <ToastContainer />
         <Grid
           container
           spacing={{ xs: 0, md: 0 }}
@@ -1488,7 +1487,6 @@ export const Dashborad = () => {
         <Helmet>
           <title>داشبورد</title>
         </Helmet>
-        <ToastContainer />
         <div>
           {Object.entries(mobile_tabs).map((tab) => (
             <>{activeTab === tab[0] && tab[1].content}</>

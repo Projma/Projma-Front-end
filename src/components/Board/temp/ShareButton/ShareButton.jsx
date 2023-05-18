@@ -26,8 +26,8 @@ import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import { deepOrange, green } from "@mui/material/colors";
 import LinkSharpIcon from "@mui/icons-material/LinkSharp";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {  toast } from "react-toastify";
+
 import "./ShareButton.scss";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";

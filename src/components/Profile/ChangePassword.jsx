@@ -15,8 +15,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import PasswordIcon from "@mui/icons-material/Password";
 import Typography from "@mui/material/Typography";
 import { Helmet } from "react-helmet";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {  toast } from "react-toastify";
+
 import Loading from "../Shared/Loading";
 import { baseUrl } from "../../utilities/constants";
 import Header from "../Header/Header";
@@ -143,7 +143,6 @@ export default function ChangePassword() {
         <title>تغییر رمز عبور</title>
       </Helmet>
       {isPost ? <Loading /> : null}
-      <ToastContainer />
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
           <div className="profile--container profile--page">

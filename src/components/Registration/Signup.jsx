@@ -19,8 +19,8 @@ import StyledTextField from "./StyledTextField";
 import apiInstance from "../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom"; // comment for tests
 import { useLocation } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {  toast } from "react-toastify";
+
 import Loading from "../Shared/Loading";
 import { Helmet } from "react-helmet";
 import {
@@ -156,7 +156,6 @@ export default function SignUp() {
       <Helmet>
         <title>صفحه ثبت‌نام</title>
       </Helmet>
-      <ToastContainer />
       {isPost ? <Loading /> : null}
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">

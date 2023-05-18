@@ -2,7 +2,6 @@ import "../styles/ReactToastify.css";
 import React, { createContext, useState, useCallback } from "react";
 import apiInstance from "../utilities/axiosConfig";
 import Loading from "../components/Shared/Loading";
-import { ToastContainer } from "react-toastify";
 import { baseUrl } from "../utilities/constants";
 
 const BoardContext = createContext();
@@ -25,33 +24,6 @@ function Provider({ children, boardId, workspaceId }) {
         setCalendar(response.data.calendar);
         setPoll(response.data.polls);
         data = response.data.tasklists.sort((a, b) => b.order - a.order);
-        data = data.map((tasklists) => {
-          tasklists.tasks = tasklists.tasks.map((task) => {
-            const addInfo = async () => {
-              await apiInstance
-                .get(`task/${task.id}/get-task/`)
-                .then((response) => {
-                  let attach = response.data.attachments;
-                  let cover = "";
-                  if (attach !== undefined) {
-                    attach.every((x) => {
-                      let file = x.file.split("attachments/")[1];
-                      file = file.split(".")[1];
-                      if (file === "png" || file === "jpeg" || file === "jpg") {
-                        cover = x.file;
-                        return true;
-                      }
-                      return false;
-                    });
-                    task.cover = cover;
-                  }
-                });
-            };
-            addInfo();
-            return task;
-          });
-          return tasklists;
-        });
         setList(data);
         setMember(response.data.members);
         setBoardCover(response.data.background_pic);
@@ -163,7 +135,6 @@ function Provider({ children, boardId, workspaceId }) {
   return (
     <React.Fragment>
       {isReq && <Loading />}
-      <ToastContainer autoClose={3000} style={{ fontSize: "1.2rem" }} />
       <BoardContext.Provider value={board}>{children}</BoardContext.Provider>
     </React.Fragment>
   );

@@ -52,7 +52,7 @@ const Card = ({ task, key, cardId, index, boardId }) => {
             onClick={(event) => handleModalOpen(event)}
           >
             <CardHeader cardId={cardId} />
-            <CardBody cover={card.cover} title={card.title} labels={card.labels}/>
+            <CardBody title={card.title} labels={card.labels} cardId={cardId}/>
             <CardFooter
               doers={card.doers}
               attachments_num={card.attachments_num}

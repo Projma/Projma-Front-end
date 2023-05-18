@@ -1,4 +1,3 @@
-import * as React from 'react';
 import './CardCover.css';
 
 const CardCover = ({src}) => {

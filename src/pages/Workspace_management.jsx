@@ -12,8 +12,8 @@ import WorkspaceSettings from "../components/Workspace_management/Settings/Works
 import BasicModal from "../components/Workspace_management/CreateBoardModal/CreateBoard";
 import Navbar from "../components/Workspace_management/Navbar/Navbar";
 import "../styles/Workspace_management.css";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {  toast } from "react-toastify";
+
 import Header from "../components/Header/Header";
 import Board from "../components/Workspace_management/Board/Board";
 import { Helmet } from "react-helmet";
@@ -67,7 +67,6 @@ const Workspace_management = () => {
         <Helmet>
           <title>فضای کاری</title>
         </Helmet>
-        <ToastContainer />
         <ResponsiveDrawerRight width={"249px"} params={params} />
         <Routes>
           <Route

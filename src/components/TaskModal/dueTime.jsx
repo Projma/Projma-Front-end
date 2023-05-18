@@ -39,7 +39,7 @@ export default function DueTime({ params, dueDate, setDueTime }) {
     setDueTime(date.replaceAll("-", "/"));
     setIsPost(true);
     apiInstance
-      .patch(`/workspaces/task/${params.task_id}/update-task/`, {
+      .patch(`/task/${params.task_id}/update-task/`, {
         end_date: date,
         start_date: miladi_be_shamsi(
           startDate.getFullYear(),
@@ -56,7 +56,7 @@ export default function DueTime({ params, dueDate, setDueTime }) {
   };
   useEffect(() => {
     apiInstance
-      .get(`/workspaces/task/${params.task_id}/get-task/`)
+      .get(`/task/${params.task_id}/get-task/`)
       .then((res) => {
         // ////console.log(res);
         const doer = res.data.doers.map((item) => ({
@@ -69,7 +69,7 @@ export default function DueTime({ params, dueDate, setDueTime }) {
         setListOfDoers(doer);
       });
     apiInstance
-      .get(`/workspaces/board/${params.board_id}/members/`)
+      .get(`/board/${params.board_id}/members/`)
       .then((res) => {
         // ////console.log(res);
         const members = res.data.map((obj) => ({

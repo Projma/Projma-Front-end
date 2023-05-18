@@ -3,8 +3,6 @@ import List from "./List/List";
 import "./Board.css";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import InvitationHeader from "./temp/InvitationHeader/InvitationHeader";
-import "../../styles/ReactToastify.css";
-import apiInstance from "../../utilities/axiosConfig";
 import useBoard from "../../hooks/useBoard";
 
 const Board = () => {
@@ -16,7 +14,7 @@ const Board = () => {
 
   const rederList = () => {
     return list.map((list, index) => (
-      <div className="board_list-container-box" key={crypto.randomUUID()}>
+      // <div className="board_list-container-box" key={crypto.randomUUID()}>
         <List
           name={list.title}
           key={list.id}
@@ -25,7 +23,7 @@ const Board = () => {
           task={list.tasks}
           boardId={boardId}
         />
-      </div>
+      // </div>
     ));
   };
 
@@ -45,20 +43,19 @@ const Board = () => {
         setList={setList}
       />
       <DragDropContext onDragEnd={dragHandler}>
-        <Droppable
-          droppableId={"kanban"}
-          type="list"
-          direction="horizontal"
-        >
+        <Droppable droppableId={"kanban"} direction="horizontal" type="COLUMN" isCombineEnabled ignoreContainerClipping>
           {(provided, snapshot) => (
             <div
               className="board_list-container"
               {...provided.droppableProps}
               ref={provided.innerRef}
               style={
-                snapshot.isUsingPlaceholder
+                snapshot.isDraggingOver
                   ? {
-                      backgroundColor: "var(--main-bg)",
+                      display: "flex",
+                      padding: "0 0.5rem 0 0.5rem",
+                      overflow: "auto",
+                      backgroundColor: "var(--hover-color)",
                       borderRadius: "0.5rem",
                     }
                   : null

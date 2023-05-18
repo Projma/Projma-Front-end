@@ -8,7 +8,7 @@ import apiInstance from "../../utilities/axiosConfig";
 import { convertNumberToPersian } from "../../utilities/helpers";
 import { toast } from "react-toastify";
 import CommentIcon from "@mui/icons-material/Comment";
-import "react-toastify/dist/ReactToastify.css";
+
 import { baseUrl } from "../../utilities/constants";
 import { Link } from "react-router-dom";
 
@@ -99,7 +99,7 @@ export default function TaskModal_Activity({
 
   function handleRemoveOfComment(id) {
     apiInstance
-      .delete(`/workspaces/comment/${id}/delete-comment/`)
+      .delete(`/task/comment/${id}/delete-comment/`)
       .then((response) => {
         setListOfComments((prevState) => {
           return prevState.filter((item) => item.id !== id);
@@ -110,7 +110,7 @@ export default function TaskModal_Activity({
     const formData = new FormData();
     formData.append("text", comment);
     apiInstance
-      .patch(`/workspaces/comment/${index}/eddit-comment/`, formData)
+      .patch(`/task/comment/${index}/eddit-comment/`, formData)
       .then((response) => {
         setListOfComments((prevState) => {
           return prevState.map((item) => {
@@ -140,7 +140,7 @@ export default function TaskModal_Activity({
     setComment(convertNumberToPersian(Comment));
     formData.append("text", Comment);
     apiInstance
-      .post(`/workspaces/task/${params.task_id}/new-comment/`, formData)
+      .post(`/task/comment/${params.task_id}/new-comment/`, formData)
       .then((response) => {
         setListOfComments((prevState) => [
           ...prevState,
@@ -188,7 +188,7 @@ export default function TaskModal_Activity({
       formdata.append("spend", 0);
     }
     apiInstance
-      .patch(`/workspaces/task/${params.task_id}/update-task/`, formdata)
+      .patch(`/task/${params.task_id}/update-task/`, formdata)
       .then((res) => {
         toast.success("با موفقیت ثبت شد.", {
           position: toast.POSITION.BOTTOM_LEFT,

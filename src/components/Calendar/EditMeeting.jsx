@@ -18,7 +18,7 @@ import { convertNumberToPersian } from "../../utilities/helpers";
 import { InputLabel } from "@material-ui/core";
 import CloseIcon from "@mui/icons-material/Close";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 
 const style = {
   position: "absolute",

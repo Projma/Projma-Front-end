@@ -8,8 +8,8 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Divider from "@mui/material/Divider";
 import "../../styles/TaskModal.css";
 import Loading from "../Shared/Loading";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {  toast } from "react-toastify";
+
 import "./Attachment.scss";
 
 export default function Attachments({ params, setAllAttachments }) {
@@ -66,7 +66,6 @@ export default function Attachments({ params, setAllAttachments }) {
   return (
     <div className="taskmodal-flexibale-icon">
       {isPost ? <Loading /> : null}
-      <ToastContainer />
       <Button
         className="taskmodal-smaller-button-inner"
         aria-describedby={id}

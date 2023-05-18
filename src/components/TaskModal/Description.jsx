@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import DehazeIcon from "@mui/icons-material/Dehaze";
 import { convertNumberToPersian } from "../../utilities/helpers";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 
 export default function Description({ params, description, setDescription }) {
   const [showdescription, setShowDescription] = useState(false);
@@ -21,7 +21,7 @@ export default function Description({ params, description, setDescription }) {
     const formData = new FormData();
     formData.append("description", description);
     apiInstance
-      .patch(`/workspaces/task/${params.task_id}/update-task/`, formData)
+      .patch(`/task/${params.task_id}/update-task/`, formData)
       .then((res) => {
         toast.success("با موفقیت ثبت شد.", {
           position: toast.POSITION.BOTTOM_LEFT,
@@ -41,7 +41,7 @@ export default function Description({ params, description, setDescription }) {
     setDescription("");
     setShowDescription(false);
     apiInstance
-      .patch(`/workspaces/task/${params.task_id}/update-task/`, {
+      .patch(`/task/${params.task_id}/update-task/`, {
         description: "",
       })
       .then((res) => {})
