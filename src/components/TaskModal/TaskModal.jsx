@@ -23,7 +23,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { Link } from "react-router-dom";
 import { convertNumberToPersian } from "../../utilities/helpers";
 import Loading from "../Shared/Loading";
-import "react-toastify/dist/ReactToastify.css";
+
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -168,7 +168,7 @@ export default function TaskModal(props) {
 
   useEffect(() => {
     apiInstance
-      .get(`/workspaces/board/${params.board_id}/members/`)
+      .get(`/board/${params.board_id}/members/`)
       .then((res) => {
         const members = res.data.map((obj) => ({
           id: obj.user.id,
@@ -181,7 +181,7 @@ export default function TaskModal(props) {
         setListOfMembers(members);
       });
     apiInstance
-      .get(`/workspaces/task/${params.task_id}/get-all-checklists/`)
+      .get(`/task/checklist/${params.task_id}/get-all-checklists/`)
       .then((res) => {
         setAllChecklists(res.data);
       });

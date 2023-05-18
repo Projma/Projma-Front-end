@@ -39,7 +39,7 @@ export default function Members({ params, setDoers, doer }) {
     //console.log("YYFYFYFYFYFYFYFY");
     //console.log(doer);
     apiInstance
-      .get(`/workspaces/board/${params.board_id}/members/`)
+      .get(`/board/${params.board_id}/members/`)
       .then((res) => {
         const members = res.data.map((obj) => ({
           id: obj.user.id,
@@ -111,7 +111,7 @@ export default function Members({ params, setDoers, doer }) {
     // change the checked value of the member
     setIsPost(true);
     apiInstance
-      .patch(`/workspaces/task/${params.task_id}/add-doers-to-task/`, {
+      .patch(`/task/${params.task_id}/add-doers-to-task/`, {
         doers: [member.id],
       })
       .then((res) => {
@@ -132,7 +132,7 @@ export default function Members({ params, setDoers, doer }) {
     member.checked = !member.checked;
     setIsPost(true);
     apiInstance
-      .patch(`/workspaces/task/${params.task_id}/delete-doers-from-task/`, {
+      .patch(`/task/${params.task_id}/delete-doers-from-task/`, {
         doers: [member.id],
       })
       .then((res) => {

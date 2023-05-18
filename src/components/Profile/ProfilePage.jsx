@@ -19,8 +19,8 @@ import PasswordIcon from "@mui/icons-material/Password";
 
 import Typography from "@mui/material/Typography";
 import { Helmet } from "react-helmet";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {  toast } from "react-toastify";
+
 import Loading from "../Shared/Loading";
 import { baseUrl } from "../../utilities/constants";
 // import Header from "../Header/Header";
@@ -163,7 +163,6 @@ export default function Profile() {
     <div className="profile-total-page">
       {isPost ? <Loading /> : null}
       {/* <Header></Header> */}
-      <ToastContainer />
       <CacheProvider value={cacheRtl}>
         <Helmet>
           <title>حساب کاربری</title>

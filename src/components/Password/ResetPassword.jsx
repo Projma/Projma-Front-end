@@ -121,9 +121,7 @@ const ResetPassword = () => {
   return (
     <>
       {isPost ? <Loading /> : null}
-      {isFail ? (
-        <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
-      ) : null}
+
       <Container maxWidth="xs">
         <Helmet>
           <title>تغییر رمز عبور</title>

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import EditModal from "../WorkspaceEditModal/EditModal";
 import apiInstance from "../../../utilities/axiosConfig";
 import { Navigate, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import DeleteWorkspace from "./DeleteWorkspace";
-import "react-toastify/dist/ReactToastify.css";
+
 // import "transition-style";
 import "./Navbar.css";
 const Navbar = ({ params, workspace, setWorkspace }) => {
@@ -47,7 +47,6 @@ const Navbar = ({ params, workspace, setWorkspace }) => {
   return (
     <div className="ws_navbar-main-div">
       <div className="ws_navbar-ws-name">
-        <ToastContainer />
         <div transition-style className="ws_navbar-symbol --in-custom">
           <h3>{navWorkspace?.name?.charAt(0).toUpperCase()}</h3>
         </div>

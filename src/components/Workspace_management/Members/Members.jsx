@@ -5,8 +5,8 @@ import Navbar from "../Navbar/Navbar";
 import Divider from "@mui/material/Divider";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {  toast } from "react-toastify";
+
 import { baseUrl } from "../../../utilities/constants";
 import "./Members.scss";
 import { convertNumberToPersian } from "../../../utilities/helpers";
@@ -84,7 +84,6 @@ const Members = ({ params, workspace, setWorkspace }) => {
   return (
     <div className="main-div">
       {isPost ? <Loading /> : null}
-      <ToastContainer />
       <Navbar
         params={params}
         workspace={workspace}

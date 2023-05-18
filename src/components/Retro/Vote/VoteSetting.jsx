@@ -5,8 +5,8 @@ import Button from "@mui/material/Button";
 import LabelIcon from "@mui/icons-material/Label";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Divider from "@mui/material/Divider";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {  toast } from "react-toastify";
+
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
@@ -48,7 +48,6 @@ export default function VoteSetting({
 
   return (
     <div className="taskmodal-flexibale-icon">
-      <ToastContainer />
       <Button
         aria-describedby={id}
         role="open_attachment"

@@ -15,8 +15,8 @@ import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import StyledTextField from "./StyledTextField";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {  toast } from "react-toastify";
+
 import apiInstance from "../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom"; // comment for tests
 // import { useDispatch } from "react-redux";
@@ -192,7 +192,6 @@ export default function SignIn() {
                 >
                   ورود
                 </Button>
-                <ToastContainer />
                 <Grid container style={{ marginBottom: "5%", marginTop: "1%" }}>
                   <Grid item xs>
                     <Link

@@ -4,6 +4,8 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
 import Landing from "./pages/Landing";
 import { Dashborad } from "./pages/Dashborad";
 import "./App.css";
@@ -52,6 +54,16 @@ function App() {
   // const state = useSelector((state) => state);
   return (
     <div className="styled-scrollbars">
+      <ToastContainer
+        autoClose={3000}
+        newestOnTop
+        closeOnClick
+        rtl
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{ fontSize: "1.2rem" }}
+      />
       <ThemeProvider theme={theme}>
         <Provider store={store}>
           {/* https://www.freecodecamp.org/news/how-to-build-a-redux-powered-react-app/ */}

@@ -165,7 +165,7 @@ const List = ({ task, name, listId, index, boardId }) => {
 
   return (
     <Draggable draggableId={`list:${listId}`} index={index}>
-      {(provided) => (
+      {(provided,snapshot) => (
         <div
           className="list_container"
           ref={provided.innerRef}
@@ -319,7 +319,7 @@ const List = ({ task, name, listId, index, boardId }) => {
               </div>
             )}
           </div>
-          <Droppable droppableId={`card_holder:${listId}`} type="task">
+          <Droppable droppableId={`card_holder:${listId}`} direction="vertical" type="task" isCombineEnabled ignoreContainerClipping>
             {(provided, snapshot) => (
               <div
                 className="list_card-container"

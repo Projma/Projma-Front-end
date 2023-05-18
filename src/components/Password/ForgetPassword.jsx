@@ -97,9 +97,7 @@ const ForgetPassword = () => {
   return (
     <>
       {isPost ? <Loading /> : null}
-      {isFail ? (
-        <ToastContainer autoClose={5000} style={{ fontSize: "1.2rem" }} />
-      ) : null}
+      
       <Container component="main" maxWidth="xs">
         <Helmet>
           <title>فراموشی رمز عبور</title>

@@ -16,7 +16,7 @@ import dayjs from "dayjs";
 import "./CreateMeeting.scss";
 import { convertNumberToPersian } from "../../utilities/helpers";
 import { InputLabel } from "@material-ui/core";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 
 const style = {
   position: "absolute",

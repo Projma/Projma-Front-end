@@ -15,8 +15,8 @@ import Modal from "@mui/material/Modal";
 import ShowEvent from "./showEvent";
 import useBoard from "../../hooks/useBoard";
 import apiInstance from "../../utilities/axiosConfig";
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+
+import {  toast } from "react-toastify";
 import CreateMeeting from "./CreateMeeting";
 import ShowMeeting from "./showMeeting";
 import EditEvent from "./EditEvent";

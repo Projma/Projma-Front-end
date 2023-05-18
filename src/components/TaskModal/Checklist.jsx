@@ -10,8 +10,8 @@ import { makeStyles } from "@mui/styles";
 import { Input } from "@mui/material";
 import "../../styles/TaskModal.css";
 import "./Checklist.scss";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {  toast } from "react-toastify";
+
 import Loading from "../Shared/Loading";
 import { convertNumberToPersian } from "../../utilities/helpers";
 
@@ -75,7 +75,6 @@ export default function CheckList({ params, setAllChecklists }) {
   return (
     <div className="taskmodal-flexibale-icon">
       {isPost ? <Loading /> : null}
-      <ToastContainer />
       <Button
         className="taskmodal-smaller-button-inner"
         aria-describedby={id}

@@ -59,7 +59,6 @@ const AddList = (props) => {
   return (
     <>
       {req ? <Loading /> : null}
-      <ToastContainer autoClose={3000} style={{ fontSize: "1.2rem" }} />
       {click ? (
         <form
           className="baord_add-list-form"

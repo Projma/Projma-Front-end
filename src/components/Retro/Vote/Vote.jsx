@@ -5,8 +5,8 @@ import RetroList from "../content/RetroList";
 import VoteCard from "./VoteCard";
 import "../RetroReflect.css";
 import VoteSetting from "./VoteSetting";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {  toast } from "react-toastify";
+import "../../../styles/ReactToastify.css";
 
 const Vote = () => {
   const [allowVotePerUser, setAllowVotePerUser] = React.useState(0);
