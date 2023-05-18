@@ -29,6 +29,7 @@
 
 .list_header-title {
   margin-right: 0.4rem;
+  color: $text;
 }
 
 .list_header-add-card, .list_header-option {
@@ -68,7 +69,7 @@
   flex-direction: column;
   width: 20rem;
   border: 0.2rem solid $ternary;
-  color: #fff !important;
+  color: $text !important;
   background-color: $minor-bg;
   padding: 0.5rem;
 }
@@ -112,7 +113,7 @@
 .MuiDialog-paper {
   //background-color: $minor-bg !important;
   border: 0.2rem solid $ternary !important;
-  color: #fff !important;
+  color: $text !important;
 }
 
 .List_dialog-button-container {
