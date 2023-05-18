@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route , Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Landing from "./pages/Landing";
 import { Dashborad } from "./pages/Dashborad";
 import "./App.css";
@@ -30,6 +35,7 @@ import RetroReflect from "./components/Retro/RetroReflect";
 import Vote from "./components/Retro/Vote/Vote";
 import Discuss from "./components/Retro/Discuss/Discuss";
 import Group from "./components/Retro/Group/Group";
+import RealTest from "./components/RealTime/RealTest";
 
 const theme = createTheme(
   {
@@ -52,6 +58,7 @@ function App() {
           <Router>
             <Routes>
               <Route exact path="/" element={<Landing />} />
+              <Route exact path="/realtime" element={<RealTest />} />
               <Route
                 exact
                 path="/dashboard"
@@ -125,27 +132,47 @@ function App() {
                 <Route
                   exact
                   path="retro"
-                  element={<PrivateRoute><Retro /></PrivateRoute>}
+                  element={
+                    <PrivateRoute>
+                      <Retro />
+                    </PrivateRoute>
+                  }
                 >
                   <Route
                     exact
                     path="reflect"
-                    element={<PrivateRoute><RetroReflect /></PrivateRoute>}
+                    element={
+                      <PrivateRoute>
+                        <RetroReflect />
+                      </PrivateRoute>
+                    }
                   />
                   <Route
                     exact
                     path="group"
-                    element={<PrivateRoute><Group /></PrivateRoute>}
+                    element={
+                      <PrivateRoute>
+                        <Group />
+                      </PrivateRoute>
+                    }
                   />
                   <Route
                     exact
                     path="vote"
-                    element={<PrivateRoute><Vote /></PrivateRoute>}
+                    element={
+                      <PrivateRoute>
+                        <Vote />
+                      </PrivateRoute>
+                    }
                   />
                   <Route
                     exact
                     path="discuss"
-                    element={<PrivateRoute><Discuss /></PrivateRoute>}
+                    element={
+                      <PrivateRoute>
+                        <Discuss />
+                      </PrivateRoute>
+                    }
                     // element={<PrivateRoute children={<DiscussPage />} />}
                   />
                 </Route>
