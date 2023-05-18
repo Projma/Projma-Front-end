@@ -4,8 +4,8 @@ import { Typography } from "@mui/material";
 import RetroList from "../content/RetroList";
 import RetroCard from "../content/RetroCard";
 import InputName from "../../Shared/InputName";
-import "../RetroReflect.css";
-import "./Group.css";
+import "../RetroReflect.scss";
+import "./Group.scss";
 import StyledTextField from "../../Shared/StyledTextField";
 import PerTextField from "../../Shared/PerTextField";
 import { convertNumberToPersian } from "../../../utilities/helpers.js";
@@ -173,7 +173,7 @@ const Group = () => {
                     disableUnderline: true,
                     style: {
                       fontFamily: "Vazir",
-                      backgroundColor: "var(--main-item-color)",
+                      backgroundColor: "$secondry",
                     },
                   }}
                   InputLabelProps={{

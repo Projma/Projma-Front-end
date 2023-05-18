@@ -6,7 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import Loading from "../../Shared/Loading";
 import apiInstance from "../../../utilities/axiosConfig";
 import AddIcon from "@mui/icons-material/Add";
-import "./AddList.css";
+import "./AddList.scss";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
@@ -98,8 +98,8 @@ const AddList = (props) => {
                 },
               }}
               sx={{
-                backgroundColor: "var(--main-item-color)",
-                borderBottom: "0.2rem solid var(--minor-item-color)",
+                backgroundColor: "$secondry",
+                borderBottom: "0.2rem solid $ternary",
                 borderRadius: "0.5rem",
                 width: "30rem",
                 height: "100%",

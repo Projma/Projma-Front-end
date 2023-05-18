@@ -8,7 +8,7 @@
 .tm_labels-header {
   width: 100%;
   height: 5rem;
-  background-color: var(--ds-bg, #f4f5f7);
+  //background-color: var(--ds-bg, #f4f5f7);
   border-bottom: 1px solid var(--ds-border, #e1e4e8);
   display: flex;
   justify-content: center;
@@ -59,7 +59,7 @@
   height: 85%;
   border-radius: 0.5rem;
   margin-right: 1rem;
-  // background-color: var(--background-color, rgb(223, 230, 223));
+  // //background-color: var(--//background-color, rgb(223, 230, 223));
   padding: 0.5rem 1rem 0.5rem 0.2rem;
 }
 
@@ -88,7 +88,7 @@
 }
 
 .tm_labels-labels-edit-icon:hover {
-  background-color: black transparent;
+  //background-color: black transparent;
   opacity: 0.5;
   cursor: pointer;
 }
@@ -105,7 +105,7 @@
 .tm_labels-add-label-button {
   width: 50%;
   height: 3rem;
-  background-color: var(--ds-bg, #f4f5f7);
+  //background-color: var(--ds-bg, #f4f5f7);
   border: 0;
   border-radius: 0.5rem;
   font-size: 1.5rem;
@@ -114,7 +114,7 @@
 }
 
 .tm_labels-add-label-button:hover {
-  background-color: black transparent;
+  //background-color: black transparent;
   opacity: 0.45;
 }
 
@@ -158,10 +158,10 @@
 }
 
 .tm_labels-edit-button {
-  background-color: white;
+  //background-color: white;
   color: black;
   border: 2px solid #008cba;
-  background-color: #4caf50; /* Green */
+  //background-color: #4caf50; /* Green */
   border: none;
   color: white;
   padding: 1rem 1rem;
@@ -177,12 +177,12 @@
 }
 
 .tm_labels-edit-button:hover {
-  background-color: #008cba;
+  //background-color: #008cba;
   color: white;
 }
 
 .labels_button-33 {
-  background-color: #c2fbd7;
+  //background-color: #c2fbd7;
   border-radius: 100px;
   box-shadow: rgba(44, 187, 99, 0.2) 0 -25px 18px -14px inset,
     rgba(44, 187, 99, 0.15) 0 1px 2px, rgba(44, 187, 99, 0.15) 0 2px 4px,

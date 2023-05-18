@@ -3,7 +3,7 @@
 .background-blue .rmdp-year-picker,
 .background-blue .rmdp-time-picker div input,
 .rmdp-container .background-blue.ep-arrow::after {
-  background-color: #e7471600 !important;
+  //background-color: #e7471600 !important;
   color: #d7ccc8;
 }
 

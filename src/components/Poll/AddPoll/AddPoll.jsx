@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import PerTextField from "../../Shared/PerTextField";
 import StyledTextField from "../../Shared/StyledTextField";
-import "./AddPoll.css";
+import "./AddPoll.scss";
 import React, { useState } from "react";
 import PollOptions from "./PollOptions";
 import AddIcon from "@mui/icons-material/Add";
@@ -99,7 +99,7 @@ const AddPoll = ({closeAddPoll}) => {
               disableUnderline: true,
               style: {
                 fontFamily: "Vazir",
-                // backgroundColor: "var(--main-item-color)"
+                // backgroundColor: "$secondry"
               },
             }}
             InputLabelProps={{

@@ -10,7 +10,6 @@ import apiInstance from "../../utilities/axiosConfig";
 import PerTextField from "../Shared/PerTextField";
 import Loading from "../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
-import "../../styles/ReactToastify.css";
 import {  useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import {
@@ -92,7 +91,7 @@ const ForgetPassword = () => {
     }
   };
 
-  document.body.style.backgroundColor = "var(--minor-background)";
+  document.body.style.backgroundColor = "$minor-background";
 
   return (
     <>
@@ -113,7 +112,7 @@ const ForgetPassword = () => {
             justifyContent: "center",
             border: "1px solid none",
             borderRadius: 3,
-            // backgroundColor: "var(--main-background)",
+            // backgroundColor: "$main-background",
             opacity: 1,
             backgroundImage:
                   "linear-gradient(to right bottom, #001E3C 0%, #0059B2 130%)",

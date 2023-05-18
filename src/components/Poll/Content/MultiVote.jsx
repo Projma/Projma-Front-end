@@ -1,5 +1,5 @@
 import React from 'react';
-import './MultiVote.css';
+import './MultiVote.scss';
 import FormControl from '@mui/material/FormControl';
 import {Button, Checkbox, FormControlLabel, FormGroup} from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';

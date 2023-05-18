@@ -63,7 +63,7 @@
   /* display: flex; */
   /* place-items: center; */
   /* justify-content: flex-start; */
-  /* background-color: rgb(234, 234, 234); */
+  /* //background-color: rgb(234, 234, 234); */
   background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
   border-radius: 30px;
   justify-content: center;
@@ -227,7 +227,7 @@
 
 .taskmodal--body-checklist-title {
   width: 100%;
-  /* background-color: red; */
+  /* //background-color: red; */
   justify-content: space-between;
   margin-bottom: 3%;
 }
@@ -294,7 +294,7 @@
   color: white !important;
   font-family: "Vazir" !important;
   font-size: 100% !important;
-  background-color: #1d4b7a !important;
+  //background-color: #1d4b7a !important;
 }
 
 .taskmodal--body-activity {
@@ -332,7 +332,7 @@
   border-radius: 10px;
   margin-right: 0px;
   color: white !important;
-  background-color: #557ea9c3;
+  //background-color: #557ea9c3;
   overflow: auto;
   font-family: "Vazir" !important;
   font-size: 128% !important;
@@ -343,7 +343,7 @@
   font-size: 13px;
   margin-top: 2%;
   margin-right: 2%;
-  background-color: #557ea9c3;
+  //background-color: #557ea9c3;
   padding: 2%;
   padding-right: 3%;
   border-radius: 35px;
@@ -405,7 +405,7 @@
 }
 
 .taskmodal--plusforprojma-input {
-  background-color: #7498bec3;
+  //background-color: #7498bec3;
   display: flex;
   justify-content: center;
   color: white;

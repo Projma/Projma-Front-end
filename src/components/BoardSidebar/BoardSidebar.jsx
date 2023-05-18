@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./BoardSideBar.css";
+import "./BoardSideBar.scss";
 import {
   CalendarMonthOutlined,
   DashboardOutlined,
@@ -25,6 +25,7 @@ import {
 import apiInstance from "../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import useBoard from "../../hooks/useBoard";
+import tc from "../../Theme/theme";
 
 const BoardSidebar = () => {
   const [wsBoard, setWsBoard] = useState([]);
@@ -33,11 +34,11 @@ const BoardSidebar = () => {
   const { boardId, workspaceId } = useBoard();
   const menuStyle = {
     ["." + menuClasses.button]: {
-      color: "#fff",
-      backgroundColor: "#0a1929",
+      color: tc.text,
+      backgroundColor: tc.minorBg,
       borderRadius: "0.5rem",
       "&:hover": {
-        backgroundColor: "var(--hover-color)",
+        backgroundColor: tc.hover,
       },
     },
     ["." + menuClasses.label]: {
@@ -46,7 +47,7 @@ const BoardSidebar = () => {
     ["." + menuClasses.menuItemRoot]: {
       marginBottom: "0.5rem",
       borderRadius: "0.5rem",
-      backgroundColor: "#0a1929",
+      backgroundColor: tc.minorBg,
     },
     ["." + menuClasses.subMenuContent]: {
       color: "#fff",
@@ -54,7 +55,7 @@ const BoardSidebar = () => {
       backgroundColor: "#00000000",
       boxShadow: "none",
       // "&:hover": {
-      //   backgroundColor: "var(--hover-color)",
+      //   backgroundColor: "$hover",
       // },
     },
   };
@@ -85,7 +86,7 @@ const BoardSidebar = () => {
     <div style={{ display: "flex", minHeight: "100%", maxHeight: "100%" }}>
       <Sidebar
         rtl
-        backgroundColor={"#0a1929"}
+        backgroundColor={tc.minorBg}
         // collapsed
         defaultCollapsed 
         transitionDuration={800}
@@ -106,7 +107,7 @@ const BoardSidebar = () => {
                 onClick={() => collapseSidebar(!collapsed)}
                 icon={collapsed ? <MenuOutlined /> : undefined}
                 style={{
-                  color: "#fff",
+                  color: tc.text,
                 }}
               >
                 {!collapsed && (
@@ -187,7 +188,7 @@ const BoardSidebar = () => {
                         ["." + menuClasses.button]: {
                           padding: "0 !important",
                           textAlign: "center",
-                          backgroundColor: "#0a1929",
+                          backgroundColor: tc.minorBg,
                           backgroundImage: `linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url(${b.cover})`,
                           backgroundSize: "100% 100%",
                           backgroundPosition: "center",
@@ -209,7 +210,7 @@ const BoardSidebar = () => {
             <Menu rootStyles={menuStyle}>
               <MenuItem
                 onClick={() =>
-                  navigate(`/workspace/${workspaceId}/dashboard/Boards`)
+                  navigate(`/workspace/${workspaceId}/dashboard/board`)
                 }
                 icon={<HomeOutlined />}
               >

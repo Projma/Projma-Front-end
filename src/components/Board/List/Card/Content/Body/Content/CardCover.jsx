@@ -1,4 +1,4 @@
-import './CardCover.css';
+import './CardCover.scss';
 
 const CardCover = ({src}) => {
   return (

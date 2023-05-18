@@ -4,6 +4,7 @@ import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { convertNumberToPersian, convertNumberToEnglish } from "../../utilities/helpers";
+import tc from "../../Theme/theme";
 
 const theme = createTheme({
   components: {
@@ -12,13 +13,13 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           fontSize: "2rem",
-          color: "#fff",
-          border: "0.2rem solid var(--mior-bg)",
+          color: tc.text,
+          border: "0.2rem solid $mior-bg",
           borderRadius: "0.5rem",
           "&.Mui-focused": {
             // backgroundColor: "#121212",
             // color: "#000",
-            border: "0.2rem solid var(--mui-blue)",
+            border: "0.2rem solid $primary",
           },
         },
         // The props to change the default for.

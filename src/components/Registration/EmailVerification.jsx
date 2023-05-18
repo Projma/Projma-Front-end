@@ -2,7 +2,7 @@ import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Box } from "@mui/material";
 import Container from "@mui/material/Container";
-import "../../styles/Registration.css";
+import "../../styles/Registration.scss";
 import apiInstance from "../../utilities/axiosConfig";
 import { Helmet } from "react-helmet";
 

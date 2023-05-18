@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Typography } from "@mui/material";
 import RetroList from "./content/RetroList";
 import RetroCard from "./content/RetroCard";
-import "./RetroReflect.css";
+import "./RetroReflect.scss";
 import StyledTextField from "../Shared/StyledTextField";
 import PerTextField from "../Shared/PerTextField";
 const RetroReflect = () => {
@@ -48,7 +48,7 @@ const RetroReflect = () => {
                     disableUnderline: true,
                     style: {
                       fontFamily: "Vazir",
-                      backgroundColor: "var(--main-item-color)",
+                      backgroundColor: "$secondry",
                     },
                   }}
                   InputLabelProps={{
@@ -106,7 +106,7 @@ const RetroReflect = () => {
                     disableUnderline: true,
                     style: {
                       fontFamily: "Vazir",
-                      backgroundColor: "var(--main-item-color)",
+                      backgroundColor: "$secondry",
                     },
                   }}
                   InputLabelProps={{

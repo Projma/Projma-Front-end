@@ -1,5 +1,5 @@
 import * as React from "react";
-import "./CardLabel.css";
+import "./CardLabel.scss";
 
 const CardLabel = ({ label }) => {
   return (

@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import "./PollView.css";
+import "./PollView.scss";
 import React, { useEffect, useState } from "react";
 import AnonymousVoter from "./Content/AnonymousVoter";
 import SingleVote from "./Content/SingleVote";

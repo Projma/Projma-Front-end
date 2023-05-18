@@ -1,4 +1,4 @@
-import "./List.css";
+import "./List.scss";
 import React, { useState, useEffect } from "react";
 import useBoard from "../../../hooks/useBoard";
 import Card from "./Card/Card";
@@ -301,8 +301,8 @@ const List = ({ task, name, listId, index, boardId }) => {
                         },
                       }}
                       sx={{
-                        backgroundColor: "var(--main-item-color)",
-                        borderBottom: "0.2rem solid var(--minor-item-color)",
+                        backgroundColor: "$secondry",
+                        borderBottom: "0.2rem solid $ternary",
                         borderRadius: "0.5rem",
                         // borderRadius: "0.5rem",
                         "& input::placeholder": {
@@ -328,7 +328,7 @@ const List = ({ task, name, listId, index, boardId }) => {
                 style={
                   snapshot.draggingOverWith
                     ? {
-                        backgroundColor: "var(--hover-color)",
+                        backgroundColor: "$hover",
                         borderRadius: "0.5rem",
                       }
                     : null

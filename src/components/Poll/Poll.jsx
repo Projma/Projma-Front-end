@@ -1,4 +1,4 @@
-import "./Poll.css";
+import "./Poll.scss";
 import AddPoll from "./AddPoll/AddPoll";
 import PollView from "./PollView";
 import { Button, Fab, Modal, Popover } from "@mui/material";

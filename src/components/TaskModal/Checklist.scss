@@ -9,8 +9,8 @@
 .tm_checklists-body {
   display: flex;
   padding: 1rem 1rem;
-  background-color: rgba(40, 60, 81);
-  // background-color: rgb(10, 25, 41, 0.4);
+  //background-color: rgba(40, 60, 81);
+  // //background-color: rgb(10, 25, 41, 0.4);
 }
 
 .tm_checklists-header {
@@ -18,7 +18,7 @@
   justify-content: center;
   align-items: center;
   padding: 10px 0;
-  background-color: #0a1929;
+  //background-color: #0a1929;
 }
 
 .tm_checklists-body-buttons-add {
@@ -26,7 +26,7 @@
   // justify-content: space-between;
   // align-items: center;
   padding: 10px 0;
-  background-color: transparent;
+  //background-color: transparent;
   border: none;
   width: 4rem;
   height: 4rem;
@@ -35,7 +35,7 @@
 }
 
 .tm_checklists-body-buttons-add:hover {
-  background-color: #007fff;
+  //background-color: #007fff;
   border: none;
   border-radius: 50%;
 }
@@ -47,7 +47,7 @@
 }
 
 .button-16 {
-  background-color: #f8f9fa;
+  //background-color: #f8f9fa;
   border: 1px solid #f8f9fa;
   border-radius: 4px;
   color: #3c4043;

@@ -3,10 +3,9 @@ import { useState, useEffect } from "react";
 import { Typography } from "@mui/material";
 import RetroList from "../content/RetroList";
 import VoteCard from "./VoteCard";
-import "../RetroReflect.css";
+import "../RetroReflect.scss";
 import VoteSetting from "./VoteSetting";
 import {  toast } from "react-toastify";
-import "../../../styles/ReactToastify.css";
 
 const Vote = () => {
   const [allowVotePerUser, setAllowVotePerUser] = React.useState(0);
