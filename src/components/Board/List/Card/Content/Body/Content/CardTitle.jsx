@@ -14,7 +14,7 @@ const themeEnable = createTheme({
         root: {
           fontSize: '1.8rem',
           color: '#fff',
-          borderBottom: '0.2rem solid var(--mui-blue)',
+          borderBottom: '0.2rem solid $primary',
           // borderRadius: '0.5rem',
           // "&.Mui-focused": {
           //   // backgroundColor: "#121212",
@@ -36,7 +36,7 @@ const themeDisable = createTheme({
         root: {
           fontSize: '1.8rem',
           color: '#fff',
-          borderBottom: '0.2rem solid var(--main-item-color)',
+          borderBottom: '0.2rem solid $secondry',
           // borderRadius: '0.5rem',
           // cursor: "pointer"
           // "&.Mui-focused": {
@@ -93,7 +93,7 @@ const CardTitle = (props) => {
                 WebkitTextFillColor: '#fff',
               }
             }}
-            // border: "0.2rem solid var(--mui-blue)",
+            // border: "0.2rem solid $primary",
           />
         </ThemeProvider>
       </FormControl>

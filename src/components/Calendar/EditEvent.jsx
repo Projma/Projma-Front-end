@@ -13,7 +13,7 @@ import PerTextField from "../Shared/PerTextField";
 import Loading from "../Shared/Loading";
 import DateTimePickerValue from "../Shared/DateTimePicker";
 import dayjs from "dayjs";
-import "./CreateEvent.css";
+import "./CreateEvent.scss";
 import { convertNumberToPersian } from "../../utilities/helpers";
 
 const style = {

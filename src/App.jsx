@@ -4,18 +4,18 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Landing from "./pages/Landing";
 import { Dashborad } from "./pages/Dashborad";
-import "./App.css";
+import "./App.scss";
 import "./fonts/Vazir.ttf";
 import { Provider } from "react-redux";
 import store from "./store";
 import SignIn from "./components/Registration/Signin";
 import SignUp from "./components/Registration/Signup";
 import Profile from "./components/Profile/ProfilePage";
-import Workspace_management from "./pages/Workspace_management";
+import WorkspaceManagement from "./pages/WorkspaceManagement";
 import ResetPassword from "./components/Password/ResetPassword";
 import ForgetPassword from "./components/Password/ForgetPassword";
 import ProfileView from "./components/Profile/ProfilePageView";
@@ -24,7 +24,6 @@ import InvitePage from "./pages/InvitePage";
 import BoardOverView from "./pages/BoardOverView";
 import Email_verification_2 from "./components/Registration/EmailVerification";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { faIR } from "@mui/material/locale";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import BoardInvitation from "./pages/BoardInvitation";
 import NotFound from "./pages/NotFound";
@@ -38,20 +37,31 @@ import Vote from "./components/Retro/Vote/Vote";
 import Discuss from "./components/Retro/Discuss/Discuss";
 import Group from "./components/Retro/Group/Group";
 import RealTest from "./components/RealTime/RealTest";
+import tc from "./Theme/theme";
+import WsBoard from "./components/WorkspaceManagement/Board/WsBoard";
+import Members from "./components/WorkspaceManagement/Members/Members";
 
 const theme = createTheme(
   {
+    palette: {
+      primary: {
+        main: tc.primary,
+      },
+      secondary: {
+        main: tc.secondry
+      },
+    },
     typography: {
       fontFamily: "Vazir",
       htmlFontSize: 9, // 10 (1rem = 9px)
+      allVariants: {
+        color: tc.text
+      }
     },
   },
-  faIR
 );
 
 function App() {
-  // functional base component
-  // const state = useSelector((state) => state);
   return (
     <div className="styled-scrollbars">
       <ToastContainer
@@ -66,7 +76,6 @@ function App() {
       />
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          {/* https://www.freecodecamp.org/news/how-to-build-a-redux-powered-react-app/ */}
           <Router>
             <Routes>
               <Route exact path="/" element={<Landing />} />
@@ -98,13 +107,32 @@ function App() {
               />
               <Route exact path="/reset-password" element={<ResetPassword />} />
               <Route
-                path="workspace/:id/dashboard/*"
+                path="workspace/:id/dashboard/"
                 element={
                   <PrivateRoute>
-                    <Workspace_management />
+                    <WorkspaceManagement />
                   </PrivateRoute>
                 }
-              />
+              >
+                <Route
+                  exact
+                  path="board"
+                  element={
+                    <PrivateRoute>
+                      <WsBoard />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  exact
+                  path="team"
+                  element={
+                    <PrivateRoute>
+                      <Members />
+                    </PrivateRoute>
+                  }
+                />
+              </Route>
               <Route
                 exact
                 path="workspace/:workspaceId/kanban/:boardId"
@@ -185,7 +213,6 @@ function App() {
                         <Discuss />
                       </PrivateRoute>
                     }
-                    // element={<PrivateRoute children={<DiscussPage />} />}
                   />
                 </Route>
               </Route>
@@ -229,15 +256,12 @@ function App() {
               <Route
                 exact
                 path="/:boardId/retro/discuss/*"
-                // path="/:boardId/retro/discuss/:id"
                 element={
                   <PrivateRoute>
                     <DiscussPage />
                   </PrivateRoute>
                 }
               />
-
-              {/* has to be last  */}
               <Route path="/404" element={<NotFound />} />
               <Route path="*" element={<Navigate replace to="/404" />} />
             </Routes>

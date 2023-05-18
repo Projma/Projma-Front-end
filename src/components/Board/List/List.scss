@@ -1,0 +1,128 @@
+.list_container {
+  display: flex;
+  flex-flow: column;
+  direction: rtl;
+  max-width: 31rem;
+  max-height: 100%;
+  width: 31rem;
+  margin: 0.4rem 0 0.4rem 0;
+  padding: 0.2rem 0.2rem 0 0.2rem;
+  border-radius: 0.5rem;
+}
+
+.list_header-container {
+  display: flex;
+  flex-direction: column;
+  background-color: $minor-bg;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 0.2rem solid $ternary;
+}
+
+.list_header {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem;
+  justify-content: space-between;
+  color: $text;
+}
+
+.list_header-title {
+  margin-right: 0.4rem;
+}
+
+.list_header-add-card, .list_header-option {
+  display: flex;
+  align-items: center;
+  padding: 0.2rem;
+  margin-right: 0.4rem;
+}
+
+.list_header-option {
+  margin-left: 0.4rem;
+}
+
+.list_header-option:hover, .list_header-add-card:hover {
+  cursor: pointer;
+  background-color: $primary;
+  border-radius: 0.5rem;
+}
+
+.list_add-card-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem;
+  gap: 0.3rem;
+  margin: 0.1rem 0.2rem;
+}
+
+.list_card-container {
+  min-width: 10rem;
+  overflow: auto;
+  padding: 0.3rem;
+}
+
+.board_option {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  border: 0.2rem solid $ternary;
+  color: #fff !important;
+  background-color: $minor-bg;
+  padding: 0.5rem;
+}
+
+.board_option-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.board_option-button {
+  width: 100%;
+  border: none;
+  background-color: inherit;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: flex-start;
+  padding-right: 0.4rem;
+}
+.board_option-button:hover {
+  background-color: $secondry;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+.board_option-text {
+  border: none;
+  color: $text;
+  text-align: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.board_option-title {
+  border-bottom: 0.2rem solid $ternary;
+  padding-bottom: 0.5rem;
+  font-size: 1.2rem !important;
+}
+
+.MuiDialog-paper {
+  //background-color: $minor-bg !important;
+  border: 0.2rem solid $ternary !important;
+  color: #fff !important;
+}
+
+.List_dialog-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.3rem;
+}
+
+.List_dialog-button:hover {
+  cursor: pointer;
+  opacity: 60%;
+}

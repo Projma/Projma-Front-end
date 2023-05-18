@@ -1,0 +1,53 @@
+.workspace--board-view {
+  position: relative;
+  height: 8rem;
+  width: 20rem;
+  border-radius: 0.5rem;
+  /* //background-color: #265D97; */
+  //background-color: #66B2FF;
+  color: #fff !important;
+  padding: 3% 3%;
+  background-repeat: no-repeat;
+  /* background-size: contain; */
+  background-size: 100% 100%;
+  /* background-attachment: fixed; */
+}
+
+.workspace--view {
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  display: flex;
+}
+
+.workspace--board-view:hover {
+  opacity: 80%;
+}
+
+.workspace--view:hover {
+  cursor: pointer;
+}
+
+.workspace--board-title {
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.workspace--icon-button {
+  background: none;
+  border: none;
+  position: absolute;
+  bottom: 0%;
+  left: 3%;
+}
+
+.workspace--icon-button:hover {
+  cursor: pointer;
+}
+
+.workspace--IconButton:hover .Iconclass {
+  //background-color: yellow;
+}

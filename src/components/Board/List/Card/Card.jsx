@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Card.css";
+import "./Card.scss";
 import { Draggable } from "react-beautiful-dnd";
 import TaskModal from "../../../TaskModal/TaskModal";
 import { Modal } from "@mui/material";

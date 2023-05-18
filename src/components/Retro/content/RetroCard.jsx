@@ -1,10 +1,12 @@
+import tc from "../../../Theme/theme";
+
 const RetroCard = ({children}) => {
   return ( 
     <div
       style={{
         width: "100%",
         height: "100%",
-        backgroundColor: "#265D97",
+        backgroundColor: tc.primary,
         borderRadius: "1rem",
         display: "flex",
         flexFlow: "column",
@@ -12,7 +14,7 @@ const RetroCard = ({children}) => {
         // alignItems: "flex-start",
         justifyContent: "flex-start",
         gap: "1.5rem",
-        color: "#fff"
+        color: tc.text,
       }}
     >
       {children}

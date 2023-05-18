@@ -1,6 +1,6 @@
 import { Button, Modal } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import "./KnownResult.css";
+import "./KnownResult.scss";
 import { useParams } from "react-router-dom";
 import apiInstance from "../../../utilities/axiosConfig";
 import { HowToVoteOutlined } from "@mui/icons-material";

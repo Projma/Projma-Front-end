@@ -3,7 +3,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import createCache from "@emotion/cache";
-import "../../styles/Profile.css";
+import "../../styles/Profile.scss";
 import profile_preview from "../../static/images/profile/profile-preview.png";
 import { useState } from "react";
 import StyledTextField from "./StyledTextField";

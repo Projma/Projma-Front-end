@@ -6,7 +6,7 @@
 .tm_labels-header {
   width: 100%;
   height: 5rem;
-  background-color: var(--ds-bg, #f4f5f7);
+  //background-color: var(--ds-bg, #f4f5f7);
   border-bottom: 1px solid var(--ds-border, #e1e4e8);
   display: flex;
   justify-content: center;
@@ -19,7 +19,7 @@
   background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
   width: 100%;
   height: 5rem;
-  background-color: var(--ds-bg, #f4f5f7);
+  //background-color: var(--ds-bg, #f4f5f7);
   border-bottom: 1px solid var(--ds-border, #e1e4e8);
   display: flex;
   justify-content: center;
@@ -73,6 +73,6 @@
 }
 
 .taskmodal-members-body-descriptionn::-webkit-scrollbar {
-  background-color: rgb(36, 80, 174);
+  //background-color: rgb(36, 80, 174);
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }

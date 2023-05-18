@@ -186,8 +186,8 @@ export const Dashborad = () => {
         // [
         //   {
         //     "id": 21,
-        //     "name": "Agile Board",
-        //     "description": "Agile Board Template",
+        //     "name": "Agile WsBoard",
+        //     "description": "Agile WsBoard Template",
         //     "background_pic": null,
         //     "created_at": "2023-01-21T11:15:24.581576Z",
         //     "updated_at": "2023-01-21",
@@ -268,7 +268,7 @@ export const Dashborad = () => {
         //   {
         //     "id": 24,
         //     "name": "Simple Template",
-        //     "description": "Simple Board Template",
+        //     "description": "Simple WsBoard Template",
         //     "background_pic": null,
         //     "created_at": "2023-01-21T11:15:54.468111Z",
         //     "updated_at": "2023-01-21",

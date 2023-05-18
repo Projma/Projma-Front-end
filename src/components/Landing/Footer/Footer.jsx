@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/system";
-import "./Footer.css";
+import "./Footer.scss";
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid"; // Grid version 1
 
@@ -38,7 +38,7 @@ const Footer = () => {
               sx={{
                 display: "grid",
                 gridTemplateColumns: "1fr",
-                backgroundcolor: "rgb(255, 153, 0)",
+                backgroundColor: "rgb(255, 153, 0)",
                 // color: "rgb(255, 153, 0)",
               }}
             >

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import List from "./List/List";
-import "./Board.css";
+import "./Board.scss";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import InvitationHeader from "./temp/InvitationHeader/InvitationHeader";
 import useBoard from "../../hooks/useBoard";
@@ -55,7 +55,7 @@ const Board = () => {
                       display: "flex",
                       padding: "0 0.5rem 0 0.5rem",
                       overflow: "auto",
-                      backgroundColor: "var(--main-item-color)",
+                      backgroundColor: "$secondry",
                       borderRadius: "0.5rem",
                     }
                   : null

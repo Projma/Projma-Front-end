@@ -13,12 +13,12 @@ const theme = createTheme({
         root: {
           fontSize: "2rem",
           color: "#fff",
-          border: "0.2rem solid var(--mior-bg)",
+          border: "0.2rem solid $mior-bg",
           borderRadius: "0.5rem",
           "&.Mui-focused": {
             // backgroundColor: "#121212",
             // color: "#000",
-            border: "0.2rem solid var(--mui-blue)",
+            border: "0.2rem solid $primary",
           },
         },
         // The props to change the default for.

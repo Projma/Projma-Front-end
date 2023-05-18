@@ -14,7 +14,7 @@ import LabelIcon from "@mui/icons-material/Label";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
 import Divider from "@mui/material/Divider";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 import "../../styles/TaskModal.css";
 import Loading from "../Shared/Loading";
@@ -263,7 +263,13 @@ export default function Labels({ params, task_labels, set_task_labels }) {
                   >
                     برچسب‌ها
                   </h2>
-                  <Divider sx={{ backgroundColor: "black" }} />
+                  <Divider
+                    sx={
+                      {
+                        backgroundColor: "black"
+                      }
+                    }
+                  />
                 </header>
                 <ShowListOfLabels
                   allLabels={allLabels}

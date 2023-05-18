@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/Landing/Header/Header";
 import RecipeReviewCard from "../components/Landing/Card/ComplexInteraction";
-import "../styles/Landing.css";
+import "../styles/Landing.scss";
 import Grid from "@mui/material/Grid"; // Grid version 1
 import Container from "@mui/material/Container";
 import Footer from "../components/Landing/Footer/Footer";

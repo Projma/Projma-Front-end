@@ -1,0 +1,30 @@
+.calendar--container {
+  min-width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
+  padding: 1rem 2rem;
+  color: #fff;
+  --fc-today-bg-color: #007fff33;
+  --fc-neutral-bg-color: #265d97;
+  --fc-neutral-text-color: #cee0f3;
+  --fc-button-bg-color: #0a1929;
+  --fc-button-border-color: #0a1929;
+  --fc-button-hover-bg-color: $hover;
+  --fc-button-hover-border-color: $hover;
+  --fc-button-active-bg-color: #007fff;
+  --fc-button-active-border-color: #007fff;
+  --fc-border-color: #cee0f3;
+}
+
+.fc-list-day-text {
+  color: #cee0f3;
+}
+
+.fc-list-day-cushion {
+  background-color: #0a1929 !important;
+}
+
+.fc-event-title-container {
+  text-align: center;
+}

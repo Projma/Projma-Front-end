@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./SingleVote.css";
+import "./SingleVote.scss";
 import FormControl from "@mui/material/FormControl";
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";

@@ -1,10 +1,12 @@
+import tc from "../../../Theme/theme";
+
 const RetroList = ({ children }) => {
   return (
     <div
       style={{
         width: "32rem",
         height: "100%",
-        backgroundColor: "#0A1929",
+        backgroundColor: tc.minorBg,
         borderRadius: "1rem",
         display: "flex",
         flexFlow: "column",
