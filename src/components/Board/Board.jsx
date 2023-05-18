@@ -55,7 +55,7 @@ const Board = () => {
                       display: "flex",
                       padding: "0 0.5rem 0 0.5rem",
                       overflow: "auto",
-                      backgroundColor: "var(--hover-color)",
+                      backgroundColor: "var(--main-item-color)",
                       borderRadius: "0.5rem",
                     }
                   : null
