@@ -15,6 +15,7 @@ import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { convertNumberToPersian } from "../../../utilities/helpers";
 import Loading from "../../Shared/Loading";
+import tc from "../../../Theme/theme";
 
 const style = {
   position: "absolute",
@@ -118,10 +119,10 @@ export default function CreateBoardModal({ workspace_id }) {
         onClick={handleOpen}
         sx={{
           // color: '#00bfff',
-          color: "#000",
+          color: tc.text,
           ":hover": {
-            color: "#E2EDF8",
-            backgroundColor: "#007fff",
+            color: tc.ternary,
+            backgroundColor: tc.secondry,
             borderRadius: "5px",
           },
           // marginTop: '8%',

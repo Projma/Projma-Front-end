@@ -18,6 +18,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
 import { convertNumberToPersian } from "../../../utilities/helpers";
+import tc from "../../../Theme/theme";
 
 const List = ({ task, name, listId, index, boardId }) => {
   const { addCardToList, removeList, editListName, setIsReq } = useBoard();
@@ -328,7 +329,7 @@ const List = ({ task, name, listId, index, boardId }) => {
                 style={
                   snapshot.draggingOverWith
                     ? {
-                        backgroundColor: "$hover",
+                        backgroundColor: tc.hover,
                         borderRadius: "0.5rem",
                       }
                     : null

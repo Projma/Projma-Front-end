@@ -19,6 +19,7 @@ import {
   convertNumberToPersian,
   convertNumberToEnglish,
 } from "../../../utilities/helpers";
+import tc from "../../../Theme/theme";
 
 const style = {
   position: "absolute",
@@ -28,7 +29,7 @@ const style = {
   width: "70%",
   height: "78%",
   // bgcolor: 'background.paper',
-  bgcolor: "#265D97", // #5090D3 #1E4976 001E3C 007fff 265D97
+  bgcolor: tc.secondry, // #5090D3 #1E4976 001E3C 007fff 265D97
   border: "2px solid #000",
   borderRadius: "10px",
   boxShadow: 24,
@@ -106,10 +107,10 @@ export default function BasicModal(props) {
         <Button
           onClick={handleOpen}
           sx={{
-            color: "#00bfff",
+            color: tc.ternary,
             ":hover": {
-              color: "#E2EDF8",
-              backgroundColor: "#007fff",
+              color: tc.text,
+              backgroundColor: tc.primary,
               borderRadius: "5px",
               fontFamily: "Vazir",
             },

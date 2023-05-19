@@ -4,6 +4,7 @@ import "./Board.scss";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import InvitationHeader from "./temp/InvitationHeader/InvitationHeader";
 import useBoard from "../../hooks/useBoard";
+import tc from "../../Theme/theme";
 
 const Board = () => {
   const { list, setList, getBoard, boardId, dnd } = useBoard();
@@ -55,7 +56,7 @@ const Board = () => {
                       display: "flex",
                       padding: "0 0.5rem 0 0.5rem",
                       overflow: "auto",
-                      backgroundColor: "$secondry",
+                      backgroundColor: tc.secondry,
                       borderRadius: "0.5rem",
                     }
                   : null

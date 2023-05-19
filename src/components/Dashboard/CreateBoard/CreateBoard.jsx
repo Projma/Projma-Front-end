@@ -20,6 +20,7 @@ import {
   convertNumberToPersian,
   convertNumberToEnglish,
 } from "../../../utilities/helpers";
+import tc from "../../../Theme/theme";
 
 const style = {
   position: "absolute",
@@ -28,7 +29,7 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: "42rem",
   height: "62rem",
-  backgroundColor: "#001E3C",
+  backgroundColor: tc.ternary,
   // bgcolor: "background.paper",
   border: "2px solid #000",
   borderRadius: "10px",
@@ -148,10 +149,10 @@ export default function CreateBoardModal({}) {
         onClick={handleOpen}
         sx={{
           // color: '#00bfff',
-          color: "#000",
+          color: tc.text,
           ":hover": {
             color: "#E2EDF8",
-            backgroundColor: "#007fff",
+            backgroundColor: tc.hover,
             borderRadius: "5px",
           },
           // marginTop: '8%',
@@ -202,7 +203,7 @@ export default function CreateBoardModal({}) {
           </Typography>
           <Divider
             sx={{
-              backgroundColor: "#007fff",
+              backgroundColor: tc.primary,
               marginTop: "3%",
               marginBottom: "5%",
             }}
@@ -299,13 +300,13 @@ export default function CreateBoardModal({}) {
                     value={workspace.id}
                     sx={{
                       fontFamily: "Vazir",
-                      color: "#007fff", // #0A1929
+                      color: tc.text, // #0A1929
                       // backgroundColor: '#265D97',
-                      backgroundColor: "#001E3C",
+                      backgroundColor: tc.minorBg,
                       // margin: '0%',
                       // padding: '3%',
                       ":hover": {
-                        backgroundColor: "#132F4C",
+                        backgroundColor: tc.ternary,
                         // borderRadius: '5px',
                       },
                       fontSize: "1.5rem",
