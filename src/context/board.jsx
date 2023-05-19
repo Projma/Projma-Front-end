@@ -13,7 +13,7 @@ function Provider({ children, boardId, workspaceId }) {
   const [isReq, setIsReq] = useState(false);
   const [calendar, setCalendar] = useState(0);
   const [poll, setPoll] = useState([]);
-
+  const socket = useRef(null);
   // const socket = useRef(null);
   const getBoard = useCallback(async () => {
     // setIsReq(true);
@@ -29,40 +29,30 @@ function Provider({ children, boardId, workspaceId }) {
         setBoardCover(response.data.background_pic);
       })
       .finally(() => setIsReq(false));
-    // socket.current = new WebSocket(
-    //   `ws://localhost:8000/ws/socket-server/board/?token=${localStorage.getItem(
-    //     "access_token"
-    //   )}`
-    // );
-    // socket.current.onopen = () => {
-    //   console.log("WebSocket connection opened");
-    //   socket.current.send(
-    //     JSON.stringify({
-    //       type: "join_board_group",
-    //       data: { board_id: boardId },
-    //     })
-    //   );
-    //   setTest((prevState) => [...prevState, "hi"]);
-    // };
+    socket.current = new WebSocket(
+      `ws://localhost:8000/ws/socket-server/board/?token=${localStorage.getItem(
+        "access_token"
+      )}`
+    );
+    socket.current.onopen = () => {
+      console.log("WebSocket connection opened");
+      socket.current.send(
+        JSON.stringify({
+          type: "join_board_group",
+          data: { board_id: boardId },
+        })
+      );
+    };
 
-    // socket.current.onmessage = (event) => {
-    //   console.log("khodaaaaaaaaaaaaaaaaaaaa");
-    //   // console.log(list);
-    //   // console.log(member);
-    //   setTest((prevState) => [...prevState, "hi"]);
-    //   console.log(test);
-    //   // console.log(boardId);
-    //   const message = JSON.parse(event.data);
-    //   setMsgs((prevState) => [...prevState, message]);
-    //   // console.log(msgs);
-    //   console.log("aaaaaaaaaaaaaaaaaaaaaa");
-    //   console.log(message);
-    //   dnd_socket(message, message.type);
-    // };
+    socket.current.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      console.log(message);
+      dnd_socket(message, message.type);
+    };
 
-    // socket.current.onclose = () => {
-    //   console.log("WebSocket connection closed");
-    // };
+    socket.current.onclose = () => {
+      console.log("WebSocket connection closed");
+    };
   }, [boardId, workspaceId]);
 
   const addCardToList = (card, list_id, socket) => {
@@ -106,12 +96,15 @@ function Provider({ children, boardId, workspaceId }) {
     );
   };
 
-  const dnd = (result, flag, socket) => {
-    console.log("yeahhhhhhhhhhh");
-    console.log(result);
+  const dnd = (result, flag) => {
     const draggableId = result.draggableId;
     const destination = result.destination;
     const source = result.source;
+    if (flag == 1) {
+      socket.current.send(
+        JSON.stringify({ type: "reorder_tasklists", data: result })
+      );
+    }
     if (!destination || !source) {
       return;
     }
@@ -122,19 +115,12 @@ function Provider({ children, boardId, workspaceId }) {
       console.log(newList);
       const [removed] = newList.splice(source.index, 1);
       newList.splice(destination.index, 0, removed);
-      // console.log(JSON.stringify(newList));
-      // socket.send(JSON.stringify({ type: "drag&drop", data: newList }));
       apiInstance
         .put(`board/tasklist/${boardId}/reorder-tasklists/`, {
           order: newList.map((list) => list.id).reverse(),
         })
         .then(() => {
           setList(newList);
-          if (flag == 1) {
-            socket.current.send(
-              JSON.stringify({ type: "reorder_tasklists", data: result })
-            );
-          }
         });
       return;
     }
@@ -162,7 +148,6 @@ function Provider({ children, boardId, workspaceId }) {
           value.tasks.splice(destination.index, 0, task);
         }
       });
-      // socket.send(JSON.stringify({ type: "drag&drop", data: newlist }));
       setList(newlist);
       apiInstance.patch(`task/${result.draggableId.slice(5)}/move-task/`, {
         tasklist: destination.droppableId.slice(12),
@@ -171,12 +156,9 @@ function Provider({ children, boardId, workspaceId }) {
     }
   };
 
-  const dnd_socket = (data, type, socket) => {
-    console.log("datadatadatadatadata");
-    console.log(data);
+  const dnd_socket = (data, type) => {
     if (type == "reorder_tasklists") {
-      console.log("plzzzzzzzzzzzzzzzzzzzzzz");
-      dnd(data.data, 0, socket);
+      dnd(data.data, 0);
     }
     if (type == "add_card") {
       setList(
@@ -215,7 +197,7 @@ function Provider({ children, boardId, workspaceId }) {
     list,
     member,
     boardCover,
-    // socket,
+    socket,
     setList,
     getBoard,
     addCardToList,

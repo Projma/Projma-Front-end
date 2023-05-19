@@ -9,63 +9,25 @@ import tc from "../../Theme/theme";
 // const [test, setTest] = useState(["salam"]);
 
 const Board = () => {
-  const { list, setList, getBoard, boardId, dnd, dnd_socket } = useBoard();
-  const socket = useRef(null);
-  // useEffect(() => {
-
-  // }, []);
-  if (socket.current == null) {
-    socket.current = new WebSocket(
-      `ws://localhost:8000/ws/socket-server/board/?token=${localStorage.getItem(
-        "access_token"
-      )}`
-    );
-    socket.current.onopen = () => {
-      console.log("WebSocket connection opened");
-      socket.current.send(
-        JSON.stringify({
-          type: "join_board_group",
-          data: { board_id: boardId },
-        })
-      );
-      // setTest((prevState) => [...prevState, "hi"]);
-    };
-
-    socket.current.onmessage = (event) => {
-      console.log("khodaaaaaaaaaaaaaaaaaaaa");
-      // console.log(list);
-      // console.log(member);
-      // setTest((prevState) => [...prevState, "hi"]);
-      // console.log(test);
-      // console.log(boardId);
-      const message = JSON.parse(event.data);
-      // setMsgs((prevState) => [...prevState, message]);
-      // console.log(msgs);
-      console.log("aaaaaaaaaaaaaaaaaaaaaa");
-      console.log(message);
-      dnd_socket(message, message.type, socket);
-    };
-
-    socket.current.onclose = () => {
-      console.log("WebSocket connection closed");
-    };
-  }
-
+  const { list, setList, getBoard, boardId, dnd, dnd_socket, socket } =
+    useBoard();
   useEffect(() => {
-    socket.current.onmessage = (event) => {
-      console.log("khodaaaaaaaaaaaaaaaaaaaa");
-      // console.log(list);
-      // console.log(member);
-      // setTest((prevState) => [...prevState, "hi"]);
-      // console.log(test);
-      // console.log(boardId);
-      const message = JSON.parse(event.data);
-      // setMsgs((prevState) => [...prevState, message]);
-      // console.log(msgs);
-      console.log("aaaaaaaaaaaaaaaaaaaaaa");
-      console.log(message);
-      dnd_socket(message, message.type, socket);
-    };
+    if (socket.current != null) {
+      socket.current.onmessage = (event) => {
+        console.log("khodaaaaaaaaaaaaaaaaaaaa");
+        // console.log(list);
+        // console.log(member);
+        // setTest((prevState) => [...prevState, "hi"]);
+        // console.log(test);
+        // console.log(boardId);
+        const message = JSON.parse(event.data);
+        // setMsgs((prevState) => [...prevState, message]);
+        // console.log(msgs);
+        console.log("aaaaaaaaaaaaaaaaaaaaaa");
+        console.log(message);
+        dnd_socket(message, message.type, socket);
+      };
+    }
   }, [list]);
 
   useEffect(() => {
@@ -92,7 +54,7 @@ const Board = () => {
   };
 
   const dragHandler = (result) => {
-    dnd(result, 1, socket);
+    dnd(result, 1);
   };
 
   return (
