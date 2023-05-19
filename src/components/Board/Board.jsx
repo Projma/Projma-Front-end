@@ -1,13 +1,72 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import List from "./List/List";
 import "./Board.scss";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import InvitationHeader from "./temp/InvitationHeader/InvitationHeader";
 import useBoard from "../../hooks/useBoard";
 import tc from "../../Theme/theme";
+// const [msgs, setMsgs] = useState([]);
+// const [test, setTest] = useState(["salam"]);
 
 const Board = () => {
-  const { list, setList, getBoard, boardId, dnd, socket } = useBoard();
+  const { list, setList, getBoard, boardId, dnd, dnd_socket } = useBoard();
+  const socket = useRef(null);
+  // useEffect(() => {
+
+  // }, []);
+  if (socket.current == null) {
+    socket.current = new WebSocket(
+      `ws://localhost:8000/ws/socket-server/board/?token=${localStorage.getItem(
+        "access_token"
+      )}`
+    );
+    socket.current.onopen = () => {
+      console.log("WebSocket connection opened");
+      socket.current.send(
+        JSON.stringify({
+          type: "join_board_group",
+          data: { board_id: boardId },
+        })
+      );
+      // setTest((prevState) => [...prevState, "hi"]);
+    };
+
+    socket.current.onmessage = (event) => {
+      console.log("khodaaaaaaaaaaaaaaaaaaaa");
+      // console.log(list);
+      // console.log(member);
+      // setTest((prevState) => [...prevState, "hi"]);
+      // console.log(test);
+      // console.log(boardId);
+      const message = JSON.parse(event.data);
+      // setMsgs((prevState) => [...prevState, message]);
+      // console.log(msgs);
+      console.log("aaaaaaaaaaaaaaaaaaaaaa");
+      console.log(message);
+      dnd_socket(message, message.type, socket);
+    };
+
+    socket.current.onclose = () => {
+      console.log("WebSocket connection closed");
+    };
+  }
+
+  useEffect(() => {
+    socket.current.onmessage = (event) => {
+      console.log("khodaaaaaaaaaaaaaaaaaaaa");
+      // console.log(list);
+      // console.log(member);
+      // setTest((prevState) => [...prevState, "hi"]);
+      // console.log(test);
+      // console.log(boardId);
+      const message = JSON.parse(event.data);
+      // setMsgs((prevState) => [...prevState, message]);
+      // console.log(msgs);
+      console.log("aaaaaaaaaaaaaaaaaaaaaa");
+      console.log(message);
+      dnd_socket(message, message.type, socket);
+    };
+  }, [list]);
 
   useEffect(() => {
     getBoard();
@@ -24,7 +83,6 @@ const Board = () => {
         task={list.tasks}
         boardId={boardId}
       />
-      // </div>
     ));
   };
 
@@ -34,7 +92,7 @@ const Board = () => {
   };
 
   const dragHandler = (result) => {
-    dnd(result, socket);
+    dnd(result, 1, socket);
   };
 
   return (

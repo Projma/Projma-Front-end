@@ -1,4 +1,5 @@
-import React, { createContext, useState, useCallback } from "react";
+import "../styles/ReactToastify.css";
+import React, { createContext, useState, useCallback, useRef } from "react";
 import apiInstance from "../utilities/axiosConfig";
 import Loading from "../components/Shared/Loading";
 import { baseUrl } from "../utilities/constants";
@@ -12,8 +13,8 @@ function Provider({ children, boardId, workspaceId }) {
   const [isReq, setIsReq] = useState(false);
   const [calendar, setCalendar] = useState(0);
   const [poll, setPoll] = useState([]);
-  const [socket, setSocket] = useState(null);
 
+  // const socket = useRef(null);
   const getBoard = useCallback(async () => {
     // setIsReq(true);
     let data;
@@ -28,32 +29,46 @@ function Provider({ children, boardId, workspaceId }) {
         setBoardCover(response.data.background_pic);
       })
       .finally(() => setIsReq(false));
-    const newSocket = new WebSocket(
-      `ws://localhost:8000/ws/socket-server/board/?token=${localStorage.getItem(
-        "access_token"
-      )}`
-    );
-    newSocket.send({ type: "join_board_group", data: boardId });
-    newSocket.onopen = () => {
-      console.log("WebSocket connection opened");
-    };
+    // socket.current = new WebSocket(
+    //   `ws://localhost:8000/ws/socket-server/board/?token=${localStorage.getItem(
+    //     "access_token"
+    //   )}`
+    // );
+    // socket.current.onopen = () => {
+    //   console.log("WebSocket connection opened");
+    //   socket.current.send(
+    //     JSON.stringify({
+    //       type: "join_board_group",
+    //       data: { board_id: boardId },
+    //     })
+    //   );
+    //   setTest((prevState) => [...prevState, "hi"]);
+    // };
 
-    newSocket.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      console.log("aaaaaaaaaaaaaaaaaaaaaa");
-      console.log(message);
-      dnd_socket(message, message.type);
-    };
+    // socket.current.onmessage = (event) => {
+    //   console.log("khodaaaaaaaaaaaaaaaaaaaa");
+    //   // console.log(list);
+    //   // console.log(member);
+    //   setTest((prevState) => [...prevState, "hi"]);
+    //   console.log(test);
+    //   // console.log(boardId);
+    //   const message = JSON.parse(event.data);
+    //   setMsgs((prevState) => [...prevState, message]);
+    //   // console.log(msgs);
+    //   console.log("aaaaaaaaaaaaaaaaaaaaaa");
+    //   console.log(message);
+    //   dnd_socket(message, message.type);
+    // };
 
-    newSocket.onclose = () => {
-      console.log("WebSocket connection closed");
-    };
-
-    setSocket(newSocket);
+    // socket.current.onclose = () => {
+    //   console.log("WebSocket connection closed");
+    // };
   }, [boardId, workspaceId]);
 
   const addCardToList = (card, list_id, socket) => {
-    socket.send(JSON.stringify({ type: "add_card", card, list_id: list_id }));
+    socket.current.send(
+      JSON.stringify({ type: "add_card", card, list_id: list_id })
+    );
     setList(
       list.map((tasklist) => {
         if (tasklist.id === list_id) {
@@ -68,7 +83,7 @@ function Provider({ children, boardId, workspaceId }) {
   };
 
   const removeList = (id) => {
-    socket.send(JSON.stringify({ type: "remove_list", list_id: id }));
+    socket.current.send(JSON.stringify({ type: "remove_list", list_id: id }));
     setList(list.filter((list) => list.id !== id));
   };
 
@@ -82,7 +97,7 @@ function Provider({ children, boardId, workspaceId }) {
   };
 
   const removeCard = (id, socket) => {
-    socket.send(JSON.stringify({ type: "remove_card", card_id: id }));
+    socket.current.send(JSON.stringify({ type: "remove_card", card_id: id }));
     setList(
       list.map((l) => {
         l.tasks = l.tasks.filter((t) => t.id !== id);
@@ -91,7 +106,8 @@ function Provider({ children, boardId, workspaceId }) {
     );
   };
 
-  const dnd = (result, socket) => {
+  const dnd = (result, flag, socket) => {
+    console.log("yeahhhhhhhhhhh");
     console.log(result);
     const draggableId = result.draggableId;
     const destination = result.destination;
@@ -99,18 +115,26 @@ function Provider({ children, boardId, workspaceId }) {
     if (!destination || !source) {
       return;
     }
-    if (result.type === "list") {
+    if (result.type === "COLUMN") {
+      console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeee");
+      console.log(list);
       const newList = Array.from(list);
+      console.log(newList);
       const [removed] = newList.splice(source.index, 1);
       newList.splice(destination.index, 0, removed);
-      console.log(JSON.stringify(newList));
-      socket.send(JSON.stringify({ type: "drag&drop", data: newList }));
+      // console.log(JSON.stringify(newList));
+      // socket.send(JSON.stringify({ type: "drag&drop", data: newList }));
       apiInstance
         .put(`board/tasklist/${boardId}/reorder-tasklists/`, {
           order: newList.map((list) => list.id).reverse(),
         })
         .then(() => {
           setList(newList);
+          if (flag == 1) {
+            socket.current.send(
+              JSON.stringify({ type: "reorder_tasklists", data: result })
+            );
+          }
         });
       return;
     }
@@ -138,7 +162,7 @@ function Provider({ children, boardId, workspaceId }) {
           value.tasks.splice(destination.index, 0, task);
         }
       });
-      socket.send(JSON.stringify({ type: "drag&drop", data: newlist }));
+      // socket.send(JSON.stringify({ type: "drag&drop", data: newlist }));
       setList(newlist);
       apiInstance.patch(`task/${result.draggableId.slice(5)}/move-task/`, {
         tasklist: destination.droppableId.slice(12),
@@ -147,11 +171,12 @@ function Provider({ children, boardId, workspaceId }) {
     }
   };
 
-  const dnd_socket = (data, type) => {
+  const dnd_socket = (data, type, socket) => {
     console.log("datadatadatadatadata");
     console.log(data);
-    if (type == "drag&drop") {
-      setList(data.data);
+    if (type == "reorder_tasklists") {
+      console.log("plzzzzzzzzzzzzzzzzzzzzzz");
+      dnd(data.data, 0, socket);
     }
     if (type == "add_card") {
       setList(
@@ -190,7 +215,7 @@ function Provider({ children, boardId, workspaceId }) {
     list,
     member,
     boardCover,
-    socket,
+    // socket,
     setList,
     getBoard,
     addCardToList,
