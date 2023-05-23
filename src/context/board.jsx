@@ -55,9 +55,12 @@ function Provider({ children, boardId, workspaceId }) {
     };
   }, [boardId, workspaceId]);
 
-  const addCardToList = (card, list_id, socket) => {
+  const addCardToList = (card, list_id) => {
     socket.current.send(
-      JSON.stringify({ type: "add_card", card, list_id: list_id })
+      JSON.stringify({
+        type: "add_card",
+        data: { card: card, list_id: list_id },
+      })
     );
     setList(
       list.map((tasklist) => {
@@ -73,8 +76,10 @@ function Provider({ children, boardId, workspaceId }) {
   };
 
   const removeList = (id) => {
-    socket.current.send(JSON.stringify({ type: "remove_list", list_id: id }));
     setList(list.filter((list) => list.id !== id));
+    socket.current.send(
+      JSON.stringify({ type: "remove_tasklist", data: { list_id: id } })
+    );
   };
 
   const editListName = (id, name) => {
@@ -84,10 +89,18 @@ function Provider({ children, boardId, workspaceId }) {
         return list;
       })
     );
+    socket.current.send(
+      JSON.stringify({
+        type: "edit_list_name",
+        data: { list_id: id, name: name },
+      })
+    );
   };
 
-  const removeCard = (id, socket) => {
-    socket.current.send(JSON.stringify({ type: "remove_card", card_id: id }));
+  const removeCard = (id) => {
+    socket.current.send(
+      JSON.stringify({ type: "remove_card", data: { card_id: id } })
+    );
     setList(
       list.map((l) => {
         l.tasks = l.tasks.filter((t) => t.id !== id);
@@ -109,10 +122,7 @@ function Provider({ children, boardId, workspaceId }) {
       return;
     }
     if (result.type === "COLUMN") {
-      console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeee");
-      console.log(list);
       const newList = Array.from(list);
-      console.log(newList);
       const [removed] = newList.splice(source.index, 1);
       newList.splice(destination.index, 0, removed);
       apiInstance
@@ -163,10 +173,10 @@ function Provider({ children, boardId, workspaceId }) {
     if (type == "add_card") {
       setList(
         list.map((tasklist) => {
-          if (tasklist.id === data.list_id) {
+          if (tasklist.id === data.data.list_id) {
             return {
               ...tasklist,
-              tasks: [...tasklist.tasks, data.card],
+              tasks: [...tasklist.tasks, data.data.card],
             };
           }
           return tasklist;
@@ -176,16 +186,24 @@ function Provider({ children, boardId, workspaceId }) {
     if (type == "remove_card") {
       setList(
         list.map((l) => {
-          l.tasks = l.tasks.filter((t) => t.id !== data.card_id);
+          l.tasks = l.tasks.filter((t) => t.id !== data.data.card_id);
           return l;
         })
       );
     }
-    if (type == "add_list") {
+    if (type == "create_tasklist") {
       setList((pervlist) => [data.data, ...pervlist]);
     }
-    if (type == "remove_list") {
-      setList(list.filter((list) => list.id !== data.list_id));
+    if (type == "remove_tasklist") {
+      setList(list.filter((list) => list.id !== data.data.list_id));
+    }
+    if (type == "edit_list_name") {
+      setList(
+        list.map((list) => {
+          if (list.id == data.data.list_id) list.title = data.data.name;
+          return list;
+        })
+      );
     }
   };
 

@@ -14,16 +14,7 @@ const Board = () => {
   useEffect(() => {
     if (socket.current != null) {
       socket.current.onmessage = (event) => {
-        console.log("khodaaaaaaaaaaaaaaaaaaaa");
-        // console.log(list);
-        // console.log(member);
-        // setTest((prevState) => [...prevState, "hi"]);
-        // console.log(test);
-        // console.log(boardId);
         const message = JSON.parse(event.data);
-        // setMsgs((prevState) => [...prevState, message]);
-        // console.log(msgs);
-        console.log("aaaaaaaaaaaaaaaaaaaaaa");
         console.log(message);
         dnd_socket(message, message.type, socket);
       };
@@ -49,8 +40,10 @@ const Board = () => {
   };
 
   const handleCreateList = (data) => {
-    socket.send(JSON.stringify({ type: "add_list", data }));
     setList((pervlist) => [data, ...pervlist]);
+    socket.current.send(
+      JSON.stringify({ type: "create_tasklist", data: data })
+    );
   };
 
   const dragHandler = (result) => {
