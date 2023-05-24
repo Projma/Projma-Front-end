@@ -1,23 +1,17 @@
-// $main-bg: #f7f9fd;
-// $minor-bg: #ffffff;
-// $secondry: ##216fa9;
-// $ternary: ##5e95bc;
-// $hover: ##5e95bc80;
-// $primary: #00599c;
-// $text: #383e43;
+:root {
+  --main-bg: #001e3c;
+  --minor-bg: #0a1929;
+  --secondary: #132f4c;
+  --tertiary: #5090d3;
+  --hover: #5090d380;
+  --primary: #1976d2;
+  --text: #eee;
+}
 
-// $main-bg: #212121;
-// $minor-bg: #181818;
-// $secondry: #292929;
-// $ternary: #a6afb9;
-// $hover: #a6afb980;
-// $primary: #2d4b6a;
-// $text: #eee;
-
-$main-bg: #001e3c;
-$minor-bg: #0a1929;
-$secondry: #132f4c;
-$ternary: #5090d3;
-$hover: #5090d380;
-$primary: #1976d2;
-$text: #eee;
+$main-bg: var(--main-bg);
+$minor-bg: var(--minor-bg);
+$secondary: var(--secondary);
+$tertiary: var(--tertiary);
+$hover: var(--hover);
+$primary: var(--primary);
+$text: var(--text);

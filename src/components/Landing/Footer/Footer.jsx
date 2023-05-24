@@ -3,9 +3,9 @@ import { Box } from "@mui/system";
 import "./Footer.scss";
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid"; // Grid version 1
-import tc from "../../../Theme/theme";
-
+import useTheme from "../../../hooks/useTheme";
 const Footer = () => {
+  const {theme} = useTheme();
   return (
     <div style={{
       position: "relative",
@@ -13,8 +13,8 @@ const Footer = () => {
     }}>
       <Box
         sx={{
-          color: tc.text,
-          backgroundColor: tc.primary,
+          color: theme.text,
+          backgroundColor: theme.primary,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",

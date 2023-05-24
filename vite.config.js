@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import reactRefresh from "@vitejs/plugin-react-refresh";
-
+import svgr from "vite-plugin-svgr";
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
@@ -22,9 +22,9 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "./src/Theme/theme.scss";`,
+        additionalData: `@import "./src/theme/theme.scss";`,
       },
     },
   },
-  plugins: [react(), reactRefresh()],
+  plugins: [svgr(), react(), reactRefresh()],
 });

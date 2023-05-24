@@ -26,7 +26,7 @@ const PollOptions = ({ id, op, onChangeOp}) => {
             disableUnderline: true,
             style: {
               fontFamily: "Vazir",
-              // backgroundColor: "$secondry"
+              // backgroundColor: "$secondary"
             },
           }}
           InputLabelProps={{

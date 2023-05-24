@@ -18,11 +18,12 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
 import { convertNumberToPersian } from "../../../utilities/helpers";
-import tc from "../../../Theme/theme";
+import useTheme from "../../../hooks/useTheme";
 
 const List = ({ task, name, listId, index, boardId }) => {
   const { addCardToList, removeList, editListName, setIsReq, socket } =
     useBoard();
+  const { theme } = useTheme();
   const [card, setCard] = useState(task);
   const [addCard, setAddCard] = useState(false);
   const [cardName, setCardName] = useState("");
@@ -167,7 +168,7 @@ const List = ({ task, name, listId, index, boardId }) => {
 
   return (
     <Draggable draggableId={`list:${listId}`} index={index}>
-      {(provided,snapshot) => (
+      {(provided, snapshot) => (
         <div
           className="list_container"
           ref={provided.innerRef}
@@ -303,8 +304,8 @@ const List = ({ task, name, listId, index, boardId }) => {
                         },
                       }}
                       sx={{
-                        backgroundColor: "$secondry",
-                        borderBottom: "0.2rem solid $ternary",
+                        backgroundColor: "$secondary",
+                        borderBottom: "0.2rem solid $tertiary",
                         borderRadius: "0.5rem",
                         // borderRadius: "0.5rem",
                         "& input::placeholder": {
@@ -321,7 +322,13 @@ const List = ({ task, name, listId, index, boardId }) => {
               </div>
             )}
           </div>
-          <Droppable droppableId={`card_holder:${listId}`} direction="vertical" type="task" isCombineEnabled ignoreContainerClipping>
+          <Droppable
+            droppableId={`card_holder:${listId}`}
+            direction="vertical"
+            type="task"
+            isCombineEnabled
+            ignoreContainerClipping
+          >
             {(provided, snapshot) => (
               <div
                 className="list_card-container"
@@ -330,7 +337,7 @@ const List = ({ task, name, listId, index, boardId }) => {
                 style={
                   snapshot.draggingOverWith
                     ? {
-                        backgroundColor: tc.hover,
+                        backgroundColor: theme.hover,
                         borderRadius: "0.5rem",
                       }
                     : null

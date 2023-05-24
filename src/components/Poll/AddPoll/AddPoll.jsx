@@ -99,7 +99,7 @@ const AddPoll = ({closeAddPoll}) => {
               disableUnderline: true,
               style: {
                 fontFamily: "Vazir",
-                // backgroundColor: "$secondry"
+                // backgroundColor: "$secondary"
               },
             }}
             InputLabelProps={{

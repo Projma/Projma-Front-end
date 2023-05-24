@@ -1,6 +1,4 @@
 .list_container {
-  display: flex;
-  flex-flow: column;
   direction: rtl;
   max-width: 31rem;
   max-height: 100%;
@@ -16,7 +14,8 @@
   background-color: $minor-bg;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
-  border-bottom: 0.2rem solid $ternary;
+  background-color: $secondary;
+  // border-bottom: 0.2rem solid $tertiary;
 }
 
 .list_header {
@@ -61,14 +60,19 @@
 .list_card-container {
   min-width: 10rem;
   overflow: auto;
-  padding: 0.3rem;
+  padding: 0.5rem;
+  background-color: $secondary;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-flow: column;
+  gap: 0.5rem;
 }
 
 .board_option {
   display: flex;
   flex-direction: column;
   width: 20rem;
-  border: 0.2rem solid $ternary;
+  border: 0.2rem solid $tertiary;
   color: $text !important;
   background-color: $minor-bg;
   padding: 0.5rem;
@@ -90,7 +94,7 @@
   padding-right: 0.4rem;
 }
 .board_option-button:hover {
-  background-color: $secondry;
+  background-color: $secondary;
   cursor: pointer;
   border-radius: 0.5rem;
 }
@@ -105,14 +109,14 @@
 }
 
 .board_option-title {
-  border-bottom: 0.2rem solid $ternary;
+  border-bottom: 0.2rem solid $tertiary;
   padding-bottom: 0.5rem;
   font-size: 1.2rem !important;
 }
 
 .MuiDialog-paper {
   //background-color: $minor-bg !important;
-  border: 0.2rem solid $ternary !important;
+  border: 0.2rem solid $tertiary !important;
   color: $text !important;
 }
 

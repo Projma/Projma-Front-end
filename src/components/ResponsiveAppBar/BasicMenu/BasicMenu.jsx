@@ -5,12 +5,13 @@ import MenuItem from "@mui/material/MenuItem";
 import { useNavigate , useParams } from "react-router-dom";
 import BasicModal from "../../Dashboard/Modal/BasicModal";
 import apiInstance from "../../../utilities/axiosConfig";
-
+import useTheme from "../../../hooks/useTheme";
 import CreateBoardModal from "../CreateBoardModal/CreateBoardModal";
 
 export default function BasicMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const {theme} = useTheme();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -65,11 +66,12 @@ export default function BasicMenu(props) {
                 key={key}
                 sx={{
                   ":hover": {
-                    color: "#E2EDF8",
-                    backgroundColor: "#007fff",
+                    color: theme.text,
+                    backgroundColor: theme.tertiary,
                     borderRadius: "5px",
                   },
                   transition: "0.3s",
+                  backgroundColor: theme.minorBg,
                 }}
               >
                 <div style={{ fontSize: "88%" }}>{props.workspaces[key]}</div>
@@ -84,11 +86,12 @@ export default function BasicMenu(props) {
                 key={board["id"]}
                 sx={{
                   ":hover": {
-                    color: "#E2EDF8",
-                    backgroundColor: "#007fff",
+                    color: theme.text,
+                    backgroundColor: theme.tertiary,
                     borderRadius: "5px",
                   },
                   transition: "0.3s",
+                  backgroundColor: theme.minorBg,
                 }}
               >
                 <div style={{ fontSize: "88%" }}>{board["name"]}</div>
@@ -100,8 +103,8 @@ export default function BasicMenu(props) {
             <MenuItem
               sx={{
                 ":hover": {
-                  color: "#E2EDF8",
-                  backgroundColor: "#007fff",
+                  color: theme.text,
+                    backgroundColor: theme.tertiary,
                   borderRadius: "5px",
                   fontFamily: "Vazir",
                 },
@@ -112,8 +115,8 @@ export default function BasicMenu(props) {
             <MenuItem
               sx={{
                 ":hover": {
-                  color: "#E2EDF8",
-                  backgroundColor: "#007fff",
+                  color: theme.text,
+                    backgroundColor: theme.tertiary,
                   borderRadius: "5px",
                   fontFamily: "Vazir",
                 },

@@ -25,20 +25,20 @@ import {
 import apiInstance from "../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import useBoard from "../../hooks/useBoard";
-import tc from "../../Theme/theme";
+import useTheme from "../../hooks/useTheme";
 
 const BoardSidebar = () => {
   const [wsBoard, setWsBoard] = useState([]);
-  const { collapseSidebar, collapsed} =
-    useProSidebar();
+  const { collapseSidebar, collapsed } = useProSidebar();
+  const { theme } = useTheme();
   const { boardId, workspaceId } = useBoard();
   const menuStyle = {
     ["." + menuClasses.button]: {
-      color: tc.text,
-      backgroundColor: tc.minorBg,
+      color: theme.text,
+      backgroundColor: theme.secondary,
       borderRadius: "0.5rem",
       "&:hover": {
-        backgroundColor: tc.hover,
+        backgroundColor: theme.hover,
       },
     },
     ["." + menuClasses.label]: {
@@ -47,10 +47,10 @@ const BoardSidebar = () => {
     ["." + menuClasses.menuItemRoot]: {
       marginBottom: "0.5rem",
       borderRadius: "0.5rem",
-      backgroundColor: tc.minorBg,
+      backgroundColor: theme.secondary,
     },
     ["." + menuClasses.subMenuContent]: {
-      color: "#fff",
+      color: theme.text,
       margin: "0.5rem 1rem",
       backgroundColor: "#00000000",
       boxShadow: "none",
@@ -86,13 +86,11 @@ const BoardSidebar = () => {
     <div style={{ display: "flex", minHeight: "100%", maxHeight: "100%" }}>
       <Sidebar
         rtl
-        backgroundColor={tc.minorBg}
+        backgroundColor={theme.secondary}
         // collapsed
-        defaultCollapsed 
+        defaultCollapsed
         transitionDuration={800}
-        rootStyles={{
-          border: "none",
-        }}
+        style={{ borderLeft: "none" }}
       >
         <div className="boardsidebar-container">
           <div className="boardsidebar-header">
@@ -105,9 +103,13 @@ const BoardSidebar = () => {
             >
               <MenuItem
                 onClick={() => collapseSidebar(!collapsed)}
-                icon={collapsed ? <MenuOutlined /> : undefined}
+                icon={
+                  collapsed ? (
+                    <MenuOutlined sx={{ color: theme.text }} />
+                  ) : undefined
+                }
                 style={{
-                  color: tc.text,
+                  color: theme.text,
                 }}
               >
                 {!collapsed && (
@@ -119,26 +121,26 @@ const BoardSidebar = () => {
                     }}
                   >
                     <Typography>داشبورد</Typography>
-                    <MenuOutlined />
+                    <MenuOutlined sx={{ color: theme.text }} />
                   </div>
                 )}
               </MenuItem>
             </Menu>
             <Menu rootStyles={menuStyle}>
               <MenuItem
-                icon={<ViewKanbanOutlined />}
+                icon={<ViewKanbanOutlined sx={{ color: theme.text }} />}
                 onClick={() => handleClick(boardId, "board")}
               >
                 بورد
               </MenuItem>
               <MenuItem
-                icon={<CalendarMonthOutlined />}
+                icon={<CalendarMonthOutlined sx={{ color: theme.text }} />}
                 onClick={() => handleClick(boardId, "calendar")}
               >
                 تقویم
               </MenuItem>
               <MenuItem
-                icon={<TaskAltOutlined />}
+                icon={<TaskAltOutlined sx={{ color: theme.text }} />}
                 onClick={() => handleClick(boardId, "poll")}
               >
                 رای گیری
@@ -146,30 +148,30 @@ const BoardSidebar = () => {
 
               <SubMenu
                 label="رترو"
-                icon={<GroupWorkOutlined />}
+                icon={<GroupWorkOutlined sx={{ color: theme.text }} />}
                 // onClick={() => handleClick(boardId, "retro")}
               >
                 <MenuItem
                   onClick={() => handleClick(boardId, "retro/reflect")}
-                  icon={<FlareOutlined />}
+                  icon={<FlareOutlined sx={{ color: theme.text }} />}
                 >
                   بازتاب
                 </MenuItem>
                 <MenuItem
                   onClick={() => handleClick(boardId, "retro/group")}
-                  icon={<Diversity2 />}
+                  icon={<Diversity2 sx={{ color: theme.text }} />}
                 >
                   گروه
                 </MenuItem>
                 <MenuItem
                   onClick={() => handleClick(boardId, "retro/vote")}
-                  icon={<ThumbsUpDownOutlined />}
+                  icon={<ThumbsUpDownOutlined sx={{ color: theme.text }} />}
                 >
                   رای
                 </MenuItem>
                 <MenuItem
                   onClick={() => handleClick(boardId, "retro/discuss")}
-                  icon={<ChatOutlined />}
+                  icon={<ChatOutlined sx={{ color: theme.text }} />}
                 >
                   بحث
                 </MenuItem>
@@ -178,7 +180,7 @@ const BoardSidebar = () => {
               {wsBoard !== [] && (
                 <SubMenu
                   label="بورد های فضای کاری"
-                  icon={<DashboardOutlined />}
+                  icon={<DashboardOutlined sx={{ color: theme.text }} />}
                 >
                   {wsBoard.map((b) => (
                     <MenuItem
@@ -188,7 +190,7 @@ const BoardSidebar = () => {
                         ["." + menuClasses.button]: {
                           padding: "0 !important",
                           textAlign: "center",
-                          backgroundColor: tc.minorBg,
+                          backgroundColor: theme.minorBg,
                           backgroundImage: `linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url(${b.cover})`,
                           backgroundSize: "100% 100%",
                           backgroundPosition: "center",
@@ -212,7 +214,7 @@ const BoardSidebar = () => {
                 onClick={() =>
                   navigate(`/workspace/${workspaceId}/dashboard/board`)
                 }
-                icon={<HomeOutlined />}
+                icon={<HomeOutlined sx={{ color: theme.text }} />}
               >
                 فضای کاری
               </MenuItem>
