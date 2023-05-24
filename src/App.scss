@@ -5,6 +5,10 @@
   font-family: "Vazir", sans-serif;
 }
 
+.app {
+  transition: all 2s ease-in-out;
+}
+
 html {
   font-size: 62.5%;
   overflow: auto;
@@ -12,13 +16,20 @@ html {
 
 body {
   margin: 0 auto;
+  background-color: $main-bg;
 }
 
+:root {
+  --toastify-toast-background: $secondary;
+  --toastify-color-light: $secondary;
+  --toastify-color-dark: $secondary;
+  --toastify-font-family: Vazir !important;
+}
 
 html,
 .styled-scrollbars {
   /* Foreground, Background */
-  scrollbar-color: $ternary $minor-bg;
+  scrollbar-color: $secondary $minor-bg;
   scrollbar-width: thin;
 }
 ::-webkit-scrollbar {
@@ -28,14 +39,14 @@ html,
 }
 ::-webkit-scrollbar-thumb {
   /* Foreground */
-  background: $ternary !important;
+  background: $secondary !important;
 }
 ::-webkit-scrollbar-track {
   /* Background */
   background: $minor-bg !important;
 }
 ::-webkit-scrollbar-button {
-  //background-color: $ternary !important;
+  //background-color: $tertiary !important;
   background-size: 0.5rem;
   background-repeat: no-repeat;
   width: auto;
@@ -45,16 +56,36 @@ html,
 }
 
 .MuiTooltip-tooltip {
-  //background-color: $minor-bg !important;
-  border: 0.2rem solid $ternary;
-  color: #fff;
+  background-color: $minor-bg !important;
+  border: 0.2rem solid $tertiary;
+  color: $text !important;
 }
 
 .MuiAvatarGroup-root .MuiAvatarGroup-avatar {
-  /*//background-color: $ternary) !important;*/
+  /*//background-color: $tertiary) !important;*/
   width: 3.5rem;
   height: 3.5rem;
   font-size: 1.6rem;
   text-align: center;
-  border: 0.2rem solid $ternary !important;
+  border: 0.2rem solid $primary !important;
+}
+
+.Toastify__toast-container {
+  color: $text !important;
+}
+
+.Toastify__toast-theme--light {
+  background-color: $minor-bg;
+}
+
+.Toastify__toast-body {
+  color: $text !important;
+}
+
+.Toastify__close-button {
+  color: $text !important;
+}
+
+p {
+  color: $text;
 }

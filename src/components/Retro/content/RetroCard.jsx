@@ -1,12 +1,13 @@
-import tc from "../../../Theme/theme";
+import useTheme from "../../../hooks/useTheme";
 
 const RetroCard = ({children}) => {
+  const { theme } = useTheme();
   return ( 
     <div
       style={{
         width: "100%",
         height: "100%",
-        backgroundColor: tc.primary,
+        backgroundColor: theme.primary,
         borderRadius: "1rem",
         display: "flex",
         flexFlow: "column",
@@ -14,7 +15,7 @@ const RetroCard = ({children}) => {
         // alignItems: "flex-start",
         justifyContent: "flex-start",
         gap: "1.5rem",
-        color: tc.text,
+        color: theme.text,
       }}
     >
       {children}

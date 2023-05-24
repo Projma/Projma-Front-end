@@ -37,35 +37,46 @@ import Vote from "./components/Retro/Vote/Vote";
 import Discuss from "./components/Retro/Discuss/Discuss";
 import Group from "./components/Retro/Group/Group";
 import RealTest from "./components/RealTime/RealTest";
-import tc from "./Theme/theme";
 import WsBoard from "./components/WorkspaceManagement/Board/WsBoard";
 import Members from "./components/WorkspaceManagement/Members/Members";
+import useTheme from "./hooks/useTheme";
 
-const theme = createTheme(
-  {
+function App() {
+  const { theme } = useTheme();
+  const muiTheme = createTheme({
     palette: {
       primary: {
-        main: tc.primary,
+        main: theme.primary,
       },
       secondary: {
-        main: tc.secondry
+        main: theme.secondary,
       },
     },
     typography: {
       fontFamily: "Vazir",
       htmlFontSize: 9, // 10 (1rem = 9px)
       allVariants: {
-        color: tc.text
-      }
+        color: theme.text,
+      },
     },
-  },
-);
-
-function App() {
+  });
   return (
-    <div className="styled-scrollbars">
+    <div
+      className={"app styled-scrollbars"}
+      style={{
+        "--main-bg": theme.mainBg,
+        "--minor-bg": theme.minorBg,
+        "--primary": theme.primary,
+        "--secondary": theme.secondary,
+        "--tertiary": theme.tertiary,
+        "--hover": theme.hover,
+        "--text": theme.text,
+        backgroundColor: theme.mainBg,
+        animation: "color-change 10s ease-in-out infinite"
+      }}
+    >
       <ToastContainer
-        autoClose={3000}
+        autoClose={4000}
         newestOnTop
         closeOnClick
         rtl
@@ -74,7 +85,7 @@ function App() {
         pauseOnHover
         style={{ fontSize: "1.2rem" }}
       />
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={muiTheme}>
         <Provider store={store}>
           <Router>
             <Routes>

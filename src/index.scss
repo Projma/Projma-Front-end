@@ -1,12 +1,9 @@
-@import "./Theme/theme.scss";
-
 html {
   height: 100vh;
   width: 100vw;
 }
 
 body {
-  background-color: $main-bg !important;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -18,8 +15,8 @@ body {
 :root {
   --main-bg: $main-bg;
   --minor-bg: $minor-bg;
-  --secondry: $secondry;
-  --ternary: $ternary;
+  --secondary: $secondary;
+  --tertiary: $tertiary;
   --hover: $hover;
   --primary: $primary;
   --text: $text;

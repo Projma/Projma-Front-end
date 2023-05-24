@@ -22,7 +22,7 @@ const Landing = () => {
   const matches = useMediaQuery("(min-width:450px)");
   if (matches) {
     return (
-      <div style={{overflow: "auto", maxHeight: "100vh", height: "100vh"}}>
+      <div style={{overflow: "auto", maxHeight: "100vh", height: "100vh",maxWidth:"100vw",overflowX: "hidden"}}>
         <Helmet>
           <title>پروجما</title>
         </Helmet>
@@ -362,7 +362,6 @@ const Landing = () => {
             </Grid>
           </Grid>
   
-          <Divider sx={{ bgcolor: "white", marginTop: "5%" }} />
         </Container>
         <Footer />
       </div>

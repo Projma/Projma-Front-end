@@ -2,8 +2,7 @@
   min-height: 1rem;
   max-width: 100%;
   background-color: $minor-bg;
-  border: $ternary solid 0.2rem;
-  margin-bottom: 0.5rem;
+  border: solid 0.2rem $minor-bg;
   border-radius: 0.5rem;
   padding: 0.5rem;
 }
@@ -67,7 +66,7 @@
   direction: rtl;
   text-justify: auto;
   text-align: right;
-  color: $ternary;
+  color: $tertiary;
   margin-top: 0.1rem;
   padding: 0 0.4rem;
   font-size: 1.4rem;
@@ -129,13 +128,13 @@
 }
 
 .card_default-icon {
-  color: $ternary;
+  color: $tertiary;
   font-size: 2rem !important;
   text-align: center;
 }
 
 .card_default-footer-icon {
-  color: $ternary;
+  color: $tertiary;
   font-size: 2rem !important;
   text-align: center;
 }

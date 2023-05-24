@@ -4,13 +4,14 @@ import "./Board.scss";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import InvitationHeader from "./temp/InvitationHeader/InvitationHeader";
 import useBoard from "../../hooks/useBoard";
-import tc from "../../Theme/theme";
+import useTheme from "../../hooks/useTheme";
 // const [msgs, setMsgs] = useState([]);
 // const [test, setTest] = useState(["salam"]);
 
 const Board = () => {
   const { list, setList, getBoard, boardId, dnd, dnd_socket, socket } =
     useBoard();
+  const { theme } = useTheme();
   useEffect(() => {
     if (socket.current != null) {
       socket.current.onmessage = (event) => {
@@ -76,7 +77,7 @@ const Board = () => {
                       display: "flex",
                       padding: "0 0.5rem 0 0.5rem",
                       overflow: "auto",
-                      backgroundColor: tc.secondry,
+                      backgroundColor: theme.hover,
                       borderRadius: "0.5rem",
                     }
                   : null
