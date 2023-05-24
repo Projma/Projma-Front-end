@@ -29,7 +29,7 @@ import tc from "../../Theme/theme";
 
 const BoardSidebar = () => {
   const [wsBoard, setWsBoard] = useState([]);
-  const { collapseSidebar, collapsed} =
+  const { collapseSidebar, collapsed } =
     useProSidebar();
   const { boardId, workspaceId } = useBoard();
   const menuStyle = {
@@ -66,6 +66,33 @@ const BoardSidebar = () => {
     navigate(`/workspace/${workspaceId}/kanban/${id}/${path}`);
   };
 
+  const createRetroSession = (id) => {
+    // navigate(`/workspace/${workspaceId}/kanban/${id}/${path}`);
+    apiInstance
+      .get(`/board/boardsmemberapi/${id}/get-open-retro/`)
+      .then((response) => {
+        var retro_id = response.data.retro
+        alert(retro_id)
+        if (retro_id == -1) {
+          apiInstance.post(`/retro/`, {
+            "board": id,
+          }).catch((error) => {
+            console.log(error);
+          }).then((response) => {
+            retro_id = response.data.id
+            localStorage.setItem("retro_id", retro_id)
+          })
+        }
+        else {
+          retro_id = response.data.retro
+          localStorage.setItem("retro_id", retro_id)
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     const getWorkspaceBoard = async () => {
       await apiInstance
@@ -88,7 +115,7 @@ const BoardSidebar = () => {
         rtl
         backgroundColor={tc.minorBg}
         // collapsed
-        defaultCollapsed 
+        defaultCollapsed
         transitionDuration={800}
         rootStyles={{
           border: "none",
@@ -148,6 +175,7 @@ const BoardSidebar = () => {
                 label="رترو"
                 icon={<GroupWorkOutlined />}
                 // onClick={() => handleClick(boardId, "retro")}
+                onClick={() => createRetroSession(boardId)}
               >
                 <MenuItem
                   onClick={() => handleClick(boardId, "retro/reflect")}
