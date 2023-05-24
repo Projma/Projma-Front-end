@@ -5,6 +5,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import "./styles/ReactToastify.scss";
 import { ToastContainer } from "react-toastify";
 import Landing from "./pages/Landing";
 import { Dashborad } from "./pages/Dashborad";
@@ -65,7 +66,7 @@ function App() {
   return (
     <div className="styled-scrollbars">
       <ToastContainer
-        autoClose={3000}
+        autoClose={30000}
         newestOnTop
         closeOnClick
         rtl
