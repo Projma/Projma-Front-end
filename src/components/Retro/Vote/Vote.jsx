@@ -6,6 +6,7 @@ import VoteCard from "./VoteCard";
 import "../RetroReflect.scss";
 import VoteSetting from "./VoteSetting";
 import {  toast } from "react-toastify";
+import NextBtn from "../NextBtn/NextBtn";
 
 const Vote = () => {
   const [allowVotePerUser, setAllowVotePerUser] = React.useState(0);
@@ -174,6 +175,7 @@ const Vote = () => {
           </RetroList>
         </div>
       </div>
+      <NextBtn/>
     </div>
   );
 };

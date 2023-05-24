@@ -5,6 +5,8 @@ import RetroCard from "./content/RetroCard";
 import "./RetroReflect.scss";
 import StyledTextField from "../Shared/StyledTextField";
 import PerTextField from "../Shared/PerTextField";
+import NextBtn from "./NextBtn/NextBtn";
+
 const RetroReflect = () => {
   const [greenList, setGreenList] = useState(["1","2","3","4","5"]);
   const [redList, setRedList] = useState(["1","2","3","4","5"]);
@@ -138,6 +140,7 @@ const RetroReflect = () => {
           </RetroList>
         </div>
       </div>
+      <NextBtn/>
     </div>
   );
 };

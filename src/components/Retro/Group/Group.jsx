@@ -13,6 +13,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { v4 as uuid } from "uuid";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import NextBtn from "../NextBtn/NextBtn";
 
 const Group = () => {
   // const [greenList, setGreenList] = useState(["1", "2", "3", "4", "5"]);
@@ -353,6 +354,7 @@ const Group = () => {
             </RetroList>
           </div>
         </div>
+        <NextBtn/>
       </div>
     </DragDropContext>
   );

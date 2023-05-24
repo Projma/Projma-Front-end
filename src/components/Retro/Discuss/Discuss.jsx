@@ -11,6 +11,7 @@ import GroupAvatars from "../../Board/temp/GroupAvatars/GroupAvatars";
 import { useParams } from "react-router-dom";
 import RetroCard from "../content/RetroCard";
 import apiInstance from "../../../utilities/axiosConfig";
+import NextBtn from "../NextBtn/NextBtn";
 
 const Discuss = () => {
     const { boardId } = useParams();
@@ -18,68 +19,69 @@ const Discuss = () => {
     const [BoardDescription, setBoardDescription] = React.useState("");
     useEffect(() => {
         apiInstance.
-        get(`/board/${boardId}/get-board-overview/`).then((res) => {
-            setBoardName(res.data.name);
-            setBoardDescription(res.data.description);
-        }).catch((err) => {
-            console.log(err);
-        });
+            get(`/board/${boardId}/get-board-overview/`).then((res) => {
+                setBoardName(res.data.name);
+                setBoardDescription(res.data.description);
+            }).catch((err) => {
+                console.log(err);
+            });
     }, []);
 
     return (
-        <div style={{
-            width: '100%',
-        }}>
-            <div className="discuss-header">
-                <div className="discuss-header-right">
-                    <div>
-                        <span className="discuss-header-right-title">نام بورد:</span>
-                        <span className="discuss-header-right-title"> </span>
-                        <span className="discuss-header-right-title">{ boardName }</span>
+        <>
+            <div style={{
+                width: '100%',
+            }}>
+                <div className="discuss-header">
+                    <div className="discuss-header-right">
+                        <div>
+                            <span className="discuss-header-right-title">نام بورد:</span>
+                            <span className="discuss-header-right-title"> </span>
+                            <span className="discuss-header-right-title">{boardName}</span>
+                        </div>
+                        <div>
+                            <span className="discuss-header-right-subtitle">توضیحات بورد:</span>
+                            <span className="discuss-header-right-subtitle"> </span>
+                            <span className="discuss-header-right-subtitle"> {BoardDescription}</span>
+                        </div>
                     </div>
-                    <div>
-                        <span className="discuss-header-right-subtitle">توضیحات بورد:</span>
-                        <span className="discuss-header-right-subtitle"> </span>
-                        <span className="discuss-header-right-subtitle"> {BoardDescription}</span>
+                    <div className="discuss-header-left">
+                        <GroupAvatars boardId={boardId} />
                     </div>
                 </div>
-                <div className="discuss-header-left">
-                    <GroupAvatars boardId={boardId} />
-                </div>
-            </div>
-            <p className="header_text">
-                بحث و گفت‌و‌گو
-            </p>
-            <p className="paragraph">
-                برای ثبت گام‌های بعدی، کارت‌های کاری آماده تهیه کنید.
-            </p>
-            <div className="discuss-topic">
-                <span className="discuss-topic-item">
-                    <span className="discuss-topic-item-title">"</span>
-                    <span className="discuss-topic-item-title">کم کاری ممد</span>
-                    <span className="discuss-topic-item-title">"</span>
-                    <span className="discuss-topic-item-title"> </span>
-                    <span className="discuss-topic-item-like">
-                        <ThumbUpTwoToneIcon className="discuss-topic-item-like-icon" />
-                        <span className="discuss-topic-item-like-number">{convertNumberToPersian(10)}</span>
+                <p className="header_text">
+                    بحث و گفت‌و‌گو
+                </p>
+                <p className="paragraph">
+                    برای ثبت گام‌های بعدی، کارت‌های کاری آماده تهیه کنید.
+                </p>
+                <div className="discuss-topic">
+                    <span className="discuss-topic-item">
+                        <span className="discuss-topic-item-title">"</span>
+                        <span className="discuss-topic-item-title">کم کاری ممد</span>
+                        <span className="discuss-topic-item-title">"</span>
+                        <span className="discuss-topic-item-title"> </span>
+                        <span className="discuss-topic-item-like">
+                            <ThumbUpTwoToneIcon className="discuss-topic-item-like-icon" />
+                            <span className="discuss-topic-item-like-number">{convertNumberToPersian(10)}</span>
+                        </span>
                     </span>
-                </span>
-            </div>
-            <Container>
-                {/* show all cards(<RetroCard>) here width Grid in responsible mode */}
-                <Grid
-                    container
-                    columns={{ xs: 2, sm: 4, md: 4 }}
-                    spacing={{ xs: 1, sm: 2, md: 3 }}
-                    sx={{
-                        // paddingTop: "5%",
-                        // marginTop: "10%",
-                        marginBottom: "7%",
-                        // backgroundColor: "#f5f5f5",
-                    }}
-                >
-                    <Grid item xs={2} sm={2} md={2} sx={{}} >
-                        {/* <Paper
+                </div>
+                <Container>
+                    {/* show all cards(<RetroCard>) here width Grid in responsible mode */}
+                    <Grid
+                        container
+                        columns={{ xs: 2, sm: 4, md: 4 }}
+                        spacing={{ xs: 1, sm: 2, md: 3 }}
+                        sx={{
+                            // paddingTop: "5%",
+                            // marginTop: "10%",
+                            marginBottom: "7%",
+                            // backgroundColor: "#f5f5f5",
+                        }}
+                    >
+                        <Grid item xs={2} sm={2} md={2} sx={{}} >
+                            {/* <Paper
                             sx={{
                                 // padding: "10%",
                                 textAlign: "center",
@@ -108,30 +110,32 @@ const Discuss = () => {
                                 }}
                             />
                         </Paper> */}
-                        {/*add green label to the RetroCard */}
-                        <RetroCard>
-                        مناظره هایی که در چت گروهی به جایی نمی رسد 
-                        </RetroCard>
+                            {/*add green label to the RetroCard */}
+                            <RetroCard>
+                                مناظره هایی که در چت گروهی به جایی نمی رسد
+                            </RetroCard>
+                        </Grid>
+                        <Grid item xs={2} sm={2} md={2} sx={{}}>
+                            <RetroCard>
+                                برخی از مردم همیشه تمام وقت خود را برای پخش می گذارند. به سختی می توان ایده های من را مطرح کرد
+                            </RetroCard>
+                        </Grid>
+                        <Grid item xs={2} sm={2} md={2} sx={{}}>
+                            <RetroCard>
+                                من مایلم به کارآموزان و کارکنان جوان خود فضای بیشتری برای به اشتراک گذاشتن ایده ها و تفکر تازه خود بدهم
+                            </RetroCard>
+                        </Grid>
+                        <Grid item xs={2} sm={2} md={2} sx={{}}>
+                            <RetroCard>
+                                لعنت به این زندگی کوفتی.
+                            </RetroCard>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={2} sm={2} md={2} sx={{}}>
-                        <RetroCard>
-                        برخی از مردم همیشه تمام وقت خود را برای پخش می گذارند. به سختی می توان ایده های من را مطرح کرد
-                        </RetroCard>
-                    </Grid>
-                    <Grid item xs={2} sm={2} md={2} sx={{}}>
-                        <RetroCard>
-                        من مایلم به کارآموزان و کارکنان جوان خود فضای بیشتری برای به اشتراک گذاشتن ایده ها و تفکر تازه خود بدهم
-                        </RetroCard>
-                    </Grid>
-                    <Grid item xs={2} sm={2} md={2} sx={{}}>
-                        <RetroCard>
-                        لعنت به این زندگی کوفتی.
-                        </RetroCard>
-                    </Grid>
-                </Grid>
 
-            </Container>
-        </div>
+                </Container>
+            </div>
+            <NextBtn />
+        </>
     );
 };
 
