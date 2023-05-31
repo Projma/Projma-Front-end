@@ -72,7 +72,7 @@ const BoardSidebar = () => {
       .get(`/board/boardsmemberapi/${id}/get-open-retro/`)
       .then((response) => {
         var retro_id = response.data.retro
-        alert(retro_id)
+        // alert(retro_id)
         if (retro_id == -1) {
           apiInstance.post(`/retro/`, {
             "board": id,
