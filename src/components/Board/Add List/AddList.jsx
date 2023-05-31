@@ -94,8 +94,8 @@ const AddList = (props) => {
                 },
               }}
               sx={{
-                backgroundColor: "$secondry",
-                borderBottom: "0.2rem solid $ternary",
+                backgroundColor: "$secondary",
+                borderBottom: "0.2rem solid $tertiary",
                 borderRadius: "0.5rem",
                 width: "30rem",
                 height: "100%",

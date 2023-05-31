@@ -10,7 +10,7 @@ import { CacheProvider } from "@emotion/react";
 import Avatar from "@mui/material/Avatar";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import profile_preview from "../../static/images/profile/profile-preview.png";
+import profile_preview from "../../static/images/profile/blank.png";
 import apiInstance from "../../utilities/axiosConfig";
 import { baseUrl } from "../../utilities/constants";
 

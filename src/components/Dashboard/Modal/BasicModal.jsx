@@ -19,24 +19,7 @@ import {
   convertNumberToPersian,
   convertNumberToEnglish,
 } from "../../../utilities/helpers";
-import tc from "../../../Theme/theme";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "70%",
-  height: "78%",
-  // bgcolor: 'background.paper',
-  bgcolor: tc.secondry, // #5090D3 #1E4976 001E3C 007fff 265D97
-  border: "2px solid #000",
-  borderRadius: "10px",
-  boxShadow: 24,
-  p: 4,
-  fontFamily: "Vazir",
-  overflow: "auto",
-};
+import useTheme from "../../../hooks/useTheme";
 
 // Create rtl cache
 const cacheRtl = createCache({
@@ -45,6 +28,23 @@ const cacheRtl = createCache({
 });
 
 export default function BasicModal(props) {
+  const { theme } = useTheme();
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "70%",
+    height: "78%",
+    // bgcolor: 'background.paper',
+    bgcolor: theme.secondary, // #5090D3 #1E4976 001E3C 007fff 265D97
+    border: "2px solid #000",
+    borderRadius: "10px",
+    boxShadow: 24,
+    p: 4,
+    fontFamily: "Vazir",
+    overflow: "auto",
+  };
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -107,10 +107,10 @@ export default function BasicModal(props) {
         <Button
           onClick={handleOpen}
           sx={{
-            color: tc.ternary,
+            color: theme.tertiary,
             ":hover": {
-              color: tc.text,
-              backgroundColor: tc.primary,
+              color: theme.text,
+              backgroundColor: theme.primary,
               borderRadius: "5px",
               fontFamily: "Vazir",
             },

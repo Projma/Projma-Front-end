@@ -174,7 +174,7 @@ const Group = () => {
                     disableUnderline: true,
                     style: {
                       fontFamily: "Vazir",
-                      backgroundColor: "$secondry",
+                      backgroundColor: "$secondary",
                     },
                   }}
                   InputLabelProps={{

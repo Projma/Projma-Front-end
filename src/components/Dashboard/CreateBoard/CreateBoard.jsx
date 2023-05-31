@@ -20,25 +20,8 @@ import {
   convertNumberToPersian,
   convertNumberToEnglish,
 } from "../../../utilities/helpers";
-import tc from "../../../Theme/theme";
+import useTheme from "../../../hooks/useTheme";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "42rem",
-  height: "62rem",
-  backgroundColor: tc.ternary,
-  // bgcolor: "background.paper",
-  border: "2px solid #000",
-  borderRadius: "10px",
-  boxShadow: 50,
-  p: 4,
-  fontFamily: "Vazir",
-  // overflow: 'hidden', scroll
-  overflow: "auto",
-};
 
 export default function CreateBoardModal({}) {
   const navigate = useNavigate();
@@ -69,6 +52,24 @@ export default function CreateBoardModal({}) {
     setFile(x);
     setOpen(false);
   };
+  const {theme} = useTheme();
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "42rem",
+    height: "62rem",
+    backgroundColor: theme.tertiary,
+    // bgcolor: "background.paper",
+    border: "2px solid #000",
+    borderRadius: "10px",
+    boxShadow: 50,
+    p: 4,
+    fontFamily: "Vazir",
+    // overflow: 'hidden', scroll
+    overflow: "auto",
+  };
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [file, setFile] = React.useState(null);
@@ -80,16 +81,16 @@ export default function CreateBoardModal({}) {
   const on_submit = (form_data) => {
     setIsPost(true);
     apiInstance
-      .post(
-        `/workspaces/workspaceowner/${workspaceId}/create-board/`,
-        form_data
+    .post(
+      `/workspaces/workspaceowner/${workspaceId}/create-board/`,
+      form_data
       )
       .then((res) => {
         toast.success("بورد با موفقیت ساخته شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-
+        
         delay(6000).then(() => navigateToBoard(res.data.id));
       })
       .finally(() => {
@@ -149,10 +150,10 @@ export default function CreateBoardModal({}) {
         onClick={handleOpen}
         sx={{
           // color: '#00bfff',
-          color: tc.text,
+          color: theme.text,
           ":hover": {
             color: "#E2EDF8",
-            backgroundColor: tc.hover,
+            backgroundColor: theme.hover,
             borderRadius: "5px",
           },
           // marginTop: '8%',
@@ -203,7 +204,7 @@ export default function CreateBoardModal({}) {
           </Typography>
           <Divider
             sx={{
-              backgroundColor: tc.primary,
+              backgroundColor: theme.primary,
               marginTop: "3%",
               marginBottom: "5%",
             }}
@@ -300,13 +301,13 @@ export default function CreateBoardModal({}) {
                     value={workspace.id}
                     sx={{
                       fontFamily: "Vazir",
-                      color: tc.text, // #0A1929
+                      color: theme.text, // #0A1929
                       // backgroundColor: '#265D97',
-                      backgroundColor: tc.minorBg,
+                      backgroundColor: theme.minorBg,
                       // margin: '0%',
                       // padding: '3%',
                       ":hover": {
-                        backgroundColor: tc.ternary,
+                        backgroundColor: theme.tertiary,
                         // borderRadius: '5px',
                       },
                       fontSize: "1.5rem",

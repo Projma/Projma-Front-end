@@ -5,15 +5,16 @@ import App from "./App";
 import store from "./store";
 import { login } from "../src/actions/authActions";
 import { ProSidebarProvider } from "react-pro-sidebar";
+import { ThemeProvider } from "./context/theme";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const app = (
-  // <React.StrictMode>
+  <ThemeProvider>
     <ProSidebarProvider>
       <App />
     </ProSidebarProvider>
-  // </React.StrictMode>
+  </ThemeProvider>
 );
 
 let token = localStorage.getItem("access_token");

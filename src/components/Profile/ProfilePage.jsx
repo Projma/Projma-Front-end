@@ -4,7 +4,7 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import createCache from "@emotion/cache";
 import "../../styles/Profile.scss";
-import profile_preview from "../../static/images/profile/profile-preview.png";
+import profile_preview from "../../static/images/profile/blank.png";
 import { useState } from "react";
 import StyledTextField from "./StyledTextField";
 import { CacheProvider } from "@emotion/react";

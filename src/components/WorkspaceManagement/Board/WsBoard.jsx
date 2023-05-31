@@ -10,6 +10,7 @@ import WsBoardView from "./WsBoardView";
 import CreateBoardModal from "../CreateBoardModal/CreateBoard";
 import Loading from "../../Shared/Loading";
 import { baseUrl } from "../../../utilities/constants";
+import useTheme from "../../../hooks/useTheme";
 
 const WsBoard = () => {
   const [star, setStar] = useState([]);
@@ -21,7 +22,7 @@ const WsBoard = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
+  const {theme} = useTheme();
   let params = useParams();
 
   useEffect(() => {
@@ -86,7 +87,7 @@ const WsBoard = () => {
           <div>
             <div className="workspace--recent-board">
               <div className="workspace--board-header">
-                <AccessTimeIcon style={{ color: "#fff" }} />
+                <AccessTimeIcon sx={{ color: theme.primary}}/>
                 <p className="workspace--board-header-title">آخرین بورد ها</p>
               </div>
               <div className="workspace--board-body">
@@ -115,7 +116,7 @@ const WsBoard = () => {
           <div>
             <div className="workspace--starred-board">
               <div className="workspace--board-header">
-                <StarIcon />
+                <StarIcon sx={{ color: theme.primary}}/>
                 <p className="workspace--board-header-title">بورد های مهم</p>
               </div>
               <div className="workspace--board-body">
@@ -138,7 +139,7 @@ const WsBoard = () => {
         )}
         <div className="workspace--my-board">
           <div className="workspace--board-header">
-            <DashboardIcon sx={{ color: "#fff" }} />
+            <DashboardIcon sx={{ color: theme.primary}}/>
             <p className="workspace--board-header-title">بورد ها</p>
           </div>
           <div className="workspace--board-body">

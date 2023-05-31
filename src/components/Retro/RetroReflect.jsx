@@ -50,7 +50,7 @@ const RetroReflect = () => {
                     disableUnderline: true,
                     style: {
                       fontFamily: "Vazir",
-                      backgroundColor: "$secondry",
+                      backgroundColor: "$secondary",
                     },
                   }}
                   InputLabelProps={{
@@ -108,7 +108,7 @@ const RetroReflect = () => {
                     disableUnderline: true,
                     style: {
                       fontFamily: "Vazir",
-                      backgroundColor: "$secondry",
+                      backgroundColor: "$secondary",
                     },
                   }}
                   InputLabelProps={{
