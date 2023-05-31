@@ -12,11 +12,14 @@ import { useParams } from "react-router-dom";
 import RetroCard from "../content/RetroCard";
 import apiInstance from "../../../utilities/axiosConfig";
 import NextBtn from "../NextBtn/NextBtn";
+import { createContext, useState, useCallback, useRef } from "react";
+
 
 const Discuss = () => {
     const { boardId } = useParams();
     const [boardName, setBoardName] = React.useState("");
     const [BoardDescription, setBoardDescription] = React.useState("");
+    const socket = useRef(null);
     useEffect(() => {
         apiInstance.
             get(`/board/${boardId}/get-board-overview/`).then((res) => {
@@ -25,6 +28,30 @@ const Discuss = () => {
             }).catch((err) => {
                 console.log(err);
             });
+        socket.current = new WebSocket(
+            `ws://localhost:8000/ws/socket-server/retro/session/${localStorage.getItem("retro_id")}/?token=${localStorage.getItem(
+                "access_token"
+            )}`
+        );
+        socket.current.onopen = () => {
+            console.log("WebSocket connection opened");
+            socket.current.send(
+                JSON.stringify({
+                    type: "session_next",
+                })
+            );
+        };
+
+        socket.current.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+            console.log(message);
+            // dnd_socket(message, message.type);
+        };
+
+        socket.current.onclose = () => {
+            console.log("WebSocket connection closed");
+        };
+
     }, []);
 
     return (
