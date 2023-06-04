@@ -178,6 +178,8 @@ const Vote = () => {
       {/* if is admin ? */}
       <NextBtn
         currentStep={"Vote"}
+        text={"بعدی"}
+        // webSocket={socket.current}
       />
     </div>
   );
