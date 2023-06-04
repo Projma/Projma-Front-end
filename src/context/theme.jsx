@@ -21,8 +21,8 @@ function ThemeProvider({ children }) {
       mainBg: "#e7ebf0",
       minorBg: "#fff",
       secondary: "#d1d5db",
-      tertiary: "#DFF6FF",
-      hover: "#DFF6FF80",
+      tertiary: "#5090d3",
+      hover: "#5090d380",
       primary: "#00599c",
     },
     {

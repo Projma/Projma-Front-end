@@ -4,8 +4,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import { toast } from "react-toastify";
 import apiInstance from "../../../../../../utilities/axiosConfig";
 import useBoard from "../../../../../../hooks/useBoard";
-
+import useTheme from "../../../../../../hooks/useTheme";
 const CardHeader = ({ cardId }) => {
+  const { theme, getColor } = useTheme();
   const { setIsReq, removeCard } = useBoard();
   const reqDeleteCard = () => {
     setIsReq(true);
@@ -42,7 +43,9 @@ const CardHeader = ({ cardId }) => {
         className="card_close-icon"
         onClick={(event) => handleDeleteCard(event)}
       >
-        <CloseIcon sx={{ fontSize: "1.6rem" }} />
+        <CloseIcon sx={{ fontSize: "1.6rem",":hover": {
+            color: getColor(theme.primary),
+          }, }} />
       </div>
       {/* <div
     className="card_edit-icon"
