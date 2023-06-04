@@ -5,14 +5,14 @@ import { useParams } from "react-router-dom";
 import apiInstance from "../../../utilities/axiosConfig";
 import { HowToVoteOutlined } from "@mui/icons-material";
 import Avatar from "@mui/material/Avatar";
-import useTheme from '../../../hooks/useTheme';
-
+import useTheme from "../../../hooks/useTheme";
+import { baseUrl } from "../../../utilities/constants";
 
 const KnownResult = ({ voters, options, question, totalVotes }) => {
   const [open, setOpen] = useState(false);
   const [voter, setVoter] = useState(new Array(voters.length));
   const param = useParams();
-  const {theme, getColor} = useTheme();
+  const { theme, getColor } = useTheme();
 
   const closeResultModal = () => {
     setOpen(false);
@@ -53,19 +53,22 @@ const KnownResult = ({ voters, options, question, totalVotes }) => {
     <div className="known-result_container">
       <Modal open={open} onClose={closeResultModal}>
         <div className="known-result_modal-container">
-          <div className="known-result_modal-question">{question}</div>
+          <div className="known-result_modal-question" style={{color: getColor(theme.minorBg)}}>{question}</div>
           {options.map((x) => (
             <>
               {x.count > 0 && (
                 <div className="known-result_modal-options">
                   <div className="known-result_modal-options-header">
-                    <div>
+                    <div style={{color: getColor(theme.minorBg)}}>
                       {x.text} - {getPercent(x.count, totalVotes)}%
                     </div>
-                    <div>
+                    <div style={{color: getColor(theme.minorBg)}}>
                       {x.count}{" "}
                       <HowToVoteOutlined
-                        sx={{ fill: getColor(theme.minorBg), fontSize: "1.5rem" }}
+                        sx={{
+                          fill: getColor(theme.minorBg),
+                          fontSize: "1.5rem",
+                        }}
                       />
                     </div>
                   </div>
@@ -84,14 +87,19 @@ const KnownResult = ({ voters, options, question, totalVotes }) => {
                                 alt={user.first_name + " " + user.last_name}
                                 src={
                                   user.profile_pic !== null
-                                    ? user.profile_pic
+                                    ? baseUrl.slice(0, -1) + user.profile_pic
                                     : "none"
                                 }
-                                {...stringAvatar(
-                                  user.first_name + " " + user.last_name
-                                )}
-                              />
-                              <div className="known-result_modal-options-voter-name">
+                                sx={{
+                                  color: getColor(theme.secondary),
+                                  backgroundColor: theme.secondary,
+                                }}
+                              >
+                                {(
+                                  user.first_name[0] + user.last_name[0]
+                                ).toUpperCase()}
+                              </Avatar>
+                              <div className="known-result_modal-options-voter-name" style={{color: getColor(theme.minorBg)}}>
                                 {user.first_name + " " + user.last_name}
                               </div>
                             </>
@@ -108,7 +116,11 @@ const KnownResult = ({ voters, options, question, totalVotes }) => {
       </Modal>
       <Button
         variant="text"
-        style={{ height: "2.5rem", width: "100%", color: getColor(theme.minorBg) }}
+        style={{
+          height: "2.5rem",
+          width: "100%",
+          color: getColor(theme.minorBg),
+        }}
         onClick={() => setOpen(true)}
       >
         نمایش نتیجه
@@ -121,7 +133,6 @@ function stringToColor(string) {
   let hash = 0;
   let i;
 
-   
   for (i = 0; i < string.length; i += 1) {
     hash = string.charCodeAt(i) + ((hash << 5) - hash);
   }

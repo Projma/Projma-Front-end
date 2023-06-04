@@ -6,6 +6,7 @@ import apiInstance from '../../../utilities/axiosConfig';
 import {useParams} from 'react-router-dom';
 import {Typography} from '@mui/material';
 import useTheme from '../../../hooks/useTheme';
+import { baseUrl } from '../../../utilities/constants';
 
 
 const KnownVoter = ({voters}) => {
@@ -49,44 +50,18 @@ const KnownVoter = ({voters}) => {
             <Avatar
               key={crypto.randomUUID()}
               alt={x.first_name + ' ' + x.last_name}
-              src={x.profile_pic !== null ? x.profile_pic : 'none'}
-              {...stringAvatar(x.first_name + ' ' + x.last_name)}
+              src={x.profile_pic !== null ? baseUrl.slice(0,-1)+x.profile_pic : 'none'}
+              sx={{color: getColor(theme.secondary), backgroundColor: theme.secondary}}
+              
               className="card_avatar-profile-picture"
-            />
+            >
+              {(x.first_name[0] +x.last_name[0]).toUpperCase()}
+            </Avatar>
           </Tooltip>
         ))}
       </AvatarGroup>
     }
   </>);
 };
-
-function stringToColor(string) {
-  let hash = 0;
-  let i;
-
-   
-  for (i = 0; i < string.length; i += 1) {
-    hash = string.charCodeAt(i) + ((hash << 5) - hash);
-  }
-
-  let color = '#';
-
-  for (i = 0; i < 3; i += 1) {
-    const value = (hash >> (i * 8)) & 0xff;
-    color += `00${value.toString(16)}`.slice(-2);
-  }
-  /* eslint-enable no-bitwise */
-
-  return color;
-}
-
-function stringAvatar(name) {
-  return {
-    sx: {
-      bgcolor: stringToColor(name),
-    },
-    children: `${name.split(' ')[0][0].toUpperCase()}${name.split(' ')[1][0].toUpperCase()}`,
-  };
-}
 
 export default KnownVoter;

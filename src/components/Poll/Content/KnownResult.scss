@@ -3,14 +3,12 @@
 }
 
 .known-result_modal-container {
-  width: 25rem;
+  width: 30rem;
   min-height: 30rem;
   max-width: 35rem;
   max-height: 60rem;
-  background-color: $minor-bg;
-  border: 0.2rem solid #1976d255;
-  // box-shadow: 0px 5px 5px -3px #1976d244,
-  //   0px 8px 10px 1px #1976d266, 0px 3px 14px 2px #1976d299;
+  background-color: $main-bg;
+  border: 0.2rem solid $primary;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -29,7 +27,6 @@
 .known-result_modal-question {
   width: 100%;
   font-size: 1.8rem;
-  // background-color: #1976d255;
   
   display: flex;
   align-items: center;
@@ -44,8 +41,6 @@
   justify-content: flex-start;
   width: 100%;
   overflow: auto;
-  /*padding: 0.5rem 0.5rem;*/
-  // background-color: #001e3c;
 }
 
 .known-result_modal-options-header {
@@ -57,11 +52,9 @@
   justify-content: space-between;
   font-size: 1.3rem;
   padding: 0.5rem 0.5rem;
-  background-color: #001e3c33;
-  border-bottom: 0.3rem solid #1976d255;
-  border-top: 0.3rem solid #1976d255;
-  /*border: 0.2rem solid #5090d380;*/
-  /*border-radius: 1rem;*/
+  background-color: $minor-bg;
+  border-bottom: 0.3rem solid $primary;
+  border-top: 0.3rem solid $primary;
 }
 
 .known-result_modal-options-boady {
