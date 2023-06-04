@@ -210,7 +210,10 @@ const RetroReflect = () => {
           </RetroList>
         </div>
       </div>
-      <NextBtn />
+       {/* if is admin ? */}
+      <NextBtn 
+        currentStep={"Reflect"}
+      />
     </div>
   );
 };
