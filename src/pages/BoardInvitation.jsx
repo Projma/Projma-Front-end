@@ -17,27 +17,17 @@ const BoardInvitation = () => {
     const [result, setResult] = useState("");
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     useEffect(() => {
-        // ////console.log(params.token);
         apiInstance
             .post(`workspaces/board/join-to-board/${params.token}/`)
             .then(() => {
-                // ////console.log("there");
-                // ////console.log(res.data);
                 setResult(success);
-                // delay(4000).then(() => navigate("/dashboard"));
-                // delay(4000).then(() => navigate(`/kanban/${res.data.id}/`));
                 delay(4000).then(() => navigate(`/kanban/${params.id}/`));
             }).catch((error) => {
-                // ////console.log("here");
-                // alert(error.response.data)
                 if (error.response) {
                     if (error.response.data == "User is already a member of this board") {
                         navigate(`/kanban/${params.id}/`);
                     }
                     else {
-                        // ////console.log(error.response.data);
-                        // ////console.log(error.response.status);
-                        // ////console.log(error.response.headers);
                         setError(error.response.data);
                         setErrorRes(error.response.status);
                         setResult(failure);
@@ -47,7 +37,6 @@ const BoardInvitation = () => {
     }, []);
     const success = (
         <div
-            // className="invite_page-success invite_page-main-div" 
             style={{
                 display: "flex",
                 flexDirection: "column",
@@ -67,7 +56,6 @@ const BoardInvitation = () => {
     );
     const failure = (
         <div
-            // className="invite_page-failure invite_page-main-div" 
             style={{
                 display: "flex",
                 flexDirection: "column",
@@ -79,8 +67,6 @@ const BoardInvitation = () => {
             <h1 style={{ color: "#000", marginBottom: "1rem" }}>
                 متاسفانه به بورد اضافه نشدید!
             </h1>
-            {/* <h2 style={{ color: "#000", marginBottom: "1rem" }}> متن خطا:</h2> */}
-            {/* <h3 style={{ color: "#000", fontFamily: "sans-serif" }}>{error}</h3> */}
             <h2 style={{ color: "#000", marginBottom: "1rem" }}>
                 لطفا دوباره تلاش کنید
             </h2>
@@ -93,24 +79,17 @@ const BoardInvitation = () => {
             </Helmet>
             <Header />
 
-            {/* <div style={{ backgroundColor: "white", width: "100%", height: "100%" }}>
-                {result}
-                {failure}
-            </div> */}
             <Box
                 sx={{
                     backgroundColor: "white",
                     width: "70%",
                     margin: "auto",
-                    // height: "100%"
                     padding: "10rem",
                     marginTop: "8%",
                     borderRadius: "2rem",
                 }}
             >
                 {result}
-                {/* {failure} */}
-                {/* {success} */}
             </Box>
 
 

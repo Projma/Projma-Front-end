@@ -1,4 +1,3 @@
-// import React from 'react';
 import "./GroupAvatars.scss";
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
@@ -8,15 +7,12 @@ import apiInstance from "../../../../utilities/axiosConfig";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { baseUrl } from "../../../../utilities/constants";
-// import { Box } from "@mui/material";
 
 const GroupAvatars = (props) => {
     const [members, setMembers] = React.useState([]);
     const params = useParams();
     useEffect(() => {
         apiInstance.get(`board/${params.boardId}/members/`).then((res) => {
-            // apiInstance.get(`/workspaces/board/${props.boardId}/members/`).then((res) => {
-            // ////console.log(res.data);
             setMembers(res.data);
             // array of members
             // "user": {
@@ -65,12 +61,6 @@ const GroupAvatars = (props) => {
                     </Tooltip>
                 ))}
 
-                {/* <Avatar alt="Remy Sharp" />
-                <Avatar alt="Travis Howard" />
-                <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-                <Avatar alt="Agnes Walker" src="/static/images/avatar/4.jpg" />
-                <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" /> */}
-
             </AvatarGroup>
         </div>
     )
@@ -108,9 +98,4 @@ function stringAvatar(name) {
         },
         children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
     };
-    // return {
-    //     children: `${name.split(" ")[0][0].toUpperCase()}${name
-    //         .split(" ")[1][0]
-    //         .toUpperCase()}`,
-    // };
 }
