@@ -16,6 +16,7 @@ const RetroReflect = () => {
   const socket = useRef(null);
   const [redCount, setRedCount] = useState([]);
   const [greenCount, setGreenCount] = useState([]);
+  const [retro, setRetro] = useState([]);
   // type => retro_reflect
   // data => json
   // text, is_positive
@@ -25,22 +26,22 @@ const RetroReflect = () => {
         setRedList((perv) => [...perv, event.target.value]);
         socket.current.send(
           JSON.stringify({
-            // type: "retro_reflect",
-            // data: {
-            text: event.target.value,
-            is_positive: 0,
-            // },
+            type: "retro_reflect",
+            data: {
+              text: event.target.value,
+              is_positive: 0,
+            },
           })
         );
       } else if (color === "green") {
         setGreenList((perv) => [...perv, event.target.value]);
         socket.current.send(
           JSON.stringify({
-            // type: "retro_reflect",
-            // data: {
-            text: event.target.value,
-            is_positive: 1,
-            // },
+            type: "retro_reflect",
+            data: {
+              text: event.target.value,
+              is_positive: 1,
+            },
           })
         );
       }
@@ -49,6 +50,12 @@ const RetroReflect = () => {
   };
 
   useEffect(() => {
+    apiInstance
+      .get(`retro/${localStorage.getItem("retro_id")}/`)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((res) => {});
     socket.current = new WebSocket(
       `ws://localhost:8000/ws/socket-server/retro/reflect/${localStorage.getItem(
         "retro_id"
