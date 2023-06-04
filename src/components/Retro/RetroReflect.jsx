@@ -17,16 +17,17 @@ const RetroReflect = () => {
   const [redCount, setRedCount] = useState([]);
   const [greenCount, setGreenCount] = useState([]);
   const [retro, setRetro] = useState([]);
-  // type => retro_reflect
-  // data => json
-  // text, is_positive
+  const [allData, setAllData] = useState([]);
   const handleKeyDown = (event, color) => {
     if (event.key === "Enter" && event.target.value != "") {
       if (color === "red") {
-        setRedList((perv) => [...perv, event.target.value]);
+        setAllData((prev) => [
+          ...prev,
+          { text: event.target.value, is_positive: 0 },
+        ]);
         socket.current.send(
           JSON.stringify({
-            type: "retro_reflect",
+            type: "create_card",
             data: {
               text: event.target.value,
               is_positive: 0,
@@ -34,10 +35,13 @@ const RetroReflect = () => {
           })
         );
       } else if (color === "green") {
-        setGreenList((perv) => [...perv, event.target.value]);
+        setAllData((prev) => [
+          ...prev,
+          { text: event.target.value, is_positive: 1 },
+        ]);
         socket.current.send(
           JSON.stringify({
-            type: "retro_reflect",
+            type: "create_card",
             data: {
               text: event.target.value,
               is_positive: 1,
@@ -45,17 +49,22 @@ const RetroReflect = () => {
           })
         );
       }
+      console.log(allData);
       event.target.value = "";
     }
   };
 
   useEffect(() => {
     apiInstance
-      .get(`retro/${localStorage.getItem("retro_id")}/`)
+      .get(`retro/${localStorage.getItem("retro_id")}/get-session-reflect/`)
       .then((response) => {
-        console.log(response);
+        console.log(response.data.cards);
+        setAllData(response.data.cards);
       })
       .catch((res) => {});
+  }, []);
+
+  useEffect(() => {
     socket.current = new WebSocket(
       `ws://localhost:8000/ws/socket-server/retro/reflect/${localStorage.getItem(
         "retro_id"
@@ -129,16 +138,15 @@ const RetroReflect = () => {
             </div>
             <div className="RetroReflect-list-card">
               <div className="RetroReflect-list-card-container">
-                {greenList.map((x) => (
-                  <RetroCard>{x}</RetroCard>
-                ))}
+                {allData.map((x) =>
+                  x.is_positive ? <RetroCard>{x.text}</RetroCard> : null
+                )}
               </div>
               <div
                 style={{
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "flex-end",
-                  height: "100%",
                   color: "green",
                 }}
               >
@@ -198,16 +206,15 @@ const RetroReflect = () => {
             </div>
             <div className="RetroReflect-list-card">
               <div className="RetroReflect-list-card-container">
-                {redList.map((x) => (
-                  <RetroCard>{x}</RetroCard>
-                ))}
+                {allData.map((x) =>
+                  !x.is_positive ? <RetroCard>{x.text}</RetroCard> : null
+                )}
               </div>
               <div
                 style={{
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "flex-end",
-                  height: "100%",
                   color: "red",
                 }}
               >
@@ -217,8 +224,8 @@ const RetroReflect = () => {
           </RetroList>
         </div>
       </div>
-       {/* if is admin ? */}
-      <NextBtn 
+      {/* if is admin ? */}
+      <NextBtn
         currentStep={"Reflect"}
         text={"بعدی"}
         WebSocket={socket.current}

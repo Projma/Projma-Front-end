@@ -8,7 +8,7 @@
   gap: 5rem;
 }
 
-.RetroReflect-list{
+.RetroReflect-list {
   width: 100%;
   height: 100%;
   display: flex;
@@ -16,12 +16,13 @@
   gap: 1rem;
 }
 
-.RetroReflect-green, .RetroReflect-red {
+.RetroReflect-green,
+.RetroReflect-red {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;  
+  justify-content: center;
 }
 
 .RetroReflect-list-title {
@@ -33,7 +34,7 @@
   color: #d7d3d3;
 }
 
-.RetroReflect-list-card{
+.RetroReflect-list-card {
   width: 100%;
   /* margin: 0.2rem 0; */
   /* padding: 1rem 1rem; */
@@ -44,6 +45,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   overflow: auto;
+  justify-content: space-between;
 }
 
 .RetroReflect-list-card-container {
@@ -56,4 +58,4 @@
   gap: 0.5rem;
   overflow: auto;
   max-height: 100%;
-} 
+}
