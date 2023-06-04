@@ -10,39 +10,93 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 // import LocationOnIcon from '@mui/icons-material/LocationOn';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { createContext, useState, useCallback, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-const NextBtn = () => {
-
+const NextBtn = (props) => {
+    // get workspaceId and boardId from url
+    const socket = useRef(null);
+    const { workspaceId, boardId } = useParams();
+    const navigate = useNavigate();
     const [value, setValue] = React.useState(0);
     const navigateToNextStep = () => {
-        // navigate(`/kanban/${boardId}/board`);
-        console.log("here")
+        var boardId = "group"
+        if (props.currentStep === "Reflect") {
+            boardId = "group";
+        } else if (props.currentStep === "Group") {
+            boardId = "vote";
+        } else if (props.currentStep === "Vote") {
+            boardId = "discuss";
+        } else if (props.currentStep === "Discuss") {
+            boardId = "board";
+        } else {
+            boardId = "";
+        }
+
+        socket.current.send(
+            JSON.stringify({
+                type: "navigate_to_next_step",
+                data: { nextStep: boardId },
+            })
+        );
+
+        // close connection
+        socket.current.close();
+
+        if (boardId === "board") {
+            localStorage.removeItem("retro_id");
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/board`);
+        } else if (boardId === "group") {
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/group`);
+        } else if (boardId === "vote") {
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/vote`);
+        } else if (boardId === "discuss") {
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/discuss`);
+        } else {
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/reflect`);
+        }
+
+        // console.log("here")
     };
-    const socket = useRef(null);
+
+    const handleNavigation = (message, type) => {
+        // if (type === "navigate_to_next_step") {
+        if (message.data.nextStep === "board") {
+            localStorage.removeItem("retro_id");
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/${message.data.nextStep}`);
+        } else {
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/${message.data.nextStep}`);
+        }
+        // }
+    }
+
     useEffect(() => {
-        // socket.current = new WebSocket(
-        //     `ws://localhost:8000/ws/socket-server/retro/session/${localStorage.getItem("retro_id")}/?token=${localStorage.getItem(
-        //         "access_token"
-        //     )}`
-        // );
-        // socket.current.onopen = () => {
-        //     console.log("WebSocket connection opened");
-        //     socket.current.send(
-        //         JSON.stringify({
-        //             type: "session_next",
-        //         })
-        //     );
-        // };
 
-        // socket.current.onmessage = (event) => {
-        //     const message = JSON.parse(event.data);
-        //     console.log(message);
-        //     // dnd_socket(message, message.type);
-        // };
+        socket.current = new WebSocket(
+            `ws://localhost:8000/ws/socket-server/retro/session/${localStorage.getItem("retro_id")}/?token=${localStorage.getItem(
+                "access_token"
+            )}`
+        );
+        socket.current.onopen = () => {
+            console.log("WebSocket connection opened");
+            // socket.current.send(
+            //   JSON.stringify({
+            //     type: "join_board_group",
+            //     data: { board_id: boardId },
+            //   })
+            // );
+        };
 
-        // socket.current.onclose = () => {
-        //     console.log("WebSocket connection closed");
-        // };
+        socket.current.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+            console.log(message);
+            handleNavigation(message, message.type);
+        };
+
+        socket.current.onclose = () => {
+            console.log("WebSocket connection closed");
+        };
+
     }, [])
 
     return (
