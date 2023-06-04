@@ -28,7 +28,7 @@ function ResponsiveAppBar() {
   const baseURL = baseUrl.substring(0, baseUrl.length - 1);
   let [workspaces, setWorkspaces] = useState([]);
   let [starredBoards, setStarredBoards] = useState([]);
-  const { theme } = useTheme();
+  const { theme, getColor } = useTheme();
   useEffect(() => {
     apiInstance
       .get("/workspaces/dashboard/myworkspaces/")
@@ -148,8 +148,8 @@ function ResponsiveAppBar() {
               fontFamily: "Vazir",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "#fff",
               textDecoration: "none",
+              color: theme.name === "ocean" ? "#eee" :getColor(theme.primary)
             }}
           >
             پروجما
@@ -191,6 +191,7 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
                 fontFamily: "Vazir",
                 backgroundColor: `${theme.minorBg} !important`,
+                color: theme.name === "ocean" ? "#eee" :getColor(theme.primary)
               }}
             >
               {state.isAuthenticated === true &&
@@ -215,8 +216,8 @@ function ResponsiveAppBar() {
               fontFamily: "Vazir",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "#fff",
               textDecoration: "none",
+              color: theme.name === "ocean" ? "#eee" :getColor(theme.primary)
             }}
           >
             پروجما
@@ -231,29 +232,32 @@ function ResponsiveAppBar() {
                 />
               ))}
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <ThemeButton/>
-          </Box>
+          <ThemeButton/>
 
-          <Box sx={{ flexGrow: 0, fontFamily: "Vazir" }}>
+          <Box sx={{ flexGrow: 0, fontFamily: "Vazir", marginRight: "2rem" }}>
             <Tooltip
               // title="باز کردن تنظیمات"
               title={<h3 style={{ fontFamily: "Vazir" }}>باز کردن تنظیمات</h3>}
+              sx={{}}
             >
               {/* <Avatar alt="عکس پروفایل" src={state.user.profile_pic ? state.user.profile_pic : avatar_photo} /> */}
               <Avatar
                 onClick={handleOpenUserMenu}
                 alt="عکس پروفایل"
-                sx={{ width: "4.5rem", height: "4.5rem" }}
-                src={
-                  state.user.profile_pic === null
+                sx={{ width: 45, height: 45, backgroundColor: theme.mainBg, color: getColor(theme.mainBg)}}
+                variant="circular"
+                // src={
+                //   state.user.profile_pic === null
+                //     ? avatar_photo
+                //     : baseURL + state.user.profile_pic
+                // }
+                srcSet={ state.user.profile_pic === null
                     ? avatar_photo
-                    : baseURL + state.user.profile_pic
-                }
+                    : baseURL + state.user.profile_pic}
               />
             </Tooltip>
             <Menu
-              sx={{ mt: "45px" }}
+              sx={{ mt: "4.5rem" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
@@ -276,13 +280,13 @@ function ResponsiveAppBar() {
                       navigateToPage(settings_map_to_functions[setting])
                     }
                     sx={{
-                      backgroundColor: theme.minorBg,
-                      color: theme.text,
+                      backgroundColor: theme.mainBg,
+                      color: getColor(theme.mainBg),
                       width: "100%",
                       height: "100%",
                       ":hover": {
-                        color: theme.text,
-                        backgroundColor: theme.ternary,
+                        color: getColor(theme.tertiary),
+                        backgroundColor: theme.tertiary,
                         borderRadius: "5px",
                       },
                     }}
@@ -290,7 +294,7 @@ function ResponsiveAppBar() {
                     <Typography
                       textAlign="center"
                       style={{
-                        color: theme.text,
+                        color: getColor(theme.mainBg),
                         fontFamily: "Vazir",
                         fontSize: "76%",
                       }}

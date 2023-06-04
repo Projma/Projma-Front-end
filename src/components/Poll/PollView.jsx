@@ -8,6 +8,7 @@ import KnownVoter from "./Content/KnownVoter";
 import apiInstance from "../../utilities/axiosConfig";
 import AnonymousResult from "./Content/AnonymousResult";
 import KnownResult from "./Content/KnownResult";
+import useTheme from "../../hooks/useTheme";
 
 const PollView = ({
   Multi,
@@ -17,6 +18,7 @@ const PollView = ({
   pollId,
   handleReRender,
 }) => {
+  const {theme , getColor} = useTheme();
   const [poll, setPoll] = useState([]);
   const [isVoted, setIsVoted] = useState(false);
   const [voters, setVoters] = useState([]);
@@ -60,7 +62,7 @@ const PollView = ({
   return (
     <div className="poll_pollview-container">
       <div className="poll_pollview-label">
-        <Typography>{question}</Typography>
+        <Typography style={{color: getColor(theme.mainBg)}}>{question}</Typography>
       </div>
       <div className="poll_pollview-attendents">
         {Anonymous ? <AnonymousVoter /> : <KnownVoter voters={voters} />}

@@ -22,7 +22,7 @@ import {
 } from "../../../utilities/helpers";
 
 export default function CreateBoardModal({}) {
-  const { theme } = useTheme();
+  const { theme, getColor } = useTheme();
   const style = {
     color: theme.text,
     position: "absolute",
@@ -40,6 +40,7 @@ export default function CreateBoardModal({}) {
     fontFamily: "Vazir",
     // overflow: 'hidden', scroll
     overflow: "auto",
+    color: getColor(theme.minorBg),
   };
   const navigate = useNavigate();
   const navigateToBoard = (boardId) => {
@@ -150,13 +151,14 @@ export default function CreateBoardModal({}) {
         onClick={handleOpen}
         sx={{
           // color: '#00bfff',
-          color: "#000",
           ":hover": {
-            color: theme.text,
+            color: getColor(theme.tertiary),
             backgroundColor: theme.tertiary,
             borderRadius: "5px",
           },
-
+          transition: "0.3s",
+          backgroundColor: theme.minorBg,
+          color: getColor(theme.mainBg),
           fontFamily: "Vazir",
           textDecoration: "none",
           display: "block",
@@ -186,7 +188,7 @@ export default function CreateBoardModal({}) {
             sx={{
               textAlign: "center",
               fontFamily: "Vazir",
-              color: theme.text,
+              color: getColor(theme.mainBg),
               fontSize: "185%",
             }}
             className="neonText"
@@ -195,7 +197,7 @@ export default function CreateBoardModal({}) {
           </Typography>
           <Divider
             sx={{
-              color: theme.text,
+              color: getColor(theme.mainBg),
               marginTop: "3%",
               marginBottom: "5%",
             }}

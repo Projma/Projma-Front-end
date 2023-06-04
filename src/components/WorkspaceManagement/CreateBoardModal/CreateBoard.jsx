@@ -12,20 +12,9 @@ import x from "../../../static/images/workspace_management/create_board/board.jp
 // import file from "../../../static/images/workspace_management/create_board/board.jpeg";
 import "./CreateBoard.scss";
 import { convertNumberToPersian } from "../../../utilities/helpers";
+import useTheme from "../../../hooks/useTheme";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "38rem",
-  height: "55rem",
-  backgroundColor: "#001E3C",
-  borderRadius: "1rem",
-  boxShadow: 50,
-  p: 4,
-  overflow: "auto",
-};
+
 
 export default function CreateBoardModal({
   params,
@@ -33,6 +22,20 @@ export default function CreateBoardModal({
   boards,
   setBoards,
 }) {
+  const {theme, getColor} = useTheme();
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "38rem",
+    height: "55rem",
+    backgroundColor: theme.minorBg,
+    borderRadius: "1rem",
+    boxShadow: 50,
+    p: 4,
+    overflow: "auto",
+  };
   const handleChange = (e) => {
     const [file] = e.target.files;
     setBinaryFile(e.target.files[0]);
@@ -102,7 +105,7 @@ export default function CreateBoardModal({
         >
           <p
             className="workspace-modal--add-button-title"
-            style={{ color: "#fff" }}
+            style={{ color: getColor(theme.primary) }}
           >
             + افزودن بورد
           </p>
@@ -125,8 +128,9 @@ export default function CreateBoardModal({
             sx={{
               textAlign: "center",
               fontFamily: "Vazir",
-              color: "#fff",
+              color: getColor(theme.primary),
               fontSize: "109%",
+              
             }}
             className="neonText"
           >
@@ -134,7 +138,7 @@ export default function CreateBoardModal({
           </Typography>
           <Divider
             sx={{
-              backgroundColor: "#007fff",
+              backgroundColor: theme.mainBg,
               marginTop: "0.5rem",
               marginBottom: "0.75rem",
             }}

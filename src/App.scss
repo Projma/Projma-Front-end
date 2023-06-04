@@ -55,37 +55,18 @@ html,
   border-style: solid;
 }
 
-.MuiTooltip-tooltip {
-  background-color: $minor-bg !important;
-  border: 0.2rem solid $tertiary;
-  color: $text !important;
-}
-
 .MuiAvatarGroup-root .MuiAvatarGroup-avatar {
   /*//background-color: $tertiary) !important;*/
   width: 3.5rem;
   height: 3.5rem;
   font-size: 1.6rem;
   text-align: center;
-  border: 0.2rem solid $primary !important;
+  // border: 0.2rem solid $primary !important;
 }
 
-.Toastify__toast-container {
-  color: $text !important;
+.MuiAvatar-root {
+  text-align: center;
+  // border: 0.2rem solid $tertiary !important;
+  object-fit: cover !important;
 }
 
-.Toastify__toast-theme--light {
-  background-color: $minor-bg;
-}
-
-.Toastify__toast-body {
-  color: $text !important;
-}
-
-.Toastify__close-button {
-  color: $text !important;
-}
-
-p {
-  color: $text;
-}

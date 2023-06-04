@@ -5,7 +5,6 @@
   --tertiary: #5090d3;
   --hover: #5090d380;
   --primary: #1976d2;
-  --text: #eee;
 }
 
 $main-bg: var(--main-bg);
@@ -14,4 +13,12 @@ $secondary: var(--secondary);
 $tertiary: var(--tertiary);
 $hover: var(--hover);
 $primary: var(--primary);
-$text: var(--text);
+
+@function fontcolor($color) {
+    @if (lightness($color) > 50) {
+      @return #2b2f33;
+    }
+    @else {
+      @return #eee;
+    }
+}

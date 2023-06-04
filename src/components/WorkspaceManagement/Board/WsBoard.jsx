@@ -22,7 +22,7 @@ const WsBoard = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  const {theme} = useTheme();
+  const {theme, getColor} = useTheme();
   let params = useParams();
 
   useEffect(() => {
@@ -82,7 +82,7 @@ const WsBoard = () => {
         workspace={workspace}
         setWorkspace={setWorkspace}
       /> */}
-      <div className="workspace-board-section">
+      <div className="workspace-board-section" style={{ color: getColor(theme.mainBg)}}>
         {recent.length > 0 && (
           <div>
             <div className="workspace--recent-board">
@@ -140,7 +140,7 @@ const WsBoard = () => {
         <div className="workspace--my-board">
           <div className="workspace--board-header">
             <DashboardIcon sx={{ color: theme.primary}}/>
-            <p className="workspace--board-header-title">بورد ها</p>
+            <p className="workspace--board-header-title" >بورد ها</p>
           </div>
           <div className="workspace--board-body">
             <div className="workspace--board-body-boards">
