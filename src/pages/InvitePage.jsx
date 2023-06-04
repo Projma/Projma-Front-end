@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-
 import { useParams , useNavigate } from "react-router-dom";
-
 import { Box } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
 import apiInstance from "../utilities/axiosConfig";
