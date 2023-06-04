@@ -263,10 +263,27 @@ const List = ({ task, name, listId, index, boardId }) => {
                 className="list_header-add-card"
                 onClick={addCardClickHandler}
               >
-                <AddIcon o sx={{ fontSize: "2.2rem",color: getColor(theme.secondary) }} />
+                <AddIcon
+                  o
+                  sx={{
+                    fontSize: "2.2rem",
+                    color: getColor(theme.secondary),
+                    ":hover": {
+                      color: getColor(theme.primary),
+                    },
+                  }}
+                />
               </div>
               <div className="list_header-option" onClick={optionClickHandler}>
-                <MoreVertIcon sx={{ fontSize: "2.2rem",color: getColor(theme.secondary) }} />
+                <MoreVertIcon
+                  sx={{
+                    fontSize: "2.2rem",
+                    color: getColor(theme.secondary),
+                    ":hover": {
+                      color: getColor(theme.primary),
+                    },
+                  }}
+                />
               </div>
             </div>
             {addCard && (
