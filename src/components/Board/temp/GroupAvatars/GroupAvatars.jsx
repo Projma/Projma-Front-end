@@ -7,8 +7,10 @@ import apiInstance from "../../../../utilities/axiosConfig";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { baseUrl } from "../../../../utilities/constants";
+import useTheme from "../../../../hooks/useTheme";
 
 const GroupAvatars = (props) => {
+    const {theme, getColor} = useTheme();
     const [members, setMembers] = React.useState([]);
     const params = useParams();
     useEffect(() => {
@@ -29,6 +31,7 @@ const GroupAvatars = (props) => {
             //   "profile_pic": null,
             //   "role": "Member"
             // }
+            console.log(res.data);
         });
     }, []);
     // like Card.js
@@ -46,18 +49,14 @@ const GroupAvatars = (props) => {
             >
                 {members.map((x) => (
                     <Tooltip title={x.user.username}>
-                        {/* <Box sx={{
-                            // display: "flex",
-                            // marginLeft: "2%",
-                        }}> */}
                             <Avatar
                                 key={x.id}
                                 alt={(x.user.first_name + " " + x.user.last_name).toString()}
-                                src={x.profile_pic !== null ? baseUrl+x.profile_pic : "none"}
-                                {...stringAvatar((x.user.first_name + " " + x.user.last_name).toString())}
-                            // className="board_avatar-profile-picture"
-                            />
-                        {/* </Box> */}
+                                src={baseUrl.slice(0,-1)+x.profile_pic}
+                                sx={{color: getColor(theme.secondary), backgroundColor: theme.secondary}}
+                            >
+                                {(x.user.first_name[0]+x.user.last_name[0]).toUpperCase()}
+                            </Avatar>
                     </Tooltip>
                 ))}
 

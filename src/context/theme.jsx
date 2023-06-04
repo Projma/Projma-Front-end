@@ -54,66 +54,74 @@ function ThemeProvider({ children }) {
     },
   ];
 
-  const [theme, setTheme] = useState(localStorage.getItem('theme') === null ?THEME[2] : THEME.find(t => t.name === localStorage.getItem('theme')));
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") === null
+      ? THEME[2]
+      : THEME.find((t) => t.name === localStorage.getItem("theme"))
+  );
+
+  document.documentElement.style.setProperty("--main-bg", theme.mainBg);
+  document.documentElement.style.setProperty("--minor-bg", theme.minorBg);
+  document.documentElement.style.setProperty("--secondary", theme.secondary);
+  document.documentElement.style.setProperty("--tertiary", theme.tertiary);
+  document.documentElement.style.setProperty("--hover", theme.hover);
+  document.documentElement.style.setProperty("--primary", theme.primary);
 
   const changeTheme = (name) => {
-    for(let x of THEME) {
-      if(x.name === name) {
-        document.documentElement.style.setProperty('--main-bg', x.mainBg);
-        document.documentElement.style.setProperty('--minor-bg', x.minorBg);
-        document.documentElement.style.setProperty('--secondary', x.secondary);
-        document.documentElement.style.setProperty('--tertiary', x.tertiary);
-        document.documentElement.style.setProperty('--hover', x.hover);
-        document.documentElement.style.setProperty('--primary', x.primary);
+    for (let x of THEME) {
+      if (x.name === name) {
+        document.documentElement.style.setProperty("--main-bg", x.mainBg);
+        document.documentElement.style.setProperty("--minor-bg", x.minorBg);
+        document.documentElement.style.setProperty("--secondary", x.secondary);
+        document.documentElement.style.setProperty("--tertiary", x.tertiary);
+        document.documentElement.style.setProperty("--hover", x.hover);
+        document.documentElement.style.setProperty("--primary", x.primary);
         setTheme(x);
-        localStorage.setItem('theme', x.name);
+        localStorage.setItem("theme", x.name);
         break;
       }
     }
   };
 
   function getRGB(c) {
-    return parseInt(c, 16) || c
+    return parseInt(c, 16) || c;
   }
-  
+
   function getsRGB(c) {
     return getRGB(c) / 255 <= 0.03928
       ? getRGB(c) / 255 / 12.92
-      : Math.pow((getRGB(c) / 255 + 0.055) / 1.055, 2.4)
+      : Math.pow((getRGB(c) / 255 + 0.055) / 1.055, 2.4);
   }
-  
+
   function getLuminance(hexColor) {
     return (
       0.2126 * getsRGB(hexColor.substr(1, 2)) +
       0.7152 * getsRGB(hexColor.substr(3, 2)) +
       0.0722 * getsRGB(hexColor.substr(-2))
-    )
+    );
   }
-  
+
   function getContrast(f, b) {
-    const L1 = getLuminance(f)
-    const L2 = getLuminance(b)
-    return (Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05)
+    const L1 = getLuminance(f);
+    const L2 = getLuminance(b);
+    return (Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05);
   }
-  
+
   function getColor(bgColor) {
-    const whiteContrast = getContrast(bgColor, '#eee')
-    const blackContrast = getContrast(bgColor, '#2b2f33')
-    console.clear();
-    console.log(bgColor);
-    console.log(whiteContrast > blackContrast ? '#eee' : '#2b2f33');
-    return whiteContrast > blackContrast ? '#eee' : '#2b2f33'
+    const whiteContrast = getContrast(bgColor, "#eee");
+    const blackContrast = getContrast(bgColor, "#2b2f33");
+    return whiteContrast > blackContrast ? "#eee" : "#2b2f33";
   }
 
   const projmaTheme = {
     theme,
     THEME,
     changeTheme,
-    getColor
+    getColor,
   };
 
   return (
-    <React.Fragment >
+    <React.Fragment>
       <ThemeContext.Provider value={projmaTheme}>
         {children}
       </ThemeContext.Provider>

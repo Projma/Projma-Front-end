@@ -13,6 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import "./ResponsiveAppBar.scss";
 import avatar_photo from "../../static/images/profile/blank.png";
+import projmaPic from "../../../public/projma.png";
 import { useNavigate } from "react-router-dom";
 import BasicMenu from "./BasicMenu/BasicMenu";
 import { useState, useEffect } from "react";
@@ -34,19 +35,16 @@ function ResponsiveAppBar() {
       .get("/workspaces/dashboard/myworkspaces/")
       .then((response) => {
         setWorkspaces(response.data);
+        console.log(response.data);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
 
     apiInstance
       .get("/workspaces/dashboard/mystarred-boards/")
       .then((response) => {
         setStarredBoards(response.data);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   }, []);
 
   const pages = ["ستاره دارها", "فضای کارها", "ایجاد"]; // 'اخیرا دیده شده‌ها',
@@ -149,7 +147,7 @@ function ResponsiveAppBar() {
               fontWeight: 700,
               letterSpacing: ".3rem",
               textDecoration: "none",
-              color: theme.name === "ocean" ? "#eee" :getColor(theme.primary)
+              color: theme.name === "ocean" ? "#eee" : getColor(theme.primary),
             }}
           >
             پروجما
@@ -191,7 +189,8 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
                 fontFamily: "Vazir",
                 backgroundColor: `${theme.minorBg} !important`,
-                color: theme.name === "ocean" ? "#eee" :getColor(theme.primary)
+                color:
+                  theme.name === "ocean" ? "#eee" : getColor(theme.primary),
               }}
             >
               {state.isAuthenticated === true &&
@@ -217,7 +216,7 @@ function ResponsiveAppBar() {
               fontWeight: 700,
               letterSpacing: ".3rem",
               textDecoration: "none",
-              color: theme.name === "ocean" ? "#eee" :getColor(theme.primary)
+              color: theme.name === "ocean" ? "#eee" : getColor(theme.primary),
             }}
           >
             پروجما
@@ -232,29 +231,45 @@ function ResponsiveAppBar() {
                 />
               ))}
           </Box>
-          <ThemeButton/>
+          <ThemeButton />
 
           <Box sx={{ flexGrow: 0, fontFamily: "Vazir", marginRight: "2rem" }}>
             <Tooltip
               // title="باز کردن تنظیمات"
-              title={<h3 style={{ fontFamily: "Vazir" }}>باز کردن تنظیمات</h3>}
-              sx={{}}
+              title={"باز کردن تنظیمات"}
             >
               {/* <Avatar alt="عکس پروفایل" src={state.user.profile_pic ? state.user.profile_pic : avatar_photo} /> */}
-              <Avatar
-                onClick={handleOpenUserMenu}
-                alt="عکس پروفایل"
-                sx={{ width: 45, height: 45, backgroundColor: theme.mainBg, color: getColor(theme.mainBg)}}
-                variant="circular"
-                // src={
-                //   state.user.profile_pic === null
-                //     ? avatar_photo
-                //     : baseURL + state.user.profile_pic
-                // }
-                srcSet={ state.user.profile_pic === null
-                    ? avatar_photo
-                    : baseURL + state.user.profile_pic}
-              />
+              {localStorage.getItem("access_token") === null ? (
+                <Avatar
+                  onClick={handleOpenUserMenu}
+                  alt="عکس پروفایل"
+                  sx={{
+                    width: 50, height: 50,
+                    color: getColor(theme.mainBg),
+                  }}
+                  variant="circular"
+                  // src={
+                  //   state.user.profile_pic === null
+                  //     ? avatar_photo
+                  //     : baseURL + state.user.profile_pic
+                  // }
+                  src={projmaPic}
+                />
+              ) : (
+                <Avatar
+                  onClick={handleOpenUserMenu}
+                  alt="عکس پروفایل"
+                  sx={{
+                    backgroundColor: theme.minorBg,
+                    width: 50, height: 50,
+                    color: getColor(theme.minorBg),
+                  }}
+                  variant="circular"
+                  src={baseURL + state.user.profile_pic}
+                >
+                  {(state.user.user.first_name[0] + state.user.user.last_name[0]).toUpperCase()}
+                </Avatar>
+              )}
             </Tooltip>
             <Menu
               sx={{ mt: "4.5rem" }}

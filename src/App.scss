@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,7 +13,10 @@
 html {
   font-size: 62.5%;
   overflow: auto;
+  background-color: $main-bg !important;
 }
+
+
 
 body {
   margin: 0 auto;
@@ -20,9 +24,9 @@ body {
 }
 
 :root {
-  --toastify-toast-background: $secondary;
-  --toastify-color-light: $secondary;
-  --toastify-color-dark: $secondary;
+  --toastify-toast-background: $secondary !important;
+  --toastify-color-light: $secondary !important;
+  --toastify-color-dark: $secondary !important;
   --toastify-font-family: Vazir !important;
 }
 
@@ -57,16 +61,26 @@ html,
 
 .MuiAvatarGroup-root .MuiAvatarGroup-avatar {
   /*//background-color: $tertiary) !important;*/
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 2.7rem !important;
+  height: 2.7rem !important;
   font-size: 1.6rem;
   text-align: center;
-  // border: 0.2rem solid $primary !important;
+  border: 0.2rem solid $primary !important;
+  & :hover {
+    cursor: pointer;
+  }
 }
 
 .MuiAvatar-root {
   text-align: center;
   // border: 0.2rem solid $tertiary !important;
-  object-fit: cover !important;
+  & :hover {
+    cursor: pointer;
+  }
 }
 
+.MuiAvatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}

@@ -35,6 +35,7 @@ import {
   convertNumberToEnglish,
   convertNumberToPersian,
 } from "../../../../utilities/helpers";
+import useTheme from "../../../../hooks/useTheme";
 
 const style = {
   position: "absolute",
@@ -77,6 +78,7 @@ const ShareButton = (props) => {
     Member: "کاربر",
     Guest: "مهمان",
   };
+  const {theme, getColor} = useTheme();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   useEffect(() => {
@@ -433,22 +435,14 @@ const ShareButton = (props) => {
                           member.user.last_name
                         ).toString()}
                         src={
-                          member.profile_pic !== null
-                            ? member.profile_pic
-                            : "none"
+                          member.profile_pic
                         }
-                        {...stringAvatar(
-                          convertNumberToPersian(
-                            (
-                              member.user.first_name +
-                              " " +
-                              member.user.last_name
-                            ).toString()
-                          )
-                        )}
+                        sx={{color: getColor(theme.secondary), backgroundColor: theme.secondary}}
                         className="board_avatar-profile-picture"
                         // sx={{ width: 56, height: 56 }}
-                      />
+                      >
+                        {(member.user.first_name[0] + member.user.last_name[0]).toUpperCase()}
+                      </Avatar>
                     </Box>
                   </Tooltip>
                   <Box
@@ -504,34 +498,3 @@ const ShareButton = (props) => {
 };
 
 export default ShareButton;
-
-function stringToColor(string) {
-  let hash = 0;
-  let i;
-
-   
-  for (i = 0; i < string.length; i += 1) {
-    hash = string.charCodeAt(i) + ((hash << 5) - hash);
-  }
-
-  let color = "#";
-
-  for (i = 0; i < 3; i += 1) {
-    const value = (hash >> (i * 8)) & 0xff;
-    color += `00${value.toString(16)}`.slice(-2);
-  }
-  /* eslint-enable no-bitwise */
-
-  return color;
-}
-
-function stringAvatar(name) {
-  return {
-    sx: {
-      bgcolor: stringToColor(name),
-      width: 56,
-      height: 56,
-    },
-    children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
-  };
-}
