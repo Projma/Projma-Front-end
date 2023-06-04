@@ -23,14 +23,14 @@
   align-items: center;
   justify-content: flex-start;
   margin: 0.5rem 0.5rem;
-  color: $text;
+  
 }
 
 .known-result_modal-question {
   width: 100%;
   font-size: 1.8rem;
   // background-color: #1976d255;
-  color: $text;
+  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,6 +88,5 @@
   width: 3.5rem;
   height: 3.5rem;
   padding: 0.2rem 0.2rem;
-  border: 0.2rem solid #5090d3;
   font-size: 1.6rem !important;
 }

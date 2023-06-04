@@ -12,6 +12,7 @@ import "./Members.scss";
 import { convertNumberToPersian } from "../../../utilities/helpers";
 import Loading from "../../Shared/Loading";
 import anonymous from "../../../static/images/workspace_management/members/anonymous.png";
+import useTheme from "../../../hooks/useTheme";
 
 const Members = () => {
   const [members, setMembers] = React.useState([]);
@@ -21,6 +22,7 @@ const Members = () => {
   const [button_inner, setButton_inner] = React.useState("کپی لینک دعوت");
 
   let params = useParams();
+  const {theme ,getColor} = useTheme();
 
   useEffect(() => {
     apiInstance
@@ -93,7 +95,7 @@ const Members = () => {
       /> */}
       <div className="copy-link">
         <div className="copy-link-text">
-          <h2 className="ws_members-invite-text">
+          <h2 className="ws_members-invite-text" style={{color: getColor(theme.mainBg)}}>
             لینک دعوت به کارگاه را کپی کنید و به افراد دیگر ارسال کنید تا به
             کارگاه شما بپیوندند
           </h2>
@@ -102,7 +104,7 @@ const Members = () => {
           onClick={copyLink}
           ref={buttonRef}
           className="button-9"
-          style={{ fontFamily: "Vazir" }}
+          style={{ fontFamily: "Vazir",color: getColor(theme.primary) }}
         >
           {button_inner}
         </button>

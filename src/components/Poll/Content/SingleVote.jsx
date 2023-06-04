@@ -6,8 +6,10 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
 import { TaskAltOutlined } from "@mui/icons-material";
 import apiInstance from "../../../utilities/axiosConfig";
+import useTheme from '../../../hooks/useTheme';
 
 const SingleVoted = ({ options, handleReRender }) => {
+  const {theme, getColor} = useTheme();
   return (
     <div className="single-vote_voted">
       <FormControl
@@ -43,7 +45,7 @@ const SingleVoted = ({ options, handleReRender }) => {
                 <Radio
                   id={o.id + "|" + o.poll}
                   sx={{
-                    color: "#5090D3",
+                    color: theme.tertiary,
                     fontSize: "1rem",
                     "& .MuiSvgIcon-root": {
                       height: "1.5rem",
@@ -52,7 +54,7 @@ const SingleVoted = ({ options, handleReRender }) => {
                   }}
                 />
               }
-              label={<Typography fontSize={"1.2rem"}>{o.text}</Typography>}
+              label={<Typography fontSize={"1.2rem"} style={{color: getColor(theme.minorBg)}}>{o.text}</Typography>}
               sx={{ height: "4rem", width: "100%", padding: "0.5rem" }}
             />
           ))}
@@ -67,6 +69,8 @@ const getPercent = (vote, total) => {
 };
 
 const SingleVoteResult = ({ options, totalVotes }) => {
+  const {theme, getColor} = useTheme();
+
   return (
     <div className="single-vote_result">
       {options.map((v, i) => (
@@ -74,7 +78,7 @@ const SingleVoteResult = ({ options, totalVotes }) => {
           <div className="single-vote_result-icon">
             {v.is_user_voted === true && (
               <TaskAltOutlined
-                sx={{ width: "1.5rem", height: "1.5rem", color: "#5090d3" }}
+                sx={{ width: "1.5rem", height: "1.5rem", color: theme.tertiary }}
               />
             )}
           </div>
@@ -90,17 +94,17 @@ const SingleVoteResult = ({ options, totalVotes }) => {
                 rotate: "180deg",
                 borderRadius: 5,
                 [`&.linearProgressClasses`]: {
-                  backgroundColor: "#5090D3",
+                  backgroundColor: theme.primary,
                 },
                 [`& .linearProgressClasses.bar`]: {
                   borderRadius: 5,
-                  backgroundColor: "#0059B2",
+                  backgroundColor: theme.secondary,
                 },
               }}
             />
           </div>
-          <div className="single-vote_result-title">{v.text}</div>
-          <div className="single-vote_result-percentage">
+          <div className="single-vote_result-title" style={{color: getColor(theme.minorBg)}}>{v.text}</div>
+          <div className="single-vote_result-percentage" style={{color: getColor(theme.minorBg)}}>
             {getPercent(v.count, totalVotes)}%
           </div>
         </div>

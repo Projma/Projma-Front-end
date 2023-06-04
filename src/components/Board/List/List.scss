@@ -23,12 +23,12 @@
   align-items: center;
   padding: 0.4rem;
   justify-content: space-between;
-  color: $text;
+  
 }
 
 .list_header-title {
   margin-right: 0.4rem;
-  color: $text;
+  color: fontcplor($secondary);
 }
 
 .list_header-add-card, .list_header-option {
@@ -73,7 +73,7 @@
   flex-direction: column;
   width: 20rem;
   border: 0.2rem solid $tertiary;
-  color: $text !important;
+  
   background-color: $minor-bg;
   padding: 0.5rem;
 }
@@ -101,7 +101,7 @@
 
 .board_option-text {
   border: none;
-  color: $text;
+  color: fontcplor($secondary);
   text-align: center;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -117,7 +117,7 @@
 .MuiDialog-paper {
   //background-color: $minor-bg !important;
   border: 0.2rem solid $tertiary !important;
-  color: $text !important;
+  color: fontcplor($secondary) !important;
 }
 
 .List_dialog-button-container {

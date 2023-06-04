@@ -52,7 +52,7 @@ const Board = () => {
   };
 
   return (
-    <div className="board_container styled-scrollbars">
+    <div className="board_container ">
       <InvitationHeader
         board_id={boardId}
         onCreateList={handleCreateList}

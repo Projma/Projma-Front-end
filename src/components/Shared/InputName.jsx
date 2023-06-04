@@ -10,7 +10,7 @@ import {
 import useTheme from "../../hooks/useTheme";
 
 const InputName = (props) => {
-  const { theme } = useTheme();
+  const { theme, getColor } = useTheme();
 
   const muiTheme = createTheme({
     components: {
@@ -19,7 +19,7 @@ const InputName = (props) => {
         styleOverrides: {
           root: {
             fontSize: "2rem",
-            color: theme.text,
+            color: getColor(theme.secondary),
             border: "0.2rem solid $mior-bg",
             borderRadius: "0.5rem",
             "&.Mui-focused": {

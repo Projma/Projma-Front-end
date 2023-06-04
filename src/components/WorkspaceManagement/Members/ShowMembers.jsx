@@ -3,11 +3,13 @@ import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import DeleteDialog from "./DeleteDialog";
 import "./Members.scss";
 import { convertNumberToPersian } from "../../../utilities/helpers";
+import useTheme from "../../../hooks/useTheme";
 
 const ShowMembers = ({ members, go_to_profile, removeMember }) => {
+  const {theme, getColor} = useTheme();
   return (
     <div className="members">
-      <table className="styled-table">
+      <table className="styled-table" style={{backgroundColor: theme.minorBg, borderColor: theme.primary, color: getColor(theme.minorBg)}}>
         <thead>
           <tr>
             <th className="list-item-prop hide-when-small">ردیف</th>

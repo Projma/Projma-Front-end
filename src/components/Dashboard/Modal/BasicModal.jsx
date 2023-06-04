@@ -28,7 +28,7 @@ const cacheRtl = createCache({
 });
 
 export default function BasicModal(props) {
-  const { theme } = useTheme();
+  const { theme, getColor } = useTheme();
   const style = {
     position: "absolute",
     top: "50%",
@@ -44,6 +44,7 @@ export default function BasicModal(props) {
     p: 4,
     fontFamily: "Vazir",
     overflow: "auto",
+    color: getColor(theme.secondary),
   };
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -107,13 +108,14 @@ export default function BasicModal(props) {
         <Button
           onClick={handleOpen}
           sx={{
-            color: theme.tertiary,
             ":hover": {
-              color: theme.text,
-              backgroundColor: theme.primary,
+              color: getColor(theme.tertiary),
+              backgroundColor: theme.tertiary,
               borderRadius: "5px",
-              fontFamily: "Vazir",
             },
+            transition: "0.3s",
+            backgroundColor: theme.minorBg,
+            color: getColor(theme.mainBg),
             marginTop: "8%",
             padding: "5%",
 
@@ -135,10 +137,13 @@ export default function BasicModal(props) {
           sx={{
             color: "#000",
             ":hover": {
-              color: "#E2EDF8",
-              backgroundColor: "#007fff",
+              color: getColor(theme.tertiary),
+              backgroundColor: theme.tertiary,
               borderRadius: "5px",
             },
+            transition: "0.3s",
+            backgroundColor: theme.minorBg,
+            color: getColor(theme.mainBg),
             // marginTop: '8%',
             // padding: '10%',
             fontFamily: "Vazir",

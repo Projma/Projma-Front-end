@@ -42,7 +42,7 @@ import Members from "./components/WorkspaceManagement/Members/Members";
 import useTheme from "./hooks/useTheme";
 
 function App() {
-  const { theme } = useTheme();
+  const { theme, getColor } = useTheme();
   const muiTheme = createTheme({
     palette: {
       primary: {
@@ -56,9 +56,31 @@ function App() {
       fontFamily: "Vazir",
       htmlFontSize: 9, // 10 (1rem = 9px)
       allVariants: {
-        color: theme.text,
+        color: getColor(theme.primary),
       },
     },
+    text: {
+      primary: getColor(theme.primary),
+    },
+    components: {
+      MuiTooltip: {
+        styleOverrides: {
+          tooltip: {
+            backgroundColor: theme.mainBg,
+            border: `0.2rem solid ${theme.primary} !important`,
+            fontSize: "1.2rem !important",
+            color: getColor(theme.mainBg)
+          }
+        }
+      }, MuiAvatar: {
+        styleOverrides: {
+          root: {
+            textAlign: "center",
+            border: `0.2rem solid ${theme.primary} !important`
+          },
+        }
+      }
+    }
   });
   return (
     <div
@@ -72,7 +94,7 @@ function App() {
         "--hover": theme.hover,
         "--text": theme.text,
         backgroundColor: theme.mainBg,
-        animation: "color-change 10s ease-in-out infinite"
+        animation: "color-change 10s ease-in-out infinite",
       }}
     >
       <ToastContainer

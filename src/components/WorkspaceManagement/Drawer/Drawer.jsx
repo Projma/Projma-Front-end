@@ -22,10 +22,10 @@ import useTheme from "../../../hooks/useTheme";
 
 const Drawer = () => {
   const { collapseSidebar, collapsed } = useProSidebar();
-  const {theme} = useTheme();
+  const { theme, getColor } = useTheme();
   const menuStyle = {
     ["." + menuClasses.button]: {
-      color: theme.text,
+      color: getColor(theme.secondary),
       backgroundColor: theme.secondary,
       borderRadius: "0.5rem",
       "&:hover": {
@@ -41,7 +41,7 @@ const Drawer = () => {
       backgroundColor: theme.secondary,
     },
     ["." + menuClasses.subMenuContent]: {
-      color: theme.text,
+      color: getColor(theme.secondary),
       margin: "0.5rem 1rem",
       backgroundColor: "#00000000",
       boxShadow: "none",
@@ -98,9 +98,9 @@ const Drawer = () => {
             >
               <MenuItem
                 onClick={() => collapseSidebar(!collapsed)}
-                icon={collapsed ? <MenuOutlined sx={{ color: theme.text}}/> : undefined}
+                icon={collapsed ? <MenuOutlined sx={{ color: getColor(theme.secondary)}}/> : undefined}
                 style={{
-                  color: theme.text,
+                  color: getColor(theme.secondary),
                 }}
               >
                 {!collapsed && (
@@ -112,20 +112,20 @@ const Drawer = () => {
                     }}
                   >
                     <Typography>داشبورد</Typography>
-                    <MenuOutlined sx={{ color: theme.text}}/>
+                    <MenuOutlined sx={{ color: getColor(theme.secondary)}}/>
                   </div>
                 )}
               </MenuItem>
             </Menu>
             <Menu rootStyles={menuStyle}>
               <MenuItem
-                icon={<ViewKanbanOutlined sx={{ color: theme.text}}/>}
+                icon={<ViewKanbanOutlined sx={{ color: getColor(theme.secondary)}}/>}
                 onClick={() => handleClick("board")}
               >
                 بورد
               </MenuItem>
               <MenuItem
-                icon={<PeopleOutlineOutlined sx={{ color: theme.text}}/>}
+                icon={<PeopleOutlineOutlined sx={{ color: getColor(theme.secondary)}}/>}
                 onClick={() => handleClick("team")}
               >
                 اعضای تیم
@@ -138,7 +138,7 @@ const Drawer = () => {
                 onClick={() =>
                   navigate(`/dashboard`)
                 }
-                icon={<HomeOutlined sx={{ color: theme.text}}/>}
+                icon={<HomeOutlined sx={{ color: getColor(theme.secondary)}}/>}
               >
                 فضای کاری
               </MenuItem>

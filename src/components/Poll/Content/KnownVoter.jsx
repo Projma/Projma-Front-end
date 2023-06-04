@@ -5,11 +5,14 @@ import React, {useEffect, useState} from 'react';
 import apiInstance from '../../../utilities/axiosConfig';
 import {useParams} from 'react-router-dom';
 import {Typography} from '@mui/material';
+import useTheme from '../../../hooks/useTheme';
+
 
 const KnownVoter = ({voters}) => {
   // const [member, setMember] = useState([]);
   const [voter, setVoter] = useState(new Array(voters.length));
   const param = useParams();
+  const {theme, getColor} = useTheme();
   useEffect(() => {
     const getMember = async () => {
       await apiInstance.get(`board/${param.boardId}/members/`).then(res => {
@@ -34,7 +37,7 @@ const KnownVoter = ({voters}) => {
   // console.log(voter,voters);
   return (<>
     {voters.length === 0  ?
-      (<Typography fontSize="1.1rem">رای گیری شناس</Typography>) :
+      (<Typography fontSize="1.1rem" style={{color: getColor(theme.minorBg)}}>رای گیری شناس</Typography>) :
       <AvatarGroup
         max={5}
         spacing="6"

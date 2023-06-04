@@ -23,7 +23,7 @@ import useTheme from "../../../hooks/useTheme";
 const List = ({ task, name, listId, index, boardId }) => {
   const { addCardToList, removeList, editListName, setIsReq, socket } =
     useBoard();
-  const { theme } = useTheme();
+  const { theme, getColor } = useTheme();
   const [card, setCard] = useState(task);
   const [addCard, setAddCard] = useState(false);
   const [cardName, setCardName] = useState("");
@@ -217,7 +217,7 @@ const List = ({ task, name, listId, index, boardId }) => {
                   <DialogContent>
                     <DialogContentText
                       id="alert-dialog-description"
-                      sx={{ color: "#fff" }}
+                      sx={{ color: getColor(theme.secondary) }}
                     >
                       اخطار: با حذف کردن لیست تمام کارت های داخل آن نیز حذف
                       میشود
@@ -263,10 +263,10 @@ const List = ({ task, name, listId, index, boardId }) => {
                 className="list_header-add-card"
                 onClick={addCardClickHandler}
               >
-                <AddIcon o sx={{ fontSize: "2.2rem" }} />
+                <AddIcon o sx={{ fontSize: "2.2rem",color: getColor(theme.secondary) }} />
               </div>
               <div className="list_header-option" onClick={optionClickHandler}>
-                <MoreVertIcon sx={{ fontSize: "2.2rem" }} />
+                <MoreVertIcon sx={{ fontSize: "2.2rem",color: getColor(theme.secondary) }} />
               </div>
             </div>
             {addCard && (

@@ -13,6 +13,7 @@ import {
 } from "@mui/icons-material";
 import { useParams } from "react-router-dom";
 import useBoard from "../../hooks/useBoard";
+import useTheme from "../../hooks/useTheme";
 
 const Poll = () => {
   const { getBoard } = useBoard();
@@ -26,6 +27,7 @@ const Poll = () => {
   const [closePolls, setClosePolls] = useState(undefined);
   const [contexmenu, setContexmenu] = useState({});
   const [reRender, setReRender] = useState(false);
+  const {theme, getColor} = useTheme();
   const openAddPoll = () => {
     setOpen(true);
   };
@@ -120,13 +122,13 @@ const Poll = () => {
                     handleOption();
                     setReRender(!reRender);
                   }}
-                  sx={{ color: "#fff", width: "100%", height: "3rem" }}
+                  sx={{ color: getColor(theme.mainBg), width: "100%", height: "3rem" }}
                 >
                   <div className="poll_option-in-button">
                     <ReplayOutlined
-                      sx={{ fill: "#1976d2", fontSize: "1.5rem" }}
+                      sx={{ fill: theme.primary, fontSize: "1.5rem" }}
                     />
-                    <div>برداشتن رای</div>
+                    <div style={{color: getColor(theme.minorBg)}}>برداشتن رای</div>
                   </div>
                 </Button>
               )}
@@ -139,13 +141,13 @@ const Poll = () => {
                         handleOption();
                         setReRender(!reRender);
                       }}
-                      sx={{ color: "#fff", width: "100%", height: "3rem" }}
+                      sx={{ color: getColor(theme.mainBg), width: "100%", height: "3rem" }}
                     >
                       <div className="poll_option-in-button">
                         <RemoveCircleOutlineOutlined
-                          sx={{ fill: "#1976d2", fontSize: "1.5rem" }}
+                          sx={{ fill: theme.primary, fontSize: "1.5rem" }}
                         />
-                        <div>اتمام رای گیری</div>
+                        <div style={{color: getColor(theme.minorBg)}}>اتمام رای گیری</div>
                       </div>
                     </Button>
                   )}
@@ -155,13 +157,13 @@ const Poll = () => {
                       handleOption();
                       setReRender(!reRender);
                     }}
-                    sx={{ color: "#fff", width: "100%", height: "3rem" }}
+                    sx={{ color: getColor(theme.mainBg), width: "100%", height: "3rem" }}
                   >
                     <div className="poll_option-in-button">
                       <DeleteOutline
-                        sx={{ fill: "#1976d2", fontSize: "1.5rem" }}
+                        sx={{ fill: theme.primary, fontSize: "1.5rem", color: getColor(theme.mainBg) }}
                       />
-                      <div>پاک کردن رای گیری</div>
+                      <div style={{color: getColor(theme.minorBg)}}>پاک کردن رای گیری</div>
                     </div>
                   </Button>
                 </>
@@ -173,8 +175,8 @@ const Poll = () => {
       <div className="poll_view">
         <div className="poll_view-section-open">
           <div className="poll_view-label">
-            <HowToVoteOutlined sx={{ fill: "#fff", fontSize: "1.5rem" }} />
-            <div>رای گیری های در حال انجام</div>
+            <HowToVoteOutlined sx={{ fill: getColor(theme.mainBg), fontSize: "1.5rem" }} />
+            <div style={{color: getColor(theme.minorBg)}}>رای گیری های در حال انجام</div>
           </div>
           <div className="poll_open">
             {polls.sort((a,b) => a.id - b.id).map((x) => {
@@ -200,9 +202,9 @@ const Poll = () => {
         <div className="poll_view-section-closed">
           <div className="poll_view-label">
             <RemoveCircleOutlineOutlined
-              sx={{ fill: "#fff", fontSize: "1.5rem" }}
+              sx={{ fill: getColor(theme.mainBg), fontSize: "1.5rem" }}
             />
-            <div>رای گیری های بسته شده</div>
+            <div style={{color: getColor(theme.minorBg)}}>رای گیری های بسته شده</div>
           </div>
           <div className="poll_closed">
             {polls.sort((a,b) => a.id - b.id).map((x) => {

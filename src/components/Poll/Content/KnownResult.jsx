@@ -5,11 +5,15 @@ import { useParams } from "react-router-dom";
 import apiInstance from "../../../utilities/axiosConfig";
 import { HowToVoteOutlined } from "@mui/icons-material";
 import Avatar from "@mui/material/Avatar";
+import useTheme from '../../../hooks/useTheme';
+
 
 const KnownResult = ({ voters, options, question, totalVotes }) => {
   const [open, setOpen] = useState(false);
   const [voter, setVoter] = useState(new Array(voters.length));
   const param = useParams();
+  const {theme, getColor} = useTheme();
+
   const closeResultModal = () => {
     setOpen(false);
   };
@@ -61,7 +65,7 @@ const KnownResult = ({ voters, options, question, totalVotes }) => {
                     <div>
                       {x.count}{" "}
                       <HowToVoteOutlined
-                        sx={{ fill: "#fff", fontSize: "1.5rem" }}
+                        sx={{ fill: getColor(theme.minorBg), fontSize: "1.5rem" }}
                       />
                     </div>
                   </div>
@@ -104,7 +108,7 @@ const KnownResult = ({ voters, options, question, totalVotes }) => {
       </Modal>
       <Button
         variant="text"
-        style={{ height: "2.5rem", width: "100%", color: "#ffffff55" }}
+        style={{ height: "2.5rem", width: "100%", color: getColor(theme.minorBg) }}
         onClick={() => setOpen(true)}
       >
         نمایش نتیجه

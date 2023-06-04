@@ -12,16 +12,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-:root {
-  --main-bg: $main-bg;
-  --minor-bg: $minor-bg;
-  --secondary: $secondary;
-  --tertiary: $tertiary;
-  --hover: $hover;
-  --primary: $primary;
-  --text: $text;
-}
-
 @font-face {
   font-family: Vazir;
   src: url(./fonts/Vazir.ttf);
