@@ -20,7 +20,7 @@ const Discuss = () => {
     const [boardName, setBoardName] = React.useState("");
     const [BoardDescription, setBoardDescription] = React.useState("");
     const [groups_and_cards, setGroups_and_cards] = useState([]);
-    // const socket = useRef(null);
+    const socket = useRef(null);
 
     useEffect(() => {
         apiInstance.
@@ -38,33 +38,33 @@ const Discuss = () => {
             console.log(err);
         });
 
-        // socket.current = new WebSocket(
-        //     `ws://localhost:8000/ws/socket-server/retro/discuss/${localStorage.getItem(
-        //         "retro_id"
-        //     )}/?token=${localStorage.getItem("access_token")}`
-        // );
-        // socket.current.onopen = () => {
-        //     console.log("WebSocket connection opened");
-        //     // socket.current.send(
-        //     //   JSON.stringify({
-        //     //     type: "join_board_group",
-        //     //     data: { board_id: boardId },
-        //     //   })
-        //     // );
-        // };
+        socket.current = new WebSocket(
+            `ws://localhost:8000/ws/socket-server/retro/discuss/${localStorage.getItem(
+                "retro_id"
+            )}/?token=${localStorage.getItem("access_token")}`
+        );
+        socket.current.onopen = () => {
+            console.log("WebSocket connection opened");
+            // socket.current.send(
+            //   JSON.stringify({
+            //     type: "join_board_group",
+            //     data: { board_id: boardId },
+            //   })
+            // );
+        };
 
-        // socket.current.onmessage = (event) => {
-        //     const message = JSON.parse(event.data);
-        //     console.log(message);
-        //     // dnd_socket(message, message.type);
-        //     // setGoodCards(message.good_cards);
-        //     // setBadCards(message.bad_cards);
-        //     // setGroups(message.groups);
-        // };
+        socket.current.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+            console.log(message);
+            // dnd_socket(message, message.type);
+            // setGoodCards(message.good_cards);
+            // setBadCards(message.bad_cards);
+            // setGroups(message.groups);
+        };
 
-        // socket.current.onclose = () => {
-        //     console.log("WebSocket connection closed");
-        // };
+        socket.current.onclose = () => {
+            console.log("WebSocket connection closed");
+        };
 
     }, []);
 
@@ -201,6 +201,8 @@ const Discuss = () => {
             {/* if is admin ? */}
             <NextBtn 
                 currentStep={"Discuss"}
+                text={"پایان جلسه"}
+                WebSocket={socket.current}
             />
         </>
     );
