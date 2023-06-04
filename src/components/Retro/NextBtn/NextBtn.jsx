@@ -10,39 +10,105 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 // import LocationOnIcon from '@mui/icons-material/LocationOn';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { createContext, useState, useCallback, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-const NextBtn = () => {
-
+const NextBtn = (props) => {
+    // get workspaceId and boardId from url
+    const socket = useRef(null);
+    const { workspaceId, boardId } = useParams();
+    const navigate = useNavigate();
     const [value, setValue] = React.useState(0);
     const navigateToNextStep = () => {
-        // navigate(`/kanban/${boardId}/board`);
-        console.log("here")
+        var nextStep = "group"
+        if (props.currentStep === "Reflect") {
+            nextStep = "group";
+        } else if (props.currentStep === "Group") {
+            nextStep = "vote";
+        } else if (props.currentStep === "Vote") {
+            nextStep = "discuss";
+        } else if (props.currentStep === "Discuss") {
+            nextStep = "board";
+        } else {
+            nextStep = "";
+        }
+
+        // socket.current.send(
+        //     JSON.stringify({
+        //         type: "navigate_to_next_step",
+        //         data: { nextStep: nextStep },
+        //     })
+        // );
+        props.WebSocket.send(
+            JSON.stringify({
+                type: "navigate_to_next_step",
+                data: { nextStep: nextStep },
+            })
+        );
+
+        // close connection
+        // if (socket.current !== null)
+        //     socket.current.close();
+        if (props.WebSocket !== null)
+            props.WebSocket.close();
+
+        if (nextStep === "board") {
+            localStorage.removeItem("retro_id");
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/board`);
+        } else {
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/${nextStep}`);
+        }
+
+        // console.log("here")
     };
-    const socket = useRef(null);
+
+    const handleNavigation = (message, type) => {
+        // if (type === "navigate_to_next_step") {
+        
+        // close connection 
+        // if (socket.current !== null)
+        //     socket.current.close();
+
+        if (props.WebSocket !== null)
+            props.WebSocket.close();
+        
+        if (message.data.nextStep === "board") {
+            localStorage.removeItem("retro_id");
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/${message.data.nextStep}`);
+        } else {
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/${message.data.nextStep}`);
+        }
+        // }
+    }
+
     useEffect(() => {
+
         // socket.current = new WebSocket(
         //     `ws://localhost:8000/ws/socket-server/retro/session/${localStorage.getItem("retro_id")}/?token=${localStorage.getItem(
         //         "access_token"
         //     )}`
         // );
+
         // socket.current.onopen = () => {
         //     console.log("WebSocket connection opened");
-        //     socket.current.send(
-        //         JSON.stringify({
-        //             type: "session_next",
-        //         })
-        //     );
+        //     // socket.current.send(
+        //     //   JSON.stringify({
+        //     //     type: "join_board_group",
+        //     //     data: { board_id: boardId },
+        //     //   })
+        //     // );
         // };
 
         // socket.current.onmessage = (event) => {
         //     const message = JSON.parse(event.data);
         //     console.log(message);
-        //     // dnd_socket(message, message.type);
+        //     handleNavigation(message, message.type);
         // };
 
         // socket.current.onclose = () => {
         //     console.log("WebSocket connection closed");
         // };
+
     }, [])
 
     return (
@@ -65,7 +131,7 @@ const NextBtn = () => {
                     borderRadius: '10px'
                 }}
             >
-                <BottomNavigationAction label="بعدی" icon={<NavigateNextIcon />} onClick={
+                <BottomNavigationAction label={props.text} icon={<NavigateNextIcon />} onClick={
                     () => {
                         navigateToNextStep();
                     }

@@ -210,7 +210,12 @@ const RetroReflect = () => {
           </RetroList>
         </div>
       </div>
-      <NextBtn />
+       {/* if is admin ? */}
+      <NextBtn 
+        currentStep={"Reflect"}
+        text={"بعدی"}
+        WebSocket={socket.current}
+      />
     </div>
   );
 };

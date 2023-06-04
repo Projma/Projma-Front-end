@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Typography } from "@mui/material";
 import RetroList from "../content/RetroList";
 import RetroCard from "../content/RetroCard";
@@ -14,24 +14,18 @@ import { v4 as uuid } from "uuid";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import NextBtn from "../NextBtn/NextBtn";
+import apiInstance from "../../../utilities/axiosConfig";
 
 const Group = () => {
-  // const [greenList, setGreenList] = useState(["1", "2", "3", "4", "5"]);
-  // const [redList, setRedList] = useState(["1", "2", "3", "4", "5"]);
   const [good_cards, setGoodCards] = useState([
     { id: "card-3", content: "بذار نگات کنم تو رو تو رو یه عالمههههه" },
-    {
-      id: "card-1",
-      content: "با اینکه میدونم تهش برام غمهههههه",
-    },
+    { id: "card-1", content: "با اینکه میدونم تهش برام غمهههههه", },
     { id: "card-4", content: "هرچی صدات کنم تو رو بازم کمهههههه" },
     { id: "card-2", content: "مال منییییی" },
   ]);
+
   const [bad_cards, setBadCards] = useState([
-    {
-      id: "card-5",
-      content: "هه الف ب و پ و ت و ن و عین",
-    },
+    { id: "card-5", content: "عین", },
     { id: "card-8", content: "منو سر لج ننداز میرم یار میگم" },
     { id: "card-6", content: "سلام علیکم والده‌ی مش ماشالا" },
     { id: "card-7", content: "اینور اونورم ننداز میرم زن میگیرم" },
@@ -39,13 +33,53 @@ const Group = () => {
 
   const [groups, setGroups] = useState({});
 
+  const socket = useRef(null);
+  useEffect(() => {
+    // get the first data
+    apiInstance.get(`retro/${localStorage.getItem("retro_id")}/get-group/`).then((response) => {
+      setGoodCards(response.data.good_cards);
+      setBadCards(response.data.bad_cards);
+    }).catch((error) => {
+      console.log(error);
+    });
+
+    socket.current = new WebSocket(
+      `ws://localhost:8000/ws/socket-server/retro/group/${localStorage.getItem(
+        "retro_id"
+      )}/?token=${localStorage.getItem("access_token")}`
+    );
+
+    socket.current.onopen = () => {
+      console.log("WebSocket connection opened");
+      // socket.current.send(
+      //   JSON.stringify({
+      //     type: "join_board_group",
+      //     data: { board_id: boardId },
+      //   })
+      // );
+    };
+
+    socket.current.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      // console.log(message);
+      // setGoodCards(message.good_cards);
+      // setBadCards(message.bad_cards);
+      setGroups(message.groups);
+    };
+
+    socket.current.onclose = () => {
+      console.log("WebSocket connection closed");
+    };
+  }, []);
+
   useEffect(() => {
     // write a code for setting groups
-    let group_id = 0;
+    let group_id = 1;
     let init_groups = {};
     good_cards.map((card) => {
       const group = {
-        id: uuid().toString(),
+        // id: uuid().toString(),
+        id: card.id,
         title: "Group" + group_id,
         cardIds: [card.id],
         hide: false,
@@ -56,7 +90,8 @@ const Group = () => {
     });
     bad_cards.map((card) => {
       const group = {
-        id: uuid().toString(),
+        // id: uuid().toString(),
+        id: card.id,
         title: "Group" + group_id,
         cardIds: [card.id],
         hide: false,
@@ -66,34 +101,62 @@ const Group = () => {
       group_id += 1;
     });
     setGroups(init_groups);
+    console.log("init_groups");
+    console.log(init_groups);
   }, []);
 
   const handleChangeGroupName = (name, group_id) => {
     const the_group = groups[group_id];
     the_group.title = name;
     setGroups({ ...groups, [group_id]: the_group });
+    // send new group to others
+    socket.current.send(
+      JSON.stringify({
+        type: "change_group",
+        data: {
+          // good_cards: good_cards,
+          // bad_cards: bad_cards,
+          groups: { ...groups, [group_id]: the_group }
+        },
+      })
+    );
   };
 
   const handleClickHide = (group_id) => {
     const the_group = groups[group_id];
     the_group.hide = !the_group.hide;
     setGroups({ ...groups, [group_id]: the_group });
+    // // send new group to others
+    // socket.current.send(
+    //   JSON.stringify({
+    //     type: "change_group",
+    //     data: {
+    //       good_cards: good_cards,
+    //       bad_cards: bad_cards,
+    //       groups: { ...groups, [group_id]: the_group }
+    //     },
+    //   })
+    // );
   };
 
   const handleDragEnd = (result) => {
     const { source, destination } = result;
+    // send result to socket and get it and call it with it
     console.log(result);
+
     // If dropped outside of a droppable area
     if (!destination) {
       const sourceGroup = groups[source.droppableId];
       const sourceCardIds = Array.from(sourceGroup.cardIds);
+
       if (sourceCardIds.length == 1) return;
+
       const [movedCard] = sourceCardIds.splice(source.index, 1);
       console.log(movedCard);
       const newSourceGroup = { ...sourceGroup, cardIds: sourceCardIds };
       const newGroup = {
         id: uuid().toString(),
-        title: "hello",
+        title: "تست",
         cardIds: [movedCard],
         hide: false,
         class: sourceGroup.class,
@@ -103,6 +166,31 @@ const Group = () => {
         [newSourceGroup.id]: newSourceGroup,
         [newGroup.id]: newGroup,
       });
+
+      socket.current.send(
+        JSON.stringify({
+          type: "split",
+          data: {
+            card: source,
+          },
+        })
+      );
+      // send new group to others
+      // socket.current.send(
+      //   JSON.stringify({
+      //     type: "change_group",
+      //     data: {
+      //       // good_cards: good_cards,
+      //       // bad_cards: bad_cards,
+      //       groups: {
+      //         ...groups,
+      //         [newSourceGroup.id]: newSourceGroup,
+      //         [newGroup.id]: newGroup,
+      //       }
+      //     },
+      //   })
+      // );
+
       return;
     }
 
@@ -114,32 +202,109 @@ const Group = () => {
       newCardIds.splice(destination.index, 0, reorderedCard);
       const newGroup = { ...group, cardIds: newCardIds };
       setGroups({ ...groups, [newGroup.id]: newGroup });
+
+      // // send new group to others
+      // socket.current.send(
+      //   JSON.stringify({
+      //     type: "change_group",
+      //     data: {
+      //       // good_cards: good_cards,
+      //       // bad_cards: bad_cards,
+      //       groups: { ...groups, [newGroup.id]: newGroup }
+      //     },
+      //   })
+      // );
+
     } else {
       // If dropped in a different droppable area
       const sourceGroup = groups[source.droppableId];
       const destGroup = groups[destination.droppableId];
+
       if (sourceGroup.class != destGroup.class) return;
+
       const sourceCardIds = Array.from(sourceGroup.cardIds);
       const destCardIds = Array.from(destGroup.cardIds);
       const [movedCard] = sourceCardIds.splice(source.index, 1);
       destCardIds.splice(destination.index, 0, movedCard);
       let newSourceGroup = {};
       const newDestGroup = { ...destGroup, cardIds: destCardIds };
+
       if (sourceCardIds.length == 0) {
         delete groups[source.droppableId];
         setGroups({
           ...groups,
           [newDestGroup.id]: newDestGroup,
         });
+
+        socket.current.send(
+          JSON.stringify({
+            type: "merge",
+            data: {
+              parent_card: destination,
+              card: source,
+            },
+          })
+        );
+
+        // send new group to others
+        // socket.current.send(
+        //   JSON.stringify({
+        //     type: "change_group",
+        //     data: {
+        //       good_cards: good_cards,
+        //       bad_cards: bad_cards,
+        //       groups: {
+        //         ...groups,
+        //         [newDestGroup.id]: newDestGroup,
+        //       }
+        //     },
+        //   })
+        // );
+
         return;
       } else {
         newSourceGroup = { ...sourceGroup, cardIds: sourceCardIds };
+        // socket.current.send(
+        //   JSON.stringify({
+        //     type: "merge",
+        //     data: {
+        //       parent_card: destination,
+        //       card: source,
+        //     },
+        //   })
+        // );
       }
       setGroups({
         ...groups,
         [newSourceGroup.id]: newSourceGroup,
         [newDestGroup.id]: newDestGroup,
       });
+
+      socket.current.send(
+        JSON.stringify({
+          type: "merge",
+          data: {
+            parent_card: destination,
+            card: source,
+          },
+        })
+      );
+
+      // send new group to others
+      // socket.current.send(
+      //   JSON.stringify({
+      //     type: "change_group",
+      //     data: {
+      //       good_cards: good_cards,
+      //       bad_cards: bad_cards,
+      //       groups: {
+      //         ...groups,
+      //         [newSourceGroup.id]: newSourceGroup,
+      //         [newDestGroup.id]: newDestGroup,
+      //       }
+      //     },
+      //   })
+      // );
     }
   };
 
@@ -162,38 +327,6 @@ const Group = () => {
               </div>
               <div className="RetroReflect-list-textfield">
                 <PerTextField>
-                  {/* <StyledTextField
-                  margin="normal"
-                  variant="filled"
-                  required
-                  fullWidth
-                  placeholder="بازتاب افکار خورد را بنویسید"
-                  defaultValue={""}
-                  // onKeyDown={(e) => handleKeyDown(e, "green")}
-                  InputProps={{
-                    disableUnderline: true,
-                    style: {
-                      fontFamily: "Vazir",
-                      backgroundColor: "$secondary",
-                    },
-                  }}
-                  InputLabelProps={{
-                    style: {
-                      fontFamily: "Vazir",
-                      // fontSize: "1.6rem",
-                    },
-                  }}
-                  hiddenLabel
-                  sx={{
-                    border: "none",
-                    borderRadius: "0.5rem",
-                    // borderRadius: "0.5rem",
-                    "& input::placeholder": {
-                      fontSize: "1rem",
-                    },
-                    margin: 0,
-                  }}
-                /> */}
                 </PerTextField>
               </div>
               <div className="RetroReflect-list-card">
@@ -354,7 +487,12 @@ const Group = () => {
             </RetroList>
           </div>
         </div>
-        <NextBtn/>
+        {/* if is admin ? */}
+        <NextBtn
+          currentStep={"Group"}
+          text={"بعدی"}
+          WebSocket={socket.current}
+        />
       </div>
     </DragDropContext>
   );
