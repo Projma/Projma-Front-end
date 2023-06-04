@@ -19,6 +19,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
 import { convertNumberToPersian } from "../../../utilities/helpers";
 import useTheme from "../../../hooks/useTheme";
+import AddCard from "./AddCard";
 
 const List = ({ task, name, listId, index, boardId }) => {
   const { addCardToList, removeList, editListName, setIsReq, socket } =
@@ -287,56 +288,11 @@ const List = ({ task, name, listId, index, boardId }) => {
               </div>
             </div>
             {addCard && (
-              <div className="list_add-card">
-                <form
-                  className="list_add-card-form"
-                  onSubmit={(e) => handleAddCardSubmit(e)}
-                >
-                  <PerTextField>
-                    <StyledTextField
-                      margin="normal"
-                      label="اسم کارت"
-                      variant="filled"
-                      required
-                      fullWidth
-                      autoFocus
-                      onChange={(e) =>
-                        setCardName(convertNumberToPersian(e.target.value))
-                      }
-                      value={cardName}
-                      placeholder="اسم کارت را در این بخش بنویسید"
-                      InputProps={{
-                        disableUnderline: true,
-                        style: {
-                          // height: "50px",
-                          // padding: "0 14px",
-                          fontFamily: "Vazir",
-                          // fontSize: "1.7rem",
-                        },
-                      }}
-                      InputLabelProps={{
-                        style: {
-                          fontFamily: "Vazir",
-                          // fontSize: "1.6rem",
-                        },
-                      }}
-                      sx={{
-                        backgroundColor: "$secondary",
-                        borderBottom: "0.2rem solid $tertiary",
-                        borderRadius: "0.5rem",
-                        // borderRadius: "0.5rem",
-                        "& input::placeholder": {
-                          fontSize: "1.2rem",
-                        },
-                        margin: 0,
-                      }}
-                    />
-                  </PerTextField>
-                  <Button type="submit" variant="contained">
-                    افزودن
-                  </Button>
-                </form>
-              </div>
+              <AddCard
+                handleAddCardSubmit={handleAddCardSubmit}
+                setCardName={setCardName}
+                cardName={cardName}
+              />
             )}
           </div>
           <Droppable
