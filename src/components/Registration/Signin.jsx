@@ -28,7 +28,7 @@ import {
   convertNumberToPersian,
   convertNumberToEnglish,
 } from "../../utilities/helpers";
-// import Header from "../Header/Header";
+import useTheme from "../../hooks/useTheme"; 
 
 function Copyright(props) {
   return (
@@ -49,6 +49,7 @@ export default function SignIn() {
   const [password, setPassword] = React.useState("");
   const [errorPassword, setErrorPassword] = React.useState(false);
   const [isPost, setIsPost] = useState(false);
+  const {theme, getColor} = useTheme();
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   let navigate = useNavigate(); // comment for tests
@@ -95,7 +96,7 @@ export default function SignIn() {
       });
   };
 
-  const theme = createTheme({
+  const muitheme = createTheme({
     direction: "rtl",
   });
   const cacheRtl = createCache({
@@ -104,22 +105,23 @@ export default function SignIn() {
   });
 
   return (
-    <div>
+    <div style={{width: "100%", height: "100%"}}>
       {/* <Header></Header> */}
       <Helmet>
         <title>صفحه ورود</title>
       </Helmet>
       {isPost ? <Loading /> : null}
       <CacheProvider value={cacheRtl}>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={muitheme}>
           <Container
             component="main"
             maxWidth="xs"
+            maxHeight="xs"
             style={{
               borderRadius: 3,
+              width: "100%", height: "100%"
             }}
           >
-            <CssBaseline />
             <Box
               className="Registration--Box"
               sx={{
@@ -133,6 +135,7 @@ export default function SignIn() {
                 component="h1"
                 variant="h5"
                 className="Signin--Box-Type"
+                style={{color: getColor(theme.minorBg)}}
               >
                 صفحه ورود
               </Typography>

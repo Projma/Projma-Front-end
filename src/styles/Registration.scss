@@ -1,13 +1,3 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: "Roboto", sans-serif;
-}
-@font-face {
-  font-family: Vazir;
-  src: url(../fonts/Vazir.ttf);
-}
 .m-5-auto {
   margin: 5rem auto;
 }
@@ -17,9 +7,8 @@
   margin-right: 1rem;
   padding: 0.6rem;
   width: 10rem;
-  background: #222;
+  background: $primary;
   border: none;
-  color: #fff;
   font-size: 1.2rem;
   transition: all 0.5s;
   cursor: pointer;
@@ -28,7 +17,6 @@
 .Registration--Box-Avatar {
   align-items: center;
   justify-content: center;
-  //background-color: #001e3c !important;
 }
 
 .Registration--Box {
@@ -37,11 +25,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.main-title,
-.main-para {
-  color: #f1f1f1;
 }
 
 .main-title {
@@ -87,7 +70,6 @@ h2 {
 .Signin--Link {
   font-family: "Vazir" !important;
   font-size: 110% !important;
-  color: white;
 }
 
 .Registration--LinkToSignin {
@@ -98,7 +80,6 @@ h2 {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 10%;
-  color: #e1e4e8;
 }
 
 .Registration--ShowError-type {
@@ -111,7 +92,6 @@ h2 {
 }
 
 .Registration--StyledTextField-InputText {
-  color: #fff;
   font-family: "Vazir" !important;
   font-size: 1.3rem !important;
 }
@@ -129,8 +109,8 @@ h2 {
   border-radius: 9px;
   padding: 2rem;
   margin: 2rem 0 1rem 0;
-  /* mt: 3, */
-  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
+  background-color: $minor-bg;
+  border-color: none;
 }
 
 .EmailVerification--Box {
@@ -138,17 +118,16 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  //background-color: white;
   padding-bottom: 10;
-  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
   border-radius: 3;
+  background-color: $minor-bg;
+  border-color: none;
 }
 
 .EmailVerification--text {
   font-family: "Vazir" !important;
   font-weight: bold !important;
   padding-top: 45;
-  color: white;
   font-size: 19 !important;
 }
 
@@ -169,10 +148,6 @@ form span {
   float: left;
 }
 
-.home-page-title {
-  color: #222;
-}
-
 .center_component {
   margin-top: 60px;
 }
@@ -183,21 +158,18 @@ form span {
 
 .Registration--Box-Type {
   text-align: right;
-  color: white;
   font-family: "Vazir" !important;
 }
 
 .Signin--Box-Type {
   font-family: "Vazir" !important;
   font-size: 150% !important;
-  color: white;
   font-weight: bold;
   margin-bottom: 4%;
 }
 
 .button_submit {
   border: none;
-  color: white;
   padding: 10px 100px;
   text-align: center;
   text-decoration: none;
@@ -211,10 +183,3 @@ form span {
   direction: right;
 }
 
-.shadow {
-  box-shadow: 0px 7px 9px -4px #030000;
-}
-
-body {
-  //background-color: #001e3c !important;
-}

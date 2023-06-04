@@ -233,7 +233,7 @@ const Calendar = () => {
         />
       </Modal>
       <FullCalendar
-        height={"87vh"}
+        height={"86vh"}
         locale={faLocale}
         plugins={[dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin]}
         initialView="dayGridMonth"

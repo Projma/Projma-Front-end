@@ -68,7 +68,7 @@ function App() {
           tooltip: {
             backgroundColor: theme.mainBg,
             border: `0.2rem solid ${theme.primary} !important`,
-            fontSize: "1.2rem !important",
+            fontSize: "1.3rem !important",
             color: getColor(theme.mainBg)
           }
         }
@@ -76,7 +76,7 @@ function App() {
         styleOverrides: {
           root: {
             textAlign: "center",
-            border: `0.2rem solid ${theme.primary} !important`
+            border: `none !important`
           },
         }
       }
