@@ -62,8 +62,8 @@ const Group = () => {
     socket.current.onmessage = (event) => {
       const message = JSON.parse(event.data);
       // console.log(message);
-      setGoodCards(message.good_cards);
-      setBadCards(message.bad_cards);
+      // setGoodCards(message.good_cards);
+      // setBadCards(message.bad_cards);
       setGroups(message.groups);
     };
 
@@ -74,11 +74,12 @@ const Group = () => {
 
   useEffect(() => {
     // write a code for setting groups
-    let group_id = 0;
+    let group_id = 1;
     let init_groups = {};
     good_cards.map((card) => {
       const group = {
-        id: uuid().toString(),
+        // id: uuid().toString(),
+        id: card.id,
         title: "Group" + group_id,
         cardIds: [card.id],
         hide: false,
@@ -89,7 +90,8 @@ const Group = () => {
     });
     bad_cards.map((card) => {
       const group = {
-        id: uuid().toString(),
+        // id: uuid().toString(),
+        id: card.id,
         title: "Group" + group_id,
         cardIds: [card.id],
         hide: false,
@@ -112,8 +114,8 @@ const Group = () => {
       JSON.stringify({
         type: "change_group",
         data: {
-          good_cards: good_cards,
-          bad_cards: bad_cards,
+          // good_cards: good_cards,
+          // bad_cards: bad_cards,
           groups: { ...groups, [group_id]: the_group }
         },
       })
@@ -139,18 +141,22 @@ const Group = () => {
 
   const handleDragEnd = (result) => {
     const { source, destination } = result;
+    // send result to socket and get it and call it with it
     console.log(result);
+
     // If dropped outside of a droppable area
     if (!destination) {
       const sourceGroup = groups[source.droppableId];
       const sourceCardIds = Array.from(sourceGroup.cardIds);
+
       if (sourceCardIds.length == 1) return;
+
       const [movedCard] = sourceCardIds.splice(source.index, 1);
       console.log(movedCard);
       const newSourceGroup = { ...sourceGroup, cardIds: sourceCardIds };
       const newGroup = {
         id: uuid().toString(),
-        title: "hello",
+        title: "تست",
         cardIds: [movedCard],
         hide: false,
         class: sourceGroup.class,
@@ -161,21 +167,30 @@ const Group = () => {
         [newGroup.id]: newGroup,
       });
 
-      // send new group to others
       socket.current.send(
         JSON.stringify({
-          type: "change_group",
+          type: "split",
           data: {
-            good_cards: good_cards,
-            bad_cards: bad_cards,
-            groups: {
-              ...groups,
-              [newSourceGroup.id]: newSourceGroup,
-              [newGroup.id]: newGroup,
-            }
+            card: source,
           },
         })
       );
+      // send new group to others
+      // socket.current.send(
+      //   JSON.stringify({
+      //     type: "change_group",
+      //     data: {
+      //       // good_cards: good_cards,
+      //       // bad_cards: bad_cards,
+      //       groups: {
+      //         ...groups,
+      //         [newSourceGroup.id]: newSourceGroup,
+      //         [newGroup.id]: newGroup,
+      //       }
+      //     },
+      //   })
+      // );
+
       return;
     }
 
@@ -188,29 +203,32 @@ const Group = () => {
       const newGroup = { ...group, cardIds: newCardIds };
       setGroups({ ...groups, [newGroup.id]: newGroup });
 
-      // send new group to others
-      socket.current.send(
-        JSON.stringify({
-          type: "change_group",
-          data: {
-            good_cards: good_cards,
-            bad_cards: bad_cards,
-            groups: { ...groups, [newGroup.id]: newGroup }
-          },
-        })
-      );
+      // // send new group to others
+      // socket.current.send(
+      //   JSON.stringify({
+      //     type: "change_group",
+      //     data: {
+      //       // good_cards: good_cards,
+      //       // bad_cards: bad_cards,
+      //       groups: { ...groups, [newGroup.id]: newGroup }
+      //     },
+      //   })
+      // );
 
     } else {
       // If dropped in a different droppable area
       const sourceGroup = groups[source.droppableId];
       const destGroup = groups[destination.droppableId];
+
       if (sourceGroup.class != destGroup.class) return;
+
       const sourceCardIds = Array.from(sourceGroup.cardIds);
       const destCardIds = Array.from(destGroup.cardIds);
       const [movedCard] = sourceCardIds.splice(source.index, 1);
       destCardIds.splice(destination.index, 0, movedCard);
       let newSourceGroup = {};
       const newDestGroup = { ...destGroup, cardIds: destCardIds };
+
       if (sourceCardIds.length == 0) {
         delete groups[source.droppableId];
         setGroups({
@@ -218,44 +236,75 @@ const Group = () => {
           [newDestGroup.id]: newDestGroup,
         });
 
+        socket.current.send(
+          JSON.stringify({
+            type: "merge",
+            data: {
+              parent_card: destination,
+              card: source,
+            },
+          })
+        );
+
         // send new group to others
-      socket.current.send(
-        JSON.stringify({
-          type: "change_group",
-          data: {
-            good_cards: good_cards,
-            bad_cards: bad_cards,
-            groups: {
-              ...groups,
-              [newDestGroup.id]: newDestGroup,
-            }
-          },
-        })
-      );
+        // socket.current.send(
+        //   JSON.stringify({
+        //     type: "change_group",
+        //     data: {
+        //       good_cards: good_cards,
+        //       bad_cards: bad_cards,
+        //       groups: {
+        //         ...groups,
+        //         [newDestGroup.id]: newDestGroup,
+        //       }
+        //     },
+        //   })
+        // );
+
         return;
       } else {
         newSourceGroup = { ...sourceGroup, cardIds: sourceCardIds };
+        // socket.current.send(
+        //   JSON.stringify({
+        //     type: "merge",
+        //     data: {
+        //       parent_card: destination,
+        //       card: source,
+        //     },
+        //   })
+        // );
       }
       setGroups({
         ...groups,
         [newSourceGroup.id]: newSourceGroup,
         [newDestGroup.id]: newDestGroup,
       });
-      // send new group to others
+
       socket.current.send(
         JSON.stringify({
-          type: "change_group",
+          type: "merge",
           data: {
-            good_cards: good_cards,
-            bad_cards: bad_cards,
-            groups: {
-              ...groups,
-              [newSourceGroup.id]: newSourceGroup,
-              [newDestGroup.id]: newDestGroup,
-            }
+            parent_card: destination,
+            card: source,
           },
         })
       );
+
+      // send new group to others
+      // socket.current.send(
+      //   JSON.stringify({
+      //     type: "change_group",
+      //     data: {
+      //       good_cards: good_cards,
+      //       bad_cards: bad_cards,
+      //       groups: {
+      //         ...groups,
+      //         [newSourceGroup.id]: newSourceGroup,
+      //         [newDestGroup.id]: newDestGroup,
+      //       }
+      //     },
+      //   })
+      // );
     }
   };
 
@@ -439,8 +488,10 @@ const Group = () => {
           </div>
         </div>
         {/* if is admin ? */}
-        <NextBtn 
+        <NextBtn
           currentStep={"Group"}
+          text={"بعدی"}
+          WebSocket={socket.current}
         />
       </div>
     </DragDropContext>
