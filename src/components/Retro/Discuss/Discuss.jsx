@@ -19,7 +19,9 @@ const Discuss = () => {
     const { boardId } = useParams();
     const [boardName, setBoardName] = React.useState("");
     const [BoardDescription, setBoardDescription] = React.useState("");
-    const socket = useRef(null);
+    const [groups_and_cards, setGroups_and_cards] = useState([]);
+    // const socket = useRef(null);
+
     useEffect(() => {
         apiInstance.
             get(`/board/${boardId}/get-board-overview/`).then((res) => {
@@ -28,29 +30,41 @@ const Discuss = () => {
             }).catch((err) => {
                 console.log(err);
             });
-        socket.current = new WebSocket(
-            `ws://localhost:8000/ws/socket-server/retro/session/${localStorage.getItem("retro_id")}/?token=${localStorage.getItem(
-                "access_token"
-            )}`
-        );
-        socket.current.onopen = () => {
-            console.log("WebSocket connection opened");
-            socket.current.send(
-                JSON.stringify({
-                    type: "session_next",
-                })
-            );
-        };
 
-        socket.current.onmessage = (event) => {
-            const message = JSON.parse(event.data);
-            console.log(message);
-            // dnd_socket(message, message.type);
-        };
+        apiInstance.get(`retro/${localStorage.getItem("retro_id")}/get-group/`).then((res) => {
+            console.log(res.data);
+            setGroups_and_cards(res.data);
+        }).catch((err) => {
+            console.log(err);
+        });
 
-        socket.current.onclose = () => {
-            console.log("WebSocket connection closed");
-        };
+        // socket.current = new WebSocket(
+        //     `ws://localhost:8000/ws/socket-server/retro/discuss/${localStorage.getItem(
+        //         "retro_id"
+        //     )}/?token=${localStorage.getItem("access_token")}`
+        // );
+        // socket.current.onopen = () => {
+        //     console.log("WebSocket connection opened");
+        //     // socket.current.send(
+        //     //   JSON.stringify({
+        //     //     type: "join_board_group",
+        //     //     data: { board_id: boardId },
+        //     //   })
+        //     // );
+        // };
+
+        // socket.current.onmessage = (event) => {
+        //     const message = JSON.parse(event.data);
+        //     console.log(message);
+        //     // dnd_socket(message, message.type);
+        //     // setGoodCards(message.good_cards);
+        //     // setBadCards(message.bad_cards);
+        //     // setGroups(message.groups);
+        // };
+
+        // socket.current.onclose = () => {
+        //     console.log("WebSocket connection closed");
+        // };
 
     }, []);
 
@@ -82,86 +96,112 @@ const Discuss = () => {
                 <p className="paragraph">
                     برای ثبت گام‌های بعدی، کارت‌های کاری آماده تهیه کنید.
                 </p>
-                <div className="discuss-topic">
-                    <span className="discuss-topic-item">
-                        <span className="discuss-topic-item-title">"</span>
-                        <span className="discuss-topic-item-title">کم کاری ممد</span>
-                        <span className="discuss-topic-item-title">"</span>
-                        <span className="discuss-topic-item-title"> </span>
-                        <span className="discuss-topic-item-like">
-                            <ThumbUpTwoToneIcon className="discuss-topic-item-like-icon" />
-                            <span className="discuss-topic-item-like-number">{convertNumberToPersian(10)}</span>
+
+                <div>
+                    <div className="discuss-topic">
+                        <span className="discuss-topic-item">
+                            <span className="discuss-topic-item-title">"</span>
+                            <span className="discuss-topic-item-title">کم کاری ممد</span>
+                            <span className="discuss-topic-item-title">"</span>
+                            <span className="discuss-topic-item-title"> </span>
+                            <span className="discuss-topic-item-like">
+                                <ThumbUpTwoToneIcon className="discuss-topic-item-like-icon" />
+                                <span className="discuss-topic-item-like-number">{convertNumberToPersian(10)}</span>
+                            </span>
                         </span>
-                    </span>
-                </div>
-                <Container>
-                    {/* show all cards(<RetroCard>) here width Grid in responsible mode */}
-                    <Grid
-                        container
-                        columns={{ xs: 2, sm: 4, md: 4 }}
-                        spacing={{ xs: 1, sm: 2, md: 3 }}
-                        sx={{
-                            // paddingTop: "5%",
-                            // marginTop: "10%",
-                            marginBottom: "7%",
-                            // backgroundColor: "#f5f5f5",
-                        }}
-                    >
-                        <Grid item xs={2} sm={2} md={2} sx={{}} >
-                            {/* <Paper
+                    </div>
+                    <Container>
+                        {/* show all cards(<RetroCard>) here width Grid in responsible mode */}
+                        <Grid
+                            container
+                            columns={{ xs: 2, sm: 4, md: 4 }}
+                            spacing={{ xs: 1, sm: 2, md: 3 }}
                             sx={{
-                                // padding: "10%",
-                                textAlign: "center",
-                                // color: "#007fff",
-                                backgroundColor: "#007fff", // 5090D3
-                                borderRadius: "10px",
-                                minHeight: "150px",
-                                margin: "10%",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                // flexDirection: "column",
-                                ":hover": {
-                                    backgroundColor: "#5090D3",
-                                    cursor: "pointer",
-                                },
+                                marginBottom: "7%",
                             }}
                         >
-                            <CreateBoardModal
-                                workspace_id={workspace.id}
-                                sx={{
-                                    onclick: () => {
-                                        setFlag(!flag);
-                                        // flag++;
-                                    },
-                                }}
-                            />
-                        </Paper> */}
-                            {/*add green label to the RetroCard */}
-                            <RetroCard>
-                                مناظره هایی که در چت گروهی به جایی نمی رسد
-                            </RetroCard>
+                            <Grid item xs={2} sm={2} md={2} sx={{}} >
+                                {/*add green label to the RetroCard */}
+                                <RetroCard>
+                                    مناظره هایی که در چت گروهی به جایی نمی رسد
+                                </RetroCard>
+                            </Grid>
+                            <Grid item xs={2} sm={2} md={2} sx={{}}>
+                                <RetroCard>
+                                    برخی از مردم همیشه تمام وقت خود را برای پخش می گذارند. به سختی می توان ایده های من را مطرح کرد
+                                </RetroCard>
+                            </Grid>
+                            <Grid item xs={2} sm={2} md={2} sx={{}}>
+                                <RetroCard>
+                                    من مایلم به کارآموزان و کارکنان جوان خود فضای بیشتری برای به اشتراک گذاشتن ایده ها و تفکر تازه خود بدهم
+                                </RetroCard>
+                            </Grid>
+                            <Grid item xs={2} sm={2} md={2} sx={{}}>
+                                <RetroCard>
+                                    لعنت به این زندگی کوفتی.
+                                </RetroCard>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={2} sm={2} md={2} sx={{}}>
-                            <RetroCard>
-                                برخی از مردم همیشه تمام وقت خود را برای پخش می گذارند. به سختی می توان ایده های من را مطرح کرد
-                            </RetroCard>
-                        </Grid>
-                        <Grid item xs={2} sm={2} md={2} sx={{}}>
-                            <RetroCard>
-                                من مایلم به کارآموزان و کارکنان جوان خود فضای بیشتری برای به اشتراک گذاشتن ایده ها و تفکر تازه خود بدهم
-                            </RetroCard>
-                        </Grid>
-                        <Grid item xs={2} sm={2} md={2} sx={{}}>
-                            <RetroCard>
-                                لعنت به این زندگی کوفتی.
-                            </RetroCard>
-                        </Grid>
-                    </Grid>
 
-                </Container>
+                    </Container>
+                </div>
+                {/* like the above div but with different color */}
+
+                {
+                    groups_and_cards.map((group, index) => {
+                        return (
+                            <div key={index}>
+                                <div className="discuss-topic">
+                                    <span className="discuss-topic-item">
+                                        <span className="discuss-topic-item-title">"</span>
+                                        <span className="discuss-topic-item-title">{group.name}</span>
+                                        <span className="discuss-topic-item-title">"</span>
+                                        <span className="discuss-topic-item-title"> </span>
+                                        <span className="discuss-topic-item-like">
+                                            <ThumbUpTwoToneIcon className="discuss-topic-item-like-icon" />
+                                            <span className="discuss-topic-item-like-number">{convertNumberToPersian(group.likes)}</span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <Container>
+                                    {/* show all cards(<RetroCard>) here width Grid in responsible mode */}
+                                    <Grid
+                                        container
+                                        columns={{ xs: 2, sm: 4, md: 4 }}
+                                        spacing={{ xs: 1, sm: 2, md: 3 }}
+                                        sx={{
+                                            // paddingTop: "5%",
+                                            // marginTop: "10%",
+                                            marginBottom: "7%",
+                                            // backgroundColor: "#f5f5f5",
+                                        }}
+                                    >
+                                        {
+                                            group.cards.map((card, index) => {
+                                                return (
+                                                    <Grid item xs={2} sm={2} md={2} sx={{}} key={index}>
+                                                        {/*add green label to the good RetroCard */}
+                                                        {/*add red label to the bad RetroCard */}
+                                                        <RetroCard>
+                                                            {card.text}
+                                                        </RetroCard>
+                                                    </Grid>
+                                                );
+                                            }
+                                            )
+                                        }
+                                    </Grid>
+                                </Container>
+                            </div>
+                        );
+                    })
+                }
+
             </div>
-            <NextBtn />
+            {/* if is admin ? */}
+            <NextBtn 
+                currentStep={"Discuss"}
+            />
         </>
     );
 };
