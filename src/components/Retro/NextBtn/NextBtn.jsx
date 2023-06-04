@@ -20,40 +20,43 @@ const NextBtn = (props) => {
     const navigate = useNavigate();
     const [value, setValue] = React.useState(0);
     const navigateToNextStep = () => {
-        var boardId = "group"
+        var nextStep = "group"
         if (props.currentStep === "Reflect") {
-            boardId = "group";
+            nextStep = "group";
         } else if (props.currentStep === "Group") {
-            boardId = "vote";
+            nextStep = "vote";
         } else if (props.currentStep === "Vote") {
-            boardId = "discuss";
+            nextStep = "discuss";
         } else if (props.currentStep === "Discuss") {
-            boardId = "board";
+            nextStep = "board";
         } else {
-            boardId = "";
+            nextStep = "";
         }
 
-        socket.current.send(
+        // socket.current.send(
+        //     JSON.stringify({
+        //         type: "navigate_to_next_step",
+        //         data: { nextStep: nextStep },
+        //     })
+        // );
+        props.WebSocket.send(
             JSON.stringify({
                 type: "navigate_to_next_step",
-                data: { nextStep: boardId },
+                data: { nextStep: nextStep },
             })
         );
 
         // close connection
-        socket.current.close();
+        // if (socket.current !== null)
+        //     socket.current.close();
+        if (props.WebSocket !== null)
+            props.WebSocket.close();
 
-        if (boardId === "board") {
+        if (nextStep === "board") {
             localStorage.removeItem("retro_id");
             navigate(`/workspace/${workspaceId}/kanban/${boardId}/board`);
-        } else if (boardId === "group") {
-            navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/group`);
-        } else if (boardId === "vote") {
-            navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/vote`);
-        } else if (boardId === "discuss") {
-            navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/discuss`);
         } else {
-            navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/reflect`);
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/${nextStep}`);
         }
 
         // console.log("here")
@@ -61,41 +64,50 @@ const NextBtn = (props) => {
 
     const handleNavigation = (message, type) => {
         // if (type === "navigate_to_next_step") {
+        
+        // close connection 
+        // if (socket.current !== null)
+        //     socket.current.close();
+
+        if (props.WebSocket !== null)
+            props.WebSocket.close();
+        
         if (message.data.nextStep === "board") {
             localStorage.removeItem("retro_id");
             navigate(`/workspace/${workspaceId}/kanban/${boardId}/${message.data.nextStep}`);
         } else {
-            navigate(`/workspace/${workspaceId}/kanban/${boardId}/${message.data.nextStep}`);
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/${message.data.nextStep}`);
         }
         // }
     }
 
     useEffect(() => {
 
-        socket.current = new WebSocket(
-            `ws://localhost:8000/ws/socket-server/retro/session/${localStorage.getItem("retro_id")}/?token=${localStorage.getItem(
-                "access_token"
-            )}`
-        );
-        socket.current.onopen = () => {
-            console.log("WebSocket connection opened");
-            // socket.current.send(
-            //   JSON.stringify({
-            //     type: "join_board_group",
-            //     data: { board_id: boardId },
-            //   })
-            // );
-        };
+        // socket.current = new WebSocket(
+        //     `ws://localhost:8000/ws/socket-server/retro/session/${localStorage.getItem("retro_id")}/?token=${localStorage.getItem(
+        //         "access_token"
+        //     )}`
+        // );
 
-        socket.current.onmessage = (event) => {
-            const message = JSON.parse(event.data);
-            console.log(message);
-            handleNavigation(message, message.type);
-        };
+        // socket.current.onopen = () => {
+        //     console.log("WebSocket connection opened");
+        //     // socket.current.send(
+        //     //   JSON.stringify({
+        //     //     type: "join_board_group",
+        //     //     data: { board_id: boardId },
+        //     //   })
+        //     // );
+        // };
 
-        socket.current.onclose = () => {
-            console.log("WebSocket connection closed");
-        };
+        // socket.current.onmessage = (event) => {
+        //     const message = JSON.parse(event.data);
+        //     console.log(message);
+        //     handleNavigation(message, message.type);
+        // };
+
+        // socket.current.onclose = () => {
+        //     console.log("WebSocket connection closed");
+        // };
 
     }, [])
 
@@ -119,7 +131,7 @@ const NextBtn = (props) => {
                     borderRadius: '10px'
                 }}
             >
-                <BottomNavigationAction label="بعدی" icon={<NavigateNextIcon />} onClick={
+                <BottomNavigationAction label={props.text} icon={<NavigateNextIcon />} onClick={
                     () => {
                         navigateToNextStep();
                     }
