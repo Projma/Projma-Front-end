@@ -142,7 +142,14 @@ const Group = () => {
   const handleDragEnd = (result) => {
     const { source, destination } = result;
     // send result to socket and get it and call it with it
-    console.log(result);
+    // console.log("result");
+    // console.log(result);
+    // console.log(source); // {
+    // //     "index": 0,
+    // //     "droppableId": "card-1"
+    // // }
+    // get the text of card 
+
 
     // If dropped outside of a droppable area
     if (!destination) {
@@ -171,7 +178,8 @@ const Group = () => {
         JSON.stringify({
           type: "split",
           data: {
-            card: source,
+            card: source.droppableId,
+            // text: ...
           },
         })
       );
@@ -240,8 +248,8 @@ const Group = () => {
           JSON.stringify({
             type: "merge",
             data: {
-              parent_card: destination,
-              card: source,
+              parent_card: destination.droppableId,
+              card: source.droppableId,
             },
           })
         );
@@ -284,8 +292,8 @@ const Group = () => {
         JSON.stringify({
           type: "merge",
           data: {
-            parent_card: destination,
-            card: source,
+            parent_card: destination.droppableId,
+            card: source.droppableId,
           },
         })
       );
