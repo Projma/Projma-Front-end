@@ -3,6 +3,23 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 
 import user from "@testing-library/user-event";
 import CreateLabel from "./CreateLabel";
+import useTheme from "../../hooks/useTheme";
+
+vi.mock("../../hooks/useTheme", () => ({
+  __esModule: true,
+  default: () => ({
+    theme: {
+      name: "sun",
+      mainBg: "#e5e5e5",
+      minorBg: "#fff",
+      secondary: "#f8981c",
+      tertiary: "#f47922",
+      hover: "#f4792280",
+      primary: "#fdb713",
+    },
+    getColor: (bgColor) => "#000000",
+  }),
+}));
 
 test("it shows a textbox for label name and input color for label color and a button for creating", async () => {
   render(
