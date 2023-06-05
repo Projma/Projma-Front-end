@@ -17,31 +17,83 @@ import NextBtn from "../NextBtn/NextBtn";
 import apiInstance from "../../../utilities/axiosConfig";
 
 const Group = () => {
-  const [good_cards, setGoodCards] = useState([
-    { id: "card-3", content: "بذار نگات کنم تو رو تو رو یه عالمههههه" },
-    { id: "card-1", content: "با اینکه میدونم تهش برام غمهههههه", },
-    { id: "card-4", content: "هرچی صدات کنم تو رو بازم کمهههههه" },
-    { id: "card-2", content: "مال منییییی" },
-  ]);
+  // const [good_cards, setGoodCards] = useState([
+  //   { id: "card-3", content: "بذار نگات کنم تو رو تو رو یه عالمههههه" },
+  //   { id: "card-1", content: "با اینکه میدونم تهش برام غمهههههه", },
+  // ]);
+  // const [bad_cards, setBadCards] = useState([
+  //   { id: "card-5", content: "عین", },
+  //   { id: "card-8", content: "منو سر لج ننداز میرم یار میگم" },
+  // ]);
 
-  const [bad_cards, setBadCards] = useState([
-    { id: "card-5", content: "عین", },
-    { id: "card-8", content: "منو سر لج ننداز میرم یار میگم" },
-    { id: "card-6", content: "سلام علیکم والده‌ی مش ماشالا" },
-    { id: "card-7", content: "اینور اونورم ننداز میرم زن میگیرم" },
-  ]);
-
-  const [groups, setGroups] = useState({});
+  // const [groups, setGroups] = useState({});
+  const [groups, setGroups] = useState([]);
 
   const socket = useRef(null);
   useEffect(() => {
     // get the first data
-    apiInstance.get(`retro/${localStorage.getItem("retro_id")}/get-group/`).then((response) => {
-      setGoodCards(response.data.good_cards);
-      setBadCards(response.data.bad_cards);
+    apiInstance.get(`retro/${localStorage.getItem("retro_id")}/get-session-group/`).then((response) => {
+      // setGoodCards(response.data.good_cards);
+      // setBadCards(response.data.bad_cards);
+      setGroups(response.data.groups);
+      console.log(response.data.groups);
+      // {
+      //   "id": 2,
+      //   "board": 1,
+      //   "admin": 2,
+      //   "retro_step": 0,
+      //   "groups": [
+      //     {
+      //       "id": 1,
+      //       "name": "1",
+      //       "cards": [
+      //         {
+      //           "id": 1,
+      //           "text": "1"
+      //         }
+      //       ],
+      //       "hide": false
+      //     },
+      //     {
+      //       "id": 2,
+      //       "name": "2",
+      //       "cards": [
+      //         {
+      //           "id": 2,
+      //           "text": "2"
+      //         }
+      //       ],
+      //       "hide": false
+      //     },
+      //     {
+      //       "id": 3,
+      //       "name": "5",
+      //       "cards": [
+      //         {
+      //           "id": 3,
+      //           "text": "5"
+      //         }
+      //       ],
+      //       "hide": false
+      //     },
+      //     {
+      //       "id": 4,
+      //       "name": "7",
+      //       "cards": [
+      //         {
+      //           "id": 4,
+      //           "text": "7"
+      //         }
+      //       ],
+      //       "hide": false
+      //     }
+      //   ]
+      // }
     }).catch((error) => {
       console.log(error);
     });
+
+
 
     socket.current = new WebSocket(
       `ws://localhost:8000/ws/socket-server/retro/group/${localStorage.getItem(
@@ -50,7 +102,7 @@ const Group = () => {
     );
 
     socket.current.onopen = () => {
-      console.log("WebSocket connection opened");
+      console.log("Group WebSocket connection opened");
       // socket.current.send(
       //   JSON.stringify({
       //     type: "join_board_group",
@@ -68,58 +120,58 @@ const Group = () => {
     };
 
     socket.current.onclose = () => {
-      console.log("WebSocket connection closed");
+      console.log("Group WebSocket connection closed");
     };
   }, []);
 
-  useEffect(() => {
-    // write a code for setting groups
-    let group_id = 1;
-    let init_groups = {};
-    good_cards.map((card) => {
-      const group = {
-        // id: uuid().toString(),
-        id: card.id,
-        title: "Group" + group_id,
-        cardIds: [card.id],
-        hide: false,
-        class: "good",
-      };
-      init_groups[group.id] = group;
-      group_id += 1;
-    });
-    bad_cards.map((card) => {
-      const group = {
-        // id: uuid().toString(),
-        id: card.id,
-        title: "Group" + group_id,
-        cardIds: [card.id],
-        hide: false,
-        class: "bad",
-      };
-      init_groups[group.id] = group;
-      group_id += 1;
-    });
-    setGroups(init_groups);
-    console.log("init_groups");
-    console.log(init_groups);
-  }, []);
+  // useEffect(() => {
+  //   // write a code for setting groups
+  //   let group_id = 1;
+  //   let init_groups = {};
+  //   good_cards.map((card) => {
+  //     const group = {
+  //       // id: uuid().toString(),
+  //       id: card.id,
+  //       title: "Group" + group_id,
+  //       cardIds: [card.id],
+  //       hide: false,
+  //       class: "good",
+  //     };
+  //     init_groups[group.id] = group;
+  //     group_id += 1;
+  //   });
+  //   bad_cards.map((card) => {
+  //     const group = {
+  //       // id: uuid().toString(),
+  //       id: card.id,
+  //       title: "Group" + group_id,
+  //       cardIds: [card.id],
+  //       hide: false,
+  //       class: "bad",
+  //     };
+  //     init_groups[group.id] = group;
+  //     group_id += 1;
+  //   });
+  //   setGroups(init_groups);
+  //   console.log("init_groups");
+  //   console.log(init_groups);
+  // }, []);
 
   const handleChangeGroupName = (name, group_id) => {
     const the_group = groups[group_id];
     the_group.title = name;
     setGroups({ ...groups, [group_id]: the_group });
     // send new group to others
-    socket.current.send(
-      JSON.stringify({
-        type: "change_group",
-        data: {
-          // good_cards: good_cards,
-          // bad_cards: bad_cards,
-          groups: { ...groups, [group_id]: the_group }
-        },
-      })
-    );
+    // socket.current.send(
+    //   JSON.stringify({
+    //     type: "change_group",
+    //     data: {
+    //       // good_cards: good_cards,
+    //       // bad_cards: bad_cards,
+    //       groups: { ...groups, [group_id]: the_group }
+    //     },
+    //   })
+    // );
   };
 
   const handleClickHide = (group_id) => {
@@ -138,6 +190,14 @@ const Group = () => {
     //   })
     // );
   };
+
+  const updateGroups = () => {
+    apiInstance.get(`retro/${localStorage.getItem("retro_id")}/get-session-group/`).then((response) => {
+      setGroups(response.data.groups);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
 
   const handleDragEnd = (result) => {
     const { source, destination } = result;
@@ -198,7 +258,8 @@ const Group = () => {
       //     },
       //   })
       // );
-
+      
+      // updateGroups();
       return;
     }
 
@@ -269,6 +330,7 @@ const Group = () => {
         //   })
         // );
 
+        // updateGroups();
         return;
       } else {
         newSourceGroup = { ...sourceGroup, cardIds: sourceCardIds };
@@ -314,6 +376,8 @@ const Group = () => {
       //   })
       // );
     }
+
+    // updateGroups();
   };
 
   return (
@@ -340,8 +404,11 @@ const Group = () => {
               <div className="RetroReflect-list-card">
                 <div className="RetroReflect-list-card-container">
                   //{" "}
-                  {Object.values(groups)
-                    .filter((group) => group.class == "good")
+                  {/* .filter((group) => group.class == "good") */}
+                  {/* {group is an array of objects} */}
+                  {/* {Object?.values(groups) */}
+                  { groups
+                    ?.filter((group) => group.is_positive == true)
                     .map((group) => (
                       <Droppable droppableId={group.id} key={group.id}>
                         {(provided) => (
@@ -364,9 +431,9 @@ const Group = () => {
                                 ></ArrowDropUpIcon>
                               )}
 
-                              {group.title != undefined && (
+                              {group.name != undefined && (
                                 <InputName
-                                  name={convertNumberToPersian(group.title)}
+                                  name={convertNumberToPersian(group.name)}
                                   gid={group.id}
                                   // value={listName}
                                   onChangeName={handleChangeGroupName}
@@ -375,11 +442,13 @@ const Group = () => {
                             </div>
                             {group.hide == false && (
                               <div>
-                                {group?.cardIds?.map((cardId, index) => (
+                                {/* {group?.cardIds?.map((cardId, index) => ( */}
+                                {group?.cards.map((card, index) => (
                                   <Draggable
-                                    draggableId={cardId}
+                                    // draggableId={card.id.toString()}
+                                    draggableId={card.id}
                                     index={index}
-                                    key={cardId}
+                                    key={card.id}
                                   >
                                     {(provided) => (
                                       <div
@@ -388,10 +457,11 @@ const Group = () => {
                                         ref={provided.innerRef}
                                       >
                                         <RetroCard>
+                                          {/* good_cards.find(
+                                            (card) => card.id === cardId
+                                          )?.content */}
                                           {
-                                            good_cards.find(
-                                              (card) => card.id === cardId
-                                            )?.content
+                                            card.text
                                           }
                                         </RetroCard>
                                       </div>
@@ -425,8 +495,10 @@ const Group = () => {
               <div className="RetroReflect-list-textfield"></div>
               <div className="RetroReflect-list-card">
                 <div className="RetroReflect-list-card-container">
-                  {Object.values(groups)
-                    .filter((group) => group.class == "bad")
+                  {/* .filter((group) => group.class == "bad") */}
+                  {/* {Object?.values(groups) */}
+                  { groups
+                    ?.filter((group) => group.is_positive == false)
                     .map((group) => (
                       <Droppable droppableId={group.id} key={group.id}>
                         {(provided) => (
@@ -449,9 +521,9 @@ const Group = () => {
                                 ></ArrowDropUpIcon>
                               )}
 
-                              {group.title != undefined && (
+                              {group.name != undefined && (
                                 <InputName
-                                  name={convertNumberToPersian(group.title)}
+                                  name={convertNumberToPersian(group.name)}
                                   gid={group.id}
                                   // value={listName}
                                   onChangeName={handleChangeGroupName}
@@ -460,11 +532,13 @@ const Group = () => {
                             </div>
                             {group.hide == false && (
                               <div>
-                                {group?.cardIds?.map((cardId, index) => (
+                                {/* {group?.cardIds?.map((cardId, index) => ( */}
+                                {group?.cards.map((card, index) => (
                                   <Draggable
-                                    draggableId={cardId}
+                                    draggableId={card.id}
+                                    // draggableId={card.id.toString()}
                                     index={index}
-                                    key={cardId}
+                                    key={card.id}
                                   >
                                     {(provided) => (
                                       <div
@@ -473,10 +547,11 @@ const Group = () => {
                                         ref={provided.innerRef}
                                       >
                                         <RetroCard>
-                                          {
-                                            bad_cards.find(
+                                            {/* bad_cards.find(
                                               (card) => card.id === cardId
-                                            )?.content
+                                            )?.content */}
+                                          {
+                                            card.text
                                           }
                                         </RetroCard>
                                       </div>

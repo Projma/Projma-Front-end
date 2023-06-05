@@ -66,11 +66,11 @@ const NextBtn = (props) => {
         // if (type === "navigate_to_next_step") {
         
         // close connection 
-        // if (socket.current !== null)
-        //     socket.current.close();
+        if (socket.current !== null)
+            socket.current.close();
 
-        if (props.WebSocket !== null)
-            props.WebSocket.close();
+        // if (props.WebSocket !== null)
+        //     props.WebSocket.close();
         
         if (message.data.nextStep === "board") {
             localStorage.removeItem("retro_id");
@@ -88,26 +88,37 @@ const NextBtn = (props) => {
         //         "access_token"
         //     )}`
         // );
+        socket.current = new WebSocket(
+            `ws://localhost:8000/ws/socket-server/retro/discuss/${localStorage.getItem(
+                "retro_id"
+            )}/?token=${localStorage.getItem("access_token")}`
+        );
 
-        // socket.current.onopen = () => {
-        //     console.log("WebSocket connection opened");
-        //     // socket.current.send(
-        //     //   JSON.stringify({
-        //     //     type: "join_board_group",
-        //     //     data: { board_id: boardId },
-        //     //   })
-        //     // );
-        // };
+        socket.current.onopen = () => {
+            console.log("Next WebSocket connection opened");
+            // socket.current.send(
+            //   JSON.stringify({
+            //     type: "join_board_group",
+            //     data: { board_id: boardId },
+            //   })
+            // );
+        };
+        socket.current.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+            console.log(message);
+            handleNavigation(message, message.type);
+        };
+        socket.current.onclose = () => {
+            console.log("Next WebSocket connection closed");
+        };
+        
 
-        // socket.current.onmessage = (event) => {
+        // props.WebSocket.onmessage = (event) => {
         //     const message = JSON.parse(event.data);
         //     console.log(message);
         //     handleNavigation(message, message.type);
         // };
 
-        // socket.current.onclose = () => {
-        //     console.log("WebSocket connection closed");
-        // };
 
     }, [])
 

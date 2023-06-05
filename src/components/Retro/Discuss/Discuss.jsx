@@ -31,40 +31,74 @@ const Discuss = () => {
                 console.log(err);
             });
 
-        apiInstance.get(`retro/${localStorage.getItem("retro_id")}/get-group/`).then((res) => {
+        apiInstance.get(`retro/${localStorage.getItem("retro_id")}/get-session-discuss/`).then((res) => {
+            // {
+            //     "id": 2,
+            //     "retro_step": 0,
+            //     "groups": [
+            //       {
+            //         "id": 1,
+            //         "name": "1",
+            //         "retro_session": 2,
+            //         "is_discussed": false,
+            //         "votes": 0
+            //       },
+            //       {
+            //         "id": 2,
+            //         "name": "2",
+            //         "retro_session": 2,
+            //         "is_discussed": false,
+            //         "votes": 0
+            //       },
+            //       {
+            //         "id": 3,
+            //         "name": "5",
+            //         "retro_session": 2,
+            //         "is_discussed": false,
+            //         "votes": 0
+            //       },
+            //       {
+            //         "id": 4,
+            //         "name": "7",
+            //         "retro_session": 2,
+            //         "is_discussed": false,
+            //         "votes": 0
+            //       }
+            //     ]
+            //   }
             console.log(res.data);
-            setGroups_and_cards(res.data);
+            setGroups_and_cards(res.data.groups);
         }).catch((err) => {
             console.log(err);
         });
 
-        socket.current = new WebSocket(
-            `ws://localhost:8000/ws/socket-server/retro/discuss/${localStorage.getItem(
-                "retro_id"
-            )}/?token=${localStorage.getItem("access_token")}`
-        );
-        socket.current.onopen = () => {
-            console.log("WebSocket connection opened");
-            // socket.current.send(
-            //   JSON.stringify({
-            //     type: "join_board_group",
-            //     data: { board_id: boardId },
-            //   })
-            // );
-        };
+        // socket.current = new WebSocket(
+        //     `ws://localhost:8000/ws/socket-server/retro/discuss/${localStorage.getItem(
+        //         "retro_id"
+        //     )}/?token=${localStorage.getItem("access_token")}`
+        // );
+        // socket.current.onopen = () => {
+        //     console.log("WebSocket connection opened");
+        //     // socket.current.send(
+        //     //   JSON.stringify({
+        //     //     type: "join_board_group",
+        //     //     data: { board_id: boardId },
+        //     //   })
+        //     // );
+        // };
 
-        socket.current.onmessage = (event) => {
-            const message = JSON.parse(event.data);
-            console.log(message);
-            // dnd_socket(message, message.type);
-            // setGoodCards(message.good_cards);
-            // setBadCards(message.bad_cards);
-            // setGroups(message.groups);
-        };
+        // socket.current.onmessage = (event) => {
+        //     const message = JSON.parse(event.data);
+        //     console.log(message);
+        //     // dnd_socket(message, message.type);
+        //     // setGoodCards(message.good_cards);
+        //     // setBadCards(message.bad_cards);
+        //     // setGroups(message.groups);
+        // };
 
-        socket.current.onclose = () => {
-            console.log("WebSocket connection closed");
-        };
+        // socket.current.onclose = () => {
+        //     console.log("WebSocket connection closed");
+        // };
 
     }, []);
 
@@ -72,6 +106,7 @@ const Discuss = () => {
         <>
             <div style={{
                 width: '100%',
+                // overflow: 'scroll',
             }}>
                 <div className="discuss-header">
                     <div className="discuss-header-right">
@@ -97,7 +132,7 @@ const Discuss = () => {
                     برای ثبت گام‌های بعدی، کارت‌های کاری آماده تهیه کنید.
                 </p>
 
-                <div>
+                {/* <div>
                     <div className="discuss-topic">
                         <span className="discuss-topic-item">
                             <span className="discuss-topic-item-title">"</span>
@@ -111,7 +146,6 @@ const Discuss = () => {
                         </span>
                     </div>
                     <Container>
-                        {/* show all cards(<RetroCard>) here width Grid in responsible mode */}
                         <Grid
                             container
                             columns={{ xs: 2, sm: 4, md: 4 }}
@@ -121,7 +155,6 @@ const Discuss = () => {
                             }}
                         >
                             <Grid item xs={2} sm={2} md={2} sx={{}} >
-                                {/*add green label to the RetroCard */}
                                 <RetroCard>
                                     مناظره هایی که در چت گروهی به جایی نمی رسد
                                 </RetroCard>
@@ -144,13 +177,12 @@ const Discuss = () => {
                         </Grid>
 
                     </Container>
-                </div>
-                {/* like the above div but with different color */}
+                </div> */}
 
                 {
-                    groups_and_cards.map((group, index) => {
+                    groups_and_cards?.map((group, index) => {
                         return (
-                            <div key={index}>
+                            <div key={index} id={group.id}>
                                 <div className="discuss-topic">
                                     <span className="discuss-topic-item">
                                         <span className="discuss-topic-item-title">"</span>
@@ -159,7 +191,7 @@ const Discuss = () => {
                                         <span className="discuss-topic-item-title"> </span>
                                         <span className="discuss-topic-item-like">
                                             <ThumbUpTwoToneIcon className="discuss-topic-item-like-icon" />
-                                            <span className="discuss-topic-item-like-number">{convertNumberToPersian(group.likes)}</span>
+                                            <span className="discuss-topic-item-like-number">{convertNumberToPersian(group.votes)}</span>
                                         </span>
                                     </span>
                                 </div>
@@ -177,7 +209,7 @@ const Discuss = () => {
                                         }}
                                     >
                                         {
-                                            group.cards.map((card, index) => {
+                                            group.cards?.map((card, index) => {
                                                 return (
                                                     <Grid item xs={2} sm={2} md={2} sx={{}} key={index}>
                                                         {/*add green label to the good RetroCard */}
@@ -199,11 +231,11 @@ const Discuss = () => {
 
             </div>
             {/* if is admin ? */}
-            <NextBtn 
+            {/* <NextBtn 
                 currentStep={"Discuss"}
                 text={"پایان جلسه"}
                 WebSocket={socket.current}
-            />
+            /> */}
         </>
     );
 };
