@@ -17,9 +17,11 @@ import team_collaboration from "../static/images/landing/team_collaboration.svg"
 import time_management from "../static/images/landing/time_management.svg";
 import { Helmet } from "react-helmet";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import useTheme from "../hooks/useTheme";
 
 const Landing = () => {
   const matches = useMediaQuery("(min-width:450px)");
+  const {theme, getColor} = useTheme();
   if (matches) {
     return (
       <div style={{overflow: "auto", maxHeight: "100vh", height: "100vh",maxWidth:"100vw",overflowX: "hidden"}}>
@@ -38,11 +40,11 @@ const Landing = () => {
               <Box
                 sx={{
                   padding: "20%",
-                  color: "white",
+                  color: getColor(theme.mainBg),
                   fontSize: "1.5rem",
                 }}
               >
-                <Typography variant="h6" component="div" gutterBottom>
+                <Typography variant="h6" component="div" gutterBottom style={{color: getColor(theme.mainBg)}}>
                   از ابزارهای مدیریت موجود استفاده ‌می‌کنید اما زمان زیادی صرف
                   انجام کارها و پروژه‌ها می‌کنید و به موقع به سر رسید کارها
                   نمی‌رسید؟ و یا ابزارهای قدیمی به حدی پیچیدگی دارند که شما و
@@ -55,7 +57,7 @@ const Landing = () => {
             </Grid>
           </Grid>
   
-          <Divider sx={{ bgcolor: "white", marginTop: "5%" }} />
+          <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} />
   
           <Grid
             container
@@ -75,11 +77,11 @@ const Landing = () => {
               <Box
                 sx={{
                   padding: "20%",
-                  color: "white",
+                  color: getColor(theme.mainBg),
                   fontSize: "1.5rem",
                 }}
               >
-                <Typography variant="h6" component="div" gutterBottom>
+                <Typography variant="h6" component="div" gutterBottom style={{color: getColor(theme.mainBg)}}>
                   از ابزارهای مدیریت موجود استفاده ‌می‌کنید اما زمان زیادی صرف
                   انجام کارها و پروژه‌ها می‌کنید و به موقع به سر رسید کارها
                   نمی‌رسید؟ و یا ابزارهای قدیمی به حدی پیچیدگی دارند که شما و
@@ -144,7 +146,7 @@ const Landing = () => {
                   fontSize: "1.5rem",
                 }}
               >
-                <Typography variant="h6" component="div" gutterBottom>
+                <Typography variant="h6" component="div" gutterBottom style={{color: getColor(theme.mainBg)}}>
                   از ابزارهای مدیریت موجود استفاده ‌می‌کنید اما زمان زیادی صرف
                   انجام کارها و پروژه‌ها می‌کنید و به موقع به سر رسید کارها
                   نمی‌رسید؟ و یا ابزارهای قدیمی به حدی پیچیدگی دارند که شما و
@@ -157,7 +159,7 @@ const Landing = () => {
             </Grid>
           </Grid>
   
-          <Divider sx={{ bgcolor: "white", marginTop: "5%" }} />
+          <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} />
   
           <Grid
             container
@@ -178,7 +180,7 @@ const Landing = () => {
                   fontSize: "1.5rem",
                 }}
               >
-                <Typography variant="h6" component="div" gutterBottom>
+                <Typography variant="h6" component="div" gutterBottom style={{color: getColor(theme.mainBg)}}>
                   از ابزارهای مدیریت موجود استفاده ‌می‌کنید اما زمان زیادی صرف
                   انجام کارها و پروژه‌ها می‌کنید و به موقع به سر رسید کارها
                   نمی‌رسید؟ و یا ابزارهای قدیمی به حدی پیچیدگی دارند که شما و
@@ -188,7 +190,7 @@ const Landing = () => {
             </Grid>
           </Grid>
   
-          <Divider sx={{ bgcolor: "white", marginTop: "5%" }} />
+          <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} />
         </Container>
         <Footer />
       </div>
@@ -216,7 +218,7 @@ const Landing = () => {
                   fontSize: "1.5rem",
                 }}
               >
-                <Typography variant="p" component="div" gutterBottom>
+                <Typography variant="p" component="div" gutterBottom style={{color: getColor(theme.mainBg)}}>
                   از ابزارهای مدیریت موجود استفاده ‌می‌کنید اما زمان زیادی صرف
                   انجام کارها و پروژه‌ها می‌کنید و به موقع به سر رسید کارها
                   نمی‌رسید؟ و یا ابزارهای قدیمی به حدی پیچیدگی دارند که شما و
@@ -229,7 +231,7 @@ const Landing = () => {
             </Grid>
           </Grid>
   
-          <Divider sx={{ bgcolor: "white", marginTop: "5%" }} />
+          <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} />
   
           <Grid
             container
@@ -253,7 +255,7 @@ const Landing = () => {
                   fontSize: "1.5rem",
                 }}
               >
-                <Typography variant="p" component="div" gutterBottom>
+                <Typography variant="p" component="div" gutterBottom style={{color: getColor(theme.mainBg)}}>
                   از ابزارهای مدیریت موجود استفاده ‌می‌کنید اما زمان زیادی صرف
                   انجام کارها و پروژه‌ها می‌کنید و به موقع به سر رسید کارها
                   نمی‌رسید؟ و یا ابزارهای قدیمی به حدی پیچیدگی دارند که شما و
@@ -318,7 +320,7 @@ const Landing = () => {
                   fontSize: "1.5rem",
                 }}
               >
-                <Typography variant="p" component="div" gutterBottom>
+                <Typography variant="p" component="div" gutterBottom style={{color: getColor(theme.mainBg)}}>
                   از ابزارهای مدیریت موجود استفاده ‌می‌کنید اما زمان زیادی صرف
                   انجام کارها و پروژه‌ها می‌کنید و به موقع به سر رسید کارها
                   نمی‌رسید؟ و یا ابزارهای قدیمی به حدی پیچیدگی دارند که شما و
@@ -331,7 +333,7 @@ const Landing = () => {
             </Grid>
           </Grid>
   
-          <Divider sx={{ bgcolor: "white", marginTop: "5%" }} />
+          <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} />
   
           <Grid
             container
@@ -352,7 +354,7 @@ const Landing = () => {
                   fontSize: "1.5rem",
                 }}
               >
-                <Typography variant="p" component="div" gutterBottom>
+                <Typography variant="p" component="div" gutterBottom style={{color: getColor(theme.mainBg)}}>
                   از ابزارهای مدیریت موجود استفاده ‌می‌کنید اما زمان زیادی صرف
                   انجام کارها و پروژه‌ها می‌کنید و به موقع به سر رسید کارها
                   نمی‌رسید؟ و یا ابزارهای قدیمی به حدی پیچیدگی دارند که شما و

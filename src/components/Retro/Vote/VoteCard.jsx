@@ -5,6 +5,7 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import "./Vote.scss";
+import useTheme from "../../../hooks/useTheme";
 
 const VoteCard = ({ children, voteNumber, handleVoteChange, index }) => {
   const handleColorVote = () => {
@@ -14,7 +15,7 @@ const VoteCard = ({ children, voteNumber, handleVoteChange, index }) => {
       return "white";
     }
   };
-
+  const {theme, getColor} = useTheme();
   return (
     <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
       <div className="RetroReflect-vote-card">
@@ -37,7 +38,7 @@ const VoteCard = ({ children, voteNumber, handleVoteChange, index }) => {
         style={{
           width: "100%",
           height: "100%",
-          backgroundColor: "#265D97",
+          backgroundColor: theme.secondary,
           borderRadius: "1rem",
           display: "flex",
           flexFlow: "column",
@@ -45,7 +46,7 @@ const VoteCard = ({ children, voteNumber, handleVoteChange, index }) => {
           // alignItems: "flex-start",
           justifyContent: "flex-start",
           gap: "1.5rem",
-          color: "#fff",
+          color: getColor(theme.secondary),
         }}
       >
         {children}

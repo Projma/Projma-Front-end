@@ -168,7 +168,7 @@ function ResponsiveAppBar() {
               onClick={handleOpenNavMenu}
               color="inherit"
             >
-              <MenuIcon sx={{ color: theme.text }} />
+              <MenuIcon sx={{ color: getColor(theme.minorBg) }} />
             </IconButton>
             <Menu
               style={{ fontFamily: "Vazir" }}
@@ -239,7 +239,7 @@ function ResponsiveAppBar() {
               title={"باز کردن تنظیمات"}
             >
               {/* <Avatar alt="عکس پروفایل" src={state.user.profile_pic ? state.user.profile_pic : avatar_photo} /> */}
-              {localStorage.getItem("access_token") === null ? (
+              {state.user.user === undefined ? (
                 <Avatar
                   onClick={handleOpenUserMenu}
                   alt="عکس پروفایل"

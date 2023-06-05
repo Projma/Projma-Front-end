@@ -14,6 +14,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import useTheme from "../../../hooks/useTheme";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -27,6 +28,7 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function RecipeReviewCard(props) {
+  const {theme, getColor} = useTheme();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -38,8 +40,9 @@ export default function RecipeReviewCard(props) {
       <CardHeader
         sx={{
           fontFamily: "Vazir",
-          color: "#173A5E",
+          color: getColor(theme.minorBg),
         }}
+        color= {getColor(theme.minorBg)}
         // avatar={
         //   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
         //     R
@@ -71,7 +74,7 @@ export default function RecipeReviewCard(props) {
       >
         <Typography
           variant="body2"
-          color="black"
+          color= {getColor(theme.mainBg)}
           sx={{
             fontFamily: "Vazir",
           }}
@@ -104,7 +107,7 @@ export default function RecipeReviewCard(props) {
           </Typography> */}
           <Typography
             paragraph
-            color="black"
+            color= {getColor(theme.mainBg)}
             sx={{
               fontFamily: "Vazir",
             }}
