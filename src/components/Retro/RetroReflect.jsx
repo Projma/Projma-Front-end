@@ -80,12 +80,11 @@ const RetroReflect = () => {
     };
 
     socket.current.onmessage = (event) => {
-      
       console.log("event.type"); // message
       console.log(event.type); // message
       const message = JSON.parse(event.data);
 
-      // // if event.data has type 
+      // // if event.data has type
       // if (event.data.type == 'next_step') {
       if ("data" in message) {
         if ("nextStep" in message.data) {
@@ -114,22 +113,25 @@ const RetroReflect = () => {
     // if (type === "navigate_to_next_step") {
     console.log("--------------------");
     console.log(message);
-    // close connection 
-    if (socket.current !== null)
-        socket.current.close();
+    // close connection
+    if (socket.current !== null) socket.current.close();
 
     // if (props.WS !== null)
     //     props.WS.close();
-    if (message.data.nextStep !== undefined){
-        if (message.data.nextStep === "board") {
-            localStorage.removeItem("retro_id");
-            navigate(`/workspace/${workspaceId}/kanban/${boardId}/${message.data.nextStep}`);
-        } else {
-            navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/${message.data.nextStep}`);
-        }
+    if (message.data.nextStep !== undefined) {
+      if (message.data.nextStep === "board") {
+        localStorage.removeItem("retro_id");
+        navigate(
+          `/workspace/${workspaceId}/kanban/${boardId}/${message.data.nextStep}`
+        );
+      } else {
+        navigate(
+          `/workspace/${workspaceId}/kanban/${boardId}/retro/${message.data.nextStep}`
+        );
+      }
     }
     // }
-}
+  };
 
   return (
     <div className="RetroReflect-container">
@@ -196,7 +198,7 @@ const RetroReflect = () => {
                   x.is_positive ? <RetroCard>{x.text}</RetroCard> : null
                 )}
               </div>
-              <div
+              {/* <div  
                 style={{
                   display: "flex",
                   flexDirection: "row",
@@ -205,7 +207,7 @@ const RetroReflect = () => {
                 }}
               >
                 تعداد کارت‌های سبز: {greenCount}
-              </div>
+              </div> */}
             </div>
           </RetroList>
         </div>
@@ -267,7 +269,7 @@ const RetroReflect = () => {
                   !x.is_positive ? <RetroCard>{x.text}</RetroCard> : null
                 )}
               </div>
-              <div
+              {/* <div
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -276,17 +278,14 @@ const RetroReflect = () => {
                 }}
               >
                 تعداد کارت‌های قرمز: {redCount}
-              </div>
+              </div> */}
             </div>
           </RetroList>
         </div>
       </div>
-      {isRetroAdmin && (<NextBtn
-          currentStep={"Reflect"}
-          text={"بعدی"}
-          WS={socket.current}
-        />)
-        }
+      {isRetroAdmin && (
+        <NextBtn currentStep={"Reflect"} text={"بعدی"} WS={socket.current} />
+      )}
     </div>
   );
 };
