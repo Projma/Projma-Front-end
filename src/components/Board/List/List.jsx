@@ -20,6 +20,7 @@ import { Button } from "@mui/material";
 import { convertNumberToPersian } from "../../../utilities/helpers";
 import useTheme from "../../../hooks/useTheme";
 import AddCard from "./AddCard";
+import DeleteListDialog from "./DeleteListDialog";
 
 const List = ({ task, name, listId, index, boardId }) => {
   const { addCardToList, removeList, editListName, setIsReq, socket } =
@@ -206,48 +207,11 @@ const List = ({ task, name, listId, index, boardId }) => {
                 >
                   <p className="board_option-text">حذف کردن لیست</p>
                 </button>
-                <Dialog
-                  open={isOpen}
-                  onClose={handleClose}
-                  aria-labelledby="alert-dialog-title"
-                  aria-describedby="alert-dialog-description"
-                >
-                  <DialogTitle id="alert-dialog-title">
-                    {"آیا از حذف کردن لیست مطمئن هستید؟"}
-                  </DialogTitle>
-                  <DialogContent>
-                    <DialogContentText
-                      id="alert-dialog-description"
-                      sx={{ color: getColor(theme.secondary) }}
-                    >
-                      اخطار: با حذف کردن لیست تمام کارت های داخل آن نیز حذف
-                      میشود
-                    </DialogContentText>
-                  </DialogContent>
-                  <DialogActions>
-                    <div className="List_dialog-button-container">
-                      <Button
-                        type="button"
-                        variant="contained"
-                        onClick={() => {
-                          handleDeleteList();
-                        }}
-                        className="List_dialog-button"
-                      >
-                        تایید
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="contained"
-                        onClick={handleClose}
-                        autoFocus
-                        className="List_dialog-button"
-                      >
-                        انصراف
-                      </Button>
-                    </div>
-                  </DialogActions>
-                </Dialog>
+                <DeleteListDialog
+                  isOpen={isOpen}
+                  handleClose={handleClose}
+                  handleDeleteList={handleDeleteList}
+                />
               </div>
             </div>
           </Popover>
