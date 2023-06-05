@@ -63,7 +63,7 @@ const Vote = () => {
       // console.log("event.type"); // message
       // console.log(event.type); // message
       const message = JSON.parse(event.data);
-
+      console.log(message);
       // // if event.data has type
       // if (event.data.type == 'next_step') {
       if ("data" in message) {
@@ -94,8 +94,11 @@ const Vote = () => {
   const onVoteChange = (type, id) => {
     console.log("onVoteChange");
     if (type === "add") {
+      console.log("nnnn");
+
       const new_data = allData.map((data) => {
         if (data.id == id) {
+          console.log(data.id);
           data.vote_cnt += 1;
           socket.current.send(
             JSON.stringify({
@@ -110,12 +113,14 @@ const Vote = () => {
         return data;
       });
       setAllData(new_data);
-    } else if (type === "remove") {
+    } else {
+      console.log("first");
       const new_data = allData.map((data) => {
         if (data.id == id) {
+          console.log("sec");
           if (data.vote_cnt != 0) {
+            console.log("thr");
             data.vote_cnt -= 1;
-            setAllData(new_data);
             socket.current.send(
               JSON.stringify({
                 type: "vote",
@@ -129,6 +134,7 @@ const Vote = () => {
         }
         return data;
       });
+      setAllData(new_data);
     }
   };
 
@@ -202,7 +208,7 @@ const Vote = () => {
 
   return (
     <div className="RetroReflect-container" style={{ flexDirection: "column" }}>
-      <div className="RetroReflect-vote-header">
+      {/* <div className="RetroReflect-vote-header">
         <Typography
           className="RetroReflect-vote-header-myVote"
           style={{ flexDirection: "row" }}
@@ -217,10 +223,10 @@ const Vote = () => {
               handleChangeVoteItemim={handleChangeVoteItem}
               allowVotePerUser={allowVotePerUser}
               allowVotePerItem={allowVotePerItem}
-            />
+            />  
           </div>
         </Typography>
-      </div>
+      </div> */}
       <div className="RetroReflect-list">
         <div className="RetroReflect-green">
           <RetroList>
