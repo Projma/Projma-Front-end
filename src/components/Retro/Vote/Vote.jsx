@@ -10,7 +10,11 @@ import NextBtn from "../NextBtn/NextBtn";
 import useTheme from "../../../hooks/useTheme";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { v4 as uuid } from "uuid";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import RetroCard2 from "./Vote2Card";
 
 const Vote = () => {
   const { theme, getColor } = useTheme();
@@ -20,18 +24,30 @@ const Vote = () => {
   const [redList, setRedList] = useState(["1", "2", "3", "4", "5"]);
   const [voteNumber, setVoteNumber] = useState([0, 0, 0, 0, 0]);
   const [remainingVote, setRemainingVote] = useState(0);
-
   const [isRetroAdmin, setIsRetroAdmin] = useState(true);
   const socket = useRef(null);
+  const [allData, setAllData] = useState([]);
 
   useEffect(() => {
-    apiInstance.get(`retro/${localStorage.getItem("retro_id")}/get-session-vote/`).then((res) => {
-      // console.log(res.data);
-      setIsRetroAdmin(res.data.is_retro_admin);
-    }).catch((err) => {
-      console.log(err);
-    });
+    apiInstance
+      .get(`retro/${localStorage.getItem("retro_id")}/get-session-vote/`)
+      .then((response) => {
+        setIsRetroAdmin(response.data.is_retro_admin);
+        const myList = Object.entries(response.data.group_votes);
+        const data = myList.map((group) => ({
+          id: group[1].id,
+          cards: group[1].cards,
+          is_positive: group[1].is_positive,
+          vote_cnt: group[1].vote_cnt,
+          hide: true,
+        }));
+        setAllData(data);
+        console.log(response.data);
+      })
+      .catch((res) => {});
+  }, []);
 
+  useEffect(() => {
     socket.current = new WebSocket(
       `ws://localhost:8000/ws/socket-server/retro/vote/${localStorage.getItem(
         "retro_id"
@@ -44,12 +60,11 @@ const Vote = () => {
     };
 
     socket.current.onmessage = (event) => {
-
       // console.log("event.type"); // message
       // console.log(event.type); // message
       const message = JSON.parse(event.data);
 
-      // // if event.data has type 
+      // // if event.data has type
       // if (event.data.type == 'next_step') {
       if ("data" in message) {
         if ("nextStep" in message.data) {
@@ -58,7 +73,6 @@ const Vote = () => {
           return;
         }
       }
-
     };
 
     socket.current.onclose = () => {
@@ -77,40 +91,54 @@ const Vote = () => {
     }
   };
 
-  const onVoteChange = (type, index) => {
+  const onVoteChange = (type, id) => {
+    console.log("onVoteChange");
     if (type === "add") {
-      let vt = voteNumber;
-      let val = vt[index] + 1;
-      if (val > allowVotePerItem) {
-        toast.error("تعداد رای‌های یک آیتم نمی‌تواند بیشتر از این باشد", {
-          position: toast.POSITION.BOTTOM_LEFT,
-          rtl: true,
-        });
-      } else if (remainingVote - 1 < 0) {
-        toast.error("تعداد رای‌های مجاز برای یک شخص نمی‌تواند کمتر از 0 باشد", {
-          position: toast.POSITION.BOTTOM_LEFT,
-          rtl: true,
-        });
-      } else {
-        vt[index]++;
-        setVoteNumber(vt);
-        setRemainingVote(remainingVote - 1);
-      }
+      const new_data = allData.map((data) => {
+        if (data.id == id) {
+          data.vote_cnt += 1;
+          socket.current.send(
+            JSON.stringify({
+              type: "vote",
+              data: {
+                value: 1,
+                card_group_id: id,
+              },
+            })
+          );
+        }
+        return data;
+      });
+      setAllData(new_data);
     } else if (type === "remove") {
-      let vt = voteNumber;
-      let val = vt[index] - 1;
-      if (val < 0) {
-        toast.error("تعداد رای‌های یک آیتم نمی‌تواند صفر باشد", {
-          position: toast.POSITION.BOTTOM_LEFT,
-          rtl: true,
-        });
-      } else {
-        vt[index]--;
-        setVoteNumber(vt);
-        setRemainingVote(remainingVote + 1);
-      }
+      const new_data = allData.map((data) => {
+        if (data.id == id) {
+          if (data.vote_cnt != 0) {
+            data.vote_cnt -= 1;
+            setAllData(new_data);
+            socket.current.send(
+              JSON.stringify({
+                type: "vote",
+                data: {
+                  value: -1,
+                  card_group_id: id,
+                },
+              })
+            );
+          }
+        }
+        return data;
+      });
     }
-    console.log(voteNumber);
+  };
+
+  const handleClickHide = (group) => {
+    console.log(group);
+    const the_group = { ...group, hide: !group.hide };
+    const index = allData.findIndex((x) => x.id === the_group.id);
+    const new_allData = [...allData];
+    new_allData[index] = the_group;
+    setAllData(new_allData);
   };
 
   const handleChangeVoteUser = (type) => {
@@ -153,18 +181,21 @@ const Vote = () => {
     // if (type === "navigate_to_next_step") {
     console.log("--------------------");
     console.log(message);
-    // close connection 
-    if (socket.current !== null)
-      socket.current.close();
+    // close connection
+    if (socket.current !== null) socket.current.close();
 
     // if (props.WS !== null)
     //     props.WS.close();
     if (message.data.nextStep !== undefined) {
       if (message.data.nextStep === "board") {
         localStorage.removeItem("retro_id");
-        navigate(`/workspace/${workspaceId}/kanban/${boardId}/${message.data.nextStep}`);
+        navigate(
+          `/workspace/${workspaceId}/kanban/${boardId}/${message.data.nextStep}`
+        );
       } else {
-        navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/${message.data.nextStep}`);
+        navigate(
+          `/workspace/${workspaceId}/kanban/${boardId}/retro/${message.data.nextStep}`
+        );
       }
     }
   };
@@ -202,19 +233,55 @@ const Vote = () => {
                   backgroundColor: "green",
                 }}
               ></div>
-              <Typography style={{ color: getColor(theme.minorBg) }}>چه چیز هایی کار میکند؟</Typography>
+              <Typography style={{ color: getColor(theme.minorBg) }}>
+                چه چیز هایی کار میکند؟
+              </Typography>
             </div>
             <div className="RetroReflect-list-card">
               <div className="RetroReflect-list-card-container">
-                {greenList.map((x, index) => (
-                  <VoteCard
-                    voteNumber={voteNumber}
-                    handleVoteChange={onVoteChange}
-                    index={index}
-                  >
-                    {x}
-                  </VoteCard>
-                ))}
+                {allData.map(
+                  (group, index) =>
+                    group.is_positive && (
+                      <div style={{ width: "100%" }}>
+                        <div style={{ display: "flex" }}>
+                          {group.hide && (
+                            <ArrowDropDownIcon
+                              sx={{ color: "#fff" }}
+                              onClick={() => handleClickHide(group)}
+                            ></ArrowDropDownIcon>
+                          )}
+                          {!group.hide && (
+                            <ArrowDropUpIcon
+                              sx={{ color: "#fff" }}
+                              onClick={() => handleClickHide(group)}
+                            ></ArrowDropUpIcon>
+                          )}
+
+                          <VoteCard
+                            voteNumber={group.vote_cnt}
+                            handleVoteChange={onVoteChange}
+                            index={group.id}
+                          >
+                            {group.cards[0].text}
+                          </VoteCard>
+                        </div>
+                        {group.hide == false && (
+                          <div>
+                            {group.cards.map((card) => (
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <RetroCard2>{card.text}</RetroCard2>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )
+                )}
               </div>
             </div>
           </RetroList>
@@ -230,30 +297,63 @@ const Vote = () => {
                   backgroundColor: "red",
                 }}
               ></div>
-              <Typography style={{ color: getColor(theme.minorBg) }}>در کجا ها به مشکل خوردید؟</Typography>
+              <Typography style={{ color: getColor(theme.minorBg) }}>
+                در کجا ها به مشکل خوردید؟
+              </Typography>
             </div>
             <div className="RetroReflect-list-card">
               <div className="RetroReflect-list-card-container">
-                {redList.map((x, index) => (
-                  <VoteCard
-                    voteNumber={voteNumber}
-                    handleVoteChange={onVoteChange}
-                    index={index}
-                  >
-                    {x}
-                  </VoteCard>
-                ))}
+                {allData.map(
+                  (group, index) =>
+                    !group.is_positive && (
+                      <div style={{ width: "100%" }}>
+                        <div style={{ display: "flex" }}>
+                          {group.hide && (
+                            <ArrowDropDownIcon
+                              sx={{ color: "#fff" }}
+                              onClick={() => handleClickHide(group)}
+                            ></ArrowDropDownIcon>
+                          )}
+                          {!group.hide && (
+                            <ArrowDropUpIcon
+                              sx={{ color: "#fff" }}
+                              onClick={() => handleClickHide(group)}
+                            ></ArrowDropUpIcon>
+                          )}
+
+                          <VoteCard
+                            voteNumber={group.vote_cnt}
+                            handleVoteChange={onVoteChange}
+                            index={group.id}
+                          >
+                            {group.cards[0].text}
+                          </VoteCard>
+                        </div>
+                        {group.hide == false && (
+                          <div>
+                            {group.cards.map((card) => (
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <RetroCard2>{card.text}</RetroCard2>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )
+                )}
               </div>
             </div>
           </RetroList>
         </div>
       </div>
-      {isRetroAdmin && (<NextBtn
-        currentStep={"Vote"}
-        text={"بعدی"}
-        WS={socket.current}
-      />)
-      }
+      {isRetroAdmin && (
+        <NextBtn currentStep={"Vote"} text={"بعدی"} WS={socket.current} />
+      )}
     </div>
   );
 };
