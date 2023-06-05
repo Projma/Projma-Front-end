@@ -29,6 +29,8 @@ const Group = () => {
 
   // const [groups, setGroups] = useState({});
   const [groups, setGroups] = useState([]);
+  const [isRetroAdmin, setIsRetroAdmin] = useState(false);
+
   const {theme, getColor} = useTheme();
   const socket = useRef(null);
   useEffect(() => {
@@ -37,6 +39,7 @@ const Group = () => {
       // setGoodCards(response.data.good_cards);
       // setBadCards(response.data.bad_cards);
       setGroups(response.data.groups);
+      setIsRetroAdmin(response.data.is_retro_admin);
       console.log(response.data.groups);
       // {
       //   "id": 2,
@@ -259,7 +262,7 @@ const Group = () => {
       //     },
       //   })
       // );
-      
+
       // updateGroups();
       return;
     }
@@ -408,10 +411,13 @@ const Group = () => {
                   {/* .filter((group) => group.class == "good") */}
                   {/* {group is an array of objects} */}
                   {/* {Object?.values(groups) */}
-                  { groups
+                  {groups
                     ?.filter((group) => group.is_positive == true)
                     .map((group) => (
-                      <Droppable droppableId={group.id} key={group.id}>
+                      <Droppable
+                        droppableId={group.id.toString()}
+                        key={group.id}
+                      >
                         {(provided) => (
                           <div
                             {...provided.droppableProps}
@@ -446,10 +452,10 @@ const Group = () => {
                                 {/* {group?.cardIds?.map((cardId, index) => ( */}
                                 {group?.cards.map((card, index) => (
                                   <Draggable
-                                    // draggableId={card.id.toString()}
-                                    draggableId={card.id}
+                                    draggableId={card.id.toString()}
+                                    // draggableId={card.id}
                                     index={index}
-                                    key={card.id}
+                                  // key={card.id}
                                   >
                                     {(provided) => (
                                       <div
@@ -498,10 +504,14 @@ const Group = () => {
                 <div className="RetroReflect-list-card-container">
                   {/* .filter((group) => group.class == "bad") */}
                   {/* {Object?.values(groups) */}
-                  { groups
+                  {groups
                     ?.filter((group) => group.is_positive == false)
                     .map((group) => (
-                      <Droppable droppableId={group.id} key={group.id}>
+                      <Droppable
+                        // droppableId={group.id}
+                        droppableId={group.id.toString()}
+                        key={group.id}
+                      >
                         {(provided) => (
                           <div
                             {...provided.droppableProps}
@@ -536,10 +546,10 @@ const Group = () => {
                                 {/* {group?.cardIds?.map((cardId, index) => ( */}
                                 {group?.cards.map((card, index) => (
                                   <Draggable
-                                    draggableId={card.id}
-                                    // draggableId={card.id.toString()}
+                                    // draggableId={card.id}
+                                    draggableId={card.id.toString()}
                                     index={index}
-                                    key={card.id}
+                                  // key={card.id}
                                   >
                                     {(provided) => (
                                       <div
@@ -548,7 +558,7 @@ const Group = () => {
                                         ref={provided.innerRef}
                                       >
                                         <RetroCard>
-                                            {/* bad_cards.find(
+                                          {/* bad_cards.find(
                                               (card) => card.id === cardId
                                             )?.content */}
                                           {
@@ -572,11 +582,13 @@ const Group = () => {
           </div>
         </div>
         {/* if is admin ? */}
-        <NextBtn
+        {isRetroAdmin && (<NextBtn
           currentStep={"Group"}
           text={"بعدی"}
           WebSocket={socket.current}
-        />
+        />)
+        }
+
       </div>
     </DragDropContext>
   );

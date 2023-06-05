@@ -5,7 +5,7 @@ import RetroList from "../content/RetroList";
 import VoteCard from "./VoteCard";
 import "../RetroReflect.scss";
 import VoteSetting from "./VoteSetting";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import NextBtn from "../NextBtn/NextBtn";
 import useTheme from "../../../hooks/useTheme";
 
@@ -17,6 +17,19 @@ const Vote = () => {
   const [redList, setRedList] = useState(["1", "2", "3", "4", "5"]);
   const [voteNumber, setVoteNumber] = useState([0, 0, 0, 0, 0]);
   const [remainingVote, setRemainingVote] = useState(0);
+
+  const [isRetroAdmin, setIsRetroAdmin] = useState(true);
+  /// in first get data from server
+  // setIsRetroAdmin(response.data.is_retro_admin);
+  // useEffect(() => {
+  //   apiInstance.get(`retro/${localStorage.getItem("retro_id")}/get-session-vote/`).then((res) => {
+  //     // console.log(res.data);
+  //     setIsRetroAdmin(response.data.is_retro_admin);
+  // }).catch((err) => {
+  //     console.log(err);
+  // });
+  // }, []);
+  
   const handleKeyDown = (event, color) => {
     if (event.key === "Enter" && event.target.value != "") {
       if (color === "red") {
@@ -177,12 +190,12 @@ const Vote = () => {
           </RetroList>
         </div>
       </div>
-      {/* if is admin ? */}
-      <NextBtn
-        currentStep={"Vote"}
+      {isRetroAdmin && (<NextBtn
+        currentStep={"Group"}
         text={"بعدی"}
-        // webSocket={socket.current}
-      />
+      // WebSocket={socket.current}
+      />)
+      }
     </div>
   );
 };

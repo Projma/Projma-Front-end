@@ -20,6 +20,7 @@ const RetroReflect = () => {
   const [greenCount, setGreenCount] = useState([]);
   const [retro, setRetro] = useState([]);
   const [allData, setAllData] = useState([]);
+  const [isRetroAdmin, setIsRetroAdmin] = useState(false);
   const handleKeyDown = (event, color) => {
     if (event.key === "Enter" && event.target.value != "") {
       if (color === "red") {
@@ -62,6 +63,7 @@ const RetroReflect = () => {
       .then((response) => {
         console.log(response.data.cards);
         setAllData(response.data.cards);
+        setIsRetroAdmin(response.data.is_retro_admin);
       })
       .catch((res) => {});
   }, []);
@@ -230,12 +232,12 @@ const RetroReflect = () => {
           </RetroList>
         </div>
       </div>
-      {/* if is admin ? */}
-      <NextBtn
-        currentStep={"Reflect"}
-        text={"بعدی"}
-        WebSocket={socket.current}
-      />
+      {isRetroAdmin && (<NextBtn
+          currentStep={"Group"}
+          text={"بعدی"}
+          WebSocket={socket.current}
+        />)
+        }
     </div>
   );
 };
