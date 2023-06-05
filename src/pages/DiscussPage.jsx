@@ -9,14 +9,16 @@ const DiscussPage = () => {
     return (
         <div style={{
             // scroll: 'auto',
-            overflow: 'auto',
+            overflow: 'scroll',
         }}
         >
             <Helmet>
                 <title>پروجما</title>
             </Helmet>
             <Header />
-            <Discuss />
+            <Discuss style={{
+                overflow: 'scroll',
+            }}/>
             <Footer/>
         </div>
     );
