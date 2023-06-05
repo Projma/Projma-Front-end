@@ -7,12 +7,18 @@ import Discuss from "../components/Retro/Discuss/Discuss";
 
 const DiscussPage = () => {
     return (
-        <div>
+        <div style={{
+            // scroll: 'auto',
+            overflow: 'scroll',
+        }}
+        >
             <Helmet>
                 <title>پروجما</title>
             </Helmet>
             <Header />
-            <Discuss />
+            <Discuss style={{
+                overflow: 'scroll',
+            }}/>
             <Footer/>
         </div>
     );

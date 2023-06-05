@@ -20,69 +20,80 @@ vi.mock("../../../hooks/useTheme", () => ({
   }),
 }));
 
-test("show add list button", () => {});
+test("show input for card name and button for adding card", () => {
+  const handle_add_card = vi.fn();
+  const set_card_name = vi.fn();
+  render(
+    <AddCard
+      handleAddCardSubmit={handle_add_card}
+      setCardName={set_card_name}
+      cardName=""
+    />
+  );
+  const inp = screen.getByRole("textbox", {
+    name: /اسم کارت/i,
+  });
+  const button = screen.getByRole("button", { name: /افزودن/i });
+  expect(inp).toBeInTheDocument();
+  expect(button).toBeInTheDocument();
+});
 
-// describe("after click add list", () => {
-//   it("show name input text", () => {
-//     render(<AddList />);
-//     const add = screen.getByRole("button", { name: /ایجاد لیست/i });
-//     user.click(add);
-//     const input = screen.getByPlaceholderText(
-//       /اسم لیست را در این بخش بنویسید/i
-//     );
-//     expect(input).toBeInTheDocument();
+test("it calls setCardName after clicking the button", () => {
+  const handle_add_card = vi.fn();
+  const set_card_name = vi.fn();
+  render(
+    <AddCard
+      handleAddCardSubmit={handle_add_card}
+      setCardName={set_card_name}
+      cardName=""
+    />
+  );
+  const input = screen.getByRole("textbox", {
+    name: /اسم کارت/i,
+  });
+  const button = screen.getByRole("button", { name: /افزودن/i });
+  user.click(input);
+  user.keyboard("hello, world");
+  user.click(button);
+  expect(set_card_name).toHaveBeenCalled();
+});
+
+test("it calls setCardName n time while n is the number of letters of input name", () => {
+  const handle_add_card = vi.fn();
+  const set_card_name = vi.fn();
+  render(
+    <AddCard
+      handleAddCardSubmit={handle_add_card}
+      setCardName={set_card_name}
+      cardName=""
+    />
+  );
+  const input = screen.getByRole("textbox", {
+    name: /اسم کارت/i,
+  });
+  const button = screen.getByRole("button", { name: /افزودن/i });
+  user.click(input);
+  user.keyboard("hello, world");
+  user.click(button);
+  expect(set_card_name).toHaveBeenCalledTimes(12);
+});
+
+// test("it calls handle_add_card after inputing name completely and pushing add button", () => {
+//   const handle_add_card = vi.fn();
+//   const set_card_name = vi.fn();
+//   render(
+//     <AddCard
+//       handleAddCardSubmit={handle_add_card}
+//       setCardName={set_card_name}
+//       cardName=""
+//     />
+//   );
+//   const input = screen.getByRole("textbox", {
+//     name: /اسم کارت/i,
 //   });
-//   it("show add button", () => {
-//     render(<AddList />);
-//     const add = screen.getByRole("button", { name: /ایجاد لیست/i });
-//     user.click(add);
-//     const button = screen.getByRole("button", { name: /افزودن/i });
-//     expect(button).toBeInTheDocument();
-//   });
-//   it("click on add button", () => {
-//     render(<AddList />);
-//     let add = screen.getByRole("button", { name: /ایجاد لیست/i });
-//     user.click(add);
-//     const button = screen.getByRole("button", { name: /افزودن/i });
-//     user.click(button);
-//     add = screen.getByRole("button", { name: /ایجاد لیست/i });
-//     expect(add).toBeInTheDocument();
-//   });
-//   it("show cancel button", () => {
-//     render(<AddList />);
-//     const add = screen.getByRole("button", { name: /ایجاد لیست/i });
-//     user.click(add);
-//     const button = screen.getByRole("button", { name: /لغو/i });
-//     expect(button).toBeInTheDocument();
-//   });
-//   it("click on cancel button", () => {
-//     render(<AddList />);
-//     let add = screen.getByRole("button", { name: /ایجاد لیست/i });
-//     user.click(add);
-//     const button = screen.getByRole("button", { name: /لغو/i });
-//     user.click(button);
-//     add = screen.getByRole("button", { name: /ایجاد لیست/i });
-//     expect(add).toBeInTheDocument();
-//   });
-//   it("enter on textfield", () => {
-//     render(<AddList />);
-//     let add = screen.getByRole("button", { name: /ایجاد لیست/i });
-//     user.click(add);
-//     const input = screen.getByPlaceholderText(
-//       /اسم لیست را در این بخش بنویسید/i
-//     );
-//     fireEvent.keyDown(input, { key: "Enter", code: "Enter", value: "A" });
-//     add = screen.getByRole("button", { name: /ایجاد لیست/i });
-//     expect(add).toBeInTheDocument();
-//   });
-//   it("type in textfield", () => {
-//     render(<AddList />);
-//     let add = screen.getByRole("button", { name: /ایجاد لیست/i });
-//     user.click(add);
-//     const input = screen.getByPlaceholderText(
-//       /اسم لیست را در این بخش بنویسید/i
-//     );
-//     fireEvent.change(input, { target: { value: "Hello, world!" } });
-//     expect(input.value).toBe("Hello, world!");
-//   });
+//   const button = screen.getByRole("button", { name: /افزودن/i });
+//   user.click(input);
+//   user.keyboard("hello, world");
+//   user.click(button);
+//   expect(handle_add_card).toHaveBeenCalled();
 // });

@@ -16,6 +16,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import NextBtn from "../NextBtn/NextBtn";
 import apiInstance from "../../../utilities/axiosConfig";
 import useTheme from "../../../hooks/useTheme";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Group = () => {
   // const [good_cards, setGoodCards] = useState([
@@ -29,6 +30,8 @@ const Group = () => {
 
   // const [groups, setGroups] = useState({});
   const [groups, setGroups] = useState([]);
+  const [isRetroAdmin, setIsRetroAdmin] = useState(false);
+
   const {theme, getColor} = useTheme();
   const socket = useRef(null);
   useEffect(() => {
@@ -36,8 +39,9 @@ const Group = () => {
     apiInstance.get(`retro/${localStorage.getItem("retro_id")}/get-session-group/`).then((response) => {
       // setGoodCards(response.data.good_cards);
       // setBadCards(response.data.bad_cards);
-      setGroups(response.data.groups);
       console.log(response.data.groups);
+      setGroups(response.data.groups);
+      setIsRetroAdmin(response.data.is_retro_admin);
       // {
       //   "id": 2,
       //   "board": 1,
@@ -114,10 +118,33 @@ const Group = () => {
 
     socket.current.onmessage = (event) => {
       const message = JSON.parse(event.data);
-      // console.log(message);
+      console.log(event);
+      updateGroups();
+      //   if ("data" in message ) {
+      //   if ("nextStep" in message.data) {
+      //     console.log("next_step entered");
+      //     handleNavigation(message, event.type);
+      //     return;
+      //   }
+      // }
+
+
+      // if (message != null) {
+      //   if ("data" in message ) {
+          if ("nextStep" in message.data) {
+            console.log("next_step entered");
+            handleNavigation(message, event.type);
+            return;
+          }
+      //   }
+      // }
+
       // setGoodCards(message.good_cards);
       // setBadCards(message.bad_cards);
+      console.log("message.groups");
+      console.log(message.groups);
       setGroups(message.groups);
+      updateGroups();
     };
 
     socket.current.onclose = () => {
@@ -202,38 +229,13 @@ const Group = () => {
 
   const handleDragEnd = (result) => {
     const { source, destination } = result;
-    // send result to socket and get it and call it with it
-    // console.log("result");
-    // console.log(result);
-    // console.log(source); // {
-    // //     "index": 0,
-    // //     "droppableId": "card-1"
-    // // }
-    // get the text of card 
-
 
     // If dropped outside of a droppable area
     if (!destination) {
-      const sourceGroup = groups[source.droppableId];
-      const sourceCardIds = Array.from(sourceGroup.cardIds);
+      // const sourceGroup = groups[source.droppableId];
+      // const sourceCardIds = Array.from(sourceGroup.cardIds);
 
-      if (sourceCardIds.length == 1) return;
-
-      const [movedCard] = sourceCardIds.splice(source.index, 1);
-      console.log(movedCard);
-      const newSourceGroup = { ...sourceGroup, cardIds: sourceCardIds };
-      const newGroup = {
-        id: uuid().toString(),
-        title: "تست",
-        cardIds: [movedCard],
-        hide: false,
-        class: sourceGroup.class,
-      };
-      setGroups({
-        ...groups,
-        [newSourceGroup.id]: newSourceGroup,
-        [newGroup.id]: newGroup,
-      });
+      // if (sourceCardIds.length == 1) return;
 
       socket.current.send(
         JSON.stringify({
@@ -244,112 +246,22 @@ const Group = () => {
           },
         })
       );
-      // send new group to others
-      // socket.current.send(
-      //   JSON.stringify({
-      //     type: "change_group",
-      //     data: {
-      //       // good_cards: good_cards,
-      //       // bad_cards: bad_cards,
-      //       groups: {
-      //         ...groups,
-      //         [newSourceGroup.id]: newSourceGroup,
-      //         [newGroup.id]: newGroup,
-      //       }
-      //     },
-      //   })
-      // );
-      
-      // updateGroups();
+      updateGroups();
       return;
     }
 
     // If dropped in the same droppable area
     if (source.droppableId === destination.droppableId) {
-      const group = groups[destination.droppableId];
-      const newCardIds = Array.from(group.cardIds);
-      const [reorderedCard] = newCardIds.splice(source.index, 1);
-      newCardIds.splice(destination.index, 0, reorderedCard);
-      const newGroup = { ...group, cardIds: newCardIds };
-      setGroups({ ...groups, [newGroup.id]: newGroup });
-
-      // // send new group to others
-      // socket.current.send(
-      //   JSON.stringify({
-      //     type: "change_group",
-      //     data: {
-      //       // good_cards: good_cards,
-      //       // bad_cards: bad_cards,
-      //       groups: { ...groups, [newGroup.id]: newGroup }
-      //     },
-      //   })
-      // );
 
     } else {
       // If dropped in a different droppable area
-      const sourceGroup = groups[source.droppableId];
-      const destGroup = groups[destination.droppableId];
+      // const sourceGroup = groups[parseInt(source.droppableId)];
+      // const sourceGroup = groups[0];
+      // console.log(parseInt(destination.index))
+      // const destGroup = groups[parseInt(destination.droppableId)];
+      // if (sourceGroup.is_positive != destGroup.is_positive) return;
 
-      if (sourceGroup.class != destGroup.class) return;
-
-      const sourceCardIds = Array.from(sourceGroup.cardIds);
-      const destCardIds = Array.from(destGroup.cardIds);
-      const [movedCard] = sourceCardIds.splice(source.index, 1);
-      destCardIds.splice(destination.index, 0, movedCard);
-      let newSourceGroup = {};
-      const newDestGroup = { ...destGroup, cardIds: destCardIds };
-
-      if (sourceCardIds.length == 0) {
-        delete groups[source.droppableId];
-        setGroups({
-          ...groups,
-          [newDestGroup.id]: newDestGroup,
-        });
-
-        socket.current.send(
-          JSON.stringify({
-            type: "merge",
-            data: {
-              parent_card: destination.droppableId,
-              card: source.droppableId,
-            },
-          })
-        );
-
-        // send new group to others
-        // socket.current.send(
-        //   JSON.stringify({
-        //     type: "change_group",
-        //     data: {
-        //       good_cards: good_cards,
-        //       bad_cards: bad_cards,
-        //       groups: {
-        //         ...groups,
-        //         [newDestGroup.id]: newDestGroup,
-        //       }
-        //     },
-        //   })
-        // );
-
-        // updateGroups();
-        return;
-      } else {
-        newSourceGroup = { ...sourceGroup, cardIds: sourceCardIds };
-        // socket.current.send(
-        //   JSON.stringify({
-        //     type: "merge",
-        //     data: {
-        //       parent_card: destination,
-        //       card: source,
-        //     },
-        //   })
-        // );
-      }
-      setGroups({
-        ...groups,
-        [newSourceGroup.id]: newSourceGroup,
-        [newDestGroup.id]: newDestGroup,
-      });
+      // const sourceCardIds = Array.from(sourceGroup.cardIds);
 
       socket.current.send(
         JSON.stringify({
@@ -360,25 +272,212 @@ const Group = () => {
           },
         })
       );
-
-      // send new group to others
-      // socket.current.send(
-      //   JSON.stringify({
-      //     type: "change_group",
-      //     data: {
-      //       good_cards: good_cards,
-      //       bad_cards: bad_cards,
-      //       groups: {
-      //         ...groups,
-      //         [newSourceGroup.id]: newSourceGroup,
-      //         [newDestGroup.id]: newDestGroup,
-      //       }
-      //     },
-      //   })
-      // );
+      updateGroups();
     }
 
-    // updateGroups();
+  };
+
+  // const handleDragEnd = (result) => {
+  //   const { source, destination } = result;
+  //   // send result to socket and get it and call it with it
+  //   // console.log("result");
+  //   // console.log(result);
+  //   // console.log(source); // {
+  //   // //     "index": 0,
+  //   // //     "droppableId": "card-1"
+  //   // // }
+  //   // get the text of card 
+
+
+  //   // If dropped outside of a droppable area
+  //   if (!destination) {
+  //     const sourceGroup = groups[source.droppableId];
+  //     const sourceCardIds = Array.from(sourceGroup.cardIds);
+
+  //     if (sourceCardIds.length == 1) return;
+
+  //     const [movedCard] = sourceCardIds.splice(source.index, 1);
+  //     console.log(movedCard);
+  //     const newSourceGroup = { ...sourceGroup, cardIds: sourceCardIds };
+  //     const newGroup = {
+  //       id: uuid().toString(),
+  //       title: "تست",
+  //       cardIds: [movedCard],
+  //       hide: false,
+  //       class: sourceGroup.class,
+  //     };
+  //     setGroups({
+  //       ...groups,
+  //       [newSourceGroup.id]: newSourceGroup,
+  //       [newGroup.id]: newGroup,
+  //     });
+
+  //     socket.current.send(
+  //       JSON.stringify({
+  //         type: "split",
+  //         data: {
+  //           card: source.droppableId,
+  //           // text: ...
+  //         },
+  //       })
+  //     );
+  //     // send new group to others
+  //     // socket.current.send(
+  //     //   JSON.stringify({
+  //     //     type: "change_group",
+  //     //     data: {
+  //     //       // good_cards: good_cards,
+  //     //       // bad_cards: bad_cards,
+  //     //       groups: {
+  //     //         ...groups,
+  //     //         [newSourceGroup.id]: newSourceGroup,
+  //     //         [newGroup.id]: newGroup,
+  //     //       }
+  //     //     },
+  //     //   })
+  //     // );
+
+  //     // updateGroups();
+  //     return;
+  //   }
+
+  //   // If dropped in the same droppable area
+  //   if (source.droppableId === destination.droppableId) {
+  //     const group = groups[destination.droppableId];
+  //     const newCardIds = Array.from(group.cardIds);
+  //     const [reorderedCard] = newCardIds.splice(source.index, 1);
+  //     newCardIds.splice(destination.index, 0, reorderedCard);
+  //     const newGroup = { ...group, cardIds: newCardIds };
+  //     setGroups({ ...groups, [newGroup.id]: newGroup });
+
+  //     // // send new group to others
+  //     // socket.current.send(
+  //     //   JSON.stringify({
+  //     //     type: "change_group",
+  //     //     data: {
+  //     //       // good_cards: good_cards,
+  //     //       // bad_cards: bad_cards,
+  //     //       groups: { ...groups, [newGroup.id]: newGroup }
+  //     //     },
+  //     //   })
+  //     // );
+
+  //   } else {
+  //     // If dropped in a different droppable area
+  //     const sourceGroup = groups[source.droppableId];
+  //     const destGroup = groups[destination.droppableId];
+
+  //     if (sourceGroup.class != destGroup.class) return;
+
+  //     const sourceCardIds = Array.from(sourceGroup.cardIds);
+  //     const destCardIds = Array.from(destGroup.cardIds);
+  //     const [movedCard] = sourceCardIds.splice(source.index, 1);
+  //     destCardIds.splice(destination.index, 0, movedCard);
+  //     let newSourceGroup = {};
+  //     const newDestGroup = { ...destGroup, cardIds: destCardIds };
+
+  //     if (sourceCardIds.length == 0) {
+  //       delete groups[source.droppableId];
+  //       setGroups({
+  //         ...groups,
+  //         [newDestGroup.id]: newDestGroup,
+  //       });
+
+  //       socket.current.send(
+  //         JSON.stringify({
+  //           type: "merge",
+  //           data: {
+  //             parent_card: destination.droppableId,
+  //             card: source.droppableId,
+  //           },
+  //         })
+  //       );
+
+  //       // send new group to others
+  //       // socket.current.send(
+  //       //   JSON.stringify({
+  //       //     type: "change_group",
+  //       //     data: {
+  //       //       good_cards: good_cards,
+  //       //       bad_cards: bad_cards,
+  //       //       groups: {
+  //       //         ...groups,
+  //       //         [newDestGroup.id]: newDestGroup,
+  //       //       }
+  //       //     },
+  //       //   })
+  //       // );
+
+  //       // updateGroups();
+  //       return;
+  //     } else {
+  //       newSourceGroup = { ...sourceGroup, cardIds: sourceCardIds };
+  //       // socket.current.send(
+  //       //   JSON.stringify({
+  //       //     type: "merge",
+  //       //     data: {
+  //       //       parent_card: destination,
+  //       //       card: source,
+  //       //     },
+  //       //   })
+  //       // );
+  //     }
+  //     setGroups({
+  //       ...groups,
+  //       [newSourceGroup.id]: newSourceGroup,
+  //       [newDestGroup.id]: newDestGroup,
+  //     });
+
+  //     socket.current.send(
+  //       JSON.stringify({
+  //         type: "merge",
+  //         data: {
+  //           parent_card: destination.droppableId,
+  //           card: source.droppableId,
+  //         },
+  //       })
+  //     );
+
+  //     // send new group to others
+  //     // socket.current.send(
+  //     //   JSON.stringify({
+  //     //     type: "change_group",
+  //     //     data: {
+  //     //       good_cards: good_cards,
+  //     //       bad_cards: bad_cards,
+  //     //       groups: {
+  //     //         ...groups,
+  //     //         [newSourceGroup.id]: newSourceGroup,
+  //     //         [newDestGroup.id]: newDestGroup,
+  //     //       }
+  //     //     },
+  //     //   })
+  //     // );
+  //   }
+
+  //   // updateGroups();
+  // };
+
+  const { workspaceId, boardId } = useParams();
+  const navigate = useNavigate();
+  const handleNavigation = (message, type) => {
+    // if (type === "navigate_to_next_step") {
+    console.log("--------------------");
+    console.log(message);
+    // close connection 
+    if (socket.current !== null)
+        socket.current.close();
+
+    // if (props.WS !== null)
+    //     props.WS.close();
+    if (message.data.nextStep !== undefined){
+        if (message.data.nextStep === "board") {
+            localStorage.removeItem("retro_id");
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/${message.data.nextStep}`);
+        } else {
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/${message.data.nextStep}`);
+        }
+    }
   };
 
   return (
@@ -408,10 +507,13 @@ const Group = () => {
                   {/* .filter((group) => group.class == "good") */}
                   {/* {group is an array of objects} */}
                   {/* {Object?.values(groups) */}
-                  { groups
+                  {groups
                     ?.filter((group) => group.is_positive == true)
                     .map((group) => (
-                      <Droppable droppableId={group.id} key={group.id}>
+                      <Droppable
+                        droppableId={group.id.toString()}
+                        key={group.id}
+                      >
                         {(provided) => (
                           <div
                             {...provided.droppableProps}
@@ -446,10 +548,10 @@ const Group = () => {
                                 {/* {group?.cardIds?.map((cardId, index) => ( */}
                                 {group?.cards.map((card, index) => (
                                   <Draggable
-                                    // draggableId={card.id.toString()}
-                                    draggableId={card.id}
+                                    draggableId={card.id.toString()}
+                                    // draggableId={card.id}
                                     index={index}
-                                    key={card.id}
+                                  // key={card.id}
                                   >
                                     {(provided) => (
                                       <div
@@ -498,10 +600,14 @@ const Group = () => {
                 <div className="RetroReflect-list-card-container">
                   {/* .filter((group) => group.class == "bad") */}
                   {/* {Object?.values(groups) */}
-                  { groups
+                  {groups
                     ?.filter((group) => group.is_positive == false)
                     .map((group) => (
-                      <Droppable droppableId={group.id} key={group.id}>
+                      <Droppable
+                        // droppableId={group.id}
+                        droppableId={group.id.toString()}
+                        key={group.id}
+                      >
                         {(provided) => (
                           <div
                             {...provided.droppableProps}
@@ -536,10 +642,10 @@ const Group = () => {
                                 {/* {group?.cardIds?.map((cardId, index) => ( */}
                                 {group?.cards.map((card, index) => (
                                   <Draggable
-                                    draggableId={card.id}
-                                    // draggableId={card.id.toString()}
+                                    // draggableId={card.id}
+                                    draggableId={card.id.toString()}
                                     index={index}
-                                    key={card.id}
+                                  // key={card.id}
                                   >
                                     {(provided) => (
                                       <div
@@ -548,7 +654,7 @@ const Group = () => {
                                         ref={provided.innerRef}
                                       >
                                         <RetroCard>
-                                            {/* bad_cards.find(
+                                          {/* bad_cards.find(
                                               (card) => card.id === cardId
                                             )?.content */}
                                           {
@@ -572,11 +678,13 @@ const Group = () => {
           </div>
         </div>
         {/* if is admin ? */}
-        <NextBtn
+        {isRetroAdmin && (<NextBtn
           currentStep={"Group"}
           text={"بعدی"}
-          WebSocket={socket.current}
-        />
+          WS={socket.current}
+        />)
+        }
+
       </div>
     </DragDropContext>
   );
