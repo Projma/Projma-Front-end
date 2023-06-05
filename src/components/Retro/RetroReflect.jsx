@@ -8,9 +8,11 @@ import StyledTextField from "../Shared/StyledTextField";
 import PerTextField from "../Shared/PerTextField";
 import NextBtn from "./NextBtn/NextBtn";
 import apiInstance from "../../utilities/axiosConfig";
+import useTheme from "../../hooks/useTheme";
 
 const RetroReflect = () => {
   const params = useParams();
+  const {theme, getColor} = useTheme();
   const [greenList, setGreenList] = useState([]);
   const [redList, setRedList] = useState([]);
   const socket = useRef(null);
@@ -100,7 +102,7 @@ const RetroReflect = () => {
                   backgroundColor: "green",
                 }}
               ></div>
-              <Typography>چه چیز هایی کار میکند؟</Typography>
+              <Typography style={{color: getColor(theme.minorBg)}}>چه چیز هایی کار میکند؟</Typography>
             </div>
             <div className="RetroReflect-list-textfield">
               <PerTextField>
@@ -116,7 +118,8 @@ const RetroReflect = () => {
                     disableUnderline: true,
                     style: {
                       fontFamily: "Vazir",
-                      backgroundColor: "$secondary",
+                      backgroundColor: theme.secondary,
+                      color: getColor(theme.secondary)
                     },
                   }}
                   InputLabelProps={{
@@ -168,7 +171,7 @@ const RetroReflect = () => {
                   backgroundColor: "red",
                 }}
               ></div>
-              <Typography>در کجا ها به مشکل خوردید؟</Typography>
+              <Typography style={{color: getColor(theme.minorBg)}}>در کجا ها به مشکل خوردید؟</Typography>
             </div>
             <div className="RetroReflect-list-textfield">
               <PerTextField>
@@ -184,7 +187,8 @@ const RetroReflect = () => {
                     disableUnderline: true,
                     style: {
                       fontFamily: "Vazir",
-                      backgroundColor: "$secondary",
+                      backgroundColor: theme.secondary,
+                      color: getColor(theme.secondary)
                     },
                   }}
                   InputLabelProps={{

@@ -7,8 +7,10 @@ import "../RetroReflect.scss";
 import VoteSetting from "./VoteSetting";
 import {  toast } from "react-toastify";
 import NextBtn from "../NextBtn/NextBtn";
+import useTheme from "../../../hooks/useTheme";
 
 const Vote = () => {
+  const {theme, getColor} = useTheme();
   const [allowVotePerUser, setAllowVotePerUser] = React.useState(0);
   const [allowVotePerItem, setAllowVotePerItem] = React.useState(5);
   const [greenList, setGreenList] = useState(["1", "2", "3", "4", "5"]);
@@ -103,7 +105,7 @@ const Vote = () => {
           className="RetroReflect-vote-header-myVote"
           style={{ flexDirection: "row" }}
         >
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex",color: getColor(theme.mainBg) }}>
             {" "}
             رای‌های باقیمانده: {remainingVote}
           </div>
@@ -129,7 +131,7 @@ const Vote = () => {
                   backgroundColor: "green",
                 }}
               ></div>
-              <Typography>چه چیز هایی کار میکند؟</Typography>
+              <Typography style={{color: getColor(theme.minorBg)}}>چه چیز هایی کار میکند؟</Typography>
             </div>
             <div className="RetroReflect-list-card">
               <div className="RetroReflect-list-card-container">
@@ -157,7 +159,7 @@ const Vote = () => {
                   backgroundColor: "red",
                 }}
               ></div>
-              <Typography>در کجا ها به مشکل خوردید؟</Typography>
+              <Typography style={{color: getColor(theme.minorBg)}}>در کجا ها به مشکل خوردید؟</Typography>
             </div>
             <div className="RetroReflect-list-card">
               <div className="RetroReflect-list-card-container">

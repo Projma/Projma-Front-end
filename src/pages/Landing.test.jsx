@@ -31,6 +31,21 @@ const detail4 = `منظور آموزش برای انجام فعالیت‌های
 هر چند که رویکرد مدیریت پروژه یک رویکرد کاملاً اقتضایی است اما با فرموله کردن موضوع می‌توان از درست بودن تصمیم‌های گرفته شده اطمینان حاصل کرد.`;
 
 describe("Landing", () => {
+    vi.mock("../hooks/useTheme", () => ({
+        __esModule: true,
+        default: () => ({
+          theme: {
+            name: "sun",
+            mainBg: "#e5e5e5",
+            minorBg: "#fff",
+            secondary: "#f8981c",
+            tertiary: "#f47922",
+            hover: "#f4792280",
+            primary: "#fdb713",
+          },
+          getColor: (bgColor) => "#000000",
+        }),
+      }));
     it("renders the header component", () => {
         const initialState = {
             user: {
@@ -38,8 +53,8 @@ describe("Landing", () => {
             }
         };
         const mockStore = configureStore();
-        store = mockStore(initialState);
         let store;
+        store = mockStore(initialState);
         screen.width = 1000;
         render(
             <Provider store={store}>
