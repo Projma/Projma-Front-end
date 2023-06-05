@@ -21,9 +21,11 @@ import CreateMeeting from "./CreateMeeting";
 import ShowMeeting from "./showMeeting";
 import EditEvent from "./EditEvent";
 import EditMeeting from "./EditMeeting";
+import useTheme from "../../hooks/useTheme";
 
 const Calendar = () => {
   const { collapsed } = useProSidebar();
+  const {theme, getColor} = useTheme();
   const { boardId, getBoard, calendar } = useBoard();
   const [calendarId, setCalendarId] = useState(calendar);
   const [openAddEvent, setOpenAddEvent] = useState(false);
@@ -157,7 +159,7 @@ const Calendar = () => {
     getEvent();
   }, [openAddEvent, openShowEvent, openCreateMeeting, openShowMeeting]);
   return (
-    <dir className="calendar--container">
+    <dir className="calendar--container" style={{color: getColor(theme.mainBg)}}>
       <Modal
         open={openAddEvent}
         onClose={handleCloseAddEvent}
