@@ -61,15 +61,6 @@ const CardTitle = (props) => {
     setName(convertNumberToPersian(event.target.value));
   };
 
-  const blurHandler = (props) => {
-    if (name !== props.title) {
-      // props.onChangeName(name);
-    }
-    ////console.log('blur');
-    // props.onBlurHandler();
-    // setEnable(false);
-  };
-
   return (
     <PerTextField>
       <FormControl variant="standard" fullWidth>
@@ -83,7 +74,6 @@ const CardTitle = (props) => {
             defaultValue={name}
             disabled={!props.enable}
             onChange={handleChange}
-            onBlur={blurHandler}
             onClick={() => {
             }}
             // onBlur={() => setUnderline(true)}
