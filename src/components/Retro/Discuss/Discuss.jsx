@@ -21,6 +21,7 @@ const Discuss = () => {
     const [BoardDescription, setBoardDescription] = React.useState("");
     const [groups_and_cards, setGroups_and_cards] = useState([]);
     const socket = useRef(null);
+    const [isRetroAdmin, setIsRetroAdmin] = useState(false);
 
     useEffect(() => {
         apiInstance.
@@ -68,6 +69,7 @@ const Discuss = () => {
             //   }
             console.log(res.data);
             setGroups_and_cards(res.data.groups);
+            setIsRetroAdmin(response.data.is_retro_admin);
         }).catch((err) => {
             console.log(err);
         });
@@ -106,7 +108,6 @@ const Discuss = () => {
         <>
             <div style={{
                 width: '100%',
-                // overflow: 'scroll',
             }}>
                 <div className="discuss-header">
                     <div className="discuss-header-right">
@@ -230,12 +231,12 @@ const Discuss = () => {
                 }
 
             </div>
-            {/* if is admin ? */}
-            {/* <NextBtn 
-                currentStep={"Discuss"}
-                text={"پایان جلسه"}
-                WebSocket={socket.current}
-            /> */}
+            {isRetroAdmin && (<NextBtn
+                currentStep={"Group"}
+                text={"بعدی"}
+                // WebSocket={socket.current}
+            />)
+            }
         </>
     );
 };
