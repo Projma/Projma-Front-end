@@ -90,7 +90,7 @@ function Provider({ children, boardId, workspaceId }) {
     );
     socket.current.send(
       JSON.stringify({
-        type: "edit_list_name",
+        type: "edit_tasklist_name",
         data: { list_id: id, name: name },
       })
     );
@@ -196,10 +196,14 @@ function Provider({ children, boardId, workspaceId }) {
     if (type == "remove_tasklist") {
       setList(list.filter((list) => list.id !== data.data.list_id));
     }
-    if (type == "edit_list_name") {
+    if (type == "edit_tasklist_name") {
       setList(
         list.map((list) => {
-          if (list.id == data.data.list_id) list.title = data.data.name;
+          if (list.id == data.data.list_id) {
+            console.log("hereeeeeeeeeeeeeeeeeeeeeeeeee");
+            console.log(list);
+            list.title = data.data.name;
+          }
           return list;
         })
       );
