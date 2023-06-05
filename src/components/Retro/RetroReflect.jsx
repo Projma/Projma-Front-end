@@ -76,6 +76,8 @@ const RetroReflect = () => {
 
     socket.current.onmessage = (event) => {
       const message = JSON.parse(event.data);
+      // console.log(event.data);
+      // console.log(event.type); // message
       setRedCount(message.negative_cnt);
       setGreenCount(message.positive_cnt);
     };
