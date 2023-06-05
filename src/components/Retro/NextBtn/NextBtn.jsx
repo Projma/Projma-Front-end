@@ -19,6 +19,7 @@ const NextBtn = (props) => {
     const { workspaceId, boardId } = useParams();
     const navigate = useNavigate();
     const [value, setValue] = React.useState(0);
+
     const navigateToNextStep = () => {
         var nextStep = "group"
         if (props.currentStep === "Reflect") {
@@ -39,9 +40,10 @@ const NextBtn = (props) => {
         //         data: { nextStep: nextStep },
         //     })
         // );
-        props.WebSocket.send(
+        console.log("send nextStep");
+        props.WS.send(
             JSON.stringify({
-                type: "navigate_to_next_step",
+                type: "next_step",
                 data: { nextStep: nextStep },
             })
         );
@@ -49,8 +51,8 @@ const NextBtn = (props) => {
         // close connection
         // if (socket.current !== null)
         //     socket.current.close();
-        if (props.WebSocket !== null)
-            props.WebSocket.close();
+        if (props.WS !== null)
+            props.WS.close();
 
         if (nextStep === "board") {
             localStorage.removeItem("retro_id");
@@ -64,19 +66,21 @@ const NextBtn = (props) => {
 
     const handleNavigation = (message, type) => {
         // if (type === "navigate_to_next_step") {
-        
+        console.log("message");
+        console.log(message);
         // close connection 
         if (socket.current !== null)
             socket.current.close();
 
-        // if (props.WebSocket !== null)
-        //     props.WebSocket.close();
-        
-        if (message.data.nextStep === "board") {
-            localStorage.removeItem("retro_id");
-            navigate(`/workspace/${workspaceId}/kanban/${boardId}/${message.data.nextStep}`);
-        } else {
-            navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/${message.data.nextStep}`);
+        // if (props.WS !== null)
+        //     props.WS.close();
+        if (message.data.nextStep !== undefined){
+            if (message.data.nextStep === "board") {
+                localStorage.removeItem("retro_id");
+                navigate(`/workspace/${workspaceId}/kanban/${boardId}/${message.data.nextStep}`);
+            } else {
+                navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/${message.data.nextStep}`);
+            }
         }
         // }
     }
@@ -88,32 +92,32 @@ const NextBtn = (props) => {
         //         "access_token"
         //     )}`
         // );
-        socket.current = new WebSocket(
-            `ws://localhost:8000/ws/socket-server/retro/discuss/${localStorage.getItem(
-                "retro_id"
-            )}/?token=${localStorage.getItem("access_token")}`
-        );
+        // socket.current = new WebSocket(
+        //     `ws://localhost:8000/ws/socket-server/retro/discuss/${localStorage.getItem(
+        //         "retro_id"
+        //     )}/?token=${localStorage.getItem("access_token")}`
+        // );
 
-        socket.current.onopen = () => {
-            console.log("Next WebSocket connection opened");
-            // socket.current.send(
-            //   JSON.stringify({
-            //     type: "join_board_group",
-            //     data: { board_id: boardId },
-            //   })
-            // );
-        };
-        socket.current.onmessage = (event) => {
-            const message = JSON.parse(event.data);
-            console.log(message);
-            handleNavigation(message, message.type);
-        };
-        socket.current.onclose = () => {
-            console.log("Next WebSocket connection closed");
-        };
+        // socket.current.onopen = () => {
+        //     console.log("Next WebSocket connection opened");
+        //     // socket.current.send(
+        //     //   JSON.stringify({
+        //     //     type: "join_board_group",
+        //     //     data: { board_id: boardId },
+        //     //   })
+        //     // );
+        // };
+        // socket.current.onmessage = (event) => {
+        //     const message = JSON.parse(event.data);
+        //     console.log(message);
+        //     handleNavigation(message, message.type);
+        // };
+        // socket.current.onclose = () => {
+        //     console.log("Next WebSocket connection closed");
+        // };
         
 
-        // props.WebSocket.onmessage = (event) => {
+        // props.WS.onmessage = (event) => {
         //     const message = JSON.parse(event.data);
         //     console.log(message);
         //     handleNavigation(message, message.type);

@@ -13,15 +13,16 @@ import RetroCard from "../content/RetroCard";
 import apiInstance from "../../../utilities/axiosConfig";
 import NextBtn from "../NextBtn/NextBtn";
 import { createContext, useState, useCallback, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const Discuss = () => {
-    const { boardId } = useParams();
+    const { workspaceId, boardId } = useParams();
     const [boardName, setBoardName] = React.useState("");
     const [BoardDescription, setBoardDescription] = React.useState("");
     const [groups_and_cards, setGroups_and_cards] = useState([]);
     const socket = useRef(null);
-    const [isRetroAdmin, setIsRetroAdmin] = useState(false);
+    const [isRetroAdmin, setIsRetroAdmin] = useState(true);
 
     useEffect(() => {
         apiInstance.
@@ -70,39 +71,62 @@ const Discuss = () => {
             console.log(res.data);
             setGroups_and_cards(res.data.groups);
             setIsRetroAdmin(response.data.is_retro_admin);
+            console.log("isRetroAdmin: ", isRetroAdmin);
         }).catch((err) => {
             console.log(err);
         });
 
-        // socket.current = new WebSocket(
-        //     `ws://localhost:8000/ws/socket-server/retro/discuss/${localStorage.getItem(
-        //         "retro_id"
-        //     )}/?token=${localStorage.getItem("access_token")}`
-        // );
-        // socket.current.onopen = () => {
-        //     console.log("WebSocket connection opened");
-        //     // socket.current.send(
-        //     //   JSON.stringify({
-        //     //     type: "join_board_group",
-        //     //     data: { board_id: boardId },
-        //     //   })
-        //     // );
-        // };
+        socket.current = new WebSocket(
+            `ws://localhost:8000/ws/socket-server/retro/discuss/${localStorage.getItem(
+                "retro_id"
+            )}/?token=${localStorage.getItem("access_token")}`
+        );
+        socket.current.onopen = () => {
+            console.log("WebSocket connection opened");
+            // socket.current.send(
+            //   JSON.stringify({
+            //     type: "join_board_group",
+            //     data: { board_id: boardId },
+            //   })
+            // );
+        };
 
-        // socket.current.onmessage = (event) => {
-        //     const message = JSON.parse(event.data);
-        //     console.log(message);
-        //     // dnd_socket(message, message.type);
-        //     // setGoodCards(message.good_cards);
-        //     // setBadCards(message.bad_cards);
-        //     // setGroups(message.groups);
-        // };
+        socket.current.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+            // console.log(message);
+            if (event.data.type == 'next_step') {
+                console.log("next_step entered");
+                handleNavigation(message, event.type);
+                return;
+            }
+        };
 
-        // socket.current.onclose = () => {
-        //     console.log("WebSocket connection closed");
-        // };
+        socket.current.onclose = () => {
+            console.log("WebSocket connection closed");
+        };
 
     }, []);
+
+    const navigate = useNavigate();
+    const handleNavigation = (message, type) => {
+        // if (type === "navigate_to_next_step") {
+        console.log("--------------------");
+        console.log(message);
+        // close connection 
+        if (socket.current !== null)
+            socket.current.close();
+
+        // if (props.WS !== null)
+        //     props.WS.close();
+        if (message.data.nextStep !== undefined) {
+            if (message.data.nextStep === "board") {
+                localStorage.removeItem("retro_id");
+                navigate(`/workspace/${workspaceId}/kanban/${boardId}/${message.data.nextStep}`);
+            } else {
+                navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/${message.data.nextStep}`);
+            }
+        }
+    };
 
     return (
         <>
@@ -234,7 +258,7 @@ const Discuss = () => {
             {isRetroAdmin && (<NextBtn
                 currentStep={"Group"}
                 text={"بعدی"}
-                // WebSocket={socket.current}
+            // WS={socket.current}
             />)
             }
         </>

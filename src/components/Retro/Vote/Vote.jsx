@@ -8,6 +8,7 @@ import VoteSetting from "./VoteSetting";
 import { toast } from "react-toastify";
 import NextBtn from "../NextBtn/NextBtn";
 import useTheme from "../../../hooks/useTheme";
+import apiInstance from "../../../utilities/axiosConfig";
 
 const Vote = () => {
   const {theme, getColor} = useTheme();
@@ -21,14 +22,14 @@ const Vote = () => {
   const [isRetroAdmin, setIsRetroAdmin] = useState(true);
   /// in first get data from server
   // setIsRetroAdmin(response.data.is_retro_admin);
-  // useEffect(() => {
-  //   apiInstance.get(`retro/${localStorage.getItem("retro_id")}/get-session-vote/`).then((res) => {
-  //     // console.log(res.data);
-  //     setIsRetroAdmin(response.data.is_retro_admin);
-  // }).catch((err) => {
-  //     console.log(err);
-  // });
-  // }, []);
+  useEffect(() => {
+    apiInstance.get(`retro/${localStorage.getItem("retro_id")}/get-session-vote/`).then((res) => {
+      // console.log(res.data);
+      setIsRetroAdmin(res.data.is_retro_admin);
+  }).catch((err) => {
+      console.log(err);
+  });
+  }, []);
   
   const handleKeyDown = (event, color) => {
     if (event.key === "Enter" && event.target.value != "") {
@@ -193,7 +194,7 @@ const Vote = () => {
       {isRetroAdmin && (<NextBtn
         currentStep={"Group"}
         text={"بعدی"}
-      // WebSocket={socket.current}
+      // WS={socket.current}
       />)
       }
     </div>
