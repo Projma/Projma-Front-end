@@ -9,7 +9,7 @@ import useTheme from "../../../hooks/useTheme";
 
 const VoteCard = ({ children, voteNumber, handleVoteChange, index }) => {
   const handleColorVote = () => {
-    if (voteNumber[index] > 0) {
+    if (voteNumber > 0) {
       return "green";
     } else {
       return "white";
@@ -24,7 +24,7 @@ const VoteCard = ({ children, voteNumber, handleVoteChange, index }) => {
         </Button>
 
         <Typography sx={{ color: "white", fontSize: "17px" }}>
-          {voteNumber[index]}
+          {voteNumber}
         </Typography>
         <ThumbUpOffAltIcon sx={{ color: handleColorVote, fontSize: "23px" }} />
         <Button>
