@@ -94,7 +94,8 @@ const Discuss = () => {
         socket.current.onmessage = (event) => {
             const message = JSON.parse(event.data);
             // console.log(message);
-            if (event.data.type == 'next_step') {
+            // if (event.data.type == 'next_step') {
+            if ("nextStep" in message.data) {
                 console.log("next_step entered");
                 handleNavigation(message, event.type);
                 return;
@@ -256,9 +257,9 @@ const Discuss = () => {
 
             </div>
             {isRetroAdmin && (<NextBtn
-                currentStep={"Group"}
-                text={"بعدی"}
-            // WS={socket.current}
+                currentStep={"Discuss"}
+                text={"پایان جلسه"}
+            WS={socket.current}
             />)
             }
         </>
