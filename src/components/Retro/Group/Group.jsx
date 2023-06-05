@@ -16,6 +16,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import NextBtn from "../NextBtn/NextBtn";
 import apiInstance from "../../../utilities/axiosConfig";
 import useTheme from "../../../hooks/useTheme";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Group = () => {
   // const [good_cards, setGoodCards] = useState([
@@ -118,6 +119,11 @@ const Group = () => {
     socket.current.onmessage = (event) => {
       const message = JSON.parse(event.data);
       // console.log(message);
+      if (event.data.type == 'next_step') {
+        console.log("next_step entered");
+        handleNavigation(message, event.type);
+        return;
+      }
       // setGoodCards(message.good_cards);
       // setBadCards(message.bad_cards);
       setGroups(message.groups);
@@ -384,6 +390,28 @@ const Group = () => {
     // updateGroups();
   };
 
+  const { workspaceId, boardId } = useParams();
+  const navigate = useNavigate();
+  const handleNavigation = (message, type) => {
+    // if (type === "navigate_to_next_step") {
+    console.log("--------------------");
+    console.log(message);
+    // close connection 
+    if (socket.current !== null)
+        socket.current.close();
+
+    // if (props.WS !== null)
+    //     props.WS.close();
+    if (message.data.nextStep !== undefined){
+        if (message.data.nextStep === "board") {
+            localStorage.removeItem("retro_id");
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/${message.data.nextStep}`);
+        } else {
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/${message.data.nextStep}`);
+        }
+    }
+  };
+
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <div className="RetroReflect-container">
@@ -585,7 +613,7 @@ const Group = () => {
         {isRetroAdmin && (<NextBtn
           currentStep={"Group"}
           text={"بعدی"}
-          WebSocket={socket.current}
+          WS={socket.current}
         />)
         }
 
