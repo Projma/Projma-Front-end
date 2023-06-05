@@ -86,16 +86,19 @@ const RetroReflect = () => {
       const message = JSON.parse(event.data);
 
       // // if event.data has type 
-      if (event.data.type == 'next_step') {
-        console.log("next_step entered");
-        handleNavigation(message, event.type);
-        return;
+      // if (event.data.type == 'next_step') {
+      if ("data" in message) {
+        if ("nextStep" in message.data) {
+          console.log("next_step entered");
+          handleNavigation(message, event.type);
+          return;
+        }
       }
 
-      console.log("event");
-      console.log(event);
-      console.log("event.data");
-      console.log(event.data);
+      // console.log("event");
+      // console.log(event);
+      // console.log("event.data");
+      // console.log(event.data);
       setRedCount(message.negative_cnt);
       setGreenCount(message.positive_cnt);
     };
@@ -279,7 +282,7 @@ const RetroReflect = () => {
         </div>
       </div>
       {isRetroAdmin && (<NextBtn
-          currentStep={"Group"}
+          currentStep={"Reflect"}
           text={"بعدی"}
           WS={socket.current}
         />)

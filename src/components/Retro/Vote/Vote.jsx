@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Typography } from "@mui/material";
 import RetroList from "../content/RetroList";
 import VoteCard from "./VoteCard";
@@ -9,9 +9,11 @@ import { toast } from "react-toastify";
 import NextBtn from "../NextBtn/NextBtn";
 import useTheme from "../../../hooks/useTheme";
 import apiInstance from "../../../utilities/axiosConfig";
+import { useParams, useNavigate } from "react-router-dom";
+
 
 const Vote = () => {
-  const {theme, getColor} = useTheme();
+  const { theme, getColor } = useTheme();
   const [allowVotePerUser, setAllowVotePerUser] = React.useState(0);
   const [allowVotePerItem, setAllowVotePerItem] = React.useState(5);
   const [greenList, setGreenList] = useState(["1", "2", "3", "4", "5"]);
@@ -20,17 +22,50 @@ const Vote = () => {
   const [remainingVote, setRemainingVote] = useState(0);
 
   const [isRetroAdmin, setIsRetroAdmin] = useState(true);
-  /// in first get data from server
-  // setIsRetroAdmin(response.data.is_retro_admin);
+  const socket = useRef(null);
+
   useEffect(() => {
     apiInstance.get(`retro/${localStorage.getItem("retro_id")}/get-session-vote/`).then((res) => {
       // console.log(res.data);
       setIsRetroAdmin(res.data.is_retro_admin);
-  }).catch((err) => {
+    }).catch((err) => {
       console.log(err);
-  });
+    });
+
+    socket.current = new WebSocket(
+      `ws://localhost:8000/ws/socket-server/retro/vote/${localStorage.getItem(
+        "retro_id"
+      )}/?token=${localStorage.getItem("access_token")}`
+    );
+
+    socket.current.onopen = () => {
+      console.log("Vote WebSocket connection opened");
+      console.log(socket.current)
+    };
+
+    socket.current.onmessage = (event) => {
+
+      // console.log("event.type"); // message
+      // console.log(event.type); // message
+      const message = JSON.parse(event.data);
+
+      // // if event.data has type 
+      // if (event.data.type == 'next_step') {
+      if ("data" in message) {
+        if ("nextStep" in message.data) {
+          console.log("next_step entered");
+          handleNavigation(message, event.type);
+          return;
+        }
+      }
+
+    };
+
+    socket.current.onclose = () => {
+      console.log("Vote WebSocket connection closed");
+    };
   }, []);
-  
+
   const handleKeyDown = (event, color) => {
     if (event.key === "Enter" && event.target.value != "") {
       if (color === "red") {
@@ -112,6 +147,28 @@ const Vote = () => {
     }
   };
 
+  const { workspaceId, boardId } = useParams();
+  const navigate = useNavigate();
+  const handleNavigation = (message, type) => {
+    // if (type === "navigate_to_next_step") {
+    console.log("--------------------");
+    console.log(message);
+    // close connection 
+    if (socket.current !== null)
+      socket.current.close();
+
+    // if (props.WS !== null)
+    //     props.WS.close();
+    if (message.data.nextStep !== undefined) {
+      if (message.data.nextStep === "board") {
+        localStorage.removeItem("retro_id");
+        navigate(`/workspace/${workspaceId}/kanban/${boardId}/${message.data.nextStep}`);
+      } else {
+        navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/${message.data.nextStep}`);
+      }
+    }
+  };
+
   return (
     <div className="RetroReflect-container" style={{ flexDirection: "column" }}>
       <div className="RetroReflect-vote-header">
@@ -119,7 +176,7 @@ const Vote = () => {
           className="RetroReflect-vote-header-myVote"
           style={{ flexDirection: "row" }}
         >
-          <div style={{ display: "flex",color: getColor(theme.mainBg) }}>
+          <div style={{ display: "flex", color: getColor(theme.mainBg) }}>
             {" "}
             رای‌های باقیمانده: {remainingVote}
           </div>
@@ -145,7 +202,7 @@ const Vote = () => {
                   backgroundColor: "green",
                 }}
               ></div>
-              <Typography style={{color: getColor(theme.minorBg)}}>چه چیز هایی کار میکند؟</Typography>
+              <Typography style={{ color: getColor(theme.minorBg) }}>چه چیز هایی کار میکند؟</Typography>
             </div>
             <div className="RetroReflect-list-card">
               <div className="RetroReflect-list-card-container">
@@ -173,7 +230,7 @@ const Vote = () => {
                   backgroundColor: "red",
                 }}
               ></div>
-              <Typography style={{color: getColor(theme.minorBg)}}>در کجا ها به مشکل خوردید؟</Typography>
+              <Typography style={{ color: getColor(theme.minorBg) }}>در کجا ها به مشکل خوردید؟</Typography>
             </div>
             <div className="RetroReflect-list-card">
               <div className="RetroReflect-list-card-container">
@@ -192,9 +249,9 @@ const Vote = () => {
         </div>
       </div>
       {isRetroAdmin && (<NextBtn
-        currentStep={"Group"}
+        currentStep={"Vote"}
         text={"بعدی"}
-      // WS={socket.current}
+        WS={socket.current}
       />)
       }
     </div>
