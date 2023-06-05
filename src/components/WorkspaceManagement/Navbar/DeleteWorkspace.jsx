@@ -13,7 +13,7 @@ import { useTheme } from "@mui/material/styles";
 export default function DeleteWorkspace({ workspace_id, removeWorkspace }) {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  // const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,7 +43,7 @@ export default function DeleteWorkspace({ workspace_id, removeWorkspace }) {
         </div>
       </button>
       <Dialog
-        fullScreen={fullScreen}
+        // fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
