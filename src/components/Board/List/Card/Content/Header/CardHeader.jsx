@@ -47,12 +47,6 @@ const CardHeader = ({ cardId }) => {
             color: getColor(theme.primary),
           }, }} />
       </div>
-      {/* <div
-    className="card_edit-icon"
-    onClick={(event) => handleEditCardName(event)}
-  >
-    <EditIcon sx={{ fontSize: "1.6rem" }} />
-  </div> */}
     </div>
   );
 };

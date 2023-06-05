@@ -1,7 +1,7 @@
 import useTheme from "../../../hooks/useTheme";
 
 const RetroList = ({ children }) => {
-  const { theme } = useTheme();
+  const { theme, getColor } = useTheme();
   return (
     <div
       style={{
@@ -14,7 +14,8 @@ const RetroList = ({ children }) => {
         padding: "1rem 1rem",
         // alignItems: "flex-start",
         justifyContent: "flex-start",
-        gap: "1.5rem"
+        gap: "1.5rem",
+        color: getColor(theme.minorBg),
       }}
     >
       {children}

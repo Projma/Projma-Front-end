@@ -15,6 +15,7 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import NextBtn from "../NextBtn/NextBtn";
 import apiInstance from "../../../utilities/axiosConfig";
+import useTheme from "../../../hooks/useTheme";
 
 const Group = () => {
   // const [good_cards, setGoodCards] = useState([
@@ -30,6 +31,7 @@ const Group = () => {
   const [groups, setGroups] = useState([]);
   const [isRetroAdmin, setIsRetroAdmin] = useState(false);
 
+  const {theme, getColor} = useTheme();
   const socket = useRef(null);
   useEffect(() => {
     // get the first data
@@ -397,7 +399,7 @@ const Group = () => {
                     backgroundColor: "green",
                   }}
                 ></div>
-                <Typography>چه چیز هایی کار میکند؟</Typography>
+                <Typography style={{color: getColor(theme.minorBg)}}>چه چیز هایی کار میکند؟</Typography>
               </div>
               <div className="RetroReflect-list-textfield">
                 <PerTextField>
@@ -405,7 +407,7 @@ const Group = () => {
               </div>
               <div className="RetroReflect-list-card">
                 <div className="RetroReflect-list-card-container">
-                  //{" "}
+                  {" "}
                   {/* .filter((group) => group.class == "good") */}
                   {/* {group is an array of objects} */}
                   {/* {Object?.values(groups) */}
@@ -425,13 +427,13 @@ const Group = () => {
                             <div className="list_header-title">
                               {group.hide && (
                                 <ArrowDropDownIcon
-                                  sx={{ color: "#fff" }}
+                                  sx={{ color: getColor(theme.minorBg) }}
                                   onClick={() => handleClickHide(group.id)}
                                 ></ArrowDropDownIcon>
                               )}
                               {!group.hide && (
                                 <ArrowDropUpIcon
-                                  sx={{ color: "#fff" }}
+                                  sx={{ color: getColor(theme.minorBg) }}
                                   onClick={() => handleClickHide(group.id)}
                                 ></ArrowDropUpIcon>
                               )}
@@ -495,7 +497,7 @@ const Group = () => {
                     backgroundColor: "red",
                   }}
                 ></div>
-                <Typography>در کجا ها به مشکل خوردید؟</Typography>
+                <Typography style={{color: getColor(theme.minorBg)}}>در کجا ها به مشکل خوردید؟</Typography>
               </div>
               <div className="RetroReflect-list-textfield"></div>
               <div className="RetroReflect-list-card">
@@ -519,13 +521,13 @@ const Group = () => {
                             <div className="list_header-title">
                               {group.hide && (
                                 <ArrowDropDownIcon
-                                  sx={{ color: "#fff" }}
+                                  sx={{ color: getColor(theme.minorBg) }}
                                   onClick={() => handleClickHide(group.id)}
                                 ></ArrowDropDownIcon>
                               )}
                               {!group.hide && (
                                 <ArrowDropUpIcon
-                                  sx={{ color: "#fff" }}
+                                  sx={{ color: getColor(theme.minorBg) }}
                                   onClick={() => handleClickHide(group.id)}
                                 ></ArrowDropUpIcon>
                               )}

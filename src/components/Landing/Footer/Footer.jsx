@@ -5,7 +5,7 @@ import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid"; // Grid version 1
 import useTheme from "../../../hooks/useTheme";
 const Footer = () => {
-  const {theme} = useTheme();
+  const {theme, getColor} = useTheme();
   return (
     <div style={{
       position: "relative",
@@ -13,7 +13,7 @@ const Footer = () => {
     }}>
       <Box
         sx={{
-          color: theme.text,
+          color: getColor(theme.primary),
           backgroundColor: theme.primary,
           display: "flex",
           justifyContent: "center",
