@@ -6,6 +6,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import { convertNumberToPersian } from "../../../../../../utilities/helpers";
 import useTheme from "../../../../../../hooks/useTheme";
+import { v4 as uuidv4 } from 'uuid';
 
 const CardFooter = ({
   doers,
@@ -32,7 +33,7 @@ const CardFooter = ({
                 {doers.map((x) => (
                   <Tooltip title={x.first_name + " " + x.last_name}>
                     <Avatar
-                      key={crypto.randomUUID()}
+                      key={uuidv4()}
                       alt={x.first_name + " " + x.last_name}
                       src={x.profile_pic !== null ? x.profile_pic : "none"}
                       sx={{color: getColor(theme.secondary), backgroundColor: theme.secondary}}
