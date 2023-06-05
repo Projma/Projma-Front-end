@@ -12,6 +12,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { createContext, useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import apiInstance from "../../../utilities/axiosConfig";
 
 const NextBtn = (props) => {
     // get workspaceId and boardId from url
@@ -41,12 +42,30 @@ const NextBtn = (props) => {
         //     })
         // );
         console.log("send nextStep");
-        props.WS.send(
-            JSON.stringify({
-                type: "next_step",
-                data: { nextStep: nextStep },
-            })
-        );
+        console.log(nextStep);
+        console.log(props.WS);
+        if (props.WS !== null) {
+            props.WS.send(
+                JSON.stringify({
+                    type: "next_step",
+                    data: { nextStep: nextStep },
+                })
+            );
+        }
+        else {
+            // socket.current = new WebSocket(
+            //     `ws://localhost:8000/ws/socket-server/retro/vote/${localStorage.getItem(
+            //         "retro_id"
+            //     )}/?token=${localStorage.getItem("access_token")}`
+            // );
+            // props.vws.current.send(
+            //     JSON.stringify({
+            //         type: "next_step",
+            //         data: { nextStep: nextStep },
+            //     })
+            // );
+            // props.vws.current.close();
+        }
 
         // close connection
         // if (socket.current !== null)
@@ -55,6 +74,12 @@ const NextBtn = (props) => {
             props.WS.close();
 
         if (nextStep === "board") {
+            // delete retro id from database
+            apiInstance.delete(`/retro/${localStorage.getItem("retro_id")}/`).then((res) => {
+                console.log(res);
+            }).catch((err) => {
+                console.log(err);
+            });
             localStorage.removeItem("retro_id");
             navigate(`/workspace/${workspaceId}/kanban/${boardId}/board`);
         } else {
@@ -74,7 +99,7 @@ const NextBtn = (props) => {
 
         // if (props.WS !== null)
         //     props.WS.close();
-        if (message.data.nextStep !== undefined){
+        if (message.data.nextStep !== undefined) {
             if (message.data.nextStep === "board") {
                 localStorage.removeItem("retro_id");
                 navigate(`/workspace/${workspaceId}/kanban/${boardId}/${message.data.nextStep}`);
@@ -115,7 +140,7 @@ const NextBtn = (props) => {
         // socket.current.onclose = () => {
         //     console.log("Next WebSocket connection closed");
         // };
-        
+
 
         // props.WS.onmessage = (event) => {
         //     const message = JSON.parse(event.data);
