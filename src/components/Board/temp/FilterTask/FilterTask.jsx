@@ -8,7 +8,7 @@ import "./FilterTask.scss";
 import DatePicker, { Calendar } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-
+import ShowMembersInFilter from "./ShowMembersInFilter";
 import Loading from "../../../Shared/Loading";
 
 export default function FilterTask({ boardId, setLists }) {
@@ -23,20 +23,18 @@ export default function FilterTask({ boardId, setLists }) {
   const [date, setDate] = React.useState("");
   useEffect(() => {
     ////console.log("hereeeeeeeeeeeeeeeeee");
-    apiInstance
-      .get(`board/${boardId}/get-board-labels/`)
-      .then((res) => {
-        ////console.log("board labels");
-        ////console.log(res.data);
-        const board_labels = res.data.map((obj) => ({
-          id: obj.id,
-          title: obj.title,
-          color: obj.color,
-          checked: false,
-        }));
-        ////console.log(board_labels);
-        setBoardLabels(board_labels);
-      });
+    apiInstance.get(`board/${boardId}/get-board-labels/`).then((res) => {
+      ////console.log("board labels");
+      ////console.log(res.data);
+      const board_labels = res.data.map((obj) => ({
+        id: obj.id,
+        title: obj.title,
+        color: obj.color,
+        checked: false,
+      }));
+      ////console.log(board_labels);
+      setBoardLabels(board_labels);
+    });
   }, []);
 
   useEffect(() => {
@@ -296,24 +294,41 @@ export default function FilterTask({ boardId, setLists }) {
           <div style={{ marginTop: "10px" }}>
             <div style={{ padding: "5%" }}>
               <h2 style={{ color: "white" }}>اعضا</h2>
-              {boardMembers.map((member) => (
+              <ShowMembersInFilter
+                boardMembers={boardMembers}
+                selectedMembers={selectedMembers}
+                setSelectedMembers={setSelectedMembers}
+                setBoardMembers={setBoardMembers}
+                filterTaskAfterCheck={filterTaskAfterCheck}
+                filterTaskAfterUnCheck={filterTaskAfterUnCheck}
+              />
+            </div>
+            <div style={{ padding: "5%" }}>
+              <h2 style={{ color: "white", marginBottom: "5%" }}>برچسب</h2>
+              {boardLabels.map((label) => (
+                //console.log(label),
                 <div
-                  style={{ marginTop: "5px", display: "flex", columnGap: "6%" }}
+                  style={{
+                    display: "flex",
+                    columnGap: "5%",
+                    backgroundColor: `${label.color + "99"}`,
+                    borderRadius: "5px",
+                    padding: "2%",
+                    marginTop: "5px",
+                  }}
                 >
                   <input
                     style={{ display: "flex" }}
                     type="checkbox"
-                    id={member.id}
-                    name={member.name}
-                    value={member.id}
-                    checked={member.checked}
+                    id={label.id}
+                    name={label.title}
+                    value={label.id}
+                    checked={label.checked}
                     onChange={(e) => {
+                      //console.log("nvdi");
                       if (e.target.checked) {
-                        setSelectedMembers([
-                          ...selectedMembers,
-                          e.target.value,
-                        ]);
-                        setBoardMembers((prevState) =>
+                        setSelectedLabels([...selectedLabels, e.target.value]);
+                        setBoardLabels((prevState) =>
                           prevState.map((item) => {
                             if (item.id === parseInt(e.target.value)) {
                               item.checked = true;
@@ -321,12 +336,12 @@ export default function FilterTask({ boardId, setLists }) {
                             return item;
                           })
                         );
-                        filterTaskAfterCheck(e.target.value, "member");
+                        filterTaskAfterCheck(e.target.value, "label");
                       } else {
-                        setSelectedMembers((prevState) =>
+                        setSelectedLabels((prevState) =>
                           prevState.filter((item) => item !== e.target.value)
                         );
-                        setBoardMembers((prevState) =>
+                        setBoardLabels((prevState) =>
                           prevState.map((item) => {
                             if (item.id === parseInt(e.target.value)) {
                               item.checked = false;
@@ -334,93 +349,26 @@ export default function FilterTask({ boardId, setLists }) {
                             return item;
                           })
                         );
-                        filterTaskAfterUnCheck(e.target.value, "member");
+                        filterTaskAfterUnCheck(e.target.value, "label");
                       }
                     }}
                   />
-
-                  <p style={{ display: "flex", color: "white" }}>
-                    <div style={{ fontSize: "13px" }}>{member.full_name}</div>
-                    {/* <div style={{ fontSize: "13px" }}>{member.username}</div> */}
+                  <div
+                    style={{
+                      backgroundColor: label.color,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: 30,
+                      width: 17,
+                      height: 17,
+                      marginLeft: 7,
+                    }}
+                  ></div>
+                  <p style={{ display: "flex", fontSize: "13px" }}>
+                    {label.title}
                   </p>
                 </div>
               ))}
-            </div>
-            <div style={{ padding: "5%" }}>
-              <h2 style={{ color: "white", marginBottom: "5%" }}>برچسب</h2>
-              {boardLabels.map(
-                (label) => (
-                  //console.log(label),
-                  (
-                    <div
-                      style={{
-                        display: "flex",
-                        columnGap: "5%",
-                        backgroundColor: `${label.color + "99"}`,
-                        borderRadius: "5px",
-                        padding: "2%",
-                        marginTop: "5px",
-                      }}
-                    >
-                      <input
-                        style={{ display: "flex" }}
-                        type="checkbox"
-                        id={label.id}
-                        name={label.title}
-                        value={label.id}
-                        checked={label.checked}
-                        onChange={(e) => {
-                          //console.log("nvdi");
-                          if (e.target.checked) {
-                            setSelectedLabels([
-                              ...selectedLabels,
-                              e.target.value,
-                            ]);
-                            setBoardLabels((prevState) =>
-                              prevState.map((item) => {
-                                if (item.id === parseInt(e.target.value)) {
-                                  item.checked = true;
-                                }
-                                return item;
-                              })
-                            );
-                            filterTaskAfterCheck(e.target.value, "label");
-                          } else {
-                            setSelectedLabels((prevState) =>
-                              prevState.filter(
-                                (item) => item !== e.target.value
-                              )
-                            );
-                            setBoardLabels((prevState) =>
-                              prevState.map((item) => {
-                                if (item.id === parseInt(e.target.value)) {
-                                  item.checked = false;
-                                }
-                                return item;
-                              })
-                            );
-                            filterTaskAfterUnCheck(e.target.value, "label");
-                          }
-                        }}
-                      />
-                      <div
-                        style={{
-                          backgroundColor: label.color,
-                          alignItems: "center",
-                          justifyContent: "center",
-                          borderRadius: 30,
-                          width: 17,
-                          height: 17,
-                          marginLeft: 7,
-                        }}
-                      ></div>
-                      <p style={{ display: "flex", fontSize: "13px" }}>
-                        {label.title}
-                      </p>
-                    </div>
-                  )
-                )
-              )}
             </div>
             <div
               style={{
