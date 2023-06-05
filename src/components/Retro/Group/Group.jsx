@@ -39,9 +39,9 @@ const Group = () => {
     apiInstance.get(`retro/${localStorage.getItem("retro_id")}/get-session-group/`).then((response) => {
       // setGoodCards(response.data.good_cards);
       // setBadCards(response.data.bad_cards);
+      console.log(response.data.groups);
       setGroups(response.data.groups);
       setIsRetroAdmin(response.data.is_retro_admin);
-      console.log(response.data.groups);
       // {
       //   "id": 2,
       //   "board": 1,
@@ -119,7 +119,8 @@ const Group = () => {
     socket.current.onmessage = (event) => {
       const message = JSON.parse(event.data);
       // console.log(message);
-      if (event.data.type == 'next_step') {
+      // if (event.data.type == 'next_step') {
+      if ("nextStep" in message.data) {
         console.log("next_step entered");
         handleNavigation(message, event.type);
         return;
