@@ -9,6 +9,7 @@ import PerTextField from "../Shared/PerTextField";
 import NextBtn from "./NextBtn/NextBtn";
 import apiInstance from "../../utilities/axiosConfig";
 import useTheme from "../../hooks/useTheme";
+import { useNavigate } from "react-router-dom";
 
 const RetroReflect = () => {
   const params = useParams();
@@ -75,21 +76,58 @@ const RetroReflect = () => {
       )}/?token=${localStorage.getItem("access_token")}`
     );
     socket.current.onopen = () => {
-      console.log("WebSocket connection opened");
+      console.log("Refelct WebSocket connection opened");
     };
 
     socket.current.onmessage = (event) => {
+      
+      console.log("event.type"); // message
+      console.log(event.type); // message
       const message = JSON.parse(event.data);
-      // console.log(event.data);
-      // console.log(event.type); // message
+
+      // // if event.data has type 
+      if (event.data.type == 'next_step') {
+        console.log("next_step entered");
+        handleNavigation(message, event.type);
+        return;
+      }
+
+      console.log("event");
+      console.log(event);
+      console.log("event.data");
+      console.log(event.data);
       setRedCount(message.negative_cnt);
       setGreenCount(message.positive_cnt);
     };
 
     socket.current.onclose = () => {
-      console.log("WebSocket connection closed");
+      console.log("Reflect WebSocket connection closed");
     };
   }, []);
+
+  const { workspaceId, boardId } = useParams();
+  const navigate = useNavigate();
+  const handleNavigation = (message, type) => {
+    // if (type === "navigate_to_next_step") {
+    console.log("--------------------");
+    console.log(message);
+    // close connection 
+    if (socket.current !== null)
+        socket.current.close();
+
+    // if (props.WS !== null)
+    //     props.WS.close();
+    if (message.data.nextStep !== undefined){
+        if (message.data.nextStep === "board") {
+            localStorage.removeItem("retro_id");
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/${message.data.nextStep}`);
+        } else {
+            navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/${message.data.nextStep}`);
+        }
+    }
+    // }
+}
+
   return (
     <div className="RetroReflect-container">
       <div className="RetroReflect-list">
@@ -235,7 +273,7 @@ const RetroReflect = () => {
       {isRetroAdmin && (<NextBtn
           currentStep={"Group"}
           text={"بعدی"}
-          WebSocket={socket.current}
+          WS={socket.current}
         />)
         }
     </div>
