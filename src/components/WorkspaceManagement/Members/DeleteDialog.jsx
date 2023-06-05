@@ -8,11 +8,11 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import "./Members.scss";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import useTheme
- from "../../../hooks/useTheme";
+import useTheme from "../../../hooks/useTheme";
 export default function DeleteDialog({ user_id, removeMember }) {
   const [open, setOpen] = React.useState(false);
-  const {theme, getColor} = useTheme();  
+  const { theme, getColor } = useTheme();
+  // const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -40,7 +40,7 @@ export default function DeleteDialog({ user_id, removeMember }) {
         <PersonRemoveIcon sx={{ color: theme.primary }} />
       </button>
       <Dialog
-        fullScreen={fullScreen}
+        // fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
