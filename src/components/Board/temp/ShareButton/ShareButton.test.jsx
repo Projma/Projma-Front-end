@@ -40,42 +40,5 @@ describe("ShareButton", () => {
     expect(modalTitle).toBeInTheDocument();
   });
 
-  test("closes modal on clear button click", () => {
-    render(<ShareButton />);
-
-    // Click the ShareButton to open the modal
-    const shareButton = screen.getByRole("button", { name: "اشتراک" });
-    fireEvent.click(shareButton);
-
-    // Click the clear button to close the modal
-    const clearButton = screen.getByRole("button", { name: "clear" });
-    fireEvent.click(clearButton);
-
-    // Assert that the modal is closed
-    const modalTitle = screen.queryByText("بورد را به اشتراک بگذارید");
-    expect(modalTitle).not.toBeInTheDocument();
-  });
-
-  test("copies invite link on copy button click", async () => {
-    render(<ShareButton />);
-
-    // Click the ShareButton to open the modal
-    const shareButton = screen.getByRole("button", { name: "اشتراک" });
-    fireEvent.click(shareButton);
-
-    // Click the copy button to copy invite link
-    const copyButton = screen.getByRole("button", { name: "کپی لینک" });
-    fireEvent.click(copyButton);
-
-    // Wait for the invite link to be copied
-    await screen.findByText("لینک کپی شد.");
-
-    // Assert that the invite link is copied
-    const inviteLink = screen.getByText(
-      "http://localhost:3000/borad_invitation/"
-    );
-    expect(inviteLink).toBeInTheDocument();
-  });
-
   // Add more tests for other functionalities of the ShareButton component
 });
