@@ -68,10 +68,10 @@ const Discuss = () => {
             //       }
             //     ]
             //   }
-            console.log(res.data);
+            console.log(res.data.groups);
             setGroups_and_cards(res.data.groups);
-            setIsRetroAdmin(response.data.is_retro_admin);
-            console.log("isRetroAdmin: ", isRetroAdmin);
+            setIsRetroAdmin(res.data.is_retro_admin);
+            console.log("isRetroAdmin: ", res.data.is_retro_admin);
         }).catch((err) => {
             console.log(err);
         });
@@ -113,6 +113,13 @@ const Discuss = () => {
         // if (type === "navigate_to_next_step") {
         console.log("--------------------");
         console.log(message);
+        // // delete retro id from database
+        // apiInstance.delete(`/retro/${localStorage.getItem("retro_id")}/`).then((res) => {
+        //     console.log(res);
+        // }).catch((err) => {
+        //     console.log(err);
+        // });
+
         // close connection 
         if (socket.current !== null)
             socket.current.close();
@@ -133,6 +140,8 @@ const Discuss = () => {
         <>
             <div style={{
                 width: '100%',
+                overflow: 'scroll',
+                maxHeight: '100%',
             }}>
                 <div className="discuss-header">
                     <div className="discuss-header-right">
@@ -208,14 +217,17 @@ const Discuss = () => {
                 {
                     groups_and_cards?.map((group, index) => {
                         return (
-                            <div key={index} id={group.id}>
+                            <div key={index} id={group.id} 
+                            >
                                 <div className="discuss-topic">
                                     <span className="discuss-topic-item">
+                                        <span className="discuss-topic-item-title">نام گروه: </span>
                                         <span className="discuss-topic-item-title">"</span>
                                         <span className="discuss-topic-item-title">{group.name}</span>
                                         <span className="discuss-topic-item-title">"</span>
                                         <span className="discuss-topic-item-title"> </span>
                                         <span className="discuss-topic-item-like">
+                                            <span className="discuss-topic-item-like-number"> آراء:</span>
                                             <ThumbUpTwoToneIcon className="discuss-topic-item-like-icon" />
                                             <span className="discuss-topic-item-like-number">{convertNumberToPersian(group.votes)}</span>
                                         </span>
@@ -259,7 +271,7 @@ const Discuss = () => {
             {isRetroAdmin && (<NextBtn
                 currentStep={"Discuss"}
                 text={"پایان جلسه"}
-            WS={socket.current}
+                WS={socket.current}
             />)
             }
         </>

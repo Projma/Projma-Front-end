@@ -118,16 +118,33 @@ const Group = () => {
 
     socket.current.onmessage = (event) => {
       const message = JSON.parse(event.data);
-      // console.log(message);
-      // if (event.data.type == 'next_step') {
-      if ("nextStep" in message.data) {
-        console.log("next_step entered");
-        handleNavigation(message, event.type);
-        return;
-      }
+      console.log(event);
+      updateGroups();
+      //   if ("data" in message ) {
+      //   if ("nextStep" in message.data) {
+      //     console.log("next_step entered");
+      //     handleNavigation(message, event.type);
+      //     return;
+      //   }
+      // }
+
+
+      // if (message != null) {
+      //   if ("data" in message ) {
+          if ("nextStep" in message.data) {
+            console.log("next_step entered");
+            handleNavigation(message, event.type);
+            return;
+          }
+      //   }
+      // }
+
       // setGoodCards(message.good_cards);
       // setBadCards(message.bad_cards);
+      console.log("message.groups");
+      console.log(message.groups);
       setGroups(message.groups);
+      updateGroups();
     };
 
     socket.current.onclose = () => {
@@ -212,38 +229,13 @@ const Group = () => {
 
   const handleDragEnd = (result) => {
     const { source, destination } = result;
-    // send result to socket and get it and call it with it
-    // console.log("result");
-    // console.log(result);
-    // console.log(source); // {
-    // //     "index": 0,
-    // //     "droppableId": "card-1"
-    // // }
-    // get the text of card 
-
 
     // If dropped outside of a droppable area
     if (!destination) {
-      const sourceGroup = groups[source.droppableId];
-      const sourceCardIds = Array.from(sourceGroup.cardIds);
+      // const sourceGroup = groups[source.droppableId];
+      // const sourceCardIds = Array.from(sourceGroup.cardIds);
 
-      if (sourceCardIds.length == 1) return;
-
-      const [movedCard] = sourceCardIds.splice(source.index, 1);
-      console.log(movedCard);
-      const newSourceGroup = { ...sourceGroup, cardIds: sourceCardIds };
-      const newGroup = {
-        id: uuid().toString(),
-        title: "تست",
-        cardIds: [movedCard],
-        hide: false,
-        class: sourceGroup.class,
-      };
-      setGroups({
-        ...groups,
-        [newSourceGroup.id]: newSourceGroup,
-        [newGroup.id]: newGroup,
-      });
+      // if (sourceCardIds.length == 1) return;
 
       socket.current.send(
         JSON.stringify({
@@ -254,112 +246,22 @@ const Group = () => {
           },
         })
       );
-      // send new group to others
-      // socket.current.send(
-      //   JSON.stringify({
-      //     type: "change_group",
-      //     data: {
-      //       // good_cards: good_cards,
-      //       // bad_cards: bad_cards,
-      //       groups: {
-      //         ...groups,
-      //         [newSourceGroup.id]: newSourceGroup,
-      //         [newGroup.id]: newGroup,
-      //       }
-      //     },
-      //   })
-      // );
-
-      // updateGroups();
+      updateGroups();
       return;
     }
 
     // If dropped in the same droppable area
     if (source.droppableId === destination.droppableId) {
-      const group = groups[destination.droppableId];
-      const newCardIds = Array.from(group.cardIds);
-      const [reorderedCard] = newCardIds.splice(source.index, 1);
-      newCardIds.splice(destination.index, 0, reorderedCard);
-      const newGroup = { ...group, cardIds: newCardIds };
-      setGroups({ ...groups, [newGroup.id]: newGroup });
-
-      // // send new group to others
-      // socket.current.send(
-      //   JSON.stringify({
-      //     type: "change_group",
-      //     data: {
-      //       // good_cards: good_cards,
-      //       // bad_cards: bad_cards,
-      //       groups: { ...groups, [newGroup.id]: newGroup }
-      //     },
-      //   })
-      // );
 
     } else {
       // If dropped in a different droppable area
-      const sourceGroup = groups[source.droppableId];
-      const destGroup = groups[destination.droppableId];
+      // const sourceGroup = groups[parseInt(source.droppableId)];
+      // const sourceGroup = groups[0];
+      // console.log(parseInt(destination.index))
+      // const destGroup = groups[parseInt(destination.droppableId)];
+      // if (sourceGroup.is_positive != destGroup.is_positive) return;
 
-      if (sourceGroup.class != destGroup.class) return;
-
-      const sourceCardIds = Array.from(sourceGroup.cardIds);
-      const destCardIds = Array.from(destGroup.cardIds);
-      const [movedCard] = sourceCardIds.splice(source.index, 1);
-      destCardIds.splice(destination.index, 0, movedCard);
-      let newSourceGroup = {};
-      const newDestGroup = { ...destGroup, cardIds: destCardIds };
-
-      if (sourceCardIds.length == 0) {
-        delete groups[source.droppableId];
-        setGroups({
-          ...groups,
-          [newDestGroup.id]: newDestGroup,
-        });
-
-        socket.current.send(
-          JSON.stringify({
-            type: "merge",
-            data: {
-              parent_card: destination.droppableId,
-              card: source.droppableId,
-            },
-          })
-        );
-
-        // send new group to others
-        // socket.current.send(
-        //   JSON.stringify({
-        //     type: "change_group",
-        //     data: {
-        //       good_cards: good_cards,
-        //       bad_cards: bad_cards,
-        //       groups: {
-        //         ...groups,
-        //         [newDestGroup.id]: newDestGroup,
-        //       }
-        //     },
-        //   })
-        // );
-
-        // updateGroups();
-        return;
-      } else {
-        newSourceGroup = { ...sourceGroup, cardIds: sourceCardIds };
-        // socket.current.send(
-        //   JSON.stringify({
-        //     type: "merge",
-        //     data: {
-        //       parent_card: destination,
-        //       card: source,
-        //     },
-        //   })
-        // );
-      }
-      setGroups({
-        ...groups,
-        [newSourceGroup.id]: newSourceGroup,
-        [newDestGroup.id]: newDestGroup,
-      });
+      // const sourceCardIds = Array.from(sourceGroup.cardIds);
 
       socket.current.send(
         JSON.stringify({
@@ -370,26 +272,191 @@ const Group = () => {
           },
         })
       );
-
-      // send new group to others
-      // socket.current.send(
-      //   JSON.stringify({
-      //     type: "change_group",
-      //     data: {
-      //       good_cards: good_cards,
-      //       bad_cards: bad_cards,
-      //       groups: {
-      //         ...groups,
-      //         [newSourceGroup.id]: newSourceGroup,
-      //         [newDestGroup.id]: newDestGroup,
-      //       }
-      //     },
-      //   })
-      // );
+      updateGroups();
     }
 
-    // updateGroups();
   };
+
+  // const handleDragEnd = (result) => {
+  //   const { source, destination } = result;
+  //   // send result to socket and get it and call it with it
+  //   // console.log("result");
+  //   // console.log(result);
+  //   // console.log(source); // {
+  //   // //     "index": 0,
+  //   // //     "droppableId": "card-1"
+  //   // // }
+  //   // get the text of card 
+
+
+  //   // If dropped outside of a droppable area
+  //   if (!destination) {
+  //     const sourceGroup = groups[source.droppableId];
+  //     const sourceCardIds = Array.from(sourceGroup.cardIds);
+
+  //     if (sourceCardIds.length == 1) return;
+
+  //     const [movedCard] = sourceCardIds.splice(source.index, 1);
+  //     console.log(movedCard);
+  //     const newSourceGroup = { ...sourceGroup, cardIds: sourceCardIds };
+  //     const newGroup = {
+  //       id: uuid().toString(),
+  //       title: "تست",
+  //       cardIds: [movedCard],
+  //       hide: false,
+  //       class: sourceGroup.class,
+  //     };
+  //     setGroups({
+  //       ...groups,
+  //       [newSourceGroup.id]: newSourceGroup,
+  //       [newGroup.id]: newGroup,
+  //     });
+
+  //     socket.current.send(
+  //       JSON.stringify({
+  //         type: "split",
+  //         data: {
+  //           card: source.droppableId,
+  //           // text: ...
+  //         },
+  //       })
+  //     );
+  //     // send new group to others
+  //     // socket.current.send(
+  //     //   JSON.stringify({
+  //     //     type: "change_group",
+  //     //     data: {
+  //     //       // good_cards: good_cards,
+  //     //       // bad_cards: bad_cards,
+  //     //       groups: {
+  //     //         ...groups,
+  //     //         [newSourceGroup.id]: newSourceGroup,
+  //     //         [newGroup.id]: newGroup,
+  //     //       }
+  //     //     },
+  //     //   })
+  //     // );
+
+  //     // updateGroups();
+  //     return;
+  //   }
+
+  //   // If dropped in the same droppable area
+  //   if (source.droppableId === destination.droppableId) {
+  //     const group = groups[destination.droppableId];
+  //     const newCardIds = Array.from(group.cardIds);
+  //     const [reorderedCard] = newCardIds.splice(source.index, 1);
+  //     newCardIds.splice(destination.index, 0, reorderedCard);
+  //     const newGroup = { ...group, cardIds: newCardIds };
+  //     setGroups({ ...groups, [newGroup.id]: newGroup });
+
+  //     // // send new group to others
+  //     // socket.current.send(
+  //     //   JSON.stringify({
+  //     //     type: "change_group",
+  //     //     data: {
+  //     //       // good_cards: good_cards,
+  //     //       // bad_cards: bad_cards,
+  //     //       groups: { ...groups, [newGroup.id]: newGroup }
+  //     //     },
+  //     //   })
+  //     // );
+
+  //   } else {
+  //     // If dropped in a different droppable area
+  //     const sourceGroup = groups[source.droppableId];
+  //     const destGroup = groups[destination.droppableId];
+
+  //     if (sourceGroup.class != destGroup.class) return;
+
+  //     const sourceCardIds = Array.from(sourceGroup.cardIds);
+  //     const destCardIds = Array.from(destGroup.cardIds);
+  //     const [movedCard] = sourceCardIds.splice(source.index, 1);
+  //     destCardIds.splice(destination.index, 0, movedCard);
+  //     let newSourceGroup = {};
+  //     const newDestGroup = { ...destGroup, cardIds: destCardIds };
+
+  //     if (sourceCardIds.length == 0) {
+  //       delete groups[source.droppableId];
+  //       setGroups({
+  //         ...groups,
+  //         [newDestGroup.id]: newDestGroup,
+  //       });
+
+  //       socket.current.send(
+  //         JSON.stringify({
+  //           type: "merge",
+  //           data: {
+  //             parent_card: destination.droppableId,
+  //             card: source.droppableId,
+  //           },
+  //         })
+  //       );
+
+  //       // send new group to others
+  //       // socket.current.send(
+  //       //   JSON.stringify({
+  //       //     type: "change_group",
+  //       //     data: {
+  //       //       good_cards: good_cards,
+  //       //       bad_cards: bad_cards,
+  //       //       groups: {
+  //       //         ...groups,
+  //       //         [newDestGroup.id]: newDestGroup,
+  //       //       }
+  //       //     },
+  //       //   })
+  //       // );
+
+  //       // updateGroups();
+  //       return;
+  //     } else {
+  //       newSourceGroup = { ...sourceGroup, cardIds: sourceCardIds };
+  //       // socket.current.send(
+  //       //   JSON.stringify({
+  //       //     type: "merge",
+  //       //     data: {
+  //       //       parent_card: destination,
+  //       //       card: source,
+  //       //     },
+  //       //   })
+  //       // );
+  //     }
+  //     setGroups({
+  //       ...groups,
+  //       [newSourceGroup.id]: newSourceGroup,
+  //       [newDestGroup.id]: newDestGroup,
+  //     });
+
+  //     socket.current.send(
+  //       JSON.stringify({
+  //         type: "merge",
+  //         data: {
+  //           parent_card: destination.droppableId,
+  //           card: source.droppableId,
+  //         },
+  //       })
+  //     );
+
+  //     // send new group to others
+  //     // socket.current.send(
+  //     //   JSON.stringify({
+  //     //     type: "change_group",
+  //     //     data: {
+  //     //       good_cards: good_cards,
+  //     //       bad_cards: bad_cards,
+  //     //       groups: {
+  //     //         ...groups,
+  //     //         [newSourceGroup.id]: newSourceGroup,
+  //     //         [newDestGroup.id]: newDestGroup,
+  //     //       }
+  //     //     },
+  //     //   })
+  //     // );
+  //   }
+
+  //   // updateGroups();
+  // };
 
   const { workspaceId, boardId } = useParams();
   const navigate = useNavigate();

@@ -40,7 +40,7 @@ const Vote = () => {
 
     socket.current.onopen = () => {
       console.log("Vote WebSocket connection opened");
-      console.log(socket.current)
+      // console.log(socket.current)
     };
 
     socket.current.onmessage = (event) => {
