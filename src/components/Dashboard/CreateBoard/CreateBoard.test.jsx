@@ -9,12 +9,16 @@ describe("CreateBoardModal", () => {
   });
 
   test("renders the create board button", () => {
-    const createBoardButton = screen.getByRole("button", { name: /بوردتو بساز/i });
+    const createBoardButton = screen.getByRole("button", {
+      name: /بوردتو بساز/i,
+    });
     expect(createBoardButton).toBeInTheDocument();
   });
 
   test("opens the modal when create board button is clicked", () => {
-    const createBoardButton = screen.getByRole("button", { name: /بوردتو بساز/i });
+    const createBoardButton = screen.getByRole("button", {
+      name: /بوردتو بساز/i,
+    });
     userEvent.click(createBoardButton);
 
     const modalTitle = screen.getByText(/ساخت بورد جدید/i);
@@ -22,7 +26,9 @@ describe("CreateBoardModal", () => {
   });
 
   test("closes the modal when the close button is clicked", () => {
-    const createBoardButton = screen.getByRole("button", { name: /بوردتو بساز/i });
+    const createBoardButton = screen.getByRole("button", {
+      name: /بوردتو بساز/i,
+    });
     userEvent.click(createBoardButton);
 
     const closeButton = screen.getByLabelText(/بستن/i);
@@ -33,7 +39,9 @@ describe("CreateBoardModal", () => {
   });
 
   test("displays error message if board name is not provided", () => {
-    const createBoardButton = screen.getByRole("button", { name: /بوردتو بساز/i });
+    const createBoardButton = screen.getByRole("button", {
+      name: /بوردتو بساز/i,
+    });
     userEvent.click(createBoardButton);
 
     const submitButton = screen.getByRole("button", { name: /بساز/i });
@@ -44,7 +52,9 @@ describe("CreateBoardModal", () => {
   });
 
   test("displays error message if workspace is not selected", () => {
-    const createBoardButton = screen.getByRole("button", { name: /بوردتو بساز/i });
+    const createBoardButton = screen.getByRole("button", {
+      name: /بوردتو بساز/i,
+    });
     userEvent.click(createBoardButton);
 
     const boardNameInput = screen.getByLabelText(/نام بورد/i);
@@ -58,7 +68,9 @@ describe("CreateBoardModal", () => {
   });
 
   test("submits the form with valid data", () => {
-    const createBoardButton = screen.getByRole("button", { name: /بوردتو بساز/i });
+    const createBoardButton = screen.getByRole("button", {
+      name: /بوردتو بساز/i,
+    });
     userEvent.click(createBoardButton);
 
     const boardNameInput = screen.getByLabelText(/نام بورد/i);
