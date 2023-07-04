@@ -11,7 +11,7 @@ import { CacheProvider } from "@emotion/react";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-import { Button , Box } from "@mui/material";
+import { Button, Box } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import apiInstance from "../../utilities/axiosConfig";
 import PersonIcon from "@mui/icons-material/Person";
@@ -19,7 +19,7 @@ import PasswordIcon from "@mui/icons-material/Password";
 
 import Typography from "@mui/material/Typography";
 import { Helmet } from "react-helmet";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 import Loading from "../Shared/Loading";
 import { baseUrl } from "../../utilities/constants";
@@ -104,6 +104,7 @@ export default function Profile() {
     errormessage = "";
     document.getElementById("em").innerHTML = errormessage;
     const formData = new FormData();
+    console.log(firstName);
     const user = JSON.stringify({
       first_name: firstName,
       last_name: lastName,
@@ -135,6 +136,7 @@ export default function Profile() {
     apiInstance
       .patch("/accounts/profile/edit-myprofile/", data)
       .then((res) => {
+        console.log(res);
         toast.success("با موفقیت بروز شد.", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
