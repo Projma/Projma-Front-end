@@ -56,7 +56,7 @@ const Board = () => {
       <InvitationHeader
         board_id={boardId}
         onCreateList={handleCreateList}
-        setList={setList}
+        setLists={setList}
       />
       <DragDropContext onDragEnd={dragHandler}>
         <Droppable
