@@ -274,7 +274,7 @@ const List = ({ task, name, listId, index, boardId }) => {
                 style={
                   snapshot.draggingOverWith
                     ? {
-                        backgroundColor: theme.hover,
+                        // backgroundColor: "red",
                         borderRadius: "0.5rem",
                       }
                     : null

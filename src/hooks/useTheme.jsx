@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import ThemeContext from "../context/theme";
 
-function useTheme () {
+function useTheme() {
   return useContext(ThemeContext);
 }
 
