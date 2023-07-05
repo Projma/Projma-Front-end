@@ -10,6 +10,7 @@ import NextBtn from "./NextBtn/NextBtn";
 import apiInstance from "../../utilities/axiosConfig";
 import useTheme from "../../hooks/useTheme";
 import { useNavigate } from "react-router-dom";
+import { Button } from "bootstrap";
 
 const RetroReflect = () => {
   const params = useParams();
@@ -17,14 +18,15 @@ const RetroReflect = () => {
   const [greenList, setGreenList] = useState([]);
   const [redList, setRedList] = useState([]);
   const socket = useRef(null);
-  const [redCount, setRedCount] = useState([]);
-  const [greenCount, setGreenCount] = useState([]);
+  const [redCount, setRedCount] = useState(0);
+  const [greenCount, setGreenCount] = useState(0);
   const [retro, setRetro] = useState([]);
   const [allData, setAllData] = useState([]);
   const [isRetroAdmin, setIsRetroAdmin] = useState(false);
   const handleKeyDown = (event, color) => {
     if (event.key === "Enter" && event.target.value != "") {
       if (color === "red") {
+        console.log(event.target.value);
         setAllData((prev) => [
           ...prev,
           { text: event.target.value, is_positive: 0 },
@@ -62,7 +64,6 @@ const RetroReflect = () => {
     apiInstance
       .get(`retro/${localStorage.getItem("retro_id")}/get-session-reflect/`)
       .then((response) => {
-        console.log(response.data.cards);
         setAllData(response.data.cards);
         setIsRetroAdmin(response.data.is_retro_admin);
       })
@@ -80,26 +81,17 @@ const RetroReflect = () => {
     };
 
     socket.current.onmessage = (event) => {
-      console.log("event.type"); // message
-      console.log(event.type); // message
       const message = JSON.parse(event.data);
 
-      // // if event.data has type
-      // if (event.data.type == 'next_step') {
       if ("data" in message) {
         if ("nextStep" in message.data) {
-          console.log("next_step entered");
           handleNavigation(message, event.type);
           return;
         }
       }
 
-      // console.log("event");
-      // console.log(event);
-      // console.log("event.data");
-      // console.log(event.data);
-      setRedCount(message.negative_cnt);
-      setGreenCount(message.positive_cnt);
+      setRedCount(message.data.negative_cnt);
+      setGreenCount(message.data.positive_cnt);
     };
 
     socket.current.onclose = () => {
@@ -110,14 +102,9 @@ const RetroReflect = () => {
   const { workspaceId, boardId } = useParams();
   const navigate = useNavigate();
   const handleNavigation = (message, type) => {
-    // if (type === "navigate_to_next_step") {
-    console.log("--------------------");
     console.log(message);
-    // close connection
     if (socket.current !== null) socket.current.close();
 
-    // if (props.WS !== null)
-    //     props.WS.close();
     if (message.data.nextStep !== undefined) {
       if (message.data.nextStep === "board") {
         localStorage.removeItem("retro_id");
@@ -198,7 +185,7 @@ const RetroReflect = () => {
                   x.is_positive ? <RetroCard>{x.text}</RetroCard> : null
                 )}
               </div>
-              {/* <div  
+              <div
                 style={{
                   display: "flex",
                   flexDirection: "row",
@@ -207,7 +194,7 @@ const RetroReflect = () => {
                 }}
               >
                 تعداد کارت‌های سبز: {greenCount}
-              </div> */}
+              </div>
             </div>
           </RetroList>
         </div>
@@ -269,7 +256,7 @@ const RetroReflect = () => {
                   !x.is_positive ? <RetroCard>{x.text}</RetroCard> : null
                 )}
               </div>
-              {/* <div
+              <div
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -278,7 +265,7 @@ const RetroReflect = () => {
                 }}
               >
                 تعداد کارت‌های قرمز: {redCount}
-              </div> */}
+              </div>
             </div>
           </RetroList>
         </div>
