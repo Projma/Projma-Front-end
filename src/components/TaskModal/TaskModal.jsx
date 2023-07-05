@@ -14,16 +14,15 @@ import TaskModal_Activity from "./Taskmodal-Activity";
 import Attachments from "./Attachments";
 import CheckList from "./Checklist";
 import "../../styles/TaskModal.css";
-import { useState, useCallback , useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { CacheProvider } from "@emotion/react";
 import { Button } from "@mui/material";
 import apiInstance from "../../utilities/axiosConfig";
 import PersonIcon from "@mui/icons-material/Person";
-
+import InitialIcon from "./InitialIcon";
 import { Link } from "react-router-dom";
 import { convertNumberToPersian } from "../../utilities/helpers";
 import Loading from "../Shared/Loading";
-
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -106,50 +105,51 @@ export default function TaskModal(props) {
       </Button>
     );
   };
-  const InitialIcon = ({ initials }) => {
-    return (
-      <div
-        className="flex-row"
-        style={{
-          backgroundColor: initials.color + "55",
-          alignItems: "center",
-          justifyContent: "start",
-          width: 90,
-          height: 30,
-          borderRadius: 30,
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: initials.color,
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 30,
-            marginRight: "8%",
-            width: 17,
-            height: 17,
-            marginLeft: 7,
-          }}
-        ></div>
-        <div
-          style={{
-            display: "flex",
-            color: "white",
-            fontSize: 13,
-            width: "50",
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-            overflowX: "auto",
-            paddingTop: 2,
-            paddingRight: -10,
-          }}
-        >
-          {initials.title}
-        </div>
-      </div>
-    );
-  };
+  // const InitialIcon = ({ initials }) => {
+  //   return (
+  //     <div
+  //       data-testid="initial-icon"
+  //       className="flex-row"
+  //       style={{
+  //         backgroundColor: initials.color + "55",
+  //         alignItems: "center",
+  //         justifyContent: "start",
+  //         width: 90,
+  //         height: 30,
+  //         borderRadius: 30,
+  //       }}
+  //     >
+  //       <div
+  //         style={{
+  //           backgroundColor: initials.color,
+  //           alignItems: "center",
+  //           justifyContent: "center",
+  //           borderRadius: 30,
+  //           marginRight: "8%",
+  //           width: 17,
+  //           height: 17,
+  //           marginLeft: 7,
+  //         }}
+  //       ></div>
+  //       <div
+  //         style={{
+  //           display: "flex",
+  //           color: "white",
+  //           fontSize: 13,
+  //           width: "50",
+  //           height: "100%",
+  //           justifyContent: "center",
+  //           alignItems: "center",
+  //           overflowX: "auto",
+  //           paddingTop: 2,
+  //           paddingRight: -10,
+  //         }}
+  //       >
+  //         {initials.title}
+  //       </div>
+  //     </div>
+  //   );
+  // };
 
   const [ListOfComments, setListOfComments] = useState([]);
   const [ListOfDoers, setListOfDoers] = useState([]);
@@ -167,19 +167,17 @@ export default function TaskModal(props) {
   const [title, setTitle] = useState("");
 
   useEffect(() => {
-    apiInstance
-      .get(`/board/${params.board_id}/members/`)
-      .then((res) => {
-        const members = res.data.map((obj) => ({
-          id: obj.user.id,
-          firstName: obj.user.first_name,
-          lastName: obj.user.last_name,
-          userName: obj.user.username,
-          email: obj.user.email,
-          image: obj.profile_pic,
-        }));
-        setListOfMembers(members);
-      });
+    apiInstance.get(`/board/${params.board_id}/members/`).then((res) => {
+      const members = res.data.map((obj) => ({
+        id: obj.user.id,
+        firstName: obj.user.first_name,
+        lastName: obj.user.last_name,
+        userName: obj.user.username,
+        email: obj.user.email,
+        image: obj.profile_pic,
+      }));
+      setListOfMembers(members);
+    });
     apiInstance
       .get(`/task/checklist/${params.task_id}/get-all-checklists/`)
       .then((res) => {
