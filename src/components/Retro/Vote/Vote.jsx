@@ -120,7 +120,7 @@ const Vote = () => {
           console.log("sec");
           if (data.vote_cnt != 0) {
             console.log("thr");
-            data.vote_cnt -= 1;
+            data.vote_cnt = data.vote_cnt - 1;
             socket.current.send(
               JSON.stringify({
                 type: "vote",
