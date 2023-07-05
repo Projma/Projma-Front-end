@@ -11,11 +11,11 @@ import apiInstance from "../../../../utilities/axiosConfig";
 import useTheme from "../../../../hooks/useTheme";
 
 const Card = ({ task, key, cardId, index, boardId }) => {
-  const {getBoard} = useBoard();
+  const { getBoard } = useBoard();
   const [card, setCard] = useState(task);
   const [open, setOpen] = useState(false);
   const [click, setClick] = useState(false);
-  const {theme , getColor} = useTheme();
+  const { theme, getColor } = useTheme();
 
   const handleModalOpen = (event) => {
     event.preventDefault();
@@ -52,10 +52,10 @@ const Card = ({ task, key, cardId, index, boardId }) => {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             onClick={(event) => handleModalOpen(event)}
-            style={{color: getColor(theme.minorBg)}}
+            // style={{ color: getColor(theme.minorBg) }}
           >
             <CardHeader cardId={cardId} />
-            <CardBody title={card.title} labels={card.labels} cardId={cardId}/>
+            <CardBody title={card.title} labels={card.labels} cardId={cardId} />
             <CardFooter
               doers={card.doers}
               attachments_num={card.attachments_num}
