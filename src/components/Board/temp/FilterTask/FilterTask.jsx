@@ -59,7 +59,7 @@ export default function FilterTask({ boardId, setLists }) {
     setIsPost(true);
     let labels_empty = selectedLabels.length === 0;
     let members_empty = selectedMembers.length === 0;
-    let url = `workspaces/task/${boardId}/filter/`;
+    let url = `task/${boardId}/filter/`;
     if (!labels_empty) {
       url = url + "?labels=";
       for (let i = 0; i < selectedLabels.length; i++) {
@@ -134,6 +134,8 @@ export default function FilterTask({ boardId, setLists }) {
     apiInstance.get(url).then((res) => {
       ////console.log("filtered tasks");
       ////console.log(res.data);
+      console.log("YYYYYYYYYYYYYYYYYYYYYYYYY");
+      console.log(res.data.tasklists);
       res.data.tasklists.map((list) => {
         list.tasks.sort((a, b) => a.order - b.order);
       });
@@ -143,7 +145,7 @@ export default function FilterTask({ boardId, setLists }) {
 
   const filterTaskAfterUnCheck = (value, type) => {
     setIsPost(true);
-    let url = `workspaces/task/${boardId}/filter/`;
+    let url = `task/${boardId}/filter/`;
     let labels_empty =
       selectedLabels.length === 0 ||
       (type === "label" && selectedLabels.length === 1);
@@ -223,7 +225,7 @@ export default function FilterTask({ boardId, setLists }) {
     setSelectedLabels([]);
     setSelectedMembers([]);
     setDate("");
-    let url = `workspaces/task/${boardId}/filter/`;
+    let url = `task/${boardId}/filter/`;
     const resetlabel = boardLabels.map((val) => {
       return { ...val, checked: false };
     });
@@ -260,7 +262,6 @@ export default function FilterTask({ boardId, setLists }) {
 
   return (
     <div>
-      {isPost ? <Loading /> : null}
       <Button aria-describedby={id} variant="contained" onClick={handleClick}>
         فیلتر تسک
       </Button>

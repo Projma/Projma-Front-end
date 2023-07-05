@@ -12,7 +12,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import useBoard from "../../../../hooks/useBoard";
 
 const InvitationHeader = (props) => {
-  const {boardId} = useBoard();
+  const { boardId } = useBoard();
   const handleCreateList = (data) => {
     props.onCreateList(data);
   };
@@ -31,23 +31,31 @@ const InvitationHeader = (props) => {
     );
   } else {
     return (
-      <div style={{
-        display: "flex",
-        justifyContent: "space-between",
-        flexDirection: "column",
-        alignItems: "center",
-        // padding: "5%",
-        // margin: "0 5% 5% 5%",
-      }}>
-        <div className="invite-box" style={{
-          marginBottom: "5%",
-        }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "column",
+          alignItems: "center",
+          // padding: "5%",
+          // margin: "0 5% 5% 5%",
+        }}
+      >
+        <div
+          className="invite-box"
+          style={{
+            marginBottom: "5%",
+          }}
+        >
           <ShareButton boardId={props.board_id} />
           <GroupAvatars boardId={props.board_id} />
         </div>
-        <div className="invite-box" style={{
-          marginBottom: "5%",
-        }}>
+        <div
+          className="invite-box"
+          style={{
+            marginBottom: "5%",
+          }}
+        >
           <AddList boardId={props.board_id} onCreateList={handleCreateList} />
           <FilterTask boardId={props.board_id} setLists={props.setLists} />
         </div>
