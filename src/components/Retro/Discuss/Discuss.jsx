@@ -238,7 +238,7 @@ const Discuss = () => {
                                     <Grid
                                         container
                                         columns={{ xs: 2, sm: 4, md: 4 }}
-                                        spacing={{ xs: 1, sm: 2, md: 3 }}
+                                        spacing={{ xs: 2, sm: 4, md: 7 }}
                                         sx={{
                                             // paddingTop: "5%",
                                             // marginTop: "10%",
@@ -249,7 +249,14 @@ const Discuss = () => {
                                         {
                                             group.cards?.map((card, index) => {
                                                 return (
-                                                    <Grid item xs={2} sm={2} md={2} sx={{}} key={index}>
+                                                    <Grid item xs={2} sm={2} md={2} sx={{
+                                                        // height: "30rem",
+                                                        // width: "20rem",
+                                                        // alignContent: "center",
+                                                        // justifyContent: "center",
+                                                        // display: "flex",
+                                                        // alignItems: "center",
+                                                    }} key={index}>
                                                         {/*add green label to the good RetroCard */}
                                                         {/*add red label to the bad RetroCard */}
                                                         <RetroCard>
