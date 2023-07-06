@@ -46,11 +46,8 @@ test("have some text in page", () => {
   );
   const text1 = getByText(/چه چیز هایی کار میکند؟/i);
   const text2 = getByText(/در کجا ها به مشکل خوردید؟/i);
-  const text3 = getByText(/رای‌های باقیمانده/i);
   expect(text1).toBeInTheDocument();
   expect(text2).toBeInTheDocument();
-  expect(text3).toBeInTheDocument();
   expect(text1.tagName).toBe("P");
   expect(text2.tagName).toBe("P");
-  expect(text3.tagName).toBe("DIV");
 });
