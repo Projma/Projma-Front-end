@@ -13,7 +13,7 @@ const RetroCard = ({children}) => {
         flexFlow: "column",
         padding: "1rem 1rem",
         // alignItems: "flex-start",
-        fontSize: "2rem",
+        fontSize: "1.5rem",
         justifyContent: "flex-start",
         gap: "1.5rem",
         color: getColor(theme.secondary),
@@ -21,7 +21,7 @@ const RetroCard = ({children}) => {
     >
       {children}
     </div>
-   );
+  );
 }
- 
+
 export default RetroCard;
