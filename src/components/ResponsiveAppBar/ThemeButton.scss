@@ -1,0 +1,26 @@
+.theme-container {
+  width: 100rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-bg-button {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.theme-button {
+  // border-radius: 50%;
+  // position: relative;
+  font-size: 1.2rem;
+  background-color: $secondary;
+  
+  border: 0.2rem solid $tertiary;
+  padding: 0.7rem;
+  border-radius: 999rem;
+}

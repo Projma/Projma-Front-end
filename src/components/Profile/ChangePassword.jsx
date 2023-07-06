@@ -3,38 +3,27 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import createCache from "@emotion/cache";
-import "../../styles/Profile.css";
-import profile_preview from "../../static/images/profile/profile-preview.png";
-import userEvent from "@testing-library/user-event";
-import { fontWeight } from "@mui/system";
+import "../../styles/Profile.scss";
+import profile_preview from "../../static/images/profile/blank.png";
 import { useState, useCallback } from "react";
-import axios from "axios";
 import StyledTextField from "./StyledTextField";
 import { CacheProvider } from "@emotion/react";
-import { red } from "@mui/material/colors";
-import { useDispatch, useSelector } from "react-redux";
-import { Calendar } from "react-multi-date-picker";
-import DatePicker from "react-multi-date-picker";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
-import { Button } from "@mui/material";
+import { Button, Box } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-import TextField from "@mui/material/TextField";
 import apiInstance from "../../utilities/axiosConfig";
 import PersonIcon from "@mui/icons-material/Person";
 import PasswordIcon from "@mui/icons-material/Password";
-import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Helmet } from "react-helmet";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {  toast } from "react-toastify";
+
 import Loading from "../Shared/Loading";
 import { baseUrl } from "../../utilities/constants";
 import Header from "../Header/Header";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
-} from "../../utilities/helpers.js";
+} from "../../utilities/helpers";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -154,7 +143,6 @@ export default function ChangePassword() {
         <title>تغییر رمز عبور</title>
       </Helmet>
       {isPost ? <Loading /> : null}
-      <ToastContainer />
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
           <div className="profile--container profile--page">
@@ -230,6 +218,7 @@ export default function ChangePassword() {
                 >
                   <div className="flex" style={{ marginTop: "20%" }}>
                     <StyledTextField
+                      role="textbox"
                       margin="normal"
                       required="required"
                       id="password1"
@@ -254,6 +243,7 @@ export default function ChangePassword() {
                   </div>
                   <div className="flex">
                     <StyledTextField
+                      role="textbox"
                       margin="normal"
                       required="required"
                       id="password2"
@@ -278,6 +268,7 @@ export default function ChangePassword() {
                   </div>
                   <div className="flex" style={{ marginBottom: "15%" }}>
                     <StyledTextField
+                      role="textbox"
                       margin="normal"
                       required="required"
                       id="password3"
@@ -302,6 +293,7 @@ export default function ChangePassword() {
                   </div>
                   <div>
                     <Button
+                      role="submit-btn"
                       type="submit"
                       fullWidth
                       variant="contained"

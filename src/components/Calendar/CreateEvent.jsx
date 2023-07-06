@@ -9,12 +9,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import apiInstance from "../../utilities/axiosConfig";
 import Avatar from "@mui/material/Avatar";
 import StyledTextField from "../Shared/StyledTextField";
-import PerTextField from "../Shared/PerTextField.js";
+import PerTextField from "../Shared/PerTextField";
 import Loading from "../Shared/Loading";
 import DateTimePickerValue from "../Shared/DateTimePicker";
 import dayjs from "dayjs";
-import "./CreateEvent.css";
-import { convertNumberToPersian } from "../../utilities/helpers.js";
+import "./CreateEvent.scss";
+import { convertNumberToPersian } from "../../utilities/helpers";
 
 const style = {
   position: "absolute",
@@ -78,7 +78,7 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
     if (eventType === "") form_data.append("custom_type", customType);
     else form_data.append("custom_type", "");
     if (customType === "") form_data.append("event_type", eventType);
-    form_data.append("calendar", calendarId);
+    form_data.append("calendar", calendarId / 1);
     console.log(form_data);
     apiInstance
       .post(`calendar/event/`, form_data)
@@ -199,7 +199,7 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
               />
               <br></br>
               <div className="calendar_create_event-check-inputs">
-                <div class="checkbox-wrapper-47">
+                <div className="checkbox-wrapper-47">
                   <input
                     type="checkbox"
                     name="cb"
@@ -209,14 +209,14 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
                     onChange={handleChange}
                   />
                   <label
-                    for="daily"
-                    class="calendar_create_event-check-input-label"
+                    htmlFor="daily"
+                    className="calendar_create_event-check-input-label"
                   >
                     روزانه
                   </label>
                 </div>
 
-                <div class="checkbox-wrapper-47">
+                <div className="checkbox-wrapper-47">
                   <input
                     type="checkbox"
                     name="cb"
@@ -225,14 +225,14 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
                     onChange={handleChange}
                   />
                   <label
-                    for="weekly"
-                    class="calendar_create_event-check-input-label"
+                    htmlFor="weekly"
+                    className="calendar_create_event-check-input-label"
                   >
                     هفتگی
                   </label>
                 </div>
 
-                <div class="checkbox-wrapper-47">
+                <div className="checkbox-wrapper-47">
                   <input
                     type="checkbox"
                     name="cb"
@@ -241,8 +241,8 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
                     onChange={handleChange}
                   />
                   <label
-                    for="monthly"
-                    class="calendar_create_event-check-input-label"
+                    htmlFor="monthly"
+                    className="calendar_create_event-check-input-label"
                   >
                     ماهانه
                   </label>
@@ -263,7 +263,7 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
               <br></br>
 
               <div className="calendar_create_event-check-inputs">
-                <div class="checkbox-wrapper-47">
+                <div className="checkbox-wrapper-47">
                   <input
                     type="checkbox"
                     name="cb"
@@ -273,14 +273,14 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
                     onChange={handleEventTypeChange}
                   />
                   <label
-                    for="meeting"
-                    class="calendar_create_event-check-input-label"
+                    htmlFor="meeting"
+                    className="calendar_create_event-check-input-label"
                   >
                     جلسه
                   </label>
                 </div>
 
-                <div class="checkbox-wrapper-47">
+                <div className="checkbox-wrapper-47">
                   <input
                     type="checkbox"
                     name="cb"
@@ -289,14 +289,14 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
                     onChange={handleEventTypeChange}
                   />
                   <label
-                    for="holidays"
-                    class="calendar_create_event-check-input-label"
+                    htmlFor="holidays"
+                    className="calendar_create_event-check-input-label"
                   >
                     تعطیلات
                   </label>
                 </div>
 
-                <div class="checkbox-wrapper-47">
+                <div className="checkbox-wrapper-47">
                   <input
                     type="checkbox"
                     name="cb"
@@ -305,8 +305,8 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
                     onChange={handleEventTypeChange}
                   />
                   <label
-                    for="task"
-                    class="calendar_create_event-check-input-label"
+                    htmlFor="task"
+                    className="calendar_create_event-check-input-label"
                   >
                     فعالیت
                   </label>
@@ -338,7 +338,7 @@ export default function CreateEvent({ calendarId, handleClose, showToast }) {
               </div>
 
               <br></br>
-              <label class="calendar_create_event-check-input-label">
+              <label className="calendar_create_event-check-input-label">
                 رنگ رویداد
               </label>
               <input

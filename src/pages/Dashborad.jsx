@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment , useState , useEffect } from "react";
 import "../styles/Dashboard.scss";
 import Grid from "@mui/material/Grid"; // Grid version 1
 import { Divider } from "@mui/material";
@@ -15,7 +15,7 @@ import ViewDayTwoToneIcon from "@mui/icons-material/ViewDayTwoTone";
 // import MessageTwoToneIcon from "@mui/icons-material/MessageTwoTone";
 import StarPurple500TwoToneIcon from "@mui/icons-material/StarPurple500TwoTone";
 import DeveloperBoardTwoToneIcon from "@mui/icons-material/DeveloperBoardTwoTone";
-import { useState } from "react";
+
 import useMediaQuery from "@mui/material/useMediaQuery";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
@@ -25,13 +25,14 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 // import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Paper from "@mui/material/Paper";
 import apiInstance from "../utilities/axiosConfig";
-import { useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import CreateBoardModal from "../components/Dashboard/CreateBoardModal/CreateBoardModal";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import CreateBoard from "../components/Dashboard/CreateBoard/CreateBoard";
 import CreateTemplateModal from "../components/Dashboard/CreateTemplateModal/CreateTemplateModal";
+import useTheme from "../hooks/useTheme";
 
 // useMediaQuery
 // rafce
@@ -44,6 +45,7 @@ export const Dashborad = () => {
   let [starredBoards, setStarredBoards] = useState([]);
   let [flag, setFlag] = useState(false);
   const [templates, setTemplates] = useState([]);
+  const {theme} = useTheme();
 
   useEffect(() => {
     apiInstance
@@ -168,15 +170,16 @@ export const Dashborad = () => {
   const navigate = useNavigate();
 
   const navigateToWorkspace = (workspaceId) => {
-    navigate(`/workspace/${workspaceId}/dashboard/Boards`);
+    // navigate(`/workspace/${workspaceId}/dashboard/Boards`);
+    navigate(`/workspace/${workspaceId}/dashboard/board`);
   };
 
   const navigateToBoard = (boardId) => {
     navigate(`/kanban/${boardId}/board`);
   };
-  // const navigateToBoard = (boardId, workspaceId) => {
-  //   navigate(`/workspace/${workspaceId}/kanban/${boardId}/board`);
-  // };
+  const navigateToBoard2 = (boardId, workspaceId) => {
+    navigate(`/workspace/${workspaceId}/kanban/${boardId}/board`);
+  };
 
   useEffect(() => {
     apiInstance
@@ -186,8 +189,8 @@ export const Dashborad = () => {
         // [
         //   {
         //     "id": 21,
-        //     "name": "Agile Board",
-        //     "description": "Agile Board Template",
+        //     "name": "Agile WsBoard",
+        //     "description": "Agile WsBoard Template",
         //     "background_pic": null,
         //     "created_at": "2023-01-21T11:15:24.581576Z",
         //     "updated_at": "2023-01-21",
@@ -268,7 +271,7 @@ export const Dashborad = () => {
         //   {
         //     "id": 24,
         //     "name": "Simple Template",
-        //     "description": "Simple Board Template",
+        //     "description": "Simple WsBoard Template",
         //     "background_pic": null,
         //     "created_at": "2023-01-21T11:15:54.468111Z",
         //     "updated_at": "2023-01-21",
@@ -322,8 +325,8 @@ export const Dashborad = () => {
                     sx={{
                       padding: "3%",
                       textAlign: "center",
-                      // color: "#007fff",
-                      backgroundColor: "#007fff", // 5090D3
+                      // color: theme.primary,
+                      backgroundColor: theme.primary, // 5090D3
                       borderRadius: "10px",
                       // width: "100%",
                       // height: "100%",
@@ -338,7 +341,7 @@ export const Dashborad = () => {
                       // alignItems: "center",
                       // flexDirection: "column",
                       ":hover": {
-                        backgroundColor: "#5090D3",
+                        backgroundColor: theme.hover,
                         cursor: "pointer",
                       },
                     }}
@@ -362,7 +365,7 @@ export const Dashborad = () => {
               );
             })}
           </Grid>
-          <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+          <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} />
           {/* <p variant="h1" component="h2" className="text paragraph">
             <AvTimerTwoToneIcon sx={{ ml: 1.5 }} /> اخیرا دیده شده
           </p>
@@ -384,8 +387,8 @@ export const Dashborad = () => {
                     sx={{
                       padding: "3%",
                       textAlign: "center",
-                      // color: "#007fff",
-                      backgroundColor: "#007fff", // 5090D3
+                      // color: theme.primary,
+                      backgroundColor: theme.primary, // 5090D3
                       borderRadius: "10px",
                       // width: "100%",
                       // height: "100%",
@@ -400,13 +403,12 @@ export const Dashborad = () => {
                       // alignItems: "center",
                       // flexDirection: "column",
                       ":hover": {
-                        backgroundColor: "#5090D3",
+                        backgroundColor: theme.hover,
                         cursor: "pointer",
                       },
                     }}
                     // hover
                     onClick={() => {
-                      // history.push(`/board/${board_id}`);
                       navigateToBoard(board["id"]);
                     }}
                   >
@@ -433,7 +435,7 @@ export const Dashborad = () => {
               );
             })}
           </Grid>
-          <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} /> */}
+          <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} /> */}
           <p variant="h1" component="h2" className="text paragraph">
             <Diversity2TwoToneIcon
               sx={{
@@ -470,8 +472,8 @@ export const Dashborad = () => {
                           sx={{
                             padding: "3%",
                             textAlign: "center",
-                            // color: "#007fff",
-                            backgroundColor: "#007fff", // 5090D3
+                            // color: theme.primary,
+                            backgroundColor: theme.primary, // 5090D3
                             borderRadius: "10px",
                             // width: "100%",
                             // height: "100%",
@@ -486,13 +488,14 @@ export const Dashborad = () => {
                             // alignItems: "center",
                             // flexDirection: "column",
                             ":hover": {
-                              backgroundColor: "#5090D3",
+                              backgroundColor: theme.hover,
                               cursor: "pointer",
                             },
                           }}
                           // hover
                           onClick={() => {
-                            navigateToBoard(board_id);
+                            // navigateToBoard(board_id);
+                            navigateToBoard2(board_id, workspace.id);
                           }}
                         >
                           <p
@@ -524,8 +527,8 @@ export const Dashborad = () => {
                       sx={{
                         // padding: "10%",
                         textAlign: "center",
-                        // color: "#007fff",
-                        backgroundColor: "#007fff", // 5090D3
+                        // color: theme.primary,
+                        backgroundColor: theme.primary, // 5090D3
                         borderRadius: "10px",
                         // width: "100%",
                         // height: "100%",
@@ -540,7 +543,7 @@ export const Dashborad = () => {
                         alignItems: "center",
                         // flexDirection: "column",
                         ":hover": {
-                          backgroundColor: "#5090D3",
+                          backgroundColor: theme.hover,
                           cursor: "pointer",
                         },
                       }}
@@ -570,7 +573,7 @@ export const Dashborad = () => {
             );
           })}
           {/* Grid */}
-          {/* <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+          {/* <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} />
           <p variant="h1" component="h2" className="text paragraph">
             <HomeRepairServiceTwoToneIcon sx={{ ml: 1.5 }} /> فضا های مهمان
           </p> */}
@@ -616,8 +619,8 @@ export const Dashborad = () => {
                       sx={{
                         padding: "3%",
                         // textAlign: "center",
-                        // color: "#007fff",
-                        // backgroundColor: "#007fff", // 5090D3
+                        // color: theme.primary,
+                        // backgroundColor: theme.primary, // 5090D3
                         backgroundColor: "#0A1929", // 5090D3 , 007fff, 132F4C, 173A5E
                         borderRadius: "10px",
                         // width: "100%",
@@ -672,8 +675,8 @@ export const Dashborad = () => {
                       sx={{
                         padding: "3%",
                         textAlign: "center",
-                        // color: "#007fff",
-                        backgroundColor: "#007fff", // 5090D3
+                        // color: theme.primary,
+                        backgroundColor: theme.primary, // 5090D3
                         borderRadius: "10px",
                         // width: "100%",
                         // height: "100%",
@@ -688,7 +691,7 @@ export const Dashborad = () => {
                         alignItems: "center",
                         flexDirection: "column",
                         ":hover": {
-                          backgroundColor: "#5090D3",
+                          backgroundColor: theme.hover,
                           cursor: "pointer",
                         },
                       }}
@@ -724,7 +727,7 @@ export const Dashborad = () => {
                     </Paper>
                   </Grid>
                 </Grid>
-                <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+                <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} />
               </>
             );
           })}
@@ -741,7 +744,7 @@ export const Dashborad = () => {
             <StarPurple500TwoToneIcon sx={{ ml: 1.5 }} /> برجسته ها
           </p>
           <Grid></Grid>
-          <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} /> */}
+          <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} /> */}
           <p variant="h1" component="h2" className="text paragraph">
             <AvTimerTwoToneIcon sx={{ ml: 1.5 }} /> اخیرا دیده شده
           </p>
@@ -763,8 +766,8 @@ export const Dashborad = () => {
                     sx={{
                       padding: "3%",
                       textAlign: "center",
-                      // color: "#007fff",
-                      backgroundColor: "#007fff", // 5090D3
+                      // color: theme.primary,
+                      backgroundColor: theme.primary, // 5090D3
                       borderRadius: "10px",
                       // width: "100%",
                       // height: "100%",
@@ -779,13 +782,12 @@ export const Dashborad = () => {
                       // alignItems: "center",
                       // flexDirection: "column",
                       ":hover": {
-                        backgroundColor: "#5090D3",
+                        backgroundColor: theme.hover,
                         cursor: "pointer",
                       },
                     }}
                     // hover
                     onClick={() => {
-                      // history.push(`/board/${board_id}`);
                       navigateToBoard(board["id"]);
                     }}
                   >
@@ -802,7 +804,7 @@ export const Dashborad = () => {
               );
             })}
           </Grid>
-          <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+          <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} />
           <p variant="h1" component="h2" className="text paragraph">
             <DeveloperBoardTwoToneIcon sx={{ ml: 1.5 }} /> ساخت بورد جدید
           </p>
@@ -822,8 +824,8 @@ export const Dashborad = () => {
                 sx={{
                   // padding: "10%",
                   textAlign: "center",
-                  // color: "#007fff",
-                  backgroundColor: "#007fff", // 5090D3
+                  // color: theme.primary,
+                  backgroundColor: theme.primary, // 5090D3
                   borderRadius: "10px",
                   // width: "100%",
                   // height: "100%",
@@ -838,7 +840,7 @@ export const Dashborad = () => {
                   alignItems: "center",
                   // flexDirection: "column",
                   ":hover": {
-                    backgroundColor: "#5090D3",
+                    backgroundColor: theme.hover,
                     cursor: "pointer",
                   },
                 }}
@@ -850,7 +852,7 @@ export const Dashborad = () => {
               </Paper>
             </Grid>
           </Grid>
-          {/* <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+          {/* <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} />
           <p variant="h1" component="h2" className="text paragraph">
             <MessageTwoToneIcon sx={{ ml: 1.5 }} /> پیام ها
           </p> */}
@@ -888,8 +890,8 @@ export const Dashborad = () => {
                       sx={{
                         padding: "2%",
                         textAlign: "center",
-                        // color: "#007fff",
-                        backgroundColor: "#007fff", // 5090D3
+                        // color: theme.primary,
+                        backgroundColor: theme.primary, // 5090D3
                         borderRadius: "10px",
                         // width: "100%",
                         // height: "100%",
@@ -904,13 +906,12 @@ export const Dashborad = () => {
                         // alignItems: "center",
                         // flexDirection: "column",
                         ":hover": {
-                          backgroundColor: "#5090D3",
+                          backgroundColor: theme.hover,
                           cursor: "pointer",
                         },
                       }}
                       // hover
                       onClick={() => {
-                        // history.push(`/board/${board_id}`);
                         navigateToBoard(board["id"]);
                       }}
                     >
@@ -929,7 +930,7 @@ export const Dashborad = () => {
               );
             })}
           </Grid>
-          <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+          <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} />
           <p variant="h1" component="h2" className="text paragraph">
             <Diversity2TwoToneIcon
               sx={{
@@ -968,8 +969,8 @@ export const Dashborad = () => {
                             sx={{
                               padding: "2%",
                               textAlign: "center",
-                              // color: "#007fff",
-                              backgroundColor: "#007fff", // 5090D3
+                              // color: theme.primary,
+                              backgroundColor: theme.primary, // 5090D3
                               borderRadius: "10px",
                               // width: "100%",
                               // height: "100%",
@@ -984,14 +985,14 @@ export const Dashborad = () => {
                               // alignItems: "center",
                               // flexDirection: "column",
                               ":hover": {
-                                backgroundColor: "#5090D3",
+                                backgroundColor: theme.hover,
                                 cursor: "pointer",
                               },
                             }}
                             // hover
                             onClick={() => {
-                              // history.push(`/board/${board_id}`);
-                              navigateToBoard(board_id);
+                              // navigateToBoard(board_id);
+                              navigateToBoard2(board_id, workspace.id);
                             }}
                           >
                             <p
@@ -1023,8 +1024,8 @@ export const Dashborad = () => {
                       sx={{
                         // padding: "10%",
                         textAlign: "center",
-                        // color: "#007fff",
-                        backgroundColor: "#007fff", // 5090D3
+                        // color: theme.primary,
+                        backgroundColor: theme.primary, // 5090D3
                         borderRadius: "10px",
                         // width: "100%",
                         // height: "100%",
@@ -1039,7 +1040,7 @@ export const Dashborad = () => {
                         alignItems: "center",
                         // flexDirection: "column",
                         ":hover": {
-                          backgroundColor: "#5090D3",
+                          backgroundColor: theme.hover,
                           cursor: "pointer",
                         },
                       }}
@@ -1062,7 +1063,7 @@ export const Dashborad = () => {
               </>
             );
           })}
-          {/* <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+          {/* <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} />
           <p variant="h1" component="h2" className="text paragraph">
             <HomeRepairServiceTwoToneIcon sx={{ ml: 1.5 }} /> فضا های مهمان
           </p> */}
@@ -1116,7 +1117,7 @@ export const Dashborad = () => {
                         sx={{
                           padding: "2%",
                           // textAlign: "center",
-                          // color: "#007fff",
+                          // color: theme.primary,
                           backgroundColor: "#0A1929", // 5090D3 , 007fff, 132F4C, 173A5E
                           borderRadius: "10px",
                           // width: "100%",
@@ -1132,8 +1133,8 @@ export const Dashborad = () => {
                           // alignItems: "center",
                           // flexDirection: "column",
                           ":hover": {
-                            backgroundColor: "#5090D3",
-                            // backgroundColor: "#007fff",
+                            backgroundColor: theme.hover,
+                            // backgroundColor: theme.primary,
                             // cursor: "pointer",
                           },
                         }}
@@ -1177,8 +1178,8 @@ export const Dashborad = () => {
                         sx={{
                           padding: "2%",
                           textAlign: "center",
-                          // color: "#007fff",
-                          backgroundColor: "#007fff", // 5090D3
+                          // color: theme.primary,
+                          backgroundColor: theme.primary, // 5090D3
                           borderRadius: "10px",
                           // width: "100%",
                           // height: "100%",
@@ -1193,7 +1194,7 @@ export const Dashborad = () => {
                           alignItems: "center",
                           flexDirection: "column",
                           ":hover": {
-                            backgroundColor: "#5090D3",
+                            backgroundColor: theme.hover,
                             cursor: "pointer",
                           },
                         }}
@@ -1230,7 +1231,7 @@ export const Dashborad = () => {
                     </div>
                   </Grid>
                 </Grid>
-                <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+                <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} />
               </>
             );
           })}
@@ -1247,7 +1248,7 @@ export const Dashborad = () => {
             <StarPurple500TwoToneIcon sx={{ ml: 1.5 }} /> برجسته ها
           </p>
           <Grid></Grid>
-          <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} /> */}
+          <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} /> */}
           <p variant="h1" component="h2" className="text paragraph">
             <AvTimerTwoToneIcon sx={{ ml: 1.5 }} /> اخیرا دیده شده
           </p>
@@ -1270,8 +1271,8 @@ export const Dashborad = () => {
                       sx={{
                         padding: "2%",
                         textAlign: "center",
-                        // color: "#007fff",
-                        backgroundColor: "#007fff", // 5090D3
+                        // color: theme.primary,
+                        backgroundColor: theme.primary, // 5090D3
                         borderRadius: "10px",
                         // width: "100%",
                         // height: "100%",
@@ -1286,7 +1287,7 @@ export const Dashborad = () => {
                         // alignItems: "center",
                         // flexDirection: "column",
                         ":hover": {
-                          backgroundColor: "#5090D3",
+                          backgroundColor: theme.hover,
                           cursor: "pointer",
                         },
                       }}
@@ -1310,7 +1311,7 @@ export const Dashborad = () => {
               );
             })}
           </Grid>
-          <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+          <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} />
           <p variant="h1" component="h2" className="text paragraph">
             <DeveloperBoardTwoToneIcon sx={{ ml: 1.5 }} /> ساخت بورد جدید
           </p>
@@ -1330,8 +1331,8 @@ export const Dashborad = () => {
                 sx={{
                   // padding: "10%",
                   textAlign: "center",
-                  // color: "#007fff",
-                  backgroundColor: "#007fff", // 5090D3
+                  // color: theme.primary,
+                  backgroundColor: theme.primary, // 5090D3
                   borderRadius: "10px",
                   // width: "100%",
                   // height: "100%",
@@ -1346,7 +1347,7 @@ export const Dashborad = () => {
                   alignItems: "center",
                   // flexDirection: "column",
                   ":hover": {
-                    backgroundColor: "#5090D3",
+                    backgroundColor: theme.hover,
                     cursor: "pointer",
                   },
                 }}
@@ -1363,7 +1364,7 @@ export const Dashborad = () => {
               </Paper>
             </Grid>
           </Grid>
-          {/* <Divider sx={{ bgcolor: "#007fff", marginTop: "5%" }} />
+          {/* <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} />
           <p variant="h1" component="h2" className="text paragraph">
             <MessageTwoToneIcon sx={{ ml: 1.5 }} /> پیام ها
           </p> */}
@@ -1430,7 +1431,6 @@ export const Dashborad = () => {
           <title>داشبورد</title>
         </Helmet>
         <Header />
-        <ToastContainer />
         <Grid
           container
           spacing={{ xs: 0, md: 0 }}
@@ -1490,7 +1490,6 @@ export const Dashborad = () => {
         <Helmet>
           <title>داشبورد</title>
         </Helmet>
-        <ToastContainer />
         <div>
           {Object.entries(mobile_tabs).map((tab) => (
             <>{activeTab === tab[0] && tab[1].content}</>

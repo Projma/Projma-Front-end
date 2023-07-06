@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useSelector } from "react";
+import { useState, useSelector , useEffect } from "react";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -7,19 +7,19 @@ import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
 import Modal from "@mui/material/Modal";
 import StyledTextField from "../../Shared/StyledTextField";
-import PerTextField from "../../Shared/PerTextField.js";
+import PerTextField from "../../Shared/PerTextField";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 // import file from "../../../static/images/workspace_management/create_board/board.jpeg";
 import "./CreateTemplateModal.scss";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+
 import MenuItem from "@mui/material/MenuItem";
 import {
     convertNumberToPersian,
     convertNumberToEnglish,
-} from "../../../utilities/helpers.js";
+} from "../../../utilities/helpers";
 
 const style = {
     position: "absolute",

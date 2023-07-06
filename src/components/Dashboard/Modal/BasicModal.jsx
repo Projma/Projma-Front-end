@@ -18,24 +18,8 @@ import { useNavigate } from "react-router-dom";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
-} from "../../../utilities/helpers.js";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "70%",
-  height: "78%",
-  // bgcolor: 'background.paper',
-  bgcolor: "#265D97", // #5090D3 #1E4976 001E3C 007fff 265D97
-  border: "2px solid #000",
-  borderRadius: "10px",
-  boxShadow: 24,
-  p: 4,
-  fontFamily: "Vazir",
-  overflow: "auto",
-};
+} from "../../../utilities/helpers";
+import useTheme from "../../../hooks/useTheme";
 
 // Create rtl cache
 const cacheRtl = createCache({
@@ -44,100 +28,30 @@ const cacheRtl = createCache({
 });
 
 export default function BasicModal(props) {
+  const { theme, getColor } = useTheme();
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "70%",
+    height: "78%",
+    // bgcolor: 'background.paper',
+    bgcolor: theme.secondary, // #5090D3 #1E4976 001E3C 007fff 265D97
+    border: "2px solid #000",
+    borderRadius: "10px",
+    boxShadow: 24,
+    p: 4,
+    fontFamily: "Vazir",
+    overflow: "auto",
+    color: getColor(theme.secondary),
+  };
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   let width = window.innerWidth;
   let isMatch = width > 900 ? true : false;
-  // const config = isMatch
-  //     ? {
-  //         background: "#076585" /* fallback for old browsers */,
-  //         background: "-webkit-linear-gradient(to left, #076585, #fff)",
-  //         background: "linear-gradient(to left, #076585, #fff)",
-  //     }
-  //     : {
-  //         background: "#076585" /* fallback for old browsers */,
-  //         background: "-webkit-linear-gradient(to top, #076585, #fff)",
-  //         background: "linear-gradient(to top, #076585, #fff)",
-  //     };
-  // const matches = useMediaQuery("(max-width:900px)");
-
-  // const [workspaceTypes, setWorkspaceTypes] = React.useState({});
-  // const [types, setTypes] = React.useState([]);
-  // apiInstance.get('/workspaces/workspaces/type/').then((res) => {
-  //     // workspaceTypes = res.data
-  //     // workspaceTypes = await res.data.json()
-  //     // const boards = res.data.map((obj) => (
-  //     // //     {
-  //     // //     // id: obj.id,
-  //     // //     // name: obj.name,
-  //     // // }
-  //     //     types.push(obj)
-  //     // ));
-  //     ////console.log(res.data)
-  //     // ////console.log(res.data.keys())
-  //     // res.data.length
-  // }).catch((err) => {
-  //     ////console.log(err)
-  // })
-  // ////console.log(workspaceTypes)
-  // let response = await apiInstance.fetch('/workspaces/workspaces/type/')
-  // workspaceTypes = await response.json()
-  // ////console.log(workspaceTypes)
-  // const [workspaceType, setWorkspaceType] = React.useState(workspaceTypes[0]);
-  // ////console.log(workspaceTypes["education"])
-  // ////console.log(workspaceTypes.length)
-  // const map1 = new Map(workspaceTypes);
-  // ////console.log(map1)
-  // for (const [key, value] of workspaceTypes[0]) {
-  //     types.push(
-  //         {
-  //             'value': key,
-  //             'label': value,
-  //         }
-  //     )
-  //     ////console.log(key)
-  //     ////console.log(value)
-  //     ////console.log("----------------")
-  //     ////console.log(types)
-  // }
-
-  // setWorkspaceTypes({
-  //     "education": "آموزشی",
-  //     "marketing": "بازاریابی",
-  //     "small business": "سرمایه گذاری کوچک",
-  //     "operations": "عملیاتی",
-  //     "engineering-it": "مهندسی و IT",
-  //     "finance": "مالی",
-  //     "human resources": "منابع انسانی",
-  //     "other": "سایر"
-  // })
-
-  // for (const [key, value] of Object.entries(workspaceTypes)) {
-  //     // types.push(
-  //     //     {
-  //     //         'value': key,
-  //     //         'label': value,
-  //     //     }
-  //     // )
-  //     setTypes([...types, {
-  //         'value': key,
-  //         'label': value,
-  //     }])
-  // }
-  // workspaceTypes.forEach((value, key) => {
-  //     // types.push(
-  //     //     {
-  //     //         'value': key,
-  //     //         'label': value,
-  //     //     }
-  //     // )
-  //     setTypes([...types, {
-  //         'value': key,
-  //         'label': value,
-  //     }])
-  // })
   const types = [
     {
       value: "education",
@@ -185,7 +99,7 @@ export default function BasicModal(props) {
   const navigate = useNavigate();
 
   const navigateToWorkspace = (workspaceId) => {
-    navigate(`/workspace/${workspaceId}/Boards`);
+    navigate(`/workspace/${workspaceId}/dashboard/board`);
   };
 
   return (
@@ -194,13 +108,14 @@ export default function BasicModal(props) {
         <Button
           onClick={handleOpen}
           sx={{
-            color: "#00bfff",
             ":hover": {
-              color: "#E2EDF8",
-              backgroundColor: "#007fff",
+              color: getColor(theme.tertiary),
+              backgroundColor: theme.tertiary,
               borderRadius: "5px",
-              fontFamily: "Vazir",
             },
+            transition: "0.3s",
+            backgroundColor: theme.minorBg,
+            color: getColor(theme.mainBg),
             marginTop: "8%",
             padding: "5%",
 
@@ -222,10 +137,13 @@ export default function BasicModal(props) {
           sx={{
             color: "#000",
             ":hover": {
-              color: "#E2EDF8",
-              backgroundColor: "#007fff",
+              color: getColor(theme.tertiary),
+              backgroundColor: theme.tertiary,
               borderRadius: "5px",
             },
+            transition: "0.3s",
+            backgroundColor: theme.minorBg,
+            color: getColor(theme.mainBg),
             // marginTop: '8%',
             // padding: '10%',
             fontFamily: "Vazir",
@@ -286,7 +204,7 @@ export default function BasicModal(props) {
                 }}
               >
                 <CacheProvider value={cacheRtl}>
-                  <ThemeProvider>
+                  <ThemeProvider theme={theme}>
                     <StyledTextField
                       margin="normal"
                       required
@@ -334,7 +252,7 @@ export default function BasicModal(props) {
                   </ThemeProvider>
                 </CacheProvider>
                 <CacheProvider value={cacheRtl}>
-                  <ThemeProvider>
+                  <ThemeProvider theme={theme}>
                     <StyledTextField
                       margin="normal"
                       required
@@ -383,8 +301,7 @@ export default function BasicModal(props) {
                   </ThemeProvider>
                 </CacheProvider>
                 <CacheProvider value={cacheRtl}>
-                  <ThemeProvider>
-                    {/* <ThemeProvider theme={theme}> */}
+                    <ThemeProvider theme={theme}>
                     <StyledTextField
                       margin="normal"
                       fullWidth

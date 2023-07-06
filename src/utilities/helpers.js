@@ -27,16 +27,20 @@ export const convertNumberToEnglish = input => {
     return res;
 };
 
-export const isPersianNumber = input => {
+export const isPersianNumber = (input) => {
+    if (typeof input !== 'string') {
+      return false;
+    }
     for (let i = 0; i < input.length; i++) {
-        let char = input.charAt(i);
-        const persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-        if (!persian.includes(char)) {
-            return false;
-        }
+      let char = input.charAt(i);
+      const persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+      if (!persian.includes(char)) {
+        return false;
+      }
     }
     return true;
-};
+  };
+  
 
 export const formatPrice = input => {
     let count = 0;

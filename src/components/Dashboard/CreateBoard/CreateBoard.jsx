@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useSelector } from "react";
+import { useState, useSelector , useEffect } from "react";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -7,37 +7,21 @@ import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
 import Modal from "@mui/material/Modal";
 import StyledTextField from "../../Shared/StyledTextField";
-import PerTextField from "../../Shared/PerTextField.js";
+import PerTextField from "../../Shared/PerTextField";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 import "./CreateBoard.scss";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+
 import MenuItem from "@mui/material/MenuItem";
 import Loading from "../../Shared/Loading";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
-} from "../../../utilities/helpers.js";
+} from "../../../utilities/helpers";
+import useTheme from "../../../hooks/useTheme";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "42rem",
-  height: "62rem",
-  backgroundColor: "#001E3C",
-  // bgcolor: "background.paper",
-  border: "2px solid #000",
-  borderRadius: "10px",
-  boxShadow: 50,
-  p: 4,
-  fontFamily: "Vazir",
-  // overflow: 'hidden', scroll
-  overflow: "auto",
-};
 
 export default function CreateBoardModal({}) {
   const navigate = useNavigate();
@@ -68,6 +52,24 @@ export default function CreateBoardModal({}) {
     setFile(x);
     setOpen(false);
   };
+  const {theme} = useTheme();
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "42rem",
+    height: "62rem",
+    backgroundColor: theme.tertiary,
+    // bgcolor: "background.paper",
+    border: "2px solid #000",
+    borderRadius: "10px",
+    boxShadow: 50,
+    p: 4,
+    fontFamily: "Vazir",
+    // overflow: 'hidden', scroll
+    overflow: "auto",
+  };
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [file, setFile] = React.useState(null);
@@ -79,16 +81,16 @@ export default function CreateBoardModal({}) {
   const on_submit = (form_data) => {
     setIsPost(true);
     apiInstance
-      .post(
-        `/workspaces/workspaceowner/${workspaceId}/create-board/`,
-        form_data
+    .post(
+      `/workspaces/workspaceowner/${workspaceId}/create-board/`,
+      form_data
       )
       .then((res) => {
         toast.success("بورد با موفقیت ساخته شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-
+        
         delay(6000).then(() => navigateToBoard(res.data.id));
       })
       .finally(() => {
@@ -148,10 +150,10 @@ export default function CreateBoardModal({}) {
         onClick={handleOpen}
         sx={{
           // color: '#00bfff',
-          color: "#000",
+          color: theme.text,
           ":hover": {
             color: "#E2EDF8",
-            backgroundColor: "#007fff",
+            backgroundColor: theme.hover,
             borderRadius: "5px",
           },
           // marginTop: '8%',
@@ -202,7 +204,7 @@ export default function CreateBoardModal({}) {
           </Typography>
           <Divider
             sx={{
-              backgroundColor: "#007fff",
+              backgroundColor: theme.primary,
               marginTop: "3%",
               marginBottom: "5%",
             }}
@@ -299,13 +301,13 @@ export default function CreateBoardModal({}) {
                     value={workspace.id}
                     sx={{
                       fontFamily: "Vazir",
-                      color: "#007fff", // #0A1929
+                      color: theme.text, // #0A1929
                       // backgroundColor: '#265D97',
-                      backgroundColor: "#001E3C",
+                      backgroundColor: theme.minorBg,
                       // margin: '0%',
                       // padding: '3%',
                       ":hover": {
-                        backgroundColor: "#132F4C",
+                        backgroundColor: theme.tertiary,
                         // borderRadius: '5px',
                       },
                       fontSize: "1.5rem",

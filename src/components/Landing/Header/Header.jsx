@@ -1,6 +1,6 @@
 import React from "react";
 import Nav from "../Nav/Nav";
-import "./Header.css";
+import "./Header.scss";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
 import rtlPlugin from "stylis-plugin-rtl";
@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
-} from "../../../utilities/helpers.js";
+} from "../../../utilities/helpers";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">

@@ -6,10 +6,7 @@ import apiInstance from '../utilities/axiosConfig';
 import {
     LOGIN,
     LOGOUT
-} from "../actionTypes/actionTypes.js";
-import { redirect } from 'react-router-dom';
-import { Redirect, Route } from "react-router";
-import { useNavigate } from "react-router-dom";
+} from "../actionTypes/actionTypes";
 
 export const login = () => async (dispatch) => {
     // const response = await apiInstance.get(`${baseUrl}/accounts/users/me`, {
@@ -19,7 +16,7 @@ export const login = () => async (dispatch) => {
     // })
     // ////console.log("login action");
     let flag = false;
-    const response = await apiInstance.get(`/accounts/profile/myprofile/`).catch((err) => {
+    const response = await apiInstance.get(`/accounts/profile/myprofile/`).catch(() => {
         ////console.log("Error: ", err);
         flag = true;
     });

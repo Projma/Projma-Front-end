@@ -9,14 +9,14 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import "../../styles/Registration.css";
+import "../../styles/Registration.scss";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import StyledTextField from "./StyledTextField";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {  toast } from "react-toastify";
+
 import apiInstance from "../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom"; // comment for tests
 // import { useDispatch } from "react-redux";
@@ -27,8 +27,8 @@ import { Helmet } from "react-helmet";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
-} from "../../utilities/helpers.js";
-// import Header from "../Header/Header";
+} from "../../utilities/helpers";
+import useTheme from "../../hooks/useTheme"; 
 
 function Copyright(props) {
   return (
@@ -49,6 +49,7 @@ export default function SignIn() {
   const [password, setPassword] = React.useState("");
   const [errorPassword, setErrorPassword] = React.useState(false);
   const [isPost, setIsPost] = useState(false);
+  const {theme, getColor} = useTheme();
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   let navigate = useNavigate(); // comment for tests
@@ -95,7 +96,7 @@ export default function SignIn() {
       });
   };
 
-  const theme = createTheme({
+  const muitheme = createTheme({
     direction: "rtl",
   });
   const cacheRtl = createCache({
@@ -104,22 +105,23 @@ export default function SignIn() {
   });
 
   return (
-    <div>
+    <div style={{width: "100%", height: "100%"}}>
       {/* <Header></Header> */}
       <Helmet>
         <title>صفحه ورود</title>
       </Helmet>
       {isPost ? <Loading /> : null}
       <CacheProvider value={cacheRtl}>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={muitheme}>
           <Container
             component="main"
             maxWidth="xs"
+            maxHeight="xs"
             style={{
               borderRadius: 3,
+              width: "100%", height: "100%"
             }}
           >
-            <CssBaseline />
             <Box
               className="Registration--Box"
               sx={{
@@ -133,6 +135,7 @@ export default function SignIn() {
                 component="h1"
                 variant="h5"
                 className="Signin--Box-Type"
+                style={{color: getColor(theme.minorBg)}}
               >
                 صفحه ورود
               </Typography>
@@ -192,7 +195,6 @@ export default function SignIn() {
                 >
                   ورود
                 </Button>
-                <ToastContainer />
                 <Grid container style={{ marginBottom: "5%", marginTop: "1%" }}>
                   <Grid item xs>
                     <Link

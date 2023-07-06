@@ -3,14 +3,14 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import createCache from "@emotion/cache";
-import "../../styles/Profile.css";
+import "../../styles/Profile.scss";
 import { useState } from "react";
 import axios from "axios";
 import { CacheProvider } from "@emotion/react";
 import Avatar from "@mui/material/Avatar";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import profile_preview from "../../static/images/profile/profile-preview.png";
+import profile_preview from "../../static/images/profile/blank.png";
 import apiInstance from "../../utilities/axiosConfig";
 import { baseUrl } from "../../utilities/constants";
 
@@ -91,7 +91,7 @@ export default function ProfileView() {
                   >
                     <div className="flex-col profile--view-show-box">
                       <label
-                        for="first_name"
+                        htmlFor="first_name"
                         className="title-css"
                         style={{ marginRight: "2%" }}
                       >
@@ -101,7 +101,7 @@ export default function ProfileView() {
                     </div>
                     <div className="flex-col profile--view-show-box">
                       <label
-                        for="last_name"
+                        htmlFor="last_name"
                         className="title-css"
                         style={{ marginRight: "2%" }}
                       >
@@ -118,7 +118,7 @@ export default function ProfileView() {
                   <div className="profile-view-box" style={{ width: "100%" }}>
                     <div className="flex-col profile--view-show-box">
                       <label
-                        for="first_name"
+                        htmlFor="first_name"
                         className="title-css"
                         style={{ marginRight: "2%" }}
                       >
@@ -128,7 +128,7 @@ export default function ProfileView() {
                     </div>
                     <div className="flex-col profile--view-show-box">
                       <label
-                        for="last_name"
+                        htmlFor="last_name"
                         className="title-css"
                         style={{ marginRight: "2%" }}
                       >
@@ -141,7 +141,7 @@ export default function ProfileView() {
                 <div style={{ marginTop: "10%" }}>
                   <div className="flex-col profile--view-show-box profile--bio-media">
                     <label
-                      for="bio"
+                      htmlFor="bio"
                       className="title-css"
                       style={{ marginRight: "2%" }}
                     >

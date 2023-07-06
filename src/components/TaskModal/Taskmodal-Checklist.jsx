@@ -2,13 +2,13 @@ import * as React from "react";
 import "../../styles/TaskModal.css";
 import { useState } from "react";
 import StyledTextField from "../Shared/StyledTextField";
-import { Button } from "@mui/material";
+import { Button , Box } from "@mui/material";
 import apiInstance from "../../utilities/axiosConfig";
-import { Box } from "@mui/material";
+
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import Checkbox from "@mui/material/Checkbox";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 
 export default function Taskmodal_CheckList({
   params,
@@ -25,7 +25,7 @@ export default function Taskmodal_CheckList({
     const formData = new FormData();
     formData.append("text", checklistTitle);
     apiInstance
-      .post(`/workspaces/task/${params.task_id}/create-checklist/`, formData)
+      .post(`/task/${params.task_id}/create-checklist/`, formData)
       .then((res) => {
         setAllChecklists((prevState) => [...prevState, res.data]);
         toast.success("با موفقیت ویرایش شد.", {
@@ -67,7 +67,7 @@ export default function Taskmodal_CheckList({
       }
     });
     apiInstance
-      .patch(`/workspaces/task/update-checklist/${id}/`, formData)
+      .patch(`/task/update-checklist/${id}/`, formData)
       .then((res) => {})
       .finally(() => setIsPost(null));
   };
@@ -85,7 +85,7 @@ export default function Taskmodal_CheckList({
     const formData = new FormData();
     formData.append("text", checklistTitle);
     apiInstance
-      .patch(`/workspaces/task/update-checklist/${id}/`, formData)
+      .patch(`/task/update-checklist/${id}/`, formData)
       .then((res) => {
         toast.success("با موفقیت ویرایش شد.", {
           position: toast.POSITION.BOTTOM_LEFT,
@@ -106,7 +106,7 @@ export default function Taskmodal_CheckList({
       return prevState.filter((item) => item.id !== id);
     });
     apiInstance
-      .delete(`/workspaces/task/delete-checklist/${id}/`)
+      .delete(`/task/delete-checklist/${id}/`)
       .then((response) => {});
   };
   return (

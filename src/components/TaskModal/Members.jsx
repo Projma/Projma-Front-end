@@ -10,19 +10,6 @@ import apiInstance from "../../utilities/axiosConfig";
 import { baseUrl } from "../../utilities/constants";
 import Loading from "../Shared/Loading";
 
-function check_username_in_list(username, userName, list) {
-  for (let i = 0; i < list.length; i++) {
-    if (list[i].username === username) {
-      return true;
-    } else if (list[i].userName === username) {
-      return true;
-    } else if (list[i].userName === userName) {
-      return true;
-    }
-  }
-  return false;
-}
-
 export default function Members({ params, setDoers, doer }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isPost, setIsPost] = React.useState(false);
@@ -36,31 +23,25 @@ export default function Members({ params, setDoers, doer }) {
     setAnchorEl(null);
   };
   useEffect(() => {
-    //console.log("YYFYFYFYFYFYFYFY");
-    //console.log(doer);
-    apiInstance
-      .get(`/workspaces/board/${params.board_id}/members/`)
-      .then((res) => {
-        const members = res.data.map((obj) => ({
-          id: obj.user.id,
-          firstName: obj.user.first_name,
-          lastName: obj.user.last_name,
-          userName: obj.user.username,
-          email: obj.user.email,
-          image: obj.profile_pic,
-          checked: false,
-        }));
-        // members already in doers
-        members.map((member) => {
-          if (doer.some((item) => item.username === member.userName)) {
-            member.checked = true;
-          }
-          return member;
-        });
-        //console.log(members);
-
-        setListOfMembers(members);
+    apiInstance.get(`/board/${params.board_id}/members/`).then((res) => {
+      const members = res.data.map((obj) => ({
+        id: obj.user.id,
+        firstName: obj.user.first_name,
+        lastName: obj.user.last_name,
+        userName: obj.user.username,
+        email: obj.user.email,
+        image: obj.profile_pic,
+        checked: false,
+      }));
+      members.map((member) => {
+        if (doer.some((item) => item.username === member.userName)) {
+          member.checked = true;
+        }
+        return member;
       });
+
+      setListOfMembers(members);
+    });
   }, [doer]);
 
   const [ListOfMembers, setListOfMembers] = React.useState([]);
@@ -107,11 +88,11 @@ export default function Members({ params, setDoers, doer }) {
     );
   };
   const [member, setMember] = React.useState("");
+
   const add_to_doers = (member) => {
-    // change the checked value of the member
     setIsPost(true);
     apiInstance
-      .patch(`/workspaces/task/${params.task_id}/add-doers-to-task/`, {
+      .patch(`/task/${params.task_id}/add-doers-to-task/`, {
         doers: [member.id],
       })
       .then((res) => {
@@ -128,11 +109,12 @@ export default function Members({ params, setDoers, doer }) {
         setIsPost(null);
       });
   };
+
   const delete_from_doers = (member) => {
     member.checked = !member.checked;
     setIsPost(true);
     apiInstance
-      .patch(`/workspaces/task/${params.task_id}/delete-doers-from-task/`, {
+      .patch(`/task/${params.task_id}/delete-doers-from-task/`, {
         doers: [member.id],
       })
       .then((res) => {

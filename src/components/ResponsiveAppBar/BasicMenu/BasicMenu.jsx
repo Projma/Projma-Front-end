@@ -2,15 +2,16 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import BasicModal from "../../Dashboard/Modal/BasicModal";
 import apiInstance from "../../../utilities/axiosConfig";
-import { useParams } from "react-router-dom";
+import useTheme from "../../../hooks/useTheme";
 import CreateBoardModal from "../CreateBoardModal/CreateBoardModal";
 
 export default function BasicMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const { theme, getColor } = useTheme();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -21,7 +22,7 @@ export default function BasicMenu(props) {
   const navigate = useNavigate();
   const navigateToWorkspace = (workspaceId) => {
     handleClose();
-    navigate(`/workspace/${workspaceId}/dashboard/Boards`);
+    navigate(`/workspace/${workspaceId}/dashboard/board`);
   };
   const navigateToBoard = (boardId) => {
     navigate(`/kanban/${boardId}`);
@@ -65,11 +66,13 @@ export default function BasicMenu(props) {
                 key={key}
                 sx={{
                   ":hover": {
-                    color: "#E2EDF8",
-                    backgroundColor: "#007fff",
+                    color: getColor(theme.tertiary),
+                    backgroundColor: theme.tertiary,
                     borderRadius: "5px",
                   },
                   transition: "0.3s",
+                  backgroundColor: theme.minorBg,
+                  color: getColor(theme.mainBg),
                 }}
               >
                 <div style={{ fontSize: "88%" }}>{props.workspaces[key]}</div>
@@ -84,11 +87,13 @@ export default function BasicMenu(props) {
                 key={board["id"]}
                 sx={{
                   ":hover": {
-                    color: "#E2EDF8",
-                    backgroundColor: "#007fff",
+                    color: getColor(theme.tertiary),
+                    backgroundColor: theme.tertiary,
                     borderRadius: "5px",
                   },
                   transition: "0.3s",
+                  backgroundColor: theme.minorBg,
+                  color: getColor(theme.mainBg),
                 }}
               >
                 <div style={{ fontSize: "88%" }}>{board["name"]}</div>
@@ -100,25 +105,28 @@ export default function BasicMenu(props) {
             <MenuItem
               sx={{
                 ":hover": {
-                  color: "#E2EDF8",
-                  backgroundColor: "#007fff",
+                  color: getColor(theme.tertiary),
+                  backgroundColor: theme.tertiary,
                   borderRadius: "5px",
-                  fontFamily: "Vazir",
                 },
+                transition: "0.3s",
+                backgroundColor: theme.minorBg,
+                color: getColor(theme.mainBg),
               }}
             >
               <BasicModal text="ایجاد فضای کاری جدید" />
             </MenuItem>
             <MenuItem
               sx={{
-                ":hover": {
-                  color: "#E2EDF8",
-                  backgroundColor: "#007fff",
-                  borderRadius: "5px",
-                  fontFamily: "Vazir",
-                },
-                color: "black",
-              }}
+                  ":hover": {
+                    color: getColor(theme.tertiary),
+                    backgroundColor: theme.tertiary,
+                    borderRadius: "5px",
+                  },
+                  transition: "0.3s",
+                  backgroundColor: theme.minorBg,
+                  color: getColor(theme.mainBg)
+                }}
             >
               <CreateBoardModal />
             </MenuItem>{" "}

@@ -14,16 +14,15 @@ import TaskModal_Activity from "./Taskmodal-Activity";
 import Attachments from "./Attachments";
 import CheckList from "./Checklist";
 import "../../styles/TaskModal.css";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { CacheProvider } from "@emotion/react";
 import { Button } from "@mui/material";
 import apiInstance from "../../utilities/axiosConfig";
 import PersonIcon from "@mui/icons-material/Person";
-import { useEffect } from "react";
+import InitialIcon from "./InitialIcon";
 import { Link } from "react-router-dom";
 import { convertNumberToPersian } from "../../utilities/helpers";
 import Loading from "../Shared/Loading";
-import "react-toastify/dist/ReactToastify.css";
 
 const theme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
@@ -106,50 +105,51 @@ export default function TaskModal(props) {
       </Button>
     );
   };
-  const InitialIcon = ({ initials }) => {
-    return (
-      <div
-        className="flex-row"
-        style={{
-          backgroundColor: initials.color + "55",
-          alignItems: "center",
-          justifyContent: "start",
-          width: 90,
-          height: 30,
-          borderRadius: 30,
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: initials.color,
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 30,
-            marginRight: "8%",
-            width: 17,
-            height: 17,
-            marginLeft: 7,
-          }}
-        ></div>
-        <div
-          style={{
-            display: "flex",
-            color: "white",
-            fontSize: 13,
-            width: "50",
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-            overflowX: "auto",
-            paddingTop: 2,
-            paddingRight: -10,
-          }}
-        >
-          {initials.title}
-        </div>
-      </div>
-    );
-  };
+  // const InitialIcon = ({ initials }) => {
+  //   return (
+  //     <div
+  //       data-testid="initial-icon"
+  //       className="flex-row"
+  //       style={{
+  //         backgroundColor: initials.color + "55",
+  //         alignItems: "center",
+  //         justifyContent: "start",
+  //         width: 90,
+  //         height: 30,
+  //         borderRadius: 30,
+  //       }}
+  //     >
+  //       <div
+  //         style={{
+  //           backgroundColor: initials.color,
+  //           alignItems: "center",
+  //           justifyContent: "center",
+  //           borderRadius: 30,
+  //           marginRight: "8%",
+  //           width: 17,
+  //           height: 17,
+  //           marginLeft: 7,
+  //         }}
+  //       ></div>
+  //       <div
+  //         style={{
+  //           display: "flex",
+  //           color: "white",
+  //           fontSize: 13,
+  //           width: "50",
+  //           height: "100%",
+  //           justifyContent: "center",
+  //           alignItems: "center",
+  //           overflowX: "auto",
+  //           paddingTop: 2,
+  //           paddingRight: -10,
+  //         }}
+  //       >
+  //         {initials.title}
+  //       </div>
+  //     </div>
+  //   );
+  // };
 
   const [ListOfComments, setListOfComments] = useState([]);
   const [ListOfDoers, setListOfDoers] = useState([]);
@@ -167,68 +167,64 @@ export default function TaskModal(props) {
   const [title, setTitle] = useState("");
 
   useEffect(() => {
+    apiInstance.get(`/board/${params.board_id}/members/`).then((res) => {
+      const members = res.data.map((obj) => ({
+        id: obj.user.id,
+        firstName: obj.user.first_name,
+        lastName: obj.user.last_name,
+        userName: obj.user.username,
+        email: obj.user.email,
+        image: obj.profile_pic,
+      }));
+      setListOfMembers(members);
+    });
     apiInstance
-      .get(`/workspaces/board/${params.board_id}/members/`)
-      .then((res) => {
-        const members = res.data.map((obj) => ({
-          id: obj.user.id,
-          firstName: obj.user.first_name,
-          lastName: obj.user.last_name,
-          userName: obj.user.username,
-          email: obj.user.email,
-          image: obj.profile_pic,
-        }));
-        setListOfMembers(members);
-      });
-    apiInstance
-      .get(`/workspaces/task/${params.task_id}/get-all-checklists/`)
+      .get(`/task/checklist/${params.task_id}/get-all-checklists/`)
       .then((res) => {
         setAllChecklists(res.data);
       });
     apiInstance.get(`/accounts/profile/myprofile/`).then((res) => {
       setUser(res.data);
     });
-    apiInstance
-      .get(`/workspaces/task/${params.task_id}/get-task/`)
-      .then((res) => {
-        setDueDate(convertNumberToPersian(res.data.end_date));
-        setEstimate(convertNumberToPersian(res.data.estimate));
-        setTasklistName(res.data.tasklist_name);
-        setDone(convertNumberToPersian(res.data.spend));
-        setDescription(res.data.description);
-        setTitle(res.data.title);
-        const attachments = res.data.attachments.map((obj) => ({
-          id: obj.id,
-          file: obj.file,
-          created_at: obj.created_at,
-        }));
-        setAllAttachments(attachments);
-        const labels = res.data.labels.map((item) => ({
-          id: item.id,
-          title: item.title,
-          color: item.color,
-        }));
-        setListOfLabels(labels);
-        const doer = res.data.doers.map((item) => ({
-          // id: item.id,
-          email: item.email,
-          username: item.username,
-          first_name: item.first_name,
-          last_name: item.last_name,
-          profile_pic: item.profile_pic,
-        }));
-        setListOfDoers(doer);
-        const comments = res.data.comments.map((obj) => ({
-          text: obj.text,
-          created: obj.created_at,
-          sender: obj.sender,
-          updated: obj.updated_at,
-          task: obj.task,
-          reply: obj.reply_to,
-          id: obj.id,
-        }));
-        setListOfComments(comments);
-      });
+    apiInstance.get(`task/${params.task_id}/get-task/`).then((res) => {
+      setDueDate(convertNumberToPersian(res.data.end_date));
+      setEstimate(convertNumberToPersian(res.data.estimate));
+      setTasklistName(res.data.tasklist_name);
+      setDone(convertNumberToPersian(res.data.spend));
+      setDescription(res.data.description);
+      setTitle(res.data.title);
+      const attachments = res.data.attachments.map((obj) => ({
+        id: obj.id,
+        file: obj.file,
+        created_at: obj.created_at,
+      }));
+      setAllAttachments(attachments);
+      const labels = res.data.labels.map((item) => ({
+        id: item.id,
+        title: item.title,
+        color: item.color,
+      }));
+      setListOfLabels(labels);
+      const doer = res.data.doers.map((item) => ({
+        // id: item.id,
+        email: item.email,
+        username: item.username,
+        first_name: item.first_name,
+        last_name: item.last_name,
+        profile_pic: item.profile_pic,
+      }));
+      setListOfDoers(doer);
+      const comments = res.data.comments.map((obj) => ({
+        text: obj.text,
+        created: obj.created_at,
+        sender: obj.sender,
+        updated: obj.updated_at,
+        task: obj.task,
+        reply: obj.reply_to,
+        id: obj.id,
+      }));
+      setListOfComments(comments);
+    });
   }, []);
 
   return (

@@ -1,0 +1,62 @@
+.multi-vote_container {
+  width: 100%;
+}
+
+.multi-vote_voted {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  gap: 0.5rem;
+}
+
+.multi-vote_result {
+  display: flex;
+  flex-flow: column;
+  gap: 0.5rem;
+}
+
+.multi-vote_lable-text {
+  font-size: 1.5rem;
+}
+
+.multi-vote_label {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.multi-vote_input {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+}
+
+.multi-vote_result-container {
+  display: grid;
+  grid-template-columns: 0.4fr 1fr 1fr 1fr 1fr 1fr 1fr 0.6fr;
+  grid-template-rows: 0.5fr 1.5fr;
+  gap: 0.5rem 0.5rem;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "multi-vote_result-icon multi-vote_result-title multi-vote_result-title multi-vote_result-title multi-vote_result-title multi-vote_result-title multi-vote_result-title multi-vote_result-percentage"
+    "multi-vote_result-icon multi-vote_result-progressbar multi-vote_result-progressbar multi-vote_result-progressbar multi-vote_result-progressbar multi-vote_result-progressbar multi-vote_result-progressbar multi-vote_result-percentage";
+  /*align-content: center;*/
+  /*justify-items: start;*/
+  align-items: center;
+}
+
+.multi-vote_result-icon {
+  grid-area: multi-vote_result-icon;
+  align-self: start;
+}
+
+.multi-vote_result-progressbar {
+  grid-area: multi-vote_result-progressbar;
+}
+
+.multi-vote_result-title {
+  grid-area: multi-vote_result-title;
+}
+
+.multi-vote_result-percentage {
+  grid-area: multi-vote_result-percentage;
+}

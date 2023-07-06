@@ -5,11 +5,11 @@ import { useParams, Outlet } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { Provider } from "../context/board";
 import BoardSidebar from "../components/BoardSidebar/BoardSidebar";
-import "../styles/BoardOverView.css";
+import "../styles/BoardOverView.scss";
 const BoardOverView = () => {
   let params = useParams();
   return (
-    <div>
+    <div className="boardoverview--main">
       <Helmet>
         <title>بورد</title>
       </Helmet>

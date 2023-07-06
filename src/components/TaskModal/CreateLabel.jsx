@@ -1,11 +1,11 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import apiInstance from "../../utilities/axiosConfig";
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+
+import {  toast } from "react-toastify";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import StyledTextField from "../Shared/StyledTextField";
-import PerTextField from "../Shared/PerTextField.js";
+import PerTextField from "../Shared/PerTextField";
 import "../../styles/TaskModal.css";
 import Loading from "../Shared/Loading";
 // persian num
@@ -17,9 +17,6 @@ const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
   const [isPost, setIsPost] = useState(false);
 
   const createThisItem = (e) => {
-    ////console.log("create this item");
-    ////console.log(createdTitle);
-    ////console.log(createdColor);
     setIsPost(true);
     if (createdTitle === "") {
       toast.error("عنوان برچسب نمیتواند خالی باشد", {
@@ -29,7 +26,7 @@ const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
       return;
     }
     apiInstance
-      .post(`workspaces/board/${params.board_id}/create-label/`, {
+      .post(`board/label/${params.board_id}/create-label/`, {
         title: createdTitle,
         color: createdColor,
       })
@@ -138,18 +135,16 @@ const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
                 type="color"
                 value={createdColor}
                 onChange={(e) => setCreatedColor(e.target.value)}
-                onClick={(e) => {
-                  ////console.log("$$$$$$$$$$$$$$$$$$$$$$$$$");
-                }}
               />
             </div>
           </div>
         </PerTextField>
         <div className="flex" style={{ marginTop: "2.8rem" }}>
           <button
-            class="labels_button-33"
+            className="labels_button-33"
             role="button"
             onClick={(e) => createThisItem(e)}
+            id="create_label_button"
           >
             بساز
           </button>

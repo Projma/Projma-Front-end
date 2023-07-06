@@ -9,12 +9,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import apiInstance from "../../utilities/axiosConfig";
 import Avatar from "@mui/material/Avatar";
 import StyledTextField from "../Shared/StyledTextField";
-import PerTextField from "../Shared/PerTextField.js";
+import PerTextField from "../Shared/PerTextField";
 import Loading from "../Shared/Loading";
 import DateTimePickerValue from "../Shared/DateTimePicker";
 import dayjs from "dayjs";
-import "./CreateEvent.css";
-import { convertNumberToPersian } from "../../utilities/helpers.js";
+import "./CreateEvent.scss";
+import { convertNumberToPersian } from "../../utilities/helpers";
 
 const style = {
   position: "absolute",
@@ -30,11 +30,7 @@ const style = {
   p: 4,
 };
 
-export default function EditEvent({
-  eventId,
-  calendarId,
-  handleCloseEditEvent,
-}) {
+export default function EditEvent({ eventId, calendarId, handleClose }) {
   const [isPost, setIsPost] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [eventTitle, setEventTitle] = useState("");
@@ -57,9 +53,9 @@ export default function EditEvent({
     setEditEvent(calEvent);
     setOpen(true);
   };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
   useEffect(() => {
     setEditEvent(calEvent);
   }, [calEvent]);
@@ -106,7 +102,7 @@ export default function EditEvent({
       .then((res) => {
         // showToast("رویداد با موفقیت ویرایش شد");
         setCalEvent(res.data);
-        handleCloseEditEvent();
+        handleClose();
       })
       .finally(() => {
         setIsPost(null);
@@ -241,7 +237,7 @@ export default function EditEvent({
               />
               <br></br>
               <div className="calendar_create_event-check-inputs">
-                <div class="checkbox-wrapper-47">
+                <div className="checkbox-wrapper-47">
                   <input
                     type="checkbox"
                     name="cb"
@@ -251,14 +247,14 @@ export default function EditEvent({
                     onChange={handleChange}
                   />
                   <label
-                    for="daily"
-                    class="calendar_create_event-check-input-label"
+                    htmlFor="daily"
+                    className="calendar_create_event-check-input-label"
                   >
                     روزانه
                   </label>
                 </div>
 
-                <div class="checkbox-wrapper-47">
+                <div className="checkbox-wrapper-47">
                   <input
                     type="checkbox"
                     name="cb"
@@ -268,14 +264,14 @@ export default function EditEvent({
                     onChange={handleChange}
                   />
                   <label
-                    for="weekly"
-                    class="calendar_create_event-check-input-label"
+                    htmlFor="weekly"
+                    className="calendar_create_event-check-input-label"
                   >
                     هفتگی
                   </label>
                 </div>
 
-                <div class="checkbox-wrapper-47">
+                <div className="checkbox-wrapper-47">
                   <input
                     type="checkbox"
                     name="cb"
@@ -285,8 +281,8 @@ export default function EditEvent({
                     onChange={handleChange}
                   />
                   <label
-                    for="monthly"
-                    class="calendar_create_event-check-input-label"
+                    htmlFor="monthly"
+                    className="calendar_create_event-check-input-label"
                   >
                     ماهانه
                   </label>
@@ -307,7 +303,7 @@ export default function EditEvent({
               <br></br>
 
               <div className="calendar_create_event-check-inputs">
-                <div class="checkbox-wrapper-47">
+                <div className="checkbox-wrapper-47">
                   <input
                     type="checkbox"
                     name="cb"
@@ -317,14 +313,14 @@ export default function EditEvent({
                     onChange={handleEventTypeChange}
                   />
                   <label
-                    for="meeting"
-                    class="calendar_create_event-check-input-label"
+                    htmlFor="meeting"
+                    className="calendar_create_event-check-input-label"
                   >
                     جلسه
                   </label>
                 </div>
 
-                <div class="checkbox-wrapper-47">
+                <div className="checkbox-wrapper-47">
                   <input
                     type="checkbox"
                     name="cb"
@@ -334,14 +330,14 @@ export default function EditEvent({
                     onChange={handleEventTypeChange}
                   />
                   <label
-                    for="holidays"
-                    class="calendar_create_event-check-input-label"
+                    htmlFor="holidays"
+                    className="calendar_create_event-check-input-label"
                   >
                     تعطیلات
                   </label>
                 </div>
 
-                <div class="checkbox-wrapper-47">
+                <div className="checkbox-wrapper-47">
                   <input
                     type="checkbox"
                     name="cb"
@@ -351,8 +347,8 @@ export default function EditEvent({
                     onChange={handleEventTypeChange}
                   />
                   <label
-                    for="task"
-                    class="calendar_create_event-check-input-label"
+                    htmlFor="task"
+                    className="calendar_create_event-check-input-label"
                   >
                     فعالیت
                   </label>
@@ -384,7 +380,7 @@ export default function EditEvent({
               </div>
 
               <br></br>
-              <label class="calendar_create_event-check-input-label">
+              <label className="calendar_create_event-check-input-label">
                 رنگ رویداد
               </label>
               <input

@@ -7,33 +7,35 @@ import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
 import Modal from "@mui/material/Modal";
 import StyledTextField from "../../Shared/StyledTextField";
-import PerTextField from "../../Shared/PerTextField.js";
+import PerTextField from "../../Shared/PerTextField";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 import "./CreateBoardModal.scss";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
-import { convertNumberToPersian } from "../../../utilities/helpers.js";
+import { convertNumberToPersian } from "../../../utilities/helpers";
 import Loading from "../../Shared/Loading";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "42rem",
-  height: "62rem",
-  backgroundColor: "#001E3C",
-  border: "2px solid #000",
-  borderRadius: "10px",
-  boxShadow: 50,
-  p: 4,
-  fontFamily: "Vazir",
-  // overflow: 'hidden', scroll
-  overflow: "auto",
-};
+import useTheme from "../../../hooks/useTheme";
 
 export default function CreateBoardModal({ workspace_id }) {
+  const { theme } = useTheme();
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "42rem",
+    height: "62rem",
+    backgroundColor: "#001E3C",
+    border: "2px solid #000",
+    borderRadius: "10px",
+    boxShadow: 50,
+    p: 4,
+    fontFamily: "Vazir",
+    // overflow: 'hidden', scroll
+    overflow: "auto",
+  };
   const navigate = useNavigate();
   const navigateToBoard = (boardId) => {
     navigate(`/kanban/${boardId}`);
@@ -118,10 +120,10 @@ export default function CreateBoardModal({ workspace_id }) {
         onClick={handleOpen}
         sx={{
           // color: '#00bfff',
-          color: "#000",
+          color: theme.text,
           ":hover": {
-            color: "#E2EDF8",
-            backgroundColor: "#007fff",
+            color: theme.tertiary,
+            backgroundColor: theme.secondary,
             borderRadius: "5px",
           },
           // marginTop: '8%',
@@ -141,10 +143,7 @@ export default function CreateBoardModal({ workspace_id }) {
           alignItems: "center",
         }}
       >
-        <h3
-        >
-          افزودن بورد
-        </h3>
+        <h3>افزودن بورد</h3>
       </Button>
       <Modal
         open={open}

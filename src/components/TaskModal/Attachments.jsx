@@ -8,8 +8,8 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Divider from "@mui/material/Divider";
 import "../../styles/TaskModal.css";
 import Loading from "../Shared/Loading";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {  toast } from "react-toastify";
+
 import "./Attachment.scss";
 
 export default function Attachments({ params, setAllAttachments }) {
@@ -35,14 +35,13 @@ export default function Attachments({ params, setAllAttachments }) {
     }
   };
   const createAttachment = () => {
-    ////console.log("create attachment$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     const formData = new FormData();
     formData.append("file", binaryFile);
     setIsPost(true);
     handleClose();
     apiInstance
       .patch(
-        `workspaces/task/${params.task_id}/add-attachment-to-task/`,
+        `task/attachment/${params.task_id}/add-attachment-to-task/`,
         formData,
         {
           headers: {
@@ -51,14 +50,10 @@ export default function Attachments({ params, setAllAttachments }) {
         }
       )
       .then((res) => {
-        ////console.log(res.data);
         toast.success("پیوست جدید اضافه شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        ////console.log("##############333333333333333333333333333333333333333");
-        // ////console.log(res.data);
-        ////console.log(res.data);
         setAllAttachments((prev) => [...prev, res.data]);
       })
       .finally(() => {
@@ -71,10 +66,10 @@ export default function Attachments({ params, setAllAttachments }) {
   return (
     <div className="taskmodal-flexibale-icon">
       {isPost ? <Loading /> : null}
-      <ToastContainer />
       <Button
         className="taskmodal-smaller-button-inner"
         aria-describedby={id}
+        role="open_attachment"
         variant="contained"
         onClick={handleClick}
         sx={{
@@ -123,8 +118,8 @@ export default function Attachments({ params, setAllAttachments }) {
               {console.log(binaryFile)}
               {/* <input type="file" onChange={(e) => handleFileChange(e)} /> */}
               <label
-                for="files"
-                class="btn"
+                htmlFor="files"
+                className="btn"
                 style={{
                   fontSize: "100%",
                   padding: "3% 8%",
@@ -159,7 +154,7 @@ export default function Attachments({ params, setAllAttachments }) {
 
             {/* <button onClick={(e) => createAttachment()}>اضافه کردن</button> */}
             <button
-              class="attachment_button-33"
+              className="attachment_button-33"
               role="button"
               onClick={(e) => createAttachment()}
             >

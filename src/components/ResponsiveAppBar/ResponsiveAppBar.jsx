@@ -12,60 +12,39 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import "./ResponsiveAppBar.scss";
-import avatar_photo from "../../static/images/dashboard/scrum_board.svg";
+import avatar_photo from "../../static/images/profile/blank.png";
+import projmaPic from "../../../public/projma.png";
 import { useNavigate } from "react-router-dom";
 import BasicMenu from "./BasicMenu/BasicMenu";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import apiInstance from "../../utilities/axiosConfig";
 import { baseUrl } from "../../utilities/constants";
-import { useEffect } from "react";
+import useTheme from "../../hooks/useTheme";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../actions/authActions";
+import ThemeButton from "./ThemeButton";
 // https://mui.com/#app-bar-with-responsive-menu
 
 function ResponsiveAppBar() {
   const baseURL = baseUrl.substring(0, baseUrl.length - 1);
   let [workspaces, setWorkspaces] = useState([]);
   let [starredBoards, setStarredBoards] = useState([]);
-  
+  const { theme, getColor } = useTheme();
   useEffect(() => {
     apiInstance
       .get("/workspaces/dashboard/myworkspaces/")
       .then((response) => {
         setWorkspaces(response.data);
+        console.log(response.data);
       })
-      .catch((error) => {
-        console.log(error);
-      });
-    
+      .catch((error) => {});
+
     apiInstance
       .get("/workspaces/dashboard/mystarred-boards/")
       .then((response) => {
         setStarredBoards(response.data);
-        // [
-        //     {
-        //         "id": 4,
-        //         "name": "۵۴۶۵۴۴",
-        //         "description": "۴۶۵۴۶",
-        //         "background_pic": null,
-        //         "admins": [],
-        //         "members": [],
-        //         "tasklists": [
-        //             4,
-        //             5,
-        //             6
-        //         ],
-        //         "labels": [
-        //             2,
-        //             3,
-        //             4
-        //         ]
-        //     }
-        // ]
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   }, []);
 
   const pages = ["ستاره دارها", "فضای کارها", "ایجاد"]; // 'اخیرا دیده شده‌ها',
@@ -80,13 +59,18 @@ function ResponsiveAppBar() {
       const name = workspaces_id_to_name[id];
       pages_map_to_items.push(
         // onclick={handlecolse}
-        <MenuItem href={`/workspace/${id}`} key={id}>
+        <MenuItem
+          href={`/workspace/${id}`}
+          key={id}
+          sx={{ backgroundColor: theme.minorBg, color: theme.text }}
+        >
           {name}
         </MenuItem>
       );
     }
   }
   const state = useSelector((state) => state);
+  console.log(state);
   const dispatch = useDispatch();
   let settings = [
     "صفحه اصلی",
@@ -135,7 +119,7 @@ function ResponsiveAppBar() {
   const navigateToPage = (page) => {
     if (page === "/logout/") {
       dispatch(logout());
-      navigate("/"); 
+      navigate("/");
     } else {
       navigate(page);
     }
@@ -162,8 +146,8 @@ function ResponsiveAppBar() {
               fontFamily: "Vazir",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
               textDecoration: "none",
+              color: theme.name === "ocean" ? "#eee" : getColor(theme.primary),
             }}
           >
             پروجما
@@ -173,6 +157,7 @@ function ResponsiveAppBar() {
             sx={{
               flexGrow: 1,
               display: { xs: "flex", md: "none", fontFamily: "Vazir" },
+              backgroundColor: theme.minorBg,
             }}
           >
             <IconButton
@@ -183,7 +168,7 @@ function ResponsiveAppBar() {
               onClick={handleOpenNavMenu}
               color="inherit"
             >
-              <MenuIcon />
+              <MenuIcon sx={{ color: getColor(theme.minorBg) }} />
             </IconButton>
             <Menu
               style={{ fontFamily: "Vazir" }}
@@ -203,6 +188,9 @@ function ResponsiveAppBar() {
               sx={{
                 display: { xs: "block", md: "none" },
                 fontFamily: "Vazir",
+                backgroundColor: `${theme.minorBg} !important`,
+                color:
+                  theme.name === "ocean" ? "#eee" : getColor(theme.primary),
               }}
             >
               {state.isAuthenticated === true &&
@@ -215,7 +203,6 @@ function ResponsiveAppBar() {
                 ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -228,11 +215,11 @@ function ResponsiveAppBar() {
               fontFamily: "Vazir",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
               textDecoration: "none",
+              color: theme.name === "ocean" ? "#eee" : getColor(theme.primary),
             }}
           >
-            PROJMA
+            پروجما
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {state.isAuthenticated === true &&
@@ -244,26 +231,48 @@ function ResponsiveAppBar() {
                 />
               ))}
           </Box>
+          <ThemeButton />
 
-          <Box sx={{ flexGrow: 0, fontFamily: "Vazir" }}>
+          <Box sx={{ flexGrow: 0, fontFamily: "Vazir", marginRight: "2rem" }}>
             <Tooltip
               // title="باز کردن تنظیمات"
-              title={<h3 style={{ fontFamily: "Vazir" }}>باز کردن تنظیمات</h3>}
+              title={"باز کردن تنظیمات"}
             >
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {/* <Avatar alt="عکس پروفایل" src={state.user.profile_pic ? state.user.profile_pic : avatar_photo} /> */}
+              {/* <Avatar alt="عکس پروفایل" src={state.user.profile_pic ? state.user.profile_pic : avatar_photo} /> */}
+              {state.user.user === undefined ? (
                 <Avatar
+                  onClick={handleOpenUserMenu}
                   alt="عکس پروفایل"
-                  src={
-                    baseURL + state.user.profile_pic
-                      ? baseURL + state.user.profile_pic
-                      : avatar_photo
-                  }
+                  sx={{
+                    width: 50, height: 50,
+                    color: getColor(theme.mainBg),
+                  }}
+                  variant="circular"
+                  // src={
+                  //   state.user.profile_pic === null
+                  //     ? avatar_photo
+                  //     : baseURL + state.user.profile_pic
+                  // }
+                  src={projmaPic}
                 />
-              </IconButton>
+              ) : (
+                <Avatar
+                  onClick={handleOpenUserMenu}
+                  alt="عکس پروفایل"
+                  sx={{
+                    backgroundColor: theme.minorBg,
+                    width: 50, height: 50,
+                    color: getColor(theme.minorBg),
+                  }}
+                  variant="circular"
+                  src={baseURL + state.user.profile_pic}
+                >
+                  {(state.user.user.first_name[0] + state.user.user.last_name[0]).toUpperCase()}
+                </Avatar>
+              )}
             </Tooltip>
             <Menu
-              sx={{ mt: "45px" }}
+              sx={{ mt: "4.5rem" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
@@ -285,11 +294,22 @@ function ResponsiveAppBar() {
                     onClick={() =>
                       navigateToPage(settings_map_to_functions[setting])
                     }
+                    sx={{
+                      backgroundColor: theme.mainBg,
+                      color: getColor(theme.mainBg),
+                      width: "100%",
+                      height: "100%",
+                      ":hover": {
+                        color: getColor(theme.tertiary),
+                        backgroundColor: theme.tertiary,
+                        borderRadius: "5px",
+                      },
+                    }}
                   >
                     <Typography
                       textAlign="center"
                       style={{
-                        color: "black",
+                        color: getColor(theme.mainBg),
                         fontFamily: "Vazir",
                         fontSize: "76%",
                       }}

@@ -1,0 +1,86 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Vazir", sans-serif;
+}
+
+.app {
+  transition: all 2s ease-in-out;
+}
+
+html {
+  font-size: 62.5%;
+  overflow: auto;
+  background-color: $main-bg !important;
+}
+
+
+
+body {
+  margin: 0 auto;
+  background-color: $main-bg;
+}
+
+:root {
+  --toastify-toast-background: $secondary !important;
+  --toastify-color-light: $secondary !important;
+  --toastify-color-dark: $secondary !important;
+  --toastify-font-family: Vazir !important;
+}
+
+html,
+.styled-scrollbars {
+  /* Foreground, Background */
+  scrollbar-color: $secondary $minor-bg;
+  scrollbar-width: thin;
+}
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+  /* scrollbar-width: thin; */
+}
+::-webkit-scrollbar-thumb {
+  /* Foreground */
+  background: $secondary !important;
+}
+::-webkit-scrollbar-track {
+  /* Background */
+  background: $minor-bg !important;
+}
+::-webkit-scrollbar-button {
+  //background-color: $tertiary !important;
+  background-size: 0.5rem;
+  background-repeat: no-repeat;
+  width: auto;
+  height: 0.5rem;
+  display: block;
+  border-style: solid;
+}
+
+.MuiAvatarGroup-root .MuiAvatarGroup-avatar {
+  /*//background-color: $tertiary) !important;*/
+  width: 2.7rem !important;
+  height: 2.7rem !important;
+  font-size: 1.6rem;
+  text-align: center;
+  border: 0.2rem solid $primary !important;
+  & :hover {
+    cursor: pointer;
+  }
+}
+
+.MuiAvatar-root {
+  text-align: center;
+  // border: 0.2rem solid $tertiary !important;
+  & :hover {
+    cursor: pointer;
+  }
+}
+
+.MuiAvatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}

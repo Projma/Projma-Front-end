@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useSelector } from "react";
+import { useState, useSelector, useEffect } from "react";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -7,39 +7,41 @@ import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
 import Modal from "@mui/material/Modal";
 import StyledTextField from "../../Shared/StyledTextField";
-import PerTextField from "../../Shared/PerTextField.js";
+import PerTextField from "../../Shared/PerTextField";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 import "./CreateBoardModal.scss";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import useTheme from "../../../hooks/useTheme";
 import Loading from "../../Shared/Loading";
 import MenuItem from "@mui/material/MenuItem";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
-} from "../../../utilities/helpers.js";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "42rem",
-  height: "62rem",
-  backgroundColor: "#001E3C",
-  // bgcolor: "background.paper",
-  border: "2px solid #000",
-  borderRadius: "10px",
-  boxShadow: 50,
-  p: 4,
-  fontFamily: "Vazir",
-  // overflow: 'hidden', scroll
-  overflow: "auto",
-};
+} from "../../../utilities/helpers";
 
 export default function CreateBoardModal({}) {
+  const { theme, getColor } = useTheme();
+  const style = {
+    color: theme.text,
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "42rem",
+    height: "62rem",
+    backgroundColor: theme.minorBg,
+    // bgcolor: "background.paper",
+    border: `2px solid ${theme.tertiary}`,
+    borderRadius: "10px",
+    boxShadow: 50,
+    p: 4,
+    fontFamily: "Vazir",
+    // overflow: 'hidden', scroll
+    overflow: "auto",
+    color: getColor(theme.minorBg),
+  };
   const navigate = useNavigate();
   const navigateToBoard = (boardId) => {
     navigate(`/kanban/${boardId}`);
@@ -149,13 +151,14 @@ export default function CreateBoardModal({}) {
         onClick={handleOpen}
         sx={{
           // color: '#00bfff',
-          color: "#000",
           ":hover": {
-            color: "#E2EDF8",
-            backgroundColor: "#007fff",
+            color: getColor(theme.tertiary),
+            backgroundColor: theme.tertiary,
             borderRadius: "5px",
           },
-
+          transition: "0.3s",
+          backgroundColor: theme.minorBg,
+          color: getColor(theme.mainBg),
           fontFamily: "Vazir",
           textDecoration: "none",
           display: "block",
@@ -164,7 +167,6 @@ export default function CreateBoardModal({}) {
           alignItems: "center",
         }}
       >
-
         <div
           style={{ fontFamily: "Vazir", fontSize: "87%" }}
           // style={{color: 'black',}}
@@ -186,7 +188,7 @@ export default function CreateBoardModal({}) {
             sx={{
               textAlign: "center",
               fontFamily: "Vazir",
-              color: "#fff",
+              color: getColor(theme.mainBg),
               fontSize: "185%",
             }}
             className="neonText"
@@ -195,7 +197,7 @@ export default function CreateBoardModal({}) {
           </Typography>
           <Divider
             sx={{
-              backgroundColor: "#007fff",
+              color: getColor(theme.mainBg),
               marginTop: "3%",
               marginBottom: "5%",
             }}
@@ -294,13 +296,13 @@ export default function CreateBoardModal({}) {
                     value={workspace.id}
                     sx={{
                       fontFamily: "Vazir",
-                      color: "#007fff", // #0A1929
+                      color: theme.text, // #0A1929
                       // backgroundColor: '#265D97',
-                      backgroundColor: "#001E3C",
+                      backgroundColor: theme.minorBg,
                       // margin: '0%',
                       // padding: '3%',
                       ":hover": {
-                        backgroundColor: "#132F4C",
+                        backgroundColor: theme.secondary,
                         // borderRadius: '5px',
                       },
                       fontSize: "1.5rem",

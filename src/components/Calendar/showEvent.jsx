@@ -1,9 +1,10 @@
 import * as React from "react";
 import apiInstance from "../../utilities/axiosConfig";
 import { prefixer } from "stylis";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import "./showEvent.scss";
-import "react-toastify/dist/ReactToastify.css";
+import EditEvent from "./EditEvent";
+
 import { useParams } from "react-router-dom";
 import { convertNumberToPersian } from "../../utilities/helpers";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -16,9 +17,14 @@ import RepeatIcon from "@mui/icons-material/Repeat";
 import CloseIcon from "@mui/icons-material/Close";
 import Button from "@material-ui/core/Button";
 import EditIcon from "@material-ui/icons/Edit";
+import { Box } from "@mui/material";
 
-export default function showEvent() {
-  const { id } = useParams();
+export default function ShowEvent({
+  eventId,
+  calendarId,
+  handleShowEvent,
+  handleOpenEditEvent,
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [event, setEvent] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
@@ -29,6 +35,21 @@ export default function showEvent() {
   const [repeat, setRepeat] = React.useState("");
   const [eventType, setEventType] = React.useState("");
   const [customEventTypes, setCustomEventTypes] = React.useState("");
+  const [openEditEvent, setOpenEditEvent] = React.useState("");
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "40rem",
+    height: "50rem",
+    overflow: "auto",
+    // backgroundColor: "#001E3C",
+    borderRadius: "1rem",
+    boxShadow: 50,
+    p: 4,
+  };
 
   const theme = createTheme({
     direction: "rtl", // Both here and <body dir="rtl">
@@ -44,16 +65,18 @@ export default function showEvent() {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  // const handleClose = (e) => {
+  //   setOpenShowEvent;
+  //   console.log("close");
+  //   setAnchorEl(null);
+  // };
 
   React.useEffect(() => {
     setLoading(true);
     apiInstance
-      .get(`/calendar/event/${id}/`)
+      .get(`/calendar/event/${eventId}/`)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setEvent(res.data);
         setTitle(res.data.title);
         setDescription(res.data.description);
@@ -80,10 +103,6 @@ export default function showEvent() {
     }
   };
 
-  const editEvent = () => {
-    window.location.href = `/calendar/edit/${id}`;
-  };
-
   const partitionDateAndTime = (time) => {
     if (time) {
       const date = time.split("T")[0];
@@ -100,7 +119,7 @@ export default function showEvent() {
 
   const deleteEvent = () => {
     apiInstance
-      .delete(`/calendar/event/${id}/`)
+      .delete(`/calendar/event/${eventId}/`)
       .then((res) => {
         toast.success("حذف رویداد با موفقیت انجام شد");
         window.location.href = "/calendar";
@@ -130,84 +149,94 @@ export default function showEvent() {
     justifyContent: "center",
   };
 
-  return (
-    <div className="calendar--showEvent-page">
-      <div className="calendar--showEvent-container" style={{ width: "100%" }}>
-        <div className="calendar--mainIcon">
-          <i className="fas fa-calendar-alt">
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<EditIcon />}
-              // onClick={onClick}
-              style={buttonStyle}
-            />
-          </i>
-          <i className="fas fa-calendar-alt">
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<CloseIcon />}
-              onClick={handleClose}
-              style={buttonStyle}
-            />
-          </i>
-        </div>
-        <div className="calendar--showEvent-container--header">
-          <div
-            className="calendar--showEvent-container--header--circleColor"
-            style={{ backgroundColor: color }}
-          ></div>
-          <div className="calendar--showEvent-container--header--title neonText">
-            {title}
-          </div>
-        </div>
-        <div className="calendar--showEvent-container--body">
-          <div className="calendar--showEvent-container--body--time">
-            <div className="calendar--showEvent-container--body--time--icon">
-              <CalendarTodayIcon style={{ fontSize: "26px" }} />
-            </div>
-            <div className="calendar--showEvent-container--body--time--text">
-              تاریخ
-            </div>
-            <div className="calendar--showEvent-container--body--time--text--date">
-              {convertNumberToPersian(partitionDateAndTime(time)[0])}
-            </div>
-            <div className="calendar--showEvent-container--body--time--text">
-              ساعت
-            </div>
-            <div className="calendar--showEvent-container--body--time--text--time">
-              {convertNumberToPersian(partitionDateAndTime(time)[1])}
-            </div>
-          </div>
-          <div className="calendar--showEvent-container--body--eventType">
-            <div className="calendar--showEvent-container--body--eventType--icon">
-              <EventIcon style={{ fontSize: "26px" }} />
-            </div>
-            <div className="calendar--showEvent-container--body--eventType--text">
-              {/* handle time is null */}
+  // const handleCloseEditEvent = () => {
+  //   setOpenEditEvent(false);
+  //   setOpenShowEvent(true);
+  // };
 
-              {convertNumberToPersian(selectEventType())}
+  return (
+    <Box style={style}>
+      <div className="calendar--showEvent-page">
+        <div
+          className="calendar--showEvent-container"
+          style={{ width: "100%" }}
+        >
+          <div className="calendar--mainIcon">
+            <i className="fas fa-calendar-alt">
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<EditIcon />}
+                onClick={handleOpenEditEvent}
+                style={buttonStyle}
+              />
+            </i>
+            <i className="fas fa-calendar-alt">
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<CloseIcon />}
+                onClick={handleShowEvent}
+                style={buttonStyle}
+              />
+            </i>
+          </div>
+          <div className="calendar--showEvent-container--header">
+            <div
+              className="calendar--showEvent-container--header--circleColor"
+              style={{ backgroundColor: color }}
+            ></div>
+            <div className="calendar--showEvent-container--header--title neonText">
+              {title}
             </div>
           </div>
-          <div className="calendar--showEvent-container--body--repeat">
-            <div className="calendar--showEvent-container--body--repeat--icon">
-              <RepeatIcon style={{ fontSize: "26px" }} />
+          <div className="calendar--showEvent-container--body">
+            <div className="calendar--showEvent-container--body--time">
+              <div className="calendar--showEvent-container--body--time--icon">
+                <CalendarTodayIcon style={{ fontSize: "26px" }} />
+              </div>
+              <div className="calendar--showEvent-container--body--time--text">
+                تاریخ
+              </div>
+              <div className="calendar--showEvent-container--body--time--text--date">
+                {convertNumberToPersian(partitionDateAndTime(time)[0])}
+              </div>
+              <div className="calendar--showEvent-container--body--time--text">
+                ساعت
+              </div>
+              <div className="calendar--showEvent-container--body--time--text--time">
+                {convertNumberToPersian(partitionDateAndTime(time)[1])}
+              </div>
             </div>
-            <div className="calendar--showEvent-container--body--repeat--text">
-              {convertNumberToPersian(selectRepeat())}
+            <div className="calendar--showEvent-container--body--eventType">
+              <div className="calendar--showEvent-container--body--eventType--icon">
+                <EventIcon style={{ fontSize: "26px" }} />
+              </div>
+              <div className="calendar--showEvent-container--body--eventType--text">
+                {/* handle time is null */}
+
+                {convertNumberToPersian(selectEventType())}
+              </div>
             </div>
-          </div>
-          <div className="calendar--showEvent-container--body--description">
-            <div className="calendar--showEvent-container--body--description--icon">
-              <DescriptionIcon style={{ fontSize: "26px" }} />
+            <div className="calendar--showEvent-container--body--repeat">
+              <div className="calendar--showEvent-container--body--repeat--icon">
+                <RepeatIcon style={{ fontSize: "26px" }} />
+              </div>
+              <div className="calendar--showEvent-container--body--repeat--text">
+                {convertNumberToPersian(selectRepeat())}
+              </div>
             </div>
-            <div className="calendar--showEvent-container--body--description--text">
-              {description}
+            <div className="calendar--showEvent-container--body--description">
+              <div className="calendar--showEvent-container--body--description--icon">
+                <DescriptionIcon style={{ fontSize: "26px" }} />
+              </div>
+              <div className="calendar--showEvent-container--body--description--text">
+                {description}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Box>
   );
 }

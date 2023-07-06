@@ -1,4 +1,3 @@
-// import React from 'react';
 import "./GroupAvatars.scss";
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
@@ -8,15 +7,14 @@ import apiInstance from "../../../../utilities/axiosConfig";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { baseUrl } from "../../../../utilities/constants";
-// import { Box } from "@mui/material";
+import useTheme from "../../../../hooks/useTheme";
 
 const GroupAvatars = (props) => {
+    const {theme, getColor} = useTheme();
     const [members, setMembers] = React.useState([]);
     const params = useParams();
     useEffect(() => {
         apiInstance.get(`board/${params.boardId}/members/`).then((res) => {
-            // apiInstance.get(`/workspaces/board/${props.boardId}/members/`).then((res) => {
-            // ////console.log(res.data);
             setMembers(res.data);
             // array of members
             // "user": {
@@ -33,6 +31,7 @@ const GroupAvatars = (props) => {
             //   "profile_pic": null,
             //   "role": "Member"
             // }
+            console.log(res.data);
         });
     }, []);
     // like Card.js
@@ -50,26 +49,16 @@ const GroupAvatars = (props) => {
             >
                 {members.map((x) => (
                     <Tooltip title={x.user.username}>
-                        {/* <Box sx={{
-                            // display: "flex",
-                            // marginLeft: "2%",
-                        }}> */}
                             <Avatar
                                 key={x.id}
                                 alt={(x.user.first_name + " " + x.user.last_name).toString()}
-                                src={x.profile_pic !== null ? baseUrl+x.profile_pic : "none"}
-                                {...stringAvatar((x.user.first_name + " " + x.user.last_name).toString())}
-                            // className="board_avatar-profile-picture"
-                            />
-                        {/* </Box> */}
+                                src={baseUrl.slice(0,-1)+x.profile_pic}
+                                sx={{color: getColor(theme.secondary), backgroundColor: theme.secondary}}
+                            >
+                                {(x.user.first_name[0]+x.user.last_name[0]).toUpperCase()}
+                            </Avatar>
                     </Tooltip>
                 ))}
-
-                {/* <Avatar alt="Remy Sharp" />
-                <Avatar alt="Travis Howard" />
-                <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-                <Avatar alt="Agnes Walker" src="/static/images/avatar/4.jpg" />
-                <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" /> */}
 
             </AvatarGroup>
         </div>
@@ -83,7 +72,7 @@ function stringToColor(string) {
     let hash = 0;
     let i;
 
-    /* eslint-disable no-bitwise */
+     
     for (i = 0; i < string.length; i += 1) {
         hash = string.charCodeAt(i) + ((hash << 5) - hash);
     }
@@ -108,9 +97,4 @@ function stringAvatar(name) {
         },
         children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
     };
-    // return {
-    //     children: `${name.split(" ")[0][0].toUpperCase()}${name
-    //         .split(" ")[1][0]
-    //         .toUpperCase()}`,
-    // };
 }

@@ -10,8 +10,8 @@ import { makeStyles } from "@mui/styles";
 import { Input } from "@mui/material";
 import "../../styles/TaskModal.css";
 import "./Checklist.scss";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {  toast } from "react-toastify";
+
 import Loading from "../Shared/Loading";
 import { convertNumberToPersian } from "../../utilities/helpers";
 
@@ -44,7 +44,7 @@ export default function CheckList({ params, setAllChecklists }) {
     const form_data = new FormData();
     form_data.append("text", createdCheckTitle);
     apiInstance
-      .post(`workspaces/task/${params.task_id}/create-checklist/`, form_data)
+      .post(`task/checklist/${params.task_id}/create-checklist/`, form_data)
       .then((res) => {
         ////console.log("here2");
         ////console.log(res.data);
@@ -75,10 +75,10 @@ export default function CheckList({ params, setAllChecklists }) {
   return (
     <div className="taskmodal-flexibale-icon">
       {isPost ? <Loading /> : null}
-      <ToastContainer />
       <Button
         className="taskmodal-smaller-button-inner"
         aria-describedby={id}
+        role="open_checklist"
         variant="contained"
         onClick={handleClick}
         sx={{
@@ -131,7 +131,7 @@ export default function CheckList({ params, setAllChecklists }) {
                 marginBottom: "1rem",
               }}
             />
-            <button class="button-16" role="button" onClick={createCheckList}>
+            <button className="button-16" role="button" onClick={createCheckList}>
               افزودن
             </button>
           </div>
