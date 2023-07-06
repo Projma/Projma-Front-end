@@ -22,9 +22,21 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "./src/theme/theme.scss";`,
+        additionalData: `@import "./src/Theme/theme.scss";`,
       },
     },
   },
+  build: {
+    outDir: "build",
+  },
   plugins: [svgr(), react(), reactRefresh()],
+  resolve: {
+    alias: [
+        {
+            // this is required for the SCSS modules
+            find: /^~(.*)$/,
+            replacement: '$1',
+        },
+    ],
+},
 });
