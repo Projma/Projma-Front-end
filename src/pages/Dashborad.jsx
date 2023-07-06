@@ -170,7 +170,8 @@ export const Dashborad = () => {
   const navigate = useNavigate();
 
   const navigateToWorkspace = (workspaceId) => {
-    navigate(`/workspace/${workspaceId}/dashboard/Boards`);
+    // navigate(`/workspace/${workspaceId}/dashboard/Boards`);
+    navigate(`/workspace/${workspaceId}/dashboard/board`);
   };
 
   const navigateToBoard = (boardId) => {
