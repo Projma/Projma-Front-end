@@ -99,7 +99,7 @@ export default function BasicModal(props) {
   const navigate = useNavigate();
 
   const navigateToWorkspace = (workspaceId) => {
-    navigate(`/workspace/${workspaceId}/dashboard/Boards`);
+    navigate(`/workspace/${workspaceId}/dashboard/board`);
   };
 
   return (
@@ -204,7 +204,7 @@ export default function BasicModal(props) {
                 }}
               >
                 <CacheProvider value={cacheRtl}>
-                  <ThemeProvider>
+                  <ThemeProvider theme={theme}>
                     <StyledTextField
                       margin="normal"
                       required
@@ -252,7 +252,7 @@ export default function BasicModal(props) {
                   </ThemeProvider>
                 </CacheProvider>
                 <CacheProvider value={cacheRtl}>
-                  <ThemeProvider>
+                  <ThemeProvider theme={theme}>
                     <StyledTextField
                       margin="normal"
                       required
@@ -301,8 +301,7 @@ export default function BasicModal(props) {
                   </ThemeProvider>
                 </CacheProvider>
                 <CacheProvider value={cacheRtl}>
-                  <ThemeProvider>
-                    {/* <ThemeProvider theme={theme}> */}
+                    <ThemeProvider theme={theme}>
                     <StyledTextField
                       margin="normal"
                       fullWidth

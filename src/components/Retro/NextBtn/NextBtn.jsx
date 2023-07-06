@@ -13,6 +13,7 @@ import { createContext, useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import apiInstance from "../../../utilities/axiosConfig";
+import {  toast } from "react-toastify";
 
 const NextBtn = (props) => {
     // get workspaceId and boardId from url
@@ -81,6 +82,10 @@ const NextBtn = (props) => {
                 console.log(err);
             });
             localStorage.removeItem("retro_id");
+            toast.success("جلسه با موفقیت پایان یافت.", {
+                position: toast.POSITION.BOTTOM_LEFT,
+                rtl: true,
+                });
             navigate(`/workspace/${workspaceId}/kanban/${boardId}/board`);
         } else {
             navigate(`/workspace/${workspaceId}/kanban/${boardId}/retro/${nextStep}`);
