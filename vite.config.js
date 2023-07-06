@@ -26,5 +26,8 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    outDir: "build",
+  },
   plugins: [svgr(), react(), reactRefresh()],
 });
