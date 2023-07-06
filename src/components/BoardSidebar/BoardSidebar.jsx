@@ -76,6 +76,7 @@ const BoardSidebar = () => {
         if (retro_id == -1) {
           apiInstance.post(`/retro/`, {
             "board": id,
+            vote_limitation: 50,
           }).catch((error) => {
             console.log(error);
           }).then((response) => {
