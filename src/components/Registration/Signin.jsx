@@ -15,8 +15,8 @@ import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import StyledTextField from "./StyledTextField";
-import {  toast } from "react-toastify";
-
+import { toast } from "react-toastify";
+import Header from "../Header/Header";
 import apiInstance from "../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom"; // comment for tests
 // import { useDispatch } from "react-redux";
@@ -28,7 +28,7 @@ import {
   convertNumberToPersian,
   convertNumberToEnglish,
 } from "../../utilities/helpers";
-import useTheme from "../../hooks/useTheme"; 
+import useTheme from "../../hooks/useTheme";
 
 function Copyright(props) {
   return (
@@ -49,7 +49,7 @@ export default function SignIn() {
   const [password, setPassword] = React.useState("");
   const [errorPassword, setErrorPassword] = React.useState(false);
   const [isPost, setIsPost] = useState(false);
-  const {theme, getColor} = useTheme();
+  const { theme, getColor } = useTheme();
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   let navigate = useNavigate(); // comment for tests
@@ -73,8 +73,7 @@ export default function SignIn() {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        // dispatch(login());
-        delay(4000).then(() => navigate("/dashboard")); // comment for tests
+        delay(4000).then(() => (window.location.href = "/dashboard/")); // comment for tests
       })
       .catch((res) => {
         if (res.request.response.search("active") !== -1) {
@@ -105,7 +104,7 @@ export default function SignIn() {
   });
 
   return (
-    <div style={{width: "100%", height: "100%"}}>
+    <div style={{ width: "100%", height: "100%" }}>
       {/* <Header></Header> */}
       <Helmet>
         <title>صفحه ورود</title>
@@ -119,7 +118,8 @@ export default function SignIn() {
             maxHeight="xs"
             style={{
               borderRadius: 3,
-              width: "100%", height: "100%"
+              width: "100%",
+              height: "100%",
             }}
           >
             <Box
@@ -135,7 +135,7 @@ export default function SignIn() {
                 component="h1"
                 variant="h5"
                 className="Signin--Box-Type"
-                style={{color: getColor(theme.minorBg)}}
+                style={{ color: getColor(theme.minorBg) }}
               >
                 صفحه ورود
               </Typography>
