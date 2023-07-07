@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import {TaskAltOutlined} from '@mui/icons-material';
 import apiInstance from '../../../utilities/axiosConfig';
 import useTheme from '../../../hooks/useTheme';
+import { v4 as uuidv4 } from 'uuid';
 
 const MultiVoted = ({options,handleReRender}) => {
   const [state, setState] = React.useState(options.map((x, i) => {
@@ -90,7 +91,7 @@ const MultiVoteResult = ({options, totalVotes}) => {
   const {theme, getColor} = useTheme();
 
   return (
-    <div className="multi-vote_result">
+    <div className="multi-vote_result" data-testid="multi-vote-result">
       {options.map((v, i) => (
         <div className="multi-vote_result-container">
           <div className="multi-vote_result-icon">
@@ -136,10 +137,10 @@ const MultiVote = ({options, isOpen, isVoted, totalVotes,handleReRender}) => {
   return (
     <div className="multi-vote_container">
       {isOpen === true && isVoted !== true ? (
-        <MultiVoted key={crypto.randomUUID()} options={options} handleReRender={handleReRender}/>
+        <MultiVoted key={uuidv4()} options={options} handleReRender={handleReRender}/>
       ) : (
         <MultiVoteResult
-          key={crypto.randomUUID()}
+          key={uuidv4()}
           options={options}
           totalVotes={totalVotes}
         />

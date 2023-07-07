@@ -38,10 +38,11 @@ const CardHeader = ({ cardId }) => {
   };
 
   return (
-    <div className="card_header">
+    <div className="card_header" data-testid="card-header">
       <div
         className="card_close-icon"
         onClick={(event) => handleDeleteCard(event)}
+        role="button" 
       >
         <CloseIcon sx={{ fontSize: "1.6rem",color: getColor(theme.minorBg), ":hover": {
           color: getColor(theme.primary)
