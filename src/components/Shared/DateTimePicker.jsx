@@ -10,11 +10,15 @@ export default function DateTimePickerValue({ value, setValue }) {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={["DateTimePicker", "DateTimePicker"]}>
         <DateTimePicker
-          label="Uncontrolled picker"
+          label=""
           defaultValue={value}
           value={value}
           onChange={(newValue) => {
             setValue(newValue);
+          }}
+          sx={{
+            color: "#fff",
+            border: "1px solid #fff",
           }}
         />
         {/* <DateTimePicker
