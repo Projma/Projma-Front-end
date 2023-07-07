@@ -17,6 +17,7 @@ import NextBtn from "../NextBtn/NextBtn";
 import apiInstance from "../../../utilities/axiosConfig";
 import useTheme from "../../../hooks/useTheme";
 import { useNavigate, useParams } from "react-router-dom";
+import { baseUrlForSocket } from "../../../utilities/constants";
 
 const Group = () => {
   // const [good_cards, setGoodCards] = useState([
@@ -101,7 +102,7 @@ const Group = () => {
 
 
     socket.current = new WebSocket(
-      `ws://localhost:8000/ws/socket-server/retro/group/${localStorage.getItem(
+      `${baseUrlForSocket}/ws/socket-server/retro/group/${localStorage.getItem(
         "retro_id"
       )}/?token=${localStorage.getItem("access_token")}`
     );

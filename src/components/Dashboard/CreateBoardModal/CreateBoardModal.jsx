@@ -38,7 +38,8 @@ export default function CreateBoardModal({ workspace_id }) {
   };
   const navigate = useNavigate();
   const navigateToBoard = (boardId) => {
-    navigate(`/kanban/${boardId}`);
+    // navigate(`/kanban/${boardId}`);
+    navigate(`/workspace/${workspace_id}/kanban/${boardId}/board`);
   };
   const handleChange = (e) => {
     const [file] = e.target.files;

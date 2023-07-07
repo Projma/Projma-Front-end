@@ -15,6 +15,7 @@ import { v4 as uuid } from "uuid";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import RetroCard2 from "./Vote2Card";
+import { baseUrlForSocket } from "../../../utilities/constants";
 
 const Vote = () => {
   const { theme, getColor } = useTheme();
@@ -49,7 +50,7 @@ const Vote = () => {
 
   useEffect(() => {
     socket.current = new WebSocket(
-      `ws://localhost:8000/ws/socket-server/retro/vote/${localStorage.getItem(
+      `${baseUrlForSocket}/ws/socket-server/retro/vote/${localStorage.getItem(
         "retro_id"
       )}/?token=${localStorage.getItem("access_token")}`
     );
