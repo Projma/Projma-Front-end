@@ -42,6 +42,9 @@ jobs:
       run: CI=false npm run build --if-present
       # CI=false (treating warnings as errors because process.env.ci = true.)
     - 
+      name: Install jsdom
+      run: npm install jsdom --force
+    - 
       name: Test project
       run: npm test
 
