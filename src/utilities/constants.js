@@ -16,3 +16,6 @@
 
 export const swaggerUrl = "http://91.107.153.171:1337/swagger/";
 export const baseUrl = "http://91.107.153.171:1337/";
+
+export const baseUrlForSocket = "ws://91.107.153.171:1337/";
+// export const baseUrlForSocket = "ws://localhost:8000/";
