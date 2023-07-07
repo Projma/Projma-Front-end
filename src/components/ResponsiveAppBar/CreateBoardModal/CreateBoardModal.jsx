@@ -90,7 +90,9 @@ export default function CreateBoardModal({}) {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-
+        console.log(res.data);
+        const id = res.data.id;
+        apiInstance.post("/calendar/simple-calenadr", {board: id});
         delay(6000).then(() => navigateToBoard(res.data.id));
       })
       .finally(() => setIsPost(null));
