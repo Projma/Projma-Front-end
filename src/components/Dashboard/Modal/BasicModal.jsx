@@ -10,7 +10,7 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import StyledTextField from "./StyledTextField";
+import PerTextField from "../../Shared/PerTextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import apiInstance from "../../../utilities/axiosConfig";
 import MenuItem from "@mui/material/MenuItem";
@@ -205,7 +205,7 @@ export default function BasicModal(props) {
               >
                 <CacheProvider value={cacheRtl}>
                   <ThemeProvider>
-                    <StyledTextField
+                    <PerTextField
                       margin="normal"
                       required
                       fullWidth
@@ -251,91 +251,81 @@ export default function BasicModal(props) {
                     />
                   </ThemeProvider>
                 </CacheProvider>
-                <CacheProvider value={cacheRtl}>
-                  <ThemeProvider>
-                    <StyledTextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="workspace_type"
-                      label="نوع فضای کاری"
-                      select // https://mui.com/material-ui/react-text-field/#basic-textfield
-                      placeholder="نوع فضای‌کاری خود را وارد کنید."
-                      // helperText="انتخاب کنید."
-                      onChange={handleChange}
-                      name="workspace_type"
-                      autoComplete="workspace_type"
-                      autoFocus
-                      sx={{ width: "60%", display: "block", marginTop: "5%" }}
-                      InputLabelProps={{
-                        style: { fontFamily: "Vazir", fontSize: "85%" },
-                      }}
-                      InputProps={{
-                        style: { fontFamily: "Vazir", fontSize: "95%" },
-                      }}
-                      FormHelperTextProps={{
-                        style: { fontFamily: "Vazir", color: "black" },
-                      }}
-                      error={errorWorkspaceType}
-                      helperText={
-                        errorWorkspaceType ? "لطفا این فیلد را پر کنید." : ""
-                      }
-                    >
-                      {types.map((option) => (
-                        <MenuItem
-                          key={option.value}
-                          value={option.value}
-                          sx={{
-                            fontFamily: "Vazir",
-                            color: "black", // #0A1929
-                            backgroundColor: "#265D97",
-                            margin: "0%",
-                            padding: "3%",
-                            fontSize: "140%",
-                          }}
-                        >
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </StyledTextField>
-                  </ThemeProvider>
-                </CacheProvider>
-                <CacheProvider value={cacheRtl}>
-                  <ThemeProvider>
-                    {/* <ThemeProvider theme={theme}> */}
-                    <StyledTextField
-                      margin="normal"
-                      fullWidth
-                      multiline
-                      maxRows={4}
-                      id="workspace_description"
-                      label="شرح فضای کاری (اختیاری)  "
-                      // placeholder="شرح فضای‌کاری خود را وارد کنید."
-                      helperText="* اعضای خود را با چند کلمه در مورد فضای کاری خود همراه کنید."
-                      name="workspace_description"
-                      autoComplete="workspace_description"
-                      autoFocus
-                      sx={{ width: "60%", display: "block", marginTop: "5%" }}
-                      InputLabelProps={{
-                        style: { fontFamily: "Vazir", fontSize: "85%" },
-                      }}
-                      InputProps={{
-                        style: { fontFamily: "Vazir", fontSize: "110%" },
-                      }}
-                      FormHelperTextProps={{
-                        style: {
-                          fontFamily: "Vazir",
-                          color: "white",
-                          fontSize: "77%",
-                        },
-                      }}
-                      onChange={(e) => {
-                        document.getElementById("workspace_description").value =
-                          convertNumberToPersian(e.target.value);
-                      }}
-                    />
-                  </ThemeProvider>
-                </CacheProvider>
+                <PerTextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="workspace_type"
+                  label="نوع فضای کاری"
+                  select // https://mui.com/material-ui/react-text-field/#basic-textfield
+                  placeholder="نوع فضای‌کاری خود را وارد کنید."
+                  // helperText="انتخاب کنید."
+                  onChange={handleChange}
+                  name="workspace_type"
+                  autoComplete="workspace_type"
+                  autoFocus
+                  sx={{ width: "60%", display: "block", marginTop: "5%" }}
+                  InputLabelProps={{
+                    style: { fontFamily: "Vazir", fontSize: "85%" },
+                  }}
+                  InputProps={{
+                    style: { fontFamily: "Vazir", fontSize: "95%" },
+                  }}
+                  FormHelperTextProps={{
+                    style: { fontFamily: "Vazir" },
+                  }}
+                  error={errorWorkspaceType}
+                  helperText={
+                    errorWorkspaceType ? "لطفا این فیلد را پر کنید." : ""
+                  }
+                />
+                {types.map((option) => (
+                  <MenuItem
+                    key={option.value}
+                    value={option.value}
+                    sx={{
+                      fontFamily: "Vazir",
+                      color: "black", // #0A1929
+                      backgroundColor: "#265D97",
+                      margin: "0%",
+                      padding: "3%",
+                      fontSize: "140%",
+                    }}
+                  >
+                    {option.label}
+                  </MenuItem>
+                ))}
+                <PerTextField
+                  margin="normal"
+                  fullWidth
+                  multiline
+                  maxRows={4}
+                  id="workspace_description"
+                  label="شرح فضای کاری (اختیاری)  "
+                  // placeholder="شرح فضای‌کاری خود را وارد کنید."
+                  helperText="* اعضای خود را با چند کلمه در مورد فضای کاری خود همراه کنید."
+                  name="workspace_description"
+                  autoComplete="workspace_description"
+                  autoFocus
+                  sx={{ width: "60%", display: "block", marginTop: "5%" }}
+                  InputLabelProps={{
+                    style: { fontFamily: "Vazir", fontSize: "85%" },
+                  }}
+                  InputProps={{
+                    style: { fontFamily: "Vazir", fontSize: "110%" },
+                  }}
+                  FormHelperTextProps={{
+                    style: {
+                      fontFamily: "Vazir",
+                      color: "white",
+                      fontSize: "77%",
+                    },
+                  }}
+                  onChange={(e) => {
+                    document.getElementById("workspace_description").value =
+                      convertNumberToPersian(e.target.value);
+                  }}
+                />
                 <Button
                   variant="contained"
                   sx={{

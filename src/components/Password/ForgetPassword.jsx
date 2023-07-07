@@ -4,10 +4,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import StyledTextField from "../Shared/StyledTextField";
+import PerTextField from "../Shared/PerTextField";
 import Footer from "../Shared/Footer";
 import apiInstance from "../../utilities/axiosConfig";
-import PerTextField from "../Shared/PerTextField";
 import Loading from "../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import {  useNavigate } from "react-router-dom";
@@ -147,9 +146,8 @@ const ForgetPassword = () => {
             >
               فراموشی رمز عبور
             </Typography>
-            <PerTextField>
               {/* <CssBaseline /> */}
-              <StyledTextField
+              <PerTextField
                 margin="normal"
                 required
                 fullWidth
@@ -182,7 +180,6 @@ const ForgetPassword = () => {
                   },
                 }}
               />
-            </PerTextField>
 
             <Button
               type="submit"

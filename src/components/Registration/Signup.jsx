@@ -15,7 +15,7 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import StyledTextField from "./StyledTextField";
+import PerTextField from "../Shared/PerTextField";
 import apiInstance from "../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom"; // comment for tests
 import { useLocation } from "react-router-dom";
@@ -179,17 +179,17 @@ export default function SignUp() {
             >
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
-                  <StyledTextField
+                  <PerTextField
                     fullWidth
                     id="firstName"
                     label="نام"
                     name="firstname-name"
                     autoComplete="family-name"
                     inputProps={{
-                      className: "Registration--StyledTextField-inputProps",
+                      className: "Registration--PerTextField-inputProps",
                     }}
                     InputLabelProps={{
-                      className: "Registration--StyledTextField-InputText",
+                      className: "Registration--PerTextField-InputText",
                     }}
                     value={convertNumberToPersian(firstName)}
                     onChange={(e) => {
@@ -199,7 +199,7 @@ export default function SignUp() {
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <StyledTextField
+                  <PerTextField
                     autoComplete="given-name"
                     name="lastName-name"
                     fullWidth
@@ -207,10 +207,10 @@ export default function SignUp() {
                     label="نام خانوادگی"
                     autoFocus
                     inputProps={{
-                      className: "Registration--StyledTextField-inputProps",
+                      className: "Registration--PerTextField-inputProps",
                     }}
                     InputLabelProps={{
-                      className: "Registration--StyledTextField-InputText",
+                      className: "Registration--PerTextField-InputText",
                     }}
                     value={convertNumberToPersian(lastName)}
                     onChange={(e) =>
@@ -220,7 +220,7 @@ export default function SignUp() {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <StyledTextField
+                  <PerTextField
                     required
                     fullWidth
                     id="username"
@@ -228,10 +228,10 @@ export default function SignUp() {
                     name="username-name"
                     autoComplete="username"
                     InputLabelProps={{
-                      className: "Registration--StyledTextField-InputText",
+                      className: "Registration--PerTextField-InputText",
                     }}
                     inputProps={{
-                      className: "Registration--StyledTextField-inputProps",
+                      className: "Registration--PerTextField-inputProps",
                     }}
                     value={convertNumberToPersian(username)}
                     onChange={(e) =>
@@ -241,7 +241,7 @@ export default function SignUp() {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <StyledTextField
+                  <PerTextField
                     required
                     fullWidth
                     id="email"
@@ -253,10 +253,10 @@ export default function SignUp() {
                     // }
                     autoComplete="email"
                     InputLabelProps={{
-                      className: "Registration--StyledTextField-InputText",
+                      className: "Registration--PerTextField-InputText",
                     }}
                     inputProps={{
-                      className: "Registration--StyledTextField-inputProps",
+                      className: "Registration--PerTextField-inputProps",
                     }}
                     onChange={(e) => {
                       // ////console.log(email)
@@ -266,7 +266,7 @@ export default function SignUp() {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <StyledTextField
+                  <PerTextField
                     required
                     fullWidth
                     name="password-name"
@@ -275,10 +275,10 @@ export default function SignUp() {
                     id="password"
                     autoComplete="new-password"
                     InputLabelProps={{
-                      className: "Registration--StyledTextField-InputText",
+                      className: "Registration--PerTextField-InputText",
                     }}
                     inputProps={{
-                      className: "Registration--StyledTextField-inputProps",
+                      className: "Registration--PerTextField-inputProps",
                     }}
                     onChange={(e) => setPassword(e.target.value)}
                     error={errorPassword}
@@ -297,7 +297,7 @@ export default function SignUp() {
                 label="ثبت‌نام"
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                className="Registration--StyledTextField-InputText"
+                className="Registration--PerTextField-InputText"
               >
                 ثبت‌نام
               </Button>

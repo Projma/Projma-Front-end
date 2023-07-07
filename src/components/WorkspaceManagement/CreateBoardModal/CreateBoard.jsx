@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
 import Modal from "@mui/material/Modal";
-import StyledTextField from "../../Shared/StyledTextField";
 import PerTextField from "../../Shared/PerTextField";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 // import file from "../../../static/images/workspace_management/create_board/board.jpeg";
@@ -149,8 +148,7 @@ export default function CreateBoardModal({
             className="workspace-modal--board-image"
           />
           <form className="workspace-modal--board-form">
-            <PerTextField>
-              <StyledTextField
+              <PerTextField
                 className="workspace-modal--board-name"
                 id="board_name"
                 label="نام بورد"
@@ -186,7 +184,7 @@ export default function CreateBoardModal({
                   errorBoardName ? "نام بورد نمی تواند خالی باشد" : ""
                 }
               />
-              <StyledTextField
+              <PerTextField
                 className="workspace-modal--board-name"
                 id="description"
                 label="توضیحات"
@@ -199,7 +197,7 @@ export default function CreateBoardModal({
                   style: { fontFamily: "Vazir", fontSize: "75%" },
                 }}
               />
-            </PerTextField>
+            
             <div
               style={{
                 display: "flex",

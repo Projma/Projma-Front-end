@@ -1,7 +1,7 @@
 import * as React from "react";
 import "../../styles/TaskModal.css";
 import { useState } from "react";
-import StyledTextField from "../Shared/StyledTextField";
+import PerTextField from "../Shared/PerTextField";
 import { Button , Box } from "@mui/material";
 import apiInstance from "../../utilities/axiosConfig";
 
@@ -221,10 +221,10 @@ export default function TaskModal_Activity({
             component="form"
             className="flex-taskmodal form-plusforprojma"
           >
-            <StyledTextField
+            <PerTextField
               size="small"
               variant="outlined"
-              className="taskmodal--activity-StyledTextField"
+              className="taskmodal--activity-PerTextField"
               label="تخمین"
               name="estimate"
               id="estimate"
@@ -241,10 +241,10 @@ export default function TaskModal_Activity({
               }}
               autoFocus
             />
-            <StyledTextField
+            <PerTextField
               size="small"
               variant="outlined"
-              className="taskmodal--activity-StyledTextField"
+              className="taskmodal--activity-PerTextField"
               sx={{
                 marginLeft: "3%",
               }}
@@ -307,7 +307,7 @@ export default function TaskModal_Activity({
           >
             {showComment ? (
               <div>
-                <StyledTextField
+                <PerTextField
                   fullWidth
                   autoFocus
                   onChange={(e) =>
@@ -320,7 +320,7 @@ export default function TaskModal_Activity({
                       fontSize: "152%",
                     },
                   }}
-                ></StyledTextField>
+                />
                 <div dir="ltr" style={{ marginTop: "3%" }}>
                   <Button
                     type="submit"
@@ -393,7 +393,7 @@ export default function TaskModal_Activity({
                 </div>
                 {EditCommentList[item.id] ? (
                   <div>
-                    <StyledTextField
+                    <PerTextField
                       fullWidth
                       autoFocus
                       onChange={(e) => {
@@ -410,7 +410,7 @@ export default function TaskModal_Activity({
                         },
                       }}
                       // defaultValue={item.text}
-                    ></StyledTextField>
+                    />
                     <div dir="ltr" style={{ marginTop: "3%" }}>
                       <Button
                         onClick={() => {

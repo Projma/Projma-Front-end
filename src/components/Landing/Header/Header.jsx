@@ -7,7 +7,7 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import StyledTextField from "../StyledTextField";
+import PerTextField from "../../Shared/PerTextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Grid from "@mui/material/Grid"; // Grid version 1
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -83,7 +83,7 @@ const Header = () => {
               </h2>
               <CacheProvider value={cacheRtl}>
                 <ThemeProvider theme={theme}>
-                  <StyledTextField
+                  <PerTextField
                     margin="normal"
                     required
                     fullWidth

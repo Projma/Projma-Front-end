@@ -4,11 +4,13 @@ import CardCover from "./Content/CardCover";
 import CardTitle from "./Content/CardTitle";
 import CardLabel from "./Content/CardLabel";
 import apiInstance from "../../../../../../utilities/axiosConfig";
+import useTheme from "../../../../../../hooks/useTheme";
 
 const CardBody = ({ title, labels, cardId }) => {
   const [show, setShow] = useState(false);
   const [enable, setEnable] = useState(false);
   const [cover, setCover] = useState("");
+  const {theme, getColor} = useTheme();
   const getCover = async () => {
     await apiInstance.get(`task/${cardId}/get-task/`).then((response) => {
       let attach = response.data.attachments;
@@ -35,7 +37,7 @@ const CardBody = ({ title, labels, cardId }) => {
 
   return (
     <>
-      <div className="card_body">
+      <div className="card_body" style={{color: getColor(theme.minorBg)}}>
         {cover !== "" && cover !== undefined && (
           <div className="card_cover">
             <CardCover src={cover}/>

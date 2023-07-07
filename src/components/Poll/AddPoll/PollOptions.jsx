@@ -1,13 +1,12 @@
 import { useState } from "react";
 import PerTextField from "../../Shared/PerTextField";
-import StyledTextField from "../../Shared/StyledTextField";
 
 const PollOptions = ({ id, op, onChangeOp}) => {
   const [option, setOption] = useState(op);
   return (
     <div>
-      <PerTextField>
-        <StyledTextField
+      
+        <PerTextField
           margin="normal"
           variant="filled"
           required
@@ -46,7 +45,7 @@ const PollOptions = ({ id, op, onChangeOp}) => {
             margin: 0,
           }}
         />
-      </PerTextField>
+      
     </div>
   );
 };

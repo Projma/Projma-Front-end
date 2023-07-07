@@ -11,7 +11,6 @@ import apiInstance from "../../../utilities/axiosConfig";
 import BasicSelect from "./SelectType";
 import Avatar from "@mui/material/Avatar";
 import Modal from "@mui/material/Modal";
-import StyledTextField from "../../Shared/StyledTextField";
 import PerTextField from "../../Shared/PerTextField";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 import Loading from "../../Shared/Loading";
@@ -112,9 +111,9 @@ export default function EditModal({
             }}
           />
           <form className="board-form">
-            <PerTextField>
+            
               <div className="ws_editmodal-inputs">
-                <StyledTextField
+                <PerTextField
                   className="ws_editmodal-input"
                   label="نام فضای کاری"
                   value={convertNumberToPersian(editModalWorkspace?.name)}
@@ -138,7 +137,7 @@ export default function EditModal({
                   }}
                   sx={{ textAlign: "center", fontFamily: "Vazir" }}
                 />
-                <StyledTextField
+                <PerTextField
                   className="ws_editmodal-input"
                   label="توضیحات"
                   value={convertNumberToPersian(
@@ -184,7 +183,7 @@ export default function EditModal({
                   label="نوع فضای کار"
                 />
               </div>
-            </PerTextField>
+            
             <div className="ws_editmodal-button-div">
               <input
                 style={{ fontFamily: "Vazir", fontSize: "101%", width: "100%" }}

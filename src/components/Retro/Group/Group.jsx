@@ -6,7 +6,6 @@ import RetroCard from "../content/RetroCard";
 import InputName from "../../Shared/InputName";
 import "../RetroReflect.scss";
 import "./Group.scss";
-import StyledTextField from "../../Shared/StyledTextField";
 import PerTextField from "../../Shared/PerTextField";
 import { convertNumberToPersian } from "../../../utilities/helpers.js";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
@@ -498,8 +497,6 @@ const Group = () => {
                 <Typography style={{color: getColor(theme.minorBg)}}>چه چیز هایی کار میکند؟</Typography>
               </div>
               <div className="RetroReflect-list-textfield">
-                <PerTextField>
-                </PerTextField>
               </div>
               <div className="RetroReflect-list-card">
                 <div className="RetroReflect-list-card-container">

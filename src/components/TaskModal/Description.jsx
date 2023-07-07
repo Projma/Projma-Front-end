@@ -1,7 +1,7 @@
 import * as React from "react";
 import "../../styles/TaskModal.css";
 import { useState } from "react";
-import StyledTextField from "../Shared/StyledTextField";
+import PerTextField from "../Shared/PerTextField";
 import { Button , Box } from "@mui/material";
 import apiInstance from "../../utilities/axiosConfig";
 
@@ -70,7 +70,7 @@ export default function Description({ params, description, setDescription }) {
           >
             {showdescription ? (
               <div>
-                <StyledTextField
+                <PerTextField
                   fullWidth
                   autoFocus
                   onChange={(e) =>
@@ -87,7 +87,7 @@ export default function Description({ params, description, setDescription }) {
                       fontSize: "152%",
                     },
                   }}
-                ></StyledTextField>
+                />
                 <div dir="ltr" style={{ marginTop: "3%" }}>
                   <Button
                     type="submit"

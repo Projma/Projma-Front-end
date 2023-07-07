@@ -1,7 +1,7 @@
 html {
   height: 100vh;
   width: 100vw;
-  background-color: $main-bg;
+  background-color: #ffffffff !important;
 }
 
 body {
@@ -11,6 +11,7 @@ body {
   font-family: "Vazir", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffffff !important;
 }
 
 @font-face {

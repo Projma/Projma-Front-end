@@ -8,7 +8,6 @@ import Divider from "@mui/material/Divider";
 import EditIcon from "@mui/icons-material/Edit";
 import apiInstance from "../../utilities/axiosConfig";
 import Avatar from "@mui/material/Avatar";
-import StyledTextField from "../Shared/StyledTextField";
 import PerTextField from "../Shared/PerTextField";
 import Loading from "../Shared/Loading";
 import DateTimePickerValue from "../Shared/DateTimePicker";
@@ -189,9 +188,9 @@ export default function EditMeeting({
           }}
         />
         <form className="board-form">
-          <PerTextField>
+          
             <div className="calendar_create_meeting-inputs">
-              <StyledTextField
+              <PerTextField
                 className="calendar_create_meeting-input"
                 label="عنوان رویداد"
                 value={editMeeting?.title}
@@ -268,7 +267,7 @@ export default function EditMeeting({
                     </label>
                   </div>
                 </div>
-                <StyledTextField
+                <PerTextField
                   type="number"
                   id="custom_repeat"
                   className="calendar--CreateMeeting-repeat-inputbox"
@@ -320,7 +319,7 @@ export default function EditMeeting({
                 }
               />
 
-              <StyledTextField
+              <PerTextField
                 className="calendar_create_meeting-input"
                 label="توضیحات"
                 sx={{
@@ -361,7 +360,7 @@ export default function EditMeeting({
                 />
               </div>
             </div>
-          </PerTextField>
+          
         </form>
       </Box>
     </div>

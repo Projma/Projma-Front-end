@@ -6,8 +6,6 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
 import Modal from "@mui/material/Modal";
-import StyledTextField from "../../Shared/StyledTextField";
-import PerTextField from "../../Shared/PerTextField";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 import "./CreateBoardModal.scss";
 import { toast } from "react-toastify";
@@ -20,6 +18,7 @@ import {
   convertNumberToPersian,
   convertNumberToEnglish,
 } from "../../../utilities/helpers";
+import PerTextField from "../../Shared/PerTextField";
 
 export default function CreateBoardModal({}) {
   const { theme, getColor } = useTheme();
@@ -204,136 +203,132 @@ export default function CreateBoardModal({}) {
           />
           <img src={x} className="workspace-modal--board-image" />
           <form className="workspace-modal--board-form">
-            <PerTextField>
-              <StyledTextField
-                className="workspace-modal--board-name"
-                id="board_name"
-                label="نام بورد"
-                value={title}
-                onChange={(e) => {
-                  setTitle(convertNumberToPersian(e.target.value));
-                }}
-                required
-                sx={{ textAlign: "center", fontFamily: "Vazir" }}
-                InputLabelProps={{
-                  style: { fontFamily: "Vazir", fontSize: "135%" },
-                }}
-                inputProps={{
-                  style: {
-                    height: "50px",
-                    padding: "0 14px",
-                    fontFamily: "Vazir",
-                    fontSize: "1.7rem",
-                  },
-                }}
-                name="board_name"
-                autoComplete="board_name"
-                autoFocus
-                FormHelperTextProps={{
-                  style: {
-                    fontFamily: "Vazir",
-                    color: "red",
-                    fontSize: "1.3rem",
-                  },
-                }}
-                error={errorBoardName}
-                helperText={
-                  errorBoardName ? "نام بورد نمی تواند خالی باشد" : ""
-                }
-              />
-              <StyledTextField
-                className="workspace-modal--board-name"
-                label="نام فضای کاری"
-                // value={workspaceName}
-                onChange={(e) => {
-                  setWorkspaceId(e.target.value);
-                }}
-                required
-                sx={{
+            <PerTextField
+              className="workspace-modal--board-name"
+              id="board_name"
+              label="نام بورد"
+              value={title}
+              onChange={(e) => {
+                setTitle(convertNumberToPersian(e.target.value));
+              }}
+              required
+              sx={{ textAlign: "center", fontFamily: "Vazir" }}
+              InputLabelProps={{
+                style: { fontFamily: "Vazir", fontSize: "135%" },
+              }}
+              inputProps={{
+                style: {
+                  height: "50px",
+                  padding: "0 14px",
                   fontFamily: "Vazir",
                   fontSize: "1.7rem",
-                }}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "Vazir",
-                    fontSize: "85%",
-                    alignItems: "center",
+                },
+              }}
+              name="board_name"
+              autoComplete="board_name"
+              autoFocus
+              FormHelperTextProps={{
+                style: {
+                  fontFamily: "Vazir",
+                  color: "red",
+                  fontSize: "1.3rem",
+                },
+              }}
+              error={errorBoardName}
+              helperText={errorBoardName ? "نام بورد نمی تواند خالی باشد" : ""}
+            />
+            <PerTextField
+              className="workspace-modal--board-name"
+              label="نام فضای کاری"
+              // value={workspaceName}
+              onChange={(e) => {
+                setWorkspaceId(e.target.value);
+              }}
+              required
+              sx={{
+                fontFamily: "Vazir",
+                fontSize: "1.7rem",
+              }}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "Vazir",
+                  fontSize: "85%",
+                  alignItems: "center",
+                },
+              }}
+              inputProps={{
+                style: {
+                  height: "50px",
+                  padding: "0 14px",
+                  fontFamily: "Vazir",
+                  fontSize: "1.7rem",
+                },
+              }}
+              SelectProps={{
+                style: {
+                  fontFamily: "Vazir",
+                  fontSize: "1.6rem",
+                },
+              }}
+              name="workspace_name"
+              autoComplete="workspace_name"
+              autoFocus
+              FormHelperTextProps={{
+                style: {
+                  fontFamily: "Vazir",
+                  color: "red",
+                  fontSize: "1.3rem",
+                },
+              }}
+              error={errorWorkspace}
+              helperText={
+                errorWorkspace ? "نام فضای کاری نمی تواند خالی باشد" : ""
+              }
+              select // https://mui.com/material-ui/react-text-field/#basic-textfield
+            />
+            {workspaces.map((workspace) => (
+              <MenuItem
+                key={workspace.id}
+                value={workspace.id}
+                sx={{
+                  fontFamily: "Vazir",
+                  color: theme.text, // #0A1929
+                  // backgroundColor: '#265D97',
+                  backgroundColor: theme.minorBg,
+                  // margin: '0%',
+                  // padding: '3%',
+                  ":hover": {
+                    backgroundColor: theme.secondary,
+                    // borderRadius: '5px',
                   },
+                  fontSize: "1.5rem",
                 }}
-                inputProps={{
-                  style: {
-                    height: "50px",
-                    padding: "0 14px",
-                    fontFamily: "Vazir",
-                    fontSize: "1.7rem",
-                  },
-                }}
-                SelectProps={{
-                  style: {
-                    fontFamily: "Vazir",
-                    fontSize: "1.6rem",
-                  },
-                }}
-                name="workspace_name"
-                autoComplete="workspace_name"
-                autoFocus
-                FormHelperTextProps={{
-                  style: {
-                    fontFamily: "Vazir",
-                    color: "red",
-                    fontSize: "1.3rem",
-                  },
-                }}
-                error={errorWorkspace}
-                helperText={
-                  errorWorkspace ? "نام فضای کاری نمی تواند خالی باشد" : ""
-                }
-                select // https://mui.com/material-ui/react-text-field/#basic-textfield
               >
-                {workspaces.map((workspace) => (
-                  <MenuItem
-                    key={workspace.id}
-                    value={workspace.id}
-                    sx={{
-                      fontFamily: "Vazir",
-                      color: theme.text, // #0A1929
-                      // backgroundColor: '#265D97',
-                      backgroundColor: theme.minorBg,
-                      // margin: '0%',
-                      // padding: '3%',
-                      ":hover": {
-                        backgroundColor: theme.secondary,
-                        // borderRadius: '5px',
-                      },
-                      fontSize: "1.5rem",
-                    }}
-                  >
-                    {workspace.name}
-                  </MenuItem>
-                ))}
-              </StyledTextField>
+                {workspace.name}
+              </MenuItem>
+            ))}
 
-              <StyledTextField
-                className="workspace-modal--board-name"
-                label="توضیحات"
-                value={description}
-                onChange={(e) => {
-                  setDescription(convertNumberToPersian(e.target.value));
-                }}
-                sx={{ textAlign: "center", fontFamily: "Vazir" }}
-                InputLabelProps={{
-                  style: { fontFamily: "Vazir", fontSize: "135%" },
-                }}
-                inputProps={{
-                  style: {
-                    height: "50px",
-                    padding: "0 14px",
-                    fontFamily: "Vazir",
-                    fontSize: "1.7rem",
-                  },
-                }}
-              />
-            </PerTextField>
+            <PerTextField
+              className="workspace-modal--board-name"
+              label="توضیحات"
+              value={description}
+              onChange={(e) => {
+                setDescription(convertNumberToPersian(e.target.value));
+              }}
+              sx={{ textAlign: "center", fontFamily: "Vazir" }}
+              InputLabelProps={{
+                style: { fontFamily: "Vazir", fontSize: "135%" },
+              }}
+              inputProps={{
+                style: {
+                  height: "50px",
+                  padding: "0 14px",
+                  fontFamily: "Vazir",
+                  fontSize: "1.7rem",
+                },
+              }}
+            />
+
             <div
               style={{
                 display: "flex",

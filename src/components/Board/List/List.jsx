@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import useBoard from "../../../hooks/useBoard";
 import Card from "./Card/Card";
 import PerTextField from "../../Shared/PerTextField";
-import StyledTextField from "../../Shared/StyledTextField";
 import Popover from "@mui/material/Popover";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { toast } from "react-toastify";

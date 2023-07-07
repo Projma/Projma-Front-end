@@ -4,9 +4,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import StyledTextField from "../Shared/StyledTextField";
-import Footer from "../Shared/Footer";
 import PerTextField from "../Shared/PerTextField";
+import Footer from "../Shared/Footer";
 import Loading from "../Shared/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -176,8 +175,7 @@ const ResetPassword = () => {
             >
               تغییر رمز عبور
             </Typography>
-            <PerTextField>
-              <StyledTextField
+              <PerTextField
                 margin="normal"
                 required
                 fullWidth
@@ -191,7 +189,6 @@ const ResetPassword = () => {
                 autoFocus
                 sx={{
                   input: {
-                    color: "#fff",
                     fontSize: "1.6rem",
                   },
                 }}
@@ -201,7 +198,7 @@ const ResetPassword = () => {
                   },
                 }}
               />
-              <StyledTextField
+              <PerTextField
                 margin="normal"
                 required
                 fullWidth
@@ -215,7 +212,6 @@ const ResetPassword = () => {
                 autoFocus
                 sx={{
                   input: {
-                    color: "#fff",
                     fontSize: "1.6rem",
                   },
                 }}
@@ -225,7 +221,6 @@ const ResetPassword = () => {
                   },
                 }}
               />
-            </PerTextField>
 
             <Button
               type="submit"

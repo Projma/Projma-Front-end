@@ -6,7 +6,7 @@ import createCache from "@emotion/cache";
 import "../../styles/Profile.scss";
 import profile_preview from "../../static/images/profile/blank.png";
 import { useState, useCallback } from "react";
-import StyledTextField from "./StyledTextField";
+import PerTextField from "../Shared/PerTextField";
 import { CacheProvider } from "@emotion/react";
 import { Button, Box } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
@@ -16,7 +16,7 @@ import PasswordIcon from "@mui/icons-material/Password";
 import Typography from "@mui/material/Typography";
 import { Helmet } from "react-helmet";
 import {  toast } from "react-toastify";
-
+import useTheme from "../../hooks/useTheme";
 import Loading from "../Shared/Loading";
 import { baseUrl } from "../../utilities/constants";
 import Header from "../Header/Header";
@@ -47,7 +47,7 @@ export default function ChangePassword() {
   const [getImage, setGetImage] = useState("");
   const [isPost, setIsPost] = useState(false);
   const [file, setFile] = useState(profile_preview);
-
+  const {theme, getColor} = useTheme();
   React.useEffect(() => {
     apiInstance.get("/accounts/profile/myprofile/").then((res) => {
       setFirstName(res.data.user.first_name);
@@ -56,7 +56,7 @@ export default function ChangePassword() {
       setGetImage(res.data.profile_pic);
     });
   }, []);
-  const theme = createTheme({
+  const MuiTheme = createTheme({
     direction: "rtl",
   });
   const cacheRtl = createCache({
@@ -144,7 +144,7 @@ export default function ChangePassword() {
       </Helmet>
       {isPost ? <Loading /> : null}
       <CacheProvider value={cacheRtl}>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={MuiTheme}>
           <div className="profile--container profile--page">
             <div className="profile--information row-gap-8">
               <div className="profile--box-body-profile-container">
@@ -156,15 +156,15 @@ export default function ChangePassword() {
               </div>
               <div
                 className="flex-col row-gap-8 align-center"
-                style={{ width: "100%", marginTop: "20%" }}
+                style={{ width: "100%", marginTop: "20%", color: getColor(theme.minorBg) }}
               >
-                <h3 className="flex profile--information-fname-lname profile--leftMenu-text">
+                <h3 className="flex profile--information-fname-lname profile--leftMenu-text" style={{color: getColor(theme.minorBg)}}>
                   {convertNumberToPersian(firstName)}
                 </h3>
-                <h3 className="flex profile--information-fname-lname profile--leftMenu-text">
+                <h3 className="flex profile--information-fname-lname profile--leftMenu-text" style={{color: getColor(theme.minorBg)}}>
                   {convertNumberToPersian(lastName)}
                 </h3>
-                <h4 className="neonText profile--leftMenu-text">
+                <h4 className="neonText profile--leftMenu-text" style={{color: getColor(theme.minorBg)}}>
                   {`${convertNumberToPersian(username)}@`}
                 </h4>
               </div>
@@ -206,7 +206,7 @@ export default function ChangePassword() {
               onSubmit={handleSubmit}
             >
               <div className="profile--box-header flex justify-between">
-                <h3 className="neonText">تغییر رمز عبور</h3>
+                <h3 className="neonText" style={{color: getColor(theme.minorBg)}}>تغییر رمز عبور</h3>
               </div>
               <div className="profile--box-body">
                 <div
@@ -217,7 +217,7 @@ export default function ChangePassword() {
                   }}
                 >
                   <div className="flex" style={{ marginTop: "20%" }}>
-                    <StyledTextField
+                    <PerTextField
                       role="textbox"
                       margin="normal"
                       required="required"
@@ -225,24 +225,14 @@ export default function ChangePassword() {
                       label="رمز عبور فعلی"
                       name="password1"
                       type="password"
-                      InputLabelProps={{
-                        className: "profile--styleTextField-labelText",
-                      }}
                       onChange={(e) => setPassword(e.target.value)}
                       autoComplete="password"
                       error={errorPassword}
                       autoFocus
-                      inputProps={{
-                        style: {
-                          height: "60px",
-                          padding: "0 14px",
-                          fontFamily: "Vazir",
-                        },
-                      }}
                     />
                   </div>
                   <div className="flex">
-                    <StyledTextField
+                    <PerTextField
                       role="textbox"
                       margin="normal"
                       required="required"
@@ -250,24 +240,15 @@ export default function ChangePassword() {
                       label="رمز عبور جدید"
                       name="password2"
                       type="password"
-                      InputLabelProps={{
-                        className: "profile--styleTextField-labelText",
-                      }}
                       onChange={(e) => setPassword2(e.target.value)}
                       autoComplete="password"
                       error={errorPassword2}
                       autoFocus
-                      inputProps={{
-                        style: {
-                          height: "60px",
-                          padding: "0 14px",
-                          fontFamily: "Vazir",
-                        },
-                      }}
+                      color={'primary'}
                     />
                   </div>
                   <div className="flex" style={{ marginBottom: "15%" }}>
-                    <StyledTextField
+                    <PerTextField
                       role="textbox"
                       margin="normal"
                       required="required"
@@ -275,20 +256,10 @@ export default function ChangePassword() {
                       label="تکرار رمز عبور جدید"
                       name="password3"
                       type="password"
-                      InputLabelProps={{
-                        className: "profile--styleTextField-labelText",
-                      }}
                       onChange={(e) => setPassword3(e.target.value)}
                       autoComplete="password"
                       error={errorPassword3}
                       autoFocus
-                      inputProps={{
-                        style: {
-                          height: "60px",
-                          padding: "0 14px",
-                          fontFamily: "Vazir",
-                        },
-                      }}
                     />
                   </div>
                   <div>
@@ -299,6 +270,7 @@ export default function ChangePassword() {
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
                       className="profile--submitButton"
+                      style={{backgroundColor: theme.primary}}
                     >
                       اعمال تغییرات
                     </Button>

@@ -14,7 +14,7 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import StyledTextField from "./StyledTextField";
+import PerTextField from "../Shared/PerTextField";
 import {  toast } from "react-toastify";
 
 import apiInstance from "../../utilities/axiosConfig";
@@ -111,7 +111,6 @@ export default function SignIn() {
         <title>صفحه ورود</title>
       </Helmet>
       {isPost ? <Loading /> : null}
-      <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={muitheme}>
           <Container
             component="main"
@@ -146,7 +145,7 @@ export default function SignIn() {
                 noValidate
                 error
               >
-                <StyledTextField
+                <PerTextField
                   margin="normal"
                   fullWidth
                   required="required"
@@ -154,10 +153,10 @@ export default function SignIn() {
                   label="نام کاربری"
                   name="Username"
                   InputLabelProps={{
-                    className: "Registration--StyledTextField-InputText",
+                    className: "Registration--PerTextField-InputText",
                   }}
                   inputProps={{
-                    className: "Registration--StyledTextField-inputProps",
+                    className: "Registration--PerTextField-inputProps",
                   }}
                   onChange={(e) =>
                     setUsername(convertNumberToEnglish(e.target.value))
@@ -167,7 +166,7 @@ export default function SignIn() {
                   error={errorUsername}
                   autoFocus
                 />
-                <StyledTextField
+                <PerTextField
                   margin="normal"
                   fullWidth
                   required="required"
@@ -176,10 +175,10 @@ export default function SignIn() {
                   type="password"
                   id="password"
                   InputLabelProps={{
-                    className: "Registration--StyledTextField-InputText",
+                    className: "Registration--PerTextField-InputText",
                   }}
                   inputProps={{
-                    className: "Registration--StyledTextField-inputProps",
+                    className: "Registration--PerTextField-inputProps",
                   }}
                   onChange={(e) => setPassword(e.target.value)}
                   error={errorPassword}
@@ -191,7 +190,7 @@ export default function SignIn() {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
-                  className="Registration--StyledTextField-InputText"
+                  className="Registration--PerTextField-InputText"
                 >
                   ورود
                 </Button>
@@ -220,7 +219,6 @@ export default function SignIn() {
             <Copyright sx={{ mt: 8, mb: 4 }} />
           </Container>
         </ThemeProvider>
-      </CacheProvider>
     </div>
   );
 }

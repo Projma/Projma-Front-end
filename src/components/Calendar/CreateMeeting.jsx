@@ -8,7 +8,6 @@ import Divider from "@mui/material/Divider";
 import EditIcon from "@mui/icons-material/Edit";
 import apiInstance from "../../utilities/axiosConfig";
 import Avatar from "@mui/material/Avatar";
-import StyledTextField from "../Shared/StyledTextField";
 import PerTextField from "../Shared/PerTextField";
 import Loading from "../Shared/Loading";
 import DateTimePickerValue from "../Shared/DateTimePicker";
@@ -176,9 +175,9 @@ export default function CreateMeeting({ calendarId, handleClose, showToast }) {
           }}
         />
         <form className="board-form">
-          <PerTextField>
+          
             <div className="calendar_create_meeting-inputs">
-              <StyledTextField
+              <PerTextField
                 className="calendar_create_meeting-input"
                 label="عنوان رویداد"
                 InputLabelProps={{
@@ -248,7 +247,7 @@ export default function CreateMeeting({ calendarId, handleClose, showToast }) {
                     </label>
                   </div>
                 </div>
-                <StyledTextField
+                <PerTextField
                   type="number"
                   id="custom_repeat"
                   className="calendar--CreateMeeting-repeat-inputbox"
@@ -286,7 +285,7 @@ export default function CreateMeeting({ calendarId, handleClose, showToast }) {
                 setValue={setEndMeetingDate}
               />
 
-              <StyledTextField
+              <PerTextField
                 className="calendar_create_meeting-input"
                 label="توضیحات"
                 sx={{
@@ -322,7 +321,7 @@ export default function CreateMeeting({ calendarId, handleClose, showToast }) {
                 />
               </div>
             </div>
-          </PerTextField>
+          
         </form>
       </Box>
     </div>

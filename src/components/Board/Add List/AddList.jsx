@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import PerTextField from "../../Shared/PerTextField";
-import StyledTextField from "../../Shared/StyledTextField";
 import { Button } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
 import Loading from "../../Shared/Loading";
@@ -60,8 +59,8 @@ const AddList = (props) => {
           className="baord_add-list-form"
           // onSubmit={(e) => handleAddListSubmit(e)}
         >
-          <PerTextField>
-            <StyledTextField
+          
+            <PerTextField
               margin="normal"
               label="اسم لیست"
               variant="filled"
@@ -106,7 +105,7 @@ const AddList = (props) => {
                 margin: 0,
               }}
             />
-          </PerTextField>
+          
           <Button
             type="submit"
             variant="contained"

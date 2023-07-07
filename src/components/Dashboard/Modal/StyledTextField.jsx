@@ -3,7 +3,7 @@ import { outlinedInputClasses } from "@mui/material/OutlinedInput";
 import { inputLabelClasses } from "@mui/material/InputLabel";
 import { styled } from "@mui/material/styles";
 
-const StyledTextField = styled(TextField)({
+const PerTextField = styled(TextField)({
   [`& .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]: {
     borderColor: "#66B2FF",
   },
@@ -36,4 +36,4 @@ const StyledTextField = styled(TextField)({
   },
 });
 
-export default StyledTextField;
+export default PerTextField;

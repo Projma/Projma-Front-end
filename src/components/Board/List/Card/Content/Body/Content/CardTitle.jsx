@@ -62,7 +62,7 @@ const CardTitle = (props) => {
   };
 
   return (
-    <PerTextField>
+    
       <FormControl variant="standard" fullWidth>
         <ThemeProvider theme={props.enable ? themeEnable : themeDisable}>
           <Input
@@ -87,7 +87,7 @@ const CardTitle = (props) => {
           />
         </ThemeProvider>
       </FormControl>
-    </PerTextField>
+    
   );
 };
 

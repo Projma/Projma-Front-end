@@ -4,11 +4,11 @@
 
 .profile--container {
   width: 100% !important;
-  height: 96vh;
+  height: 100vh !important;
   display: flex !important;
   align-items: flex-start !important;
   place-items: center;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .profile-container-password-page {
@@ -19,9 +19,9 @@
 }
 
 .profile--box {
-  width: 28%;
+  width: 30%;
   height: 90%;
-  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
+  background-color: $minor-bg;
   border-radius: 53px;
   padding: 25px 33px;
   font-size: 16.5729px;
@@ -70,8 +70,12 @@
 
 .profile--page {
   display: flex;
-  flex-direction: row;
   column-gap: 15px;
+  width: 100vw;
+  height: 90%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  align-items: center;
   justify-content: center;
 }
 
@@ -89,9 +93,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 10%;
+  width: 15%;
   height: 90%;
-  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
+  background-color: $minor-bg;
   border-radius: 53px;
   font-size: 16.5729px;
 }
@@ -128,7 +132,7 @@
 }
 
 .profile--rightMenu-icon {
-  color: white;
+  
   font-size: 170% !important;
   margin-left: 10%;
 }
@@ -146,14 +150,12 @@
 }
 
 .neonText {
-  color: #fff;
-  text-shadow: 0 0 7px rgb(193, 180, 180), 0 0 10px rgb(193, 180, 180),
-    0 0 21px rgb(193, 180, 180), 0 0 42px #5271ff, 0 0 82px #5271ff,
-    0 0 92px #5271ff, 0 0 102px #5271ff, 0 0 151px #5271ff;
+  text-shadow: 0 0 7px #eee, 0 0 10px #eee,
+    0 0 21px #eee, 0 0 42px $primary, 0 0 82px $primary,
+    0 0 92px $primary, 0 0 102px $primary, 0 0 151px $primary;
 }
 
 .title-css {
-  color: #8a929c;
   font-size: 13px;
 }
 
@@ -164,29 +166,32 @@
 .navbar-css {
   font-weight: 400;
   font-size: 90%;
-  color: #fff;
+  
 }
 
 .btn {
   //background-color: #001e3c00;
-  width: 100%;
+  width: 80%;
   height: auto;
   font-weight: 400;
   font-size: 90%;
-  color: #fff;
+  background-color: $primary;
   border: #001e3c00;
   padding: 5%;
+  border-radius: 50px;
+  margin-right: 10%;
+  margin-top: 1rem;
 }
 
-.rmdp-input {
-  background-color: #ffffff00;
-}
 
 .btn:hover {
   //background-color: #d4e3d43f;
-  color: white;
-  width: 100%;
+  background-color: $hover;
+  border: #001e3c00;
+  padding: 5%;
   border-radius: 50px;
+  margin-right: 10%;
+  margin-top: 1rem;
 }
 
 .flex-row-information {
@@ -205,7 +210,7 @@
 
 .rmdp-input {
   //background-color: #ffffff00;
-  color: white;
+  
   width: 120%;
   height: 150%;
   text-align: center;
@@ -222,7 +227,7 @@
   direction: "rtl";
   margin-top: 4%;
   margin-bottom: 4%;
-  border: 1px solid #66b2ff;
+  border: 1px solid $secondary;
   border-radius: 5px;
   padding-top: 1.75%;
   padding-bottom: 1.75%;
@@ -238,7 +243,7 @@
 }
 
 .profile--styleTextField-labelText {
-  color: #fff;
+  
   font-family: "Vazir" !important;
   height: 100px;
 }
@@ -246,7 +251,7 @@
 .profile--leftMenu-text {
   font-weight: 400 !important;
   font-size: 90% !important;
-  color: white;
+  
 }
 
 .profile--information-fname-lname::-webkit-scrollbar {
@@ -255,7 +260,7 @@
 }
 
 .email-text-box {
-  color: white;
+  
   font-size: 100%;
   font-weight: normal;
   text-align: center;
@@ -278,7 +283,7 @@
 }
 
 .profile-detail-css {
-  color: white;
+  
   font-weight: normal;
   text-align: center;
   max-width: 100%;
@@ -313,14 +318,14 @@
 
 .profile--submitButton {
   text-align: right;
-  color: white;
+  
   font-family: "Vazir" !important;
   font-size: 100% !important;
 }
 
 .profile--birthday-label {
   margin-left: 2%;
-  color: #fff;
+  
   font-size: 14px !important;
   font-family: "Vazir" !important;
 }
@@ -337,11 +342,10 @@
 .profile--box-changePassword {
   width: 25%;
   height: 90%;
-  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
+  background-color: $minor-bg;
   border-radius: 53px;
   padding-top: 4%;
-
-  font-size: 16.5729px;
+  
 }
 
 .profile--information-pro {
@@ -350,7 +354,7 @@
   align-items: center;
   width: 10%;
   height: 90%;
-  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
+  background-color: $minor-bg;
   border-radius: 53px;
   padding: 1px 8px;
   font-size: 16.5729px;
@@ -400,9 +404,10 @@
     padding-top: 5%;
   }
   .profile--container {
-    height: 828px;
-    width: 150%;
-    margin-top: -35px;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
     align-items: center !important;
     justify-content: center;
   }
@@ -456,7 +461,6 @@
 
   .btn:hover {
     //background-color: #d4e3d400;
-    color: rgba(255, 255, 255, 0);
     border-radius: 0px;
   }
   .profile--box-header {
@@ -481,7 +485,7 @@
 }
 
 .profile--box-profile-view {
-  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
+  background-color: $minor-bg;
   border-radius: 53px;
   width: 50%;
   height: 90%;

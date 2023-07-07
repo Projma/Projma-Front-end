@@ -6,7 +6,7 @@ import createCache from "@emotion/cache";
 import "../../styles/Profile.scss";
 import profile_preview from "../../static/images/profile/blank.png";
 import { useState } from "react";
-import StyledTextField from "./StyledTextField";
+import PerTextField from "../Shared/PerTextField";
 import { CacheProvider } from "@emotion/react";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
@@ -20,7 +20,7 @@ import PasswordIcon from "@mui/icons-material/Password";
 import Typography from "@mui/material/Typography";
 import { Helmet } from "react-helmet";
 import { toast } from "react-toastify";
-
+import useTheme from "../../hooks/useTheme";
 import Loading from "../Shared/Loading";
 import { baseUrl } from "../../utilities/constants";
 // import Header from "../Header/Header";
@@ -51,7 +51,7 @@ export default function Profile() {
   const [bio, setBio] = React.useState("");
   const [isPost, setIsPost] = useState(false);
   const [changeImage, setChangeImage] = React.useState(false);
-
+  const { theme, getColor } = useTheme();
   React.useEffect(() => {
     apiInstance.get("accounts/profile/myprofile/").then((res) => {
       // ////console.log(res);
@@ -162,7 +162,10 @@ export default function Profile() {
       });
   };
   return (
-    <div className="profile-total-page">
+    <div
+      className="profile-total-page"
+      style={{ color: `${getColor(theme.minorBg)} !important` }}
+    >
       {isPost ? <Loading /> : null}
       {/* <Header></Header> */}
       <CacheProvider value={cacheRtl}>
@@ -187,13 +190,13 @@ export default function Profile() {
                   justifyContent: "flex-start",
                 }}
               >
-                <h3 className="flex profile--information-fname-lname profile--leftMenu-text">
+                <h3 className="flex profile--information-fname-lname profile--leftMenu-text" style={{ color: getColor(theme.minorBg) }}>
                   {convertNumberToPersian(firstName)}
                 </h3>
-                <h3 className="flex profile--information-fname-lname profile--leftMenu-text">
+                <h3 className="flex profile--information-fname-lname profile--leftMenu-text" style={{ color: getColor(theme.minorBg) }}>
                   {convertNumberToPersian(lastName)}
                 </h3>
-                <h4 className="neonText profile--leftMenu-text">
+                <h4 className="neonText profile--leftMenu-text" style={{ color: getColor(theme.minorBg) }}>
                   {`${convertNumberToPersian(username)}@`}
                 </h4>
               </div>
@@ -205,7 +208,7 @@ export default function Profile() {
                       style={{ alignItems: "center" }}
                     >
                       <PersonIcon className="profile--rightMenu-icon"></PersonIcon>
-                      <h4 className="neonText profile--leftMenu-text">
+                      <h4 className="neonText profile--leftMenu-text" style={{ color: getColor(theme.minorBg) }}>
                         اطلاعات حساب
                       </h4>
                     </div>
@@ -219,7 +222,7 @@ export default function Profile() {
                         style={{ alignItems: "center" }}
                       >
                         <PasswordIcon className="profile--rightMenu-icon"></PasswordIcon>
-                        <h4 className="neonText profile--leftMenu-text">
+                        <h4 className="neonText profile--leftMenu-text" style={{ color: getColor(theme.minorBg) }}>
                           تغییر رمز عبور
                         </h4>
                       </div>
@@ -230,7 +233,7 @@ export default function Profile() {
             </div>
             <div className="profile--box">
               <div className="profile--box-header flex justify-between">
-                <h3 style={{ marginBottom: "8%" }} className="neonText">
+                <h3 style={{ marginBottom: "8%", color: getColor(theme.minorBg) }} className="neonText">
                   اطلاعات فردی
                 </h3>
               </div>
@@ -257,15 +260,12 @@ export default function Profile() {
                       alt="profile"
                     />
                     <div className="button-container">
-                      <Button
-                        variant="contained"
-                        component="label"
-                        color="info"
-                      >
+                      <Button variant="contained" component="label">
                         <p
                           style={{
                             fontSize: "0.8rem",
                             fontFamily: "Vazir",
+                            color: getColor(theme.minorBg)
                           }}
                         >
                           انتخاب عکس
@@ -288,7 +288,10 @@ export default function Profile() {
                 {getImage !== null ? (
                   <div className="profile-delete-image">
                     <Button
-                      style={{ fontFamily: "Vazir" }}
+                      style={{
+                        fontFamily: "Vazir",
+                        backgroundColor: theme.primary,
+                      }}
                       variant="contained"
                       onClick={handleDeleteProfileImage}
                     >
@@ -305,17 +308,13 @@ export default function Profile() {
                     className="flex-col col-gap-16"
                     style={{ width: "100%", marginTop: "10%" }}
                   >
-                    <StyledTextField
-                      className="otherStyledTextField"
+                    <PerTextField
                       margin="normal"
                       id="firstName"
                       fullWidth
                       value={convertNumberToPersian(firstName)}
                       label="نام"
                       name="firstName"
-                      InputLabelProps={{
-                        className: "profile--styleTextField-labelText",
-                      }}
                       InputProps={{ style: { fontFamily: "Vazir" } }}
                       onChange={(e) =>
                         setFirstName(convertNumberToEnglish(e.target.value))
@@ -324,17 +323,13 @@ export default function Profile() {
                       error={errorFirstName}
                       autoFocus
                     />
-                    <StyledTextField
-                      className="otherStyledTextField"
+                    <PerTextField
                       margin="normal"
                       id="lastname"
                       fullWidth
                       value={convertNumberToPersian(lastName)}
                       label="نام خانوادگی"
                       name="lastname"
-                      InputLabelProps={{
-                        className: "profile--styleTextField-labelText",
-                      }}
                       InputProps={{ style: { fontFamily: "Vazir" } }}
                       onChange={(e) =>
                         setLastName(convertNumberToEnglish(e.target.value))
@@ -347,10 +342,10 @@ export default function Profile() {
                 </div>
                 <div className="flex-col" style={{ width: "100%" }}>
                   <div className="flex-col show-box show-box-media, row-gap-8">
-                    <label htmlFor="email" className="title-css">
+                    <label htmlFor="email" className="title-css" style={{ color: getColor(theme.minorBg) }}>
                       ایمیل
                     </label>
-                    <h3 className="email-text-box email-font-size">
+                    <h3 className="email-text-box email-font-size" style={{ color: getColor(theme.minorBg) }}>
                       {convertNumberToPersian(email)}
                     </h3>
                   </div>
@@ -358,17 +353,20 @@ export default function Profile() {
                     className="flex-col show-box show-box-media row-gap-8"
                     style={{ marginTop: "2%" }}
                   >
-                    <label htmlFor="username" className="title-css">
+                    <label htmlFor="username" className="title-css" style={{ color: getColor(theme.minorBg) }}>
                       نام کاربری
                     </label>
-                    <h3 className="email-text-box">
+                    <h3 className="email-text-box" style={{ color: getColor(theme.minorBg) }}>
                       {convertNumberToPersian(username)}
                     </h3>
                   </div>
                 </div>
                 <div className="profile--birthday-border">
                   <div className="profile--birthday-media flex">
-                    <label className="profile--birthday-label">
+                    <label
+                      className="profile--birthday-label"
+                      style={{ color: getColor(theme.minorBg) }}
+                    >
                       تاریخ تولد
                     </label>
                   </div>
@@ -379,12 +377,19 @@ export default function Profile() {
                     value={birthDate}
                     onChange={(val) => setBirthDate(val)}
                     calendarPosition="bottom-right"
-                    style={{ width: "100%" }}
+                    style={{
+                      width: "100%",
+                      backgroundColor: theme.minorBg,
+                      color: getColor(theme.minorBg),
+                    }}
+                    containerStyle={{
+                      backgroundColor: theme.minorBg,
+                      color: getColor(theme.minorBg),
+                    }}
                   />
                 </div>
                 <div>
-                  <StyledTextField
-                    className="otherStyledTextField"
+                  <PerTextField
                     margin="normal"
                     id="bio"
                     label="درباره"
@@ -397,9 +402,6 @@ export default function Profile() {
                     value={bio}
                     rows={2}
                     InputProps={{ style: { fontFamily: "Vazir" } }}
-                    InputLabelProps={{
-                      className: "profile--styleTextField-labelText",
-                    }}
                     autoComplete="bio"
                     autoFocus
                   />
@@ -413,6 +415,7 @@ export default function Profile() {
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                     className="profile--submitButton"
+                    style={{ backgroundColor: theme.primary }}
                   >
                     اعمال تغییرات
                   </Button>

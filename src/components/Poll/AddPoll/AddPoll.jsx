@@ -8,7 +8,6 @@ import {
   Switch,
 } from "@mui/material";
 import PerTextField from "../../Shared/PerTextField";
-import StyledTextField from "../../Shared/StyledTextField";
 import "./AddPoll.scss";
 import React, { useState } from "react";
 import PollOptions from "./PollOptions";
@@ -84,8 +83,7 @@ const AddPoll = ({closeAddPoll}) => {
     <div className="poll_addpoll-container">
       <div className="poll_addpoll-question poll_default">
         <Typography>عنوان نظرسنجی</Typography>
-        <PerTextField>
-          <StyledTextField
+          <PerTextField
             margin="normal"
             variant="filled"
             required
@@ -119,7 +117,6 @@ const AddPoll = ({closeAddPoll}) => {
               margin: 0,
             }}
           />
-        </PerTextField>
       </div>
       <div className="poll_addpoll-options poll_default">
         <Typography>گزینه ها</Typography>

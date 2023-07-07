@@ -49,7 +49,7 @@ const InputName = (props) => {
   };
 
   return (
-    <PerTextField>
+    
       <FormControl variant="standard" fullWidth>
         <ThemeProvider theme={muiTheme}>
           <Input
@@ -65,7 +65,7 @@ const InputName = (props) => {
           />
         </ThemeProvider>
       </FormControl>
-    </PerTextField>
+    
   );
 };
 

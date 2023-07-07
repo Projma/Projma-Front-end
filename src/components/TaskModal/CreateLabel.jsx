@@ -4,7 +4,6 @@ import apiInstance from "../../utilities/axiosConfig";
 
 import {  toast } from "react-toastify";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import StyledTextField from "../Shared/StyledTextField";
 import PerTextField from "../Shared/PerTextField";
 import "../../styles/TaskModal.css";
 import Loading from "../Shared/Loading";
@@ -73,7 +72,7 @@ const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
             marginTop: "2rem",
           }}
         ></div>
-        <PerTextField>
+        
           <div
             className="flex"
             style={{ marginRight: "1.4rem", marginTop: "2rem" }}
@@ -118,7 +117,7 @@ const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
                 justifyContent: "space-between",
               }}
             >
-              <StyledTextField
+              <PerTextField
                 value={createdTitle}
                 onChange={(e) =>
                   setCreatedTitle(convertNumberToPersian(e.target.value))
@@ -138,7 +137,7 @@ const CreateLabel = ({ setShowCreate, params, setAllLabels }) => {
               />
             </div>
           </div>
-        </PerTextField>
+        
         <div className="flex" style={{ marginTop: "2.8rem" }}>
           <button
             className="labels_button-33"

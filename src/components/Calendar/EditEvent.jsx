@@ -8,7 +8,6 @@ import Divider from "@mui/material/Divider";
 import EditIcon from "@mui/icons-material/Edit";
 import apiInstance from "../../utilities/axiosConfig";
 import Avatar from "@mui/material/Avatar";
-import StyledTextField from "../Shared/StyledTextField";
 import PerTextField from "../Shared/PerTextField";
 import Loading from "../Shared/Loading";
 import DateTimePickerValue from "../Shared/DateTimePicker";
@@ -210,9 +209,9 @@ export default function EditEvent({ eventId, calendarId, handleClose }) {
           }}
         />
         <form className="board-form">
-          <PerTextField>
+          
             <div className="calendar_create_event-inputs">
-              <StyledTextField
+              <PerTextField
                 className="calendar_create_event-input"
                 label="عنوان رویداد"
                 InputLabelProps={{
@@ -353,7 +352,7 @@ export default function EditEvent({ eventId, calendarId, handleClose }) {
                     فعالیت
                   </label>
                 </div>
-                <StyledTextField
+                <PerTextField
                   className="calendar_create_event-custom-type-input"
                   label="نوع رویداد"
                   value={convertNumberToPersian(editEvent?.custom_event_type)}
@@ -405,7 +404,7 @@ export default function EditEvent({ eventId, calendarId, handleClose }) {
                 }
               />
 
-              <StyledTextField
+              <PerTextField
                 className="calendar_create_event-input"
                 label="توضیحات"
                 sx={{
@@ -446,7 +445,7 @@ export default function EditEvent({ eventId, calendarId, handleClose }) {
                 />
               </div>
             </div>
-          </PerTextField>
+          
         </form>
       </Box>
     </div>

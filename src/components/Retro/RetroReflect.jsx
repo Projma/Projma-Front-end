@@ -4,7 +4,6 @@ import RetroList from "./content/RetroList";
 import RetroCard from "./content/RetroCard";
 import "./RetroReflect.scss";
 import { useParams } from "react-router";
-import StyledTextField from "../Shared/StyledTextField";
 import PerTextField from "../Shared/PerTextField";
 import NextBtn from "./NextBtn/NextBtn";
 import apiInstance from "../../utilities/axiosConfig";
@@ -139,8 +138,7 @@ const RetroReflect = () => {
               </Typography>
             </div>
             <div className="RetroReflect-list-textfield">
-              <PerTextField>
-                <StyledTextField
+                <PerTextField
                   margin="normal"
                   variant="filled"
                   required
@@ -177,7 +175,6 @@ const RetroReflect = () => {
                     margin: 0,
                   }}
                 />
-              </PerTextField>
             </div>
             <div className="RetroReflect-list-card">
               <div className="RetroReflect-list-card-container">
@@ -214,8 +211,7 @@ const RetroReflect = () => {
               </Typography>
             </div>
             <div className="RetroReflect-list-textfield">
-              <PerTextField>
-                <StyledTextField
+                <PerTextField
                   margin="normal"
                   variant="filled"
                   required
@@ -248,7 +244,6 @@ const RetroReflect = () => {
                     margin: 0,
                   }}
                 />
-              </PerTextField>
             </div>
             <div className="RetroReflect-list-card">
               <div className="RetroReflect-list-card-container">

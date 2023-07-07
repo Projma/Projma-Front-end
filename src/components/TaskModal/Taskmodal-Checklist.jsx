@@ -1,7 +1,7 @@
 import * as React from "react";
 import "../../styles/TaskModal.css";
 import { useState } from "react";
-import StyledTextField from "../Shared/StyledTextField";
+import PerTextField from "../Shared/PerTextField";
 import { Button , Box } from "@mui/material";
 import apiInstance from "../../utilities/axiosConfig";
 
@@ -139,12 +139,12 @@ export default function Taskmodal_CheckList({
                     alignItems: "center",
                   }}
                 >
-                  <StyledTextField
+                  <PerTextField
                     fullWidth
                     autoFocus
                     onChange={(e) => setChecklistTitle(e.target.value)}
                     value={checklistTitle}
-                  ></StyledTextField>
+                  />
                   <div dir="ltr" style={{ marginTop: "3%" }}>
                     <Button
                       onClick={() => {
@@ -244,10 +244,10 @@ export default function Taskmodal_CheckList({
           >
             {showChecklist ? (
               <div>
-                <StyledTextField
+                <PerTextField
                   sx={{ width: "100%" }}
                   onChange={(e) => setChecklistTitle(e.target.value)}
-                ></StyledTextField>
+                />
                 <div dir="ltr" style={{ marginTop: "3%" }}>
                   <Button
                     type="submit"

@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-
 import {  toast } from "react-toastify";
-
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import apiInstance from "../../utilities/axiosConfig";
-import StyledTextField from "../Shared/StyledTextField";
 import Divider from "@mui/material/Divider";
 import PerTextField from "../Shared/PerTextField";
 import Loading from "../Shared/Loading";
@@ -47,7 +44,7 @@ const EditLabel = ({ setShowEdit, item, editThisItem }) => {
             marginTop: "2rem",
           }}
         ></div>
-        <PerTextField>
+        
           <div className="flex" style={{ marginRight: "1.4rem" }}>
             <div
               style={{
@@ -92,7 +89,7 @@ const EditLabel = ({ setShowEdit, item, editThisItem }) => {
                 justifyContent: "space-between",
               }}
             >
-              <StyledTextField
+              <PerTextField
                 value={editedTitle}
                 onChange={(e) =>
                   setEditedTitle(convertNumberToPersian(e.target.value))
@@ -115,7 +112,7 @@ const EditLabel = ({ setShowEdit, item, editThisItem }) => {
               />
             </div>
           </div>
-        </PerTextField>
+        
       </div>
       <div className="flex" style={{ marginTop: "2rem" }}>
         <button
