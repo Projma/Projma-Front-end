@@ -64,6 +64,7 @@ const Vote = () => {
       // console.log("event.type"); // message
       // console.log(event.type); // message
       const message = JSON.parse(event.data);
+      console.log("message");
       console.log(message);
       // // if event.data has type
       // if (event.data.type == 'next_step') {

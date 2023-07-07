@@ -52,6 +52,7 @@ const NextBtn = (props) => {
                     data: { nextStep: nextStep },
                 })
             );
+            console.log("here sending mwssage");
         }
         else {
             // socket.current = new WebSocket(
