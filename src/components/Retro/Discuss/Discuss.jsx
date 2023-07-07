@@ -15,6 +15,7 @@ import NextBtn from "../NextBtn/NextBtn";
 import { createContext, useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {  toast } from "react-toastify";
+import { baseUrlForSocket } from "../../../utilities/constants";
 
 
 const Discuss = () => {
@@ -78,7 +79,7 @@ const Discuss = () => {
         });
 
         socket.current = new WebSocket(
-            `ws://localhost:8000/ws/socket-server/retro/discuss/${localStorage.getItem(
+            `${baseUrlForSocket}ws/socket-server/retro/discuss/${localStorage.getItem(
                 "retro_id"
             )}/?token=${localStorage.getItem("access_token")}`
         );

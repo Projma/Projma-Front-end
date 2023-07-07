@@ -75,30 +75,59 @@ jobs:
           # tags: farzanrahmani/projmafrontend:$(date +%s)
           tags: farzanrahmani/projmafrontend:latest
 
-  # deploy:
+  deploy:
 
-  #   needs: publish
+    needs: publish
     
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     -
-  #       name: Checkout
-  #       uses: actions/checkout@v3
-  #     -
-  #       name: Set up SSH
-  #       uses: webfactory/ssh-agent@v0.7.0
-  #       with:
-  #         ssh-private-key: ${{ secrets.SSH_KEY }}
-  #     -
-  #       name: Set up on server
-  #       run: |
-  #         ssh -o StrictHostKeyChecking=no -i ${{ env.SSH_AUTH_SOCK }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "sudo docker ps -q | xargs sudo docker stop | xargs sudo docker rm && sudo docker pull farzanrahmani/projmafrontend:latest && sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest"
-  #       #ssh -o StrictHostKeyChecking=no -i ${{ env.SSH_AUTH_SOCK }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "sudo docker ps | sudo grep "farzanrahmani/projmafrontend" | sudo awk '{print $1}' | xargs -I {} sudo docker stop {} | xargs sudo docker rm && sudo docker pull farzanrahmani/projmafrontend:latest && sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest"
-        
-  #       # shell: bash
-  #       # env:
-  #       #   SSH_AUTH_SOCK: /tmp/ssh_agent.sock # Default ssh-agent socket
-  #       #   SSH_AUTH_SOCK: ${{ secrets.SSH_KEY }}
-  #       #   SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
-  #       #   SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
-  #       #   SSH_KEY_PATH: ${{ github.workspace }}/../private.key
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      
+      # ## with ssh key ##
+      # -
+      #   name: Set up SSH
+      #   uses: webfactory/ssh-agent@v0.7.0
+      #   with:
+      #     ssh-private-key: ${{ secrets.SSH_KEY }}
+      # -
+      #   name: Set up on server
+      #   run: |
+      #     ssh -o StrictHostKeyChecking=no -i ${{ env.SSH_AUTH_SOCK }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "sudo docker ps -q | xargs sudo docker stop | xargs sudo docker rm && sudo docker pull farzanrahmani/projmafrontend:latest && sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest"
+      #   #ssh -o StrictHostKeyChecking=no -i ${{ env.SSH_AUTH_SOCK }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "sudo docker ps | sudo grep "farzanrahmani/projmafrontend" | sudo awk '{print $1}' | xargs -I {} sudo docker stop {} | xargs sudo docker rm && sudo docker pull farzanrahmani/projmafrontend:latest && sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest"
+      #     # shell: bash
+      #     # env:
+      #     #   SSH_AUTH_SOCK: /tmp/ssh_agent.sock # Default ssh-agent socket
+      #     #   SSH_AUTH_SOCK: ${{ secrets.SSH_KEY }}
+      #     #   SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+      #     #   SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
+      #     #   SSH_KEY_PATH: ${{ github.workspace }}/../private.key
+      
+      # https://github.com/appleboy/ssh-action
+      ## with password ##
+      - 
+        name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          # script: whoami
+          script: |
+            sudo docker ps | sudo grep "farzanrahmani/projmafrontend" | sudo awk '{print $1}' | xargs -I {} sudo docker stop {} | xargs sudo docker rm
+            sudo docker pull farzanrahmani/projmafrontend:latest
+            sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest
+            
+        # sudo docker ps -q | xargs sudo docker stop | xargs sudo docker rm
+        # sudo docker pull farzanrahmani/projmafrontend:latest
+        # sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest
+
+      # -
+      #   name: Set up on server
+      #   run: |
+      #     "sudo docker ps -q | xargs sudo docker stop | xargs sudo docker rm && sudo docker pull farzanrahmani/projmafrontend:latest && sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest"
+      #   #"sudo docker ps | sudo grep "farzanrahmani/projmafrontend" | sudo awk '{print $1}' | xargs -I {} sudo docker stop {} | xargs sudo docker rm && sudo docker pull farzanrahmani/projmafrontend:latest && sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest"
+      
+

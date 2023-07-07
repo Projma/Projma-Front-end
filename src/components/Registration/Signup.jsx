@@ -19,7 +19,7 @@ import StyledTextField from "./StyledTextField";
 import apiInstance from "../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom"; // comment for tests
 import { useLocation } from "react-router-dom";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 import Loading from "../Shared/Loading";
 import { Helmet } from "react-helmet";
@@ -112,7 +112,7 @@ export default function SignUp() {
             position: toast.POSITION.BOTTOM_LEFT,
             rtl: true,
           });
-          delay(4000).then(() => navigate("/signin")); // comment for tests
+          delay(4000).then(() => (window.location.href = "/signin"));
         })
         .catch((res) => {
           if (
