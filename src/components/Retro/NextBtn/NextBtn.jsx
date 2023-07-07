@@ -55,7 +55,7 @@ const NextBtn = (props) => {
         }
         else {
             // socket.current = new WebSocket(
-            //     `ws://localhost:8000/ws/socket-server/retro/vote/${localStorage.getItem(
+            //     `${baseUrlForSocket}/ws/socket-server/retro/vote/${localStorage.getItem(
             //         "retro_id"
             //     )}/?token=${localStorage.getItem("access_token")}`
             // );
@@ -118,12 +118,12 @@ const NextBtn = (props) => {
     useEffect(() => {
 
         // socket.current = new WebSocket(
-        //     `ws://localhost:8000/ws/socket-server/retro/session/${localStorage.getItem("retro_id")}/?token=${localStorage.getItem(
+        //     `${baseUrlForSocket}/ws/socket-server/retro/session/${localStorage.getItem("retro_id")}/?token=${localStorage.getItem(
         //         "access_token"
         //     )}`
         // );
         // socket.current = new WebSocket(
-        //     `ws://localhost:8000/ws/socket-server/retro/discuss/${localStorage.getItem(
+        //     `${baseUrlForSocket}/ws/socket-server/retro/discuss/${localStorage.getItem(
         //         "retro_id"
         //     )}/?token=${localStorage.getItem("access_token")}`
         // );
