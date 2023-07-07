@@ -85,7 +85,7 @@ jobs:
         name: Checkout
         uses: actions/checkout@v3
       
-      # ## with ssh key ##
+      # ## with ssh-private-key ##
       # -
       #   name: Set up SSH
       #   uses: webfactory/ssh-agent@v0.7.0
@@ -104,30 +104,21 @@ jobs:
       #     #   SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
       #     #   SSH_KEY_PATH: ${{ github.workspace }}/../private.key
       
-      # https://github.com/appleboy/ssh-action
       ## with password ##
+      # https://github.com/appleboy/ssh-action
       - 
-        name: executing remote ssh commands using password
+        name: Set up on server
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          # script: whoami
           script: |
             sudo docker ps | sudo grep "farzanrahmani/projmafrontend" | sudo awk '{print $1}' | xargs -I {} sudo docker stop {} | xargs sudo docker rm
             sudo docker pull farzanrahmani/projmafrontend:latest
             sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest
             
-        # sudo docker ps -q | xargs sudo docker stop | xargs sudo docker rm
-        # sudo docker pull farzanrahmani/projmafrontend:latest
-        # sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest
-
-      # -
-      #   name: Set up on server
-      #   run: |
-      #     "sudo docker ps -q | xargs sudo docker stop | xargs sudo docker rm && sudo docker pull farzanrahmani/projmafrontend:latest && sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest"
-      #   #"sudo docker ps | sudo grep "farzanrahmani/projmafrontend" | sudo awk '{print $1}' | xargs -I {} sudo docker stop {} | xargs sudo docker rm && sudo docker pull farzanrahmani/projmafrontend:latest && sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest"
-      
-
+          # sudo docker ps -q | xargs sudo docker stop | xargs sudo docker rm
+          # sudo docker pull farzanrahmani/projmafrontend:latest
+          # sudo docker run -d -p 80:80 farzanrahmani/projmafrontend:latest
