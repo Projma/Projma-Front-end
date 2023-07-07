@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useSelector , useEffect } from "react";
+import { useState, useSelector, useEffect } from "react";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -10,7 +10,7 @@ import StyledTextField from "../../Shared/StyledTextField";
 import PerTextField from "../../Shared/PerTextField";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
 import "./CreateBoard.scss";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
 
@@ -22,10 +22,10 @@ import {
 } from "../../../utilities/helpers";
 import useTheme from "../../../hooks/useTheme";
 
-
 export default function CreateBoardModal({}) {
   const navigate = useNavigate();
   const navigateToBoard = (boardId) => {
+    console.log(`/kanban/${boardId}`);
     navigate(`/kanban/${boardId}`);
   };
   const handleChange = (e) => {
@@ -52,7 +52,7 @@ export default function CreateBoardModal({}) {
     setFile(x);
     setOpen(false);
   };
-  const {theme} = useTheme();
+  const { theme } = useTheme();
   const style = {
     position: "absolute",
     top: "50%",
@@ -81,19 +81,18 @@ export default function CreateBoardModal({}) {
   const on_submit = (form_data) => {
     setIsPost(true);
     apiInstance
-    .post(
-      `/workspaces/workspaceowner/${workspaceId}/create-board/`,
-      form_data
+      .post(
+        `/workspaces/workspaceowner/${workspaceId}/create-board/`,
+        form_data
       )
       .then((res) => {
-        const id = res.data.id;
-        apiInstance.post("/calendar/simple-calendar/", {board: id}).then(res => {
-          toast.success("بورد با موفقیت ساخته شد", {
-            position: toast.POSITION.BOTTOM_LEFT,
-            rtl: true,
-          });
-          delay(6000).then(() => navigateToBoard(res.data.id));
+        toast.success("بورد با موفقیت ساخته شد", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
         });
+        const id = res.data.id;
+        apiInstance.post("/calendar/simple-calendar/", { board: id });
+        delay(6000).then(() => navigateToBoard(res.data.id));
       })
       .finally(() => {
         setIsPost(null);
@@ -176,7 +175,6 @@ export default function CreateBoardModal({}) {
           color: "white",
         }}
       >
-
         <h3>بوردتو بساز!😁</h3>
       </Button>
       <Modal

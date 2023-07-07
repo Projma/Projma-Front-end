@@ -22,7 +22,7 @@ const WsBoard = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  const {theme, getColor} = useTheme();
+  const { theme, getColor } = useTheme();
   let params = useParams();
 
   useEffect(() => {
@@ -82,12 +82,15 @@ const WsBoard = () => {
         workspace={workspace}
         setWorkspace={setWorkspace}
       /> */}
-      <div className="workspace-board-section" style={{ color: getColor(theme.mainBg)}}>
+      <div
+        className="workspace-board-section"
+        style={{ color: getColor(theme.mainBg) }}
+      >
         {recent.length > 0 && (
           <div>
             <div className="workspace--recent-board">
               <div className="workspace--board-header">
-                <AccessTimeIcon sx={{ color: theme.primary}}/>
+                <AccessTimeIcon sx={{ color: theme.primary }} />
                 <p className="workspace--board-header-title">آخرین بورد ها</p>
               </div>
               <div className="workspace--board-body">
@@ -116,7 +119,7 @@ const WsBoard = () => {
           <div>
             <div className="workspace--starred-board">
               <div className="workspace--board-header">
-                <StarIcon sx={{ color: theme.primary}}/>
+                <StarIcon sx={{ color: theme.primary }} />
                 <p className="workspace--board-header-title">بورد های مهم</p>
               </div>
               <div className="workspace--board-body">
@@ -139,8 +142,8 @@ const WsBoard = () => {
         )}
         <div className="workspace--my-board">
           <div className="workspace--board-header">
-            <DashboardIcon sx={{ color: theme.primary}}/>
-            <p className="workspace--board-header-title" >بورد ها</p>
+            <DashboardIcon sx={{ color: theme.primary }} />
+            <p className="workspace--board-header-title">بورد ها</p>
           </div>
           <div className="workspace--board-body">
             <div className="workspace--board-body-boards">
@@ -160,7 +163,7 @@ const WsBoard = () => {
                 />
               ))}
               <CreateBoardModal
-                params={params}
+                // params={params}
                 // on_submit={on_submit}
                 boards={boards}
                 setBoards={setBoards}
