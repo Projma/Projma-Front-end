@@ -11,6 +11,7 @@ import apiInstance from "../../utilities/axiosConfig";
 import useTheme from "../../hooks/useTheme";
 import { useNavigate } from "react-router-dom";
 import { Button } from "bootstrap";
+import { baseUrlForSocket } from "../../utilities/constants";
 
 const RetroReflect = () => {
   const params = useParams();
@@ -72,7 +73,7 @@ const RetroReflect = () => {
 
   useEffect(() => {
     socket.current = new WebSocket(
-      `ws://localhost:8000/ws/socket-server/retro/reflect/${localStorage.getItem(
+      `${baseUrlForSocket}/ws/socket-server/retro/reflect/${localStorage.getItem(
         "retro_id"
       )}/?token=${localStorage.getItem("access_token")}`
     );
