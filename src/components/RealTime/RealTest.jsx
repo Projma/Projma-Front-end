@@ -1,11 +1,12 @@
 import React from "react";
 import { useEffect } from "react";
 // import WebSocket from "ws";
+import { baseUrlForSocket } from "../../utilities/constants";
 
 const RealTest = () => {
   // const socket = new WebSocket("");
   const socket = new WebSocket(
-    `ws://localhost:8000/ws/socket-server/board/?token=${localStorage.getItem(
+    `${baseUrlForSocket}/ws/socket-server/board/?token=${localStorage.getItem(
       "access_token"
     )}`
   );
