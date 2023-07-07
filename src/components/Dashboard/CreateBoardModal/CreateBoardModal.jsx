@@ -78,14 +78,14 @@ export default function CreateBoardModal({ workspace_id }) {
         form_data
       )
       .then((res) => {
-        toast.success("بورد با موفقیت ساخته شد", {
-          position: toast.POSITION.BOTTOM_LEFT,
-          rtl: true,
-        });
-        console.log(res.data);
         const id = res.data.id;
-        apiInstance.post("/calendar/simple-calendar/", {board: id});
-        delay(6000).then(() => navigateToBoard(res.data.id));
+        apiInstance.post("/calendar/simple-calendar/", {board: id}).then(res => {
+          toast.success("بورد با موفقیت ساخته شد", {
+            position: toast.POSITION.BOTTOM_LEFT,
+            rtl: true,
+          });
+          delay(6000).then(() => navigateToBoard(res.data.id));
+        });
       })
       .finally(() => setIsPost(null));
   };
