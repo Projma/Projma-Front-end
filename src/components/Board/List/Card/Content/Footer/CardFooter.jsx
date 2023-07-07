@@ -22,7 +22,7 @@ const CardFooter = ({
         checklists_num !== 0 ||
         comments_num !== 0 ||
         doers.length !== 0) && (
-        <div className="card_footer">
+        <div className="card_footer" style={{color: getColor(theme.minorBg)}}>
           {doers.length !== 0 && (
             <div className="card_card-avatar">
               <AvatarGroup
