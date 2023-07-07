@@ -1,5 +1,5 @@
 import * as React from "react";
-import "../../styles/TaskModal.css";
+import "../../styles/TaskModal.scss";
 import { useState } from "react";
 import { Button } from "@mui/material";
 import apiInstance from "../../utilities/axiosConfig";

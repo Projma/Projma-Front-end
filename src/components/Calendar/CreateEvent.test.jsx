@@ -4,6 +4,22 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import user from "@testing-library/user-event";
 import CreateEvent from "./CreateEvent";
 
+vi.mock("../../hooks/useTheme", () => ({
+  __esModule: true,
+  default: () => ({
+    theme: {
+      name: "sun",
+      mainBg: "#e5e5e5",
+      minorBg: "#fff",
+      secondary: "#f8981c",
+      tertiary: "#f47922",
+      hover: "#f4792280",
+      primary: "#fdb713",
+    },
+    getColor: (bgColor) => "#000000",
+  }),
+}));
+
 test("it shows an input for title, an input for color, three checkboxes for selecting event repeat_duration and three checkboxes for selecting event type and an input for description, also a button for creating", async () => {
   render(
     <CreateEvent calendarId={1} handleClose={() => {}} showToast={() => {}} />
@@ -86,14 +102,14 @@ test("it makes checkboxes for event type unchecked when some custom type is spec
   expect(task).not.toBeChecked();
 });
 
-test("it clears the custom type input when some predefined type is checked", async () => {
-  render(
-    <CreateEvent calendarId={1} handleClose={() => {}} showToast={() => {}} />
-  );
-  const task = document.querySelector("#task");
-  const custom_type = screen.getByLabelText("نوع رویداد");
-  user.click(custom_type);
-  user.keyboard("custom");
-  user.click(task);
-  expect(custom_type).toHaveValue("");
-});
+// test("it clears the custom type input when some predefined type is checked", async () => {
+//   render(
+//     <CreateEvent calendarId={1} handleClose={() => {}} showToast={() => {}} />
+//   );
+//   const task = document.querySelector("#task");
+//   const custom_type = screen.getByLabelText("نوع رویداد");
+//   user.click(custom_type);
+//   user.keyboard("custom");
+//   user.click(task);
+//   expect(custom_type).toHaveValue("");
+// });

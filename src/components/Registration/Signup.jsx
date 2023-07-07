@@ -149,7 +149,6 @@ export default function SignUp() {
     }
     document.getElementById("em").innerHTML = errorMessage;
   }
-
   return (
     <CacheProvider value={cacheRtl}>
       {/* <Header></Header> */}

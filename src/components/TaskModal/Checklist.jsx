@@ -8,7 +8,7 @@ import LabelIcon from "@mui/icons-material/Label";
 import Divider from "@mui/material/Divider";
 import { makeStyles } from "@mui/styles";
 import { Input } from "@mui/material";
-import "../../styles/TaskModal.css";
+import "../../styles/TaskModal.scss";
 import "./Checklist.scss";
 import {  toast } from "react-toastify";
 

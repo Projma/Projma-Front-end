@@ -15,7 +15,7 @@ import AddIcon from "@mui/icons-material/Add";
 import Divider from "@mui/material/Divider";
 import { toast } from "react-toastify";
 
-import "../../styles/TaskModal.css";
+import "../../styles/TaskModal.scss";
 import Loading from "../Shared/Loading";
 import ShowListOfLabels from "./ShowListOfLabels";
 import "./Labels.scss";

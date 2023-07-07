@@ -69,30 +69,25 @@ function App() {
             backgroundColor: theme.mainBg,
             border: `0.2rem solid ${theme.primary} !important`,
             fontSize: "1.3rem !important",
-            color: getColor(theme.mainBg)
-          }
-        }
-      }, MuiAvatar: {
+            color: getColor(theme.mainBg),
+          },
+        },
+      },
+      MuiAvatar: {
         styleOverrides: {
           root: {
             textAlign: "center",
-            border: `none !important`
+            border: `none !important`,
           },
-        }
-      }
-    }
+        },
+      },
+    },
   });
+  document.body.style.backgroundColor = theme.mainBg;
   return (
     <div
       className={"app styled-scrollbars"}
       style={{
-        "--main-bg": theme.mainBg,
-        "--minor-bg": theme.minorBg,
-        "--primary": theme.primary,
-        "--secondary": theme.secondary,
-        "--tertiary": theme.tertiary,
-        "--hover": theme.hover,
-        "--text": theme.text,
         backgroundColor: theme.mainBg,
         animation: "color-change 10s ease-in-out infinite",
       }}
@@ -105,7 +100,11 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        style={{ fontSize: "1.2rem", backgroundColor: theme.minorBg, color: getColor(theme.minorBg) }}
+        toastStyle={{
+          fontSize: "1.2rem",
+          backgroundColor: theme.secondary,
+          color: getColor(theme.secondary),
+        }}
       />
       <ThemeProvider theme={muiTheme}>
         <Provider store={store}>

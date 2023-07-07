@@ -15,7 +15,7 @@ const cacheRtl = createCache({
 
 const PerTextField = (props) => {
   const { theme, getColor } = useTheme();
-  const PerTextField = styled(TextField)({
+  const STF = styled(TextField)({
     "& label": {
       color: getColor(theme.minorBg)
     },
@@ -64,12 +64,13 @@ const PerTextField = (props) => {
         color: getColor(theme.minorBg),  
         opacity: 0.6, 
       },
-      color: getColor(theme.minorBg)
-    }
+      color: getColor(theme.secondary),
+      backgroundColor: theme.secondary,
+        }
   });
   return (
     <CacheProvider value={cacheRtl}>
-        <PerTextField {...props} />
+        <STF {...props} />
     </CacheProvider>
   );
 };

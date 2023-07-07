@@ -1,7 +1,7 @@
 .tm_labels-main-div {
   width: 40rem;
   height: 40rem;
-  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
+  background-color: $minor-bg;
   // overflow: auto;
 }
 
@@ -15,7 +15,7 @@
   align-items: center;
   padding: 0px 1px;
   margin-bottom: 2rem;
-  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
+  background-color: $minor-bg;
   opacity: 0.9;
 }
 
@@ -29,7 +29,7 @@
   overflow-y: scroll;
   // overflow-x: hidden;
   padding: 0px 1px;
-  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
+  background-color: $minor-bg;
 }
 
 .tm_labels-li {

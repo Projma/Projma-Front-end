@@ -6,7 +6,7 @@ import apiInstance from "../../utilities/axiosConfig";
 import LabelIcon from "@mui/icons-material/Label";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Divider from "@mui/material/Divider";
-import "../../styles/TaskModal.css";
+import "../../styles/TaskModal.scss";
 import Loading from "../Shared/Loading";
 import {  toast } from "react-toastify";
 

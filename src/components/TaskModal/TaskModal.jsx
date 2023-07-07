@@ -13,7 +13,7 @@ import Taskmodal_Attachment from "./Taskmodal-Attachment";
 import TaskModal_Activity from "./Taskmodal-Activity";
 import Attachments from "./Attachments";
 import CheckList from "./Checklist";
-import "../../styles/TaskModal.css";
+import "../../styles/TaskModal.scss";
 import { useState, useCallback, useEffect } from "react";
 import { CacheProvider } from "@emotion/react";
 import { Button } from "@mui/material";
@@ -23,8 +23,8 @@ import InitialIcon from "./InitialIcon";
 import { Link } from "react-router-dom";
 import { convertNumberToPersian } from "../../utilities/helpers";
 import Loading from "../Shared/Loading";
-
-const theme = createTheme({
+import useTheme from "../../hooks/useTheme";
+const MuiTheme = createTheme({
   direction: "rtl", // Both here and <body dir="rtl">
 });
 // Create rtl cache
@@ -33,7 +33,7 @@ const cacheRtl = createCache({
   stylisPlugins: [prefixer, rtlPlugin],
 });
 
-function APIcall() {}
+
 
 export default function TaskModal(props) {
   const params = { task_id: props.cardId, board_id: props.boardId };
@@ -165,6 +165,7 @@ export default function TaskModal(props) {
   const [allAttachments, setAllAttachments] = useState([]);
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
+  const {theme, getColor} = useTheme()
 
   useEffect(() => {
     apiInstance.get(`/board/${params.board_id}/members/`).then((res) => {
@@ -231,10 +232,10 @@ export default function TaskModal(props) {
     <div>
       {isPost ? <Loading /> : null}
       <CacheProvider value={cacheRtl}>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={MuiTheme}>
           <div
             className="taskmodal--page"
-            style={{ width: "50vw", marginTop: 0 }}
+            style={{ width: "50vw", marginTop: 0, color: getColor(theme.minorBg) }}
           >
             <div className="taskmodal--container" style={{ width: "100%" }}>
               <div className="taskmodal--header flex-row flex-column-gap-2">

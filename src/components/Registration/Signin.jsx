@@ -103,9 +103,8 @@ export default function SignIn() {
     key: "muirtl",
     stylisPlugins: [prefixer, rtlPlugin],
   });
-
   return (
-    <div style={{width: "100%", height: "100%"}}>
+    <div style={{width: "100%", height: "100vh"}}>
       {/* <Header></Header> */}
       <Helmet>
         <title>صفحه ورود</title>
@@ -181,8 +180,10 @@ export default function SignIn() {
                     className: "Registration--PerTextField-inputProps",
                   }}
                   onChange={(e) => setPassword(e.target.value)}
+                  value={password}
                   error={errorPassword}
                   autoComplete="current-password"
+                  autoFocus
                 />
                 <Button
                   type="submit"

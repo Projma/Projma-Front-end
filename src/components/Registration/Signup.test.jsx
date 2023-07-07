@@ -5,6 +5,22 @@ import { BrowserRouter as Router } from "react-router-dom";
 import user from "@testing-library/user-event";
 import SignUp from "./Signup";
 
+vi.mock("../../hooks/useTheme", () => ({
+  __esModule: true,
+  default: () => ({
+    theme: {
+      name: "sun",
+      mainBg: "#e5e5e5",
+      minorBg: "#fff",
+      secondary: "#f8981c",
+      tertiary: "#f47922",
+      hover: "#f4792280",
+      primary: "#fdb713",
+    },
+    getColor: (bgColor) => "#000000",
+  }),
+}));
+
 test("inputs", () => {
   render(
     <Router>

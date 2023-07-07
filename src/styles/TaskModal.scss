@@ -6,11 +6,11 @@
 .taskmodal--page {
   display: flex;
   flex-direction: row;
-  column-gap: 15px;
+  gap: 1rem;
   /* justify-content: space-around; */
   justify-content: center;
   align-items: center;
-  width: 110% !important;
+  max-width: 57rem; 
   height: 90vh;
 }
 
@@ -29,12 +29,10 @@
   padding-top: 0px;
   margin-left: 2%;
   justify-content: center;
-  color: white !important;
 }
 
 .taskmodal--comment-button-remove {
   font-family: "Vazir" !important;
-  color: white !important;
   font-size: 10px !important;
   padding-right: 0px !important;
   text-decoration: underline !important;
@@ -63,8 +61,7 @@
   /* display: flex; */
   /* place-items: center; */
   /* justify-content: flex-start; */
-  /* //background-color: rgb(234, 234, 234); */
-  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
+  background-color: $minor-bg;
   border-radius: 30px;
   justify-content: center;
   align-items: center;
@@ -73,7 +70,7 @@
 }
 
 .taskmodal--box {
-  background-image: linear-gradient(to right bottom, #001e3c 0%, #0059b2 130%);
+  background-color: $minor-bg;
   border-radius: 53px;
   padding: 60px 80px;
   font-size: 16.5729px;
@@ -89,10 +86,7 @@
 .flex-taskmodal {
   display: flex;
 }
-.flex-column {
-  display: flex;
-  flex-direction: column;
-}
+
 .flex-row {
   display: flex;
   flex-direction: row;
@@ -127,10 +121,11 @@
 }
 
 .taskmodal--body-smaller {
-  width: 25%;
   height: 100%;
+  display: flex;
+  flex-flow: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .taskmodal--body-members {
@@ -173,13 +168,11 @@
 .taskmodal--body-attachment-list-item-createdTime {
   margin-top: 2%;
   font-size: 12px;
-  color: white;
 }
 
 .taskmodal--body-attachment-list-item-title {
   font-weight: bold;
   font-size: 14px;
-  color: white;
 }
 
 .taskmodal--body-labels {
@@ -254,7 +247,6 @@
   text-decoration: line-through;
   display: flex;
   justify-content: flex-start;
-  color: white !important;
 }
 
 .taskmodal--body-activity-box {
@@ -264,16 +256,14 @@
 }
 
 .neonText {
-  color: #fff;
-  text-shadow: 0 0 7px rgb(193, 180, 180), 0 0 10px rgb(193, 180, 180),
-    0 0 21px rgb(193, 180, 180), 0 0 42px #5271ff, 0 0 82px #5271ff,
-    0 0 92px #5271ff, 0 0 102px #5271ff, 0 0 151px #5271ff;
+  text-shadow: 0 0 7px #eee, 0 0 10px #eee,
+    0 0 21px #eee, 0 0 42px $primary, 0 0 82px $primary,
+    0 0 92px $primary, 0 0 102px $primary, 0 0 151px $primary;
 }
 
 .taskmodal--description-title {
   font-size: 14px;
   /* font-weight: 600; */
-  color: #fff;
 }
 
 .taskmodal--attachment-link-btn {
@@ -284,17 +274,14 @@
 }
 
 .taskmodal--button-setting {
-  color: white;
   font-family: "Vazir" !important;
   font-size: 10px !important;
 }
 
 .taskmodal--closeButton {
   width: 100%;
-  color: white !important;
   font-family: "Vazir" !important;
   font-size: 100% !important;
-  //background-color: #1d4b7a !important;
 }
 
 .taskmodal--body-activity {
@@ -323,7 +310,6 @@
   font-size: 15px;
   margin-right: 2%;
   font-weight: bold;
-  color: rgba(255, 255, 255, 0.885);
 }
 
 .taskmodal--description-showList-comment {
@@ -331,7 +317,6 @@
   padding: 5%;
   border-radius: 10px;
   margin-right: 0px;
-  color: white !important;
   //background-color: #557ea9c3;
   overflow: auto;
   font-family: "Vazir" !important;
@@ -343,11 +328,9 @@
   font-size: 13px;
   margin-top: 2%;
   margin-right: 2%;
-  //background-color: #557ea9c3;
   padding: 2%;
   padding-right: 3%;
   border-radius: 35px;
-  color: white;
   width: 90%;
   overflow: auto;
 }
@@ -405,10 +388,8 @@
 }
 
 .taskmodal--plusforprojma-input {
-  //background-color: #7498bec3;
   display: flex;
   justify-content: center;
-  color: white;
   width: 30px;
   margin-right: 10%;
   height: 20px;
@@ -420,7 +401,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
 }
 
 .taskmodal--body-duetime {
@@ -440,10 +420,8 @@
 .taskmodal--activity-plusforprojma-button {
   margin-right: 13% !important;
   border-radius: 6px;
-  border-color: white;
   display: flex;
   align-items: center;
-  color: white;
   font-family: "Vazir" !important;
   font-size: 10px !important;
   height: 30%;
@@ -451,7 +429,6 @@
 
 .taskmodal--activity-PerTextField {
   width: 20%;
-  color: white !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
 }

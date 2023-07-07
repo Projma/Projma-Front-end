@@ -78,7 +78,6 @@ const AddList = (props) => {
               value={listName}
               placeholder="اسم لیست را در این بخش بنویسید"
               InputProps={{
-                disableUnderline: true,
                 style: {
                   // height: "50px",
                   // padding: "0 14px",

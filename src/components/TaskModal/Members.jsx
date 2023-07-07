@@ -2,7 +2,7 @@ import * as React from "react";
 import Popover from "@mui/material/Popover";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import "../../styles/TaskModal.css";
+import "../../styles/TaskModal.scss";
 import "./Members.scss";
 import PersonIcon from "@mui/icons-material/Person";
 import { useEffect } from "react";

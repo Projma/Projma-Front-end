@@ -14,7 +14,7 @@ export default defineConfig({
     setupFiles: "./tests/setup.js",
     coverage: {
       reporter: ["html", "json", "text"],
-      provider: "istanbul",
+      provider: "c8",
       enabled: true,
       all: true,
     },
@@ -22,7 +22,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "./src/theme/theme.scss";`,
+        additionalData: `@import "./src/Theme/theme.scss";`,
       },
     },
   },
@@ -30,4 +30,13 @@ export default defineConfig({
     outDir: "build",
   },
   plugins: [svgr(), react(), reactRefresh()],
+  resolve: {
+    alias: [
+        {
+            // this is required for the SCSS modules
+            find: /^~(.*)$/,
+            replacement: '$1',
+        },
+    ],
+},
 });

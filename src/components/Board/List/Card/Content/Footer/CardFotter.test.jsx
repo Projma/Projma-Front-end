@@ -18,6 +18,7 @@ describe('CardFooter', () => {
       getColor: (bgColor) => "#000000",
     }),
   }));
+  
   it('renders correctly', () => {
     const doers = [
       {

@@ -5,7 +5,7 @@ import apiInstance from "../../utilities/axiosConfig";
 import {  toast } from "react-toastify";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import PerTextField from "../Shared/PerTextField";
-import "../../styles/TaskModal.css";
+import "../../styles/TaskModal.scss";
 import Loading from "../Shared/Loading";
 // persian num
 import { convertNumberToPersian } from "../../utilities/helpers";
