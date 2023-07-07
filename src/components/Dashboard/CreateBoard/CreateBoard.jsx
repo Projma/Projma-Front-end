@@ -91,7 +91,7 @@ export default function CreateBoardModal({}) {
           rtl: true,
         });
         const id = res.data.id;
-        apiInstance.post("/calendar/simple-calenadr", {board: id});
+        apiInstance.post("/calendar/simple-calendar/", {board: id});
         delay(6000).then(() => navigateToBoard(res.data.id));
       })
       .finally(() => {

@@ -4,6 +4,7 @@ exports[`CardFooter > renders correctly 1`] = `
 <div>
   <div
     class="card_footer"
+    style="color: rgb(0, 0, 0);"
   >
     <div
       class="card_card-avatar"
