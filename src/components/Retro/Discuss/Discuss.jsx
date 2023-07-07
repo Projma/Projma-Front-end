@@ -79,7 +79,7 @@ const Discuss = () => {
         });
 
         socket.current = new WebSocket(
-            `${baseUrlForSocket}ws/socket-server/retro/discuss/${localStorage.getItem(
+            `${baseUrlForSocket}/ws/socket-server/retro/discuss/${localStorage.getItem(
                 "retro_id"
             )}/?token=${localStorage.getItem("access_token")}`
         );

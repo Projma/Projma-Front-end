@@ -183,7 +183,7 @@ export const Dashborad = () => {
 
   useEffect(() => {
     apiInstance
-      .get("/workspaces/templates/")
+      .get("/template/")
       .then((response) => {
         ////console.log(response.data);
         // [
