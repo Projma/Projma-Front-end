@@ -105,7 +105,11 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        style={{ fontSize: "1.2rem", backgroundColor: theme.minorBg, color: getColor(theme.minorBg) }}
+        toastStyle={{
+          fontSize: "1.2rem",
+          backgroundColor: theme.secondary,
+          color: getColor(theme.secondary),
+        }}
       />
       <ThemeProvider theme={muiTheme}>
         <Provider store={store}>

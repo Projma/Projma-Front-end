@@ -188,7 +188,7 @@ const List = ({ task, name, listId, index, boardId }) => {
               horizontal: "left",
             }}
           >
-            <div className="board_option">
+            <div className="board_option" style={{color: getColor(theme.minorBg)}}>
               <p className="board_option-text board_option-title">
                 فهرست اقدامات لیست
               </p>
@@ -197,7 +197,7 @@ const List = ({ task, name, listId, index, boardId }) => {
                   className="board_option-button"
                   onClick={addCardClickHandler}
                 >
-                  <p className="board_option-text">افزودن کارت</p>
+                  <p className="board_option-text" style={{color: getColor(theme.minorBg)}}>افزودن کارت</p>
                 </button>
                 <button
                   className="board_option-button"
@@ -205,7 +205,7 @@ const List = ({ task, name, listId, index, boardId }) => {
                     setIsOpen(true);
                   }}
                 >
-                  <p className="board_option-text">حذف کردن لیست</p>
+                  <p className="board_option-text" style={{color: getColor(theme.minorBg)}}>حذف کردن لیست</p>
                 </button>
                 <DeleteListDialog
                   isOpen={isOpen}
