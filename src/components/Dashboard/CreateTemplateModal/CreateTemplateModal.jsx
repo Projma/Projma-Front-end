@@ -39,12 +39,13 @@ const style = {
 
 export default function CreateTemplateModal(props) {
     const navigate = useNavigate();
+    const [workspaceId, setWorkspaceId] = React.useState(-1);
     const navigateToBoard = (boardId) => {
-        navigate(`/kanban/${boardId}`);
+        // navigate(`/kanban/${boardId}`);
+        navigate(`/workspace/${workspaceId}/kanban/${boardId}/board`);
     };
     const [binaryFile, setBinaryFile] = useState(null);
     const [open, setOpen] = React.useState(false);
-    const [workspaceId, setWorkspaceId] = React.useState(-1);
     const handleOpen = () => {
         setWorkspaceId(-1);
         setTitle("");
@@ -69,7 +70,8 @@ export default function CreateTemplateModal(props) {
     const on_submit = (form_data) => {
         apiInstance
             .get(
-                `/workspaces/templates/${props.template_id}/create-board-from-template/${workspaceId}/`// ,
+                // `/workspaces/templates/${props.template_id}/create-board-from-template/${workspaceId}/`// ,
+                `/template/${props.template_id}/create-board-from-template/${workspaceId}/`
             )
             .then((res) => {
 
