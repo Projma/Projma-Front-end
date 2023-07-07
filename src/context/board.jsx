@@ -2,6 +2,7 @@ import React, { createContext, useState, useCallback, useRef } from "react";
 import apiInstance from "../utilities/axiosConfig";
 import Loading from "../components/Shared/Loading";
 import { baseUrl } from "../utilities/constants";
+import { baseUrlForSocket } from "../utilities/constants";
 
 const BoardContext = createContext();
 
@@ -29,7 +30,7 @@ function Provider({ children, boardId, workspaceId }) {
       })
       .finally(() => setIsReq(false));
     socket.current = new WebSocket(
-      `ws://localhost:8000/ws/socket-server/board/?token=${localStorage.getItem(
+      `${baseUrlForSocket}/ws/socket-server/board/?token=${localStorage.getItem(
         "access_token"
       )}`
     );
