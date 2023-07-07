@@ -43,9 +43,9 @@ const CardHeader = ({ cardId }) => {
         className="card_close-icon"
         onClick={(event) => handleDeleteCard(event)}
       >
-        <CloseIcon sx={{ fontSize: "1.6rem",":hover": {
-            color: getColor(theme.primary),
-          }, }} />
+        <CloseIcon sx={{ fontSize: "1.6rem",color: getColor(theme.minorBg), ":hover": {
+          color: getColor(theme.primary)
+        } }} />
       </div>
     </div>
   );
