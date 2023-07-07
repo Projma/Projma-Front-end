@@ -7,22 +7,27 @@ import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
 import Modal from "@mui/material/Modal";
 import StyledTextField from "../../Shared/StyledTextField";
+import { useNavigate } from "react-router-dom";
 import PerTextField from "../../Shared/PerTextField";
 import x from "../../../static/images/workspace_management/create_board/board.jpeg";
+import apiInstance from "../../../utilities/axiosConfig";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+
 // import file from "../../../static/images/workspace_management/create_board/board.jpeg";
 import "./CreateBoard.scss";
 import { convertNumberToPersian } from "../../../utilities/helpers";
 import useTheme from "../../../hooks/useTheme";
 
-
-
 export default function CreateBoardModal({
-  params,
-  on_submit,
+  // params,
+  // on_submit,
   boards,
   setBoards,
 }) {
-  const {theme, getColor} = useTheme();
+  const { theme, getColor } = useTheme();
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const navigate = useNavigate();
   const style = {
     position: "absolute",
     top: "50%",
@@ -42,6 +47,34 @@ export default function CreateBoardModal({
     if (file) {
       setFile(URL.createObjectURL(file));
     }
+  };
+  const navigateToBoard = (boardId) => {
+    console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+    console.log(`workspace/${params.id}/kanban/${boardId}/board`);
+    navigate(`/workspace/${params.id}/kanban/${boardId}/board`);
+  };
+  let params = useParams();
+  const on_submit = (form_data) => {
+    console.log("hereeererereer");
+    console.log(params);
+    setIsPost(true);
+    apiInstance
+      .post(`/workspaces/workspaceowner/${params.id}/create-board/`, form_data)
+      .then((res) => {
+        toast.success("بورد با موفقیت ساخته شد", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
+        const id = res.data.id;
+        apiInstance
+          .post("/calendar/simple-calendar/", { board: id })
+          .then((res) => {
+            delay(6000).then(() => navigateToBoard(res.data.id));
+          });
+      })
+      .finally(() => {
+        setIsPost(null);
+      });
   };
   const [result, setResult] = useState("");
   const [binaryFile, setBinaryFile] = useState(null);
@@ -130,7 +163,6 @@ export default function CreateBoardModal({
               fontFamily: "Vazir",
               color: getColor(theme.primary),
               fontSize: "109%",
-              
             }}
             className="neonText"
           >
