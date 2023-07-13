@@ -10,19 +10,19 @@
   height: 100%;
   margin: 1rem;
   gap: 0.5rem;
-  transition: "all 2s ease-in-out"
+  // transition: "all 2s ease-in-out"
 }
 
 .board_list-container {
-  overflow: auto;
   max-width: 100%;
+  overflow: scroll;
   max-height: 100%;
   height: 100%;
   padding-bottom: 2rem;
   display: flex;
-  flex-direction: row-reverse;
   flex-flow: row;
   direction: ltr;
   justify-content: flex-start;
   gap: 0.5rem;
+  scroll-padding-left: calc(100% - 200%);
 }

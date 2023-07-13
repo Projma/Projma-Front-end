@@ -2,11 +2,7 @@ import React from "react";
 import ResponsiveAppBar from "../ResponsiveAppBar/ResponsiveAppBar";
 
 const Header = () => {
-    return (
-        <header>
-            <ResponsiveAppBar />
-        </header>
-    );
+  return <ResponsiveAppBar />;
 };
 
 export default Header;

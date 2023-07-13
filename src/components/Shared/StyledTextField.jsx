@@ -3,56 +3,69 @@ import { outlinedInputClasses } from "@mui/material/OutlinedInput";
 import { inputLabelClasses } from "@mui/material/InputLabel";
 import { styled } from "@mui/material/styles";
 import { filledInputClasses } from "@mui/material";
+import useTheme from "../../hooks/useTheme";
 
-const StyledTextField = styled(TextField)({
+const primary = () => {
+  const { theme } = useTheme();
+  return theme.primary;
+};
+
+const text = () => {
+  const { theme, getColor } = useTheme();
+  return getColor(theme.minorBg);
+};
+
+const getStyles = () => ({
   [`& .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]: {
-    borderColor: "#66B2FF",
+    borderColor: primary(),
   },
   [`&:hover .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]:
     {
-      borderColor: "#66B2FF",
+      borderColor: primary(),
     },
   [`& .${outlinedInputClasses.root}.${outlinedInputClasses.focused} .${outlinedInputClasses.notchedOutline}`]:
     {
-      borderColor: "#66B2FF",
+      borderColor: primary(),
     },
   [`& .${outlinedInputClasses.input}`]: {
-    color: "#66B2FF",
+    color: primary(),
   },
   [`&:hover .${outlinedInputClasses.input}`]: {
-    color: "#66B2FF",
+    color: primary(),
   },
   [`& .${outlinedInputClasses.root}.${outlinedInputClasses.focused} .${outlinedInputClasses.input}`]:
     {
-      color: "#fff",
+      color: text(),
     },
   [`& .${inputLabelClasses.outlined}`]: {
-    color: "#fff",
+    color: text(),
     fontSize: "1.4rem",
   },
   [`& .${inputLabelClasses.filled}`]: {
-    color: "#fff",
+    color: text(),
     fontSize: "1.4rem",
   },
   [`&:hover .${inputLabelClasses.outlined}`]: {
-    color: "#fff",
+    color: text(),
   },
   [`& .${inputLabelClasses.outlined}.${inputLabelClasses.focused}`]: {
-    color: "#66B2FF",
+    color: primary(),
   },
   [`& .${inputLabelClasses.filled}.${inputLabelClasses.focused}`]: {
-    color: "#fff",
+    color: text(),
     fontSize: "1.2rem",
   },
   [`& .${filledInputClasses.root}.${filledInputClasses.focused} .${filledInputClasses.input}`]:
     {
-      color: "#fff",
+      color: text(),
       fontSize: "1rem",
     },
   [`& .${filledInputClasses.root} .${filledInputClasses.input}`]: {
-    color: "#fff",
+    color: text(),
     fontSize: "1.2rem",
   },
 });
+
+const StyledTextField = styled(TextField)(getStyles);
 
 export default StyledTextField;

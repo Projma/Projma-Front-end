@@ -7,16 +7,28 @@
 }
 
 .app {
-  transition: all 2s ease-in-out;
+  // transition-property: color;
+  // transition: all 2s ease-in-out;
+  width: max(100vw, 100vw);
+  height: max(100vh, 100vh);
+  background-color: $main-bg !important;
+  display: grid;
+  grid-template-rows: 1fr 12fr;
+
+  header {
+    grid-row: 1 / 2;
+  }
+
+  section {
+    grid-row: 2 / -1;
+    overflow: scroll;
+  }
 }
+
 
 html {
   font-size: 62.5%;
-  overflow: auto;
-  background-color: $main-bg !important;
 }
-
-
 
 body {
   margin: 0 auto;

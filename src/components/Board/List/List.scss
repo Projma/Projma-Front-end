@@ -1,11 +1,14 @@
 .list_container {
   direction: rtl;
   max-width: 31rem;
+  min-width: 31rem;
   max-height: 100%;
   width: 31rem;
-  margin: 0.4rem 0 0.4rem 0;
-  padding: 0.2rem 0.2rem 0 0.2rem;
+  margin: 0.4rem 0;
+  padding: 0.2rem;
   border-radius: 0.5rem;
+  // border: $primary 0.2rem solid;
+  height: fit-content;
 }
 
 .list_header-container {
@@ -23,7 +26,6 @@
   align-items: center;
   padding: 0.4rem;
   justify-content: space-between;
-  
 }
 
 .list_header-title {
@@ -61,6 +63,7 @@
   min-width: 10rem;
   overflow: auto;
   padding: 0.5rem;
+  margin-bottom: 0.2rem;
   background-color: $secondary;
   border-radius: 0.5rem;
   display: flex;

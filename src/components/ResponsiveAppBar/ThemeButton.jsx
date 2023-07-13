@@ -43,8 +43,8 @@ const ThemeButton = () => {
       <Avatar
         onClick={handleOpenUserMenu}
         alt="عکس پروفایل"
-        sx={{ width: 40, height: 40, backgroundColor: theme.secondary, color: getColor(theme.secondary)}}
-        variant="rounded"
+        sx={{ width: 46, height: 46, backgroundColor: theme.secondary, color: getColor(theme.secondary)}}
+        variant="circular"
         
       >
         {findIcon(theme.name)}

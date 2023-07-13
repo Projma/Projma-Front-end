@@ -15,7 +15,6 @@ const DiscussPage = () => {
             <Helmet>
                 <title>پروجما</title>
             </Helmet>
-            <Header />
             <Discuss style={{
                 overflow: 'scroll',
             }}/>

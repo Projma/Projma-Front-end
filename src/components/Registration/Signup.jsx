@@ -15,7 +15,7 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import StyledTextField from "./StyledTextField";
+import StyledTextField from "../Shared/StyledTextField";
 import apiInstance from "../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom"; // comment for tests
 import { useLocation } from "react-router-dom";
@@ -29,11 +29,19 @@ import {
 } from "../../utilities/helpers";
 // import Header from "../Header/Header";
 
+import useTheme from "../../hooks/useTheme";
+
 function Copyright(props) {
+  const { theme, getColor } = useTheme();
   return (
-    <Typography variant="body2" color="white" align="center" {...props}>
+    <Typography
+      variant="body2"
+      color={{ color: getColor(theme.mainBg) }}
+      align="center"
+      {...props}
+    >
       {"Copyright © "}
-      <Link color="inherit" href="https://Projma.ir/">
+      <Link color="inherit" href="https://projma.com/">
         Projma
       </Link>{" "}
       {new Date().getFullYear()}
@@ -41,7 +49,6 @@ function Copyright(props) {
     </Typography>
   );
 }
-
 const theme = createTheme();
 
 export default function SignUp() {
@@ -57,7 +64,7 @@ export default function SignUp() {
   const [errorPassword, setErrorPassword] = React.useState(false);
   const [isPost, setIsPost] = React.useState(false);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
+  const { theme, getColor } = useTheme();
   let navigate = useNavigate(); // comment for tests
   // const { state } = useLocation();
   const cacheRtl = createCache({
@@ -151,7 +158,8 @@ export default function SignUp() {
   }
 
   return (
-    <CacheProvider value={cacheRtl}>
+    <div style={{width: "100%", height:"100%", display:"flex", alignItems:"center", justifyContent:"center"}}>
+      <CacheProvider value={cacheRtl}>
       {/* <Header></Header> */}
       <Helmet>
         <title>صفحه ثبت‌نام</title>
@@ -168,6 +176,7 @@ export default function SignUp() {
               className="Registration--Box-Type"
               component="h1"
               variant="h5"
+              style={{ color: getColor(theme.mainBg) }}
             >
               صفحه ثبت‌نام
             </Typography>
@@ -318,5 +327,6 @@ export default function SignUp() {
         </Container>
       </ThemeProvider>
     </CacheProvider>
+    </div>
   );
 }

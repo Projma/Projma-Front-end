@@ -17,9 +17,6 @@ const WorkspaceManagement = () => {
           <div className="workspaceManagement--sidebar">
             <Drawer />
           </div>
-          <div className="workspaceManagement--header">
-            <Header />
-          </div>
           <div className="workspaceManagement--section">
             <Outlet/>
           </div>

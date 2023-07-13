@@ -28,7 +28,6 @@ const Landing = () => {
         <Helmet>
           <title>پروجما</title>
         </Helmet>
-        <Header />
         <Container sx={{ marginTop: "10%", paddingTop: "0%" }}>
           <Grid container columns={{ xs: 2, sm: 4, md: 5 }}>
             <Grid

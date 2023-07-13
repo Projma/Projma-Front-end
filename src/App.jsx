@@ -39,6 +39,7 @@ import Group from "./components/Retro/Group/Group";
 import RealTest from "./components/RealTime/RealTest";
 import WsBoard from "./components/WorkspaceManagement/Board/WsBoard";
 import Members from "./components/WorkspaceManagement/Members/Members";
+import Main from "./main";
 import useTheme from "./hooks/useTheme";
 
 function App() {
@@ -69,18 +70,19 @@ function App() {
             backgroundColor: theme.mainBg,
             border: `0.2rem solid ${theme.primary} !important`,
             fontSize: "1.3rem !important",
-            color: getColor(theme.mainBg)
-          }
-        }
-      }, MuiAvatar: {
+            color: getColor(theme.mainBg),
+          },
+        },
+      },
+      MuiAvatar: {
         styleOverrides: {
           root: {
             textAlign: "center",
-            border: `none !important`
+            border: `none !important`,
           },
-        }
-      }
-    }
+        },
+      },
+    },
   });
   return (
     <div
@@ -94,7 +96,7 @@ function App() {
         "--hover": theme.hover,
         "--text": theme.text,
         backgroundColor: theme.mainBg,
-        animation: "color-change 10s ease-in-out infinite",
+        // animation: "color-change 10s ease-in-out infinite",
       }}
     >
       <ToastContainer
@@ -114,194 +116,200 @@ function App() {
       <ThemeProvider theme={muiTheme}>
         <Provider store={store}>
           <Router>
-            <Routes>
-              <Route exact path="/" element={<Landing />} />
-              <Route exact path="/realtime" element={<RealTest />} />
-              <Route
-                exact
-                path="/dashboard"
-                element={
-                  <PrivateRoute>
-                    <Dashborad />
-                  </PrivateRoute>
-                }
-              />
-              <Route exact path="/signin" element={<SignIn />} />
-              <Route exact path="/signup" element={<SignUp />} />
-              <Route
-                exact
-                path="/profile"
-                element={
-                  <PrivateRoute>
-                    <Profile />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                exact
-                path="/forget-password"
-                element={<ForgetPassword />}
-              />
-              <Route exact path="/reset-password" element={<ResetPassword />} />
-              <Route
-                path="workspace/:id/dashboard/"
-                element={
-                  <PrivateRoute>
-                    <WorkspaceManagement />
-                  </PrivateRoute>
-                }
-              >
+            <Main>
+              <Routes>
+                <Route exact path="/" element={<Landing />} />
+                <Route exact path="/realtime" element={<RealTest />} />
                 <Route
                   exact
-                  path="board"
+                  path="/dashboard"
                   element={
                     <PrivateRoute>
-                      <WsBoard />
+                      <Dashborad />
+                    </PrivateRoute>
+                  }
+                />
+                <Route exact path="/signin" element={<SignIn />} />
+                <Route exact path="/signup" element={<SignUp />} />
+                <Route
+                  exact
+                  path="/profile"
+                  element={
+                    <PrivateRoute>
+                      <Profile />
                     </PrivateRoute>
                   }
                 />
                 <Route
                   exact
-                  path="team"
-                  element={
-                    <PrivateRoute>
-                      <Members />
-                    </PrivateRoute>
-                  }
-                />
-              </Route>
-              <Route
-                exact
-                path="workspace/:workspaceId/kanban/:boardId"
-                element={
-                  <PrivateRoute>
-                    <BoardOverView />
-                  </PrivateRoute>
-                }
-              >
-                <Route
-                  exact
-                  path="board"
-                  element={
-                    <PrivateRoute>
-                      <Board />
-                    </PrivateRoute>
-                  }
+                  path="/forget-password"
+                  element={<ForgetPassword />}
                 />
                 <Route
                   exact
-                  path="calendar"
-                  element={
-                    <PrivateRoute>
-                      <Calendar />
-                    </PrivateRoute>
-                  }
+                  path="/reset-password"
+                  element={<ResetPassword />}
                 />
                 <Route
-                  exact
-                  path="poll"
+                  path="workspace/:id/dashboard/"
                   element={
                     <PrivateRoute>
-                      <Poll />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  exact
-                  path="retro"
-                  element={
-                    <PrivateRoute>
-                      <Retro />
+                      <WorkspaceManagement />
                     </PrivateRoute>
                   }
                 >
                   <Route
                     exact
-                    path="reflect"
+                    path="board"
                     element={
                       <PrivateRoute>
-                        <RetroReflect />
+                        <WsBoard />
                       </PrivateRoute>
                     }
                   />
                   <Route
                     exact
-                    path="group"
+                    path="team"
                     element={
                       <PrivateRoute>
-                        <Group />
-                      </PrivateRoute>
-                    }
-                  />
-                  <Route
-                    exact
-                    path="vote"
-                    element={
-                      <PrivateRoute>
-                        <Vote />
-                      </PrivateRoute>
-                    }
-                  />
-                  <Route
-                    exact
-                    path="discuss"
-                    element={
-                      <PrivateRoute>
-                        <Discuss />
+                        <Members />
                       </PrivateRoute>
                     }
                   />
                 </Route>
-              </Route>
-              <Route
-                exact
-                path="/profileview/:username"
-                element={
-                  <PrivateRoute>
-                    <ProfileView />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                exact
-                path="/changepassword"
-                element={
-                  <PrivateRoute>
-                    <ChangePassword />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                exact
-                path="/invite_page/:token"
-                element={<InvitePage />}
-              />
-              <Route
-                exact
-                path="/borad_invitation/:id/:token"
-                element={
-                  <PrivateRoute>
-                    <BoardInvitation />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                exact
-                path="/email-verification"
-                element={<Email_verification_2 />}
-              />
-              <Route
-                exact
-                path="/:boardId/retro/discuss/*"
-                element={
-                  <PrivateRoute>
-                    <DiscussPage />
-                  </PrivateRoute>
-                }
-              />
-              <Route path="/404" element={<NotFound />} />
-              <Route path="*" element={<Navigate replace to="/404" />} />
-            </Routes>
+                <Route
+                  exact
+                  path="workspace/:workspaceId/kanban/:boardId"
+                  element={
+                    <PrivateRoute>
+                      <BoardOverView />
+                    </PrivateRoute>
+                  }
+                >
+                  <Route
+                    exact
+                    path="board"
+                    element={
+                      <PrivateRoute>
+                        <Board />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    exact
+                    path="calendar"
+                    element={
+                      <PrivateRoute>
+                        <Calendar />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    exact
+                    path="poll"
+                    element={
+                      <PrivateRoute>
+                        <Poll />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    exact
+                    path="retro"
+                    element={
+                      <PrivateRoute>
+                        <Retro />
+                      </PrivateRoute>
+                    }
+                  >
+                    <Route
+                      exact
+                      path="reflect"
+                      element={
+                        <PrivateRoute>
+                          <RetroReflect />
+                        </PrivateRoute>
+                      }
+                    />
+                    <Route
+                      exact
+                      path="group"
+                      element={
+                        <PrivateRoute>
+                          <Group />
+                        </PrivateRoute>
+                      }
+                    />
+                    <Route
+                      exact
+                      path="vote"
+                      element={
+                        <PrivateRoute>
+                          <Vote />
+                        </PrivateRoute>
+                      }
+                    />
+                    <Route
+                      exact
+                      path="discuss"
+                      element={
+                        <PrivateRoute>
+                          <Discuss />
+                        </PrivateRoute>
+                      }
+                    />
+                  </Route>
+                </Route>
+                <Route
+                  exact
+                  path="/profileview/:username"
+                  element={
+                    <PrivateRoute>
+                      <ProfileView />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  exact
+                  path="/changepassword"
+                  element={
+                    <PrivateRoute>
+                      <ChangePassword />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  exact
+                  path="/invite_page/:token"
+                  element={<InvitePage />}
+                />
+                <Route
+                  exact
+                  path="/borad_invitation/:id/:token"
+                  element={
+                    <PrivateRoute>
+                      <BoardInvitation />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  exact
+                  path="/email-verification"
+                  element={<Email_verification_2 />}
+                />
+                <Route
+                  exact
+                  path="/:boardId/retro/discuss/*"
+                  element={
+                    <PrivateRoute>
+                      <DiscussPage />
+                    </PrivateRoute>
+                  }
+                />
+                <Route path="/404" element={<NotFound />} />
+                <Route path="*" element={<Navigate replace to="/404" />} />
+              </Routes>
+            </Main>
           </Router>
         </Provider>
       </ThemeProvider>

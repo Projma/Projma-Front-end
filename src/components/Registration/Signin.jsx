@@ -14,7 +14,7 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import StyledTextField from "./StyledTextField";
+import StyledTextField from "../Shared/StyledTextField";
 import { toast } from "react-toastify";
 import Header from "../Header/Header";
 import apiInstance from "../../utilities/axiosConfig";
@@ -31,8 +31,9 @@ import {
 import useTheme from "../../hooks/useTheme";
 
 function Copyright(props) {
+  const { theme, getColor } = useTheme();
   return (
-    <Typography variant="body2" color="white" align="center" {...props}>
+    <Typography variant="body2" color={{ color: getColor(theme.mainBg) }} align="center" {...props}>
       {"Copyright © "}
       <Link color="inherit" href="https://projma.com/">
         Projma
@@ -135,7 +136,7 @@ export default function SignIn() {
                 component="h1"
                 variant="h5"
                 className="Signin--Box-Type"
-                style={{ color: getColor(theme.minorBg) }}
+                style={{ color: getColor(theme.mainBg) }}
               >
                 صفحه ورود
               </Typography>

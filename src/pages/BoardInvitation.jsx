@@ -77,8 +77,6 @@ const BoardInvitation = () => {
             <Helmet>
                 <title>دعوت به بورد</title>
             </Helmet>
-            <Header />
-
             <Box
                 sx={{
                     backgroundColor: "white",
