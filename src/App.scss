@@ -13,7 +13,7 @@
   height: max(100vh, 100vh);
   background-color: $main-bg !important;
   display: grid;
-  grid-template-rows: 1fr 12fr;
+  grid-template-rows: 1fr 15fr;
 
   header {
     grid-row: 1 / 2;
@@ -99,4 +99,8 @@ html,
 
 .MuiList-root, .MuiList-padding ,.MuiMenu-list {
   background-color: $main-bg;
+}
+
+dialog {
+  z-index: 1300;
 }
