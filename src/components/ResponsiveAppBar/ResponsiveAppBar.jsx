@@ -231,7 +231,6 @@ function ResponsiveAppBar() {
                 />
               ))}
           </Box>
-          <ThemeButton />
 
           <Box sx={{ flexGrow: 0, fontFamily: "Vazir", marginRight: "2rem" }}>
             <Tooltip
@@ -244,7 +243,8 @@ function ResponsiveAppBar() {
                   onClick={handleOpenUserMenu}
                   alt="عکس پروفایل"
                   sx={{
-                    width: 50, height: 50,
+                    width: 50,
+                    height: 50,
                     color: getColor(theme.mainBg),
                   }}
                   variant="circular"
@@ -261,13 +261,16 @@ function ResponsiveAppBar() {
                   alt="عکس پروفایل"
                   sx={{
                     backgroundColor: theme.minorBg,
-                    width: 50, height: 50,
+                    width: 50,
+                    height: 50,
                     color: getColor(theme.minorBg),
                   }}
                   variant="circular"
                   src={baseURL + state.user.profile_pic}
                 >
-                  {(state.user.user.first_name[0] + state.user.user.last_name[0]).toUpperCase()}
+                  {(
+                    state.user.user.first_name[0] + state.user.user.last_name[0]
+                  ).toUpperCase()}
                 </Avatar>
               )}
             </Tooltip>
@@ -319,6 +322,9 @@ function ResponsiveAppBar() {
                   </MenuItem>
                 );
               })}
+              <MenuItem>
+                <ThemeButton />
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

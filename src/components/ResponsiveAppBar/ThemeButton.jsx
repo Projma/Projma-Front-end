@@ -39,12 +39,12 @@ const ThemeButton = () => {
     setAnchorElUser(null);
   };
   return (
-    <Box sx={{ flexGrow: 0, fontFamily: "Vazir" }}>
+    <div style={{ width: "100%", display: "flex", alignContent: "center", justifyContent:"center" }}>
       <Avatar
         onClick={handleOpenUserMenu}
         alt="عکس پروفایل"
-        sx={{ width: 46, height: 46, backgroundColor: theme.secondary, color: getColor(theme.secondary)}}
-        variant="circular"
+        sx={{ width: 46, height: 46, backgroundColor: theme.mainBg, color: getColor(theme.mainBg)}}
+        variant="rounded"
         
       >
         {findIcon(theme.name)}
@@ -87,7 +87,7 @@ const ThemeButton = () => {
           );
         })}
       </Menu>
-    </Box>
+    </div>
   );
 };
 
