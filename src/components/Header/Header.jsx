@@ -14,7 +14,9 @@ import { Avatar } from "@mui/material";
 import apiInstance from "../../utilities/axiosConfig";
 import { baseUrl } from "../../utilities/constants";
 import UserDialog from "./dialog/UserDialog";
+import ContrastIcon from '@mui/icons-material/Contrast';
 import { useLocation } from 'react-router-dom';
+import ThemeDialog from "./dialog/ThemeDialog";
 
 const Header = () => {
   const { theme, getColor } = useTheme();
@@ -106,14 +108,19 @@ const Header = () => {
         </div>
       </div>
       <div className="header-left">
-        <div className="header-avatar" onClick={() => setOpenAvatar(!openAvatar)}>
-          <Avatar src={baseUrl.slice(0,-1) + user.profile_pic} sizes="30" />
-          <Dialog onClose={() => setOpenAvatar(false)} open={openAvatar}>
-            <UserDialog user={user}/>
+        <div className="header-theme" onClick={() => setOpenTheme(true)}>
+          <ContrastIcon style={{ fill: getColor(theme.minorBg) }} />
+          <Dialog onClose={() => setOpenTheme(false)} open={openTheme}>
           </Dialog>
         </div>
-        <div className="header-theme"></div>
         <div className="header-create"></div>
+        <div className="header-avatar" onClick={() => setOpenAvatar(true)}>
+          <Avatar src={baseUrl.slice(0,-1) + user.profile_pic} sizes="30" />
+          <Dialog onClose={() => setOpenAvatar(false)} open={openAvatar}>
+            <ThemeDialog/>
+            {/* <UserDialog user={user}/> */}
+          </Dialog>
+        </div>
       </div>
     </nav>
   );
