@@ -1,0 +1,62 @@
+.ws-dialog {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  & .ws-owner,
+  & .ws-guest {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+}
+
+.ws-header-title {
+  font-size: 1.3rem;
+  filter: brightness(95%);
+}
+
+.ws-name {
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.ws-description {
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+  font-style: italic;
+  filter: brightness(80%);
+}
+
+.ws-workspace {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit);
+  grid-auto-rows: auto;
+  grid-auto-flow: column;
+  gap: 0.5rem;
+  width: auto;
+}
+
+.ws-container {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  justify-content: center;
+  border: 0.2rem solid $primary;
+  background-color: $secondary;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  &:hover {
+    background-color: $hover;
+    cursor: pointer;
+  }
+}
