@@ -45,7 +45,14 @@ const Dialog = ({ open, locked, onClose, children, ...props }) => {
 
   useEffect(() => {
     const { current: el } = modalRef;
-    if (open) el.show();
+    if (open) {
+      el.show();
+      const rect = el.getBoundingClientRect();
+      if (rect.left < 0) {
+        el.style.right = "auto";
+        el.style.left = "10%";
+      }
+    }
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
         onClose();

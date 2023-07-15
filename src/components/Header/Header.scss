@@ -22,7 +22,7 @@
 }
 
 .header-workspace, .header-starred,
-.header-recent, .header-template {
+.header-recent, .header-template, .header-avatar {
   height: 80%;
   padding: 0 0.5rem;
   position: relative;
@@ -69,6 +69,20 @@
 .header-left {
   height: 100%;
   width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.header-avatar {
+  margin-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .MuiAvatar-root {
+    height: 3.3rem;
+    width: 3.3rem;
+  }
 }
 
 .header-center {

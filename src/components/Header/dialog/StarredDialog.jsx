@@ -63,7 +63,7 @@ const StarredDialog = () => {
             >
               {s.pic === null ? <StarsIcon style={{fill: "gold"}}/> : <img className="starred-pic" src={s.pic} alt={s.name} />}
               <div className="starred-info">
-                <div className="starred name">{s.name}</div>
+                <div className="starred-name">{s.name}</div>
                 <div className="starred-description">{s.description}</div>
               </div>
             </div>

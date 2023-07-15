@@ -1,4 +1,4 @@
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 import ProjmaName from "../Asset/ProjmaName";
 import ProjmaLogo from "../Asset/ProjmaLogo";
 import useTheme from "../../hooks/useTheme";
@@ -10,6 +10,11 @@ import WorkspaceDialog from "./dialog/WorkspaceDialog";
 import { useNavigate } from "react-router-dom";
 import StarredDialog from "./dialog/StarredDialog";
 import RecentDialog from "./dialog/RecentDialog";
+import { Avatar } from "@mui/material";
+import apiInstance from "../../utilities/axiosConfig";
+import { baseUrl } from "../../utilities/constants";
+import UserDialog from "./dialog/UserDialog";
+import { useLocation } from 'react-router-dom';
 
 const Header = () => {
   const { theme, getColor } = useTheme();
@@ -20,11 +25,23 @@ const Header = () => {
   const [openAvatar, setOpenAvatar] = useState(false);
   const [openTheme, setOpenTheme] = useState(false);
   const [openCreate, setOpenCreate] = useState(false);
-
+  const [user, setUser] = useState({});
+  
+  const location = useLocation();
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(`/`);
   };
+
+  useEffect(() => {
+    const getUserProfile = async () => {
+      apiInstance.get("accounts/profile/myprofile/").then((res) => {
+        setUser(res.data);
+      });
+    };
+
+    getUserProfile();
+  }, [location]);
 
   return (
     <nav className="header">
@@ -38,28 +55,37 @@ const Header = () => {
             <ExpandMoreIcon />
           </div>
           <Dialog onClose={() => setOpenWorkspace(false)} open={openWorkspace}>
-           <WorkspaceDialog/>
+            <WorkspaceDialog />
           </Dialog>
         </div>
-        <div className="header-starred" onClick={() => setOpenStarred(!openStarred)}>
+        <div
+          className="header-starred"
+          onClick={() => setOpenStarred(!openStarred)}
+        >
           <div className="header-option">ستاره دار</div>
           <div className="header-option-icon">
             <ExpandMoreIcon />
           </div>
           <Dialog onClose={() => setOpenStarred(false)} open={openStarred}>
-            <StarredDialog/>
+            <StarredDialog />
           </Dialog>
         </div>
-        <div className="header-recent" onClick={() => setOpenRecent(!openRecent)}>
+        <div
+          className="header-recent"
+          onClick={() => setOpenRecent(!openRecent)}
+        >
           <div className="header-option">آخرین ها</div>
           <div className="header-option-icon">
             <ExpandMoreIcon />
           </div>
           <Dialog onClose={() => setOpenRecent(false)} open={openRecent}>
-            <RecentDialog/>
+            <RecentDialog />
           </Dialog>
         </div>
-        <div className="header-template" onClick={() => setOpenTemplate(!openTemplate)}>
+        <div
+          className="header-template"
+          onClick={() => setOpenTemplate(!openTemplate)}
+        >
           <div className="header-option">قالب</div>
           <div className="header-option-icon">
             <ExpandMoreIcon />
@@ -80,7 +106,12 @@ const Header = () => {
         </div>
       </div>
       <div className="header-left">
-        <div className="header-avatar"></div>
+        <div className="header-avatar" onClick={() => setOpenAvatar(!openAvatar)}>
+          <Avatar src={baseUrl.slice(0,-1) + user.profile_pic} sizes="30" />
+          <Dialog onClose={() => setOpenAvatar(false)} open={openAvatar}>
+            <UserDialog user={user}/>
+          </Dialog>
+        </div>
         <div className="header-theme"></div>
         <div className="header-create"></div>
       </div>

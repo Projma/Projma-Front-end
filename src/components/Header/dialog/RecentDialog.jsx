@@ -65,7 +65,7 @@ const RecentDialog = () => {
             >
               {s.pic === null ? <AccessTimeIcon style={{fill: theme.primary}}/> : <img className="recent-pic" src={s.pic} alt={s.name} />}
               <div className="recent-info">
-                <div className="recent name">{s.name}</div>
+                <div className="recent-name">{s.name}</div>
                 <div className="recent-description">{s.description}</div>
               </div>
             </div>
