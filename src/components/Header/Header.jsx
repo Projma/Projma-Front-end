@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import ProjmaName from "../Asset/ProjmaName";
 import ProjmaLogo from "../Asset/ProjmaLogo";
 import useTheme from "../../hooks/useTheme";
@@ -6,6 +6,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Dialog from "../Asset/Dialog";
 import Modal from "../Asset/Modal";
 import "./Header.scss";
+import WorkspaceDialog from "./dialog/WorkspaceDialog";
+import { useNavigate } from "react-router-dom";
+import StarredDialog from "./dialog/StarredDialog";
+import RecentDialog from "./dialog/RecentDialog";
 
 const Header = () => {
   const { theme, getColor } = useTheme();
@@ -13,6 +17,15 @@ const Header = () => {
   const [openStarred, setOpenStarred] = useState(false);
   const [openRecent, setOpenRecent] = useState(false);
   const [openTemplate, setOpenTemplate] = useState(false);
+  const [openAvatar, setOpenAvatar] = useState(false);
+  const [openTheme, setOpenTheme] = useState(false);
+  const [openCreate, setOpenCreate] = useState(false);
+
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/`);
+  };
+
   return (
     <nav className="header">
       <div className="header-right" style={{ color: getColor(theme.minorBg) }}>
@@ -25,10 +38,7 @@ const Header = () => {
             <ExpandMoreIcon />
           </div>
           <Dialog onClose={() => setOpenWorkspace(false)} open={openWorkspace}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis,
-            tenetur ipsam molestiae nemo et commodi voluptas voluptate eos,
-            fugiat eligendi placeat, maiores cupiditate magni sapiente
-            distinctio facilis laudantium in consequuntur!
+           <WorkspaceDialog/>
           </Dialog>
         </div>
         <div className="header-starred" onClick={() => setOpenStarred(!openStarred)}>
@@ -37,10 +47,7 @@ const Header = () => {
             <ExpandMoreIcon />
           </div>
           <Dialog onClose={() => setOpenStarred(false)} open={openStarred}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis,
-            tenetur ipsam molestiae nemo et commodi voluptas voluptate eos,
-            fugiat eligendi placeat, maiores cupiditate magni sapiente
-            distinctio facilis laudantium in consequuntur!
+            <StarredDialog/>
           </Dialog>
         </div>
         <div className="header-recent" onClick={() => setOpenRecent(!openRecent)}>
@@ -49,10 +56,7 @@ const Header = () => {
             <ExpandMoreIcon />
           </div>
           <Dialog onClose={() => setOpenRecent(false)} open={openRecent}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis,
-            tenetur ipsam molestiae nemo et commodi voluptas voluptate eos,
-            fugiat eligendi placeat, maiores cupiditate magni sapiente
-            distinctio facilis laudantium in consequuntur!
+            <RecentDialog/>
           </Dialog>
         </div>
         <div className="header-template" onClick={() => setOpenTemplate(!openTemplate)}>
@@ -61,15 +65,12 @@ const Header = () => {
             <ExpandMoreIcon />
           </div>
           <Dialog onClose={() => setOpenTemplate(false)} open={openTemplate}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis,
-            tenetur ipsam molestiae nemo et commodi voluptas voluptate eos,
-            fugiat eligendi placeat, maiores cupiditate magni sapiente
-            distinctio facilis laudantium in consequuntur!
+            i dont give a fuck
           </Dialog>
         </div>
       </div>
       <div className="header-center">
-        <div className="header-projma">
+        <div className="header-projma" onClick={() => handleClick()}>
           <div className="header-projma-text">
             <ProjmaName />
           </div>
@@ -78,7 +79,11 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="header-left">sdfsdf</div>
+      <div className="header-left">
+        <div className="header-avatar"></div>
+        <div className="header-theme"></div>
+        <div className="header-create"></div>
+      </div>
     </nav>
   );
 };
