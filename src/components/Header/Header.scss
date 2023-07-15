@@ -21,8 +21,13 @@
   gap: 2rem;
 }
 
-.header-workspace, .header-starred,
-.header-recent, .header-template, .header-avatar {
+.header-workspace,
+.header-starred,
+.header-recent,
+.header-template,
+.header-avatar,
+.header-theme,
+.header-create {
   height: 80%;
   padding: 0 0.5rem;
   position: relative;
@@ -67,11 +72,14 @@
 }
 
 .header-left {
+  max-height: 100%;
   height: 100%;
   width: 40%;
+  font-size: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: 2rem;
 }
 
 .header-avatar {
@@ -80,8 +88,8 @@
   align-items: center;
   justify-content: center;
   .MuiAvatar-root {
-    height: 3.3rem;
-    width: 3.3rem;
+    height: 4rem;
+    width: 4rem;
   }
   &:hover {
     background-color: #00000000 !important;
@@ -96,7 +104,8 @@
   justify-content: center;
 }
 
-.header-theme {
+.header-theme,
+.header-create {
   display: flex;
   align-items: center;
   justify-content: center;

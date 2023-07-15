@@ -26,24 +26,24 @@ const UserDialog = ({ user }) => {
             </div>
           </div>
           <div className="user-option-container" onClick={() => navigate("/profile")}>
-            <div className="user-option-title">مدیریت حساب</div>
-            <ManageAccountsIcon style={{ fill: theme.primary }} />
+            <div className="user-option-title" style={{ color: getColor(theme.secondary) }}>مدیریت حساب</div>
+            <ManageAccountsIcon style={{ fill: getColor(theme.secondary) }} />
           </div>
         </div>
       )}
       <div className="user-option">
         <div className="user-header">پروجما</div>
         <div className="user-option-container" onClick={() => navigate("/dashboard")}>
-          <div className="user-option-title">داشبورد</div>
-          <DashboardIcon style={{ fill: theme.primary }} />
+          <div className="user-option-title" style={{ color: getColor(theme.secondary) }}>داشبورد</div>
+          <DashboardIcon style={{ fill: getColor(theme.secondary) }} />
         </div>
         <div className="user-option-container" onClick={() => {
           localStorage.removeItem("access_token");
           localStorage.removeItem("refresh_token");
           navigate("/");
         }}>
-          <div className="user-option-title">خروج</div>
-          <LogoutIcon style={{ fill: theme.primary }} />
+          <div className="user-option-title" style={{ color: getColor(theme.secondary) }}>خروج</div>
+          <LogoutIcon style={{ fill: getColor(theme.secondary) }} />
         </div>
       </div>
     </div>

@@ -14,9 +14,11 @@ import { Avatar } from "@mui/material";
 import apiInstance from "../../utilities/axiosConfig";
 import { baseUrl } from "../../utilities/constants";
 import UserDialog from "./dialog/UserDialog";
-import ContrastIcon from '@mui/icons-material/Contrast';
-import { useLocation } from 'react-router-dom';
+import ContrastIcon from "@mui/icons-material/Contrast";
+import { useLocation } from "react-router-dom";
 import ThemeDialog from "./dialog/ThemeDialog";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import CreateDialog from "./dialog/CreateDialog";
 
 const Header = () => {
   const { theme, getColor } = useTheme();
@@ -28,7 +30,7 @@ const Header = () => {
   const [openTheme, setOpenTheme] = useState(false);
   const [openCreate, setOpenCreate] = useState(false);
   const [user, setUser] = useState({});
-  
+
   const location = useLocation();
   const navigate = useNavigate();
   const handleClick = () => {
@@ -108,17 +110,22 @@ const Header = () => {
         </div>
       </div>
       <div className="header-left">
+        <div className="header-create" onClick={() => setOpenCreate(true)}>
+          <AddCircleOutlineIcon style={{ fill: getColor(theme.minorBg) }} />
+          <Dialog onClose={() => setOpenCreate(false)} open={openCreate}>
+            <CreateDialog/>
+          </Dialog>
+        </div>
         <div className="header-theme" onClick={() => setOpenTheme(true)}>
           <ContrastIcon style={{ fill: getColor(theme.minorBg) }} />
           <Dialog onClose={() => setOpenTheme(false)} open={openTheme}>
+            <ThemeDialog />
           </Dialog>
         </div>
-        <div className="header-create"></div>
         <div className="header-avatar" onClick={() => setOpenAvatar(true)}>
-          <Avatar src={baseUrl.slice(0,-1) + user.profile_pic} sizes="30" />
+          <Avatar src={baseUrl.slice(0, -1) + user.profile_pic} sizes="30" />
           <Dialog onClose={() => setOpenAvatar(false)} open={openAvatar}>
-            <ThemeDialog/>
-            {/* <UserDialog user={user}/> */}
+            <UserDialog user={user} />
           </Dialog>
         </div>
       </div>

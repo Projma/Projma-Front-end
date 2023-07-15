@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom';
 const StarredDialog = () => {
   const [starred, setStarred] = useState([]);
   const location = useLocation();
+  const {theme, getColor} = useTheme();
 
   useEffect(() => {
     const getStarredBoard = async () => {
@@ -62,7 +63,7 @@ const StarredDialog = () => {
               onClick={() => handleClick(s.id, s.wsId)}
             >
               {s.pic === null ? <StarsIcon style={{fill: "gold"}}/> : <img className="starred-pic" src={s.pic} alt={s.name} />}
-              <div className="starred-info">
+              <div className="starred-info" style={{ color: getColor(theme.secondary) }}>
                 <div className="starred-name">{s.name}</div>
                 <div className="starred-description">{s.description}</div>
               </div>

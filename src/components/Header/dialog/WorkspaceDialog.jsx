@@ -61,7 +61,7 @@ const WorkspaceDialog = () => {
           <div className="ws-header-title">فضاهای کاری شما</div>
           <div className="ws-workspace">
             {owner.map((w) => (
-              <div className="ws-container" onClick={() => handleClick(w.id)}>
+              <div className="ws-container" onClick={() => handleClick(w.id)} style={{ color: getColor(theme.secondary) }}>
                 <div className="ws-name">{w.name}</div>
                 <div className="ws-description">{w.description}</div>
               </div>
@@ -74,7 +74,7 @@ const WorkspaceDialog = () => {
           <div className="ws-header-title">فضاهای کاری مهمان</div>
           <div className="ws-workspace">
             {guest.map((w) => (
-              <div className="ws-container" onClick={() => handleClick(w.id)}>
+              <div className="ws-container" onClick={() => handleClick(w.id)} style={{ color: getColor(theme.secondary) }}>
                 <div className="ws-name">{w.name}</div>
                 <div className="ws-description">{w.description}</div>
               </div>
