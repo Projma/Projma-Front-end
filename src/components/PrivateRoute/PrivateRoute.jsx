@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 export default function PrivateRoute(props) {
     const state = useSelector((state) => state);
     const navigate = useNavigate();
+    const params = useParams();
+
     useEffect(() => {
         if (! state.isAuthenticated) {
             navigate('/signin/');
@@ -13,15 +15,6 @@ export default function PrivateRoute(props) {
     }, [state.isAuthenticated]);
 
     if (state.isAuthenticated) {
-        return <>
-            {props.children}
-        </>;
-    }
-    else {
-        // navigate('/signin');
-        // navigateSignIn();
-        // return (
-        //     <></>
-        // );
+        return React.cloneElement(props.children, { key: params.id === undefined ? params.boardId : params.id });
     }
 }
