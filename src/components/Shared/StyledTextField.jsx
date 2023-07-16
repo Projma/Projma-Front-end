@@ -39,11 +39,11 @@ const getStyles = () => ({
     },
   [`& .${inputLabelClasses.outlined}`]: {
     color: text(),
-    fontSize: "1.4rem",
+    fontSize: "1.5rem",
   },
   [`& .${inputLabelClasses.filled}`]: {
     color: text(),
-    fontSize: "1.4rem",
+    fontSize: "1.5rem",
   },
   [`&:hover .${inputLabelClasses.outlined}`]: {
     color: text(),

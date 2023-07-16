@@ -19,6 +19,7 @@ import { useLocation } from "react-router-dom";
 import ThemeDialog from "./dialog/ThemeDialog";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CreateDialog from "./dialog/CreateDialog";
+import TemplateDialog from "./dialog/TemplateDialog";
 
 const Header = () => {
   const { theme, getColor } = useTheme();
@@ -95,7 +96,7 @@ const Header = () => {
             <ExpandMoreIcon />
           </div>
           <Dialog onClose={() => setOpenTemplate(false)} open={openTemplate}>
-            i dont give a fuck
+            <TemplateDialog/>
           </Dialog>
         </div>
       </div>

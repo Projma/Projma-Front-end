@@ -4,7 +4,7 @@ import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import useTheme from "../../../hooks/useTheme";
 import { baseUrl } from "../../../utilities/constants";
-import StarsIcon from '@mui/icons-material/Stars';
+import StarIcon from '@mui/icons-material/Star';
 import { useLocation } from 'react-router-dom';
 
 const StarredDialog = () => {
@@ -62,7 +62,7 @@ const StarredDialog = () => {
               className="strred-board"
               onClick={() => handleClick(s.id, s.wsId)}
             >
-              {s.pic === null ? <StarsIcon style={{fill: "gold"}}/> : <img className="starred-pic" src={s.pic} alt={s.name} />}
+              {s.pic === null ? <StarIcon style={{fill: "gold"}}/> : <img className="starred-pic" src={s.pic} alt={s.name} />}
               <div className="starred-info" style={{ color: getColor(theme.secondary) }}>
                 <div className="starred-name">{s.name}</div>
                 <div className="starred-description">{s.description}</div>
