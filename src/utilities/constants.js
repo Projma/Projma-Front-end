@@ -15,6 +15,6 @@
 // export const swaggerUrl = "http://188.121.98.218:1337/swagger/";
 // export const baseUrl = "http://188.121.98.218:1337/";
 
-export const swaggerUrl = "http://91.107.153.171:1337/swagger/";
-export const baseUrl = "http://91.107.153.171:1337/";
-export const baseUrlForSocket = "ws://91.107.153.171:1337";
+export const swaggerUrl = "http://45.147.97.94:1337/swagger/";
+export const baseUrl = "http://45.147.97.94:1337/";
+export const baseUrlForSocket = "ws://45.147.97.94:1337";
