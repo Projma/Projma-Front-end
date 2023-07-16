@@ -9,6 +9,7 @@ import apiInstance from "../../utilities/axiosConfig";
 import AnonymousResult from "./Content/AnonymousResult";
 import KnownResult from "./Content/KnownResult";
 import useTheme from "../../hooks/useTheme";
+import { v4 as uuidv4 } from 'uuid';
 
 const PollView = ({
   Multi,
@@ -74,7 +75,7 @@ const PollView = ({
             isOpen={isOpen}
             isVoted={isVoted}
             totalVotes={voters.length !== 0 ? voters.length : getSum()}
-            key={crypto.randomUUID()}
+            key={uuidv4()}
             handleReRender={handleReRender}
           />
         ) : (
@@ -83,7 +84,7 @@ const PollView = ({
             isOpen={isOpen}
             isVoted={isVoted}
             totalVotes={voters.length !== 0 ? voters.length : getSum()}
-            key={crypto.randomUUID()}
+            key={uuidv4()}
             handleReRender={handleReRender}
           />
         )}

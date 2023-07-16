@@ -17,6 +17,7 @@ import "./CreateMeeting.scss";
 import { convertNumberToPersian } from "../../utilities/helpers";
 import { InputLabel } from "@material-ui/core";
 import {  toast } from "react-toastify";
+import useTheme from "../../hooks/useTheme";
 
 const style = {
   position: "absolute",
@@ -54,7 +55,7 @@ export default function CreateMeeting({ calendarId, handleClose, showToast }) {
   const [repeatDuration, setRepeatDuration] = useState(0);
   const [eventType, setEventType] = useState("");
   const [customType, setCustomType] = useState("");
-
+  const {theme, getColor} = useTheme();
   const handleOpen = () => {
     setOpen(true);
   };
@@ -165,6 +166,7 @@ export default function CreateMeeting({ calendarId, handleClose, showToast }) {
           id="modal-modal-title"
           component="h2"
           className="neonText calendar_create_meeting-title"
+          style={{color: getColor(theme.minorBg)}}
         >
           ساخت جلسه جدید
         </Typography>

@@ -84,3 +84,7 @@ html,
   height: 100%;
   border-radius: 50%;
 }
+
+.MuiList-root, .MuiList-padding ,.MuiMenu-list {
+  background-color: $main-bg;
+}

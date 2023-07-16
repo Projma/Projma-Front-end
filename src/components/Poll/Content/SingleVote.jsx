@@ -7,11 +7,12 @@ import Typography from "@mui/material/Typography";
 import { TaskAltOutlined } from "@mui/icons-material";
 import apiInstance from "../../../utilities/axiosConfig";
 import useTheme from '../../../hooks/useTheme';
+import { v4 as uuidv4 } from 'uuid';
 
 const SingleVoted = ({ options, handleReRender }) => {
   const {theme, getColor} = useTheme();
   return (
-    <div className="single-vote_voted">
+    <div className="single-vote_voted" data-testid="single-vote-voted">
       <FormControl
         sx={{
           ".MuiFormControlLabel-label": {
@@ -72,7 +73,7 @@ const SingleVoteResult = ({ options, totalVotes }) => {
   const {theme, getColor} = useTheme();
 
   return (
-    <div className="single-vote_result">
+    <div className="single-vote_result" data-testid="single-vote-result"> 
       {options.map((v, i) => (
         <div className="single-vote_result-container">
           <div className="single-vote_result-icon">
@@ -127,14 +128,14 @@ const SingleVote = ({
     <div className="single-vote_container">
       {isOpen === true && isVoted !== true ? (
         <SingleVoted
-          key={crypto.randomUUID()}
+          key={uuidv4()}
           options={options}
           handleReRender={handleReRender}
           // setVote={setVote}
         />
       ) : (
         <SingleVoteResult
-          key={crypto.randomUUID()}
+          key={uuidv4()}
           options={options}
           totalVotes={totalVotes}
         />

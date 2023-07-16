@@ -157,7 +157,7 @@ function ResponsiveAppBar() {
             sx={{
               flexGrow: 1,
               display: { xs: "flex", md: "none", fontFamily: "Vazir" },
-              backgroundColor: theme.minorBg,
+              backgroundColor: theme.primary,
             }}
           >
             <IconButton
