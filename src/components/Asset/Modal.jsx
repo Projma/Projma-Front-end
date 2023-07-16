@@ -33,6 +33,10 @@ const Modal = ({ open, locked, onClose, children, ...props }) => {
     if (!open) el.close();
   }, [open]);
 
+  const handleContainerClick = (e) => {
+    e.stopPropagation();
+  };
+
   useEffect(() => {
     const { current: el } = modalRef;
     if (open) el.showModal();
@@ -50,6 +54,7 @@ const Modal = ({ open, locked, onClose, children, ...props }) => {
       <div
         className={styles["modal__container"]}
         style={{ color: getColor(theme.minorBg) }}
+        onClick={handleContainerClick}
       >
         {children}
       </div>
