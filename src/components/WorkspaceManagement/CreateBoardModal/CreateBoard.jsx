@@ -26,6 +26,9 @@ export default function CreateBoardModal({
   setBoards,
 }) {
   const { theme, getColor } = useTheme();
+  const [result, setResult] = useState("");
+  const [binaryFile, setBinaryFile] = useState(null);
+  const [open, setOpen] = React.useState(false);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const navigate = useNavigate();
   const style = {
@@ -49,13 +52,13 @@ export default function CreateBoardModal({
     }
   };
   const navigateToBoard = (boardId) => {
-    console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
     console.log(`workspace/${params.id}/kanban/${boardId}/board`);
     navigate(`/workspace/${params.id}/kanban/${boardId}/board`);
   };
   let params = useParams();
   const on_submit = (form_data) => {
     console.log("hereeererereer");
+    console.log(form_data);
     console.log(params);
     setIsPost(true);
     apiInstance
@@ -66,19 +69,29 @@ export default function CreateBoardModal({
           rtl: true,
         });
         const id = res.data.id;
+        console.log("importanttttttttttttttt");
+        console.log(res.data);
+        console.log(form_data);
         apiInstance
           .post("/calendar/simple-calendar/", { board: id })
-          .then((res) => {
-            delay(6000).then(() => navigateToBoard(res.data.id));
+          .then((res1) => {
+            console.log(res.data);
+            const new_board = {
+              id: res.data.id,
+              name: res.data.name,
+              background_pic: res.data.background_pic,
+            };
+            const updatedItems = [...boards, new_board];
+            setBoards(updatedItems);
+            // delay(6000).then(() => navigateToBoard(res.data.id));
           });
       })
       .finally(() => {
         setIsPost(null);
+        setBinaryFile(null);
       });
   };
-  const [result, setResult] = useState("");
-  const [binaryFile, setBinaryFile] = useState(null);
-  const [open, setOpen] = React.useState(false);
+
   const handleOpen = () => {
     setTitle("");
     setDescription("");
@@ -124,7 +137,7 @@ export default function CreateBoardModal({
     if (binaryFile !== null) {
       form_data.append("background_pic", binaryFile);
     }
-    on_submit(form_data, boards, setBoards);
+    on_submit(form_data);
     handleClose();
     // navigate to board page that created
   };
