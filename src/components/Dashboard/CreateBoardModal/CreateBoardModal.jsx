@@ -17,7 +17,7 @@ import { convertNumberToPersian } from "../../../utilities/helpers";
 import Loading from "../../Shared/Loading";
 import useTheme from "../../../hooks/useTheme";
 
-export default function CreateBoardModal({ workspace_id }) {
+export default function CreateBoardModal({ workspace_id, flag, setFlag }) {
   const { theme } = useTheme();
 
   const style = {
@@ -79,13 +79,16 @@ export default function CreateBoardModal({ workspace_id }) {
       )
       .then((res) => {
         const id = res.data.id;
-        apiInstance.post("/calendar/simple-calendar/", {board: id}).then(res => {
-          toast.success("بورد با موفقیت ساخته شد", {
-            position: toast.POSITION.BOTTOM_LEFT,
-            rtl: true,
+        apiInstance
+          .post("/calendar/simple-calendar/", { board: id })
+          .then((res) => {
+            toast.success("بورد با موفقیت ساخته شد", {
+              position: toast.POSITION.BOTTOM_LEFT,
+              rtl: true,
+            });
+            setFlag(!flag);
+            // delay(6000).then(() => navigateToBoard(res.data.id));
           });
-          delay(6000).then(() => navigateToBoard(res.data.id));
-        });
       })
       .finally(() => setIsPost(null));
   };
