@@ -170,6 +170,7 @@
 
   .header-menu-container {
     position: absolute;
+    z-index: 1000;
     top: 100%;
     right: 50%;
     transform: translate(50%, 0);
@@ -227,6 +228,7 @@
 
   .header-menu-container {
     position: absolute;
+    z-index: 1000;
     top: 100%;
     right: 50%;
     transform: translate(50%, 0);

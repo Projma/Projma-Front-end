@@ -119,6 +119,8 @@ const BoardSidebar = () => {
         defaultCollapsed
         transitionDuration={800}
         style={{ borderLeft: "none" }}
+        width="23rem"
+        breakPoint="md"
       >
         <div className="boardsidebar-container">
           <div className="boardsidebar-header">
