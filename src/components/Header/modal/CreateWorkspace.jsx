@@ -1,4 +1,4 @@
-import "./CreateBoard.scss";
+import "./CreateWorkspace.scss";
 import PerTextField from "../../Shared/PerTextField";
 import StyledTextField from "../../Shared/StyledTextField";
 import { useState, useEffect } from "react";
@@ -7,62 +7,76 @@ import useTheme from "../../../hooks/useTheme";
 import { toast } from "react-toastify";
 import Button from "@mui/material/Button";
 
-const CreateBoard = ({ onClose }) => {
+const CreateWorkspace = ({ onClose }) => {
   const [boardName, setBoardName] = useState("");
   const [boardDescription, setBoardDescription] = useState("");
-  const [workspace, setWorkspace] = useState([]);
-  const [wsId, setWsId] = useState(null);
+  const [wsType, setWsType] = useState(null);
   const { theme, getColor } = useTheme();
+
+  const types = [
+    {
+      value: "education",
+      label: "آموزشی",
+    },
+    {
+      value: "marketing",
+      label: "بازاریابی",
+    },
+    {
+      value: "small business",
+      label: "سرمایه گذاری کوچک",
+    },
+    {
+      value: "operations",
+      label: "عملیاتی",
+    },
+    {
+      value: "engineering-it",
+      label: "مهندسی و IT",
+    },
+    {
+      value: "finance",
+      label: "مالی",
+    },
+    {
+      value: "human resources",
+      label: "منابع انسانی",
+    },
+    {
+      value: "other",
+      label: "سایر",
+    },
+  ];
 
   const createBoard = async () => {
     apiInstance
-      .post(`/workspaces/workspaceowner/${wsId}/create-board/`, {
+      .post(`workspaces/dashboard/create-workspace/`, {
         name: boardName,
         description: boardDescription,
+        type: wsType,
       })
       .then((res) => {
-        const id = res.data.id;
-        apiInstance
-          .post("/calendar/simple-calendar/", { board: id })
-          .then((res) => {
-            toast.success("بورد با موفقیت ساخته شد", {
-              position: toast.POSITION.BOTTOM_LEFT,
-              rtl: true,
-            });
-          });
+        toast.success("فضای کاری با موفقیت ساخته شد", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
         onClose();
       });
   };
 
   useEffect(() => {
-    const getWorkspace = async () => {
-      apiInstance.get("workspaces/dashboard/myworkspaces/").then((res) => {
-        let ws = res.data.map((w) => {
-          return {
-            name: w["name"],
-            description: w["description"],
-            id: w["id"],
-          };
-        });
-
-        setWorkspace(ws);
-      });
-    };
-
-    getWorkspace();
-
     setBoardDescription("");
     setBoardName("");
-    setWsId("");
+    setWsType("");
   }, [onClose]);
 
   return (
-    <div className="create-board-modal">
-      <div className="create-board-header">ساخت بورد</div>
-      <div className="create-board-form">
+    <div className="create-workspace-modal">
+      <div className="create-workspace-header">ساخت فضای کار</div>
+      <div className="create-workspace-form">
         <PerTextField>
           <StyledTextField
-            label="نام بورد"
+            label="نام فضای کار"
             required
             type="text"
             value={boardName}
@@ -76,29 +90,28 @@ const CreateBoard = ({ onClose }) => {
             onChange={(e) => setBoardDescription(e.target.value)}
             fullWidth
           />
-          <div className="create-board-header-minor">فضای کار</div>
-          <div className="create-board-workspaces">
-            {workspace.map((w) => (
+          <div className="create-workspace-header-minor">نوع فضای کار </div>
+          <div className="create-workspace-workspaces">
+            {types.map((t) => (
               <div
-                className="create-board-option"
+                className="create-workspace-option"
                 onClick={() => {
-                  if (wsId === w.id) setWsId(null);
-                  else setWsId(w.id);
+                  if (wsType === t.value) setWsType(null);
+                  else setWsType(t.value);
                 }}
                 style={
-                  wsId === w.id
+                  wsType === t.value
                     ? { border: `0.2rem solid ${theme.primary}` }
                     : null
                 }
               >
-                {w.name}
+                {t.label}
               </div>
             ))}
           </div>
         </PerTextField>
-        
       </div>
-      <div className="create-board-button">
+      <div className="create-workspace-button">
         <Button variant="contained" onClick={() => createBoard()}>
           ساخت
         </Button>
@@ -110,4 +123,4 @@ const CreateBoard = ({ onClose }) => {
   );
 };
 
-export default CreateBoard;
+export default CreateWorkspace;

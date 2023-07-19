@@ -6,11 +6,13 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import useTheme from "../../../hooks/useTheme";
 import "./UserDialog.scss";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { logout } from "../../../actions/authActions";
 
 const UserDialog = ({ user }) => {
   const { theme, getColor } = useTheme();
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   return (
     <div className="user-dialog">
       {user !== undefined && user.user !== undefined && (
@@ -40,6 +42,7 @@ const UserDialog = ({ user }) => {
         <div className="user-option-container" onClick={() => {
           localStorage.removeItem("access_token");
           localStorage.removeItem("refresh_token");
+          dispatch(logout());
           navigate("/");
         }}>
           <div className="user-option-title" style={{ color: getColor(theme.secondary) }}>خروج</div>

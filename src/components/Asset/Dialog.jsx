@@ -68,6 +68,10 @@ const Dialog = ({ open, locked, onClose, children, ...props }) => {
     };
   }, [modalRef, open, onClose]);
 
+  const handleContainerClick = (e) => {
+    e.stopPropagation();
+  };
+  
   return (
     <dialog
       ref={modalRef}
@@ -80,6 +84,7 @@ const Dialog = ({ open, locked, onClose, children, ...props }) => {
       <div
         className={styles["dialog__container"]}
         style={{ color: getColor(theme.minorBg) }}
+        onClick={handleContainerClick}
       >
         {children}
       </div>

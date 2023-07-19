@@ -1,4 +1,4 @@
-.create-board-modal {
+.create-workspace-modal {
   width: 100%;
   height: 100%;
   display: flex;
@@ -9,22 +9,21 @@
   padding: 2rem;
 }
 
-.create-board-header {
+.create-workspace-header {
   width: 100%;
   text-align: center;
   font-size: 2rem;
   font-weight: bold;
-
 }
 
-.create-board-header-minor {
+.create-workspace-header-minor {
   width: 100%;
   // text-align: center;
   font-size: 1.5rem;
   filter: brightness(80%);
 }
 
-.create-board-form {
+.create-workspace-form {
   width: 30rem;
   display: flex;
   align-items: center;
@@ -33,7 +32,7 @@
   gap: 1rem;
 }
 
-.create-board-option {
+.create-workspace-option {
   background-color: $secondary;
   border-radius: 0.5rem;
   width: max-content;
@@ -46,7 +45,7 @@
   }
 }
 
-.create-board-workspaces {
+.create-workspace-workspaces {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -55,7 +54,7 @@
   gap: 0.5rem;
 }
 
-.create-board-button {
+.create-workspace-button {
   width: 100%;
   display: flex;
   align-items: center;

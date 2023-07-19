@@ -41,8 +41,7 @@ const TemplateDialog = () => {
         <>
           {template.map((s) => (
             <div
-              className="strred-board"
-              onClick={() => handleClick(s.id, s.wsId)}
+              className="template-board"
             >
               {s.pic !== null ? <InventoryIcon style={{fill: theme.primary}}/> : <img className="template-pic" src={s.pic} alt={s.name} />}
               <div className="template-info" style={{ color: getColor(theme.secondary) }}>

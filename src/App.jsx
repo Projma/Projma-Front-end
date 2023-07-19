@@ -100,7 +100,7 @@ function App() {
       }}
     >
       <ToastContainer
-        autoClose={4000}
+        autoClose={3000}
         newestOnTop
         closeOnClick
         rtl
@@ -109,8 +109,8 @@ function App() {
         pauseOnHover
         toastStyle={{
           fontSize: "1.2rem",
-          backgroundColor: theme.secondary,
-          color: getColor(theme.secondary),
+          backgroundColor: theme.minorBg,
+          color: getColor(theme.minorBg),
         }}
       />
       <ThemeProvider theme={muiTheme}>

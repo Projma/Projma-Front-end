@@ -56,7 +56,7 @@ function ThemeProvider({ children }) {
 
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") === null
-      ? THEME[2]
+      ? THEME[1]
       : THEME.find((t) => t.name === localStorage.getItem("theme"))
   );
 
