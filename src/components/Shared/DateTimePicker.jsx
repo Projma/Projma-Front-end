@@ -16,6 +16,10 @@ export default function DateTimePickerValue({ value, setValue }) {
           onChange={(newValue) => {
             setValue(newValue);
           }}
+          sx={{
+            color: "#fff",
+            border: "1px solid #fff",
+          }}
         />
         {/* <DateTimePicker
           label="Controlled picker"
