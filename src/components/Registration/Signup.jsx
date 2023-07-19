@@ -165,13 +165,9 @@ export default function SignUp() {
         <title>صفحه ثبت‌نام</title>
       </Helmet>
       {isPost ? <Loading /> : null}
-      <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <Box className="Registration--Box">
-            <Avatar className="Registration--Box-Avatar">
-              <LockOutlinedIcon />
-            </Avatar>
             <Typography
               className="Registration--Box-Type"
               component="h1"
@@ -325,7 +321,6 @@ export default function SignUp() {
           </Box>
           <Copyright sx={{ mt: 8, mb: 4 }} />
         </Container>
-      </ThemeProvider>
     </CacheProvider>
     </div>
   );

@@ -2,7 +2,6 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import "../styles/DiscussPage.scss";
 import Header from "../components/Header/Header";
-import Footer from "../components/Landing/Footer/Footer";
 import Discuss from "../components/Retro/Discuss/Discuss";
 
 const DiscussPage = () => {
@@ -18,7 +17,6 @@ const DiscussPage = () => {
             <Discuss style={{
                 overflow: 'scroll',
             }}/>
-            <Footer/>
         </div>
     );
 };

@@ -97,9 +97,11 @@ html,
   border-radius: 50%;
 }
 
-.MuiList-root, .MuiList-padding ,.MuiMenu-list {
-  background-color: $main-bg;
+.MuiList-root, .MuiList-padding ,.MuiMenu-list, .MuiPaper-root {
+  background-color: $minor-bg !important;
 }
+
+
 
 dialog {
   z-index: 1300;

@@ -8,18 +8,10 @@ const ThemeContext = createContext();
 function ThemeProvider({ children }) {
   const THEME = [
     {
-      name: "ocean",
-      mainBg: "#001e3c",
-      minorBg: "#0a1929",
-      secondary: "#132f4c",
-      tertiary: "#5090d3",
-      hover: "#5090d380",
-      primary: "#1976d2",
-    },
-    {
       name: "light",
       mainBg: "#e7ebf0",
       minorBg: "#ffffff",
+      bg: "linear-gradient(to right top, #ffffff, #fafafb, #f4f5f7, #eef0f4, #e7ebf0)",
       secondary: "#d1d5db",
       tertiary: "#5090d3",
       hover: "#5090d380",
@@ -27,33 +19,26 @@ function ThemeProvider({ children }) {
     },
     {
       name: "dark",
-      mainBg: "#3e3e42",
-      minorBg: "#2d2d30",
-      secondary: "#1e1e1e",
-      tertiary: "#eeeeee",
-      hover: "#eeeeee80",
-      primary: "#0c0a09",
+      mainBg: "#202020",
+      minorBg: "#161616",
+      bg: "linear-gradient(to right top, #161616, #171717, #171717, #181818, #181818, #191919, #191919, #1a1a1a, #1b1b1b, #1d1d1d, #1e1e1e, #202020)",
+      secondary: "#262626",
+      tertiary: "#E6C675",
+      hover: "#E6C67580",
+      primary: "#d4af37",
     },
-    // {
-    //   name: "sky",
-    //   mainBg: "#F1F6F9",
-    //   minorBg: "#d1d5db",
-    //   secondary: "#394867",
-    //   tertiary: "#526D82",
-    //   hover: "#526D8280",
-    //   primary: "#212A3E",
-    // },
-    // {
-    //   name: "sun",
-    //   mainBg: "#e5e5e5",
-    //   minorBg: "#ffffff",
-    //   secondary: "#f8981c",
-    //   tertiary: "#f47922",
-    //   hover: "#f4792280",
-    //   primary: "#fdb713",
-    // },
+    {
+      name: "ocean",
+      mainBg: "#001e3c",
+      minorBg: "#0a1929",
+      bg: "linear-gradient(to right top, #0a1929, #081a2e, #051c32, #031d37, #001e3c)",
+      secondary: "#132f4c",
+      tertiary: "#5090d3",
+      hover: "#5090d380",
+      primary: "#1976d2",
+    },
   ];
-
+  
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") === null
       ? THEME[1]

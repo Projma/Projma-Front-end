@@ -44,10 +44,10 @@ const Header = () => {
         <nav className="header-minor">
           <CenterHeader />
           <div className="header-minor-button">
-            <Button variant="contained" onClick={() => navigate("/signin")}>
+            <Button variant="contained" onClick={() => navigate("/signin")} style={{height:"100%", borderRadius: 0}}>
               وارد شوید
             </Button>
-            <Button variant="text" onClick={() =>  navigate("/signup")}>
+            <Button variant="text" onClick={() =>  navigate("/signup")} style={{height:"100%", borderRadius: 0}}>
               ثبت نام کنید
             </Button>
           </div>

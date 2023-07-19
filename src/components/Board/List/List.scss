@@ -78,7 +78,7 @@
   border: 0.2rem solid $tertiary;
   
   background-color: $minor-bg;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 
 .board_option-button-container {
@@ -90,14 +90,15 @@
 .board_option-button {
   width: 100%;
   border: none;
-  background-color: inherit;
-  margin-bottom: 0.5rem;
+  background-color: $secondary;
+  border-radius: 0.5rem;
+  margin: 0.3rem 0;
   display: flex;
   justify-content: flex-start;
   padding-right: 0.4rem;
 }
 .board_option-button:hover {
-  background-color: $secondary;
+  background-color: $hover;
   cursor: pointer;
   border-radius: 0.5rem;
 }

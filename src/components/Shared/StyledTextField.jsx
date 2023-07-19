@@ -10,14 +10,30 @@ const primary = () => {
   return theme.primary;
 };
 
+const mainBg = () => {
+  const { theme } = useTheme();
+  return theme.mainBg;
+};
+
 const text = () => {
   const { theme, getColor } = useTheme();
-  return getColor(theme.minorBg);
+  return getColor(theme.mainBg);
 };
 
 const getStyles = () => ({
+  [`& .${outlinedInputClasses.input}`]: {
+    color: text(),
+    "&:-webkit-autofill": {
+      WebkitTextFillColor: text()
+    }
+  },
   [`& .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]: {
     borderColor: primary(),
+    // backgroundColor: mainBg()
+  },
+  [`& .${filledInputClasses.root} `]: {
+    border: `0.2rem solid ${primary()}`,
+    backgroundColor: mainBg()
   },
   [`&:hover .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]:
     {

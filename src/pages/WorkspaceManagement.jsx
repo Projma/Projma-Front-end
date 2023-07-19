@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../components/Header/Header";
 import { useParams, Outlet } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { Provider } from "../context/board";
@@ -22,7 +21,6 @@ const WorkspaceManagement = () => {
           </div>
         </div>
       </Provider>
-      {/* <Footer /> */}
     </div>
   );
 };
