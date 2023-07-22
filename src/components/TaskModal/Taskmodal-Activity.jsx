@@ -294,7 +294,11 @@ export default function TaskModal_Activity({
               ) : (
                 <InitialIconcircle
                   initials={
-                    user?.user.first_name[0] + "‌" + user?.user.last_name[0]
+                    user?.user.first_name.length != 0 &&
+                    user?.user.last_name.length != 0
+                      ? user?.user.first_name[0] + "‌" + user?.user.last_name[0]
+                      : ""
+                    // user?.user.first_name[0] + "‌" + user?.user.last_name[0]
                   }
                 ></InitialIconcircle>
               )}
@@ -375,9 +379,13 @@ export default function TaskModal_Activity({
                 ) : (
                   <InitialIconcircle
                     initials={
-                      item.sender?.first_name[0] +
-                      "‌" +
-                      item.sender?.last_name[0]
+                      item.sender?.first_name.length != 0 &&
+                      item.sender?.last_name.length != 0
+                        ? item.sender?.first_name[0] +
+                          "‌" +
+                          item.sender?.last_name[0]
+                        : ""
+                      // user?.user.first_name[0] + "‌" + user?.user.last_name[0]
                     }
                   ></InitialIconcircle>
                 )}

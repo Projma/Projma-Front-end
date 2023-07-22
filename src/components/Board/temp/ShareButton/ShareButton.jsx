@@ -433,9 +433,11 @@ const ShareButton = (props) => {
                         className="board_avatar-profile-picture"
                         // sx={{ width: 56, height: 56 }}
                       >
-                        {(
-                          member.user.first_name[0] + member.user.last_name[0]
-                        )?.toUpperCase()}
+                        {member.user.first_name.length != 0 &&
+                          member.user.last_name.length != 0 &&
+                          (
+                            member.user.first_name[0] + member.user.last_name[0]
+                          )?.toUpperCase()}
                       </Avatar>
                     </Box>
                   </Tooltip>
