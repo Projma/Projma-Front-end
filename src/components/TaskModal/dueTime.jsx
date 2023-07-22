@@ -55,33 +55,29 @@ export default function DueTime({ params, dueDate, setDueTime }) {
       });
   };
   useEffect(() => {
-    apiInstance
-      .get(`/task/${params.task_id}/get-task/`)
-      .then((res) => {
-        // ////console.log(res);
-        const doer = res.data.doers.map((item) => ({
-          email: item.email,
-          userName: item.username,
-          firstName: item.first_name,
-          lastName: item.last_name,
-          image: item.profile_pic,
-        }));
-        setListOfDoers(doer);
-      });
-    apiInstance
-      .get(`/board/${params.board_id}/members/`)
-      .then((res) => {
-        // ////console.log(res);
-        const members = res.data.map((obj) => ({
-          id: obj.user.id,
-          firstName: obj.user.first_name,
-          lastName: obj.user.last_name,
-          userName: obj.user.username,
-          email: obj.user.email,
-          image: obj.profile_pic,
-        }));
-        setListOfMembers(members);
-      });
+    apiInstance.get(`/task/${params.task_id}/get-task/`).then((res) => {
+      // ////console.log(res);
+      const doer = res.data.doers.map((item) => ({
+        email: item.email,
+        userName: item.username,
+        firstName: item.first_name,
+        lastName: item.last_name,
+        image: item.profile_pic,
+      }));
+      setListOfDoers(doer);
+    });
+    apiInstance.get(`/board/${params.board_id}/members/`).then((res) => {
+      // ////console.log(res);
+      const members = res.data.map((obj) => ({
+        id: obj.user.id,
+        firstName: obj.user.first_name,
+        lastName: obj.user.last_name,
+        userName: obj.user.username,
+        email: obj.user.email,
+        image: obj.profile_pic,
+      }));
+      setListOfMembers(members);
+    });
   }, []);
 
   const [ListOfMembers, setListOfMembers] = React.useState([]);
@@ -95,7 +91,7 @@ export default function DueTime({ params, dueDate, setDueTime }) {
       Math.floor(Math.random() * 16777215)
         .toString(16)
         .padStart(6, "0")
-        .toUpperCase()
+        ?.toUpperCase()
     );
   };
 

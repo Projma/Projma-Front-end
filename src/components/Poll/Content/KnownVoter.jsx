@@ -72,7 +72,7 @@ const KnownVoter = ({ voters }) => {
                 }}
                 className="card_avatar-profile-picture"
               >
-                {(x.first_name[0] + x.last_name[0]).toUpperCase()}
+                {(x.first_name[0] + x.last_name[0])?.toUpperCase()}
               </Avatar>
             </Tooltip>
           ))}
