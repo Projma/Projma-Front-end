@@ -138,7 +138,6 @@ export default function ChangePassword() {
   };
   return (
     <div>
-      <Header></Header>
       <Helmet>
         <title>تغییر رمز عبور</title>
       </Helmet>
