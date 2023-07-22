@@ -23,7 +23,7 @@ import { toast } from "react-toastify";
 
 import Loading from "../Shared/Loading";
 import { baseUrl } from "../../utilities/constants";
-// import Header from "../Header/Header";
+import Header from "../Header/Header";
 import {
   convertNumberToPersian,
   convertNumberToEnglish,
@@ -164,13 +164,16 @@ export default function Profile() {
   return (
     <div className="profile-total-page">
       {isPost ? <Loading /> : null}
-      {/* <Header></Header> */}
+      <Header></Header>
       <CacheProvider value={cacheRtl}>
         <Helmet>
           <title>حساب کاربری</title>
         </Helmet>
         <ThemeProvider theme={theme}>
-          <div className="profile--container profile--page">
+          <div
+            className="profile--container profile--page"
+            style={{ marginTop: "2%" }}
+          >
             <div className="profile--information-pro row-gap-8">
               <div className="profile--box-body-profile-container">
                 <Avatar
@@ -197,35 +200,50 @@ export default function Profile() {
                   {`${convertNumberToPersian(username)}@`}
                 </h4>
               </div>
-              <div style={{ marginTop: "20%", width: "100%" }}>
-                <button className="btn">
-                  <a href="/profile">
+              <div
+                style={{
+                  color: "white",
+                  rowGap: "13px",
+                  display: "flex",
+                  flexDirection: "column",
+                  marginTop: "13%",
+                }}
+              >
+                <Button variant="text" href="/profile">
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <PersonIcon className="profile--rightMenu-icon"></PersonIcon>
                     <div
-                      className="flex-row-information"
-                      style={{ alignItems: "center" }}
+                      style={{
+                        fontSize: "11px",
+                        width: "84px",
+                        color: "white",
+                      }}
                     >
-                      <PersonIcon className="profile--rightMenu-icon"></PersonIcon>
-                      <h4 className="neonText profile--leftMenu-text">
-                        اطلاعات حساب
-                      </h4>
+                      اطلاعات حساب
                     </div>
-                  </a>
-                </button>
-                <div>
-                  <button className="btn">
-                    <a href="/changepassword">
-                      <div
-                        className="flex-row-information"
-                        style={{ alignItems: "center" }}
-                      >
-                        <PasswordIcon className="profile--rightMenu-icon"></PasswordIcon>
-                        <h4 className="neonText profile--leftMenu-text">
-                          تغییر رمز عبور
-                        </h4>
-                      </div>
-                    </a>
-                  </button>
-                </div>
+                  </div>
+                </Button>
+                <Button variant="text" href="/changepassword">
+                  <div style={{ display: "flex", flexDirection: "row" }}>
+                    <PasswordIcon className="profile--rightMenu-icon"></PasswordIcon>
+                    <div
+                      style={{
+                        fontSize: "11px",
+                        width: "84px",
+                        color: "white",
+                      }}
+                    >
+                      تغییر رمز عبور
+                    </div>
+                  </div>
+                </Button>
               </div>
             </div>
             <div className="profile--box">
