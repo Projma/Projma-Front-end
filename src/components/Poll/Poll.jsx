@@ -14,6 +14,7 @@ import {
 import { useParams } from "react-router-dom";
 import useBoard from "../../hooks/useBoard";
 import useTheme from "../../hooks/useTheme";
+import { v4 } from "uuid";
 
 const Poll = () => {
   const { getBoard } = useBoard();
@@ -27,7 +28,7 @@ const Poll = () => {
   const [closePolls, setClosePolls] = useState(undefined);
   const [contexmenu, setContexmenu] = useState({});
   const [reRender, setReRender] = useState(false);
-  const {theme, getColor} = useTheme();
+  const { theme, getColor } = useTheme();
   const openAddPoll = () => {
     setOpen(true);
   };
@@ -37,7 +38,7 @@ const Poll = () => {
   };
   const handleReRender = () => {
     setReRender(!reRender);
-  }
+  };
   const handlClick = (e, contexmenu) => {
     e.preventDefault();
     if (e.type === "contextmenu") {
@@ -93,7 +94,8 @@ const Poll = () => {
       </Modal>
       <div onContextMenu={(e) => e.preventDefault()}>
         <Popover
-          id={crypto.randomUUID()}
+          // id={crypto.randomUUID()}
+          id={v4()}
           open={openPopover}
           anchorEl={anchorEl}
           onClose={handleOption}
@@ -122,13 +124,19 @@ const Poll = () => {
                     handleOption();
                     setReRender(!reRender);
                   }}
-                  sx={{ color: getColor(theme.mainBg), width: "100%", height: "3rem" }}
+                  sx={{
+                    color: getColor(theme.mainBg),
+                    width: "100%",
+                    height: "3rem",
+                  }}
                 >
                   <div className="poll_option-in-button">
                     <ReplayOutlined
                       sx={{ fill: theme.primary, fontSize: "1.5rem" }}
                     />
-                    <div style={{color: getColor(theme.minorBg)}}>برداشتن رای</div>
+                    <div style={{ color: getColor(theme.minorBg) }}>
+                      برداشتن رای
+                    </div>
                   </div>
                 </Button>
               )}
@@ -141,13 +149,19 @@ const Poll = () => {
                         handleOption();
                         setReRender(!reRender);
                       }}
-                      sx={{ color: getColor(theme.mainBg), width: "100%", height: "3rem" }}
+                      sx={{
+                        color: getColor(theme.mainBg),
+                        width: "100%",
+                        height: "3rem",
+                      }}
                     >
                       <div className="poll_option-in-button">
                         <RemoveCircleOutlineOutlined
                           sx={{ fill: theme.primary, fontSize: "1.5rem" }}
                         />
-                        <div style={{color: getColor(theme.minorBg)}}>اتمام رای گیری</div>
+                        <div style={{ color: getColor(theme.minorBg) }}>
+                          اتمام رای گیری
+                        </div>
                       </div>
                     </Button>
                   )}
@@ -157,13 +171,23 @@ const Poll = () => {
                       handleOption();
                       setReRender(!reRender);
                     }}
-                    sx={{ color: getColor(theme.mainBg), width: "100%", height: "3rem" }}
+                    sx={{
+                      color: getColor(theme.mainBg),
+                      width: "100%",
+                      height: "3rem",
+                    }}
                   >
                     <div className="poll_option-in-button">
                       <DeleteOutline
-                        sx={{ fill: theme.primary, fontSize: "1.5rem", color: getColor(theme.mainBg) }}
+                        sx={{
+                          fill: theme.primary,
+                          fontSize: "1.5rem",
+                          color: getColor(theme.mainBg),
+                        }}
                       />
-                      <div style={{color: getColor(theme.minorBg)}}>پاک کردن رای گیری</div>
+                      <div style={{ color: getColor(theme.minorBg) }}>
+                        پاک کردن رای گیری
+                      </div>
                     </div>
                   </Button>
                 </>
@@ -175,28 +199,35 @@ const Poll = () => {
       <div className="poll_view">
         <div className="poll_view-section-open">
           <div className="poll_view-label">
-            <HowToVoteOutlined sx={{ fill: getColor(theme.mainBg), fontSize: "1.5rem" }} />
-            <div style={{color: getColor(theme.minorBg)}}>رای گیری های در حال انجام</div>
+            <HowToVoteOutlined
+              sx={{ fill: getColor(theme.mainBg), fontSize: "1.5rem" }}
+            />
+            <div style={{ color: getColor(theme.minorBg) }}>
+              رای گیری های در حال انجام
+            </div>
           </div>
           <div className="poll_open">
-            {polls.sort((a,b) => a.id - b.id).map((x) => {
-              if (x.is_open) {
-                return (
-                  <div onContextMenu={(event) => handlClick(event, x)}>
-                    <PollView
-                      pollId={x.id}
-                      Multi={x.is_multianswer}
-                      Anonymous={!x.is_known}
-                      isOpen
-                      question={x.question}
-                      handleReRender={handleReRender}
-                      key={crypto.randomUUID()}
-                    />
-                  </div>
-                );
-              }
-              return null;
-            })}
+            {polls
+              .sort((a, b) => a.id - b.id)
+              .map((x) => {
+                if (x.is_open) {
+                  return (
+                    <div onContextMenu={(event) => handlClick(event, x)}>
+                      <PollView
+                        pollId={x.id}
+                        Multi={x.is_multianswer}
+                        Anonymous={!x.is_known}
+                        isOpen
+                        question={x.question}
+                        handleReRender={handleReRender}
+                        // key={crypto.randomUUID()}
+                        key={v4()}
+                      />
+                    </div>
+                  );
+                }
+                return null;
+              })}
           </div>
         </div>
         <div className="poll_view-section-closed">
@@ -204,27 +235,32 @@ const Poll = () => {
             <RemoveCircleOutlineOutlined
               sx={{ fill: getColor(theme.mainBg), fontSize: "1.5rem" }}
             />
-            <div style={{color: getColor(theme.minorBg)}}>رای گیری های بسته شده</div>
+            <div style={{ color: getColor(theme.minorBg) }}>
+              رای گیری های بسته شده
+            </div>
           </div>
           <div className="poll_closed">
-            {polls.sort((a,b) => a.id - b.id).map((x) => {
-              if (!x.is_open) {
-                return (
-                  <div onContextMenu={(event) => handlClick(event, x)}>
-                    <PollView
-                      pollId={x.id}
-                      Multi={x.is_multianswer}
-                      Anonymous={!x.is_known}
-                      isOpen={false}
-                      question={x.question}
-                      handleReRender={handleReRender}
-                      key={crypto.randomUUID()}
-                    />
-                  </div>
-                );
-              }
-              return null;
-            })}
+            {polls
+              .sort((a, b) => a.id - b.id)
+              .map((x) => {
+                if (!x.is_open) {
+                  return (
+                    <div onContextMenu={(event) => handlClick(event, x)}>
+                      <PollView
+                        pollId={x.id}
+                        Multi={x.is_multianswer}
+                        Anonymous={!x.is_known}
+                        isOpen={false}
+                        question={x.question}
+                        handleReRender={handleReRender}
+                        // key={crypto.randomUUID()}
+                        key={v4()}
+                      />
+                    </div>
+                  );
+                }
+                return null;
+              })}
           </div>
         </div>
       </div>
