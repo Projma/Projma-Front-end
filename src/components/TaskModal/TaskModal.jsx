@@ -13,25 +13,16 @@ import Taskmodal_Attachment from "./Taskmodal-Attachment";
 import TaskModal_Activity from "./Taskmodal-Activity";
 import Attachments from "./Attachments";
 import CheckList from "./Checklist";
-import "../../styles/TaskModal.css";
+import "../../styles/TaskModal.scss";
 import { useState, useCallback, useEffect } from "react";
 import { CacheProvider } from "@emotion/react";
 import { Button } from "@mui/material";
 import apiInstance from "../../utilities/axiosConfig";
-import PersonIcon from "@mui/icons-material/Person";
-import InitialIcon from "./InitialIcon";
 import { Link } from "react-router-dom";
 import { convertNumberToPersian } from "../../utilities/helpers";
 import Loading from "../Shared/Loading";
-
-const theme = createTheme({
-  direction: "rtl", // Both here and <body dir="rtl">
-});
-// Create rtl cache
-const cacheRtl = createCache({
-  key: "muirtl",
-  stylisPlugins: [prefixer, rtlPlugin],
-});
+import CardLabel from "../Board/List/Card/Content/Body/Content/CardLabel";
+import useTheme from "../../hooks/useTheme";
 
 function APIcall() {}
 
@@ -98,58 +89,13 @@ export default function TaskModal(props) {
                 fontSize: "12px",
               }}
             >
-              {/* {initials.first_name[0] + "‌" + initials.last_name[0]} */}
+              {initials.first_name[0] + "‌" + initials.last_name[0]}
             </div>
           )}
         </div>
       </Button>
     );
   };
-  // const InitialIcon = ({ initials }) => {
-  //   return (
-  //     <div
-  //       data-testid="initial-icon"
-  //       className="flex-row"
-  //       style={{
-  //         backgroundColor: initials.color + "55",
-  //         alignItems: "center",
-  //         justifyContent: "start",
-  //         width: 90,
-  //         height: 30,
-  //         borderRadius: 30,
-  //       }}
-  //     >
-  //       <div
-  //         style={{
-  //           backgroundColor: initials.color,
-  //           alignItems: "center",
-  //           justifyContent: "center",
-  //           borderRadius: 30,
-  //           marginRight: "8%",
-  //           width: 17,
-  //           height: 17,
-  //           marginLeft: 7,
-  //         }}
-  //       ></div>
-  //       <div
-  //         style={{
-  //           display: "flex",
-  //           color: "white",
-  //           fontSize: 13,
-  //           width: "50",
-  //           height: "100%",
-  //           justifyContent: "center",
-  //           alignItems: "center",
-  //           overflowX: "auto",
-  //           paddingTop: 2,
-  //           paddingRight: -10,
-  //         }}
-  //       >
-  //         {initials.title}
-  //       </div>
-  //     </div>
-  //   );
-  // };
 
   const [ListOfComments, setListOfComments] = useState([]);
   const [ListOfDoers, setListOfDoers] = useState([]);
@@ -165,6 +111,7 @@ export default function TaskModal(props) {
   const [allAttachments, setAllAttachments] = useState([]);
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
+  const {theme,getColor} = useTheme();
 
   useEffect(() => {
     apiInstance.get(`/board/${params.board_id}/members/`).then((res) => {
@@ -228,135 +175,94 @@ export default function TaskModal(props) {
   }, []);
 
   return (
-    <div>
+    <div className="taskmodal">
       {isPost ? <Loading /> : null}
-      <CacheProvider value={cacheRtl}>
-        <ThemeProvider theme={theme}>
-          <div
-            className="taskmodal--page"
-            style={{ width: "50vw", marginTop: 0 }}
-          >
-            <div className="taskmodal--container" style={{ width: "100%" }}>
-              <div className="taskmodal--header flex-row flex-column-gap-2">
-                <div className="flex-taskmodal" style={{ marginTop: "3px" }}>
-                  <PersonIcon
-                    fontSize="large"
-                    sx={{ color: "white" }}
-                  ></PersonIcon>
-                </div>
-                <div
-                  className="flex-column"
-                  style={{ gap: "9%", width: "100%" }}
-                >
-                  <div className="neonText taskmodal--title">{title}</div>
-                  <div className="neonText taskmodal--subtitle">
-                    در لیست {tasklistName}
-                  </div>
-                </div>
+      <div className="taskmodal__header">
+        <div className="taskmodal__header--title">
+          <div className="taskmodal__header--card">{title}</div>
+          <div className="taskmodal__header--list">در لیست {tasklistName}</div>
+        </div>
+      </div>
+      <div className="taskmodal__container">
+        <div className="taskmodal__container--main">
+          <div className="taskmodal__container--header">
+            <div className="taskmodal__container--header-container">
+              <div className="taskmodal__container--header-container-title">
+                اعضا
               </div>
-              <div
-                className="taskmodal--larger_smaller"
-                style={{ height: "80%", marginRight: "2%" }}
-              >
-                <div className="taskmodal--body-larger">
-                  <div className="flex-row taskmodal--body-options flex-gap">
-                    <div className="taskmodal--body-members">
-                      <div className="taskmodel--body-members-title">اعضا</div>
-                      <div className="flex-gap Taskmodal--body-members-icons">
-                        {ListOfDoers.map((doer) => (
-                          <InitialIconcircle
-                            initials={doer}
-                          ></InitialIconcircle>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="taskmodal--body-labels">
-                      <div className="taskmodel--body-members-title">برچسب</div>
-                      <div className="flex-gap Taskmodal--body-labels-icons">
-                        {ListOfLabels.map((label) => (
-                          <InitialIcon initials={label}></InitialIcon>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="taskmodal--body-duetime">
-                      <div
-                        className="flex-taskmodal taskmodel--body-members-title"
-                        style={{ marginBottom: "0px" }}
-                      >
-                        تاریخ اتمام
-                      </div>
-                      <div
-                        className="flex-taskmodal"
-                        style={{ display: "flex", justifyContent: "center" }}
-                      >
-                        <div className="Taskmodal--body-dueDate">
-                          {dueDate.toString() != "null" ? (
-                            <div className="taskmodal--duetime-showDate">
-                              {dueDate.toString().replaceAll("-", "/")}
-                            </div>
-                          ) : (
-                            <div></div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
+              <div className="taskmodal__container--header-container-content">
+                {ListOfDoers.map((doer) => (
+                  <InitialIconcircle initials={doer}></InitialIconcircle>
+                ))}
+              </div>
+            </div>
+            <div className="taskmodal__container--header-container">
+              <div className="taskmodal__container--header-container-title">
+                برچسب
+              </div>
+              <div className="taskmodal__container--header-container-content">
+                <CardLabel label={ListOfLabels} />
+              </div>
+            </div>
+            <div className="taskmodal__container--header-container">
+              <div className="taskmodal__container--header-container-title">
+                تاریخ اتمام
+              </div>
+              <div className="taskmodal__container--header-container-content">
+                {dueDate.toString() != "null" ? (
+                  <div className="taskmodal--duetime-showDate">
+                    {dueDate.toString().replaceAll("-", "/")}
                   </div>
-                  <Description
-                    params={params}
-                    description={description}
-                    setDescription={setDescription}
-                  />
-                  <Taskmodal_CheckList
-                    params={params}
-                    allChecklists={allChecklists}
-                    setAllChecklists={setAllChecklists}
-                  />
-                  <Taskmodal_Attachment
-                    params={params}
-                    allAttachments={allAttachments}
-                    setAllAttachments={setAllAttachments}
-                  />
-                  <TaskModal_Activity
-                    params={params}
-                    user={user}
-                    done={done}
-                    setDone={setDone}
-                    ListOfComments={ListOfComments}
-                    setListOfComments={setListOfComments}
-                    estimate={estimate}
-                    setEstimate={setEstimate}
-                  />
-                </div>
-                <div className="flex-column taskmodal--body-smaller">
-                  <Members
-                    params={params}
-                    setDoers={setListOfDoers}
-                    doer={ListOfDoers}
-                  />
-                  <Labels
-                    params={params}
-                    task_labels={ListOfLabels}
-                    set_task_labels={setListOfLabels}
-                  />
-                  <CheckList
-                    params={params}
-                    setAllChecklists={setAllChecklists}
-                  />
-                  <Attachments
-                    params={params}
-                    setAllAttachments={setAllAttachments}
-                  />
-                  <DueTime
-                    params={params}
-                    dueDate={dueDate}
-                    setDueTime={setDueDate}
-                  />
-                </div>
+                ) : (
+                  <div>مشخص نشده است</div>
+                )}
               </div>
             </div>
           </div>
-        </ThemeProvider>
-      </CacheProvider>
+          <div className="taskmodal__container--content" style={{color: getColor(theme.minorBg)}}>
+            <Description
+              params={params}
+              description={description}
+              setDescription={setDescription}
+            />
+            <Taskmodal_CheckList
+              params={params}
+              allChecklists={allChecklists}
+              setAllChecklists={setAllChecklists}
+            />
+            <Taskmodal_Attachment
+              params={params}
+              allAttachments={allAttachments}
+              setAllAttachments={setAllAttachments}
+            />
+            <TaskModal_Activity
+              params={params}
+              user={user}
+              done={done}
+              setDone={setDone}
+              ListOfComments={ListOfComments}
+              setListOfComments={setListOfComments}
+              estimate={estimate}
+              setEstimate={setEstimate}
+            />
+          </div>
+        </div>
+        <div className="taskmodal__container--sub">
+          <Members
+            params={params}
+            setDoers={setListOfDoers}
+            doer={ListOfDoers}
+          />
+          <Labels
+            params={params}
+            task_labels={ListOfLabels}
+            set_task_labels={setListOfLabels}
+          />
+          <CheckList params={params} setAllChecklists={setAllChecklists} />
+          <Attachments params={params} setAllAttachments={setAllAttachments} />
+          <DueTime params={params} dueDate={dueDate} setDueTime={setDueDate} />
+        </div>
+      </div>
     </div>
   );
 }

@@ -2,12 +2,9 @@ import { Helmet } from "react-helmet";
 import "../styles/BoardInvitation.scss";
 import { useEffect, useState } from "react";
 import { useParams , useNavigate } from "react-router-dom";
-
 import { Box } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
 import apiInstance from "../utilities/axiosConfig";
-import Header from "../components/Header/Header";
-import Footer from "../components/Landing/Footer/Footer";
 
 const BoardInvitation = () => {
     const navigate = useNavigate();
@@ -77,8 +74,6 @@ const BoardInvitation = () => {
             <Helmet>
                 <title>دعوت به بورد</title>
             </Helmet>
-            <Header />
-
             <Box
                 sx={{
                     backgroundColor: "white",
@@ -93,7 +88,6 @@ const BoardInvitation = () => {
             </Box>
 
 
-            <Footer />
         </div>
     );
 };

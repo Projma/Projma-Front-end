@@ -1,26 +1,28 @@
 import * as React from "react";
-import Popover from "@mui/material/Popover";
+import Modal from "../Asset/Modal";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import "../../styles/TaskModal.css";
+import "../../styles/TaskModal.scss";
 import "./Members.scss";
 import PersonIcon from "@mui/icons-material/Person";
 import { useEffect } from "react";
 import apiInstance from "../../utilities/axiosConfig";
 import { baseUrl } from "../../utilities/constants";
 import Loading from "../Shared/Loading";
+import useTheme from "../../hooks/useTheme";
 
 export default function Members({ params, setDoers, doer }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isPost, setIsPost] = React.useState(false);
   const [changeMemberStatus, setChangeMemberStatus] = React.useState(false);
-
+  const [open,setOpen] = React.useState(false);
+  const {theme,getColor} = useTheme();
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    setOpen(true);
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setOpen(false);
   };
   useEffect(() => {
     apiInstance.get(`/board/${params.board_id}/members/`).then((res) => {
@@ -46,7 +48,6 @@ export default function Members({ params, setDoers, doer }) {
 
   const [ListOfMembers, setListOfMembers] = React.useState([]);
   const baseURL = baseUrl.substring(0, baseUrl.length - 1);
-  const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   const randColor = () => {
     return (
@@ -131,42 +132,25 @@ export default function Members({ params, setDoers, doer }) {
       });
   };
   return (
-    <div className="taskmodal-flexibale-icon">
+    <div className="taskmodal-flexibale-icon" style={{width:"100%",position:"relative",color:getColor(theme.minorBg)}}>
       {isPost ? <Loading /> : null}
       <Button
-        className="taskmodal-smaller-button-inner"
         aria-describedby={id}
         variant="contained"
         onClick={handleClick}
-        sx={{
-          bgcolor: "#173b5e",
-          marginTop: "5%",
-          borderRadius: "35px",
-          display: "flex",
-          height: "80%",
-          justifyContent: "start",
-        }}
+        style={{width:"100%"}}
       >
-        <PersonIcon rotate="90" fontSize="large"></PersonIcon>{" "}
-        <div className="taskmodal-smaller-button">اعضا</div>
+        <PersonIcon rotate="90" ></PersonIcon>
+        <div>اعضا</div>
       </Button>
-      <Popover
+      <Modal
         id={id}
         open={open}
-        anchorEl={anchorEl}
         onClose={handleClose}
-        anchorOrigin={{
-          vertical: "center",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
       >
-        <div className="tm-members-main-div">
+        <div className="tm-members-main-div" style={{zIndex:2000}}>
           <header className="tm-members-header">
-            <h2 className="tm_labels-header-title">اعضا</h2>
+            <h2 className="tm_labels-header-title" style={{color:getColor(theme.minorBg)}}>اعضا</h2>
             <Divider sx={{ backgroundColor: "black" }} />
           </header>
           <div className="taskmodal-members-body">
@@ -183,7 +167,7 @@ export default function Members({ params, setDoers, doer }) {
                     color: "white",
                   }}
                 >
-                  <div className="flex taskmodal-members-body-row-icon">
+                  <div className="flex taskmodal-members-body-row-icon" >
                     <input
                       type="checkbox"
                       checked={member.checked}
@@ -217,7 +201,7 @@ export default function Members({ params, setDoers, doer }) {
                     ) : (
                       <InitialIconcircle
                         initials={
-                          member.firstName[0] + "‌" + member.lastName[0]
+                          member.firstName[0] + "" + member.lastName[0]
                         }
                       />
                     )}
@@ -227,7 +211,7 @@ export default function Members({ params, setDoers, doer }) {
                     className="flex"
                     style={{
                       fontSize: "13px",
-                      color: "white",
+                      color:getColor(theme.minorBg),
                       width: "100%",
                       justifyContent: "flex-start",
                       overflowX: "auto",
@@ -242,7 +226,7 @@ export default function Members({ params, setDoers, doer }) {
             })}
           </div>
         </div>
-      </Popover>
+      </Modal>
     </div>
   );
 }

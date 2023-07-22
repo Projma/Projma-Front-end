@@ -8,7 +8,7 @@ import StyledTextField from "../Shared/StyledTextField";
 import Divider from "@mui/material/Divider";
 import PerTextField from "../Shared/PerTextField";
 import Loading from "../Shared/Loading";
-import "../../styles/TaskModal.css";
+import "../../styles/TaskModal.scss";
 import { convertNumberToPersian } from "../../utilities/helpers";
 
 const EditLabel = ({ setShowEdit, item, editThisItem }) => {

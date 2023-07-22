@@ -21,6 +21,7 @@ import { convertNumberToPersian } from "../../../utilities/helpers";
 import useTheme from "../../../hooks/useTheme";
 
 const DeleteListDialog = ({ isOpen, handleClose, handleDeleteList }) => {
+  const {theme, getColor} = useTheme();
   return (
     <div>
       <Dialog
@@ -28,14 +29,15 @@ const DeleteListDialog = ({ isOpen, handleClose, handleDeleteList }) => {
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        
       >
-        <DialogTitle id="alert-dialog-title">
+        <DialogTitle id="alert-dialog-title" sx={{color: getColor(theme.minorBg)}}>
           {"آیا از حذف کردن لیست مطمئن هستید؟"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText
             id="alert-dialog-description"
-            sx={{ color: "#fff" }}
+            sx={{color: getColor(theme.minorBg)}}
           >
             اخطار: با حذف کردن لیست تمام کارت های داخل آن نیز حذف میشود
           </DialogContentText>
@@ -54,7 +56,7 @@ const DeleteListDialog = ({ isOpen, handleClose, handleDeleteList }) => {
             </Button>
             <Button
               type="button"
-              variant="contained"
+              variant="outlined"
               onClick={handleClose}
               autoFocus
               className="List_dialog-button"

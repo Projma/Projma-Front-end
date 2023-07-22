@@ -1,0 +1,55 @@
+.starred-dialog {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.strred-board {
+  display: grid;
+  grid-template-columns: 4rem minmax(10rem, max-content);
+  grid-template-rows: 4rem;
+  gap: 0.5rem;
+  align-items: center;
+  justify-items: center;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: $secondary;
+  &:hover {
+    background-color: $hover;
+    cursor: pointer;
+  }
+}
+
+.starred-info {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.starred-name {
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.starred-description {
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+  font-style: italic;
+  filter: brightness(80%);
+}
+
+.starred-pic {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+  // border: 0.2rem solid $primary;
+}

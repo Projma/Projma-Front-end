@@ -1,5 +1,4 @@
 import * as React from "react";
-import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useRef } from "react";
@@ -8,12 +7,13 @@ import LabelIcon from "@mui/icons-material/Label";
 import Divider from "@mui/material/Divider";
 import { makeStyles } from "@mui/styles";
 import { Input } from "@mui/material";
-import "../../styles/TaskModal.css";
+import "../../styles/TaskModal.scss";
 import "./Checklist.scss";
-import {  toast } from "react-toastify";
-
+import { toast } from "react-toastify";
+import useTheme from "../../hooks/useTheme";
 import Loading from "../Shared/Loading";
 import { convertNumberToPersian } from "../../utilities/helpers";
+import Modal from "../Asset/Modal";
 
 const useStyles = makeStyles({
   title_input: {
@@ -31,6 +31,8 @@ export default function CheckList({ params, setAllChecklists }) {
   const [isPost, setIsPost] = React.useState(false);
   const add_section_ref = useRef(null);
   const add_button_ref = useRef(null);
+  const { theme, getColor } = useTheme();
+  const [open,setOpen] = React.useState(false);
   const createCheckList = (e) => {
     if (createdCheckTitle.length == 0) {
       e.preventDefault();
@@ -61,60 +63,38 @@ export default function CheckList({ params, setAllChecklists }) {
   };
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    setOpen(true);
   };
 
   const handleClose = () => {
     setCreatedCheckTitle("");
-    setAnchorEl(null);
+    setOpen(false);
   };
 
-  const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <div className="taskmodal-flexibale-icon">
+    <div className="taskmodal-flexibale-icon" style={{ width: "100%" }}>
       {isPost ? <Loading /> : null}
       <Button
-        className="taskmodal-smaller-button-inner"
         aria-describedby={id}
         role="open_checklist"
         variant="contained"
         onClick={handleClick}
-        sx={{
-          bgcolor: "#173b5e",
-          marginTop: "5%",
-          borderRadius: "35px",
-          height: "80%",
-          display: "flex",
-          justifyContent: "start",
-        }}
+        style={{ width: "100%" }}
       >
-        <LabelIcon rotate="90" fontSize="large"></LabelIcon>{" "}
-        <div
-          className="taskmodal-smaller-button"
-          style={{ fontSize: "9px", marginRight: "0%", width: "80px" }}
-        >
-          لیست کنترل
-        </div>
+        <LabelIcon rotate="90"></LabelIcon> <div>لیست کنترل</div>
       </Button>
-      <Popover
+      <Modal
         id={id}
         open={open}
-        anchorEl={anchorEl}
         onClose={handleClose}
-        anchorOrigin={{
-          vertical: "center",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
       >
         <div className="tm_checklists-main-div">
           <header className="tm_checklists-header">
-            <h2 style={{ color: "#fff" }}>اضافه کردن لیست کنترل</h2>
+            <h2 style={{ color: getColor(theme.minorBg) }}>
+              اضافه کردن لیست کنترل
+            </h2>
           </header>
           <Divider sx={{}} />
           <div className="tm_checklists-body" ref={add_section_ref}>
@@ -126,17 +106,22 @@ export default function CheckList({ params, setAllChecklists }) {
               }
               placeholder="عنوان"
               sx={{
-                color: "#fff !important",
                 width: "100%",
                 marginBottom: "1rem",
               }}
+              style={{ color: getColor(theme.minorBg) }}
             />
-            <button className="button-16" role="button" onClick={createCheckList}>
+            <button
+              className="button-16"
+              role="button"
+              onClick={createCheckList}
+              style={{ color: getColor(theme.minorBg) }}
+            >
               افزودن
             </button>
           </div>
         </div>
-      </Popover>
+      </Modal>
     </div>
   );
 }

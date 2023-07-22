@@ -122,6 +122,8 @@ const BoardSidebar = () => {
         defaultCollapsed
         transitionDuration={800}
         style={{ borderLeft: "none" }}
+        width="23rem"
+        breakPoint="md"
       >
         <div className="boardsidebar-container">
           <div className="boardsidebar-header">
@@ -151,7 +153,7 @@ const BoardSidebar = () => {
                       alignItems: "center",
                     }}
                   >
-                    <Typography>داشبورد</Typography>
+                    <Typography color={getColor(theme.secondary) }>داشبورد</Typography>
                     <MenuOutlined sx={{ color: getColor(theme.secondary) }} />
                   </div>
                 )}

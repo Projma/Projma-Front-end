@@ -1,0 +1,35 @@
+.create-dialog {
+  width: 25rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.create-button {
+  width: 12rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  background-color: $secondary;
+  gap: 0.5rem;
+  .MuiSvgIcon-root {
+    font-size: 4rem;
+  }
+  &:hover {
+    background-color: $hover;
+    cursor: pointer;
+  }
+}
+
+.create-title {
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}

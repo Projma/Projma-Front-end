@@ -1,8 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import "../styles/NotFound.scss";
-import Header from "../components/Header/Header";
-import Footer from "../components/Landing/Footer/Footer";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid"; // Grid version 1
 import Container from "@mui/material/Container";
@@ -17,7 +15,6 @@ const NotFound = () => {
             <Helmet>
                 <title>پروجما</title>
             </Helmet>
-            <Header />
 
             <Container maxWidth="lg" sx={{ marginTop: "2rem" }}>
                 <Grid container xs={12} md={12} lg={12} >
@@ -69,8 +66,7 @@ const NotFound = () => {
                     </Grid>
                 </Grid>
             </Container>
-            <Footer
-            />
+
         </div>
     );
 };

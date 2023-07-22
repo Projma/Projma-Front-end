@@ -1,10 +1,10 @@
 import * as React from "react";
-import "../../styles/TaskModal.css";
+import "../../styles/TaskModal.scss";
 import { useState } from "react";
 import { Button } from "@mui/material";
 import apiInstance from "../../utilities/axiosConfig";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-
+import useTheme from "../../hooks/useTheme";
 
 export default function Taskmodal_Attachment({
   params,
@@ -12,6 +12,7 @@ export default function Taskmodal_Attachment({
   setAllAttachments,
 }) {
   const [isPost, setIsPost] = useState(false);
+  const {theme,getColor} = useTheme();
   const handleRemoveAttachment = (id) => {
     setIsPost(true);
     setAllAttachments((prevState) => {
@@ -33,7 +34,7 @@ export default function Taskmodal_Attachment({
               sx={{ color: "white" }}
             ></AttachFileIcon>
           </div>
-          <div className="flex neonText taskmodal--description-title">
+          <div style={{color: getColor(theme.minorBg)}}>
             پیوست
           </div>
         </div>
@@ -52,11 +53,11 @@ export default function Taskmodal_Attachment({
                   href={`${item.file}`}
                   className="taskmodal--attachment-link-btn"
                 >
-                  <div className="flex-taskmodal taskmodal--body-attachment-list-item-icon">
+                  {/* <div className="flex-taskmodal taskmodal--body-attachment-list-item-icon">
                     <AttachFileIcon
                       sx={{ color: "white", fontSize: "46px" }}
                     ></AttachFileIcon>
-                  </div>
+                  </div> */}
                   <div className="flex-row taskmodal--body-attachment-list-item">
                     <div className="flex-taskmodal taskmodal--body-attachment-list-item-title">
                       {item?.file?.toString()?.split("/")[5]}

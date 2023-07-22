@@ -8,8 +8,10 @@
   width: 40rem;
   padding: 2rem 2rem;
   border-radius: 0.5rem;
-  background-color: $minor-bg;
-  
+  background-color: $minorBg;
+  display: flex;
+  flex-flow: column;
+  gap: 1rem;
   position: absolute;
   top: 50%;
   left: 50%;
