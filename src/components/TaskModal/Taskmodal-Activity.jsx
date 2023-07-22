@@ -2,7 +2,7 @@ import * as React from "react";
 import "../../styles/TaskModal.css";
 import { useState } from "react";
 import StyledTextField from "../Shared/StyledTextField";
-import { Button , Box } from "@mui/material";
+import { Button, Box } from "@mui/material";
 import apiInstance from "../../utilities/axiosConfig";
 
 import { convertNumberToPersian } from "../../utilities/helpers";
@@ -38,7 +38,7 @@ export default function TaskModal_Activity({
       Math.floor(Math.random() * 16777215)
         .toString(16)
         .padStart(6, "0")
-        .toUpperCase()
+        ?.toUpperCase()
     );
   };
   const InitialIconcircle = ({ initials }) => {
