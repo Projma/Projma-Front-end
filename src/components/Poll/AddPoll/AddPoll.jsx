@@ -15,13 +15,12 @@ import PollOptions from "./PollOptions";
 import AddIcon from "@mui/icons-material/Add";
 import apiInstance from "../../../utilities/axiosConfig";
 import useBoard from "../../../hooks/useBoard";
+import { v4 } from "uuid";
 
-const AddPoll = ({closeAddPoll}) => {
-  const {boardId} = useBoard();
+const AddPoll = ({ closeAddPoll }) => {
+  const { boardId } = useBoard();
   const [question, setQuestion] = useState("");
-  const [options, setOptions] = useState([
-    { option: "", id: crypto.randomUUID() },
-  ]);
+  const [options, setOptions] = useState([{ option: "", id: v4() }]);
   const [state, setState] = useState({
     anonymous: true,
     multiVote: false,
@@ -41,7 +40,7 @@ const AddPoll = ({closeAddPoll}) => {
     });
     ops = ops.filter((x) => x.option !== "");
     console.log(ops);
-    if (ops.length < 10) ops.push({ option: "", id: crypto.randomUUID() });
+    if (ops.length < 10) ops.push({ option: "", id: v4() });
     setOptions(ops);
     // setOptions([...options, ""]);
     console.log(ops);
@@ -60,24 +59,26 @@ const AddPoll = ({closeAddPoll}) => {
     ));
   };
 
-  const handleClick = async() => {
-    await apiInstance.post("board/poll/",{
-      "board": boardId,
-      "question": question,
-      "is_open": true,
-      "is_multianswer": state["multiVote"],
-      "is_known": !state["anonymous"],
-    }).then((res) => {
-      const pollId = res.data.id;
-      options.forEach(x => {
-        if(x.option !== "")
-          apiInstance.post("board/poll-answers/",{
-            "text": x.option,
-            "poll": pollId
-          });
+  const handleClick = async () => {
+    await apiInstance
+      .post("board/poll/", {
+        board: boardId,
+        question: question,
+        is_open: true,
+        is_multianswer: state["multiVote"],
+        is_known: !state["anonymous"],
+      })
+      .then((res) => {
+        const pollId = res.data.id;
+        options.forEach((x) => {
+          if (x.option !== "")
+            apiInstance.post("board/poll-answers/", {
+              text: x.option,
+              poll: pollId,
+            });
+        });
+        closeAddPoll();
       });
-      closeAddPoll();
-    });
   };
 
   return (

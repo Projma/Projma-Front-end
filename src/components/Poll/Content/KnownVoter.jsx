@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { Typography } from "@mui/material";
 import useTheme from "../../../hooks/useTheme";
 import { baseUrl } from "../../../utilities/constants";
+import { v4 } from "uuid";
 
 const KnownVoter = ({ voters }) => {
   // const [member, setMember] = useState([]);
@@ -57,7 +58,8 @@ const KnownVoter = ({ voters }) => {
           {voter.map((x) => (
             <Tooltip title={x.first_name + " " + x.last_name}>
               <Avatar
-                key={crypto.randomUUID()}
+                // key={crypto.randomUUID()}
+                key={v4()}
                 alt={x.first_name + " " + x.last_name}
                 src={
                   x.profile_pic !== null
