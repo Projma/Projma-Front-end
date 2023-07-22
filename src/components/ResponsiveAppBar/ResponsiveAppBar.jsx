@@ -269,9 +269,12 @@ function ResponsiveAppBar() {
                   variant="circular"
                   src={baseURL + state.user.profile_pic}
                 >
-                  {(
-                    state.user.user.first_name[0] + state.user.user.last_name[0]
-                  )?.toUpperCase()}
+                  {state.user.user.first_name.length != 0 &&
+                    state.user.user.last_name.length != 0 &&
+                    (
+                      state.user.user.first_name[0] +
+                      state.user.user.last_name[0]
+                    )?.toUpperCase()}
                 </Avatar>
               )}
             </Tooltip>

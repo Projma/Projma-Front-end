@@ -100,9 +100,11 @@ const KnownResult = ({ voters, options, question, totalVotes }) => {
                                   backgroundColor: theme.secondary,
                                 }}
                               >
-                                {(
-                                  user.first_name[0] + user.last_name[0]
-                                )?.toUpperCase()}
+                                {user.first_name.length != 0 &&
+                                  user.last_name.length != 0 &&
+                                  (
+                                    user.first_name[0] + user.last_name[0]
+                                  )?.toUpperCase()}
                               </Avatar>
                               <div
                                 className="known-result_modal-options-voter-name"

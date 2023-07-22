@@ -58,7 +58,9 @@ const GroupAvatars = (props) => {
                 backgroundColor: theme.secondary,
               }}
             >
-              {(x.user.first_name[0] + x.user.last_name[0])?.toUpperCase()}
+              {x.user.first_name.length != 0 &&
+                x.user.last_name.length != 0 &&
+                (x.user.first_name[0] + x.user.last_name[0])?.toUpperCase()}
             </Avatar>
           </Tooltip>
         ))}
