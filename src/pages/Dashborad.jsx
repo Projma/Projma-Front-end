@@ -1432,7 +1432,6 @@ export const Dashborad = () => {
         <Helmet>
           <title>داشبورد</title>
         </Helmet>
-        <Header />
         <Grid
           container
           spacing={{ xs: 0, md: 0 }}
@@ -1488,7 +1487,6 @@ export const Dashborad = () => {
           overflow: "auto",
         }}
       >
-        <Header />
         <Helmet>
           <title>داشبورد</title>
         </Helmet>

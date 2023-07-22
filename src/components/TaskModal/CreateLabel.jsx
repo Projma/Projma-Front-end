@@ -6,7 +6,7 @@ import {  toast } from "react-toastify";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import StyledTextField from "../Shared/StyledTextField";
 import PerTextField from "../Shared/PerTextField";
-import "../../styles/TaskModal.css";
+import "../../styles/TaskModal.scss";
 import Loading from "../Shared/Loading";
 // persian num
 import { convertNumberToPersian } from "../../utilities/helpers";

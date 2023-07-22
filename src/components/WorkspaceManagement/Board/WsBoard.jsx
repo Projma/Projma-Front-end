@@ -45,8 +45,9 @@ const WsBoard = () => {
         const boards = res.data.map((obj) => ({
           id: obj.id,
           name: obj.name,
-          background_pic: obj.background_pic,
+          background_pic: baseUrl.slice(0,-1) + obj.background_pic,
         }));
+        console.log(boards);
         setBoards(boards);
         tempdata = boards;
       });
@@ -75,7 +76,7 @@ const WsBoard = () => {
   };
 
   return (
-    <div className="workspace-board-main" style={{ width: "100vw" }}>
+    <div className="workspace-board-main" style={{ width: "100%" }}>
       {loading && <Loading />}
       {/* <Navbar
         params={params}
@@ -104,7 +105,7 @@ const WsBoard = () => {
                       pic={
                         x.background_pic === null
                           ? null
-                          : baseUrl + x.background_pic
+                          : baseUrl.slice(0,-1) + x.background_pic
                       }
                       onLoading={() => setLoading(true)}
                       onStarred={starredHandler}
@@ -156,7 +157,7 @@ const WsBoard = () => {
                   pic={
                     x.background_pic === null
                       ? null
-                      : baseUrl + x.background_pic
+                      : x.background_pic
                   }
                   onStarred={starredHandler}
                   onLoading={() => setLoading(true)}

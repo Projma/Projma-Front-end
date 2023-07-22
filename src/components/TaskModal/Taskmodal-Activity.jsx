@@ -1,14 +1,14 @@
 import * as React from "react";
-import "../../styles/TaskModal.css";
+import "../../styles/TaskModal.scss";
 import { useState } from "react";
 import StyledTextField from "../Shared/StyledTextField";
 import { Button, Box } from "@mui/material";
 import apiInstance from "../../utilities/axiosConfig";
-
+import PerTextField from "../Shared/PerTextField";
 import { convertNumberToPersian } from "../../utilities/helpers";
 import { toast } from "react-toastify";
 import CommentIcon from "@mui/icons-material/Comment";
-
+import useTheme from "../../hooks/useTheme";
 import { baseUrl } from "../../utilities/constants";
 import { Link } from "react-router-dom";
 
@@ -22,6 +22,7 @@ export default function TaskModal_Activity({
   estimate,
   setEstimate,
 }) {
+  const {theme,getColor} = useTheme();
   const baseURL = baseUrl.substring(0, baseUrl.length - 1);
   const [EditCommentList, setEditCommentList] = useState(
     Array(1000).fill(false)
@@ -38,7 +39,7 @@ export default function TaskModal_Activity({
       Math.floor(Math.random() * 16777215)
         .toString(16)
         .padStart(6, "0")
-        ?.toUpperCase()
+        .toUpperCase()
     );
   };
   const InitialIconcircle = ({ initials }) => {
@@ -207,11 +208,11 @@ export default function TaskModal_Activity({
   return (
     <div>
       <div className="taskmodal--body-activity">
-        <div className="flex-row taskmodal--body-activity-header">
+        <div className="flex-row taskmodal--body-activity-header" style={{marginBottom:"1rem"}}>
           <div className="flex-taskmodal taskmodal--body-activity-icon">
             <CommentIcon fontSize="large" sx={{ color: "white" }}></CommentIcon>
           </div>
-          <div className="flex neonText taskmodal--description-title">
+          <div style={{color: getColor(theme.minorBg)}}>
             فعالیت
           </div>
         </div>
@@ -219,51 +220,53 @@ export default function TaskModal_Activity({
           <Box
             onSubmit={plusforprojma}
             component="form"
-            className="flex-taskmodal form-plusforprojma"
+            style={{display:"flex",alignItems:"flex-start",justifyContent:"flex-start",gap:"0.5rem"}}
           >
-            <StyledTextField
-              size="small"
-              variant="outlined"
-              className="taskmodal--activity-StyledTextField"
-              label="تخمین"
-              name="estimate"
-              id="estimate"
-              value={estimate}
-              onChange={(e) => {
-                setEstimate(convertNumberToPersian(e.target.value));
-                setChangePlus(true);
-              }}
-              InputLabelProps={{
-                style: { fontFamily: "Vazir", fontSize: "11px" },
-              }}
-              InputProps={{
-                style: { fontFamily: "Vazir", fontSize: "11px" },
-              }}
-              autoFocus
-            />
-            <StyledTextField
-              size="small"
-              variant="outlined"
-              className="taskmodal--activity-StyledTextField"
-              sx={{
-                marginLeft: "3%",
-              }}
-              label="عملی"
-              name="done"
-              id="done"
-              value={done}
-              onChange={(e) => {
-                setDone(convertNumberToPersian(e.target.value));
-                setChangePlus(true);
-              }}
-              InputLabelProps={{
-                style: { fontFamily: "Vazir", fontSize: "11px" },
-              }}
-              InputProps={{
-                style: { fontFamily: "Vazir", fontSize: "11px" },
-              }}
-              autoFocus
-            />
+            <PerTextField>
+              <StyledTextField
+                size="small"
+                variant="outlined"
+                className="taskmodal--activity-StyledTextField"
+                label="تخمین"
+                name="estimate"
+                id="estimate"
+                value={estimate}
+                onChange={(e) => {
+                  setEstimate(convertNumberToPersian(e.target.value));
+                  setChangePlus(true);
+                }}
+                InputLabelProps={{
+                  style: { fontFamily: "Vazir", fontSize: "11px" },
+                }}
+                InputProps={{
+                  style: { fontFamily: "Vazir", fontSize: "11px" },
+                }}
+                autoFocus
+              />
+              <StyledTextField
+                size="small"
+                variant="outlined"
+                className="taskmodal--activity-StyledTextField"
+                sx={{
+                  marginLeft: "3%",
+                }}
+                label="عملی"
+                name="done"
+                id="done"
+                value={done}
+                onChange={(e) => {
+                  setDone(convertNumberToPersian(e.target.value));
+                  setChangePlus(true);
+                }}
+                InputLabelProps={{
+                  style: { fontFamily: "Vazir", fontSize: "11px" },
+                }}
+                InputProps={{
+                  style: { fontFamily: "Vazir", fontSize: "11px" },
+                }}
+                autoFocus
+              />
+            </PerTextField>
             {changePlus ? (
               <Button
                 className="taskmodal--activity-plusforprojma-button"
@@ -278,7 +281,7 @@ export default function TaskModal_Activity({
             )}
           </Box>
         </div>
-        <div className="flex-row taskmodal--body-activity-body">
+        <div className="flex-row taskmodal--body-activity-body" style={{margin:"1rem 0", width:"100%",display:"flex",alignItems:"flex-start",justifyContent:"flex-start",gap:"0.5rem"}}>
           <div className="flex taskmodal--body-activity-body-icon">
             <div className="flex taskmodal--body-activity-body-icon">
               {user.profile_pic !== null ? (
@@ -294,11 +297,7 @@ export default function TaskModal_Activity({
               ) : (
                 <InitialIconcircle
                   initials={
-                    user?.user.first_name.length != 0 &&
-                    user?.user.last_name.length != 0
-                      ? user?.user.first_name[0] + "‌" + user?.user.last_name[0]
-                      : ""
-                    // user?.user.first_name[0] + "‌" + user?.user.last_name[0]
+                    user?.user.first_name[0] + "" + user?.user.last_name[0]
                   }
                 ></InitialIconcircle>
               )}
@@ -308,23 +307,27 @@ export default function TaskModal_Activity({
             component="form"
             onSubmit={handleCommentSubmit}
             className="flex-column taskmodal--body-activity-box"
+            style={{width:"100%",display:"flex",alignItems:"flex-start",justifyContent:"flex-start",gap:"0.5rem"}}
           >
             {showComment ? (
-              <div>
-                <StyledTextField
-                  fullWidth
-                  autoFocus
-                  onChange={(e) =>
-                    setComment(convertNumberToPersian(e.target.value))
-                  }
-                  inputProps={{
-                    style: {
-                      padding: "1%",
-                      fontFamily: "Vazir",
-                      fontSize: "152%",
-                    },
-                  }}
-                ></StyledTextField>
+              <div style={{width:"100%"}}>
+                <PerTextField>
+                  <StyledTextField
+                    fullWidth
+                    autoFocus
+                    multiline
+                    onChange={(e) =>
+                      setComment(convertNumberToPersian(e.target.value))
+                    }
+                    inputProps={{
+                      style: {
+                        padding: "1%",
+                        fontFamily: "Vazir",
+                        fontSize: "152%",
+                      },
+                    }}
+                  ></StyledTextField>
+                </PerTextField>
                 <div dir="ltr" style={{ marginTop: "3%" }}>
                   <Button
                     type="submit"
@@ -355,11 +358,11 @@ export default function TaskModal_Activity({
             )}
           </Box>
         </div>
-        <div className="taskmodal--body-listofcomments">
+        <div className="taskmodal--body-listofcomments" style={{width:"100%",display:"flex",alignItems:"flex-start",justifyContent:"flex-start",gap:"0.5rem",flexFlow:"column",marginBottom:"2rem"}}>
           {ListOfComments.map((item, index) => (
             <div
-              className="flex-row taskmodal--listofcomments-item"
-              style={{ justifyContent: "space-between" }}
+              className="taskmodal--listofcomments-item"
+              style={{ width:"100%",display:"flex",alignItems:"flex-start",justifyContent:"flex-start",gap:"0.5rem"}}
             >
               <div className="flex taskmodal--body-activity-body-icon">
                 {item.sender?.profile_pic !== null ? (
@@ -379,13 +382,9 @@ export default function TaskModal_Activity({
                 ) : (
                   <InitialIconcircle
                     initials={
-                      item.sender?.first_name.length != 0 &&
-                      item.sender?.last_name.length != 0
-                        ? item.sender?.first_name[0] +
-                          "‌" +
-                          item.sender?.last_name[0]
-                        : ""
-                      // user?.user.first_name[0] + "‌" + user?.user.last_name[0]
+                      item.sender?.first_name[0] +
+                      "" +
+                      item.sender?.last_name[0]
                     }
                   ></InitialIconcircle>
                 )}
@@ -401,24 +400,26 @@ export default function TaskModal_Activity({
                 </div>
                 {EditCommentList[item.id] ? (
                   <div>
-                    <StyledTextField
-                      fullWidth
-                      autoFocus
-                      onChange={(e) => {
-                        setEditCommentText(
-                          convertNumberToPersian(e.target.value)
-                        );
-                      }}
-                      value={editcommentText}
-                      inputProps={{
-                        style: {
-                          padding: "1%",
-                          fontFamily: "Vazir",
-                          fontSize: "152%",
-                        },
-                      }}
-                      // defaultValue={item.text}
-                    ></StyledTextField>
+                    <PerTextField>
+                      <StyledTextField
+                        fullWidth
+                        autoFocus
+                        onChange={(e) => {
+                          setEditCommentText(
+                            convertNumberToPersian(e.target.value)
+                          );
+                        }}
+                        value={editcommentText}
+                        inputProps={{
+                          style: {
+                            padding: "1%",
+                            fontFamily: "Vazir",
+                            fontSize: "152%",
+                          },
+                        }}
+                        // defaultValue={item.text}
+                      ></StyledTextField>
+                    </PerTextField>
                     <div dir="ltr" style={{ marginTop: "3%" }}>
                       <Button
                         onClick={() => {

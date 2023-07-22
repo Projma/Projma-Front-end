@@ -1,10 +1,10 @@
 import * as React from "react";
-import "../../styles/TaskModal.css";
+import "../../styles/TaskModal.scss";
 import { useState } from "react";
 import StyledTextField from "../Shared/StyledTextField";
 import { Button , Box } from "@mui/material";
 import apiInstance from "../../utilities/axiosConfig";
-
+import useTheme from "../../hooks/useTheme";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import Checkbox from "@mui/material/Checkbox";
 import { toast } from "react-toastify";
@@ -19,7 +19,7 @@ export default function Taskmodal_CheckList({
   const [checklistTitle, setChecklistTitle] = useState("");
   const [showChecklist, setShowChecklist] = useState(false);
   const [EditCheckList, setEditCheckList] = useState(Array(1000).fill(false));
-
+  const {theme,getColor} = useTheme();
   const AddCheckList = () => {
     setIsPost(true);
     const formData = new FormData();
@@ -123,7 +123,7 @@ export default function Taskmodal_CheckList({
           style={{ width: "90%" }}
         >
           <div className="flex-taskmodal taskmodal--body-checklist-title">
-            <div className="neonText taskmodal--description-title">
+            <div style={{color: getColor(theme.minorBg)}}>
               لیست کنترل
             </div>
             <div className="taskmodal--body-checklist-title-icons"></div>

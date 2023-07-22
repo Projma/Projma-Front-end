@@ -8,15 +8,10 @@ import { Box } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "../../styles/Registration.scss";
-import rtlPlugin from "stylis-plugin-rtl";
-import { prefixer } from "stylis";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
-import StyledTextField from "./StyledTextField";
+import PerTextField from "../Shared/PerTextField";
+import StyledTextField from "../Shared/StyledTextField";
 import { toast } from "react-toastify";
-import Header from "../Header/Header";
 import apiInstance from "../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom"; // comment for tests
 // import { useDispatch } from "react-redux";
@@ -31,8 +26,14 @@ import {
 import useTheme from "../../hooks/useTheme";
 
 function Copyright(props) {
+  const { theme, getColor } = useTheme();
   return (
-    <Typography variant="body2" color="white" align="center" {...props}>
+    <Typography
+      variant="body2"
+      color={{ color: getColor(theme.mainBg) }}
+      align="center"
+      {...props}
+    >
       {"Copyright © "}
       <Link color="inherit" href="https://projma.com/">
         Projma
@@ -73,7 +74,7 @@ export default function SignIn() {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        delay(4000).then(() => (window.location.href = "/dashboard/")); // comment for tests
+        delay(2500).then(() => (window.location.href = "/dashboard/")); // comment for tests
       })
       .catch((res) => {
         if (res.request.response.search("active") !== -1) {
@@ -95,132 +96,118 @@ export default function SignIn() {
       });
   };
 
-  const muitheme = createTheme({
-    direction: "rtl",
-  });
-  const cacheRtl = createCache({
-    key: "muirtl",
-    stylisPlugins: [prefixer, rtlPlugin],
-  });
-
   return (
-    <div style={{ width: "100%", height: "100%" }}>
+    <div style={{ width: "100%", height: "100%", display: "flex",
+    alignItems: "center",
+    flexFlow: "column",justifyContent: "center" }}>
       {/* <Header></Header> */}
       <Helmet>
         <title>صفحه ورود</title>
       </Helmet>
       {isPost ? <Loading /> : null}
-      <CacheProvider value={cacheRtl}>
-        <ThemeProvider theme={muitheme}>
-          <Container
-            component="main"
-            maxWidth="xs"
-            maxHeight="xs"
-            style={{
-              borderRadius: 3,
-              width: "100%",
-              height: "100%",
-            }}
+      <Container
+        component="main"
+        maxWidth="xs"
+        maxHeight="xs"
+        style={{
+          borderRadius: 3,
+        }}
+      >
+        <Box
+          className="Registration--Box"
+          sx={{
+            // marginTop: 8,
+            padding: "1rem",
+            gap: "1rem"
+          }}
+        >
+          <Typography
+            component="h1"
+            variant="h5"
+            className="Signin--Box-Type"
+            style={{ color: getColor(theme.mainBg) }}
           >
-            <Box
-              className="Registration--Box"
-              sx={{
-                marginTop: 8,
-              }}
+            صفحه ورود
+          </Typography>
+          <Box
+            component="form"
+            className="Registration-form shadow"
+            onSubmit={handleSubmit}
+            noValidate
+            error
+          >
+            <PerTextField>
+              <StyledTextField
+                margin="normal"
+                fullWidth
+                required="required"
+                id="username"
+                label="نام کاربری"
+                name="Username"
+                InputLabelProps={{
+                  className: "Registration--StyledTextField-InputText",
+                }}
+                inputProps={{
+                  className: "Registration--StyledTextField-inputProps",
+                }}
+                onChange={(e) =>
+                  setUsername(convertNumberToEnglish(e.target.value))
+                }
+                value={convertNumberToPersian(username)}
+                autoComplete="username"
+                error={errorUsername}
+                autoFocus
+              />
+              <StyledTextField
+                margin="normal"
+                fullWidth
+                required="required"
+                name="Password"
+                label="رمز عبور"
+                type="password"
+                id="password"
+                InputLabelProps={{
+                  className: "Registration--StyledTextField-InputText",
+                }}
+                inputProps={{
+                  className: "Registration--StyledTextField-inputProps",
+                }}
+                onChange={(e) => setPassword(e.target.value)}
+                error={errorPassword}
+                autoComplete="current-password"
+              />
+            </PerTextField>
+            <Button
+              type="submit"
+              role="submit-btn"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className="Registration--StyledTextField-InputText"
+              sx={{mt: "1rem",mb: "1rem"}}
             >
-              <Avatar className="Registration--Box-Avatar">
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography
-                component="h1"
-                variant="h5"
-                className="Signin--Box-Type"
-                style={{ color: getColor(theme.minorBg) }}
-              >
-                صفحه ورود
-              </Typography>
-              <Box
-                component="form"
-                className="Registration-form shadow"
-                onSubmit={handleSubmit}
-                noValidate
-                error
-              >
-                <StyledTextField
-                  margin="normal"
-                  fullWidth
-                  required="required"
-                  id="username"
-                  label="نام کاربری"
-                  name="Username"
-                  InputLabelProps={{
-                    className: "Registration--StyledTextField-InputText",
-                  }}
-                  inputProps={{
-                    className: "Registration--StyledTextField-inputProps",
-                  }}
-                  onChange={(e) =>
-                    setUsername(convertNumberToEnglish(e.target.value))
-                  }
-                  value={convertNumberToPersian(username)}
-                  autoComplete="username"
-                  error={errorUsername}
-                  autoFocus
-                />
-                <StyledTextField
-                  margin="normal"
-                  fullWidth
-                  required="required"
-                  name="Password"
-                  label="رمز عبور"
-                  type="password"
-                  id="password"
-                  InputLabelProps={{
-                    className: "Registration--StyledTextField-InputText",
-                  }}
-                  inputProps={{
-                    className: "Registration--StyledTextField-inputProps",
-                  }}
-                  onChange={(e) => setPassword(e.target.value)}
-                  error={errorPassword}
-                  autoComplete="current-password"
-                />
-                <Button
-                  type="submit"
-                  role="submit-btn"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                  className="Registration--StyledTextField-InputText"
+              ورود
+            </Button>
+            <Grid container style={{ marginBottom: "5%", marginTop: "1%" }}>
+              <Grid item xs>
+                <Link
+                  href="/forget-password"
+                  variant="body2"
+                  className="Signin--Link"
                 >
-                  ورود
-                </Button>
-                <Grid container style={{ marginBottom: "5%", marginTop: "1%" }}>
-                  <Grid item xs>
-                    <Link
-                      href="/forget-password"
-                      variant="body2"
-                      className="Signin--Link"
-                    >
-                      فراموشی رمز عبور
-                    </Link>
-                  </Grid>
-                  <Grid item>
-                    <Link
-                      href="/signup"
-                      variant="body2"
-                      className="Signin--Link"
-                    >
-                      {"اکانت ندارید؟ ثبت‌نام کنید"}
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Box>
-            </Box>
-            <Copyright sx={{ mt: 8, mb: 4 }} />
-          </Container>
-        </ThemeProvider>
-      </CacheProvider>
+                  فراموشی رمز عبور
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="/signup" variant="body2" className="Signin--Link">
+                  {"اکانت ندارید؟ ثبت‌نام کنید"}
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Copyright sx={{ mt: 8, mb: 4 }} />
+      </Container>
     </div>
   );
 }

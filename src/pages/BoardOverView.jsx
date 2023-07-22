@@ -18,9 +18,6 @@ const BoardOverView = () => {
           <div className="boardoverview--sidebar">
             <BoardSidebar />
           </div>
-          <div className="boardoverview--header">
-            <Header />
-          </div>
           <div className="boardoverview--section">
             <Outlet/>
           </div>

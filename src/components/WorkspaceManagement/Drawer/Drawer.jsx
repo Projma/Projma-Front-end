@@ -111,7 +111,7 @@ const Drawer = () => {
                       alignItems: "center",
                     }}
                   >
-                    <Typography>داشبورد</Typography>
+                    <Typography color={getColor(theme.secondary) }>داشبورد</Typography>
                     <MenuOutlined sx={{ color: getColor(theme.secondary)}}/>
                   </div>
                 )}

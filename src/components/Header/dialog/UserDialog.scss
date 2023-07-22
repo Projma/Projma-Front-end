@@ -1,0 +1,70 @@
+.user-dialog {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.user-header {
+  font-size: 1.3rem;
+  filter: brightness(90%);
+}
+
+.user-account, .user-option {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.user-container {
+  display: grid;
+  grid-template-columns: 4rem minmax(10rem, max-content);
+  grid-template-rows: 6rem;
+  gap: 1rem;
+  align-items: center;
+  justify-items: center;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  .MuiAvatar-root {
+    height: 4.5rem !important;
+    width: 4.5rem !important;
+  }
+}
+
+.user-name{
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.user-email {
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+  font-style: italic;
+  filter: brightness(80%);
+}
+
+.user-option-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: $secondary;
+  .MuiSvgIcon-root {
+    font-size: 2rem;
+  }
+  &:hover {
+    background-color: $hover;
+    cursor: pointer;
+  }
+}

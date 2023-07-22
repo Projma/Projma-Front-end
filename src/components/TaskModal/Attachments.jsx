@@ -1,15 +1,15 @@
 import * as React from "react";
-import Popover from "@mui/material/Popover";
+import Modal from "../Asset/Modal";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import apiInstance from "../../utilities/axiosConfig";
 import LabelIcon from "@mui/icons-material/Label";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Divider from "@mui/material/Divider";
-import "../../styles/TaskModal.css";
+import "../../styles/TaskModal.scss";
 import Loading from "../Shared/Loading";
-import {  toast } from "react-toastify";
-
+import { toast } from "react-toastify";
+import useTheme from "../../hooks/useTheme";
 import "./Attachment.scss";
 
 export default function Attachments({ params, setAllAttachments }) {
@@ -17,12 +17,14 @@ export default function Attachments({ params, setAllAttachments }) {
   const [file, setFile] = React.useState(null);
   const [isPost, setIsPost] = React.useState(false);
   const [binaryFile, setBinaryFile] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+  const { theme, getColor } = useTheme();
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    setOpen(true);
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setOpen(false);
   };
 
   const handleFileChange = (e) => {
@@ -60,47 +62,25 @@ export default function Attachments({ params, setAllAttachments }) {
         setIsPost(null);
       });
   };
-  const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <div className="taskmodal-flexibale-icon">
+    <div className="taskmodal-flexibale-icon" style={{ width: "100%" }}>
       {isPost ? <Loading /> : null}
       <Button
-        className="taskmodal-smaller-button-inner"
         aria-describedby={id}
         role="open_attachment"
         variant="contained"
         onClick={handleClick}
-        sx={{
-          bgcolor: "#173b5e",
-          marginTop: "5%",
-          borderRadius: "35px",
-          height: "80%",
-          display: "flex",
-          justifyContent: "start",
-        }}
+        style={{ width: "100%" }}
       >
-        <AttachFileIcon rotate="90" fontSize="large"></AttachFileIcon>{" "}
+        <AttachFileIcon rotate="90"></AttachFileIcon>
         <div className="taskmodal-smaller-button">پیوست</div>
       </Button>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "center",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-      >
+      <Modal id={id} open={open} onClose={handleClose}>
         <div className="tm_attachments-main-div">
           <div className="tm_attachments-header">
-            <h2 style={{ color: "#fff" }}>اضافه کردن پیوست</h2>
+            <h2 style={{ color: getColor(theme.minorBg) }}>اضافه کردن پیوست</h2>
           </div>
           <Divider />
           <div
@@ -115,8 +95,6 @@ export default function Attachments({ params, setAllAttachments }) {
                 // marginRight: "5%",
               }}
             >
-              {console.log(binaryFile)}
-              {/* <input type="file" onChange={(e) => handleFileChange(e)} /> */}
               <label
                 htmlFor="files"
                 className="btn"
@@ -128,6 +106,8 @@ export default function Attachments({ params, setAllAttachments }) {
                   border: "1px solid white",
                   borderRadius: "5px",
                   width: "36%",
+                  color: getColor(theme.minorBg),
+                  backgroundColor: theme.mainBg
                 }}
               >
                 انتخاب فایل
@@ -136,13 +116,17 @@ export default function Attachments({ params, setAllAttachments }) {
                 type="file"
                 id="files"
                 name="fileUpload"
-                style={{ visibility: "hidden", width: "5%" }}
+                style={{
+                  visibility: "hidden",
+                  width: "5%",
+                  color: getColor(theme.minorBg),
+                }}
                 onChange={(e) => handleFileChange(e)}
               />
               <div
                 style={{
                   display: "flex",
-                  color: "white",
+                  color: getColor(theme.minorBg),
                   direction: "ltr",
                   fontSize: "132%",
                   overflow: "auto",
@@ -156,13 +140,17 @@ export default function Attachments({ params, setAllAttachments }) {
             <button
               className="attachment_button-33"
               role="button"
-              onClick={(e) => createAttachment()}
+              onClick={(e) => {
+                e.stopPropagation();
+                createAttachment();
+              }}
+              style={{ color: getColor(theme.minorBg) }}
             >
               اضافه کردن
             </button>
           </div>
         </div>
-      </Popover>
+      </Modal>
     </div>
   );
 }

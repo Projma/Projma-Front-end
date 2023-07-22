@@ -1,15 +1,17 @@
 import React from "react";
 import "./Labels.scss";
 import EditIcon from "@mui/icons-material/Edit";
+import useTheme from "../../hooks/useTheme";
 
 const ShowListOfLabels = ({
   allLabels,
   change_label_checked,
   handleEditPage,
 }) => {
+  const {theme,getColor} = useTheme();
   return (
     <div>
-      <ul className="tm_labels-ul">
+      <ul className="tm_labels-ul" >
         {allLabels.map((label, idx) => (
           <li className="tm_labels-li">
             <div className="tm_labels-li-div">
@@ -32,7 +34,7 @@ const ShowListOfLabels = ({
                     className="tm_labels-labels-symbol"
                     style={{ backgroundColor: label.color }}
                   ></div>
-                  <p className="tm_labels-labels-title">{label.title}</p>
+                  <p className="tm_labels-labels-title" style={{ color: getColor(theme.minorBg) }}>{label.title}</p>
                 </div>
                 <EditIcon
                   className="tm_labels-labels-edit-icon"

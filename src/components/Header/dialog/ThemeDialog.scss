@@ -1,0 +1,92 @@
+.theme-dialog {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 20rem;
+}
+
+.theme-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $secondary;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  &:hover {
+    background-color: $hover;
+    cursor: pointer;
+  }
+}
+
+.theme-page-layout {
+  // border: 0.2rem solid $primary;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  // background-color: #ffffff66;
+  width: 14rem;
+  height: 8rem;
+  display: grid;
+  grid-template-rows: 1fr 6fr;
+  .theme-navbar {
+    grid-row: 1 / 2;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
+  .theme-page {
+    grid-row: 2 / -1;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 12fr;
+  }
+}
+
+.theme-sidebar {
+  border-bottom-right-radius: 0.5rem;
+}
+
+.theme-section {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0.4rem 0.5rem;
+  height: 100%;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.theme-list1 {
+  width: 20%;
+  height: 80%;
+  border-radius: 0.5rem;
+}
+
+.theme-list2 {
+  width: 20%;
+  height: 54%;
+  border-radius: 0.5rem;
+}
+
+.theme-list3 {
+  width: 20%;
+  height: 65%;
+  border-radius: 0.5rem;
+}
+
+.theme-list4 {
+  width: 20%;
+  height: 80%;
+  border-radius: 0.5rem;
+}
+
+.theme-title {
+  // width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}

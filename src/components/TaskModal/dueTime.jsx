@@ -1,8 +1,8 @@
 import * as React from "react";
-import Popover from "@mui/material/Popover";
+import Modal from "../Asset/Modal";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import "../../styles/TaskModal.css";
+import "../../styles/TaskModal.scss";
 import "./DueTime.scss";
 import "./Members.scss";
 import { useEffect } from "react";
@@ -13,20 +13,21 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Calendar } from "react-multi-date-picker";
 import Loading from "../Shared/Loading";
-import "./calendar.css";
+import useTheme from "../../hooks/useTheme";
 
 export default function DueTime({ params, dueDate, setDueTime }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [value, setValue] = React.useState(new Date());
   const [isPost, setIsPost] = React.useState(false);
   const [changeDate, setChangeDate] = React.useState(false);
-
+  const [open,setOpen] = React.useState(false);
+  const {theme,getColor} = useTheme();
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    setOpen(true);
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setOpen(false);
   };
 
   const submitDate = () => {
@@ -83,7 +84,6 @@ export default function DueTime({ params, dueDate, setDueTime }) {
   const [ListOfMembers, setListOfMembers] = React.useState([]);
   const [ListOfDoers, setListOfDoers] = React.useState([]);
   const baseURL = baseUrl.substring(0, baseUrl.length - 1);
-  const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   const randColor = () => {
     return (
@@ -96,49 +96,31 @@ export default function DueTime({ params, dueDate, setDueTime }) {
   };
 
   return (
-    <div className="taskmodal--flexibale-icon">
+    <div className="taskmodal--flexibale-icon" style={{width:"100%"}}>
       {isPost ? <Loading /> : null}
       <Button
-        className="taskmodal--smaller-button-inner"
         aria-describedby={id}
         variant="contained"
         onClick={handleClick}
-        sx={{
-          bgcolor: "#173b5e",
-          marginTop: "5%",
-          borderRadius: "35px",
-          height: "80%",
-          display: "flex",
-          justifyContent: "start",
-        }}
+        style={{width:"100%"}}
       >
-        <AccessTimeIcon rotate="90" fontSize="large"></AccessTimeIcon>{" "}
-        <div style={{ fontSize: "124%" }} className="taskmodal--smaller-button">
+        <AccessTimeIcon rotate="90" ></AccessTimeIcon>{" "}
+        <div  className="taskmodal--smaller-button">
           زمان اتمام
         </div>
       </Button>
-      <Popover
+      <Modal
         id={id}
         open={open}
-        anchorEl={anchorEl}
         onClose={handleClose}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
       >
         <div className="tm-members-main-div">
           <header className="tm-members-header">
-            <h2 className="tm-duetime-header-title ">زمان اتمام</h2>
+            <h2 className="tm-duetime-header-title " style={{color: getColor(theme.minorBg)}}>زمان اتمام</h2>
             <Divider sx={{ backgroundColor: "black" }} />
           </header>
           <div className="taskmodal--duetime-body">
             <Calendar
-              className="background-blue"
               value={value}
               onChange={(val) => {
                 setValue(val);
@@ -150,13 +132,13 @@ export default function DueTime({ params, dueDate, setDueTime }) {
             />
           </div>
           <div className="taskmodal--duetime-text">
-            <div>زمان اتمام</div>
+            <div style={{color: getColor(theme.minorBg)}}>زمان اتمام</div>
             {!value.toString().includes("Standard") ? (
               <div
                 className="taskmodal--duetime-showDate"
                 style={{ padding: "6%" }}
               >
-                <div>
+                <div style={{color: getColor(theme.minorBg)}}>
                   {value?.year + "/" + value?.month?.number + "/" + value?.day}
                 </div>
               </div>
@@ -166,7 +148,7 @@ export default function DueTime({ params, dueDate, setDueTime }) {
                 style={{ padding: "6%" }}
               >
                 {dueDate.toString() != "null" ? (
-                  <div>{dueDate.toString().replaceAll("-", "/")}</div>
+                  <div style={{color: getColor(theme.minorBg)}}>{dueDate.toString().replaceAll("-", "/")}</div>
                 ) : (
                   <div></div>
                 )}
@@ -188,7 +170,7 @@ export default function DueTime({ params, dueDate, setDueTime }) {
             )}
           </div>
         </div>
-      </Popover>
+      </Modal>
     </div>
   );
 }
