@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./Card.scss";
 import { Draggable } from "react-beautiful-dnd";
 import TaskModal from "../../../TaskModal/TaskModal";
-import { Modal } from "@mui/material";
 import CardHeader from "./Content/Header/CardHeader";
 import CardFooter from "./Content/Footer/CardFooter";
 import CardBody from "./Content/Body/CardBody";
 import useBoard from "../../../../hooks/useBoard";
 import apiInstance from "../../../../utilities/axiosConfig";
 import useTheme from "../../../../hooks/useTheme";
+import Modal from "../../../Asset/Modal";
 
 const Card = ({ task, key, cardId, index, boardId }) => {
   const { getBoard } = useBoard();
@@ -33,15 +33,7 @@ const Card = ({ task, key, cardId, index, boardId }) => {
 
   return (
     <>
-      <Modal
-        open={open}
-        onClose={handleModalClose}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-around",
-        }}
-      >
+      <Modal open={open} onClose={handleModalClose}>
         <TaskModal cardId={cardId} boardId={boardId} />
       </Modal>
       <Draggable draggableId={`card:${cardId}`} index={index}>

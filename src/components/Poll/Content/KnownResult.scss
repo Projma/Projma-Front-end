@@ -7,7 +7,7 @@
   min-height: 30rem;
   max-width: 35rem;
   max-height: 60rem;
-  background-color: $main-bg;
+  background-color: $mainBg;
   border: 0.2rem solid $primary;
   position: absolute;
   top: 50%;
@@ -52,7 +52,7 @@
   justify-content: space-between;
   font-size: 1.3rem;
   padding: 0.5rem 0.5rem;
-  background-color: $minor-bg;
+  background-color: $minorBg;
   border-bottom: 0.3rem solid $primary;
   border-top: 0.3rem solid $primary;
 }

@@ -1,19 +1,19 @@
 import * as React from "react";
-import "../../styles/TaskModal.css";
+import "../../styles/TaskModal.scss";
 import { useState } from "react";
 import StyledTextField from "../Shared/StyledTextField";
-import { Button , Box } from "@mui/material";
+import { Button, Box } from "@mui/material";
 import apiInstance from "../../utilities/axiosConfig";
-
 import Typography from "@mui/material/Typography";
 import DehazeIcon from "@mui/icons-material/Dehaze";
 import { convertNumberToPersian } from "../../utilities/helpers";
 import { toast } from "react-toastify";
-
+import useTheme from "../../hooks/useTheme";
 
 export default function Description({ params, description, setDescription }) {
   const [showdescription, setShowDescription] = useState(false);
   const [isPost, setIsPost] = useState(false);
+  const { theme, getColor } = useTheme();
   const handleSubmit = (event) => {
     setIsPost(true);
     event.preventDefault();
@@ -48,25 +48,19 @@ export default function Description({ params, description, setDescription }) {
       .finally(() => setIsPost(null));
   };
   return (
-    <div>
-      <div
-        className="flex-row taskmodal--body-larger-description"
-        style={{ gap: "3%", fontFamily: "Vazir" }}
-      >
+    <>
+      <div className="flex-row taskmodal--body-larger-description" >
         <div className="flex-taskmodal">
-          <DehazeIcon fontSize="large" sx={{ color: "white" }}></DehazeIcon>
+          <DehazeIcon
+            fontSize="large"
+            sx={{ fill: theme.primary }}
+          ></DehazeIcon>
         </div>
-        <div className="flex-column" style={{ width: "90%" }}>
-          <div
-            className="neonText taskmodal--description-title"
-            style={{ marginBottom: "2%" }}
-          >
-            توضیحات
-          </div>
+        <div className="flex-column">
+          <div style={{color: getColor(theme.minorBg)}}>توضیحات</div>
           <Box
             component="form"
             onSubmit={handleSubmit}
-            className="taskmodal--body-larger-description-textbox"
           >
             {showdescription ? (
               <div>
@@ -78,27 +72,21 @@ export default function Description({ params, description, setDescription }) {
                   }
                   value={description}
                   multiline
-                  sx={{ fontFamily: "Vazir", color: "white" }}
-                  rows={2}
-                  inputProps={{
-                    style: {
-                      padding: "1%",
-                      fontFamily: "Vazir",
-                      fontSize: "152%",
-                    },
-                  }}
-                ></StyledTextField>
+                  sx={{ fontFamily: "Vazir" }}
+                  // inputProps={{
+                  //   style: {
+                  //     padding: "1%",
+                  //     fontFamily: "Vazir",
+                  //     fontSize: "152%",
+                  //   },
+                  // }}
+                />
                 <div dir="ltr" style={{ marginTop: "3%" }}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    className="taskmodal--button-setting"
-                  >
+                  <Button type="submit" variant="contained">
                     ذخیره
                   </Button>
                   <Button
                     variant="outlined"
-                    className="taskmodal--button-setting"
                     onClick={() => setShowDescription(false)}
                     style={{
                       marginLeft: "2%",
@@ -112,33 +100,32 @@ export default function Description({ params, description, setDescription }) {
               <div style={{ marginBottom: "2px" }}>
                 {description == "" || description == null ? (
                   <Button
-                    className="taskmodal--closeButton"
                     onClick={() => setShowDescription(true)}
+                    sx={{ color: theme.primary }}
                   >
                     اضافه کردن جزئیات بیشتر
                   </Button>
                 ) : (
                   <div>
                     <Typography
-                      className="taskmodal--description-showList-comment"
                       multiline
-                      rows={2}
                       // defalutValue={description}
+                      style={{color: getColor(theme.minorBg)}}
                     >
                       {description}
                     </Typography>
-                    <div className="taskmodal--comment-button">
+                    <div className="">
                       <Button
                         onClick={handleDeleteDescription}
-                        className="taskmodal--comment-button-remove"
+                        sx={{ color: theme.primary }}
                       >
                         حذف
                       </Button>
                       <Button
-                        className="taskmodal--comment-button-remove"
                         onClick={() => {
                           setShowDescription(true);
                         }}
+                        sx={{ color: theme.primary }}
                       >
                         ویرایش
                       </Button>
@@ -150,6 +137,6 @@ export default function Description({ params, description, setDescription }) {
           </Box>
         </div>
       </div>
-    </div>
+    </>
   );
 }

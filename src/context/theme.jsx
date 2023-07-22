@@ -45,8 +45,8 @@ function ThemeProvider({ children }) {
       : THEME.find((t) => t.name === localStorage.getItem("theme"))
   );
 
-  document.documentElement.style.setProperty("--main-bg", theme.mainBg);
-  document.documentElement.style.setProperty("--minor-bg", theme.minorBg);
+  document.documentElement.style.setProperty("--mainBg", theme.mainBg);
+  document.documentElement.style.setProperty("--minorBg", theme.minorBg);
   document.documentElement.style.setProperty("--secondary", theme.secondary);
   document.documentElement.style.setProperty("--tertiary", theme.tertiary);
   document.documentElement.style.setProperty("--hover", theme.hover);
@@ -55,8 +55,8 @@ function ThemeProvider({ children }) {
   const changeTheme = (name) => {
     for (let x of THEME) {
       if (x.name === name) {
-        document.documentElement.style.setProperty("--main-bg", x.mainBg);
-        document.documentElement.style.setProperty("--minor-bg", x.minorBg);
+        document.documentElement.style.setProperty("--mainBg", x.mainBg);
+        document.documentElement.style.setProperty("--minorBg", x.minorBg);
         document.documentElement.style.setProperty("--secondary", x.secondary);
         document.documentElement.style.setProperty("--tertiary", x.tertiary);
         document.documentElement.style.setProperty("--hover", x.hover);

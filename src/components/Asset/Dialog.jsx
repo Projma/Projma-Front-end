@@ -50,7 +50,8 @@ const Dialog = ({ open, locked, onClose, children, ...props }) => {
       const rect = el.getBoundingClientRect();
       if (rect.left < 0) {
         el.style.right = "auto";
-        el.style.left = "10%";
+        el.style.left = "50%";
+        el.style.transform = "translateX(-50%)";
       }
     }
     const handleClickOutside = (event) => {
@@ -76,7 +77,10 @@ const Dialog = ({ open, locked, onClose, children, ...props }) => {
     <dialog
       ref={modalRef}
       className={dialogClasses}
-      onClose={onClose}
+      onClose={(e) => {
+        e.stopPropagation();
+        onClose();
+      }}
       onCancel={onCancel}
       onClick={onClick}
       onAnimationEnd={onAnimEnd}

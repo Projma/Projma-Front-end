@@ -1,12 +1,12 @@
 .dialog {
   direction: rtl;
   position: absolute;
-  top: 110%;
-  transform: translate(110%, 0);
+  top: 125%;
+  // transform: translateY()
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 2px;
   padding: 0;
-  background-color: $minor-bg;
+  background-color: $minorBg;
   border: 0.2rem solid $primary;
   // border: none;
   border-radius: 0.5rem;

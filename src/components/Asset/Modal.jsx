@@ -21,9 +21,10 @@ const Modal = ({ open, locked, onClose, children, ...props }) => {
   );
 
   const onClick = useCallback(
-    ({ target }) => {
+    ({ target, stopPropagation }) => {
       const { current: el } = modalRef;
       if (target === el && !locked) onClose();
+      stopPropagation(); // Stop the event from bubbling up
     },
     [locked, onClose]
   );
@@ -46,7 +47,10 @@ const Modal = ({ open, locked, onClose, children, ...props }) => {
     <dialog
       ref={modalRef}
       className={dialogClasses}
-      onClose={onClose}
+      onClose={(e) => {
+        e.stopPropagation();
+        onClose();
+      }}
       onCancel={onCancel}
       onClick={onClick}
       onAnimationEnd={onAnimEnd}

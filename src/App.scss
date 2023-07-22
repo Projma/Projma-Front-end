@@ -11,7 +11,7 @@
   // transition: all 2s ease-in-out;
   width: max(100vw, 100vw);
   height: max(100vh, 100vh);
-  background-color: $main-bg !important;
+  background-color: $mainBg !important;
   display: grid;
   grid-template-rows: 1fr 15fr;
 
@@ -22,6 +22,7 @@
   section {
     grid-row: 2 / -1;
     overflow: scroll;
+    scroll-behavior: smooth;
   }
 }
 
@@ -32,7 +33,7 @@ html {
 
 body {
   margin: 0 auto;
-  background-color: $main-bg;
+  background-color: $mainBg;
 }
 
 :root {
@@ -45,7 +46,7 @@ body {
 html,
 .styled-scrollbars {
   /* Foreground, Background */
-  scrollbar-color: $secondary $minor-bg;
+  scrollbar-color: $secondary $minorBg;
   scrollbar-width: thin;
 }
 ::-webkit-scrollbar {
@@ -59,7 +60,7 @@ html,
 }
 ::-webkit-scrollbar-track {
   /* Background */
-  background: $minor-bg !important;
+  background: $minorBg !important;
 }
 ::-webkit-scrollbar-button {
   //background-color: $tertiary !important;
@@ -98,7 +99,7 @@ html,
 }
 
 .MuiList-root, .MuiList-padding ,.MuiMenu-list, .MuiPaper-root {
-  background-color: $minor-bg !important;
+  background-color: $minorBg !important;
 }
 
 

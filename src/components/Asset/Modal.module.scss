@@ -6,12 +6,14 @@
   transform: translate(50%, -50%);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 2px;
-  background-color: $minor-bg;
+  background-color: $minorBg;
   border: 0.2rem solid $primary;
   border-radius: 0.5rem;
-  max-width: 60rem;
+  max-width: 80rem;
   width: max-content;
-  height: fit-content;
+  height: max-content;
+  overflow: hidden;
+  max-height: 80vh;
   z-index: 2000;
   
   &[open] {

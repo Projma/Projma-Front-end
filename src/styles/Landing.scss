@@ -1,34 +1,90 @@
-.cards {
-  margin-top: 100px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  row-gap: 50px;
-  justify-items: center;
-  /* justify-content: center;
-  align-items: center; */
-}
-
-.div-img {
+.landing {
+  width: auto;
+  height: 93vh;
+  max-height: 93vh;
+  padding: 5% 15%;
   display: flex;
   align-items: center;
   justify-content: center;
-  justify-items: center;
+  flex-flow: column;
+  gap: auto;
 }
 
-.white-text {
-  color: white;
-}
-
-.img-box {
-  width: 500px;
-  height: 500px;
-}
-
-image {
+.landing-hero {
   width: 100%;
   height: 100%;
-}
-
-* {
-  font-family: "Vazir";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  border-radius: 2rem;
+  padding: 1rem;
+  .landing-hero-container {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    gap: 2rem;
+    .landing-hero-header{
+      border-radius: 0.5rem;
+      width: 100%;
+      height: fit-content;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+      flex-flow: column;
+      .landing-hero-header-main {
+        width: 100%;
+        font-size: 3rem;
+        line-height: 1.25;
+        text-align: justify;
+      }
+      .landing-hero-header-sub {
+        width: 100%;
+        font-size: 1.5rem;
+        line-height: 1.25;
+        filter: brightness(90%);
+        text-align: center;
+      }
+    }
+    .landing-hero-button {
+      display: inline-block;
+      border-radius: 10rem;
+      border: none;
+      padding: 1rem;
+      background-color: $primary;
+      &:hover {
+        cursor: pointer;
+        background-color: $tertiary;
+        opacity: 1;
+        transform: translateY(-3%);
+      }
+    }
+  }
+  .landing-hero-image {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    // background-color: $primary;
+    .landing-hero-image-list {
+      width: 50%;
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      right: 48%;
+      transform: translateY(-50%);
+    }
+    .landing-hero-image-sidebar {
+      width: 50%;
+      position: absolute;
+      z-index: 1;
+      // transform: translate(-50%,-50%);
+      transform: translateY(-50%);
+      top: 50%;
+      right: 8%;
+    }
+  }
 }

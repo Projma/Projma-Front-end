@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import EditLabel from "./EditLabel";
 import CreateLabel from "./CreateLabel";
 import apiInstance from "../../utilities/axiosConfig";
-import Popover from "@mui/material/Popover";
+import Modal from "../Asset/Modal";
 import StyledTextField from "../Shared/StyledTextField";
 import PerTextField from "../Shared/PerTextField";
 import Typography from "@mui/material/Typography";
@@ -15,8 +15,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
 import Divider from "@mui/material/Divider";
 import { toast } from "react-toastify";
-
-import "../../styles/TaskModal.css";
+import useTheme from "../../hooks/useTheme";
+import "../../styles/TaskModal.scss";
 import Loading from "../Shared/Loading";
 import ShowListOfLabels from "./ShowListOfLabels";
 import "./Labels.scss";
@@ -35,6 +35,8 @@ export default function Labels({ params, task_labels, set_task_labels }) {
   const [editItem, setEditItem] = useState({});
   const [boardLabels, setBoardLabels] = React.useState([]);
   const [allLabels, setAllLabels] = React.useState([]);
+  const [open,setOpen] = useState(false);
+  const {theme,getColor} = useTheme();
   useEffect(() => {
     apiInstance
       .get(`board/${params.board_id}/get-board-labels/`)
@@ -61,13 +63,13 @@ export default function Labels({ params, task_labels, set_task_labels }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    setOpen(true);
   };
 
   const handleClose = () => {
     setShowEdit(false);
     setShowCreate(false);
-    setAnchorEl(null);
+    setOpen(false);
   };
 
   const editThisItem = (editedTitle, editedColor, editedId) => {
@@ -183,7 +185,6 @@ export default function Labels({ params, task_labels, set_task_labels }) {
       })
     );
   };
-  const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
   const handleEditPage = (list, id) => {
@@ -205,38 +206,21 @@ export default function Labels({ params, task_labels, set_task_labels }) {
   };
 
   return (
-    <div className="taskmodal-flexibale-icon">
+    <div className="taskmodal-flexibale-icon" style={{width:"100%"}}>
       {isPost ? <Loading /> : null}
       <Button
-        className="taskmodal-smaller-button-inner"
         aria-describedby={id}
         variant="contained"
         onClick={handleClick}
-        sx={{
-          bgcolor: "#173b5e",
-          marginTop: "5%",
-          borderRadius: "35px",
-          height: "80%",
-          display: "flex",
-          justifyContent: "start",
-        }}
+        style={{width:"100%"}}
       >
-        <LabelIcon rotate="90" fontSize="large"></LabelIcon>{" "}
-        <div className="taskmodal-smaller-button">برچسب</div>
+        <LabelIcon rotate="90" ></LabelIcon>{" "}
+        <div>برچسب</div>
       </Button>
-      <Popover
+      <Modal
         id={id}
         open={open}
-        anchorEl={anchorEl}
         onClose={handleClose}
-        anchorOrigin={{
-          vertical: "center",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
       >
         <div className="tm_labels-main-div">
           {showEdit && (
@@ -258,7 +242,7 @@ export default function Labels({ params, task_labels, set_task_labels }) {
               <div className="tm_labels-div-inner">
                 <header className="tm_labels-header">
                   <h2
-                    style={{ color: "#fff" }}
+                    style={{ color: getColor(theme.minorBg) }}
                     className="tm_labels-header-title"
                   >
                     برچسب‌ها
@@ -291,7 +275,7 @@ export default function Labels({ params, task_labels, set_task_labels }) {
             </>
           )}
         </div>
-      </Popover>
+      </Modal>
     </div>
   );
 }

@@ -88,15 +88,7 @@ function App() {
     <div
       className={"app styled-scrollbars"}
       style={{
-        "--main-bg": theme.mainBg,
-        "--minor-bg": theme.minorBg,
-        "--primary": theme.primary,
-        "--secondary": theme.secondary,
-        "--tertiary": theme.tertiary,
-        "--hover": theme.hover,
-        "--text": theme.text,
         backgroundColor: theme.mainBg,
-        // animation: "color-change 10s ease-in-out infinite",
       }}
     >
       <ToastContainer
