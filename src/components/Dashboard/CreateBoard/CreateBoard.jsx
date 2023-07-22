@@ -22,7 +22,7 @@ import {
 } from "../../../utilities/helpers";
 import useTheme from "../../../hooks/useTheme";
 
-export default function CreateBoardModal({}) {
+export default function CreateBoardModal({ flag, setFlag }) {
   const navigate = useNavigate();
   const navigateToBoard = (boardId) => {
     console.log(`/kanban/${boardId}`);
@@ -92,7 +92,8 @@ export default function CreateBoardModal({}) {
         });
         const id = res.data.id;
         apiInstance.post("/calendar/simple-calendar/", { board: id });
-        delay(6000).then(() => navigateToBoard(res.data.id));
+        setFlag(!flag);
+        // delay(6000).then(() => navigateToBoard(res.data.id));
       })
       .finally(() => {
         setIsPost(null);
