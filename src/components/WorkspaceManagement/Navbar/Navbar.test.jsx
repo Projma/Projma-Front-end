@@ -17,7 +17,7 @@ test("it shows a logo containing the first letter of workspace name in upper cas
     </MemoryRouter>
   );
   const heading = screen.getByRole("heading", {
-    text: workspace.name.charAt(0).toUpperCase(),
+    text: workspace.name.charAt(0)?.toUpperCase(),
   });
   expect(heading).toBeInTheDocument();
 });

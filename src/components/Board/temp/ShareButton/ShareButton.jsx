@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button , Box } from "@mui/material";
+import { Button, Box } from "@mui/material";
 import SendTwoToneIcon from "@mui/icons-material/SendTwoTone";
 import PropTypes from "prop-types";
 import Backdrop from "@mui/material/Backdrop";
@@ -16,8 +16,8 @@ import StyledTextField from "../../../Dashboard/StyledTextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import apiInstance from "../../../../utilities/axiosConfig";
 import MenuItem from "@mui/material/MenuItem";
-import { useNavigate , useParams } from "react-router-dom";
-import { useEffect , useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
@@ -25,7 +25,7 @@ import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import { deepOrange, green } from "@mui/material/colors";
 import LinkSharpIcon from "@mui/icons-material/LinkSharp";
 
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 import "./ShareButton.scss";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -78,20 +78,17 @@ const ShareButton = (props) => {
     Member: "کاربر",
     Guest: "مهمان",
   };
-  const {theme, getColor} = useTheme();
+  const { theme, getColor } = useTheme();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   useEffect(() => {
     apiInstance.get(`board/${params.boardId}/members/`).then((res) => {
       setMembers(res.data);
     });
-    apiInstance
-      .get(`board/${params.boardId}/invite_link/`)
-      .then((res) => {
-        // //console.log(res.data);
-        setInviteToken(res.data);
-      });
-
+    apiInstance.get(`board/${params.boardId}/invite_link/`).then((res) => {
+      // //console.log(res.data);
+      setInviteToken(res.data);
+    });
   }, []);
 
   const copy = async () => {
@@ -162,20 +159,14 @@ const ShareButton = (props) => {
       let member_id = element.id;
       apiInstance
         .post(
-          "board/" +
-            params.boardId +
-            "/add-user-to-board/" +
-            member_id +
-            "/"
+          "board/" + params.boardId + "/add-user-to-board/" + member_id + "/"
         )
         .then((res) => {
           //console.log("success", res);
           // //console.log(res.data);
-          apiInstance
-            .get(`board/${params.boardId}/members/`)
-            .then((res) => {
-              setMembers(res.data);
-            });
+          apiInstance.get(`board/${params.boardId}/members/`).then((res) => {
+            setMembers(res.data);
+          });
           count++;
           toast.success("کاربر با موفقیت اضافه شد.", {
             position: toast.POSITION.BOTTOM_LEFT,
@@ -222,10 +213,12 @@ const ShareButton = (props) => {
         }}
         onClick={handleOpen}
       >
-        <SendTwoToneIcon sx={{
-          color: "springgreen",
-          ml: 0.5,
-          }} />
+        <SendTwoToneIcon
+          sx={{
+            color: "springgreen",
+            ml: 0.5,
+          }}
+        />
         اشتراک
       </Button>
       <Modal
@@ -282,9 +275,7 @@ const ShareButton = (props) => {
                 options={membersList}
                 fullWidth
                 inputValue={search_text}
-                getOptionLabel={
-                  (option) => option.name
-                }
+                getOptionLabel={(option) => option.name}
                 sx={{
                   width: "60%",
                   display: "block",
@@ -434,14 +425,17 @@ const ShareButton = (props) => {
                           " " +
                           member.user.last_name
                         ).toString()}
-                        src={
-                          member.profile_pic
-                        }
-                        sx={{color: getColor(theme.secondary), backgroundColor: theme.secondary}}
+                        src={member.profile_pic}
+                        sx={{
+                          color: getColor(theme.secondary),
+                          backgroundColor: theme.secondary,
+                        }}
                         className="board_avatar-profile-picture"
                         // sx={{ width: 56, height: 56 }}
                       >
-                        {(member.user.first_name[0] + member.user.last_name[0]).toUpperCase()}
+                        {(
+                          member.user.first_name[0] + member.user.last_name[0]
+                        )?.toUpperCase()}
                       </Avatar>
                     </Box>
                   </Tooltip>
