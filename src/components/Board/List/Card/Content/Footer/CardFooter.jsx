@@ -6,7 +6,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import { convertNumberToPersian } from "../../../../../../utilities/helpers";
 import useTheme from "../../../../../../hooks/useTheme";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const CardFooter = ({
   doers,
@@ -15,14 +15,14 @@ const CardFooter = ({
   checked_checklists_num,
   comments_num,
 }) => {
-  const {theme, getColor} = useTheme();
+  const { theme, getColor } = useTheme();
   return (
     <>
       {(attachments_num !== 0 ||
         checklists_num !== 0 ||
         comments_num !== 0 ||
         doers.length !== 0) && (
-        <div className="card_footer" style={{color: getColor(theme.minorBg)}}>
+        <div className="card_footer" style={{ color: getColor(theme.minorBg) }}>
           {doers.length !== 0 && (
             <div className="card_card-avatar">
               <AvatarGroup
@@ -36,10 +36,15 @@ const CardFooter = ({
                       key={uuidv4()}
                       alt={x.first_name + " " + x.last_name}
                       src={x.profile_pic !== null ? x.profile_pic : "none"}
-                      sx={{color: getColor(theme.secondary), backgroundColor: theme.secondary}}
+                      sx={{
+                        color: getColor(theme.secondary),
+                        backgroundColor: theme.secondary,
+                      }}
                       className="card_avatar-profile-picture"
                     >
-                      {(x.first_name[0] + x.last_name[0]).toUpperCase()}
+                      {x.first_name.length != 0 &&
+                        x.last_name.length != 0 &&
+                        (x.first_name[0] + x.last_name[0])?.toUpperCase()}
                     </Avatar>
                   </Tooltip>
                 ))}

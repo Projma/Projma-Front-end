@@ -6,7 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import faLocale from "@fullcalendar/core/locales/fa";
 import { useProSidebar } from "react-pro-sidebar";
-import { useEffect , useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import { CleaningServices } from "@mui/icons-material";
 import { wait } from "@testing-library/user-event/dist/utils";
@@ -16,16 +16,17 @@ import ShowEvent from "./showEvent";
 import useBoard from "../../hooks/useBoard";
 import apiInstance from "../../utilities/axiosConfig";
 
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import CreateMeeting from "./CreateMeeting";
 import ShowMeeting from "./showMeeting";
 import EditEvent from "./EditEvent";
 import EditMeeting from "./EditMeeting";
 import useTheme from "../../hooks/useTheme";
+import { v4 } from "uuid";
 
 const Calendar = () => {
   const { collapsed } = useProSidebar();
-  const {theme, getColor} = useTheme();
+  const { theme, getColor } = useTheme();
   const { boardId, getBoard, calendar } = useBoard();
   const [calendarId, setCalendarId] = useState(calendar);
   const [openAddEvent, setOpenAddEvent] = useState(false);
@@ -119,7 +120,8 @@ const Calendar = () => {
             .then((res) => {
               const ev = res.data.map((x) => {
                 x = {
-                  id: crypto.randomUUID(),
+                  // id: crypto.randomUUID(),
+                  id: v4(),
                   title: x.title,
                   start: x.event_time.split("T")[0],
                   color:
@@ -141,7 +143,8 @@ const Calendar = () => {
             .then((res) => {
               const ev = res.data.map((x) => {
                 x = {
-                  id: crypto.randomUUID(),
+                  // id: crypto.randomUUID(),
+                  id: v4(),
                   title: x.title,
                   start: x.from_date + "T" + x.start,
                   end: x.until_date + "T" + x.end,
@@ -159,7 +162,10 @@ const Calendar = () => {
     getEvent();
   }, [openAddEvent, openShowEvent, openCreateMeeting, openShowMeeting]);
   return (
-    <dir className="calendar--container" style={{color: getColor(theme.mainBg)}}>
+    <dir
+      className="calendar--container"
+      style={{ color: getColor(theme.mainBg) }}
+    >
       <Modal
         open={openAddEvent}
         onClose={handleCloseAddEvent}

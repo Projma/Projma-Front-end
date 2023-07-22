@@ -53,16 +53,21 @@ const KnownResult = ({ voters, options, question, totalVotes }) => {
     <div className="known-result_container">
       <Modal open={open} onClose={closeResultModal}>
         <div className="known-result_modal-container">
-          <div className="known-result_modal-question" style={{color: getColor(theme.minorBg)}}>{question}</div>
+          <div
+            className="known-result_modal-question"
+            style={{ color: getColor(theme.minorBg) }}
+          >
+            {question}
+          </div>
           {options.map((x) => (
             <>
               {x.count > 0 && (
                 <div className="known-result_modal-options">
                   <div className="known-result_modal-options-header">
-                    <div style={{color: getColor(theme.minorBg)}}>
+                    <div style={{ color: getColor(theme.minorBg) }}>
                       {x.text} - {getPercent(x.count, totalVotes)}%
                     </div>
-                    <div style={{color: getColor(theme.minorBg)}}>
+                    <div style={{ color: getColor(theme.minorBg) }}>
                       {x.count}{" "}
                       <HowToVoteOutlined
                         sx={{
@@ -95,11 +100,16 @@ const KnownResult = ({ voters, options, question, totalVotes }) => {
                                   backgroundColor: theme.secondary,
                                 }}
                               >
-                                {(
-                                  user.first_name[0] + user.last_name[0]
-                                ).toUpperCase()}
+                                {user.first_name.length != 0 &&
+                                  user.last_name.length != 0 &&
+                                  (
+                                    user.first_name[0] + user.last_name[0]
+                                  )?.toUpperCase()}
                               </Avatar>
-                              <div className="known-result_modal-options-voter-name" style={{color: getColor(theme.minorBg)}}>
+                              <div
+                                className="known-result_modal-options-voter-name"
+                                style={{ color: getColor(theme.minorBg) }}
+                              >
                                 {user.first_name + " " + user.last_name}
                               </div>
                             </>
@@ -153,9 +163,9 @@ function stringAvatar(name) {
     sx: {
       bgcolor: stringToColor(name),
     },
-    children: `${name.split(" ")[0][0].toUpperCase()}${name
+    children: `${name.split(" ")[0][0]?.toUpperCase()}${name
       .split(" ")[1][0]
-      .toUpperCase()}`,
+      ?.toUpperCase()}`,
   };
 }
 

@@ -1,4 +1,4 @@
-import React, { Fragment , useState , useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import "../styles/Dashboard.scss";
 import Grid from "@mui/material/Grid"; // Grid version 1
 import { Divider } from "@mui/material";
@@ -29,7 +29,7 @@ import apiInstance from "../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import CreateBoardModal from "../components/Dashboard/CreateBoardModal/CreateBoardModal";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import CreateBoard from "../components/Dashboard/CreateBoard/CreateBoard";
 import CreateTemplateModal from "../components/Dashboard/CreateTemplateModal/CreateTemplateModal";
 import useTheme from "../hooks/useTheme";
@@ -45,7 +45,7 @@ export const Dashborad = () => {
   let [starredBoards, setStarredBoards] = useState([]);
   let [flag, setFlag] = useState(false);
   const [templates, setTemplates] = useState([]);
-  const {theme} = useTheme();
+  const { theme } = useTheme();
 
   useEffect(() => {
     apiInstance
@@ -557,13 +557,14 @@ export const Dashborad = () => {
                       {/* ساخت بورد جدید */}
                       <CreateBoardModal
                         workspace_id={workspace.id}
-                        // flag={flag}
-                        sx={{
-                          onclick: () => {
-                            setFlag(!flag);
-                            // flag++;
-                          },
-                        }}
+                        flag={flag}
+                        setFlag={setFlag}
+                        // sx={{
+                        //   onclick: () => {
+                        //     setFlag(!flag);
+                        //     // flag++;
+                        //   },
+                        // }}
                       />
                       {/* </p> */}
                     </Paper>
@@ -847,7 +848,7 @@ export const Dashborad = () => {
               >
                 {/* <p variant="h1" component="h2" className="add--text"> */}
                 {/* ساخت بورد جدید */}
-                <CreateBoard />
+                <CreateBoard flag={flag} setFlag={setFlag} />
                 {/* </p> */}
               </Paper>
             </Grid>
@@ -1056,6 +1057,7 @@ export const Dashborad = () => {
                       <CreateBoardModal
                         workspace_id={workspace.id}
                         flag={flag}
+                        setFlag={setFlag}
                       />
                     </Paper>
                   </Grid>
@@ -1360,7 +1362,7 @@ export const Dashborad = () => {
                 {/* <p variant="h1" component="h2" className="add--text">
                         ساخت بورد جدید
                       </p> */}
-                <CreateBoard />
+                <CreateBoard flag={flag} setFlag={setFlag} />
               </Paper>
             </Grid>
           </Grid>

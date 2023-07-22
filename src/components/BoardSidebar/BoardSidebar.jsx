@@ -26,6 +26,7 @@ import apiInstance from "../../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import useBoard from "../../hooks/useBoard";
 import useTheme from "../../hooks/useTheme";
+import { v4 } from "uuid";
 
 const BoardSidebar = () => {
   const [wsBoard, setWsBoard] = useState([]);
@@ -71,22 +72,24 @@ const BoardSidebar = () => {
     apiInstance
       .get(`/board/boardsmemberapi/${id}/get-open-retro/`)
       .then((response) => {
-        var retro_id = response.data.retro
+        var retro_id = response.data.retro;
         // alert(retro_id)
         if (retro_id == -1) {
-          apiInstance.post(`/retro/`, {
-            "board": id,
-            vote_limitation: 50,
-          }).catch((error) => {
-            console.log(error);
-          }).then((response) => {
-            retro_id = response.data.id
-            localStorage.setItem("retro_id", retro_id)
-          })
-        }
-        else {
-          retro_id = response.data.retro
-          localStorage.setItem("retro_id", retro_id)
+          apiInstance
+            .post(`/retro/`, {
+              board: id,
+              vote_limitation: 50,
+            })
+            .catch((error) => {
+              console.log(error);
+            })
+            .then((response) => {
+              retro_id = response.data.id;
+              localStorage.setItem("retro_id", retro_id);
+            });
+        } else {
+          retro_id = response.data.retro;
+          localStorage.setItem("retro_id", retro_id);
         }
       })
       .catch((error) => {
@@ -158,19 +161,29 @@ const BoardSidebar = () => {
             </Menu>
             <Menu rootStyles={menuStyle}>
               <MenuItem
-                icon={<ViewKanbanOutlined sx={{ color: getColor(theme.secondary) }} />}
+                icon={
+                  <ViewKanbanOutlined
+                    sx={{ color: getColor(theme.secondary) }}
+                  />
+                }
                 onClick={() => handleClick(boardId, "board")}
               >
                 بورد
               </MenuItem>
               <MenuItem
-                icon={<CalendarMonthOutlined sx={{ color: getColor(theme.secondary) }} />}
+                icon={
+                  <CalendarMonthOutlined
+                    sx={{ color: getColor(theme.secondary) }}
+                  />
+                }
                 onClick={() => handleClick(boardId, "calendar")}
               >
                 تقویم
               </MenuItem>
               <MenuItem
-                icon={<TaskAltOutlined sx={{ color: getColor(theme.secondary) }} />}
+                icon={
+                  <TaskAltOutlined sx={{ color: getColor(theme.secondary) }} />
+                }
                 onClick={() => handleClick(boardId, "poll")}
               >
                 رای گیری
@@ -178,31 +191,45 @@ const BoardSidebar = () => {
 
               <SubMenu
                 label="رترو"
-                icon={<GroupWorkOutlined sx={{ color: getColor(theme.secondary) }} />}
+                icon={
+                  <GroupWorkOutlined
+                    sx={{ color: getColor(theme.secondary) }}
+                  />
+                }
                 // onClick={() => handleClick(boardId, "retro")}
                 onClick={() => createRetroSession(boardId)}
               >
                 <MenuItem
                   onClick={() => handleClick(boardId, "retro/reflect")}
-                  icon={<FlareOutlined sx={{ color: getColor(theme.secondary) }} />}
+                  icon={
+                    <FlareOutlined sx={{ color: getColor(theme.secondary) }} />
+                  }
                 >
                   بازتاب
                 </MenuItem>
                 <MenuItem
                   onClick={() => handleClick(boardId, "retro/group")}
-                  icon={<Diversity2 sx={{ color: getColor(theme.secondary) }} />}
+                  icon={
+                    <Diversity2 sx={{ color: getColor(theme.secondary) }} />
+                  }
                 >
                   گروه
                 </MenuItem>
                 <MenuItem
                   onClick={() => handleClick(boardId, "retro/vote")}
-                  icon={<ThumbsUpDownOutlined sx={{ color: getColor(theme.secondary) }} />}
+                  icon={
+                    <ThumbsUpDownOutlined
+                      sx={{ color: getColor(theme.secondary) }}
+                    />
+                  }
                 >
                   رای
                 </MenuItem>
                 <MenuItem
                   onClick={() => handleClick(boardId, "retro/discuss")}
-                  icon={<ChatOutlined sx={{ color: getColor(theme.secondary) }} />}
+                  icon={
+                    <ChatOutlined sx={{ color: getColor(theme.secondary) }} />
+                  }
                 >
                   بحث
                 </MenuItem>
@@ -211,11 +238,16 @@ const BoardSidebar = () => {
               {wsBoard !== [] && (
                 <SubMenu
                   label="بورد های فضای کاری"
-                  icon={<DashboardOutlined sx={{ color: getColor(theme.secondary) }} />}
+                  icon={
+                    <DashboardOutlined
+                      sx={{ color: getColor(theme.secondary) }}
+                    />
+                  }
                 >
                   {wsBoard.map((b) => (
                     <MenuItem
-                      key={crypto.randomUUID()}
+                      // key={crypto.randomUUID()}
+                      key={v4()}
                       onClick={() => handleClick(b.id, "board")}
                       rootStyles={{
                         ["." + menuClasses.button]: {
@@ -245,7 +277,9 @@ const BoardSidebar = () => {
                 onClick={() =>
                   navigate(`/workspace/${workspaceId}/dashboard/board`)
                 }
-                icon={<HomeOutlined sx={{ color: getColor(theme.secondary) }} />}
+                icon={
+                  <HomeOutlined sx={{ color: getColor(theme.secondary) }} />
+                }
               >
                 فضای کاری
               </MenuItem>
