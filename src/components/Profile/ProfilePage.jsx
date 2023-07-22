@@ -164,7 +164,6 @@ export default function Profile() {
   return (
     <div className="profile-total-page">
       {isPost ? <Loading /> : null}
-      <Header></Header>
       <CacheProvider value={cacheRtl}>
         <Helmet>
           <title>حساب کاربری</title>
