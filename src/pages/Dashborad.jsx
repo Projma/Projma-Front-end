@@ -245,9 +245,6 @@ export const Dashborad = () => {
                       {/* check that is null or not */}
                       {starBoard.name ? starBoard.name : "بی‌نام"}
                     </p>
-                    <p variant="h1" component="h2" className="text paragraph">
-                      {starBoard.description
-                        ? starBoard.description
                     <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
                       {starBoard.description
                         ? starBoard.description
