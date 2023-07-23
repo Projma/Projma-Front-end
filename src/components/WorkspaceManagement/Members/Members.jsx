@@ -7,7 +7,7 @@ import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { baseUrl } from "../../../utilities/constants";
+import { baseUrlFront } from "../../../utilities/constants";
 import "./Members.scss";
 import { convertNumberToPersian } from "../../../utilities/helpers";
 import Loading from "../../Shared/Loading";
@@ -44,7 +44,6 @@ const Members = () => {
   }, []);
   const navigate = useNavigate();
   const copyLink = (e) => {
-    console.log("testing");
     if (button_inner === "کپی لینک دعوت") {
       setIsPost(true);
       apiInstance
@@ -55,7 +54,7 @@ const Members = () => {
             return;
           }
 
-          writeText(`${baseUrl}invite_page/${res.data}/`)
+          writeText(`${baseUrlFront}invite_page/${res.data}/`)
             .then(() => {
               setButton_inner("لینک کپی شد");
             })
