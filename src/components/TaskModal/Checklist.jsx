@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useRef } from "react";
 import apiInstance from "../../utilities/axiosConfig";
-import LabelIcon from "@mui/icons-material/Label";
+import ChecklistRtlIcon from "@mui/icons-material/ChecklistRtl";
 import Divider from "@mui/material/Divider";
 import { makeStyles } from "@mui/styles";
 import { Input } from "@mui/material";
@@ -32,7 +32,7 @@ export default function CheckList({ params, setAllChecklists }) {
   const add_section_ref = useRef(null);
   const add_button_ref = useRef(null);
   const { theme, getColor } = useTheme();
-  const [open,setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const createCheckList = (e) => {
     if (createdCheckTitle.length == 0) {
       e.preventDefault();
@@ -79,17 +79,25 @@ export default function CheckList({ params, setAllChecklists }) {
       <Button
         aria-describedby={id}
         role="open_checklist"
-        variant="contained"
+        variant="outlined"
         onClick={handleClick}
         style={{ width: "100%" }}
       >
-        <LabelIcon rotate="90"></LabelIcon> <div>لیست کنترل</div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "0.5rem",
+            width: "100%",
+            
+          }}
+        >
+          <ChecklistRtlIcon rotate="90"></ChecklistRtlIcon>{" "}
+          <div>لیست کنترل</div>
+        </div>
       </Button>
-      <Modal
-        id={id}
-        open={open}
-        onClose={handleClose}
-      >
+      <Modal id={id} open={open} onClose={handleClose}>
         <div className="tm_checklists-main-div">
           <header className="tm_checklists-header">
             <h2 style={{ color: getColor(theme.minorBg) }}>

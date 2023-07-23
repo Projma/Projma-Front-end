@@ -35,8 +35,8 @@ export default function Labels({ params, task_labels, set_task_labels }) {
   const [editItem, setEditItem] = useState({});
   const [boardLabels, setBoardLabels] = React.useState([]);
   const [allLabels, setAllLabels] = React.useState([]);
-  const [open,setOpen] = useState(false);
-  const {theme,getColor} = useTheme();
+  const [open, setOpen] = useState(false);
+  const { theme, getColor } = useTheme();
   useEffect(() => {
     apiInstance
       .get(`board/${params.board_id}/get-board-labels/`)
@@ -206,22 +206,28 @@ export default function Labels({ params, task_labels, set_task_labels }) {
   };
 
   return (
-    <div className="taskmodal-flexibale-icon" style={{width:"100%"}}>
+    <div className="taskmodal-flexibale-icon" style={{ width: "100%" }}>
       {isPost ? <Loading /> : null}
       <Button
         aria-describedby={id}
-        variant="contained"
+        variant="outlined"
         onClick={handleClick}
-        style={{width:"100%"}}
+        style={{ width: "100%" }}
       >
-        <LabelIcon rotate="90" ></LabelIcon>{" "}
-        <div>برچسب</div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "0.5rem",
+            width: "100%",
+            
+          }}
+        >
+          <LabelIcon rotate="90"></LabelIcon> <div>برچسب</div>
+        </div>
       </Button>
-      <Modal
-        id={id}
-        open={open}
-        onClose={handleClose}
-      >
+      <Modal id={id} open={open} onClose={handleClose}>
         <div className="tm_labels-main-div">
           {showEdit && (
             <EditLabel
@@ -248,11 +254,9 @@ export default function Labels({ params, task_labels, set_task_labels }) {
                     برچسب‌ها
                   </h2>
                   <Divider
-                    sx={
-                      {
-                        backgroundColor: "black"
-                      }
-                    }
+                    sx={{
+                      backgroundColor: "black",
+                    }}
                   />
                 </header>
                 <ShowListOfLabels

@@ -15,8 +15,8 @@ export default function Members({ params, setDoers, doer }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isPost, setIsPost] = React.useState(false);
   const [changeMemberStatus, setChangeMemberStatus] = React.useState(false);
-  const [open,setOpen] = React.useState(false);
-  const {theme,getColor} = useTheme();
+  const [open, setOpen] = React.useState(false);
+  const { theme, getColor } = useTheme();
   const handleClick = (event) => {
     setOpen(true);
   };
@@ -132,25 +132,43 @@ export default function Members({ params, setDoers, doer }) {
       });
   };
   return (
-    <div className="taskmodal-flexibale-icon" style={{width:"100%",position:"relative",color:getColor(theme.minorBg)}}>
+    <div
+      className="taskmodal-flexibale-icon"
+      style={{
+        width: "100%",
+        position: "relative",
+        color: getColor(theme.minorBg),
+      }}
+    >
       {isPost ? <Loading /> : null}
       <Button
         aria-describedby={id}
-        variant="contained"
+        variant="outlined"
         onClick={handleClick}
-        style={{width:"100%"}}
+        style={{ width: "100%" }}
       >
-        <PersonIcon rotate="90" ></PersonIcon>
-        <div>اعضا</div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "0.5rem",
+            width: "100%",
+          }}
+        >
+          <PersonIcon/>
+          <div>اعضا</div>
+        </div>
       </Button>
-      <Modal
-        id={id}
-        open={open}
-        onClose={handleClose}
-      >
-        <div className="tm-members-main-div" style={{zIndex:2000}}>
+      <Modal id={id} open={open} onClose={handleClose}>
+        <div className="tm-members-main-div" style={{ zIndex: 2000 }}>
           <header className="tm-members-header">
-            <h2 className="tm_labels-header-title" style={{color:getColor(theme.minorBg)}}>اعضا</h2>
+            <h2
+              className="tm_labels-header-title"
+              style={{ color: getColor(theme.minorBg) }}
+            >
+              اعضا
+            </h2>
             <Divider sx={{ backgroundColor: "black" }} />
           </header>
           <div className="taskmodal-members-body">
@@ -167,7 +185,7 @@ export default function Members({ params, setDoers, doer }) {
                     color: "white",
                   }}
                 >
-                  <div className="flex taskmodal-members-body-row-icon" >
+                  <div className="flex taskmodal-members-body-row-icon">
                     <input
                       type="checkbox"
                       checked={member.checked}
@@ -200,9 +218,7 @@ export default function Members({ params, setDoers, doer }) {
                       />
                     ) : (
                       <InitialIconcircle
-                        initials={
-                          member.firstName[0] + "" + member.lastName[0]
-                        }
+                        initials={member.firstName[0] + "" + member.lastName[0]}
                       />
                     )}
                     {/* <InitialIconcircle initials={member.username[0]} /> */}
@@ -211,7 +227,7 @@ export default function Members({ params, setDoers, doer }) {
                     className="flex"
                     style={{
                       fontSize: "13px",
-                      color:getColor(theme.minorBg),
+                      color: getColor(theme.minorBg),
                       width: "100%",
                       justifyContent: "flex-start",
                       overflowX: "auto",
