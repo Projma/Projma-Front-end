@@ -68,23 +68,6 @@ export default function CreateBoardModal({
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        const id = res.data.id;
-        console.log("importanttttttttttttttt");
-        console.log(res.data);
-        console.log(form_data);
-        apiInstance
-          .post("/calendar/simple-calendar/", { board: id })
-          .then((res1) => {
-            console.log(res.data);
-            const new_board = {
-              id: res.data.id,
-              name: res.data.name,
-              background_pic: res.data.background_pic,
-            };
-            const updatedItems = [...boards, new_board];
-            setBoards(updatedItems);
-            // delay(6000).then(() => navigateToBoard(res.data.id));
-          });
       })
       .finally(() => {
         setIsPost(null);
