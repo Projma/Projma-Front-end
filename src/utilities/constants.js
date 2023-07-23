@@ -9,3 +9,4 @@
 export const swaggerUrl = "http://45.147.97.94:1337/swagger/";
 export const baseUrl = "http://45.147.97.94:1337/";
 export const baseUrlForSocket = "ws://45.147.97.94:1337";
+export const baseUrlFront = "http://45.147.97.94/";

@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet";
 import "../styles/BoardInvitation.scss";
 import { useEffect, useState } from "react";
-import { useParams , useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
 import apiInstance from "../utilities/axiosConfig";
@@ -14,15 +14,55 @@ const BoardInvitation = () => {
     const [result, setResult] = useState("");
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     useEffect(() => {
+        var workspace_id = 1;
+        // find workspace id for this board
         apiInstance
-            .post(`workspaces/board/join-to-board/${params.token}/`)
+            .get("/workspaces/dashboard/myboards/")
+            .then((response) => {
+                ////console.log(response.data);
+
+                // array of
+                // {
+                //     "id": 5,
+                //     "name": "فرزان رحمانی",
+                //     "description": "تست",
+                //     "background_pic": null,
+                //     "workspace": 4,
+                //     "admins": [
+                //         11
+                //     ],
+                //     "created_at": "2022-12-01T09:10:30.165930Z",
+                //     "updated_at": "2022-12-01",
+                //     "members": [
+                //         5,
+                //         11
+                //     ],
+                //     "tasklists": [
+                //         2
+                //     ],
+                //     "labels": []
+                // }
+                // setBoards(response.data);
+
+                // find workspace id for this board
+                response.data.forEach((board) => {
+                    if (board.id == params.id) {
+                        workspace_id = board.workspace;
+                    }
+                }
+                )
+            })
+
+
+        apiInstance
+            .post(`board/join-to-board/${params.token}/`)
             .then(() => {
                 setResult(success);
-                delay(4000).then(() => navigate(`/kanban/${params.id}/`));
+                delay(4000).then(() => navigate(`/workspace/${workspace_id}/kanban/${params.id}/board`));
             }).catch((error) => {
                 if (error.response) {
                     if (error.response.data == "User is already a member of this board") {
-                        navigate(`/kanban/${params.id}/`);
+                        navigate(`/workspace/${workspace_id}/kanban/${params.id}/board`);
                     }
                     else {
                         setError(error.response.data);

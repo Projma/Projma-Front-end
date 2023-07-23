@@ -41,6 +41,7 @@ import WsBoard from "./components/WorkspaceManagement/Board/WsBoard";
 import Members from "./components/WorkspaceManagement/Members/Members";
 import Main from "./main";
 import useTheme from "./hooks/useTheme";
+import RedirectLoggedInUser from "./components/RedirectLoggedInUser/RedirectLoggedInUser";
 
 function App() {
   const { theme, getColor } = useTheme();
@@ -111,7 +112,16 @@ function App() {
           <Router>
             <Main>
               <Routes>
-                <Route exact path="/" element={<Landing />} />
+                {/* <Route exact path="/" element={<Landing />} /> */}
+                <Route
+                  exact
+                  path="/"
+                  element={
+                    <RedirectLoggedInUser>
+                      <Landing />
+                    </RedirectLoggedInUser>
+                  }
+                />
                 <Route exact path="/realtime" element={<RealTest />} />
                 <Route
                   exact

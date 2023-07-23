@@ -120,34 +120,39 @@ export const Dashborad = () => {
         console.log(error);
       });
 
-    apiInstance
-      .get("/workspaces/dashboard/mystarred-boards/")
-      .then((response) => {
-        setStarredBoards(response.data);
-        // [
-        //     {
-        //         "id": 4,
-        //         "name": "۵۴۶۵۴۴",
-        //         "description": "۴۶۵۴۶",
-        //         "background_pic": null,
-        //         "admins": [],
-        //         "members": [],
-        //         "tasklists": [
-        //             4,
-        //             5,
-        //             6
-        //         ],
-        //         "labels": [
-        //             2,
-        //             3,
-        //             4
-        //         ]
-        //     }
-        // ]
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const getStarredBoard = async () => {
+      let allWs;
+      await apiInstance
+        .get("workspaces/dashboard/myworkspaces/")
+        .then((res) => {
+          allWs = res.data.map((w) => {
+            return {
+              boards: w["boards"],
+              id: w["id"],
+            };
+          });
+        });
+      function findWsId(boardId) {
+        const object = allWs.find((obj) => obj.boards.includes(boardId));
+        return object ? object.id : null;
+      }
+      await apiInstance
+        .get("workspaces/dashboard/mystarred-boards/")
+        .then((res) => {
+          const star = res.data.map((s) => {
+            return {
+              name: s["name"],
+              description: s["description"],
+              id: s["id"],
+              pic: s["background_pic"]===null ? null : baseUrl.slice(0, -1) + s["background_pic"],
+              wsId: findWsId(s["id"]),
+            };
+          });
+          setStarredBoards(star);
+        });
+    };
+
+    getStarredBoard();
   }, [flag]);
 
   const [boardsInfo, setBoardsInfo] = useState([]);
@@ -202,9 +207,9 @@ export const Dashborad = () => {
             }}
             style={{color: getColor(theme.minorBg)}}
           >
-            {starredBoards.map((board) => {
+            {starredBoards.map((starBoard) => {
               return (
-                <Grid item xs={2} sm={2} md={2} key={board["id"]} sx={{}} style={{color: getColor(theme.minorBg)}}>
+                <Grid item xs={2} sm={2} md={2} key={starBoard.id} sx={{}} style={{color: getColor(theme.minorBg)}}>
                   <Paper
                     sx={{
                       padding: "3%",
@@ -232,16 +237,17 @@ export const Dashborad = () => {
                     style={{color: getColor(theme.minorBg)}}
                     // hover
                     onClick={() => {
-                      navigateToBoard(board["id"]);
+                      // navigateToBoard(board["id"]);
+                      navigateToBoard2(starBoard.id, starBoard.wsId);
                     }}
                   >
                     <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
                       {/* check that is null or not */}
-                      {board["name"] ? board["name"] : "بی‌نام"}
+                      {starBoard.name ? starBoard.name : "بی‌نام"}
                     </p>
                     <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
-                      {board["description"]
-                        ? board["description"]
+                      {starBoard.description
+                        ? starBoard.description
                         : "بدون توضیحات"}
                     </p>
                     {/* </> */}
@@ -701,9 +707,9 @@ export const Dashborad = () => {
               // backgroundColor: "#f5f5f5",
             }}
           >
-            {starredBoards.map((board) => {
+            {starredBoards.map((starBoard) => {
               return (
-                <Grid item xs={2} sm={2} md={2} key={board["id"]} sx={{}}>
+                <Grid item xs={2} sm={2} md={2} key={starBoard.id} sx={{}}>
                   <div>
                     {/* // style={{}}> */}
                     <Paper
@@ -732,16 +738,16 @@ export const Dashborad = () => {
                       }}
                       // hover
                       onClick={() => {
-                        navigateToBoard(board["id"]);
+                        navigateToBoard2(starBoard.id, starBoard.wsId);
                       }}
                     > 
                       <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
                         {/* check that is null or not */}
-                        {board["name"] ? board["name"] : "بی‌نام"}
+                        {starBoard.name ? starBoard.name : "بی‌نام"}
                       </p>
                       <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
-                        {board["description"]
-                          ? board["description"]
+                        {starBoard.description
+                          ? starBoard.description
                           : "بدون توضیحات"}
                       </p>
                     </Paper>

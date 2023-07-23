@@ -5,14 +5,15 @@ import Navbar from "../Navbar/Navbar";
 import Divider from "@mui/material/Divider";
 import apiInstance from "../../../utilities/axiosConfig";
 import { useNavigate, useParams } from "react-router-dom";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 
-import { baseUrl } from "../../../utilities/constants";
+import { baseUrlFront } from "../../../utilities/constants";
 import "./Members.scss";
 import { convertNumberToPersian } from "../../../utilities/helpers";
 import Loading from "../../Shared/Loading";
 import anonymous from "../../../static/images/workspace_management/members/anonymous.png";
 import useTheme from "../../../hooks/useTheme";
+import { writeText } from "clipboard-polyfill";
 
 const Members = () => {
   const [members, setMembers] = React.useState([]);
@@ -22,7 +23,7 @@ const Members = () => {
   const [button_inner, setButton_inner] = React.useState("کپی لینک دعوت");
 
   let params = useParams();
-  const {theme ,getColor} = useTheme();
+  const { theme, getColor } = useTheme();
 
   useEffect(() => {
     apiInstance
@@ -48,22 +49,25 @@ const Members = () => {
       apiInstance
         .get(`workspaces/workspaceowner/${params.id}/invite-link/`)
         .then((res) => {
-          navigator.clipboard
-            .writeText(`http://localhost:3000/invite_page/${res.data}/`)
-            .then(
-              buttonRef.current.blur(),
-              setButton_inner("لینک کپی شد"),
+          if (!res) {
+            console.error("Response object not defined");
+            return;
+          }
 
-              function (err) {
-                console.error("Async: Could not copy text: ", err);
-              }
-            );
-        })
-        .finally(() => setIsPost(null));
+          writeText(`${baseUrlFront}invite_page/${res.data}/`)
+            .then(() => {
+              setButton_inner("لینک کپی شد");
+            })
+            .catch((err) => {
+              console.error("Could not copy text:", err);
+            })
+            .finally(() => setIsPost(null));
+        });
     } else {
       setButton_inner("کپی لینک دعوت");
     }
   };
+
   const go_to_profile = (e) => {
     navigate(`/profileview/${e.currentTarget.id}/`);
   };
@@ -95,7 +99,10 @@ const Members = () => {
       /> */}
       <div className="copy-link">
         <div className="copy-link-text">
-          <h2 className="ws_members-invite-text" style={{color: getColor(theme.mainBg)}}>
+          <h2
+            className="ws_members-invite-text"
+            style={{ color: getColor(theme.mainBg) }}
+          >
             لینک دعوت به کارگاه را کپی کنید و به افراد دیگر ارسال کنید تا به
             کارگاه شما بپیوندند
           </h2>
@@ -104,7 +111,7 @@ const Members = () => {
           onClick={copyLink}
           ref={buttonRef}
           className="button-9"
-          style={{ fontFamily: "Vazir",color: getColor(theme.primary) }}
+          style={{ fontFamily: "Vazir", color: getColor(theme.primary) }}
         >
           {button_inner}
         </button>
