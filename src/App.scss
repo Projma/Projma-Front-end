@@ -1,4 +1,3 @@
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -26,7 +25,6 @@
   }
 }
 
-
 html {
   font-size: 62.5%;
 }
@@ -46,7 +44,7 @@ body {
 html,
 .styled-scrollbars {
   /* Foreground, Background */
-  scrollbar-color: $secondary $minorBg;
+  scrollbar-color: $primary $minorBg;
   scrollbar-width: thin;
 }
 ::-webkit-scrollbar {
@@ -56,21 +54,26 @@ html,
 }
 ::-webkit-scrollbar-thumb {
   /* Foreground */
-  background: $secondary !important;
+  background: $primary !important;
+  border-radius: 10rem;
+
 }
 ::-webkit-scrollbar-track {
   /* Background */
-  background: $minorBg !important;
+  background: $mainBg !important;
+  padding: 0.2rem;
+  border-radius: 10rem;
 }
-::-webkit-scrollbar-button {
-  //background-color: $tertiary !important;
-  background-size: 0.5rem;
-  background-repeat: no-repeat;
-  width: auto;
-  height: 0.5rem;
-  display: block;
-  border-style: solid;
-}
+// ::-webkit-scrollbar-button {
+//   //background-color: $tertiary !important;
+//   background-size: 100%;
+//   background-repeat: no-repeat;
+//   width: auto;
+//   height: auto;
+//   display: block;
+//   border-style: solid;
+//   color: $primary !important;
+// }
 
 .MuiAvatarGroup-root .MuiAvatarGroup-avatar {
   /*//background-color: $tertiary) !important;*/
@@ -98,12 +101,21 @@ html,
   border-radius: 50%;
 }
 
-.MuiList-root, .MuiList-padding ,.MuiMenu-list, .MuiPaper-root {
+.MuiList-root,
+.MuiList-padding,
+.MuiMenu-list,
+.MuiPaper-root {
   background-color: $minorBg !important;
 }
 
-
-
 dialog {
   z-index: 1300;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: $primary;
 }

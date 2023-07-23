@@ -9,23 +9,15 @@ import ContentPasteTwoToneIcon from "@mui/icons-material/ContentPasteTwoTone";
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 import AvTimerTwoToneIcon from "@mui/icons-material/AvTimerTwoTone";
 import WorkspacesTwoToneIcon from "@mui/icons-material/WorkspacesTwoTone";
-// import HomeRepairServiceTwoToneIcon from "@mui/icons-material/HomeRepairServiceTwoTone";
 import Diversity2TwoToneIcon from "@mui/icons-material/Diversity2TwoTone";
 import ViewDayTwoToneIcon from "@mui/icons-material/ViewDayTwoTone";
-// import MessageTwoToneIcon from "@mui/icons-material/MessageTwoTone";
 import StarPurple500TwoToneIcon from "@mui/icons-material/StarPurple500TwoTone";
 import DeveloperBoardTwoToneIcon from "@mui/icons-material/DeveloperBoardTwoTone";
-
 import useMediaQuery from "@mui/material/useMediaQuery";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-// import FolderIcon from "@mui/icons-material/Folder";
-// import RestoreIcon from "@mui/icons-material/Restore";
-// import FavoriteIcon from "@mui/icons-material/Favorite";
-// import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Paper from "@mui/material/Paper";
 import apiInstance from "../utilities/axiosConfig";
-
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import CreateBoardModal from "../components/Dashboard/CreateBoardModal/CreateBoardModal";
@@ -45,7 +37,7 @@ export const Dashborad = () => {
   let [starredBoards, setStarredBoards] = useState([]);
   let [flag, setFlag] = useState(false);
   const [templates, setTemplates] = useState([]);
-  const { theme } = useTheme();
+  const { theme, getColor } = useTheme();
 
   useEffect(() => {
     apiInstance
@@ -190,115 +182,6 @@ export const Dashborad = () => {
     apiInstance
       .get("/template/")
       .then((response) => {
-        ////console.log(response.data);
-        // [
-        //   {
-        //     "id": 21,
-        //     "name": "Agile WsBoard",
-        //     "description": "Agile WsBoard Template",
-        //     "background_pic": null,
-        //     "created_at": "2023-01-21T11:15:24.581576Z",
-        //     "updated_at": "2023-01-21",
-        //     "tasklists": [
-        //       {
-        //         "id": 9,
-        //         "title": "Done",
-        //         "board": 21,
-        //         "order": 9,
-        //         "tasks": []
-        //       }
-        //     ],
-        //     "labels": [
-        //       {
-        //         "id": 9,
-        //         "title": "Demand Marketing",
-        //         "color": "#E221FF96",
-        //         "board": 21
-        //       },
-        //       {
-        //         "id": 10,
-        //         "title": "Planning",
-        //         "color": "#5EFF96",
-        //         "board": 21
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     "id": 22,
-        //     "name": "Kanban",
-        //     "description": "Kanban Template",
-        //     "background_pic": null,
-        //     "created_at": "2023-01-21T11:15:37.576353Z",
-        //     "updated_at": "2023-01-21",
-        //     "tasklists": [
-        //       {
-        //         "id": 15,
-        //         "title": "Backlog",
-        //         "board": 22,
-        //         "order": 15,
-        //         "tasks": []
-        //       }
-        //     ],
-        //     "labels": [
-        //       {
-        //         "id": 14,
-        //         "title": "In Queue",
-        //         "color": "#FF7896",
-        //         "board": 22
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     "id": 23,
-        //     "name": "Project Management",
-        //     "description": "Project Management Template",
-        //     "background_pic": null,
-        //     "created_at": "2023-01-21T11:15:46.661086Z",
-        //     "updated_at": "2023-01-21",
-        //     "tasklists": [
-        //       {
-        //         "id": 22,
-        //         "title": "Project Resources",
-        //         "board": 23,
-        //         "order": 22,
-        //         "tasks": []
-        //       }
-        //     ],
-        //     "labels": [
-        //       {
-        //         "id": 17,
-        //         "title": "Copy Request",
-        //         "color": "#D6FF36",
-        //         "board": 23
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     "id": 24,
-        //     "name": "Simple Template",
-        //     "description": "Simple WsBoard Template",
-        //     "background_pic": null,
-        //     "created_at": "2023-01-21T11:15:54.468111Z",
-        //     "updated_at": "2023-01-21",
-        //     "tasklists": [
-        //       {
-        //         "id": 29,
-        //         "title": "Brainstorm",
-        //         "board": 24,
-        //         "order": 29,
-        //         "tasks": []
-        //       },
-        //       {
-        //         "id": 30,
-        //         "title": "To Do",
-        //         "board": 24,
-        //         "order": 30,
-        //         "tasks": []
-        //       }
-        //     ],
-        //     "labels": []
-        //   }
-        // ]
         setTemplates(response.data);
       })
       .catch((error) => {
@@ -312,7 +195,7 @@ export const Dashborad = () => {
       icon: <DashboardTwoToneIcon sx={{ ml: 1.5 }} />,
       content: (
         <>
-          <p variant="h1" component="h2" className="text paragraph">
+          <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
             <StarPurple500TwoToneIcon sx={{ ml: 1.5 }} /> بورد های ستاره‌دار
           </p>
           <Grid
@@ -322,10 +205,11 @@ export const Dashborad = () => {
             sx={{
               marginBottom: "7%",
             }}
+            style={{color: getColor(theme.minorBg)}}
           >
             {starredBoards.map((starBoard) => {
               return (
-                <Grid item xs={2} sm={2} md={2} key={starBoard.id} sx={{}}>
+                <Grid item xs={2} sm={2} md={2} key={starBoard.id} sx={{}} style={{color: getColor(theme.minorBg)}}>
                   <Paper
                     sx={{
                       padding: "3%",
@@ -350,17 +234,21 @@ export const Dashborad = () => {
                         cursor: "pointer",
                       },
                     }}
+                    style={{color: getColor(theme.minorBg)}}
                     // hover
                     onClick={() => {
                       // navigateToBoard(board["id"]);
                       navigateToBoard2(starBoard.id, starBoard.wsId);
                     }}
                   >
-                    <p variant="h1" component="h2" className="text paragraph">
+                    <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
                       {/* check that is null or not */}
                       {starBoard.name ? starBoard.name : "بی‌نام"}
                     </p>
                     <p variant="h1" component="h2" className="text paragraph">
+                      {starBoard.description
+                        ? starBoard.description
+                    <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
                       {starBoard.description
                         ? starBoard.description
                         : "بدون توضیحات"}
@@ -372,77 +260,7 @@ export const Dashborad = () => {
             })}
           </Grid>
           <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} />
-          {/* <p variant="h1" component="h2" className="text paragraph">
-            <AvTimerTwoToneIcon sx={{ ml: 1.5 }} /> اخیرا دیده شده
-          </p>
-          <Grid
-            container
-            columns={{ xs: 2, sm: 4, md: 8 }}
-            // spacing={{ xs: 1, sm: 2, md: 3 }}
-            sx={{
-              // paddingTop: "5%",
-              // marginTop: "10%",
-              marginBottom: "7%",
-              // backgroundColor: "#f5f5f5",
-            }}
-          >
-            {recentBoards.map((board) => {
-              return (
-                <Grid item xs={2} sm={2} md={2} key={board["id"]} sx={{}}>
-                  <Paper
-                    sx={{
-                      padding: "3%",
-                      textAlign: "center",
-                      // color: theme.primary,
-                      backgroundColor: theme.primary, // 5090D3
-                      borderRadius: "10px",
-                      // width: "100%",
-                      // height: "100%",
-                      // minWidth: "200px",
-                      // maxWidth: "300px",
-                      minHeight: "150px",
-                      // maxHeight: "300px",
-                      margin: "10%",
-                      // padding: "10px",
-                      // display: "flex",
-                      // justifyContent: "center",
-                      // alignItems: "center",
-                      // flexDirection: "column",
-                      ":hover": {
-                        backgroundColor: theme.hover,
-                        cursor: "pointer",
-                      },
-                    }}
-                    // hover
-                    onClick={() => {
-                      navigateToBoard(board["id"]);
-                    }}
-                  >
-                    <p
-                      variant="h1"
-                      component="h2"
-                      className="text paragraph"
-                    >
-                      {board["name"]
-                        ? board["name"]
-                        : "بی‌نام"}
-                    </p>
-                    <p
-                      variant="h1"
-                      component="h2"
-                      className="text paragraph"
-                    >
-                      {board["description"]
-                        ? board["description"]
-                        : "بدون توضیحات"}
-                    </p>
-                  </Paper>
-                </Grid>
-              );
-            })}
-          </Grid>
-          <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} /> */}
-          <p variant="h1" component="h2" className="text paragraph">
+          <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
             <Diversity2TwoToneIcon
               sx={{
                 // paddingLeft: "1%",
@@ -456,7 +274,7 @@ export const Dashborad = () => {
             return (
               <>
                 <div>
-                  <p variant="h1" component="h2" className="text paragraph">
+                  <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
                     {workspace.name}
                   </p>
                 </div>
@@ -470,11 +288,13 @@ export const Dashborad = () => {
                     marginBottom: "7%",
                     // backgroundColor: "#f5f5f5",
                   }}
+                  style={{color: getColor(theme.minorBg)}}
                 >
                   {workspace.boards.map((board_id) => {
                     return (
                       <Grid item xs={2} sm={2} md={2} key={board_id} sx={{}}>
                         <Paper
+                        style={{color: getColor(theme.minorBg)}}
                           sx={{
                             padding: "3%",
                             textAlign: "center",
@@ -508,6 +328,7 @@ export const Dashborad = () => {
                             variant="h1"
                             component="h2"
                             className="text paragraph"
+                            style={{color: getColor(theme.minorBg)}}
                           >
                             {/* check that is null or not */}
                             {boardsInfo[board_id]
@@ -518,6 +339,7 @@ export const Dashborad = () => {
                             variant="h1"
                             component="h2"
                             className="text paragraph"
+                            style={{color: getColor(theme.minorBg)}}
                           >
                             {boardsInfo[board_id]
                               ? boardsInfo[board_id].description
@@ -592,7 +414,7 @@ export const Dashborad = () => {
       icon: <ContentPasteTwoToneIcon sx={{ ml: 1.5 }} />,
       content: (
         <>
-          <p variant="h1" component="h2" className="text paragraph">
+          <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
             <ViewDayTwoToneIcon
               sx={{
                 // paddingLeft: "1%",
@@ -606,7 +428,7 @@ export const Dashborad = () => {
             return (
               <>
                 <div>
-                  <p variant="h1" component="h2" className="text paragraph">
+                  <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
                     {template.name}
                   </p>
                 </div>
@@ -652,12 +474,12 @@ export const Dashborad = () => {
                       //   // openCreateTemplateModal(template.id, template.name, template.description, template.background_pic);
                       // }}
                     >
-                      <p variant="h1" component="h2" className="text paragraph">
+                      <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
                         نام تمپلیت:
                         <br />
                         {template.name ? template.name : "بی‌نام"}
                       </p>
-                      <p variant="h1" component="h2" className="text paragraph">
+                      <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
                         توضیحات:
                         <br />
                         {template ? template.description : "بدون توضیحات"}
@@ -752,7 +574,7 @@ export const Dashborad = () => {
           </p>
           <Grid></Grid>
           <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} /> */}
-          <p variant="h1" component="h2" className="text paragraph">
+          <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
             <AvTimerTwoToneIcon sx={{ ml: 1.5 }} /> اخیرا دیده شده
           </p>
           <Grid
@@ -798,10 +620,10 @@ export const Dashborad = () => {
                       navigateToBoard(board["id"]);
                     }}
                   >
-                    <p variant="h1" component="h2" className="text paragraph">
+                    <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
                       {board["name"] ? board["name"] : "بی‌نام"}
                     </p>
-                    <p variant="h1" component="h2" className="text paragraph">
+                    <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
                       {board["description"]
                         ? board["description"]
                         : "بدون توضیحات"}
@@ -874,7 +696,7 @@ export const Dashborad = () => {
       icon: <DashboardTwoToneIcon sx={{ ml: 1.5 }} />,
       content: (
         <>
-          <p variant="h1" component="h2" className="text paragraph">
+          <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
             <StarPurple500TwoToneIcon sx={{ ml: 1.5 }} /> بورد های ستاره‌دار
           </p>
           <Grid
@@ -921,12 +743,12 @@ export const Dashborad = () => {
                       onClick={() => {
                         navigateToBoard2(starBoard.id, starBoard.wsId);
                       }}
-                    >
-                      <p variant="h1" component="h2" className="text paragraph">
+                    > 
+                      <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
                         {/* check that is null or not */}
                         {starBoard.name ? starBoard.name : "بی‌نام"}
                       </p>
-                      <p variant="h1" component="h2" className="text paragraph">
+                      <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
                         {starBoard.description
                           ? starBoard.description
                           : "بدون توضیحات"}
@@ -938,7 +760,7 @@ export const Dashborad = () => {
             })}
           </Grid>
           <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} />
-          <p variant="h1" component="h2" className="text paragraph">
+          <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
             <Diversity2TwoToneIcon
               sx={{
                 // paddingLeft: "1%",
@@ -952,7 +774,7 @@ export const Dashborad = () => {
             return (
               <>
                 <div>
-                  <p variant="h1" component="h2" className="text paragraph">
+                  <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
                     {workspace.name}
                   </p>
                 </div>
@@ -1006,6 +828,7 @@ export const Dashborad = () => {
                               variant="h1"
                               component="h2"
                               className="text paragraph"
+                              style={{color: getColor(theme.minorBg)}}
                             >
                               {/* check that is null or not */}
                               {boardsInfo[board_id]
@@ -1016,6 +839,7 @@ export const Dashborad = () => {
                               variant="h1"
                               component="h2"
                               className="text paragraph"
+                              style={{color: getColor(theme.minorBg)}}
                             >
                               {boardsInfo[board_id]
                                 ? boardsInfo[board_id].description
@@ -1083,7 +907,7 @@ export const Dashborad = () => {
       icon: <ContentPasteTwoToneIcon sx={{ ml: 1.5 }} />,
       content: (
         <>
-          <p variant="h1" component="h2" className="text paragraph">
+          <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
             <ViewDayTwoToneIcon
               sx={{
                 // paddingLeft: "1%",
@@ -1097,7 +921,7 @@ export const Dashborad = () => {
             return (
               <>
                 <div>
-                  <p variant="h1" component="h2" className="text paragraph">
+                  <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
                     {template.name}
                   </p>
                 </div>
@@ -1155,6 +979,7 @@ export const Dashborad = () => {
                           variant="h1"
                           component="h2"
                           className="text paragraph"
+                          style={{color: getColor(theme.minorBg)}}
                         >
                           نام تمپلیت:
                           <br />
@@ -1164,6 +989,7 @@ export const Dashborad = () => {
                           variant="h1"
                           component="h2"
                           className="text paragraph"
+                          style={{color: getColor(theme.minorBg)}}
                         >
                           توضیحات:
                           <br />
@@ -1257,7 +1083,7 @@ export const Dashborad = () => {
           </p>
           <Grid></Grid>
           <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} /> */}
-          <p variant="h1" component="h2" className="text paragraph">
+          <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
             <AvTimerTwoToneIcon sx={{ ml: 1.5 }} /> اخیرا دیده شده
           </p>
           <Grid
@@ -1305,10 +1131,10 @@ export const Dashborad = () => {
                         navigateToBoard(board["id"]);
                       }}
                     >
-                      <p variant="h1" component="h2" className="text paragraph">
+                      <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
                         {board["name"] ? board["name"] : "بی‌نام"}
                       </p>
-                      <p variant="h1" component="h2" className="text paragraph">
+                      <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
                         {board["description"]
                           ? board["description"]
                           : "بدون توضیحات"}
@@ -1320,7 +1146,7 @@ export const Dashborad = () => {
             })}
           </Grid>
           <Divider sx={{ bgcolor: theme.primary, marginTop: "5%" }} />
-          <p variant="h1" component="h2" className="text paragraph">
+          <p variant="h1" component="h2" className="text paragraph" style={{color: getColor(theme.minorBg)}}>
             <DeveloperBoardTwoToneIcon sx={{ ml: 1.5 }} /> ساخت بورد جدید
           </p>
           <Grid
@@ -1385,7 +1211,7 @@ export const Dashborad = () => {
       content: (
         // <a className="option" href="#"><WorkspacesTwoToneIcon /> </a>
         <>
-          <p className="text paragraph">
+          <p className="text paragraph" style={{color: getColor(theme.minorBg)}}>
             {" "}
             <WorkspacesTwoToneIcon sx={{ ml: 1.5 }} /> فضای کار ها{" "}
           </p>
@@ -1397,6 +1223,7 @@ export const Dashborad = () => {
               href="#"
               key={workspace.id}
               onClick={() => navigateToWorkspace(workspace.id)}
+              style={{color: getColor(theme.minorBg)}}
             >
               {workspace.name}
             </a>
@@ -1453,6 +1280,7 @@ export const Dashborad = () => {
                   onClick={() => {
                     toggle(tab[0]);
                   }}
+                  style={{color: getColor(theme.minorBg)}}
                 >
                   {tab[1].icon} {tab[1].title}
                 </a>
@@ -1460,7 +1288,7 @@ export const Dashborad = () => {
               {/* https://www.npmjs.com/package/react-device-detect */}
 
               <Divider sx={{ bgcolor: "white", marginTop: "5%" }} />
-              <p className="text paragraph">
+              <p className="text paragraph" style={{color: getColor(theme.minorBg)}}>
                 {" "}
                 <WorkspacesTwoToneIcon sx={{ ml: 1.5 }} /> فضای کار ها{" "}
               </p>
@@ -1471,13 +1299,14 @@ export const Dashborad = () => {
                   href="#"
                   key={workspace.id}
                   onClick={() => navigateToWorkspace(workspace.id)}
+                  style={{color: getColor(theme.minorBg)}}
                 >
                   {workspace.name}{" "}
                 </a>
               ))}
             </div>
           </Grid>
-          <Grid item xs={2} sm={6} md={10}>
+          <Grid item xs={2} sm={6} md={10} style={{color: getColor(theme.minorBg)}}>
             {Object.entries(computer_tabs).map((tab) => (
               <>{activeTab === tab[0] && tab[1].content}</>
             ))}
@@ -1496,7 +1325,7 @@ export const Dashborad = () => {
         <Helmet>
           <title>داشبورد</title>
         </Helmet>
-        <div>
+        <div style={{color: getColor(theme.minorBg)}}>
           {Object.entries(mobile_tabs).map((tab) => (
             <>{activeTab === tab[0] && tab[1].content}</>
           ))}
