@@ -35,6 +35,8 @@ import {
   convertNumberToPersian,
 } from "../../../../utilities/helpers";
 import useTheme from "../../../../hooks/useTheme";
+import { baseUrlFront } from "../../../../utilities/constants";
+import { writeText } from "clipboard-polyfill";
 
 const style = {
   position: "absolute",
@@ -92,8 +94,8 @@ const ShareButton = (props) => {
 
   const copy = async () => {
     const invite_link =
-      "http://localhost:3000/borad_invitation/" +
-      params.id +
+      `${baseUrlFront}borad_invitation/` +
+      params.boardId +
       "/" +
       inviteToken +
       "/";
@@ -101,7 +103,17 @@ const ShareButton = (props) => {
     while (inviteLink === "") {
       await new Promise((r) => setTimeout(r, 100));
     }
-    await navigator.clipboard.writeText(inviteLink);
+
+    // await navigator.clipboard.writeText(inviteLink);
+    writeText(inviteLink)
+      .then(() => {
+        console.log("لینک کپی شد");
+      })
+      .catch((err) => {
+        console.error("Could not copy text:", err);
+      })
+      // .finally(() => setIsPost(null));
+    
     // alert('Text copied');
     toast.success("لینک کپی شد.", {
       position: toast.POSITION.BOTTOM_LEFT,
