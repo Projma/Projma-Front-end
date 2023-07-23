@@ -78,17 +78,10 @@ export default function CreateBoardModal({ workspace_id, flag, setFlag }) {
         form_data
       )
       .then((res) => {
-        const id = res.data.id;
-        apiInstance
-          .post("/calendar/simple-calendar/", { board: id })
-          .then((res) => {
-            toast.success("بورد با موفقیت ساخته شد", {
-              position: toast.POSITION.BOTTOM_LEFT,
-              rtl: true,
-            });
-            setFlag(!flag);
-            // delay(6000).then(() => navigateToBoard(res.data.id));
-          });
+        toast.success("بورد با موفقیت ساخته شد", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
       })
       .finally(() => setIsPost(null));
   };
