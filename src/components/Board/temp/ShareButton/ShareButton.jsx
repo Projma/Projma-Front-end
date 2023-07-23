@@ -86,7 +86,7 @@ const ShareButton = (props) => {
     apiInstance.get(`board/${params.boardId}/members/`).then((res) => {
       setMembers(res.data);
     });
-    apiInstance.get(`board/${params.boardId}/invite_link/`).then((res) => {
+    apiInstance.get(`board/${params.boardId}/invite-link/`).then((res) => {
       // //console.log(res.data);
       setInviteToken(res.data);
     });
@@ -104,7 +104,6 @@ const ShareButton = (props) => {
       await new Promise((r) => setTimeout(r, 100));
     }
 
-    // await navigator.clipboard.writeText(inviteLink);
     writeText(inviteLink)
       .then(() => {
         console.log("لینک کپی شد");
