@@ -44,6 +44,7 @@ const Members = () => {
   }, []);
   const navigate = useNavigate();
   const copyLink = (e) => {
+    console.log("testing");
     if (button_inner === "کپی لینک دعوت") {
       setIsPost(true);
       apiInstance
