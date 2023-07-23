@@ -45,6 +45,7 @@ function ThemeProvider({ children }) {
       : THEME.find((t) => t.name === localStorage.getItem("theme"))
   );
 
+  document.documentElement.style.setProperty("--theme", theme.name);
   document.documentElement.style.setProperty("--mainBg", theme.mainBg);
   document.documentElement.style.setProperty("--minorBg", theme.minorBg);
   document.documentElement.style.setProperty("--secondary", theme.secondary);
@@ -55,6 +56,7 @@ function ThemeProvider({ children }) {
   const changeTheme = (name) => {
     for (let x of THEME) {
       if (x.name === name) {
+        document.documentElement.style.setProperty("--theme", x.name);
         document.documentElement.style.setProperty("--mainBg", x.mainBg);
         document.documentElement.style.setProperty("--minorBg", x.minorBg);
         document.documentElement.style.setProperty("--secondary", x.secondary);

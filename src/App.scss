@@ -56,7 +56,6 @@ html,
   /* Foreground */
   background: $primary !important;
   border-radius: 10rem;
-
 }
 ::-webkit-scrollbar-track {
   /* Background */
@@ -118,4 +117,28 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-background-clip: text;
   -webkit-text-fill-color: $primary;
+}
+
+.rmdp-wrapper {
+  background-color: $minorBg !important;
+}
+.rmdp-week-day {
+  color: $primary !important;
+}
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:hover,
+.rmdp-arrow-container:hover,
+.rmdp-day.rmdp-today span {
+  background-color: $hover !important;
+}
+.rmdp-day.rmdp-selected span:not(.highlight) {
+  background-color: $primary !important;
+}
+.rmdp-arrow {
+  border-color: $primary !important;
+}
+.rmdp-shadow {
+  box-shadow: none !important;
+}
+.rmdp-day, .rmdp-header-values {
+  color: inherit !important;
 }

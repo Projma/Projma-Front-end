@@ -90,6 +90,13 @@ function App() {
       className={"app styled-scrollbars"}
       style={{
         backgroundColor: theme.mainBg,
+        "--theme": theme.name,
+        "--mainBg": theme.mainBg,
+        "--minorBg": theme.minorBg,
+        "--secondary": theme.secondary,
+        "--tertiary": theme.tertiary,
+        "--hover": theme.hover,
+        "--primary": theme.primary,
       }}
     >
       <ToastContainer
@@ -104,7 +111,7 @@ function App() {
           fontSize: "1.2rem",
           backgroundColor: theme.mainBg,
           color: getColor(theme.minorBg),
-          margin: "0.5rem"
+          margin: "0.5rem",
         }}
       />
       <ThemeProvider theme={muiTheme}>
