@@ -20,8 +20,8 @@ export default function DueTime({ params, dueDate, setDueTime }) {
   const [value, setValue] = React.useState(new Date());
   const [isPost, setIsPost] = React.useState(false);
   const [changeDate, setChangeDate] = React.useState(false);
-  const [open,setOpen] = React.useState(false);
-  const {theme,getColor} = useTheme();
+  const [open, setOpen] = React.useState(false);
+  const { theme, getColor } = useTheme();
   const handleClick = (event) => {
     setOpen(true);
   };
@@ -96,27 +96,36 @@ export default function DueTime({ params, dueDate, setDueTime }) {
   };
 
   return (
-    <div className="taskmodal--flexibale-icon" style={{width:"100%"}}>
+    <div className="taskmodal--flexibale-icon" style={{ width: "100%" }}>
       {isPost ? <Loading /> : null}
       <Button
         aria-describedby={id}
-        variant="contained"
+        variant="outlined"
         onClick={handleClick}
-        style={{width:"100%"}}
+        style={{ width: "100%" }}
       >
-        <AccessTimeIcon rotate="90" ></AccessTimeIcon>{" "}
-        <div  className="taskmodal--smaller-button">
-          زمان اتمام
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "0.5rem",
+            width: "100%",
+          }}
+        >
+          <AccessTimeIcon rotate="90"></AccessTimeIcon>{" "}
+          <div className="taskmodal--smaller-button">زمان اتمام</div>
         </div>
       </Button>
-      <Modal
-        id={id}
-        open={open}
-        onClose={handleClose}
-      >
+      <Modal id={id} open={open} onClose={handleClose}>
         <div className="tm-members-main-div">
           <header className="tm-members-header">
-            <h2 className="tm-duetime-header-title " style={{color: getColor(theme.minorBg)}}>زمان اتمام</h2>
+            <h2
+              className="tm-duetime-header-title "
+              style={{ color: getColor(theme.minorBg) }}
+            >
+              زمان اتمام
+            </h2>
             <Divider sx={{ backgroundColor: "black" }} />
           </header>
           <div className="taskmodal--duetime-body">
@@ -132,13 +141,13 @@ export default function DueTime({ params, dueDate, setDueTime }) {
             />
           </div>
           <div className="taskmodal--duetime-text">
-            <div style={{color: getColor(theme.minorBg)}}>زمان اتمام</div>
+            <div style={{ color: getColor(theme.minorBg) }}>زمان اتمام</div>
             {!value.toString().includes("Standard") ? (
               <div
                 className="taskmodal--duetime-showDate"
                 style={{ padding: "6%" }}
               >
-                <div style={{color: getColor(theme.minorBg)}}>
+                <div style={{ color: getColor(theme.minorBg) }}>
                   {value?.year + "/" + value?.month?.number + "/" + value?.day}
                 </div>
               </div>
@@ -148,7 +157,9 @@ export default function DueTime({ params, dueDate, setDueTime }) {
                 style={{ padding: "6%" }}
               >
                 {dueDate.toString() != "null" ? (
-                  <div style={{color: getColor(theme.minorBg)}}>{dueDate.toString().replaceAll("-", "/")}</div>
+                  <div style={{ color: getColor(theme.minorBg) }}>
+                    {dueDate.toString().replaceAll("-", "/")}
+                  </div>
                 ) : (
                   <div></div>
                 )}

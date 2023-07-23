@@ -70,12 +70,23 @@ export default function Attachments({ params, setAllAttachments }) {
       <Button
         aria-describedby={id}
         role="open_attachment"
-        variant="contained"
+        variant="outlined"
         onClick={handleClick}
         style={{ width: "100%" }}
       >
-        <AttachFileIcon rotate="90"></AttachFileIcon>
-        <div className="taskmodal-smaller-button">پیوست</div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "0.5rem",
+            width: "100%",
+            
+          }}
+        >
+          <AttachFileIcon rotate="90"></AttachFileIcon>
+          <div className="taskmodal-smaller-button">پیوست</div>
+        </div>
       </Button>
       <Modal id={id} open={open} onClose={handleClose}>
         <div className="tm_attachments-main-div">
@@ -107,7 +118,7 @@ export default function Attachments({ params, setAllAttachments }) {
                   borderRadius: "5px",
                   width: "36%",
                   color: getColor(theme.minorBg),
-                  backgroundColor: theme.mainBg
+                  backgroundColor: theme.mainBg,
                 }}
               >
                 انتخاب فایل
