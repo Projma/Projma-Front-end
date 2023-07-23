@@ -57,11 +57,11 @@ function App() {
       fontFamily: "Vazir",
       htmlFontSize: 9, // 10 (1rem = 9px)
       allVariants: {
-        color: getColor(theme.primary),
+        color: getColor(theme.minorBg),
       },
     },
     text: {
-      primary: getColor(theme.primary),
+      primary: getColor(theme.minorBg),
     },
     components: {
       MuiTooltip: {

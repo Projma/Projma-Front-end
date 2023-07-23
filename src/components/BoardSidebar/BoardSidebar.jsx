@@ -27,6 +27,7 @@ import { useNavigate } from "react-router-dom";
 import useBoard from "../../hooks/useBoard";
 import useTheme from "../../hooks/useTheme";
 import { v4 } from "uuid";
+import { baseUrl } from "../../utilities/constants";
 
 const BoardSidebar = () => {
   const [wsBoard, setWsBoard] = useState([]);
@@ -105,7 +106,7 @@ const BoardSidebar = () => {
           const boards = res.data.map((obj) => ({
             id: obj.id,
             name: obj.name,
-            cover: `http://127.0.0.1:8000` + obj.background_pic,
+            cover: baseUrl.slice(0,-1) + obj.background_pic,
           }));
           setWsBoard(boards);
         });

@@ -13,11 +13,7 @@ import ClearTwoToneIcon from "@mui/icons-material/ClearTwoTone";
 import { AddchartTwoTone } from "@mui/icons-material";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
-import rtlPlugin from "stylis-plugin-rtl";
-import { prefixer } from "stylis";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
-import StyledTextField from "../../../Dashboard/StyledTextField";
+import StyledTextField from "../../../Shared/StyledTextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import apiInstance from "../../../../utilities/axiosConfig";
 import MenuItem from "@mui/material/MenuItem";
