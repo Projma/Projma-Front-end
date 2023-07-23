@@ -90,10 +90,7 @@ export default function CreateBoardModal({ flag, setFlag }) {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        const id = res.data.id;
-        apiInstance.post("/calendar/simple-calendar/", { board: id });
         setFlag(!flag);
-        // delay(6000).then(() => navigateToBoard(res.data.id));
       })
       .finally(() => {
         setIsPost(null);

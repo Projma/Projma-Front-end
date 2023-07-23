@@ -21,15 +21,10 @@ const CreateBoard = ({ onClose }) => {
         description: boardDescription,
       })
       .then((res) => {
-        const id = res.data.id;
-        apiInstance
-          .post("/calendar/simple-calendar/", { board: id })
-          .then((res) => {
-            toast.success("بورد با موفقیت ساخته شد", {
-              position: toast.POSITION.BOTTOM_LEFT,
-              rtl: true,
-            });
-          });
+        toast.success("بورد با موفقیت ساخته شد", {
+          position: toast.POSITION.BOTTOM_LEFT,
+          rtl: true,
+        });
         onClose();
       });
   };
@@ -96,7 +91,6 @@ const CreateBoard = ({ onClose }) => {
             ))}
           </div>
         </PerTextField>
-        
       </div>
       <div className="create-board-button">
         <Button variant="contained" onClick={() => createBoard()}>
