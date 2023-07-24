@@ -264,6 +264,7 @@ const ShareButton = (props) => {
                     marginRight: "3%",
                     marginBottom: "2%",
                     marginLeft: "2%",
+                    color: getColor(theme.minorBg),
                     ".MuiSvgIcon-root": {
                       fill: theme.primary,
                       marginLeft: "0.5rem",
@@ -290,6 +291,7 @@ const ShareButton = (props) => {
                       // onFocus={() => {
                       //     placeholder = "";
                       // }}
+                      
                       onChange={(event, newValue) => {
                         inputSearchHandler(event, newValue);
                       }}
