@@ -255,7 +255,7 @@ const BoardSidebar = () => {
                           padding: "0 !important",
                           textAlign: "center",
                           backgroundColor: theme.minorBg,
-                          backgroundImage: `linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url(${b.cover})`,
+                          // backgroundImage: `linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),url(${b.cover})`,
                           backgroundSize: "100% 100%",
                           backgroundPosition: "center",
                           backgroundRepeat: "no-repeat",

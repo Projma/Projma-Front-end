@@ -11,6 +11,7 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import ShowMembersInFilter from "./ShowMembersInFilter";
 import Loading from "../../../Shared/Loading";
 import useTheme from "../../../../hooks/useTheme";
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import Dialog from "../../../Asset/Dialog";
 
 export default function FilterTask({ boardId, setLists }) {
@@ -264,6 +265,7 @@ export default function FilterTask({ boardId, setLists }) {
   return (
     <div style={{position: "relative"}}>
       <Button  variant="contained" onClick={handleClick}>
+        <FilterAltOutlinedIcon/>
         فیلتر تسک
       </Button>
       <Dialog

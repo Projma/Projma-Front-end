@@ -23,7 +23,7 @@
 .workspace-board-section {
   margin-top: 3%;
   height: 100%;
-  max-height: 100%;
+  // max-height: 100%;
   display: flex;
   gap: 5%;
   flex-direction: column;
@@ -49,10 +49,6 @@
   /* border: 0.2rem solid $tertiary; */
   padding: 0.5rem;
   border-radius: 0.5rem;
-}
-
-.workspace--board-header-title {
-  
 }
 
 .workspace--board-body-list {
@@ -89,7 +85,10 @@
 }
 
 .workspace--board-body-boards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
   gap: 1rem;
 }
