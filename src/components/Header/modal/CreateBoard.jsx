@@ -6,6 +6,7 @@ import apiInstance from "../../../utilities/axiosConfig";
 import useTheme from "../../../hooks/useTheme";
 import { toast } from "react-toastify";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 const CreateBoard = ({ onClose }) => {
   const [boardName, setBoardName] = useState("");
@@ -13,7 +14,7 @@ const CreateBoard = ({ onClose }) => {
   const [workspace, setWorkspace] = useState([]);
   const [wsId, setWsId] = useState(null);
   const { theme, getColor } = useTheme();
-
+  const navigate = useNavigate();
   const createBoard = async () => {
     apiInstance
       .post(`/workspaces/workspaceowner/${wsId}/create-board/`, {
@@ -25,8 +26,8 @@ const CreateBoard = ({ onClose }) => {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
         });
-        onClose();
-      });
+        navigate(`/workspace/${wsId}/kanban/${res.data.id}/board`);
+      }).finally(() => onClose());
   };
 
   useEffect(() => {

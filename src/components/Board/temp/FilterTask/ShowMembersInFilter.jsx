@@ -8,7 +8,7 @@ import "./FilterTask.scss";
 import DatePicker, { Calendar } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-
+import useTheme from "../../../../hooks/useTheme";
 import Loading from "../../../Shared/Loading";
 const ShowMembersInFilter = ({
   boardMembers,
@@ -18,12 +18,13 @@ const ShowMembersInFilter = ({
   filterTaskAfterCheck,
   filterTaskAfterUnCheck,
 }) => {
+  const {theme,getColor} = useTheme();
   return (
     <div>
       {boardMembers.map((member) => (
-        <div style={{ marginTop: "5px", display: "flex", columnGap: "6%" }}>
+        <div style={{ marginTop: "5px", display: "flex", columnGap: "6%" ,color: getColor(theme.minorBg)}}>
           <input
-            style={{ display: "flex" }}
+            style={{ display: "flex",color: getColor(theme.minorBg) }}
             type="checkbox"
             id={member.id}
             name={member.name}
@@ -59,7 +60,7 @@ const ShowMembersInFilter = ({
             }}
           />
 
-          <p style={{ display: "flex", color: "white" }}>
+          <p style={{ display: "flex", color: getColor(theme.minorBg) }}>
             <div style={{ fontSize: "13px" }}>{member.full_name}</div>
             {/* <div style={{ fontSize: "13px" }}>{member.username}</div> */}
           </p>

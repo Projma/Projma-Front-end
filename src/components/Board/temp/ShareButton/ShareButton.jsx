@@ -3,29 +3,20 @@ import { Button, Box } from "@mui/material";
 import SendTwoToneIcon from "@mui/icons-material/SendTwoTone";
 import PropTypes from "prop-types";
 import Backdrop from "@mui/material/Backdrop";
-
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import Fade from "@mui/material/Fade";
 import ClearTwoToneIcon from "@mui/icons-material/ClearTwoTone";
-import rtlPlugin from "stylis-plugin-rtl";
-import { prefixer } from "stylis";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import apiInstance from "../../../../utilities/axiosConfig";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import { deepOrange, green } from "@mui/material/colors";
 import LinkSharpIcon from "@mui/icons-material/LinkSharp";
-
 import { toast } from "react-toastify";
-
 import "./ShareButton.scss";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
@@ -35,32 +26,8 @@ import {
   convertNumberToPersian,
 } from "../../../../utilities/helpers";
 import useTheme from "../../../../hooks/useTheme";
-import { baseUrlFront } from "../../../../utilities/constants";
-import { writeText } from "clipboard-polyfill";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  // width: 400,
-  width: "70%",
-  height: "78%",
-  // bgcolor: 'background.paper',
-  bgcolor: "#265D97", // #5090D3 #1E4976
-  border: "2px solid #000",
-  borderRadius: "10px",
-  boxShadow: 24,
-  p: 4,
-  overflow: "auto",
-  padding: "1%",
-};
-
-// Create rtl cache
-const cacheRtl = createCache({
-  key: "muirtl",
-  stylisPlugins: [prefixer, rtlPlugin],
-});
+import PerTextField from "../../../Shared/PerTextField";
+import StyledTextField from "../../../Shared/StyledTextField";
 
 const ShareButton = (props) => {
   const [open, setOpen] = React.useState(false);
@@ -80,13 +47,30 @@ const ShareButton = (props) => {
     Guest: "مهمان",
   };
   const { theme, getColor } = useTheme();
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    // width: 400,
+    width: "fit-content",
+    height: "fit-content",
+    // bgcolor: 'background.paper',
+    bgcolor: theme.minorBg,
+    border: `0.2rem solid ${theme.primary}`,
+    borderRadius: "0.5rem",
+    boxShadow: 24,
+    p: 4,
+    overflow: "auto",
+    padding: "1%",
+  };
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   useEffect(() => {
     apiInstance.get(`board/${params.boardId}/members/`).then((res) => {
       setMembers(res.data);
     });
-    apiInstance.get(`board/${params.boardId}/invite-link/`).then((res) => {
+    apiInstance.get(`board/${params.boardId}/invite_link/`).then((res) => {
       // //console.log(res.data);
       setInviteToken(res.data);
     });
@@ -94,8 +78,8 @@ const ShareButton = (props) => {
 
   const copy = async () => {
     const invite_link =
-      `${baseUrlFront}borad_invitation/` +
-      params.boardId +
+      "http://localhost:3000/borad_invitation/" +
+      params.id +
       "/" +
       inviteToken +
       "/";
@@ -103,16 +87,7 @@ const ShareButton = (props) => {
     while (inviteLink === "") {
       await new Promise((r) => setTimeout(r, 100));
     }
-
-    writeText(inviteLink)
-      .then(() => {
-        console.log("لینک کپی شد");
-      })
-      .catch((err) => {
-        console.error("Could not copy text:", err);
-      })
-      // .finally(() => setIsPost(null));
-    
+    await navigator.clipboard.writeText(inviteLink);
     // alert('Text copied');
     toast.success("لینک کپی شد.", {
       position: toast.POSITION.BOTTOM_LEFT,
@@ -210,26 +185,18 @@ const ShareButton = (props) => {
   return (
     <>
       {isPost ? <Loading /> : null}
-      <Button
-        variant="contained"
-        sx={{
-          // height: 54,
-          // width: 150,
-          // fontSize: "90%",
-          // width: "30%",
-          // height: "100%",
-          ml: "0.5rem",
-          fontFamily: "Vazir",
-        }}
-        onClick={handleOpen}
-      >
-        <SendTwoToneIcon
-          sx={{
-            color: "springgreen",
-            ml: 0.5,
+      <Button variant="contained" color="primary" onClick={handleOpen}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.5rem",
           }}
-        />
-        اشتراک
+        >
+          <SendTwoToneIcon />
+          <div>اشتراک</div>
+        </div>
       </Button>
       <Modal
         aria-labelledby="spring-modal-title"
@@ -248,7 +215,6 @@ const ShareButton = (props) => {
               {" "}
               <ClearTwoToneIcon
                 sx={{
-                  color: "tomato",
                   // margin: "1%"
                   marginBottom: "9%",
                   // ":dir": "ltr"
@@ -260,7 +226,11 @@ const ShareButton = (props) => {
               id="spring-modal-title"
               variant="h5"
               component="h2"
-              sx={{ color: "black", marginBottom: "2%", marginRight: "2%" }}
+              sx={{
+                color: getColor(theme.minorBg),
+                marginBottom: "2%",
+                marginRight: "2%",
+              }}
             >
               بورد را به اشتراک بگذارید
             </Typography>
@@ -274,58 +244,62 @@ const ShareButton = (props) => {
                 // marginTop: "2%",
                 marginRight: "2%",
                 // marginLeft: "2%",
+                color: getColor(theme.minorBg),
               }}
             >
               {/* https://mui.com/material-ui/react-autocomplete/#multiple-values */}
               {/* https://mui.com/material-ui/react-autocomplete/#load-on-open */}
               {/* https://mui.com/material-ui/react-autocomplete/#search-as-you-type */}
-              <Autocomplete
-                multiple
-                id="tags-outlined"
-                options={membersList}
-                fullWidth
-                inputValue={search_text}
-                getOptionLabel={(option) => option.name}
-                sx={{
-                  width: "60%",
-                  display: "block",
-                  marginRight: "3%",
-                  marginBottom: "2%",
-                  marginLeft: "2%",
-                  // color: "white",
-                  // backgroundColor: "#66B2FF",
-                }}
-                onChange={(event, value) =>
-                  selectedOptionsChanged(event, value)
-                }
-                // defaultValue={[membersList[0]]}
-                filterSelectedOptions
-                filterOptions={(x) => x}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    sx={{
-                      color: "white",
-                      // backgroundColor: "#66B2FF",
-                    }}
-                    label="جستجو"
-                    placeholder="آدرس ایمیل یا نام کاربری را وارد کنید."
-                    helperText="فرد مورد نظر خود را جستجو کنید."
-                    FormHelperTextProps={{ style: { color: "white" } }}
-                    InputLabelProps={{ style: { color: "white" } }}
-                    // InputProps={{style: {  color: "white" } }}
-                    id="search_box"
-                    name="search_box"
-                    // onFocus={() => {
-                    //     placeholder = "";
-                    // }}
-                    onChange={(event, newValue) => {
-                      inputSearchHandler(event, newValue);
-                    }}
-                    // onChange={(e) => serachUser(convertNumberToPersian(e.target.value))}
-                  />
-                )}
-              />
+              <PerTextField>
+                <Autocomplete
+                  multiple
+                  id="tags-outlined"
+                  options={membersList}
+                  fullWidth
+                  inputValue={search_text}
+                  getOptionLabel={(option) => option.name}
+                  sx={{
+                    width: "60%",
+                    display: "block",
+                    marginRight: "3%",
+                    marginBottom: "2%",
+                    marginLeft: "2%",
+                    color: getColor(theme.minorBg),
+                    ".MuiSvgIcon-root": {
+                      fill: theme.primary,
+                      marginLeft: "0.5rem",
+                    },
+                    ".MuiFormHelperText-root": {
+                      color: getColor(theme.minorBg),
+                      fontSize: "1rem",
+                    },
+                  }}
+                  onChange={(event, value) =>
+                    selectedOptionsChanged(event, value)
+                  }
+                  // defaultValue={[membersList[0]]}
+                  filterSelectedOptions
+                  filterOptions={(x) => x}
+                  renderInput={(params) => (
+                    <StyledTextField
+                      {...params}
+                      label="جستجو"
+                      placeholder="آدرس ایمیل یا نام کاربری را وارد کنید."
+                      helperText="فرد مورد نظر خود را جستجو کنید."
+                      id="search_box"
+                      name="search_box"
+                      // onFocus={() => {
+                      //     placeholder = "";
+                      // }}
+                      
+                      onChange={(event, newValue) => {
+                        inputSearchHandler(event, newValue);
+                      }}
+                      // onChange={(e) => serachUser(convertNumberToPersian(e.target.value))}
+                    />
+                  )}
+                />
+              </PerTextField>
               <Button
                 variant="contained"
                 // button-key="buttonAttribute"
@@ -340,7 +314,6 @@ const ShareButton = (props) => {
                   width: "20%",
                   // height: "100%",
                   fontFamily: "Vazir",
-                  backgroundColor: "#0A1929", // #132F4C
                 }}
                 disabled={handleDisableButton()}
                 onClick={handleAddUsers}
@@ -350,11 +323,10 @@ const ShareButton = (props) => {
               </Button>
             </Box>
             <MenuItem
-              sx={
-                {
-                  // marginLeft: "2%",
-                }
-              }
+              sx={{
+                // marginLeft: "2%",
+                color: getColor(theme.minorBg),
+              }}
             >
               <Box
                 sx={{
@@ -365,6 +337,7 @@ const ShareButton = (props) => {
                   flexDirection: "row",
                   justifyContent: "space-between",
                   alignItems: "center",
+                  color: getColor(theme.minorBg),
                 }}
               >
                 <Avatar
@@ -382,7 +355,7 @@ const ShareButton = (props) => {
                 </Avatar>
                 <Typography
                   variant="h6"
-                  sx={{ color: "#000", marginLeft: "10%" }}
+                  sx={{ color: getColor(theme.minorBg), marginLeft: "10%" }}
                 >
                   لینک بورد را به اشتراک بگذارید
                 </Typography>
@@ -403,7 +376,6 @@ const ShareButton = (props) => {
                     // width: "20%",
                     // height: "100%",
                     fontFamily: "Vazir",
-                    backgroundColor: "#132F4C", // #0A1929
                   }}
                   onClick={copy}
                 >
@@ -424,8 +396,8 @@ const ShareButton = (props) => {
                   <Tooltip title={convertNumberToPersian(member.user.username)}>
                     <Box
                       sx={{
-                        // display: "flex",
                         marginLeft: "2%",
+                        color: getColor(theme.minorBg),
                       }}
                     >
                       <Avatar
@@ -456,7 +428,7 @@ const ShareButton = (props) => {
                       display: "flex",
                       flexDirection: "column",
                       marginLeft: "2%",
-                      color: "#FFF",
+                      color: getColor(theme.minorBg),
                     }}
                   >
                     <Typography>
@@ -472,7 +444,7 @@ const ShareButton = (props) => {
                       display: "flex",
                       flexDirection: "column",
                       marginLeft: "2%",
-                      color: "#FFF",
+                      color: getColor(theme.minorBg),
                     }}
                   >
                     <Typography>ایمیل:</Typography>
@@ -485,7 +457,7 @@ const ShareButton = (props) => {
                       display: "flex",
                       flexDirection: "column",
                       marginLeft: "2%",
-                      color: "#FFF",
+                      color: getColor(theme.minorBg),
                     }}
                   >
                     <Typography>نام کاربری:</Typography>

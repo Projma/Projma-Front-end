@@ -119,6 +119,7 @@ export default function Attachments({ params, setAllAttachments }) {
                   width: "36%",
                   color: getColor(theme.minorBg),
                   backgroundColor: theme.mainBg,
+                  borderColor: theme.primary,
                 }}
               >
                 انتخاب فایل
@@ -148,17 +149,17 @@ export default function Attachments({ params, setAllAttachments }) {
             </div>
 
             {/* <button onClick={(e) => createAttachment()}>اضافه کردن</button> */}
-            <button
-              className="attachment_button-33"
-              role="button"
+            <Button
+              // className="attachment_button-33"
+              // role="button"
               onClick={(e) => {
                 e.stopPropagation();
                 createAttachment();
               }}
-              style={{ color: getColor(theme.minorBg) }}
+              // style={{ color: getColor(theme.minorBg) }}
             >
               اضافه کردن
-            </button>
+            </Button>
           </div>
         </div>
       </Modal>

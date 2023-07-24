@@ -10,6 +10,9 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import ShowMembersInFilter from "./ShowMembersInFilter";
 import Loading from "../../../Shared/Loading";
+import useTheme from "../../../../hooks/useTheme";
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+import Dialog from "../../../Asset/Dialog";
 
 export default function FilterTask({ boardId, setLists }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -21,6 +24,8 @@ export default function FilterTask({ boardId, setLists }) {
   // const [date, setDate] = useState("");
   const [value, setValue] = React.useState(new Date());
   const [date, setDate] = React.useState("");
+  const [open, setOpen] = React.useState(false);
+  const {theme,getColor} = useTheme();
   useEffect(() => {
     ////console.log("hereeeeeeeeeeeeeeeeee");
     apiInstance.get(`board/${boardId}/get-board-labels/`).then((res) => {
@@ -250,34 +255,26 @@ export default function FilterTask({ boardId, setLists }) {
   };
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    setOpen(true);
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setOpen(false);
   };
 
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
-
   return (
-    <div>
-      <Button aria-describedby={id} variant="contained" onClick={handleClick}>
+    <div style={{position: "relative"}}>
+      <Button  variant="contained" onClick={handleClick}>
+        <FilterAltOutlinedIcon/>
         فیلتر تسک
       </Button>
-      <Popover
-        id={id}
+      <Dialog
         open={open}
-        anchorEl={anchorEl}
         onClose={handleClose}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
-        }}
       >
-        <div className="filter-container">
+        <div className="filter-container" style={{ padding: "1rem", width: "fit-content"}}>
           <Calendar
-            className="background-blue"
+            
             value={value}
             onChange={(val) => {
               setValue(val);
@@ -294,7 +291,7 @@ export default function FilterTask({ boardId, setLists }) {
         /> */}
           <div style={{ marginTop: "10px" }}>
             <div style={{ padding: "5%" }}>
-              <h2 style={{ color: "white" }}>اعضا</h2>
+              <h2 style={{ color: getColor(theme.minorBg) }}>اعضا</h2>
               <ShowMembersInFilter
                 boardMembers={boardMembers}
                 selectedMembers={selectedMembers}
@@ -305,7 +302,7 @@ export default function FilterTask({ boardId, setLists }) {
               />
             </div>
             <div style={{ padding: "5%" }}>
-              <h2 style={{ color: "white", marginBottom: "5%" }}>برچسب</h2>
+              <h2 style={{ color: getColor(theme.minorBg), marginBottom: "5%" }}>برچسب</h2>
               {boardLabels.map((label) => (
                 //console.log(label),
                 <div
@@ -316,10 +313,11 @@ export default function FilterTask({ boardId, setLists }) {
                     borderRadius: "5px",
                     padding: "2%",
                     marginTop: "5px",
+                    color: getColor(theme.minorBg)
                   }}
                 >
                   <input
-                    style={{ display: "flex" }}
+                    style={{ display: "flex",color: getColor(theme.minorBg) }}
                     type="checkbox"
                     id={label.id}
                     name={label.title}
@@ -365,7 +363,7 @@ export default function FilterTask({ boardId, setLists }) {
                       marginLeft: 7,
                     }}
                   ></div>
-                  <p style={{ display: "flex", fontSize: "13px" }}>
+                  <p style={{ display: "flex", fontSize: "13px",color: getColor(theme.minorBg) }}>
                     {label.title}
                   </p>
                 </div>
@@ -388,7 +386,7 @@ export default function FilterTask({ boardId, setLists }) {
             </div>
           </div>
         </div>
-      </Popover>
+      </Dialog>
     </div>
   );
 }

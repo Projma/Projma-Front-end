@@ -18,17 +18,17 @@ import Loading from "../../Shared/Loading";
 import useTheme from "../../../hooks/useTheme";
 
 export default function CreateBoardModal({ workspace_id, flag, setFlag }) {
-  const { theme } = useTheme();
+  const { theme,getColor } = useTheme();
 
   const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "42rem",
-    height: "62rem",
-    backgroundColor: "#001E3C",
-    border: "2px solid #000",
+    width: "fit-content",
+    height: "fit-content",
+    backgroundColor: theme.minorBg,
+    border: `2px solid ${theme.primary}`,
     borderRadius: "10px",
     boxShadow: 50,
     p: 4,

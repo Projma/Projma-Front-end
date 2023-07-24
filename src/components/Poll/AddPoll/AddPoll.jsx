@@ -180,7 +180,7 @@ const AddPoll = ({closeAddPoll}) => {
         <Button type="button" variant="contained" onClick={handleClick}>
           ایجاد
         </Button>
-        <Button type="button" variant="contained" onClick={closeAddPoll}>
+        <Button type="button" variant="outlined" onClick={closeAddPoll}>
           لغو
         </Button>
       </div>
