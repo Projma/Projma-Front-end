@@ -66,6 +66,14 @@ export default function CreateBoardModal({
     apiInstance
       .post(`/workspaces/workspaceowner/${params.id}/create-board/`, form_data)
       .then((res) => {
+        const new_board = {
+          id: res.data.id,
+          name: res.data.name,
+          background_pic: res.data.background_pic,
+        };
+        const updatedItems = [...boards, new_board];
+        setBoards(updatedItems);
+        // delay(6000).then(() => navigateToBoard(res.data.id));
         toast.success("بورد با موفقیت ساخته شد", {
           position: toast.POSITION.BOTTOM_LEFT,
           rtl: true,
@@ -128,13 +136,16 @@ export default function CreateBoardModal({
   };
   return (
     <div>
-      <div className="workspace-modal--add-button-container" style={{width:"100%", height:"100%"}}>
+      <div
+        className="workspace-modal--add-button-container"
+        style={{ width: "100%", height: "100%" }}
+      >
         <Button
           // className="workspace-modal--add-button"
           id="add_button"
           onClick={handleOpen}
           variant="outlined"
-          style={{width:"20rem", height:"8rem"}}
+          style={{ width: "20rem", height: "8rem" }}
         >
           <p
             className="workspace-modal--add-button-title"
@@ -291,7 +302,12 @@ export default function CreateBoardModal({
               onClick={create_board}
               style={{ fontFamily: "Vazir", fontSize: "101%",textAlign:"center" }}
             /> */}
-            <Button variant="contained" type="submit" onClick={create_board} style={{marginTop:"1rem"}}>
+            <Button
+              variant="contained"
+              type="submit"
+              onClick={create_board}
+              style={{ marginTop: "1rem" }}
+            >
               بساز
             </Button>
           </form>
