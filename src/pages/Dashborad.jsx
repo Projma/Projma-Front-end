@@ -20,8 +20,9 @@ import Paper from "@mui/material/Paper";
 import apiInstance from "../utilities/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import CreateBoardModal from "../components/Dashboard/CreateBoardModal/CreateBoardModal";
 import { toast } from "react-toastify";
-import CreateBoard from "../components/WorkspaceManagement/CreateBoardModal/CreateBoard";
+import CreateBoard from "../components/Dashboard/CreateBoard/CreateBoard";
 import CreateTemplateModal from "../components/Dashboard/CreateTemplateModal/CreateTemplateModal";
 import useTheme from "../hooks/useTheme";
 
@@ -352,7 +353,7 @@ export const Dashborad = () => {
                         // padding: "10%",
                         textAlign: "center",
                         // color: theme.primary,
-                        backgroundColor: "theme.primary", // 5090D3
+                        backgroundColor: theme.primary, // 5090D3
                         borderRadius: "10px",
                         // width: "100%",
                         // height: "100%",
@@ -379,7 +380,7 @@ export const Dashborad = () => {
                     >
                       {/* <p variant="h1" component="h2" className="add--text"> */}
                       {/* ساخت بورد جدید */}
-                      <CreateBoard
+                      <CreateBoardModal
                         workspace_id={workspace.id}
                         flag={flag}
                         setFlag={setFlag}
@@ -653,7 +654,7 @@ export const Dashborad = () => {
                   backgroundColor: theme.primary, // 5090D3
                   borderRadius: "10px",
                   // width: "100%",
-                  height: "100%",
+                  // height: "100%",
                   // minWidth: "200px",
                   // maxWidth: "300px",
                   minHeight: "150px",
@@ -880,7 +881,7 @@ export const Dashborad = () => {
                       {/* <p variant="h1" component="h2" className="add--text">
                         ساخت بورد جدید
                       </p> */}
-                      <CreateBoard
+                      <CreateBoardModal
                         workspace_id={workspace.id}
                         flag={flag}
                         setFlag={setFlag}
