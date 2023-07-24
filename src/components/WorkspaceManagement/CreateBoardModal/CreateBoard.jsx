@@ -36,10 +36,12 @@ export default function CreateBoardModal({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "38rem",
-    height: "55rem",
+    width: "fit-content",
+    height: "fit-content",
     backgroundColor: theme.minorBg,
-    borderRadius: "1rem",
+    color: getColor(theme.minorBg),
+    border: `0.2rem solid ${theme.primary}`,
+    borderRadius: "0.5rem",
     boxShadow: 50,
     p: 4,
     overflow: "auto",
@@ -126,19 +128,21 @@ export default function CreateBoardModal({
   };
   return (
     <div>
-      <div className="workspace-modal--add-button-container">
-        <button
-          className="workspace-modal--add-button"
+      <div className="workspace-modal--add-button-container" style={{width:"100%", height:"100%"}}>
+        <Button
+          // className="workspace-modal--add-button"
           id="add_button"
           onClick={handleOpen}
+          variant="outlined"
+          style={{width:"20rem", height:"8rem"}}
         >
           <p
             className="workspace-modal--add-button-title"
-            style={{ color: getColor(theme.primary) }}
+            // style={{ color: getColor(theme.primary) }}
           >
             + افزودن بورد
           </p>
-        </button>
+        </Button>
       </div>
       <Modal
         open={open}
@@ -157,7 +161,7 @@ export default function CreateBoardModal({
             sx={{
               textAlign: "center",
               fontFamily: "Vazir",
-              color: getColor(theme.primary),
+              color: getColor(theme.minorBg),
               fontSize: "109%",
             }}
             className="neonText"
@@ -249,11 +253,10 @@ export default function CreateBoardModal({
               />
 
               <Button
-                variant="contained"
+                variant="text"
                 component="label"
                 sx={{
                   // backgroundColor: themeProps.primaryColor,
-                  color: "white",
                   width: "120px",
                   mt: 2,
                   marginTop: 0,
@@ -281,13 +284,16 @@ export default function CreateBoardModal({
             {/* <label id="title">عنوان بورد</label>
             <input type="text" id="title" className="workspace-modal--title-inp" /> */}
             {/* <button onClick={create_board}>submit</button> */}
-            <input
+            {/* <input
               type="submit"
               value="بساز"
               className="workspace-modal--button-29"
               onClick={create_board}
-              style={{ fontFamily: "Vazir", fontSize: "101%" }}
-            />
+              style={{ fontFamily: "Vazir", fontSize: "101%",textAlign:"center" }}
+            /> */}
+            <Button variant="contained" type="submit" onClick={create_board} style={{marginTop:"1rem"}}>
+              بساز
+            </Button>
           </form>
           {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.

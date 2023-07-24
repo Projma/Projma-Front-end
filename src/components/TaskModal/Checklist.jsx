@@ -15,17 +15,8 @@ import Loading from "../Shared/Loading";
 import { convertNumberToPersian } from "../../utilities/helpers";
 import Modal from "../Asset/Modal";
 
-const useStyles = makeStyles({
-  title_input: {
-    "&::placeholder": {
-      textOverflow: "ellipsis !important",
-      color: "#fff !important",
-    },
-  },
-});
 
 export default function CheckList({ params, setAllChecklists }) {
-  const classes = useStyles();
   const [createdCheckTitle, setCreatedCheckTitle] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isPost, setIsPost] = React.useState(false);
@@ -107,7 +98,6 @@ export default function CheckList({ params, setAllChecklists }) {
           <Divider sx={{}} />
           <div className="tm_checklists-body" ref={add_section_ref}>
             <Input
-              className={classes.title_input}
               value={createdCheckTitle}
               onChange={(e) =>
                 setCreatedCheckTitle(convertNumberToPersian(e.target.value))
@@ -117,16 +107,16 @@ export default function CheckList({ params, setAllChecklists }) {
                 width: "100%",
                 marginBottom: "1rem",
               }}
-              style={{ color: getColor(theme.minorBg) }}
+              style={{ color: getColor(theme.minorBg), marginLeft:"0.5rem" }}
             />
-            <button
-              className="button-16"
+            <Button
+              variant="contained"
               role="button"
               onClick={createCheckList}
-              style={{ color: getColor(theme.minorBg) }}
+              // style={{ color: getColor(theme.minorBg) }}
             >
               افزودن
-            </button>
+            </Button>
           </div>
         </div>
       </Modal>

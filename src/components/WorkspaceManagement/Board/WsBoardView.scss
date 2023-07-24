@@ -2,15 +2,24 @@
   position: relative;
   height: 8rem;
   width: 20rem;
+  isolation: isolate;
+  padding: 0.5rem;
+  border: 0.2rem solid $primary;
   border-radius: 0.5rem;
-  /* //background-color: #265D97; */
-  //background-color: #66B2FF;
-  color: #fff !important;
-  padding: 3% 3%;
-  background-repeat: no-repeat;
-  /* background-size: contain; */
-  background-size: 100% 100%;
-  /* background-attachment: fixed; */
+  &::after {
+    content: '';
+    border-radius: 0.5rem;
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: $primary;
+    // opacity: 0.9;
+    filter: brightness(25%);
+    background-image: var(--bg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 }
 
 .workspace--view {

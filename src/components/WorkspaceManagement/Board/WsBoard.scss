@@ -3,7 +3,6 @@
 .workspace--recent-board {
   width: 100%;
   height: 100%;
-  
 }
 
 .workspace-board-main {
@@ -12,18 +11,15 @@
   flex-direction: column;
   /* align-items: flex-start; */
   /* justify-content: center; */
-  margin: 4%;
-  margin-top: 1%;
-  padding-bottom: 3rem;
+  padding: 1%;
   max-height: 100%;
   height: 100%;
   overflow: scroll;
 }
 
 .workspace-board-section {
-  margin-top: 3%;
   height: 100%;
-  max-height: 100%;
+  // max-height: 100%;
   display: flex;
   gap: 5%;
   flex-direction: column;
@@ -31,9 +27,7 @@
   justify-content: flex-start;
   /* flex-grow: 1; */
   /* margin: 5%; */
-  margin-bottom: 5%;
   /* padding-top: 6rem; */
-  padding-left: 3%;
   /* overflow: auto; */
 }
 
@@ -49,10 +43,6 @@
   /* border: 0.2rem solid $tertiary; */
   padding: 0.5rem;
   border-radius: 0.5rem;
-}
-
-.workspace--board-header-title {
-  
 }
 
 .workspace--board-body-list {
@@ -89,7 +79,10 @@
 }
 
 .workspace--board-body-boards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
   gap: 1rem;
 }

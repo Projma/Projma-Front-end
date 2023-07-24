@@ -76,7 +76,7 @@ const WsBoard = () => {
   };
 
   return (
-    <div className="workspace-board-main" style={{ width: "100%" }}>
+    <div className="workspace-board-main">
       {loading && <Loading />}
       {/* <Navbar
         params={params}
